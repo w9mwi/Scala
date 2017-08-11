@@ -6,7 +6,7 @@ LOOPING CONSTRUCTS
 val evenNumbers:Range = new Range(0, 10, 2)
 val oddNumbers:Range  = new Range(1, 9, 2)
 
-// NOTE: You do NOT need to declare number variable!...
+// NOTE: You do NOT need to declare the 'number' variable!...
  for (number <- evenNumbers)
  {
    println( "number = " + number);
@@ -24,6 +24,8 @@ val loop    = new Breaks;
 
 loop.breakable
 {
+  // NOTE: The 'a' variable declared above is NOT
+  //       the same 'a' inside this for() loop!
   for (a <- numList)
   {
     println( "a = " + a );
