@@ -1,0 +1,16 @@
+=====================================================
+
+val evenNumbers:Range = new Range(0, 10, 2)
+val oddNumbers:Range  = new Range(1, 9, 2)
+
+for (a <- evenNumbers)
+{
+   println( "Value of a: " + a );
+}
+for (a <- oddNumbers)
+{
+  println( "Value of a: " + a );
+}
+
+=====================================================
+
