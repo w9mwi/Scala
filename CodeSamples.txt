@@ -1,16 +1,39 @@
+LOOPING CONSTRUCTS
 =====================================================
+// -------------------------------------------------------
+// How to use generators...
 
 val evenNumbers:Range = new Range(0, 10, 2)
 val oddNumbers:Range  = new Range(1, 9, 2)
 
-for (a <- evenNumbers)
-{
-   println( "Value of a: " + a );
-}
-for (a <- oddNumbers)
-{
-  println( "Value of a: " + a );
-}
+// NOTE: You do NOT need to declare number variable!...
+ for (number <- evenNumbers)
+ {
+   println( "number = " + number);
+ }
+ for (number <- oddNumbers)
+ {
+   println( "number = " + number);
+ }
+ 
+// -------------------------------------------------------
+// How to break out of a loop...
+var a       = 0;
+val numList = List(1,2,3,4,5,6,7,8,9,10);
+val loop    = new Breaks;
 
+loop.breakable
+{
+  for (a <- numList)
+  {
+    println( "a = " + a );
+
+    if (a == 4)
+    {
+      loop.break;
+    }
+  }
+}
+println( "Loop terminated.  a = " + a);
 =====================================================
 
