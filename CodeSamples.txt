@@ -1,5 +1,11 @@
 LOOPING CONSTRUCTS
 =====================================================
+do
+{
+   statement(s);
+} 
+while(condition);
+
 // -------------------------------------------------------
 // How to use generators...
 
@@ -29,7 +35,7 @@ loop.breakable
   // NOTE: The 'number' variable used below is NOT declared before it's used....
   for (number <- numList)
   {
-    println("number = " + number );
+    println("number = " + number );// -------------------------------------------------------
 
     if (number == 4)
     {
