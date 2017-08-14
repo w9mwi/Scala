@@ -7,9 +7,13 @@ do
 while(condition);
 
 // -------------------------------------------------------
+To iterate through adata type that inherits from sequence
+(such as List, Array, ArrayBuffer, Vector, Seq, etc.),
+use the 'foreach' key word...
+
+// -------------------------------------------------------
 // for() loop examples...
 
-val tomsList:List[Int] = List(95, 96, 97, 98, 99, 100)
 val evenNumbers:Range  = new Range(0, 10, 2)
 val oddNumbers:Range   = new Range(1, 9, 2)
 
@@ -22,6 +26,9 @@ for (number <- oddNumbers)
 {
   println( "number = " + number);
 }
+
+val tomsList:List[Int] = List(95, 96, 97, 98, 99, 100)
+// ABOVE LINE IS EQUIVALAENT TO: val tomsList = List(95, 96, 97, 98, 99, 100)
 for (number <- tomsList.reverse)
 {
   println( "number = " + number);
