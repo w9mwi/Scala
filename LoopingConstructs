@@ -14,6 +14,12 @@ use the foreach() method...
 val x = List(1,2,3)
 x.foreach { println }
 
+val names = Vector("Bob", "Fred", "Joe", "Julia", "Kim")
+// The following 3 lines print the same result...
+for (name <- names) println(name)
+names.foreach(println)
+names.foreach {println }
+
 var sum = 0
 val x = List(7,8,9)
 x.foreach(sum += _)
