@@ -18,7 +18,15 @@ val names = Vector("Bob", "Fred", "Joe", "Julia", "Kim")
 // The following 3 lines print the same result...
 for (name <- names) println(name)
 names.foreach(println)
-names.foreach {println }
+names.foreach {println}
+// The following for() loop prints only names beginning with 'J'...
+for (name <- names if name.startsWith("J")) { println(name) }
+
+// array_2 will contain the array_1 values X 10
+val array_1 = Array(1, 2, 3, 4, 5)
+array_1.foreach(println)
+val array_2 = for (x <- array_1) yield x * 10
+array_2.foreach(println)
 
 var sum = 0
 val x = List(7,8,9)
@@ -86,3 +94,20 @@ loop.breakable
     }
   }
 }
+
+// -------------------------------------------------------
+// for() loop examples that return a "yield" value...
+// In Scala, yield is part of for() loop comprehensions.
+// For each iteration of your for loop, yield generates a value
+// which will be remembered.  It's like the for loop has a buffer
+// you can’t see, and for each iteration of your for loop another
+// item is added to that buffer. When your for loop finishes
+// running, it will return this collection of all the yielded
+// values.  The type of the collection that is returned is the
+// same type that you were iterating over, so a Map yields a
+// Map, a List yields a List, and so on.
+//
+// Also, note that the initial collection is not changed; the
+// for/yield construct creates a new collection according to
+// the algorithm you specify.
+
