@@ -30,7 +30,7 @@ for (number <- tomsList.reverse)
 // if() statements embedded within a for() loop as shown
 // below are known as "guards".  When the if() statement
 // is true, the for() loop is exited.  The following TWO
-// if() statements have identical behavior...
+// for() loops have identical behavior...
 for
 {
   i <- 0 to 10
