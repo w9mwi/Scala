@@ -26,7 +26,7 @@ val numList = List(1,2,3,4,5,6,7,8,9,10);
 val loop    = new Breaks;
 loop.breakable
 {
-  // NOTE: The 'a' variable
+  // NOTE: The 'number' variable used below is NOT declared before it's used....
   for (number <- numList)
   {
     println("number = " + number );
