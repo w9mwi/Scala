@@ -9,7 +9,9 @@ while(condition);
 // -------------------------------------------------------
 To iterate through adata type that inherits from sequence
 (such as List, Array, ArrayBuffer, Vector, Seq, etc.),
-use the 'foreach' key word...
+use the foreach() method...
+val x = List(1,2,3)
+x.foreach { println }
 
 // -------------------------------------------------------
 // for() loop examples...
