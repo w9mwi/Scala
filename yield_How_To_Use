@@ -37,7 +37,6 @@ object Demo
 {
   def main(args: Array[String])
   {
-
     // NOTE: To determine the data type of numList below. using the
     //       IntelliJ IDE, place the cursor on the text numList, then
     //       press both the 'Alt' and '=' keys simultaneously.  Doing
