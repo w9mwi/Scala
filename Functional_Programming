@@ -1,4 +1,5 @@
 // =================================================================
+// =================================================================
 // FUNCTION LITERALS
 object Demo
 {
@@ -20,4 +21,35 @@ object Demo
     println("square2(7) = " + square2(7))
   }
 }
+// =================================================================
+// =================================================================
+// FUNCTION f(g(x)) (f of g, of x)
+object FunctionFGX
+{
+  val plus5   = (x: Double) => x+5.0  // EQUIVALENT TO:  def plus5(x: Double): Double = x+5.0
+  val square  = (x: Double) => x*x    // EQUIVALENT TO:  def square(x: Double): Double = x*x
+  val compose = (f:Double => Double, g:Double => Double, x:Double) => f(g(x))
+
+  // The following compose2() function gets passed 2 functions as params (f and g),
+  // and returns a functionthat gets passed a Double and returns a Double.
+  def compose2(f:Double => Double, g:Double => Double): (Double => Double) =
+  {
+    x => f(g(x)) // This is the returned function.
+  }
+
+  def main(args: Array[String])
+  {
+    val a:(Double => Double) = compose2(plus5, square) // EQUIVALENT TO:  val a  = compose2(plus5, square)
+    val b = compose2(square, plus5)  // EQUIVALENT TO:  val b:(Double => Double) = compose2(square, plus5)
+
+    println("a(3) = " + a(3))
+    println("b(3) = " + b(3))
+
+    // The following 2 calls to compose2() are identical to the
+    // above 2 corresponding function calls to a(3) and b(3)...
+    println("compose(plus5,  square, 3) = " + compose(plus5, square, 3))
+    println("compose(square, plus5,  3) = " + compose(square, plus5, 3))
+  }
+}
+// =================================================================
 // =================================================================
