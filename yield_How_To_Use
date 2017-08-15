@@ -14,11 +14,34 @@
 // Also, note that the initial collection is not changed; the
 // for/yield construct creates a new collection according to
 // the algorithm you specify.
-// ***************************************************************
+// *******************************************************************
 object Demo
 {
   def main(args: Array[String])
   {
+    // NOTE: To determine the data type of numList below. using the
+    //       IntelliJ IDE, place the cursor on the text numList, then
+    //       press both the 'Alt' and '=' keys simultaneously.  Doing
+    //       so reveals the data type of numList is:  List[Int]
+    val numList = List(1, 2, 3, 4, 5)
+
+    // The following for() loop will yield a List[Int] containing all
+    // numbers in numList multiplied by 10.  This result will then
+    // get set into result.
+    val result = for (x <- numList) yield (x * 10)
+    result.foreach(println)
+  }
+}
+// *******************************************************************
+object Demo
+{
+  def main(args: Array[String])
+  {
+
+    // NOTE: To determine the data type of numList below. using the
+    //       IntelliJ IDE, place the cursor on the text numList, then
+    //       press both the 'Alt' and '=' keys simultaneously.  Doing
+    //       so reveals the data type of numList is:  List[Int]
     val numList = List(1,2,3,4,5,6,7,8,9,10);
 
     // The following for() loop will yield a List[Int] containing all
@@ -37,4 +60,4 @@ object Demo
     retVal.foreach(println)
   }
 }
-// ***************************************************************
+// *******************************************************************
