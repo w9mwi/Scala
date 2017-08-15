@@ -60,3 +60,26 @@ object Demo
   }
 }
 // *******************************************************************
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val fruit = Vector("apple", "banana", "lime", "orange")
+
+    // Convert all fruit names to uppercase, and print them.
+    val ucFruits = for (fruitName <- fruit) yield fruitName.toUpperCase
+    ucFruits.foreach(println)
+
+    // For each fruit, create a tuple containing its name and name length.
+    // NOTE: The fruitAndLength data type is:  Vector[(String, Int)]
+    val fruitAndLength = for (f <- fruit) yield (f, f.length)
+    println(fruitAndLength.mkString)
+
+    // Print each fruit name AND its Vector index.
+    for ((name, index) <- fruit.zipWithIndex) { println(s"index = $index, name = $name"); }
+
+    // Print the fruit having a Vector index = 0
+    println(fruit(0))
+  }
+}
+// *******************************************************************
