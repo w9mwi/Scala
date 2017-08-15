@@ -1,11 +1,14 @@
 HOW TO USE THE match KEYWORD
 =============================================================
+import scala.annotation.switch
+
 object Demo
 {
   def main(args: Array[String]): Unit =
   {
     var monthNumber = 7;
-    monthNumber match
+    // NOTE:  Use @switch to issue possible warning at compile time AND to improve performance.
+    (monthNumber: @switch) match
     {
       case 1  => println("January")
       case 2  => println("February")
@@ -25,7 +28,8 @@ object Demo
 
     monthNumber = 77
 
-    val monthName:String = monthNumber match
+    // NOTE:  Use @switch to issue possible warning at compile time AND to improve performance.
+    val monthName:String = (monthNumber: @switch) match
     {
       case 1  => "January"
       case 2  => "February"
