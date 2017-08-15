@@ -27,7 +27,7 @@ object Demo
 
     // The following for() loop will yield a List[Int] containing all
     // numbers in numList multiplied by 10.  This result will then
-    // get set into result.
+    // get set into the val result.
     val result = for (x <- numList) yield (x * 10)
     result.foreach(println)
   }
@@ -45,8 +45,8 @@ object Demo
 
     // The following for() loop will yield a List[Int] containing all
     // numbers in numList EXCEPT 3, 8, 9, and 10.  This result will
-    // then get set into retVal.
-    var retVal = for { number <- numList if number != 3; if number < 8 } yield number
+    // then get set into the val retVal.
+    val retVal = for { number <- numList if number != 3; if number < 8 } yield number
 
     // Print all numbers in retVal...
     for (number <- retVal)
