@@ -82,6 +82,9 @@ object Demo
 
   // NOTE: When a "case class" is used in this program, a "name" and "age"
   //       field are created, and instantiated by default.
+  //       Setter methods are generated for case classes ONLY WHEN "var" is specified
+  //       in the constructor argument, in which case you get the same getter/setter
+  //       generation as regular classes
   case class Person(val name:String, val age:Int)
 }
 =============================================================
