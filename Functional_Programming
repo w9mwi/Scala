@@ -31,7 +31,7 @@ object FunctionFGX
   val compose = (f:Double => Double, g:Double => Double, x:Double) => f(g(x))
 
   // The following compose2() function gets passed 2 functions as params (f and g),
-  // and returns a functionthat gets passed a Double and returns a Double.
+  // and returns a function that gets passed a Double and returns a Double.
   def compose2(f:Double => Double, g:Double => Double): (Double => Double) =
   {
     x => f(g(x)) // This is the returned function.
