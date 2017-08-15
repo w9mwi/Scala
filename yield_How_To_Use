@@ -26,11 +26,9 @@ object Demo
     //       It will show the data type as: List[Int]
     val numList = List(1,2,3,4,5,6,7,8,9,10);
 
-    val className:String = numList.getClass.getName
-    println(s"className = $className")
-    println("className = " + numList.getClass)
-
-    // Set retVal so it contains all numbers in numList EXCEPT 3, 8, 9, and 10
+    // The following for() loop will yield a List[Int] containing all
+    // numbers in numList EXCEPT 3, 8, 9, and 10.  This result will
+    // then get set into retVal.
     var retVal = for { number <- numList if number != 3; if number < 8 } yield number
 
     // Print all numbers in retVal...
