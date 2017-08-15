@@ -1,1 +1,49 @@
+// ----------------------------------------------------------
+// ----------------------------------------------------------
+// for() loop examples that return a "yield" value...
+// In Scala, yield is part of for() loop comprehensions.
+// For each iteration of your for loop, yield generates a value
+// which will be remembered.  It's like the for loop has a buffer
+// you can’t see, and for each iteration of your for loop another
+// item is added to that buffer.  When your for loop finishes
+// running, it will return this collection of all the yielded
+// values.  The type of the collection that is returned is the
+// same type that you were iterating over, so a Map yields a
+// Map, a List yields a List, and so on.
+//
+// Also, note that the initial collection is not changed; the
+// for/yield construct creates a new collection according to
+// the algorithm you specify.
+// ***************************************************************
 
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // NOTE: To determine the data type of the following numList val,
+    //       using the IntelliJ IDE, place the cursor on numList,
+    //       then press the "Alt" and the "=" keys simultaneously.
+    //       It will show the data type as: List[Int]
+    val numList = List(1,2,3,4,5,6,7,8,9,10);
+
+    val className:String = numList.getClass.getName
+    println(s"className = $className")
+    println("className = " + numList.getClass)
+
+    // Set retVal so it contains all numbers in numList EXCEPT 3, 8, 9, and 10
+    var retVal = for { number <- numList if number != 3; if number < 8 } yield number
+
+    // Print all numbers in retVal...
+    for (number <- retVal)
+    {
+      println( "Value of number = " + number);
+    }
+  }
+}
+// ***************************************************************
+
+// array_2 will contain the array_1 values X 10
+val array_1 = Array(1, 2, 3, 4, 5)
+array_1.foreach(println)
+val array_2 = for (x <- array_1) yield x * 10
+array_2.foreach(println)
