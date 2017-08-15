@@ -2,22 +2,22 @@
 // FUNCTION LITERALS
 object Demo
 {
-  def main(args: Array[String]): Unit =
-  {
-    println("add(4, 5) = " + add(4,5))
-    println("square(7) = " + square(7))
-
-    println("add2(4, 5) = " + add2(4,5))
-    println("square2(7) = " + square2(7))
-  }
-
   // The following 2 functions are examples of function literals...
   var add    = (a:Int, b:Int) => a+b
-  var square = (x: Double)    => x*x
+  var square = (x:Double)     => x*x
 
   // The following 2 functions have behavior identical
   // to the 2 corresponding function literals above.
   def add2(a:Double, b:Double):Double = a+b
-  def square2(x: Double): Double      = x*x
+  def square2(x: Double):Double       = x*x
+
+  def main(args: Array[String]): Unit =
+  {
+    println("add(4,5)  = " + add(4,5))
+    println("square(7) = " + square(7))
+
+    println("add2(4,5)  = " + add2(4,5))
+    println("square2(7) = " + square2(7))
+  }
 }
 // =================================================================
