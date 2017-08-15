@@ -7,7 +7,7 @@ do
 while(condition);
 
 // -------------------------------------------------------
-To iterate through adata type that inherits from sequence
+To iterate through a data type that inherits from sequence
 (such as List, Array, ArrayBuffer, Vector, Seq, etc.),
 use the foreach() method...
 
