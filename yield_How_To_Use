@@ -14,6 +14,9 @@
 // Also, note that the initial collection is not changed; the
 // for/yield construct creates a new collection according to
 // the algorithm you specify.
+//
+// To understand more about how for() loops and yield work, SEE:
+// https://alvinalexander.com/scala/scala-for-loops-foreach-how-to-translated-by-compiler
 // *******************************************************************
 object Demo
 {
