@@ -34,7 +34,7 @@ object Demo
     // Print all numbers in retVal...
     for (number <- retVal)
     {
-      println( "Value of number = " + number);
+      println("Value of number = " + number);
     }
   }
 }
