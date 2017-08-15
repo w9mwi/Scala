@@ -49,6 +49,41 @@ object Demo
   }
 }
 =============================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val alice   = new Person("Alice",   25)
+    val bob     = new Person("Bob",     32)
+    val charlie = new Person("Charlie", 44)
+    val tom     = new Person("Tom",    999)
+
+    for (person <- List(alice, bob, charlie, tom))
+    {
+      person match
+      {
+        case Person("Alice",   25) => println("Hi Alice!")
+        case Person("Bob",     32) => println("Hi Bob!")
+        case Person("Charlie", 44) => println("Hi Charlie!")
+        case Person(name,   age)   => println("Hi " + name + "!" + "  Age = " + age)
+      }
+    }
+
+    // This prints the data for each instantiated class of type Person.
+    // This data was automatically created by Scala when these Person
+    // classes were instantiated.  The programmer did NOT have to
+    // write any code to create and initialize local "name" and age "vals".
+    println()
+    println("alice.name = "   + alice.name   + ", alice.age = "   + alice.age)
+    println("bob.name = "     + bob.name     + ", bob.age = "     + bob.age)
+    println("charlie.name = " + charlie.name + ", charlie.age = " + charlie.age)
+    println("tom.name = "     + tom.name +     ", tom.age = "     + tom.age)
+  }
+
+  // NOTE: When a "case class" is used in this program, a "name" and "age"
+  //       field are created, and instantiated by default.
+  case class Person(val name:String, val age:Int)
+}
 =============================================================
 =============================================================
 =============================================================
