@@ -1,4 +1,6 @@
 LOOPING CONSTRUCTS
+To understand more about how for() loops and yield work, SEE:
+https://alvinalexander.com/scala/scala-for-loops-foreach-how-to-translated-by-compiler
 =====================================================
 do
 {
