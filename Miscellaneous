@@ -1,0 +1,38 @@
+How to use the keyword type.
+You can create your own type names in Scala by using existing types.
+When you create your own type, that type name should begin with
+a single uppercase character.  Here are some examples:
+============================================================
+object Demo
+{
+  type Counter  = Int
+  type Location = (Int, Int, Int)
+
+  def main(args: Array[String]): Unit =
+  {
+    var miles:Counter = 0
+    val milesLimit:Int = 10
+
+    do
+    {
+      println("miles = " + miles)
+      miles += 1
+    }
+    while(miles <= milesLimit)
+
+    val beginPoint:Location = (0, 0, 0)
+    val endPoint:Location   = (2, 10, 3)
+    var coordinate:Location = beginPoint
+    var x:Int = 0; var y:Int = 0; var z:Int = 0;
+
+    println("coordinate = (" + coordinate._1 + ", " + coordinate._2 + ", " + coordinate._3 + ")")
+    while(coordinate._1 < endPoint._1 || coordinate._2 < endPoint._2 || coordinate._3 < endPoint._3)
+    {
+      if (coordinate._1 < endPoint._1)  x += 1;
+      if (coordinate._2 < endPoint._2)  y += 1;
+      if (coordinate._3 < endPoint._3)  z += 1;
+      coordinate = (x, y, z)
+      println("coordinate = (" + coordinate._1 + ", " + coordinate._2 + ", " + coordinate._3 + ")")
+    }
+  }
+}
