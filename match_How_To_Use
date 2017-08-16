@@ -51,12 +51,19 @@ object Demo
 =============================================================
 object Demo
 {
+  // Create a case class here, which is used for pattern matching.  When
+  // a case class's parameters are NOT specified as val or var, they are
+  // val (immutable) by default.
+  case class Person(name:String, age:Int)
+
   def main(args: Array[String])
   {
-    val alice   = new Person("Alice",   25)
-    val bob     = new Person("Bob",     32)
-    val charlie = new Person("Charlie", 44)
-    val tom     = new Person("Tom",    999)
+    // NOTE: Because Person is a case class type, you do NOT need to
+    //       use the "new" keyword when creating a new Person object.
+    val alice   = Person("Alice",   25)
+    val bob     = Person("Bob",     32)
+    val charlie = Person("Charlie", 44)
+    val tom     = Person("Tom",    999)
 
     for (person <- List(alice, bob, charlie, tom))
     {
@@ -69,23 +76,13 @@ object Demo
       }
     }
 
-    // This prints the data for each instantiated class of type Person.
-    // This data was automatically created by Scala when these Person
-    // classes were instantiated.  The programmer did NOT have to
-    // write any code to create and initialize local "name" and age "vals".
+    // Print the data for each instantiated class of type Person...
     println()
     println("alice.name = "   + alice.name   + ", alice.age = "   + alice.age)
     println("bob.name = "     + bob.name     + ", bob.age = "     + bob.age)
     println("charlie.name = " + charlie.name + ", charlie.age = " + charlie.age)
     println("tom.name = "     + tom.name +     ", tom.age = "     + tom.age)
   }
-
-  // NOTE: When a "case class" is used in this program, a "name" and "age"
-  //       field are created, and instantiated by default.
-  //       Setter methods are generated for case classes ONLY WHEN "var" is specified
-  //       in the constructor argument, in which case you get the same getter/setter
-  //       generation as regular classes
-  case class Person(val name:String, val age:Int)
 }
 =============================================================
 =============================================================
