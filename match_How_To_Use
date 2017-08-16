@@ -65,6 +65,11 @@ object Demo
     val charlie = Person("Charlie", 44)
     val tom     = Person("Tom",    999)
 
+    // Here, we create a List holding the 4 Person objects we instantiated
+    // above.  Then we loop through each Person in the List.  If the Person
+    // in the list matches the name + age params  specified below, we print
+    // a greeting.  The last case statement below gets executed when none
+    // of the other Person objects match.
     for (person <- List(alice, bob, charlie, tom))
     {
       person match
