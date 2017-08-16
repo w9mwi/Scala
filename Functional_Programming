@@ -1,11 +1,13 @@
 // =================================================================
 // =================================================================
-// FUNCTION LITERALS
+// NOTE: The following 2 lines are examples of FUNCTION LITERALS...
+//       (a:Int, b:Int) => a+b
+//       (x:Double)     => x*x
 object Demo
 {
   // The following 2 vals (add and square) are initialized as functions.
   // The text to the right of the '=' sign would be considered a function
-  // literals, if that text stood alone and was NOT assigned to a val or var.
+  // literal, if that text stood alone and was NOT assigned to a val or var.
   val add    = (a:Int, b:Int) => a+b
   val square = (x:Double)     => x*x
 
@@ -25,7 +27,13 @@ object Demo
 }
 // =================================================================
 // =================================================================
-// FUNCTION f(g(x)) (f of g, of x)
+A HIGHER-ORDER FUNCTION is a function that operates on other functions.
+In other words, a HIGHER-ORDER FUNCTION is a function that gets passed
+a function as a parameter, and/or returns a function.  The following
+code defines two functions (compose and compose2, both of which have
+identical behavior) that are higher-order functions--as they both
+get passed functions as parameters, and they both return a function.
+Both compose and compose2 return the function f(g(x))...
 object FunctionFGX
 {
   val plus5   = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
@@ -55,3 +63,4 @@ object FunctionFGX
 }
 // =================================================================
 // =================================================================
+
