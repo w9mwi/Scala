@@ -1,8 +1,8 @@
-How to use the keyword type.
-You can create your own type names in Scala by using existing types.
-When you create your own type, that type name should begin with
-a single uppercase character.  Here are some examples:
-============================================================
+// ================================================================
+// How to use the keyword 'type'.  You can create your own type
+// names in Scala by using existing types.  When you create your
+// own type, that type name should begin with a single uppercase
+// character.  Here are two examples--type Couner and type Location.
 object Demo
 {
   type Counter  = Int
@@ -36,3 +36,41 @@ object Demo
     }
   }
 }
+// ================================================================
+// The following is an example of how to use implicit class.
+// Using an implicit class, you can add new methods to an
+// existing class.  In this example we add the decrement()
+// and increment() methods to the existing Scala String class.
+//
+// Assume you create a var of type String named 'state'. Now,
+// when you type the text 'state.', your new decrement and
+// increment methods will appear in the list of methods to
+// choose from.
+//
+// For this to work, your implicit class must have a single
+// parameter (that matches the type of an existing Scala type),
+// and your new method name(s) must be different than existing
+// method names of that type.
+object Demo
+{
+  class EnhancedString(val str: String)
+  {
+    def decrement:String = { str.map(ch => (ch - 1).toChar) }
+    def increment:String = { str.map(ch => (ch + 1).toChar) }
+  }
+  implicit def stringToString(str: String) = new EnhancedString(str)
+
+  def main(args: Array[String]): Unit =
+  {
+    var state:String = "Wisconsin"
+    state = state.increment
+    println(state)
+    state = state.decrement
+    println(state)
+  }
+}
+// ================================================================
+// ================================================================
+// ================================================================
+// ================================================================
+// ================================================================
