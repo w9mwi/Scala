@@ -90,6 +90,39 @@ object Demo
   }
 }
 =============================================================
+// The following is a pattern matching example that
+// can determine the data type of a val or var.
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val fruits:Vector[_] = Vector("apple", "banana", "lime", "orange")
+    val inches:Float     = 7.89F
+    val miles:Double     = 123.45
+    val people:Array[_]  = Array("Jack", "Jill", "Joe")
+    val screws:Int       = 3
+    val veggies:List[_]  = List("beets", "carrots", "spinach")
+
+    println(getClassAsString(fruits))
+    println(getClassAsString(inches))
+    println(getClassAsString(miles))
+    println(getClassAsString(people))
+    println(getClassAsString(screws))
+    println(getClassAsString(veggies))
+  }
+
+  def getClassAsString(x: Any):String = x match
+  {
+    // NOTE: You can use "case z:" multiple times and all works fine.
+    case z: Double    => "Double"
+    case z: Float     => "Float"
+    case z: Int       => "Int"
+    case z: List[_]   => "List"
+    case z: String    => "String"
+    case z: Vector[_] => "Vector"
+    case _            => "Unknown"
+  }
+}
 =============================================================
 =============================================================
 =============================================================
