@@ -3,9 +3,11 @@
 // FUNCTION LITERALS
 object Demo
 {
-  // The following 2 functions are examples of function literals...
-  var add    = (a:Int, b:Int) => a+b
-  var square = (x:Double)     => x*x
+  // The following 2 vals (add and square) are initialized as functions.
+  // The text to the right of the '=' sign would be considered a function
+  // literals, if that text stood alone and was NOT assigned to a val or var.
+  val add    = (a:Int, b:Int) => a+b
+  val square = (x:Double)     => x*x
 
   // The following 2 functions have behavior identical
   // to the 2 corresponding function literals above.
