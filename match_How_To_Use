@@ -1,4 +1,5 @@
-HOW TO USE THE match KEYWORD
+How to use pattern matching via the Scala keyword "match".
+=============================================================
 =============================================================
 import scala.annotation.switch
 
@@ -49,6 +50,7 @@ object Demo
   }
 }
 =============================================================
+=============================================================
 object Demo
 {
   // Create a case class here, which is used for pattern matching.  When
@@ -90,6 +92,7 @@ object Demo
   }
 }
 =============================================================
+=============================================================
 // The following is a pattern matching example that
 // can determine the data type of a val or var.
 object Demo
@@ -124,6 +127,45 @@ object Demo
   }
 }
 =============================================================
+=============================================================
+// Read the comments in the purchaseFood() function
+// to understand how this "match" sample code works.
+object Demo
+{
+  type FoodAndPrice = (String, Float)
+
+  val mealA:FoodAndPrice = ("spinach",         1.23F)
+  val mealB:FoodAndPrice = ("brusselSprouts",  2.45F)
+  val mealC:FoodAndPrice = ("hamburger",       6.16F)
+  val mealD:FoodAndPrice = ("sturgeonEggs",   24.30F)
+  val mealE:FoodAndPrice = ("potBrownies",     4.20F)
+  val mealF:FoodAndPrice = ("pondScum",        0.39F)
+
+  def main(args: Array[String]):Unit =
+  {
+    println("purchaseFood(mealA) = " +  purchaseFood(mealA))
+    println("purchaseFood(mealB) = " +  purchaseFood(mealB))
+    println("purchaseFood(mealC) = " +  purchaseFood(mealC))
+    println("purchaseFood(mealD) = " +  purchaseFood(mealD))
+    println("purchaseFood(mealE) = " +  purchaseFood(mealE))
+    println("purchaseFood(mealF) = " +  purchaseFood(mealF))
+  }
+
+  def purchaseFood(meal:FoodAndPrice):Boolean =
+    meal match
+    {
+      // If the meal is hamburger, purchase it ONLY if the cost < 6.00.
+      case ("hamburger", cost) if cost < 6.00 =>  true
+      // If the meal is spinach, purchase it regardless of price.
+      case ("spinach", _) => true
+      // If the meal is potBrownies, AND the cost < 20.00, purchase the meal.
+      case ("potBrownies", cost) if cost < 20.00 =>  true
+      // Purchase any other meal that costs less than 5.50
+      case (_, cost) if cost < 5.50 => true
+      // If any other criteria, do NOT purchase the meal.
+      case _ => false
+    }
+}
 =============================================================
 =============================================================
 =============================================================
