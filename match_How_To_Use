@@ -160,7 +160,7 @@ object Demo
       case ("spinach", _) => true
       // If the meal is potBrownies, AND the cost < 20.00, purchase the meal.
       case ("potBrownies", cost) if cost < 20.00 =>  true
-      // Purchase any other meal that costs less than 5.50
+      // Purchase any  meal that costs less than 5.50.
       case (_, cost) if cost < 5.50 => true
       // If any other criteria, do NOT purchase the meal.
       case _ => false
