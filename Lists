@@ -1,0 +1,96 @@
+In Scala, Lists are SEQUENCES, which means data is stored
+in elements that can be accessed via a sequential Integer
+index.  The following line of code creates a List of 3
+integers that's initialized to the values of 1, 2 and 3.
+
+val myList:List[Int] = List[Int](1, 2, 3)
+
+The square brackets '[]' in the above code indicates that the
+List is a paramaterized type.  In the above example, this
+paramaterized type is declared to be of type Int.  Like the
+above line of code, the following line of code also creates
+a List of 3 integers that's initialized to the values of
+1, 2 and 3.
+
+var myList = List(1, 2, 3)
+
+Even though the above myList is declared as a var, we can't change the
+values contained in each List element.  A List in Scala is IMMUTABLE,
+which means a List's element values can never be altered, even if
+its a var.  The var indicates that myList can be used to point
+to a different List.  For example, you can do the following:
+
+var myList = List(1, 2, 3);
+myList = List(9, 8, 7);  // Allowed because myArray is a var.
+
+Unlike Arrays, Lists cannot be multi-dimensional.  You can PREPEND
+values to an existing var List by using the cons operator (::).
+Note that this can be done only with a var List, not a val List.
+Here's an example.
+
+var myList = List(1, 2, 3);
+myList = 0::myList
+myList.foreach(println)
+
+Prepending a value to a List, as shown above, literally creates a new List.
+
+Since all Lists (including empty lists) end with a Nil value, you
+cannot append values to an existing List, even if it's a var List.
+The following example shows us that an empty List contains a single
+Nil value.  We can detect that a List is empty by checking to see
+if the List == null, or by calling the isEmpty method, which is preferable.
+
+val myList = List()
+if (myList == Nil)
+{
+  println("myList == Nil")
+}
+if (myList.isEmpty)
+{
+  println("myList is empty.")
+}
+
+Below is Scala code that performs a mathematical operation
+on all elements in a List, using a recursive function.
+========================================================================
+========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val myList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
+
+    println("operateOnList() result = "  + operateOnList(myList, _+_))
+    println("operateOnList2() result = " + operateOnList2(myList, _+_))
+  }
+
+  /**
+    * This operateOnList() function is identical in behavior to the
+    * below operateOnList2() function.
+    */
+  def operateOnList(list:List[Int], func:(Int, Int) => Int):Int =
+  {
+    if (list.tail.isEmpty)
+    {
+      list.head
+    }
+    else
+    {
+      func(list.head, operateOnList(list.tail, func))
+    }
+  }
+
+  /**
+    * This operateOnList2() function is identical in behavior to the
+    * above operateOnList() function.
+    */
+  def operateOnList2(list:List[Int], func:(Int, Int) => Int):Int =
+  {
+    list match
+    {
+      case a::Nil => a
+      case a::t => func(a, operateOnList2(t, func))
+      case _ => 0
+    }
+  }
+}
