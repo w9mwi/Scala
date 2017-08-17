@@ -1,0 +1,94 @@
+In Scala, Arrays are SEQUENCES, which means data is stored
+in elements that can be accessed via a sequential Integer
+index.  The following line of code creates an Array of
+3 integers that's initialized to the values of 1, 2 and 3.
+
+val myArray:Array[Int] = Array[Int](1, 2, 3)
+
+The square brackets '[]' in the above code indicates that the
+Array is a paramaterized type.  In the above example, this
+paramaterized type is declared to be of type Int.  The above
+line of code can also be written as shown below (without the
+[Int]), as the compiler will be able to determine the type
+will be Int.
+
+val myArray = Array(1, 2, 3)
+
+The following example declares an Array containing un-initialized
+elements, and the elements are initialized after the declaration.
+When an Array is declared, but not initialized, all its elements
+have a default value of zero (for numbers), and null for non-numeric
+data types.
+
+val myArray:Array[Int] = new Array[Int](3);
+
+myArray(0) = 9
+myArray(1) = 8
+myArray(2) = 7
+println(myArray(0) + myArray(1) + myArray(2)) // Prints the value 24.
+
+Even though the above myArray is declared as a val, we can change the
+values contained in each Array element.  An Array in Scala is MUTABLE,
+which means an Array's elements values can always be altered, even if
+its a val.  The val indicates that myArray cannot be altered to point
+to a different Array.  For example, you can't do the following:
+
+val myArray:Array[Int] = new Array[Int](3);
+myArray = new Array[Int](3);  // NOT allowed because myArray is a val.
+
+The following code shows two examples of how to program a multi-dimensional Array.
+==================================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // CREATE, INITIALIZE, AND DISPLAY A 2X2 MULTI-DIMENSIONAL ARRAY...
+    val matrix:Array[Array[Int]] = Array.ofDim[Int](2,2)
+    val matrixRange:Range        = matrix.indices
+
+    // Initialize every element in the the 2-dimensional Array...
+    matrix(0)(0) = 3
+    matrix(0)(1) = 2
+    matrix(1)(0) = 1
+    matrix(1)(1) = 0
+
+    // Print the content of every element in the 2-dimensional
+    // Array, in a visual-friendly format...
+    for (idx <- matrixRange)
+    {
+      for (jdx <- 0 to 1)
+      {
+        print(" " + matrix(idx)(jdx))
+      }
+      println()
+    }
+
+    println()
+    // ******************************************************************************
+    // ******************************************************************************
+    // CREATE, INITIALIZE, AND DISPLAY A 3X5 MULTI-DIMENSIONAL ARRAY...
+    val myMatrix:Array[Array[Int]] = Array.ofDim[Int](3,5)
+    val myMatrixRange:Range        = myMatrix.indices
+
+    // Initialize every element in the the 2-dimensional Array...
+    for (idx <- myMatrixRange)
+    {
+      for (jdx <- 0 to 4)
+      {
+        myMatrix(idx)(jdx) = jdx
+      }
+    }
+
+    // Print the content of every element in the 2-dimensional
+    // Array, in a visual-friendly format...
+    for (idx <- myMatrixRange)
+    {
+      for (jdx <- 0 to 4)
+      {
+        print(" " + myMatrix(idx)(jdx));
+      }
+      println()
+    }
+  }
+}
+
