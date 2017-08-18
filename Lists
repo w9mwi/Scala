@@ -94,3 +94,50 @@ object Demo
     }
   }
 }
+===================================================================
+The following is a list of methods that can be called on BOTH
+Arrays and Lists.  See pages 143-148 in the Scala book for details.
+
+BASIC METHODS:
+___ drop
+___ init
+___ last
+___ slice
+___ splitAt
+___ take
+___ takeRight
+
+BOOLEAN TESTS:
+___ contains
+___ endsWith
+___ isEmpty
+___ nonEmpty
+___ startsWith
+
+SEARCHING:
+___ indexOf
+___ lastIndexOf
+___ diff
+___ mkString
+___ reverse
+___ toList
+___ toArray
+___ zip
+___ zipWithIndex
+___ product (Multiplies all memebers)
+___ sum (Adds all members)
+
+HIGHER-ORDER METHODS:
+___ count
+___ dropWhile
+___ exists
+___ filter
+___ filterNot
+___ flatMap
+___ forall
+___ foreach
+___ indexWhere
+___ lastIndexWhere
+___ map
+___ partition
+___ takeWhile
