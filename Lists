@@ -132,7 +132,7 @@ ___ count
 ___ dropWhile - EXAMPLE:
                 val strList:List[String] = List[String]("str1_abc_junk", "str2_abc_stuff", "str3_qrs_things", "str4_xyz_trash")
                 val result:List[String] = strList.dropWhile(_.contains("abc"))
-                result.foreach(println)
+                result.foreach(println) // prints: str3_qrs_things  str4_xyz_trash
 
 ___ exists - EXAMPLE 1:
              val strList:List[String] = List[String]("str1_abc_junk", "str2_jkl_stuff", "str3_qrs_things", "str4_xyz_trash");
@@ -141,7 +141,7 @@ ___ exists - EXAMPLE 1:
              EXAMPLE 2:
              val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
              val result:Boolean = intList.exists(x => x==7)
-             println(result)
+             println(result) // result = true
 ___ filter
 ___ filterNot
 ___ flatMap
