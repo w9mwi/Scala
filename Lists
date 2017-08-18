@@ -142,7 +142,10 @@ ___ exists - EXAMPLE 1:
              val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
              val result:Boolean = intList.exists(x => x==7)
              println(result) // result = true
-___ filter
+___ filter - EXAMPLE:
+             val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7)
+             val result:List[Int] = intList.filter(_ > 6)
+             println(result) // result = List(7)
 ___ filterNot
 ___ flatMap
 ___ forall
