@@ -134,10 +134,14 @@ ___ dropWhile - EXAMPLE:
                 val result:List[String] = strList.dropWhile(_.contains("abc"))
                 result.foreach(println)
 
-___ exists - EXAMPLE:
+___ exists - EXAMPLE 1:
              val strList:List[String] = List[String]("str1_abc_junk", "str2_jkl_stuff", "str3_qrs_things", "str4_xyz_trash");
              val result:Boolean = strList.exists(_.compareTo("str3_qrs_things") == 0)
              println(result) // result = true
+             EXAMPLE 2:
+             val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
+             val result:Boolean = intList.exists(x => x==7)
+             println(result)
 ___ filter
 ___ filterNot
 ___ flatMap
