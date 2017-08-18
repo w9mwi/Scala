@@ -147,7 +147,9 @@ ___ filter - EXAMPLE:
              val result:List[Int] = intList.filter(_ > 6)
              println(result) // result = List(7)
 ___ filterNot
-___ flatMap
+___ flatMap - EXAMPLE:
+              The flatMap method is essentially a combination of the map
+              method being run first, followed by the flatten method.
 ___ forall
 ___ foreach
 ___ indexWhere
