@@ -150,6 +150,14 @@ ___ filterNot
 ___ flatMap - EXAMPLE:
               The flatMap method is essentially a combination of the map
               method being run first, followed by the flatten method.
+              val fish:List[String]               = List[String]("alewife", "bass", "perch", "northern", "walleye")
+              val waterBirds:List[String]         = List[String]("eagle", "duck", "goose")
+              val waterAnimals:List[List[String]] = List[List[String]](fish, waterBirds)
+              val flatMap:List[String]            = waterAnimals.flatMap(x => x)
+              println("fish                 = " + fish)
+              println("waterBirds           = " + waterBirds)
+              println("waterAnimals         = " + waterAnimals)
+              println("flatMap waterAnimals = " + flatMap)
 ___ forall
 ___ foreach
 ___ indexWhere
