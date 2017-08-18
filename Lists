@@ -129,8 +129,15 @@ ___ sum (Adds all members)
 
 HIGHER-ORDER METHODS:
 ___ count
-___ dropWhile
-___ exists
+___ dropWhile - EXAMPLE:
+                val strList:List[String] = List[String]("str1_abc_junk", "str2_abc_stuff", "str3_qrs_things", "str4_xyz_trash")
+                val result:List[String] = strList.dropWhile(_.contains("abc"))
+                result.foreach(println)
+
+___ exists - EXAMPLE:
+             val strList:List[String] = List[String]("str1_abc_junk", "str2_jkl_stuff", "str3_qrs_things", "str4_xyz_trash");
+             val result:Boolean = strList.exists(_.compareTo("str3_qrs_things") == 0)
+             println(result) // result = true
 ___ filter
 ___ filterNot
 ___ flatMap
