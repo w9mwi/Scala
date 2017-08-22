@@ -129,9 +129,20 @@ ___ takeRight - EXAMPLE:
                 println("newList = " + newList) // Prints: newList = List(mno, pqr)
 
 BOOLEAN TESTS:
-___ contains
-___ endsWith
-___ isEmpty
+___ contains - EXAMPLE:
+             val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+             val result:Boolean = myList.contains("pqr")
+             println("result = " + result) // Prints: result = true
+___ endsWith - EXAMPLE:
+               val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+               val result:Boolean = myList.endsWith(List("pqr"))
+               println("result = " + result) // Prints: result = true
+___ isEmpty - EXAMPLE:
+              val myList1:List[String] = List()
+              val myList2:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+              val result1:Boolean = myList1.isEmpty
+              val result2:Boolean = myList2.isEmpty
+             println("result1 = " + result1 + ",  result2 = " + result2) // Prints: result1 = true,  result2 = false
 ___ nonEmpty
 ___ startsWith
 
