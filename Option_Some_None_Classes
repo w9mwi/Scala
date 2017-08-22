@@ -50,25 +50,26 @@ object Demo
   }
 
   /**
-    * Convert the String passed to this method to an Int value,
-    * and return it as an "Option" object.  If the String cannot be
-    * converted to a valid Int value, a "None" object gets returned.
-    * If the String can be converted to a valid Int value, a "Somee"
-    * object gets returned.  Both "None" and "Some" are children
-    * of the Option class
+    * Convert the String passed to this function to an Int value, and
+    * return it as an "Option" object.  If the String CAN'T be converted
+    * to a valid Int value, the "catch" block below is entered and a
+    * "None" object gets returned.  If the String CAN be converted to
+    * a valid Int value, the code below returns a "Some" object.
+    * NOTE:  Both "None" and "Some" classes are children
+    *        of the Option class
     *
     * @param str - A String that represents an Int value.
-    * @return an Option object.
+    * @return a Some or None object.
     */
   def convertToInt(str: String): Option[Int] =
   {
     try
     {
-      Some(Integer.parseInt(str.trim))
+      Some(Integer.parseInt(str.trim)) // Return a Some object.
     }
     catch
     {
-      case e: NumberFormatException => None
+      case e: NumberFormatException => None // Return a None object.
     }
   }
 }
