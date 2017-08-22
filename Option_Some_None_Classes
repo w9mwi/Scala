@@ -1,0 +1,14 @@
+ Instead of returning an object when a function succeeds,
+ and null when it fails, your function should instead
+ return an instance of the Option class, where the Option
+ object is either a "Some" object, or a "None" object.
+ 
+ NOTE: Both the "Some" class and the "None" class are
+       children of the "Option" class.
+
+Your function signature should declare that you're returning
+an "Option" that will be some data type such as an Int, which
+is shown in the example below.  Declaring that the function
+returns an "Option" object lets the user of your function know
+what’s going on.
+
