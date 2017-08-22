@@ -153,14 +153,20 @@ ___ startsWith - EXAMPLE:
 
 SEARCHING:
 ___ indexOf - EXAMPLE:
-              val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+              val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno")
               val result:Int = myList.indexOf("mno")
               println("result = " + result) // Prints: result = 4
 ___ lastIndexOf - EXAMPLE:
                   val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno")
                   val result:Int = myList.lastIndexOf("mno")
                   println("result = " + result) // Prints: result = 5
-___ diff
+___ diff - EXAMPLE:
+           val myList1:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+           val myList2:List[String] = List("pqr", "mno", "jkl", "ghi", "def", "abc")
+           val myList3:List[String] = List("mno", "abc")
+           val result1:List[String] = myList1.diff(myList2)
+           val result2:List[String] = myList1.diff(myList3)
+           println("result1 = " + result1 + ", result2 = " + result2) // Prints: result1 = List(), result2 = List(def, ghi, jkl, pqr)
 ___ mkString
 ___ reverse
 ___ toList
