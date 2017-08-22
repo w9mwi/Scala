@@ -99,10 +99,22 @@ The following is a list of methods that can be called on BOTH
 Arrays and Lists.  See pages 143-148 in the Scala book for details.
 
 BASIC METHODS:
-___ drop
-___ init
-___ last
-___ slice
+___ drop - EXAMPLE:
+           val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+           val newList = myList.drop(1)
+           println("newList = " + newList) // Prints:  newList = List(def, ghi, jkl, mno, pqr)
+___ init - EXAMPLE:
+           val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+           val newList:List[String] = myList.init
+           println("newList = " + newList) // Prints:  newList = List(abc, def, ghi, jkl, mno)
+___ last - EXAMPLE:
+           val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+           val newList:String = myList.last
+           println("newList = " + newList) // Prints:  newList = List(pqr)
+___ slice - EXAMPLE:
+            val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+            val newList:List[String] = myList.slice(2, 4)
+            println("newList = " + newList) // Prints: newList = List(ghi, jkl)
 ___ splitAt
 ___ take
 ___ takeRight
