@@ -142,8 +142,8 @@ ___ isEmpty - EXAMPLE:
               val myList2:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
               val result1:Boolean = myList1.isEmpty
               val result2:Boolean = myList2.isEmpty
-             println("result1 = " + result1 + ",  result2 = " + result2) // Prints: result1 = true,  result2 = false
-___ nonEmpty
+              println("result1 = " + result1 + ",  result2 = " + result2) // Prints: result1 = true,  result2 = false
+___ nonEmpty - The opposite of the isEmpty method.
 ___ startsWith
 
 SEARCHING:
@@ -178,7 +178,7 @@ ___ filter - EXAMPLE:
              val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7)
              val result:List[Int] = intList.filter(_ > 6)
              println(result) // result = List(7)
-___ filterNot
+___ filterNot - The opposite of the filter method.
 ___ flatMap - EXAMPLE:
               The flatMap method is essentially a combination of the map
               method being run first, followed by the flatten method.
