@@ -1,5 +1,5 @@
  Instead of returning an object when a function succeeds,
- and null when it fails, your function can instead  return
+ and null when it fails, your function can instead return
  an instance of the "Option" class, where the "Option"
  object will in reality be a "None" object or a "Some"
  object.
