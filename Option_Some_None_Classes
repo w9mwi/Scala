@@ -12,3 +12,9 @@ is shown in the example below.  Declaring that the function
 returns an "Option" object lets the user of your function know
 what’s going on.
 
+By having your function return a "Some" object (for a valid value),
+or a "None" object (for an invalid value), means the user of the
+function doesn't need to check for a null value in order to prevent
+a NullPointerException.
+
+
