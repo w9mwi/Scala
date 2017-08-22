@@ -113,7 +113,7 @@ ___ last - EXAMPLE:
            println("newList = " + newList) // Prints:  newList = List(pqr)
 ___ slice - EXAMPLE:
             val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
-            val newList = myList.slice(2,5)
+            val newList:List[String] = myList.slice(2,5)
             println("newList = " + newList) // Prints: newList = List(ghi, jkl, mno)
 ___ splitAt - EXAMPLE:
               val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
@@ -123,7 +123,10 @@ ___ take - EXAMPLE:
            val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
            val newList:List[String] = myList.take(3)
            println("newList = " + newList) // Prints: newList = List(abc, def, ghi)
-___ takeRight
+___ takeRight - EXAMPLE:
+                val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+                val newList:List[String] = myList.takeRight(2)
+                println("newList = " + newList) // Prints: newList = List(mno, pqr)
 
 BOOLEAN TESTS:
 ___ contains
