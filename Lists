@@ -217,6 +217,11 @@ ___ flatMap - EXAMPLE:
               println("waterBirds           = " + waterBirds)
               println("waterAnimals         = " + waterAnimals)
               println("flatMap waterAnimals = " + flatMap)
+              PRINTS THE FOLLOWING 4 LINES:
+              fish                 = List(alewife, bass, perch, northern, walleye)
+              waterBirds           = List(eagle, duck, goose)
+              waterAnimals         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
+              flatMap waterAnimals = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 ___ forall
 ___ foreach
 ___ indexWhere
