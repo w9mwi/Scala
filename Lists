@@ -113,8 +113,8 @@ ___ last - EXAMPLE:
            println("newList = " + newList) // Prints:  newList = List(pqr)
 ___ slice - EXAMPLE:
             val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
-            val newList:List[String] = myList.slice(2, 4)
-            println("newList = " + newList) // Prints: newList = List(ghi, jkl)
+            val newList:(List[String], List[String]) = myList.splitAt(3) // newList is a tuple type.
+            println("newList = " + newList) // Prints: newList = (List(abc, def, ghi),List(jkl, mno, pqr))
 ___ splitAt
 ___ take
 ___ takeRight
