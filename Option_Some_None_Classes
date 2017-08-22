@@ -1,13 +1,14 @@
  Instead of returning an object when a function succeeds,
- and null when it fails, your function should instead
- return an instance of the Option class, where the Option
- object is either a "Some" object, or a "None" object.
+ and null when it fails, your function can instead  return
+ an instance of the "Option" class, where the "Option"
+ object will in reality be a "None" object or a "Some"
+ object.
  
  NOTE: Both the "Some" class and the "None" class are
        children of the "Option" class.
 
 Your function signature should declare that you're returning
-an "Option" that will be some data type such as an Int, which
+an "Option" that will be some data type, such as an Int, which
 is shown in the example below.  Declaring that the function
 returns an "Option" object lets the user of your function know
 what’s going on.
@@ -17,4 +18,57 @@ or a "None" object (for an invalid value), means the user of the
 function doesn't need to check for a null value in order to prevent
 a NullPointerException.
 
+In the following example, the convertToInt() function is declared
+to return an "Option" object.  However, in reality, it will return
+either a "None" object (if the String can't be converted to an Int),
+or a "Some" object (if the String can be converted to an Int), as
+both "None" and "Some" are child classes of the "Option" class.
+=============================================================
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    // Test the convertToInt() function with a String that DOES convert to a valid Int value...
+    val test1:Option[Int] = convertToInt("123");
+    println("test1 = " + test1) // Prints: test1 = Some(123)
 
+    // Test the convertToInt() function with a String that does NOT convert to a valid Int value...
+    val test2:Option[Int] = convertToInt("9X7");
+    println("test2 = " + test2) // Prints: test2 = None
+
+    // Create a List of strings containing valid and invalid Int values...
+    val stringList:List[String] = List[String]("1", "2", "junk", "3", "trash")
+    println("stringList = " + stringList) // Prints: stringList = List(1, 2, junk, 3, trash)
+
+    // Convert ONLY the Int values in stringList to a List of Int values...
+    val intList:List[Int] = stringList.flatMap(convertToInt)
+    println("intList = " + intList) // Prints: intList = List(1, 2, 3)
+
+    // Sum all the values in intList...
+    val sum:Int = intList.sum
+    println("sum = " + sum) // Prints: sum = 6
+  }
+
+  /**
+    * Convert the String passed to this method to an Int value,
+    * and return it as an "Option" object.  If the String cannot be
+    * converted to a valid Int value, a "None" object gets returned.
+    * If the String can be converted to a valid Int value, a "Somee"
+    * object gets returned.  Both "None" and "Some" are children
+    * of the Option class
+    *
+    * @param str - A String that represents an Int value.
+    * @return an Option object.
+    */
+  def convertToInt(str: String): Option[Int] =
+  {
+    try
+    {
+      Some(Integer.parseInt(str.trim))
+    }
+    catch
+    {
+      case e: NumberFormatException => None
+    }
+  }
+}
