@@ -167,7 +167,17 @@ ___ diff - EXAMPLE:
            val result1:List[String] = myList1.diff(myList2)
            val result2:List[String] = myList1.diff(myList3)
            println("result1 = " + result1 + ", result2 = " + result2) // Prints: result1 = List(), result2 = List(def, ghi, jkl, pqr)
-___ mkString
+___ mkString EXAMPLE:
+             val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+             println("myList                               = " + myList)
+             println("myList.mkString                      = " + myList.mkString)
+             println("myList.mkString(\" + \")               = " + myList.mkString(" + "))
+             println("myList.mkString(\"BEGIN\", \"_\", \"END\") = " + myList.mkString("BEGIN", "_", "END"))
+             // PRINTS THE FOLLOWING 4 LINES:
+             myList                               = List(abc, def, ghi, jkl, mno, pqr)
+             myList.mkString                      = abcdefghijklmnopqr
+             myList.mkString(" + ")               = abc + def + ghi + jkl + mno + pqr
+             myList.mkString("BEGIN", "_", "END") = BEGINabc_def_ghi_jkl_mno_pqrEND
 ___ reverse
 ___ toList
 ___ toArray
