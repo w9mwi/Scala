@@ -274,9 +274,10 @@ ___ indexWhere - Pass this method a function that operates on a single element o
                  val myList:List[Float] = List(12.1F, 34.2F, 56.3F, 78.4F)
                  val result:Int = myList.indexWhere(_ > 50.0F)
                  println(result) // Prints: 2
-___ lastIndexWhere - Pass this method a function that operates on a single element of the collection.
-                     Returns the index of the LAST element for which the function is true.  Returns
-                     -1 if the function is NOT true for any of the elements.
+___ lastIndexWhere - Pass this method a function that operates on a single element of the collection
+                     and returns a Boolean.  This method returns the index of the LAST element for
+                     which the function is true.  Returns -1 if the function is NOT true for any
+                     of the elements.
                      EXAMPLE:
                      val myList:List[Float] = List(12.1F, 34.2F, 56.3F, 78.4F)
                      val result:Int = myList.lastIndexWhere(_ > 50.0F)
@@ -286,5 +287,13 @@ ___ map - EXAMPLE:
           val result:List[Int] = intList.map(_*2)
           println(result) //  prints: List(2, 4, 6, 8, 10, 12, 14)
 
-___ partition
+___ partition - Pass this method a function that operates on a single element of the collection
+                and returns a Boolean.  This method returns a tuple with TWO new collections.
+                The first collection in the tuple contains only the elements for which the
+                function is true.  The second collection in the tuple contains only the elements
+                for which the function is false.
+                EXAMPLE:
+                val myList:List[Float] = List(43.7F, 567.89F, 144.8F, 77.7F, 17.7F)
+                val result:(List[Float], List[Float]) = myList.partition(_ > 77.0F)
+                println(result) // Prints: (List(567.89, 144.8, 77.7),List(43.7, 17.7))
 ___ takeWhile
