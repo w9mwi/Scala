@@ -282,7 +282,10 @@ ___ lastIndexWhere - Pass this method a function that operates on a single eleme
                      val myList:List[Float] = List(12.1F, 34.2F, 56.3F, 78.4F)
                      val result:Int = myList.lastIndexWhere(_ > 50.0F)
                      println(result) // Prints: 3
-___ map - EXAMPLE:
+___ map - Pass this method a function that operates on a single element of the collection and returns something.
+          The map method then returns a new collection that contains the results of applying that function
+          to the contents of each element in the original collection.
+          EXAMPLE:
           val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
           val result:List[Int] = intList.map(_*2)
           println(result) //  prints: List(2, 4, 6, 8, 10, 12, 14)
