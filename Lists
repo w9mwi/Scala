@@ -300,6 +300,27 @@ ___ partition - Pass this method a function that operates on a single element of
                 val result:(List[Float], List[Float]) = myList.partition(_ > 77.0F)
                 println(result) // Prints: (List(567.89, 144.8, 77.7),List(43.7, 17.7))
 
+___ reduceLeft - See reduceRight.
+___ reduceRight - EXAMPLE of reduceLeft and reduceRight:
+    val myList:List[Int] = List(1, 2, 3, 4)
+    var result:Int = myList.reduceLeft(_ + _) // result = ((1 + 2) + 3) + 4 = 10
+    println("result = " + result) // Prints: 10
+
+    result = myList.reduceRight(_ + _) // result = 1 + (2 + (3 + 4)) = 10
+    println("result = " + result) // Prints: 10
+
+    result = myList.reduceLeft(_ - _) // result = ((1 - 2) - 3) - 4 = -8
+    println("result = " + result) // Prints: -8
+
+    result = myList.reduceRight(_ - _) // result = 1 - (2 - (3 - 4)) = -2
+    println("result = " + result) // Prints: -2
+
+    result = myList.reduceLeft(_ * _) // result = ((1 * 2) * 3) * 4 = 24
+    println("result = " + result) // Prints: 24
+
+    result = myList.reduceRight(_ * _) // result = 1 * (2 * (3 * 4)) = 24
+    println("result = " + result) // Prints: 24
+
 ___ takeWhile - Pass this method a function that operates on a single element of the collection
                 and returns a Boolean.  This method returns a new collection all elements
                 at the beginning for which that function is true.
