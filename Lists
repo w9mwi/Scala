@@ -196,8 +196,18 @@ ___ toArray - EXAMPLE:
               jkl
               mno
               pqr
-___ zip
-___ zipWithIndex
+___ zip - EXAMPLE:
+          val myList1:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+          val myList2:List[String] = List("stu", "vwx", "yz")
+          println(myList1.zip(myList2)) // Prints:  List((abc,stu), (def,vwx), (ghi,yz))
+___ zipWithIndex - EXAMPLE:
+                   val myList:List[String]                = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+                   val myListWithIndex:List[(String,Int)] = myList.zipWithIndex
+                   println("myListWithIndex = " + myListWithIndex)
+                   println("myListWithIndex(2)._1 = " + myListWithIndex(2)._1 + ",  myListWithIndex(2)._2 = " + myListWithIndex(2)._2)
+                   PRINTS THE FOLLOWING 2 LINES:
+                   myListWithIndex = List((abc,0), (def,1), (ghi,2), (jkl,3), (mno,4), (pqr,5))
+                   myListWithIndex(2)._1 = ghi,  myListWithIndex(2)._2 = 2
 ___ product (Multiplies all memebers)
 ___ sum (Adds all members)
 
