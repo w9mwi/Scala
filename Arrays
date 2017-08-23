@@ -1,3 +1,7 @@
+ATTENTION:
+For sample code of methods that work on both Arrays and Lists,
+SEE: https://github.com/w9mwi/Scala/blob/master/Lists
+=============================================================
 In Scala, Arrays are SEQUENCES, which means data is stored
 in elements that can be accessed via a sequential Integer
 index.  The following line of code creates an Array of
@@ -91,4 +95,7 @@ object Demo
     }
   }
 }
-
+=============================================================
+ATTENTION:
+For sample code of methods that work on both Arrays and Lists,
+SEE: https://github.com/w9mwi/Scala/blob/master/Lists
