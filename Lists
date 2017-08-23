@@ -257,7 +257,9 @@ ___ forall - EXAMPLE:
              val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
              println("myList.forall = " + myList.forall(_ > 100.0F)) // Prints: myList.forall = false
              println("myList.forall = " + myList.forall(_ > 50.0F))  // Prints: myList.forall = true
-___ foreach - EXAMPLE:
+___ foreach - This method gets passed a function that operates on all elements in the collection,
+              and returns nothing.  This method is called only for its side effects.
+              EXAMPLE:
               val myList:List[Float] = List(12.1F, 34.2F, 56.3F, 78.4F)
               myList.foreach(x => println(2.0F * x)) // Param passed to foreach is a literal function.
               PRINTS THE FOLLOWING 4 LINES:
