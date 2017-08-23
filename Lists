@@ -296,4 +296,14 @@ ___ partition - Pass this method a function that operates on a single element of
                 val myList:List[Float] = List(43.7F, 567.89F, 144.8F, 77.7F, 17.7F)
                 val result:(List[Float], List[Float]) = myList.partition(_ > 77.0F)
                 println(result) // Prints: (List(567.89, 144.8, 77.7),List(43.7, 17.7))
-___ takeWhile
+
+___ takeWhile - Pass this method a function that operates on a single element of the collection
+                and returns a Boolean.  This method returns a new collection all elements
+                at the beginning for which that function is true.
+                val myList:List[Float] = List(43.7F, 17.7F, 77.7F, 567.89F, 144.8F)
+                val result1:List[Float] = myList.takeWhile(_ > 43.7F)
+                val result2:List[Float] = myList.takeWhile(_ > 43.6F)
+                val result3:List[Float] = myList.takeWhile(_ > 17.6F)
+                println("result1 = " + result1 + ",  result2 = " + result2 + ",  result3 = " + result3)
+                // Prints:  result1 = List(),  result2 = List(43.7),  result3 = List(43.7, 17.7, 77.7, 567.89, 144.8)
+
