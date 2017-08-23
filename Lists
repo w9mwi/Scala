@@ -208,8 +208,12 @@ ___ zipWithIndex - EXAMPLE:
                    PRINTS THE FOLLOWING 2 LINES:
                    myListWithIndex = List((abc,0), (def,1), (ghi,2), (jkl,3), (mno,4), (pqr,5))
                    myListWithIndex(2)._1 = ghi,  myListWithIndex(2)._2 = 2
-___ product (Multiplies all memebers)
-___ sum (Adds all members)
+___ product - EXAMPLE:
+              val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
+              println("myList.product = " + myList.product) // Prints: myList.product = 4446550.0
+___ sum - EXAMPLE:
+          val myList:List[Float] = List(123.4F, 456.7F, 789.1F)
+          println("myList.sum = " + myList.sum) // Prints: myList.sum = 1369.2
 
 HIGHER-ORDER METHODS:
 ___ count
