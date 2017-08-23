@@ -216,7 +216,9 @@ ___ sum - EXAMPLE:
           println("myList.sum = " + myList.sum) // Prints: myList.sum = 1369.2
 
 HIGHER-ORDER METHODS:
-___ count
+___ count - EXAMPLE:
+            val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
+            println("myList.count = " + myList.count((_ > 100.0F))) // Prints: myList.count = 2
 ___ dropWhile - EXAMPLE:
                 val strList:List[String] = List[String]("str1_abc_junk", "str2_abc_stuff", "str3_qrs_things", "str4_xyz_trash")
                 val result:List[String] = strList.dropWhile(_.contains("abc"))
