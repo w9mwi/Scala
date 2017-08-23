@@ -218,7 +218,7 @@ ___ sum - EXAMPLE:
 HIGHER-ORDER METHODS:
 ___ count - EXAMPLE:
             val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
-            println("myList.count = " + myList.count((_ > 100.0F))) // Prints: myList.count = 2
+            println("myList.count = " + myList.count(_ > 100.0F)) // Prints: myList.count = 2
 ___ dropWhile - EXAMPLE:
                 val strList:List[String] = List[String]("str1_abc_junk", "str2_abc_stuff", "str3_qrs_things", "str4_xyz_trash")
                 val result:List[String] = strList.dropWhile(_.contains("abc"))
@@ -253,8 +253,18 @@ ___ flatMap - EXAMPLE:
               waterBirds           = List(eagle, duck, goose)
               waterAnimals         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
               flatMap waterAnimals = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
-___ forall
-___ foreach
+___ forall - EXAMPLE:
+             val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
+             println("myList.forall = " + myList.forall(_ > 100.0F)) // Prints: myList.forall = false
+             println("myList.forall = " + myList.forall(_ > 50.0F))  // Prints: myList.forall = true
+___ foreach - EXAMPLE:
+              val myList:List[Float] = List(12.1F, 34.2F, 56.3F, 78.4F)
+              myList.foreach(x => println(2.0F * x)) // Param passed to foreach is a literal function.
+              PRINTS THE FOLLOWING 4 LINES:
+              24.2
+              68.4
+              112.6
+              156.8
 ___ indexWhere
 ___ lastIndexWhere
 ___ map - EXAMPLE:
