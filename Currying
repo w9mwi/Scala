@@ -22,7 +22,7 @@ Where the function returned takes an integer value y, and returns the integer
 value x+y.  Thus, by calling the add2Curried function TWICE, we obtain the same
 result as calling the add1 function ONCE.  (See the sample code below.)
 
-Now let's rewite the above add2Curried function in the following manner,
+Now let's rewrite the above add2Curried function in the following manner,
 and name it add3Curried...
 
 def add3Curried(x:Int)(y:Int) = { x+y }
