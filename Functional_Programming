@@ -70,13 +70,13 @@ object FunctionFGX
   def main(args: Array[String])
   {
     val a:(Double => Double) = compose2(plus5, square) // EQUIVALENT TO:  val a  = compose2(plus5, square)
-    val b = compose2(square, plus5)  // EQUIVALENT TO:  val b:(Double => Double) = compose2(square, plus5)
+    val b                    = compose2(square, plus5) // EQUIVALENT TO:  val b:(Double => Double) = compose2(square, plus5)
 
     println("a(3) = " + a(3))
     println("b(3) = " + b(3))
 
-    // The following 2 calls to compose2() are identical to the
-    // above 2 corresponding function calls to a(3) and b(3)...
+    // The following 2 calls to compose() are identical
+    // to the above two function calls a(3) and b(3)...
     println("compose(plus5,  square, 3) = " + compose(plus5, square, 3))
     println("compose(square, plus5,  3) = " + compose(square, plus5, 3))
   }
