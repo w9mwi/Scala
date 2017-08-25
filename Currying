@@ -1,0 +1,60 @@
+DEFINITION OF CURRYING
+----------------------
+Currying transforms a function that takes multiple parameters into
+a chain of functions, where each function in the chain takes a
+single parameter.
+
+Assume you have a function that gets passed multiple parameters,
+and returns a single value, such as the following add1 function...
+
+def add1(x:Int, y:Int):Int = { x+y }
+
+This add1 function gets passed an integer value x, an integer value y,
+and it returns the integer value x+y.
+
+Now let's rewrite the above add1 function in the following manner,
+so it becomes a curried function, and name it add2Curried...
+
+def add2Curried(x:Int) = { (y:Int) => x+y }
+
+This add2Curried function gets passed an integer value x, and it returns a function.
+Where the function returned takes an integer value y, and returns the integer
+value x+y.  Thus, by calling the add2Curried function TWICE, we obtain the same
+result as calling the add1 function ONCE.  (See the sample code below.)
+
+Now let's rewite the above add2Curried function in the following manner,
+and name it add3Curried...
+
+def add3Curried(x:Int)(y:Int) = { x+y }
+
+This add3Curried function is identical to the add2Curried function,
+except that it's syntax contains MULTIPLE PARAMETER LISTS, instead
+of the standard single parameter list used by regular functions.
+====================================================================
+====================================================================
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    println("add1(123, 321)        = " + add1(123, 321))
+    println("add2Curried(123)(321) = " + add2Curried(123)(321))
+    println("add3Curried(123)(321) = " + add3Curried(123)(321))
+
+    // NOTE: It's NOT possible to call the add2Curried function with an underscore
+    //       char (_) to designate the second param isn't being used, as is done
+    //       below when calling the add3Curried function.
+    val func1 = add2Curried(5)
+    println("func1 result = " + func1(20)) // Prints: func1 result = 25
+
+    // NOTE: When passing add3Curried only one parameter, the below underscore
+    //       char (_) is required to designate the second param isn't being used.
+    val func2 = add3Curried(5)_
+    println("func2 result = " + func2(20)) // Prints: func2 result = 25
+  }
+
+  def add1(x:Int, y:Int):Int = { x+y }
+
+  def add2Curried(x:Int) = { (y:Int) => x+y }
+
+  def add3Curried(x:Int)(y:Int) = { x+y }
+}
