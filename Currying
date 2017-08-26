@@ -67,6 +67,7 @@ This add3Curried function is identical to the add2Curried function,
 except that it's syntax contains MULTIPLE PARAMETER LISTS, instead
 of the standard single parameter list used by regular functions.
 ====================================================================
+CURRYING EXAMPLE 1
 ====================================================================
 object Demo
 {
@@ -93,4 +94,21 @@ object Demo
   def add2Curried(x:Int) = { (y:Int) => x+y }
 
   def add3Curried(x:Int)(y:Int) = { x+y }
+}
+====================================================================
+CURRYING EXAMPLE 2
+====================================================================
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val str1:String = "Hello, "
+    val str2:String = "Scala!"
+
+    println("strCatCurried_1(str1)(str2) = " +  strCatCurried_1(str1)(str2))
+    println("strCatCurried_2(str1)(str2) = " +  strCatCurried_2(str1)(str2))
+  }
+
+  def strCatCurried_1(s1: String) = (s2: String) => s1 + s2
+  def strCatCurried_2(s1: String)(s2: String) = s1 + s2
 }
