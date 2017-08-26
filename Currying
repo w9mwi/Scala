@@ -13,13 +13,12 @@ CRITERIA  NO. 2:
 If a function gets called with MULTIPLE PARAMETER LISTS (not multiple
 parameters, but with multiple parameter lists), then the function is
 also a curried function.  EXAMPLE:
-add2Curried(123)(321)  OR  add2Curried(123)_  (NOTE the underscore char.)
+add2Curried(123)(321)  OR  add2Curried(123)_  (NOTE the underscore char. is the second parameter.)
 
 CRITERIA  NO. 3:
-It's possible that a function can to be a curried function without
-meeting the above two criteria.  The following function is a also
-a curried function.  It's definition, followed by how the function
-is called, is shown here.
+It's possible that a function is a curried function without meeting the
+above two criteria.  The following function is a also a curried function.
+It's definition, followed by how the function is called, is shown here.
 
 def add2Curried(x:Int) = { (y:Int) => x+y }
 
@@ -30,8 +29,8 @@ We can see the above (Criteria No. 3) add2Curried function is a curried
 function because...
 
 1) The function definition returns a function that returns a value.
-2) The func1 function gets called TWICE--the first time  with a (5)
-   parameter, the second time with a (20) parameter.
+2) The val func1 function gets called TWICE--the first time  with
+   a (5) parameter, the second time with a (20) parameter.
 
 
 DEFINITION OF CURRYING
