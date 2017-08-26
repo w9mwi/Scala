@@ -287,6 +287,9 @@ ___ foldRight - EXAMPLE:
                 //       which is the reverse order used by the foldRight function above.
                 wordCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
                 println("wordCount.foldLeft = " + wordCount)
+
+                println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
+                println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
 ___ forall - EXAMPLE:
              val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
              println("myList.forall = " + myList.forall(_ > 100.0F)) // Prints: myList.forall = false
