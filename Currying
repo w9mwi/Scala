@@ -28,7 +28,8 @@ println("func1 result = " + func1(20)) // Prints: func1 result = 25
 We can see the above (Criteria No. 3) add2Curried function is a curried
 function because...
 
-1) The function definition returns a function that returns a value.
+1) The function definition takes one parameter, and returns a function
+   that returns a value.
 2) The val func1 function gets called TWICE--the first time  with
    a (5) parameter, the second time with a (20) parameter.
 
