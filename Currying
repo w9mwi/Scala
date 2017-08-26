@@ -1,3 +1,39 @@
+HOW TO IDENTIFY A CURRIED FUNCTION
+----------------------------------
+To determine if a function is a curried function, check the function's
+parameter list.
+
+CRITERIA NO. 1:
+If a function definition contains MULTIPLE PARAMETER LISTS (not multiple
+parameters, but multiple parameter lists), then the function is a curried
+function.  EXAMPLE:
+def add3Curried(x:Int)(y:Int) = { x+y }
+
+CRITERIA  NO. 2:
+If a function gets called with MULTIPLE PARAMETER LISTS (not multiple
+parameters, but with multiple parameter lists), then the function is
+also a curried function.  EXAMPLE:
+add2Curried(123)(321)  OR  add2Curried(123)_  (NOTE the underscore char.)
+
+CRITERIA  NO. 3:
+It's possible that a function can to be a curried function without
+meeting the above two criteria.  The following function is a also
+a curried function.  It's definition, followed by how the function
+is called, is shown here.
+
+def add2Curried(x:Int) = { (y:Int) => x+y }
+
+val func1 = add2Curried(5)
+println("func1 result = " + func1(20)) // Prints: func1 result = 25
+
+We can see the above (Criteria No. 3) add2Curried function is a curried
+function because...
+
+1) The function definition returns a function that returns a value.
+2) The func1 function gets called TWICE--the first time  with a (5)
+   parameter, the second time with a (20) parameter.
+
+
 DEFINITION OF CURRYING
 ----------------------
 Currying transforms a function that takes multiple parameters into
