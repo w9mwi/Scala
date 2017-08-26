@@ -276,6 +276,17 @@ ___ foldRight - EXAMPLE:
                 // function to apply.
                 // 0−(1−(9−(3−(6−(4−7))))) = 14
                 println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
+                // ********************************************************************
+                val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
+                // NOTE: The second parameter list for foldRight has its tuple order as (word, count),
+                //       which is the reverse order used by the foldLeft function below.
+                var wordCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
+                println("wordCount.foldRight = " + wordCount)
+
+                // NOTE: The second parameter list for foldLeft has its tuple order as (count, word),
+                //       which is the reverse order used by the foldRight function above.
+                wordCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
+                println("wordCount.foldLeft = " + wordCount)
 ___ forall - EXAMPLE:
              val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
              println("myList.forall = " + myList.forall(_ > 100.0F)) // Prints: myList.forall = false
