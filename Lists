@@ -253,6 +253,29 @@ ___ flatMap - EXAMPLE:
               waterBirds           = List(eagle, duck, goose)
               waterAnimals         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
               flatMap waterAnimals = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+___ foldLeft - See the foldRight example below.
+___ foldRight - EXAMPLE:
+                val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+
+                // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
+                //       as they get passed a value, and return a function
+                //       that gets passed a value and returns a value.
+                //       When foldLeft and foldRight are called below, they
+                //       get called with TWO PARAMETER LISTS.
+
+                // The following foldLeft function works on intList as follows:
+                // The first argument list (0) takes the base value that's used
+                // as the first operand.  The second argument list (_ - _) is the
+                // function to apply.
+                // 0−7−4−6−3−9−1 = ((((((0−7)−4)−6)−3)−9)−1) = -30
+                println("intList.foldLeft(0)(_ - _) = " + intList.foldLeft(0)(_ - _))
+
+                // The following foldRight function works on intList as follows:
+                // The first argument list (0) takes the base value that's used
+                // as the first operand.  The second argument list (_ - _) is the
+                // function to apply.
+                // 0−(1−(9−(3−(6−(4−7))))) = 14
+                println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
 ___ forall - EXAMPLE:
              val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
              println("myList.forall = " + myList.forall(_ > 100.0F)) // Prints: myList.forall = false
