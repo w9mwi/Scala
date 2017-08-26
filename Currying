@@ -140,5 +140,20 @@ object Demo
     // function to apply.
     // 0−(1−(9−(3−(6−(4−7))))) = 14
     println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
+
+
+    val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
+    // NOTE: The second parameter list for foldRight has its tuple order as (word, count),
+    //       which is the reverse order used by the foldLeft function below.
+    var wordCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
+    println("wordCount.foldRight = " + wordCount)
+
+    // NOTE: The second parameter list for foldLeft has its tuple order as (count, word),
+    //       which is the reverse order used by the foldRight function above.
+    wordCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
+    println("wordCount.foldLeft = " + wordCount)
+
+    println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
+    println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
   }
 }
