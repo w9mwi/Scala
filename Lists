@@ -338,7 +338,6 @@ ___ map - Pass this method a function that operates on a single element of the c
           val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
           val result:List[Int] = intList.map(_*2)
           println(result) //  prints: List(2, 4, 6, 8, 10, 12, 14)
-
 ___ partition - Pass this method a function that operates on a single element of the collection
                 and returns a Boolean.  This method returns a tuple with TWO new collections.
                 The first collection in the tuple contains only the elements for which the
@@ -348,7 +347,16 @@ ___ partition - Pass this method a function that operates on a single element of
                 val myList:List[Float] = List(43.7F, 567.89F, 144.8F, 77.7F, 17.7F)
                 val result:(List[Float], List[Float]) = myList.partition(_ > 77.0F)
                 println(result) // Prints: (List(567.89, 144.8, 77.7),List(43.7, 17.7))
-
+___ permutations - EXAMPLE:
+                   val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+                   intList.permutations.foreach(println)
+                   var count = 0
+                   for (x <- intList.permutations)
+                   {
+                     count += 1
+                     // Print the same intList.permutations as the above call to foreach.
+                     println("count = " + count + ", " + x)
+                   }
 ___ reduceLeft - See reduceRight.
 ___ reduceRight - EXAMPLE of reduceLeft and reduceRight:
     val myList:List[Int] = List(1, 2, 3, 4)
