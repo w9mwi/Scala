@@ -1,0 +1,37 @@
+Functions can have parameter types, just like Arrays (Array[Char], Array[Float], Array[Float])
+and Lists (List[Char], List[Float], List[Float]) can have types.
+
+To make a function work with multiple data types (as Array and List functions do),
+you need to declare the function as parametric, as in this example:
+=================================================================================
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    println(myFunction('x'))      // Pass myFunction a Char type--it returns the Char you passed it.
+    println(myFunction("string")) // Pass myFunction a String type--it returns the String you passed it.
+    println(myFunction(123.4F))   // Pass myFunction a Float type--it returns the Float you passed it.
+    println(myFunction(987.6D))   // Pass myFunction a Double type--it returns the Double you passed it.
+    
+    println(makeTuple(987.6D, 123.4F))
+    println(makeTuple('x', "string"))
+
+    println(makeThreeElementList('X', 'Y', 'Z'))
+    println(makeThreeElementList("Pop", "Stop", "Top"))
+  }
+
+  // NOTE: The T character below represents the data TYPE that gets passed to myFunction.
+  //       The t character below represents the data VALUE that gets passed to myFunction, and then returned.
+  //       The T and t characters below can be any Char or String you wish to use.
+  def myFunction[T](t:T) = t
+
+  // The makeTuple function below take two parameters (parameter a, of type A, and parameter b of type B)
+  // and returns the tuple (a, b).
+  def makeTuple[A,B](a:A, b:B) = (a, b)
+
+  // The makeThreeElementList function below take three parameters (parameter a1, of type A,
+  // parameter a2 of type A, and parameter a3 of type A) and returns a 3-element List
+  // containing the 3 values passed to this function.
+  def makeThreeElementList[A](a1:A, a2:A, a3:A) = List(a1, a2, a3)
+}
+=================================================================================
