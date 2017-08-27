@@ -99,6 +99,7 @@ The following is a list of methods that can be called on BOTH
 Arrays and Lists.  See pages 143-148 in the Scala book for details.
 
 BASIC METHODS:
+=============
 ___ drop - EXAMPLE:
            val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
            val newList = myList.drop(1)
@@ -128,7 +129,9 @@ ___ takeRight - EXAMPLE:
                 val newList:List[String] = myList.takeRight(2)
                 println("newList = " + newList) // Prints: newList = List(mno, pqr)
 
+
 BOOLEAN TESTS:
+==============
 ___ contains - EXAMPLE:
                val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
                val result:Boolean = myList.contains("pqr")
@@ -152,6 +155,7 @@ ___ startsWith - EXAMPLE:
 
 
 SEARCHING:
+==========
 ___ indexOf - EXAMPLE:
               val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno")
               val result:Int = myList.indexOf("mno")
@@ -215,7 +219,9 @@ ___ sum - EXAMPLE:
           val myList:List[Float] = List(123.4F, 456.7F, 789.1F)
           println("myList.sum = " + myList.sum) // Prints: myList.sum = 1369.2
 
-HIGHER-ORDER METHODS:
+
+HIGHER-ORDER METHODS, ETC.
+==========================
 ___ count - EXAMPLE:
             val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
             println("myList.count = " + myList.count(_ > 100.0F)) // Prints: myList.count = 2
@@ -411,6 +417,19 @@ ___ sliding - Provides an iterator that gives the efect of sliding a window of a
                 // Print the same intList.sliding(3) as the above call to foreach.
                 println("count = " + count + ", " + x)
               }
+___ tails - Gives an iterator that runs through sublists, starting with the full list, and ending
+            with an empty list--removing one element from the left (removing the head) for each step,
+            thus returning the tail.
+            EXAMPLE:
+            val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+            intList.tails.foreach(println)
+            var count = 0
+            for (x <- intList.tails)
+            {
+              count += 1
+              // Print the same intList.tails as the above call to foreach.
+              println("count = " + count + ", " + x)
+            }
 ___ takeWhile - Pass this method a function that operates on a single element of the collection
                 and returns a Boolean.  This method returns a new collection all elements
                 at the beginning for which that function is true.
