@@ -223,7 +223,16 @@ ___ dropWhile - EXAMPLE:
                 val strList:List[String] = List[String]("str1_abc_junk", "str2_abc_stuff", "str3_qrs_things", "str4_xyz_trash")
                 val result:List[String] = strList.dropWhile(_.contains("abc"))
                 result.foreach(println) // prints: str3_qrs_things  str4_xyz_trash
-
+___ combinations - Also see the permutations function.  EXAMPLE:
+                   val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+                   intList.combinations(3).foreach(println)
+                   var count = 0
+                   for (x <- intList.combinations(3))
+                   {
+                     count += 1
+                     // Print the same intList.combinations(3) as the above call to foreach.
+                     println("count = " + count + ", " + x)
+                   }
 ___ exists - EXAMPLE 1:
              val strList:List[String] = List[String]("str1_abc_junk", "str2_jkl_stuff", "str3_qrs_things", "str4_xyz_trash");
              val result:Boolean = strList.exists(_.compareTo("str3_qrs_things") == 0)
@@ -278,6 +287,7 @@ ___ foldRight - EXAMPLE:
                 println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
                 // ********************************************************************
                 val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
+
                 // NOTE: The second parameter list for foldRight has its tuple order as (word, count),
                 //       which is the reverse order used by the foldLeft function below.
                 var wordCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
@@ -288,8 +298,10 @@ ___ foldRight - EXAMPLE:
                 wordCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
                 println("wordCount.foldLeft = " + wordCount)
 
-                println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
+                // The following calls to foldRight and foldLeft perform identically
+                // to the foldRight and foldLeft calls immediately above.
                 println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
+                println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
 ___ forall - EXAMPLE:
              val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
              println("myList.forall = " + myList.forall(_ > 100.0F)) // Prints: myList.forall = false
