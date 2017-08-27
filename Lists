@@ -400,7 +400,17 @@ ___ reduceRight - EXAMPLE of reduceLeft and reduceRight:
 
     result = myList.reduceRight(_ * _) // result = 1 * (2 * (3 * 4)) = 24
     println("result = " + result) // Prints: 24
-
+___ sliding - Provides an iterator that gives the efect of sliding a window of a specified size across the sequence.
+              EXAMPLE:
+              val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+              intList.sliding(3).foreach(println)
+              var count = 0
+              for (x <- intList.sliding(3))
+              {
+                count += 1
+                // Print the same intList.sliding(3) as the above call to foreach.
+                println("count = " + count + ", " + x)
+              }
 ___ takeWhile - Pass this method a function that operates on a single element of the collection
                 and returns a Boolean.  This method returns a new collection all elements
                 at the beginning for which that function is true.
