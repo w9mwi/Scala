@@ -223,7 +223,8 @@ ___ dropWhile - EXAMPLE:
                 val strList:List[String] = List[String]("str1_abc_junk", "str2_abc_stuff", "str3_qrs_things", "str4_xyz_trash")
                 val result:List[String] = strList.dropWhile(_.contains("abc"))
                 result.foreach(println) // prints: str3_qrs_things  str4_xyz_trash
-___ combinations - Also see the permutations function.  EXAMPLE:
+___ combinations - Also see the permutations function.
+                   EXAMPLE:
                    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
                    intList.combinations(3).foreach(println)
                    var count = 0
@@ -316,6 +317,18 @@ ___ foreach - This method gets passed a function that operates on all elements i
               68.4
               112.6
               156.8
+___ grouped - Runs through the sequence, grouping items into groups of the specified size.
+              EXAMPLE:
+              val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+              intList.grouped(2).foreach(println)
+
+              var count = 0
+              for (x <- intList.grouped(2))
+              {
+                count += 1
+                // Print the same intList.grouped(2) as the above call to foreach.
+                println("count = " + count + ", " + x)
+              }
 ___ indexWhere - Pass this method a function that operates on a single element of the collection.
                  Returns the index of the FIRST element for which the function is true.  Returns
                  -1 if the function is NOT true for any of the elements.
@@ -323,6 +336,15 @@ ___ indexWhere - Pass this method a function that operates on a single element o
                  val myList:List[Float] = List(12.1F, 34.2F, 56.3F, 78.4F)
                  val result:Int = myList.indexWhere(_ > 50.0F)
                  println(result) // Prints: 2
+___ inits - Provides an iterator going from the full sequence to an empty one, removing elements from the end.
+            EXAMPLE:
+            val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+            var count = 0
+            for (x <- intList.inits)
+            {
+              count += 1
+              println("count = " + count + ", " + x)
+            }
 ___ lastIndexWhere - Pass this method a function that operates on a single element of the collection
                      and returns a Boolean.  This method returns the index of the LAST element for
                      which the function is true.  Returns -1 if the function is NOT true for any
@@ -347,7 +369,8 @@ ___ partition - Pass this method a function that operates on a single element of
                 val myList:List[Float] = List(43.7F, 567.89F, 144.8F, 77.7F, 17.7F)
                 val result:(List[Float], List[Float]) = myList.partition(_ > 77.0F)
                 println(result) // Prints: (List(567.89, 144.8, 77.7),List(43.7, 17.7))
-___ permutations - EXAMPLE:
+___ permutations - Also see the combinations function.
+                   EXAMPLE:
                    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
                    intList.permutations.foreach(println)
                    var count = 0
