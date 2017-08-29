@@ -54,6 +54,7 @@ code defines two functions (compose and compose2, both of which have
 identical behavior) that are higher-order functions--as they both
 get passed functions as parameters, and they both return a function.
 Both compose and compose2 return the function f(g(x))...
+
 object FunctionFGX
 {
   val plus5   = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
@@ -83,4 +84,28 @@ object FunctionFGX
 }
 // =================================================================
 // =================================================================
+The following code contains a function named "funcOfGunc", which is
+a parametric function (not type dependent) that's equivalent to the
+function named "compose2" in the FunctionFGX program immediately above.
+(Taken from Page 156 of the book.)
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val plus5  = (x:Double) => x+5
+    val square = (x:Double) => x*x
 
+    // First, test the plus5 and square functions defined above...
+    println("plus5(3)  = " + plus5(3))  // Prints: plus5(3)  = 8.0
+    println("square(3) = " + square(3)) // Prints: square(3) = 9.0
+
+    // Next, initialize myFunc so it points funcOfGunc...
+    val myFunc:(Double=>Double) = funcOfGunc(plus5, square)
+
+    // Finally, call myFunc with a numeric value and print the result...
+    val result:Double = myFunc(7.0D)
+    println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = (7.0*7.0)+5.0 )
+  }
+
+  def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=> A) = { x=>func(gunc(x)) }
+}
