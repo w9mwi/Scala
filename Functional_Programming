@@ -104,7 +104,7 @@ object Demo
 
     // Finally, call myFunc with a numeric value and print the result...
     val result:Double = myFunc(7.0D)
-    println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = (7.0*7.0)+5.0 )
+    println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
   }
 
   def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=> A) = { x=>func(gunc(x)) }
