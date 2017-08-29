@@ -157,3 +157,27 @@ object Demo
     println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
   }
 }
+====================================================================
+CURRYING EXAMPLE 4
+====================================================================
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+    val result = myFoldRightFunc(intList, 0)(_ - _)
+    println("myFoldRightFunc result = " + result) // Prints: myFoldRightFunc result = 14
+  }
+
+  def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
+  {
+    if (list.isEmpty)
+    {
+      base
+    }
+    else
+    {
+      func(list.head, myFoldRightFunc(list.tail, base)(func))
+    }
+  }
+}
