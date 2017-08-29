@@ -270,7 +270,7 @@ ___ flatMap - EXAMPLE:
               waterAnimals         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
               flatMap waterAnimals = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 ___ foldLeft - See the foldRight example below.
-___ foldRight - For more info. regarding foldLeft and foldRight, see "CURRYING EXAMPLE 3"
+___ foldRight - For more info. regarding foldLeft and foldRight, see "CURRYING EXAMPLE 3" and "CURRYING EXAMPLE 4"
                 at the botom of this page:  https://github.com/w9mwi/Scala/blob/master/Currying
                 EXAMPLE:
                 val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
