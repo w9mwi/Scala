@@ -70,7 +70,43 @@ object Demo
   }
 }
 // ================================================================
+Every object in Scala is an instance of the "Any" object, because the
+"Any" object is the parent of ALL other objects.  The Any object is
+the direct parent of these two objects: AnyVal and AnyRef
+
+The "Nothing" object (which has no value) is a subtype of ALL Scala
+objects, and it exists to handle situations when functions don't
+return a value.
 // ================================================================
+HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS.
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    var averageScore = calculateAverage() // Pass no parameters!
+    printScore(averageScore, "averageScore = ")
+
+    averageScore = calculateAverage(1.23, 4.56, 7.89)
+    printScore(averageScore, "averageScore = ")
+  }
+
+  /**
+    * @param numbers - A Sequence of Double values representing a variable number of arguments.
+    *                  A variable number of arguments is represented by the asterisk (*)
+    *                  character in the parameter list.
+    * @return a Double value representing the average of all values passed to this function.
+    */
+  def calculateAverage(numbers:Double *): Double = { numbers.sum / numbers.length }
+
+  /**
+    * @param score
+    * @param msg
+    */
+  def printScore(score:Double, msg:String):Unit =
+  {
+    if (score.isNaN) println("The score is not a number.") else println(msg + score)
+  }
+}
 // ================================================================
 // ================================================================
 // ================================================================
