@@ -78,7 +78,9 @@ The "Nothing" object (which has no value) is a subtype of ALL Scala
 objects, and it exists to handle situations when functions don't
 return a value.
 // ================================================================
-HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS.
+// HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - PART 1
+// See the PART 2 example below to see a better way of doing the
+// same thing.
 object Demo
 {
   def main(args:Array[String]): Unit =
@@ -108,5 +110,38 @@ object Demo
   }
 }
 // ================================================================
+// HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - PART 2
+// This is a better alternative to doing the same thing done in
+// the PART 1 example above.
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    var scores:List[Double] = List()
+    var averageScore = calculateAverage(scores:_*)
+    printScore(averageScore, "averageScore = ")
+
+    scores = List(1.23, 4.56, 7.89)
+    averageScore = calculateAverage(scores:_*)
+    printScore(averageScore, "averageScore = ")
+  }
+
+  /**
+    * @param numbers - A Sequence of Double values representing a variable number of arguments.
+    *                  A variable number of arguments is represented by the asterisk (*)
+    *                  character in the parameter list.
+    * @return a Double value representing the average of all values passed to this function.
+    */
+  def calculateAverage(numbers:Double *): Double = { numbers.sum / numbers.length }
+
+  /**
+    * @param score
+    * @param msg
+    */
+  def printScore(score:Double, msg:String):Unit =
+  {
+    if (score.isNaN) println("The score is not a number.") else println(msg + score)
+  }
+}
 // ================================================================
 // ================================================================
