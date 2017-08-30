@@ -107,5 +107,5 @@ object Demo
     println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
   }
 
-  def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=> A) = { x=>func(gunc(x)) }
+  def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
 }
