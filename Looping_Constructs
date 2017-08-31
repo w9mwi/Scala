@@ -5,8 +5,7 @@ https://alvinalexander.com/scala/scala-for-loops-foreach-how-to-translated-by-co
 do
 {
    Some code here.
-} 
-while(condition);
+} while(condition);
 
 // -------------------------------------------------------
 To iterate through a data type that inherits from sequence
