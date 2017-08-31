@@ -4,7 +4,7 @@ https://alvinalexander.com/scala/scala-for-loops-foreach-how-to-translated-by-co
 =====================================================
 do
 {
-   statement(s);
+   Some code here.
 } 
 while(condition);
 
@@ -97,8 +97,11 @@ object Demo
 {
   def main(args: Array[String])
   {
-    val names = Map("fname" -> "Robert", "lname" -> "Goren")
-    for ((k,v) <- names) println(s"key = $k, value = $v")
+    val names:Map[String, String] = Map("fname" -> "Robert", "lname" -> "Goren")
+    for ((k,v) <- names)
+    {
+      println(s"key = $k, value = $v")
+    }
   }
 }
 // ========================================================
