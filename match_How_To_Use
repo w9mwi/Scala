@@ -170,7 +170,7 @@ object Demo
 object Demo
 {
   // By default, a case class's parameters are val types (when you don't specify
-  // a val/var type), so they can NOT be changed.  In the following CaseClassDemo
+  // a val/var type), so they can NOT be changed.  The following CaseClassDemo
   // class has its params declared as var types, so they CAN be changed--even
   // if the instance of CaseClassDemo is declared a val.
   case class CaseClassDemo(var str:String, var integer:Int, var float:Float)
