@@ -1,0 +1,5 @@
+Page 230
+Scala provides 3 constructs for creating user-defined types:
+1) classes
+2) traits
+3) objects - Singleton objects, meaning "static" (only one instance) objects.
