@@ -1,4 +1,10 @@
-Page ___
+Page 156-157
+Every object in Scala is an instance the Any object, which is the top object
+in the object tree.  So every other object in Scala is a child of the Any object.
+At the bottom of the object tree is the Nothing object, which is a subtype
+(a child) of ALL Scala objects.  The Nothing object exists to handle situations
+where functions never return.
+(
 
 Page 230
 Scala provides 3 constructs for creating user-defined types:
