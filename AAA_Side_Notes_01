@@ -4,10 +4,47 @@ in the object tree.  So every other object in Scala is a child of the Any object
 At the bottom of the object tree is the Nothing object, which is a subtype
 (a child) of ALL Scala objects.  The Nothing object exists to handle situations
 where functions never return.
-(
 
 Page 230
 Scala provides 3 constructs for creating user-defined types:
 1) classes
 2) traits
 3) objects - Singleton objects, meaning "static" (only one instance) objects.
+
+==================================================================
+Page 167 - How to FILL AND TABULATE Arrays and Lists.
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var intArray:Array[Int] = Array[Int]()
+    intArray.foreach(println) // Prints nothing, because the Array was not initialized.
+
+    // Initialize a new Array with 10 elements, that each have the Int value 4.
+    intArray = Array.fill(10)(4)
+    intArray.foreach(println)  // Prints all 10 elements of the intArray.
+
+    var stringList:List[String] = List[String]()
+    stringList.foreach(println) // Prints nothing, because the List was not initialized.
+
+    // Initialize a new List with 6 elements that each have the "XYZ" value.
+    stringList = List.fill(6)("XYZ")
+    stringList.foreach(println)  // Prints all 6 elements of the stringList.
+
+    var intList:List[Int] = List[Int]()
+    intList.foreach(println)  // Prints nothing, because the List was not initialized.
+
+    var idx = 1
+    intList = List.fill(5) { idx*=2; idx } // NOTE: The second argument is in curly braces.
+    intList.foreach(println)  // Prints these 5 elements of intList:  2, 4, 8, 16, 32
+    intList = 1::intList
+    intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
+
+    // Create a new 6-element Array, where each element in the Array is initialized with
+    // the value: (3*x*x + 5x - 7)   Where the value x is the index of the Array.
+    // NOTE: All Arrays and Lists begin with an index value of one (1).
+    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7)
+    intArray.foreach(println)
+  }
+}
+==================================================================
