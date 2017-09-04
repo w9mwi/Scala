@@ -12,7 +12,7 @@ Scala provides 3 constructs for creating user-defined types:
 3) objects - Singleton objects, meaning "static" (only one instance) objects.
 
 ==================================================================
-Page 167 - How to FILL AND TABULATE Arrays and Lists.
+Pages 167-168 - How to FILL AND TABULATE Arrays and Lists.
 object Demo
 {
   def main(args: Array[String])
