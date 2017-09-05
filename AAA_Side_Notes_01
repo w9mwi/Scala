@@ -13,6 +13,7 @@ Scala provides 3 constructs for creating user-defined types:
 
 ==================================================================
 Pages 167-168 - How to FILL AND TABULATE Arrays and Lists.
+
 object Demo
 {
   def main(args: Array[String])
@@ -35,15 +36,16 @@ object Demo
     intList.foreach(println)  // Prints nothing, because the List was not initialized.
 
     var idx = 1
-    intList = List.fill(5) { idx*=2; idx } // NOTE: The second argument is in curly braces.
+    intList = List.fill(5){idx*=2; idx} // NOTE: The second argument is in curly braces.
     intList.foreach(println)  // Prints these 5 elements of intList:  2, 4, 8, 16, 32
     intList = 1::intList
     intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
 
     // Create a new 6-element Array, where each element in the Array is initialized with
     // the value: (3*x*x + 5x - 7)   Where the value x is the index of the Array.
-    // NOTE: All Arrays and Lists begin with an index value of one (1).
-    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7)
+    // NOTE: All Arrays and Lists begin with an index value of zero (0).
+    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // Uses (), equivalent to the line below.
+    intArray = Array.tabulate(6){x => 3*x*x + 5*x - 7} // Uses {}, equivalent to the line above.
     intArray.foreach(println)
   }
 }
