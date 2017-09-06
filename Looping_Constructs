@@ -52,6 +52,26 @@ object Demo
   def magnitude(x:Double, y:Double):Double = math.sqrt(x*x+y*y)
 }
 
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // Create a 2-dimensional Array, where the top-level Array contains 100 elements.
+    // Each of those 100 Array elements is then populated with a "child" Array having
+    // a random number of elements from 3 to 9 (indicies of 0 to 8).  Each element
+    // of the "child" Array stores a random number.
+    val twoD:Array[Array[Double]] = Array.fill(100) { Array.fill(util.Random.nextInt(7)+3)(math.random) }
+    var count:Int = 0;
+
+    // Loop through every element in the twoD Array, and print its contents...
+    for (idx <- 0 until twoD.length)
+      for (jdx <- 0 until twoD(idx).length)
+      {
+        count += 1
+        println(count + ") twoD(" + idx + ")(" + jdx + ") = " + twoD(idx)(jdx))
+      }
+  }
+}
 
 val evenNumbers:Range = new Range(0, 10, 2)
 val oddNumbers:Range  = new Range(1, 9, 2)
