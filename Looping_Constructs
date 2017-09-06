@@ -50,6 +50,9 @@ for (number <- oddNumbers)
   println( "number = " + number);
 }
 
+var intSeq:IndexedSeq[Int] = for (jdx <- 0 to 9) yield jdx*jdx
+intSeq.foreach(println) // Prints:  0, 1, 2, 4, 9, 16, 25, 36, 49, 64, 81
+
 val tomsList:List[Int] = List(95, 96, 97, 98, 99, 100)
 for (number <- tomsList.reverse)
 {
