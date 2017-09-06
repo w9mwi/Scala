@@ -22,7 +22,9 @@ object Demo
 
   // NOTE: The T character below represents the data TYPE that gets passed to myFunction.
   //       The t character below represents the data VALUE that gets passed to myFunction, and then returned.
-  //       The T and t characters below can be any Char or String you wish to use.
+  //       The T and t chars shown below could be designated by any valid name, but it's
+  //       convention to use a single upper-case char to designate a data type, and a single
+  //       lower-case char to designate a data value.
   def myFunction[T](t:T) = t
 
   // The makeTuple function below take two parameters (parameter a, of type A, and parameter b of type B)
