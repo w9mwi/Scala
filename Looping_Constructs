@@ -44,6 +44,9 @@ object Demo
 
     result = for ((x, y) <- points; if magnitude(x, y) > 1.0) yield magnitude(x, y)
     result.foreach(println) // Prints: 2.5942243542145693, 6.55133574166368
+
+    // Using Multiple Generators (A loop embedded within a loop.)
+    for (idx <- 1 to 5; char <-'a' to 'c') println("idx = " + idx +",  char = " + char)
   }
 
   def magnitude(x:Double, y:Double):Double = math.sqrt(x*x+y*y)
