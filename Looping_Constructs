@@ -32,6 +32,23 @@ println(sum) // Prints the sum of 7 + 8 + 9 = 24
 
 // -------------------------------------------------------
 // for() loop examples...
+object Demo
+{
+  def main(args: Array[String])
+  {
+    type Point = (Double, Double)
+
+    var points:Array[Point] = Array((-0.3, 0.6), (1.2, 2.3), (3.4, 5.6))
+    var result = for ((x, y) <- points; if magnitude(x, y) < 1.0) yield magnitude(x, y)
+    result.foreach(println) // Prints: 0.6708203932499369
+
+    result = for ((x, y) <- points; if magnitude(x, y) > 1.0) yield magnitude(x, y)
+    result.foreach(println) // Prints: 2.5942243542145693, 6.55133574166368
+  }
+
+  def magnitude(x:Double, y:Double):Double = math.sqrt(x*x+y*y)
+}
+
 
 val evenNumbers:Range = new Range(0, 10, 2)
 val oddNumbers:Range  = new Range(1, 9, 2)
