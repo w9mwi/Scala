@@ -166,7 +166,11 @@ object Demo
   {
     val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
     val result = myFoldRightFunc(intList, 0)(_ - _)
-    println("myFoldRightFunc result = " + result) // Prints: myFoldRightFunc result = 14
+    // The following println prints: result = 14
+    // Because this is what gets evaluated: 0−(1−(9−(3−(6−(4−7)))))
+    // Where the zero (0) comes not from intList, but from
+    // the zero passed to myFoldRightFunc function call.
+    println("result = " + result)
   }
 
   def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
