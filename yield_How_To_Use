@@ -96,5 +96,7 @@ object Demo
     }
     println("7 X 9 = " + multiplicationTable(7)(9)) // Prints: 7 X 9 = 63
     println("9 X 8 = " + multiplicationTable(9)(8)) // Prints: 9 X 8 = 72
+
+    multiplicationTable.foreach(println)
   }
 }
