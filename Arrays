@@ -72,12 +72,11 @@ object Demo
     // ******************************************************************************
     // CREATE, INITIALIZE, AND DISPLAY A 3X5 MULTI-DIMENSIONAL ARRAY...
     val myMatrix:Array[Array[Int]] = Array.ofDim[Int](3,5)
-    val myMatrixRange:Range        = myMatrix.indices
 
     // Initialize every element in the the 2-dimensional Array...
-    for (idx <- myMatrixRange)
+    for (idx <- myMatrix.indices)
     {
-      for (jdx <- 0 to 4)
+      for (jdx <- myMatrix(idx).indices)
       {
         myMatrix(idx)(jdx) = jdx
       }
@@ -85,11 +84,11 @@ object Demo
 
     // Print the content of every element in the 2-dimensional
     // Array, in a visual-friendly format...
-    for (idx <- myMatrixRange)
+    for (idx <- myMatrix.indices)
     {
-      for (jdx <- 0 to 4)
+      for (jdx <- myMatrix(idx).indices)
       {
-        print(" " + myMatrix(idx)(jdx));
+        print(" " + myMatrix(idx)(jdx))
       }
       println()
     }
