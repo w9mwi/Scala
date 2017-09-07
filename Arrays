@@ -48,7 +48,6 @@ object Demo
   {
     // CREATE, INITIALIZE, AND DISPLAY A 2X2 MULTI-DIMENSIONAL ARRAY...
     val matrix:Array[Array[Int]] = Array.ofDim[Int](2,2)
-    val matrixRange:Range        = matrix.indices
 
     // Initialize every element in the the 2-dimensional Array...
     matrix(0)(0) = 3
@@ -58,7 +57,7 @@ object Demo
 
     // Print the content of every element in the 2-dimensional
     // Array, in a visual-friendly format...
-    for (idx <- matrixRange)
+    for (idx <- matrix.indices)
     {
       for (jdx <- 0 to 1)
       {
