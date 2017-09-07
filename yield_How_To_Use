@@ -91,7 +91,7 @@ object Demo
   def main(args: Array[String]): Unit =
   {
     // NOTE: Each "for loop"/"yield" pair below returns an IndexedSeq data type.
-    //       Therefore, both "for loop"/"yield" pairs coupled togeter return a
+    //       Therefore, both "for loop"/"yield" pairs coupled together return a
     //       data type of:  IndexedSeq[IndexedSeq[Int]]
     val multiplicationTable:IndexedSeq[IndexedSeq[Int]] =
         for (idx <- 0 until 10) yield
