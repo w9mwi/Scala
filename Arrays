@@ -163,7 +163,7 @@ object Demo
     println()
     println("Loop through every element in the twoD Array that contains a 4-element Array.")
     println("Then, calculate and print the average of those 4 numbers for each element.")
-    result = for (Array(d1, d2, d3, d4) <- twoD) yield (d1 + d2 + d3 + d4) / 3
+    result = for (Array(d1, d2, d3, d4) <- twoD) yield (d1 + d2 + d3 + d4) / 4
     result.foreach(println)
   }
 }
