@@ -30,7 +30,7 @@ val x = List(7,8,9)
 x.foreach(sum += _)
 println(sum) // Prints the sum of 7 + 8 + 9 = 24
 
-// -------------------------------------------------------
+=============================================================================
 // for() loop examples...
 object Demo
 {
@@ -45,13 +45,23 @@ object Demo
     result = for ((x, y) <- points; if magnitude(x, y) > 1.0) yield magnitude(x, y)
     result.foreach(println) // Prints: 2.5942243542145693, 6.55133574166368
 
-    // Using Multiple Generators (A loop embedded within a loop.)
+    // NOTE: The ONLY DIFFERENCE between the following 2 lines of code and the
+    //       above 2 lines of code is that below we create a "distance" value
+    //       that stores the value returned by the magnitude function--so we
+    //       only need to call the magnitude function ONE TIME below.
+    result = for ((x, y) <- points; distance = magnitude(x, y); if distance > 1.0) yield distance
+    result.foreach(println) // Prints: 2.5942243542145693, 6.55133574166368
+
+    println()
+    // Use Multiple Generators here.  (A loop embedded within a loop.)
     for (idx <- 1 to 5; char <-'a' to 'c') println("idx = " + idx +",  char = " + char)
   }
 
+  // This magnitude function calculates the distance between the origin point
+  // (x = 0.0, y = 0.0) and the (x, y) coordinate passed to this function.
   def magnitude(x:Double, y:Double):Double = math.sqrt(x*x+y*y)
 }
-
+=============================================================================
 object Demo
 {
   def main(args: Array[String])
