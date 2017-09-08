@@ -103,7 +103,12 @@ object Demo
     val myFunc:(Double=>Double) = funcOfGunc(plus5, square)
 
     // Finally, call myFunc with a numeric value and print the result...
-    val result:Double = myFunc(7.0D)
+    var result:Double = myFunc(7.0D)
+    println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
+
+    // Instead of creating an interim myFunc val above, we can call funcOfGunc
+    // here in one step by calling it as a curried function...
+    result = funcOfGunc(plus5, square)(7.0D)
     println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
   }
 
