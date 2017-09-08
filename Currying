@@ -119,6 +119,25 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
+    val plus5  = (x:Double) => x+5.0D
+    val square = (x:Double) => x*x
+
+    var result:Double = funcOfGunc(plus5, square)(7.0D)
+    println("result = " + result) // Prints: result = 54.0  NOTE: 54.0 = 5.0+(7.0*7.0)
+
+    result = funcOfGunc(square, plus5)(7.0D)
+    println("result = " + result) // Prints: result = 144.0  NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
+  }
+
+  def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
+}
+====================================================================
+CURRYING EXAMPLE 4
+====================================================================
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
     val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
     // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
@@ -158,7 +177,7 @@ object Demo
   }
 }
 ====================================================================
-CURRYING EXAMPLE 4
+CURRYING EXAMPLE 5
 ====================================================================
 object Demo
 {
