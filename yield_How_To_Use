@@ -106,3 +106,43 @@ object Demo
     multiplicationTable.foreach(println)
   }
 }
+// *******************************************************************
+// FROM PAGE 195
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    val values:Array[Double]  = Array(34.8, 49.1, 99.7)
+    val weights:Array[Double] = Array(16.4, 7.8,  63.0)
+
+    val result:Double = weightedAverage(values, weights)
+    println("The result returned by weightedAverage() = " + result)
+  }
+
+  def weightedAverage(values:Array[Double], weights:Array[Double]): Double =
+  {
+    // If any of the following 3 calls to the require() method fail
+    // to meet the specified conditions, an IllegalArgumentException
+    // is thrown in the console window, along with the corresponding
+    // error message.
+    require(values.length == weights.length, // If values.length does NOT equal weights.length, this message prints...
+            "FAIL: The 'values' Array length doesn't equal the 'weights' Array length.")
+
+    require(weights.length > 0, // If weights.length is NOT > 0, this message prints...
+            "FAIL: The 'weights' Array length must be greater than zero.")
+
+    require(weights.sum != 0, // If weights.sum equals 0, this message prints...
+            "FAIL: The sum of all 'weights' cannot equal zero.")
+
+
+    val initialResult = (for ((v, w) <- values.zip(weights)) yield v*w).sum/weights.sum
+    // The line of code directly above is broken up into the following 3 lines of
+    // code below, in order to make the above line of code easier to understand.
+    val zippedValuesAndWeights:Array[(Double, Double)] = values.zip(weights)
+    val forLoopResult:Array[Double]                    = for ((v,w) <- zippedValuesAndWeights) yield v*w
+    val finalResult:Double                             = forLoopResult.sum / weights.sum
+
+    println("initialResult = " + initialResult + ",  finalResult = " + finalResult)
+    finalResult // finalResult is returned here.
+  }
+}
