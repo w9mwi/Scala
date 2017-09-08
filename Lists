@@ -269,6 +269,8 @@ ___ flatMap - EXAMPLE:
               waterBirds           = List(eagle, duck, goose)
               waterAnimals         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
               flatMap waterAnimals = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+___ flatten - Read the following web page for explanations and examples of how to use the flatten method:
+              https://alvinalexander.com/scala/how-to-flatten-list-lists-in-scala-with-flatten-method
 ___ foldLeft - See the foldRight example below.
 ___ foldRight - For more info. regarding foldLeft and foldRight, see "CURRYING EXAMPLE 3" and "CURRYING EXAMPLE 4"
                 at the botom of this page:  https://github.com/w9mwi/Scala/blob/master/Currying
