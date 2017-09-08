@@ -1,4 +1,4 @@
-FROM PAGE 195
+// FROM PAGE 195
 object Demo
 {
   def main(args: Array[String]): Unit =
