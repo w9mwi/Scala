@@ -1,0 +1,41 @@
+// The following example shows how to read a text file,
+// and print its contents to the screen.
+
+import java.io.FileNotFoundException
+import scala.io.{BufferedSource, Source}
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    try
+    {
+      val filePathAndName:String = "/home/tbouril/ch8.txt"
+      var fileSource:BufferedSource = Source.fromFile(filePathAndName)
+
+      // The fileSource DOES print here...
+      println("1) fileSource.mkString = " + fileSource.mkString)
+
+      // The fileSource does NOT print here, because the file iterator has been "spent."
+      println("2) fileSource.mkString = " + fileSource.mkString)
+      fileSource.close // When done using the file, always close it!
+
+      // By default (as shown ABOVE), a Source and BufferedSource file iterator is of
+      // type Iterator[Char], which means they read one Char at a time from the file.
+      // Reading Chars one at a time is inefficient--so we can use other Iterator
+      // types to read files.  For example, the code BELOW calls the getLines()
+      // method, which uses a file iterator of type Iterator[String], which reads
+      // one line of text (as a full String) at a time.
+      fileSource = Source.fromFile(filePathAndName)
+      val fileContents:Iterator[String] = fileSource.getLines
+      println("\n3) fileContents = " + fileContents.mkString)
+      fileSource.close // When done using the file, always close it!
+    }
+    catch
+    {
+      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
+    }
+  }
+}
+=========================================================
+=========================================================
