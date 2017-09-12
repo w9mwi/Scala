@@ -1,7 +1,7 @@
 Alt+= : When hovering over a var/val, you can determine its data type by pressing the "Alt" and "=" keys.
 
-"Copy Path" : Right-click on one of the folders/files in your Project, select "Copy Path",
+"Copy Path" : Right-click on one of the folders/files in the Project tree, select "Copy Path",
               and the full directory path + file name is copied into the clipboard.
 
-"Show in Files" : Right-click on one of the folders/files in your Project, select "Show in Files",
+"Show in Files" : Right-click on one of the folders/files in the Project tree, select "Show in Files",
                   and a "file explorer" window opens containing all files/folders at that level.
