@@ -43,19 +43,23 @@ object Demo
 {
   def main(args: Array[String]): Unit =
   {
-    val str:String = "Each word in this String is separated by a blank-space character, which is considered " +
-                     "the delimiter char. This String of words is converted below to an Array[String] data type. " +
-                     "Where each element in this Array will contain a single word in this String. " +
-                     "No blank-space chars (the delimiter char.) will appear in the elements of this Array[String] " +
-                     "because the split() method called below designates that as the delimiter char. When this " +
-                     "String prints, it will also print the Array index, which begins at zero."
-    val arrayString:Array[String] = str.split(" ")
-    var count:Int = 0
-    for (tempString <- arrayString)
-    {
-      println(count + ") " + tempString)
-      count += 1
-    }
+      val str:String = "Each word in this String is separated by a blank-space character, which is considered " +
+                       "the delimiter char. This String of words is converted below to an Array[String] data type. " +
+                       "Where each element in this Array will contain a single word in this String. " +
+                       "No blank-space chars (the delimiter char.) will appear in the elements of this Array[String] " +
+                       "because the split() method called below designates that as the delimiter char. When this " +
+                       "String prints, it will also print the Array index, which begins at zero."
+      var arrayString:Array[String] = str.split(" ")
+      var count:Int = 0
+      for (tempString <- arrayString)
+      {
+        println(count + ") " + tempString)
+        count += 1
+      }
+      // The next line of code shows how to use 's' char as the delimiter, so the printed String
+      // will NOT contain the 's' char.
+      arrayString = str.split("s+") // The '+' char means the char before it can occur 1 or more times.  ('*' designates zero or more times.)
+      println(arrayString.mkString)
   }
 }
 =========================================================
