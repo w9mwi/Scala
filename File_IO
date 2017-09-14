@@ -150,11 +150,12 @@ object Demo
       // and print it to the console.  Where "word" is any text String
       // separated by the delimiter, and the delimiter is whitespace by default.
       val filePathAndName:String = "/home/tbouril/ch8.txt"
-      val scan = new Scanner(new File(filePathAndName))
+      val scan:Scanner = new Scanner(new File(filePathAndName))
       while (scan.hasNext)
       {
         println(scan.next())
       }
+      scan.close() // Don't forget to close the Scanner!
     }
     catch
     {
