@@ -165,7 +165,41 @@ object Demo
 }
 =========================================================
 =========================================================
+import java.io.{FileNotFoundException, FileWriter, PrintWriter}
 
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    try
+    {
+      val filePathAndName:String = "/home/tbouril/output.txt"
+
+      // Create a new file, then write 100 random numbers to it,
+      // where each number is followed by a single-space char.
+      var pw = new PrintWriter(filePathAndName)
+      for (idx <- 1 to 100)
+      {
+        pw.print(math.random + " ")
+      }
+      pw.close() // Don't forget to close the file!
+
+      // Next, append 10 integers to the existing output.txt file created above.
+      // The true Boolean parameter below prevents the file from being overwritten
+      // if it already exists, so all new data will be appended to existing data.
+      pw = new PrintWriter(new FileWriter(filePathAndName, true))
+      for (idx <- 1 to 10)
+      {
+        pw.print(idx + " ")
+      }
+      pw.close() // Don't forget to close the file!
+    }
+    catch
+    {
+      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
+    }
+  }
+}
 =========================================================
 =========================================================
 
