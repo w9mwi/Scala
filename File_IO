@@ -130,3 +130,46 @@ object Demo
 }
 =========================================================
 =========================================================
+import java.io.{File, FileNotFoundException}
+import java.util.Scanner
+
+import scala.io.{BufferedSource, Source}
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    try
+    {
+      // Instead of reading text from a file, the following line of code
+      // reads text from a URL.  This text is then converted to a String.
+      val text:BufferedSource = Source.fromURL("https://www.yahoo.com/")
+      val pop = text.mkString
+
+      // Below we use the Java Scanner class to read one "word" at a time,
+      // and print it to the console.  Where "word" is any text String
+      // separated by the delimiter, and the delimiter is whitespace by default.
+      val filePathAndName:String = "/home/tbouril/ch8.txt"
+      val scan = new Scanner(new File(filePathAndName))
+      while (scan.hasNext)
+      {
+        println(scan.next())
+      }
+    }
+    catch
+    {
+      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
+    }
+  }
+}
+=========================================================
+=========================================================
+
+=========================================================
+=========================================================
+
+=========================================================
+=========================================================
+
+=========================================================
+=========================================================
