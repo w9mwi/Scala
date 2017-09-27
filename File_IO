@@ -167,6 +167,8 @@ object Demo
 =========================================================
 import java.io.{FileNotFoundException, FileWriter, PrintWriter}
 
+import scala.io.{BufferedSource, Source}
+
 object Demo
 {
   def main(args: Array[String]): Unit =
@@ -182,17 +184,28 @@ object Demo
       {
         pw.print(math.random + " ")
       }
-      pw.close() // Don't forget to close the file!
+      pw.flush();  pw.close(); // Don't forget to flush, then close the file!
 
       // Next, append 10 integers to the existing output.txt file created above.
-      // The true Boolean parameter below prevents the file from being overwritten
+      // The "true" Boolean parameter below prevents the file from being overwritten
       // if it already exists, so all new data will be appended to existing data.
       pw = new PrintWriter(new FileWriter(filePathAndName, true))
       for (idx <- 1 to 10)
       {
         pw.print(idx + " ")
       }
-      pw.close() // Don't forget to close the file!
+      pw.flush();  pw.close(); // Don't forget to flush, then close the file!
+
+      // Create a function literal that replaces ' ' Chars with '\n' Chars,
+      // which is used below.
+      def replaceChar:(Char => Char) = { (a:Char) => if (a == ' ') '\n' else a }
+
+      // Next, open the output.txt file that was created above,
+      // then print its contents to the console window.
+      val fileSource:BufferedSource = Source.fromFile(filePathAndName)
+      val stringOfNumbers:String = fileSource.mkString.map(replaceChar)
+      println("stringOfNumbers = " + stringOfNumbers)
+      fileSource.close() // Don't forget to close the file!
     }
     catch
     {
@@ -200,9 +213,6 @@ object Demo
     }
   }
 }
-=========================================================
-=========================================================
-
 =========================================================
 =========================================================
 
