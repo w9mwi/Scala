@@ -164,6 +164,24 @@ object Demo
   }
 }
 =========================================================
+import java.io.File
+import java.util.Scanner
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // ints.txt is a text file of integers separated by space
+    // and newline chars.
+    val scan:Scanner = new Scanner(new File("/home/tbouril/ints.txt"))
+
+    // Read each Int from the ints.txt file and print them to the console window.
+    while (scan.hasNextInt)
+    {
+      println("Integer = " + scan.nextInt)
+    }
+  }
+}
 =========================================================
 import java.io.{FileNotFoundException, FileWriter, PrintWriter}
 
