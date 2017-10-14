@@ -232,7 +232,48 @@ object Demo
   }
 }
 =========================================================
-=========================================================
+import java.io.{FileNotFoundException, PrintWriter}
 
+import scala.io.{BufferedSource, Source}
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    try
+    {
+      val inFile:String  = "/home/tbouril/input.txt"
+      val outFile:String = "/home/tbouril/output.txt"
+
+      // The literal function c=>c.toUpper is what's
+      // used to convert chars to uppercase.
+      mapFile(inFile, outFile, c=>c.toUpper)
+    }
+    catch
+    {
+      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
+    }
+  }
+
+  /**
+    * This function reads from the inFile, and writes that text to the
+    * the outFile as all upper-case chars.
+    *
+    * @param inFile - An input file that contains text.
+    * @param outFile - An output file that contains text copied from the inFile.
+    * @param trans - A literal function that converts a char to uppercase.
+    */
+  def mapFile(inFile:String, outFile:String, trans:Char=>Char): Unit =
+  {
+    val pw:PrintWriter    = new PrintWriter(outFile)
+    val in:BufferedSource = Source.fromFile(inFile)
+
+    for (c <- in)
+    {
+      pw.print(if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') trans(c) else c)
+    }
+    in.close();  pw.close();
+  }
+}
 =========================================================
 =========================================================
