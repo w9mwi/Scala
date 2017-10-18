@@ -1,0 +1,50 @@
+import java.io.FileNotFoundException
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    try
+    {
+      val myNumber:Long = 23L
+      val answer_SLOW:Boolean = isPrime_SLOW(myNumber)
+      val answer_FAST:Boolean = isPrime_FAST(myNumber)
+
+      println("isPrime_SLOW(" + myNumber + ") = " + answer_SLOW)
+      println("isPrime_FAST(" + myNumber + ") = " + answer_FAST)
+    }
+    catch
+    {
+      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
+    }
+  }
+
+  /**
+    * This method for determining whether a number is/isn't prime is inefficient (slow).
+    *
+    * @param number
+    * @return true if the number passed to this method is prime;
+    *         false otherwise
+    */
+  def isPrime_SLOW(number:Long): Boolean =
+  {
+    (2L until number).forall(number % _ != 0)
+  }
+
+  /**
+    * This method for determining whether a number is/isn't prime is efficient (fast).
+    *
+    * @param number
+    * @return true if the number passed to this method is prime;
+    *         false otherwise
+    */
+  def isPrime_FAST(number:Long):Boolean =
+  {
+    var idx = 2
+    while (idx * idx < number + 1  &&  number % idx != 0)
+    {
+      idx += 1
+    }
+    number % idx != 0
+  }
+}
