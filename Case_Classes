@@ -17,6 +17,8 @@ object Demo
 
   def main(args: Array[String])
   {
+    // NOTE: When declaring a case class, using the "new" keyword is optional,
+    //       so generally "new" is NOT used, as in the following line of code...
     val myClass1 = CaseClassDemo("Tom", 321, 56.789F)
     println("myClass1.str = "        + myClass1.str +
             ",  myClass1.integer = " + myClass1.integer +
