@@ -114,3 +114,29 @@ object Demo
 }
 =====================================================================
 =====================================================================
+object Demo
+{
+  case class Point3D(x:Double, y:Double, z:Double)
+  case class Student(name:String, assignments:List[Double], tests:List[Double], quizzes:List[Double])
+
+  def main(args: Array[String]) =
+  {
+    // NOTE: The "new" keyword is optional when declaring a case class, so it's NOT used here...
+    var point:Point3D   = Point3D(1.1, 2.2, 3.3)
+    var student:Student = Student("Tom", Nil, List(81.5, 77.7, 92.3, 90.5), List(89.9, 78.5, 65.5, 99.9))
+
+    // The following code shows how to create a copy of an existing case class instance,
+    // where the copied case class has its values modified by using NAMED ARGUMENTS
+    // as parameters to the copy() method.  NOTE: The "copy" terminology is a bit
+    // misleading in this example because the values of the copied case class are
+    // different than the copied-from case class!
+    println("point = " + point)  // Prints: point = Point3D(1.1,2.2,3.3)
+    point = point.copy(x=4.4, y=5.5, z=6.6)
+    println("point = " + point)  // Prints: point = Point3D(4.4,5.5,6.6)
+
+    // Here's yet another example of using the case class's copy() method...
+    println(student) // Prints: Student(Tom,List(),List(81.5, 77.7, 92.3, 90.5),List(89.9, 78.5, 65.5, 99.9))
+    student = student.copy(tests=44.4::student.tests)
+    println(student) // Prints: Student(Tom,List(),List(44.4, 81.5, 77.7, 92.3, 90.5),List(89.9, 78.5, 65.5, 99.9))
+  }
+}
