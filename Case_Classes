@@ -134,7 +134,8 @@ object Demo
     point = point.copy(x=4.4, y=5.5, z=6.6)
     println("point = " + point)  // Prints: point = Point3D(4.4,5.5,6.6)
 
-    // Here's yet another example of using the case class's copy() method...
+    // Notice that in this example, we pass only the "tests" param. to the copy() method,
+    // which means ONLY the "tests" param of the copied Student class is changed.
     println(student) // Prints: Student(Tom,List(),List(81.5, 77.7, 92.3, 90.5),List(89.9, 78.5, 65.5, 99.9))
     student = student.copy(tests=44.4::student.tests)
     println(student) // Prints: Student(Tom,List(),List(44.4, 81.5, 77.7, 92.3, 90.5),List(89.9, 78.5, 65.5, 99.9))
