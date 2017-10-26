@@ -1,0 +1,61 @@
+object Demo
+{
+  def main(args: Array[String]) =
+  {
+    val quantity:Int = 11
+    var numbers:Array[Double] = Array.fill(quantity)(math.random) // Creates an Array of random numbers.
+
+    println("Contents of the numbers Array BEFORE sort:")
+    for (x <- numbers)
+    {
+      print(x + ", ")
+    }
+    numbers = bubbleSort(numbers)
+
+    // If the following isSorted() function returns false,
+    // the assert() method will throw an error in the console.
+    assert(isSorted(numbers))
+
+    println("\nContents of the numbers Array AFTER sort:")
+    for (x <- numbers)
+    {
+      print(x + ", ")
+    }
+  }
+
+  /**
+    * See Page 317 of book.
+    * @param array
+    * @return the Array passed to this function in its sorted form
+    */
+  def bubbleSort(array:Array[Double]): Array[Double] =
+  {
+    for (idx <- 0 until array.length-1)
+    {
+      for (jdx <- 0 until array.length-1-idx)
+      {
+        if (array(jdx) > array(jdx + 1))
+        {
+          val temp       = array(jdx)
+          array(jdx)     = array(jdx + 1)
+          array(jdx + 1) = temp
+        }
+      }
+    }
+    array
+  }
+
+  /**
+    * Determine if the Array passed to this function is/isn't sorted.
+    * @param array
+    * @return Boolean true if the Array is sorted; false otherwise
+    */
+  def isSorted(array:Array[Double]):Boolean =
+  {
+    (array, array.view.tail).zipped.forall(_ <= _)
+    // NOTE: The below commented-out line would generate the identical result as the above line.
+    // (array, array.view(0, array.size-1)).zipped.forall(_ <= _)
+  }
+}
+==================================================================
+==================================================================
