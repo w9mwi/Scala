@@ -53,8 +53,6 @@ object Demo
   def isSorted(array:Array[Double]):Boolean =
   {
     (array, array.view.tail).zipped.forall(_ <= _)
-    // NOTE: The below commented-out line would generate the identical result as the above line.
-    // (array, array.view(0, array.size-1)).zipped.forall(_ <= _)
   }
 }
 ==================================================================
