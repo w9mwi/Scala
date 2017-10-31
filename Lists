@@ -309,7 +309,9 @@ ___ combinations - Also see the permutations function.
                      // Print the same intList.combinations(3) as the above call to foreach.
                      println("count = " + count + ", " + x)
                    }
-___ exists - EXAMPLE 1:
+___ exists - The exists method returns true if at least one element in the collection meets the condition.
+             The forall method returns true if ALL elements in the collection meet the condition.
+             EXAMPLE 1:
              val strList:List[String] = List[String]("str1_abc_junk", "str2_jkl_stuff", "str3_qrs_things", "str4_xyz_trash");
              val result:Boolean = strList.exists(_.compareTo("str3_qrs_things") == 0)
              println(result) // result = true
@@ -382,7 +384,9 @@ ___ foldRight - For more info. regarding foldLeft and foldRight, see "CURRYING E
                 // to the foldRight and foldLeft calls immediately above.
                 println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
                 println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
-___ forall - EXAMPLE:
+___ forall - The forall method returns true if ALL elements in the collection meet the condition.
+             The exists method returns true if at least one element in the collection meets the condition.
+             EXAMPLE:
              val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
              println("myList.forall = " + myList.forall(_ > 100.0F)) // Prints: myList.forall = false
              println("myList.forall = " + myList.forall(_ > 50.0F))  // Prints: myList.forall = true
