@@ -294,7 +294,8 @@ HIGHER-ORDER METHODS, ETC.
 ___ count - EXAMPLE:
             val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
             println("myList.count = " + myList.count(_ > 100.0F)) // Prints: myList.count = 2
-___ dropWhile - EXAMPLE:
+___ dropWhile - Also see the takeWhile method, which is the inverse of this dropWhile method.
+                EXAMPLE:
                 val strList:List[String] = List[String]("str1_abc_junk", "str2_abc_stuff", "str3_qrs_things", "str4_xyz_trash")
                 val result:List[String] = strList.dropWhile(_.contains("abc"))
                 result.foreach(println) // prints: str3_qrs_things  str4_xyz_trash
@@ -507,7 +508,8 @@ ___ tails - Gives an iterator that runs through sublists, starting with the full
               // Print the same intList.tails as the above call to foreach.
               println("count = " + count + ", " + x)
             }
-___ takeWhile - Pass this method a function that operates on a single element of the collection
+___ takeWhile - Also see the dropWhile method, which is the inverse of this takeWhile method.
+                Pass this method a function that operates on a single element of the collection
                 and returns a Boolean.  This method returns a new collection all elements
                 at the beginning for which that function is true.
                 val myList:List[Float] = List(43.7F, 17.7F, 77.7F, 567.89F, 144.8F)
