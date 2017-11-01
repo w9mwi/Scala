@@ -165,3 +165,39 @@ object Demo
     namesStartingWithB.foreach(println) // Prints: BARNEY
   }
 }
+// *******************************************************************
+import scala.collection.mutable.ArrayBuffer
+
+object Demo
+{
+  // NOTE: The asterisk char (*) in the arguments list
+  //       designates a variable number of arguments.
+  case class Sequence[T](initialElems: T*)
+  {
+    private val elems = ArrayBuffer[T]()
+
+    // Initialize the elems val with all params passed
+    // to this Sequence case class.
+    elems ++= initialElems
+
+    // The following commented-out for loop + yield statement is
+    // equivalent to this single line of code above:  elems ++= initialElems
+    //  for
+    //  {
+    //    e <- initialElems
+    //  } yield elems += e
+  }
+
+  def main(args:Array[String]):Unit =
+  {
+    val chars   = Sequence('A', 'B', 'C', 'X', 'Y', 'Z')
+    val floats  = Sequence(1.23F, 4.56F, 7.89F)
+    val ints    = Sequence(1, 2, 3, 4, 5)
+    val strings = Sequence("Manitowoc", "Wisconsin", "USA")
+
+    println(chars)
+    println(floats)
+    println(ints)
+    println(strings)
+  }
+}
