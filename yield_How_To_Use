@@ -166,8 +166,18 @@ object Demo
   }
 }
 // *******************************************************************
-import scala.collection.mutable.ArrayBuffer
 
+// NOTE: In the code shown below, creating the Sequence.foreach() method
+//       (in the Sequence case class) enables the following for() loop,
+//       AND the following foreach() method to work:
+//       strings.foreach(println) // Prints all elements of the strings ArrayBuffer.
+//       for (tom <- strings) { println(tom) } // Prints all elements of the strings ArrayBuffer.
+//
+//       Creating the Sequence.map() method (in the Sequence case class) enables
+//       the following for() expression to work with the "yield" keyword:
+//       val doubleInts = for { idx <- ints } yield idx*2
+
+import scala.collection.mutable.ArrayBuffer
 object Demo
 {
   // NOTE: The asterisk char (*) in the arguments list
@@ -180,12 +190,23 @@ object Demo
     // to this Sequence case class.
     elems ++= initialElems
 
-    // The following commented-out for loop + yield statement is
+    // The following commented-out for() loop + yield statement is
     // equivalent to this single line of code above:  elems ++= initialElems
     //  for
     //  {
     //    e <- initialElems
     //  } yield elems += e
+
+    def foreach(block: T => Unit): Unit =
+    {
+      elems.foreach(block)
+    }
+
+    def map[U](f: T => U): Sequence[U] =
+    {
+      val tuMap:ArrayBuffer[U] = elems.map(f)
+      Sequence(tuMap: _*) // _* makes a collection work with a variable number of arguments.
+    }
   }
 
   def main(args:Array[String]):Unit =
@@ -195,9 +216,16 @@ object Demo
     val ints    = Sequence(1, 2, 3, 4, 5)
     val strings = Sequence("Manitowoc", "Wisconsin", "USA")
 
-    println(chars)
-    println(floats)
-    println(ints)
-    println(strings)
+    println(chars);  println(floats);  println(ints);  println(strings);
+
+    // The following 2 lines of code won't work unless the above
+    // Sequence case class implements the foreach() method.
+    strings.foreach(println) // Prints all elements of the strings ArrayBuffer.
+    for (tom <- strings) { println(tom) } // Prints all elements of the strings ArrayBuffer.
+
+    // The following "yield" statement won't work unless the above
+    // Sequence case class implements the map() method.
+    val doubleInts = for { idx <- ints } yield idx*2
+    doubleInts.foreach(println)
   }
 }
