@@ -146,3 +146,22 @@ object Demo
     finalResult // finalResult is returned here.
   }
 }
+// *******************************************************************
+object Demo
+{
+  case class Person(firstName: String, lastName: String)
+
+  def main(args:Array[String]):Unit =
+  {
+    val people = List(Person("barney", "rubble"),
+                      Person("fred", "flintstone"))
+
+    val namesStartingWithB = for {
+      p <- people                // generator
+      fname = p.firstName        // definition
+      if (fname.startsWith("b")) // filter
+    } yield fname.toUpperCase
+
+    namesStartingWithB.foreach(println) // Prints: BARNEY
+  }
+}
