@@ -180,6 +180,15 @@ object Demo
 //       Creating the Sequence.withFilter() method (in the Sequence case class) enables
 //       the following for() expression to work with the "if idx > 3.0F" statement:
 //       val doubleFloatsGreaterThan5 = for { idx <- floats; if idx > 3.0F } yield idx*2
+//
+//       To sum up the lesson learned by the below code:
+//       1) A for() loop generator (i.e., "for (p <- peeps)") works because
+//          a foreach() method is defined in the peeps collection.
+//       2) A for() loop's "yield" keyword works because the collection
+//          being traversed by the for() loop contains the map() method.
+//       3) An if() statement embedded within a for() loop comprehension
+//          works because the collection being traversed by the for()
+//          loop contains the withFilter() method.
 
 import scala.collection.mutable.ArrayBuffer
 object Demo
@@ -211,7 +220,7 @@ object Demo
       val tuMap:ArrayBuffer[U] = elems.map(f)
       Sequence(tuMap: _*) // _* makes a collection work with a variable number of arguments.
     }
-
+exists
     def withFilter(p: T => Boolean): Sequence[T] =
     {
       val tmpArrayBuffer = elems.filter(p)
@@ -223,7 +232,7 @@ object Demo
   {
     val chars   = Sequence('A', 'B', 'C', 'X', 'Y', 'Z')
     val floats  = Sequence(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-    val ints    = Sequence(1, 2, 3, 4, 5)
+    val ints    = Sequence(1, 2, 3, 4, 5)exists
     val strings = Sequence("Manitowoc", "Wisconsin", "USA")
 
     println(chars);  println(floats);  println(ints);  println(strings);
@@ -239,7 +248,7 @@ object Demo
     doubleInts.foreach(println);  println();
     // The following "if idx > 3.0F" statement won't work unless the above
     // Sequence case class implements the withFilter() method.
-    val doubleFloatsGreaterThan5 = for { idx <- floats; if idx > 3.0F } yield idx*2
-    doubleFloatsGreaterThan5.foreach(println)
+    val doubleFloatsGreaterThan3 = for { idx <- floats; if idx > 3.0F } yield idx*2
+    doubleFloatsGreaterThan3.foreach(println)
   }
 }
