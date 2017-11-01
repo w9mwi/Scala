@@ -170,12 +170,16 @@ object Demo
 // NOTE: In the code shown below, creating the Sequence.foreach() method
 //       (in the Sequence case class) enables the following for() loop,
 //       AND the following foreach() method to work:
-//       strings.foreach(println) // Prints all elements of the strings ArrayBuffer.
 //       for (tom <- strings) { println(tom) } // Prints all elements of the strings ArrayBuffer.
+//       strings.foreach(println) // Prints all elements of the strings ArrayBuffer.
 //
 //       Creating the Sequence.map() method (in the Sequence case class) enables
 //       the following for() expression to work with the "yield" keyword:
 //       val doubleInts = for { idx <- ints } yield idx*2
+//
+//       Creating the Sequence.withFilter() method (in the Sequence case class) enables
+//       the following for() expression to work with the "if idx > 3.0F" statement:
+//       val doubleFloatsGreaterThan5 = for { idx <- floats; if idx > 3.0F } yield idx*2
 
 import scala.collection.mutable.ArrayBuffer
 object Demo
@@ -207,12 +211,18 @@ object Demo
       val tuMap:ArrayBuffer[U] = elems.map(f)
       Sequence(tuMap: _*) // _* makes a collection work with a variable number of arguments.
     }
+
+    def withFilter(p: T => Boolean): Sequence[T] =
+    {
+      val tmpArrayBuffer = elems.filter(p)
+      Sequence(tmpArrayBuffer: _*) // _* makes a collection work with a variable number of arguments.
+    }
   }
 
   def main(args:Array[String]):Unit =
   {
     val chars   = Sequence('A', 'B', 'C', 'X', 'Y', 'Z')
-    val floats  = Sequence(1.23F, 4.56F, 7.89F)
+    val floats  = Sequence(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
     val ints    = Sequence(1, 2, 3, 4, 5)
     val strings = Sequence("Manitowoc", "Wisconsin", "USA")
 
@@ -226,6 +236,10 @@ object Demo
     // The following "yield" statement won't work unless the above
     // Sequence case class implements the map() method.
     val doubleInts = for { idx <- ints } yield idx*2
-    doubleInts.foreach(println)
+    doubleInts.foreach(println);  println();
+    // The following "if idx > 3.0F" statement won't work unless the above
+    // Sequence case class implements the withFilter() method.
+    val doubleFloatsGreaterThan5 = for { idx <- floats; if idx > 3.0F } yield idx*2
+    doubleFloatsGreaterThan5.foreach(println)
   }
 }
