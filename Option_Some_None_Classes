@@ -83,3 +83,17 @@ object Demo
     }
   }
 }
+=============================================================
+=============================================================
+object Demo
+{
+  def main(args: Array[String]) =
+  {
+    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+    var result:Option[Int] = intList.find(_<6) // Return 1st element in the List that's < 6.
+    result.foreach(println) // Prints: 4
+    println(result) // Prints: Some(4)
+    result = intList.find(_>10) // Return 1st element in the List that's > 10, of which there are none!
+    println(result) // Prints: The result var has been assigned the None object, so "None" is printed.
+  }
+}
