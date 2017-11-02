@@ -1,0 +1,46 @@
+import scala.xml.Elem
+
+object Demo
+{
+  case class Student(name:String,        assignments:List[Double],
+                     tests:List[Double], quizzes:List[Double])
+
+  def main(args: Array[String]) =
+  {
+    val tom:Elem = xml.XML.loadFile("/home/tbouril/ScalaData/xml_01.xml")
+    val student:Student = studentFromXML(tom)
+    println("Name = " + student.name + ",  Assignments = " + student.assignments)
+    println("POOP")
+  }
+
+  def studentFromXML(elem:xml.Node):Student =
+  {
+    Student((elem \ "@fname") + " " + (elem \ "@lname"),
+            (elem \ "assignment").map(n => (n \ "@grade").toString.toDouble).toList,
+                  (elem \ "test").map(n => (n \ "@grade").text.toDouble).toList,
+                  (elem \ "quiz").map(n => (n \ "@grade").text.toDouble).toList)
+  }
+}
+
+===================================================
+
+<course name="CSCI 1320">
+    <student lname="Hughes" fname="Jason">
+        <quiz grade="98"></quiz>
+        <quiz grade="100"></quiz>
+        <quiz grade="90"></quiz>
+        <test grade="94"></test>
+        <assignment grade="100">
+            Code compiled and ran with infinte errors--perfection!
+        </assignment>
+
+    </student>
+    <student lname="Peese" fname="Kevin">
+        <quiz grade="85"></quiz>
+        <quiz grade="78"></quiz>
+        <test grade="67"></test>
+        <assignment grade="20">
+            Code did not compile--he succeeded at failing!
+        </assignment>
+    </student>
+</course>
