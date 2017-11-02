@@ -9,7 +9,7 @@ Alt+= : When hovering over a var/val, you can determine its data type by pressin
 Add .jar file to class path : 1) From the menu, select: File / Project Structure
                                  A dialog screen appears.
                               2) Click on "Modules" located in the left-hand list of the dialog screen.
-                              3) Click on the "Dependencies" tab of the dialog screen\.
+                              3) Click on the "Dependencies" tab of the dialog screen.
                               4) Click on the '+' sign near the far-right edge of the dialog screen.
-                                 (NOT the '+' sign near the upper-left side of the dialog screen!)
+                                 (NOT the '+' sign near the upper-left corner of the dialog screen!)
                               5) From the menu list that appears, select: JARs or directories...
