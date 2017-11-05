@@ -24,4 +24,13 @@ return a value.
 OBJECT-ORIENTED PROGRAMMING (PAGE 394)
 
 An object contains both data and functonality that operates on that
-data.  A class is a blueprint for an object.
+data.  A class is a blueprint for an object.  Functions/Methods that
+operate on a class's data are NOT allowed in case classes--only in
+standard classes.
+
+When a regular class is instantiated, it creates an object that has
+a "type" of the defined class.  Case classes do NOT contain curly
+braces, as do regular classes.  Case classes also do NOT contain
+methods/functions, or vals/vars defined within curly braces.  For
+case classes, all val/var data is defined as parameters passed to
+the case class when it's instantiated.
