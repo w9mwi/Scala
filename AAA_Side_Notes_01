@@ -38,7 +38,7 @@ Student class because BY DEFAULT, arguments passed to a class are
 NOT turned into class members, and thus cannot be accessed outside
 the class--unless the class is modified as explained in the sample
 code below.  Read the comments below to better understand this.
-
+==================================================================
 object Demo
 {
   class Student(name:String, id:String)
@@ -76,5 +76,14 @@ object Demo
     println(john.name);  println(john.id);
   }
 }
+==================================================================
+There are three (3) main levels of visibility in Scala, they are:
 
-
+1) Public - The val/var or method is accessible by any code inside or outside
+            the class.  In Scala, THIS IS THE DEFAULT VISIBILITY so no keyword
+            exists to identify it.
+2) private - This means the member val/var/method can be accessed only inside the class.
+             If you prefix a declaration inside a class with the private keyword,
+             that member will be private.
+3) protected - A protected declaration is much like private, except that protected
+               members are also in subtypes (children) of the class.
