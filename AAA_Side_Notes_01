@@ -24,13 +24,56 @@ return a value.
 OBJECT-ORIENTED PROGRAMMING (PAGE 394)
 
 An object contains both data and functonality that operates on that
-data.  A class is a blueprint for an object.  Functions/Methods that
-operate on a class's data are NOT allowed in case classes--only in
-standard classes.
+data.  A class is a blueprint for an object.
 
-When a regular class is instantiated, it creates an object that has
-a "type" of the defined class.  Case classes do NOT contain curly
-braces, as do regular classes.  Case classes also do NOT contain
-methods/functions, or vals/vars defined within curly braces.  For
-case classes, all val/var data is defined as parameters passed to
-the case class when it's instantiated.
+Case classes do NOT contain curly braces, as do regular classes.
+
+When you specify def to write a function within a method, it's
+considered a method, which can access and vals/vars (and alter
+vars) declared within the method.
+
+In the following sample code, the name and id parameters passed to
+the Student class upon instantiation are NOT ACCESSIBLE outside the
+Student class because BY DEFAULT, arguments passed to a class are
+NOT turned into class members, and thus cannot be accessed outside
+the class.  Read the coments in the code below to better understand this.
+
+object Demo
+{
+  class Student(name:String, id:String)
+  {
+    var tests       = List[Double]()
+    var quizzes     = List[Double]()
+    var assignments = List[Double]()
+
+    def testAverage       = tests.sum / tests.size
+    def quizAverage       = quizzes.sum / quizzes.size
+    def assignmentAverage = assignments.sum / assignments.size
+
+    // Unlike the 2 println() methods called at the bottom of main(),
+    // the following 2 println() methods won't cause a runtime exception
+    // because the name and id params are accessible here--within
+    // the Student class definition.
+    println(name);  println(id)
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val john = new Student("John Doe", "0123456")
+    john.tests ::= 78
+    john.tests ::= 85
+    println(john.testAverage)
+
+    // BOTH of the following 2 println() statements will cause a runtime
+    // error because values passed as parameters to a class, upon its
+    // instantiation, are NOT accessible UNLESS the class is modified
+    // by doing one (or both) of the following:
+    // 1) Change the above class definition to this:
+    //    case class Student(name:String, id:String) // The case keyword is added.
+    // 2) Change the above class definition to this:
+    //    class Student(val name:String, val id:String) // var will also work in place of val.
+    println(john.name);  println(john.id);
+  }
+}
+
+
