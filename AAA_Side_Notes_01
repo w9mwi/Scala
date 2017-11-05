@@ -36,7 +36,8 @@ In the following sample code, the name and id parameters passed to
 the Student class upon instantiation are NOT ACCESSIBLE outside the
 Student class because BY DEFAULT, arguments passed to a class are
 NOT turned into class members, and thus cannot be accessed outside
-the class.  Read the coments in the code below to better understand this.
+the class--unless the class is modified as explained in the sample
+code below.  Read the comments below to better understand this.
 
 object Demo
 {
