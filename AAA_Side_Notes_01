@@ -72,7 +72,7 @@ object Demo
     // 1) Change the above class definition to this:
     //    case class Student(name:String, id:String) // The case keyword is added.
     // 2) Change the above class definition to this:
-    //    class Student(val name:String, val id:String) // var will also work in place of val.
+    //    class Student(val name:String, val id:String) // The val (or var) keyword is added.
     println(john.name);  println(john.id);
   }
 }
