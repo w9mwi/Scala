@@ -20,3 +20,8 @@ the direct parent of these two objects: AnyVal and AnyRef
 The "Nothing" object (which has no value) is a subtype of ALL Scala
 objects, and it exists to handle situations when functions don't
 return a value.
+==================================================================
+OBJECT-ORIENTED PROGRAMMING (PAGE 394)
+
+An object contains both data and functonality that operates on that
+data.  A clas is a blueprint for an object.
