@@ -87,3 +87,18 @@ There are three (3) main levels of visibility in Scala, they are:
              that member will be private.
 3) protected - A protected declaration is much like private, except that protected
                members are also in subtypes (children) of the class.
+==================================================================
+The binding of data and functions/methods together is called ENCAPSULATION.
+One of the golas of to strive for in object-oriented programs is to have
+SEPARATION OF INTERFACE AND IMPLEMENTATION.  The interface refers to how
+you interact with the object--meaning its public members and methods.  The
+implementation refers to the behavior of the methods.  You want interface
+and implementation to be independent of each other.
+
+An operator in Scala is right-associative if it ends with a colon (:)
+so the :: operator (which works on Lists) is right-associative.  For
+example, the following 3 lines of code are all equivalent:
+
+3 :: 4 :: list
+3 :: (4 :: list)
+list.::(4).::(3)
