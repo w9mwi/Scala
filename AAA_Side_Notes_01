@@ -66,7 +66,7 @@ object Demo
     println(john.testAverage)
 
     // BOTH of the following 2 println() statements will cause a runtime
-    // error because values passed as parameters to a class, upon its
+    // error because the values passed to the Student class, upon its
     // instantiation, are NOT accessible UNLESS the class is modified
     // by doing one (or both) of the following:
     // 1) Change the above class definition to this:
