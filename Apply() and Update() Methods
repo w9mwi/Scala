@@ -79,3 +79,12 @@ object Demo
   }
 }
 ====================================================================================
+The apply() method is sufficient for many situations like immutable collections where
+you only need to access an element of the collection (via the apply() method), but
+never assign a value to an element.  To assign/change the value of an element of
+a collection, the update() method is used.  For example...
+
+obj(2) = 345.67
+...would get converted to this call...
+obj.update(2, 345.67)
+
