@@ -1,0 +1,81 @@
+THE APPLY METHOD
+----------------
+The apply() method is written kust like any other method in a class,
+and you can call it just like any other method.  However, Scala will
+let you call the apply() method without using a period char (.), or
+using the name "apply"!!!  When you remove the period char (.) and
+the "apply" name, it makes it look like you're treating the object as
+a function--this is how all functions work in Scala.  Everything
+in Scala is an object, including functions.
+
+A FUNCTION IS JUST AN OBJECT OF A TYPE THAT HAS AN APPLY METHOD.
+
+When you call an Array or a List with an integer index you are invoking
+the Array's or List's apply() method.  EXAMPLE:
+
+val myArray = Array(8, 4, 12, 76, 99)
+val myList  = List(66, 31, 8, 93, 13)
+Calling myArray(3) is equivalent to calling myArray.apply(3)--both return the Int 76.
+Calling myList(4) is equivalent to calling myList.apply(4)--both return the Int 13.
+====================================================================================
+object Demo
+{
+  class Student(val name:String, val id:String)
+  {
+    var tests       = List[Double]()
+    var quizzes     = List[Double]()
+    var assignments = List[Double]()
+
+    def testAvg       = tests.sum / tests.size
+    def quizAvg       = quizzes.sum / quizzes.size
+    def assignmentAvg = assignments.sum / assignments.size
+  }
+
+  class CourseSection(val subject:String, val number:Int, val title:String)
+  {
+    private var students = List[Student]()
+
+    def addStudent(stud:Student)
+    {
+      students ::= stud
+    }
+
+    def getStudents():List[Student] =
+    {
+      students
+    }
+
+    /**
+      * This apply() method returns an Option type.  If the key String passed to this method
+      * matches the name, or the id, of one or more Students, it returns the Some object
+      * containing a List of Students; otherwise, the None object is returned.
+      *
+      * @param key
+      * @return
+      */
+    def apply(key:String):Option[Student] =
+    {
+      println("The CourseSection.apply() method has been called.")
+      // NOTE: The s.id and s.name references below will generate a compile error
+      //       if the Student class doesn't have a val or var preceding its name
+      //       and id parameters.
+      students.find(s => s.id == key || s.name == key)
+    }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val john:Student         = new Student("John Doe", "0123456")
+    val tom:Student          = new Student("Tom B",    "6543210")
+    val course:CourseSection = new CourseSection("CSCI", 1321, "Principles of Programming II")
+    course.addStudent(john)
+    course.addStudent(tom)
+
+    // The following 2 lines of code are equivalent.  The first line calls the apply()
+    // method implicitly; the second line calls the apply() method explicitly.
+    // course("0123456") and course.apply("0123456") both return the type: Option[Student]
+    course("0123456").get.quizzes = List(88.0)
+    course.apply("0123456").get.quizzes = List(88.0)
+  }
+}
+====================================================================================
