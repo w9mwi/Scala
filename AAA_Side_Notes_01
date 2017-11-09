@@ -103,22 +103,3 @@ example, the following 3 lines of code are all equivalent:
 3 :: (4 :: list)
 list.::(4).::(3)
 ==================================================================
-THE APPLY METHOD
-----------------
-The apply() method is written kust like any other method in a class,
-and you can call it just like any other method.  However, Scala will
-let you call the apply() method without using a period char (.), or
-using the name "apply"!!!  When you remove the period char (.) and
-the "apply" name, it makes it look like you're treating the object as
-a function--this is how all functions work in Scala.  Everything
-in Scala is an object, including functions.
-
-A FUNCTION IS JUST AN OBJECT OF A TYPE THAT HAS AN APPLY METHOD.
-
-When you call an Array or a List with an integer index you are invoking
-the Array's or List's apply() method.  EXAMPLE:
-
-val myArray = Array(8, 4, 12, 76, 99)
-val myList  = List(66, 31, 8, 93, 13)
-Calling myArray(3) is equivalent to calling myArray.apply(3)--both return the Int 76.
-Calling myList(4) is equivalent to calling myList.apply(4)--both return the Int 13.
