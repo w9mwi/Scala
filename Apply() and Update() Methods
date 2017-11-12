@@ -161,7 +161,7 @@ object Demo
 
     // This apply() function gets called in the main() method below
     // when referencing a Vector's x, y, or z member via an index,
-    // such as:  v1(0),  v(1),  v1(2)
+    // such as:  v1(0),  v1(1),  v1(2)
     def apply(idx:Int):Double = idx match
     {
       case 0 => x
