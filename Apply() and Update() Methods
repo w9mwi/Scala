@@ -145,4 +145,56 @@ object Demo
     println("ss(\"c5\") = " + ss("c", 5) + "\nss(3,8)  = " + ss(3,8) + "\nss(\"d8\") = " + ss("d8"))
   }
 }
+====================================================================================
+object Demo
+{
+  class Vect(val x:Double, val y:Double, val z:Double)
+  {
+    def +(v:Vect):Vect   = new Vect(x+v.x, y+v.y, z+v.z)
+    def -(v:Vect):Vect   = new Vect(x-v.x, y-v.y, z-v.z)
+    def *(c:Double):Vect = new Vect(c*x,   c*y,   c*z)
+    def /(c:Double):Vect = new Vect(c/x,   c/y,   c/z)
+    def dotProduct(v:Vect):Double = x*v.x + y*v.y + y+ z*v.z
+    def crossProduct(v:Vect):Vect = new Vect(y*v.z - z*v.y,
+                                             z*v.x - x*v.z,
+                                             x*v.y - y*v.x)
 
+    // This apply() function gets called in the main() method below
+    // when referencing a Vector's x, y, or z member via an index,
+    // such as:  v1(0),  v(1),  v1(2)
+    def apply(idx:Int):Double = idx match
+    {
+      case 0 => x
+      case 1 => y
+      case 2 => z
+    }
+
+    // This apply() method is NOT called by any code.
+    def apply(is:Seq[Int]):Seq[Double] =
+    {
+      is.map(Array(x,y,z))
+    }
+
+    override def toString:String = { "<" + x + ", " + y + ", " + z + ">" }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val v1 = new Vect(1, 77.88, 3)
+    val v2 = new Vect(2, -4, 7)
+    val v3 = v1 + v2
+    val v4 = v3 * 8
+    println("v1 = " + v1.toString)
+    println("v2 = " + v2.toString)
+    println("v3 = v1 + v2 = " + v3.toString)
+    println("v4 = v3 * 8 = " + v4.toString)
+
+    // The following println() calls this function 3 times: apply(idx:Int):Double
+    // Once for v1(0), once time for v1(1), and once for v1(2)
+    println("v1(0) = " + v1(0) + ", v1(1) = " + v1(1) + ", v1(2) = " + v1(2))
+
+    // The following println() prints the same values as the above println(), except they
+    // are referenced via member vals, instead of via an index via the apply() method.
+    println("v1.x = " + v1.x + ",  v1.y = " + v1.y + ",  v1.z = " + v1.z)
+  }
+}
