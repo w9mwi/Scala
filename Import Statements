@@ -1,0 +1,3 @@
+The import statements that typically appear at the top of a file
+(in both Java and Scala code), have many options and variations
+in Scala.  Read section 16.4 on pages 410-412 for details.
