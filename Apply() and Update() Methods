@@ -1,6 +1,6 @@
 THE APPLY METHOD
 ----------------
-The apply() method is written kust like any other method in a class,
+The apply() method is written just like any other method in a class,
 and you can call it just like any other method.  However, Scala will
 let you call the apply() method without using a period char (.), or
 using the name "apply"!!!  When you remove the period char (.) and
@@ -17,6 +17,10 @@ val myArray = Array(8, 4, 12, 76, 99)
 val myList  = List(66, 31, 8, 93, 13)
 Calling myArray(3) is equivalent to calling myArray.apply(3)--both return the Int 76.
 Calling myList(4) is equivalent to calling myList.apply(4)--both return the Int 13.
+
+When you declare a new class without calling the "new" keyword, the apply() method
+is being called, and the apply() method then calls "new".  If a class has an apply()
+method, you can create an instance of it without calling the "new" keyword.
 ====================================================================================
 object Demo
 {
