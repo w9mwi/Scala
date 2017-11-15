@@ -1,16 +1,33 @@
-NOTE: A case class will work with pattern matching, where a regular
-      class will NOT work with pattern matching.
+A case class will work with pattern matching, where a regular class will
+NOT work with pattern matching.
 
-      When creating a new case class , using the "new" keyword is
-      optional--so generally it's not used.  When creating a regular
-      class, the "new" keyword is REQUIRED.
+When creating a new case class , using the "new" keyword is optional--so
+generally it's not used.  When creating a regular class, the "new"
+keyword is REQUIRED.
 
-      A case class implements the copy() method (example shown below),
-      but a regular class does NOT implement the copy() method.
+A case class implements the copy() method (example shown below), but
+a regular class does NOT implement the copy() method.
 
-      Both case classes and regular classes can be defined so they're
-      member values are "var" (mutable) or val (immutable).  By default
-      (meaning the "val" or "var" is not specified), member values are val.
+Both case classes and regular classes can be defined so they're member
+values are "var" (mutable) or val (immutable).  By default (meaning
+the "val" or "var" is not specified), member values are val.
+
+Anything you can accomplish with a case class, you can accomplish with
+a regular class.  A case class just adds a lot of code for you that you'd
+have to otherwise manually write for a regular class.  For example:
+
+1) All data passed to a case class are automatically turned into
+   public vals by default.
+2) A case class automatically creates a companion object that has
+   an apply() method, so you can create instances of the case class
+   without using the "new" keyword.
+3) A copy() method is automatically created that has default arguments
+   for all the class's member values.
+4) A case class allows for pattern matching.
+
+For more details about case classes, read the following:
+--> http://www.alessandrolacava.com/blog/scala-case-classes-in-depth/
+
 
 
 object Demo
