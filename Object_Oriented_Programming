@@ -1,0 +1,50 @@
+==========================================================================
+import java.awt.Graphics2D
+import java.awt.geom.Ellipse2D
+import java.awt.geom.Rectangle2D
+
+object Demo
+{
+  class Shape
+  {
+    def area:Double = 0.0
+    def circumference:Double = 0.0
+    def draw(g:Graphics2D): Unit =
+    {
+
+    }
+  }
+
+  class Rectangle(val width:Double, val height:Double) extends Shape
+  {
+    override def area:Double = width * height
+    override def circumference:Double = 2.0 * width * height
+    override def draw(g:Graphics2D): Unit =
+    {
+      g.fill(new Rectangle2D.Double(0.0, 0.0, width, height))
+    }
+  }
+
+  class Circle(val radius:Double) extends Shape
+  {
+    override def area:Double = math.Pi * radius * radius
+    override def circumference:Double = 2.0 * math.Pi * radius
+    override def draw(g:Graphics2D): Unit =
+    {
+      g.fill(new Ellipse2D.Double(0.0, 0.0, 2.0 * radius, 2.0 * radius))
+    }
+  }
+
+  def areaCircumferenceRatio(s:Shape) =
+  {
+    s.area / s.circumference
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val circleACR = areaCircumferenceRatio(new Circle(5.0))
+    val rectACR   = areaCircumferenceRatio(new Rectangle(4.0, 5.0))
+    println("circleACR = " + circleACR + ",  rectACR = " + rectACR)
+  }
+}
+==========================================================================
