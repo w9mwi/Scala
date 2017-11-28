@@ -83,7 +83,7 @@ There are three (3) main levels of visibility in Scala, they are:
                   If you want something public, it's public BY DEFAULT, which
                   means you wouldn't use the private or protected keyword.
                   If the visibility level is public, the val/var or method is
-                  accessible by any code inside or outside.
+                  accessible by any code inside, or outside, the class.
 2) private - This means the member val/var/method can be accessed only inside the class.
              If you prefix a declaration inside a class with the private keyword,
              that member will be private.
