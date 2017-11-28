@@ -17,6 +17,9 @@ object Demo
 
   class Rectangle(val width:Double, val height:Double) extends Shape
   {
+    // NOTE: The override keywords below means that when the method is called on a Rectangle
+    //       class, it will override the method having the the same name + signature as
+    //       the method in the Shape base/parent class.
     override def area:Double = width * height
     override def circumference:Double = 2.0 * width * height
     override def draw(g:Graphics2D): Unit =
@@ -27,6 +30,9 @@ object Demo
 
   class Circle(val radius:Double) extends Shape
   {
+    // NOTE: The override keywords below means that when the method is called on a Circle
+    //       class, it will override the method having the the same name + signature as
+    //       the method in the Shape base/parent class.
     override def area:Double = math.Pi * radius * radius
     override def circumference:Double = 2.0 * math.Pi * radius
     override def draw(g:Graphics2D): Unit =
