@@ -37,7 +37,6 @@ object Demo
     }
   }
 
-
   def areaCircumferenceRatio(s:Shape) =
   {
     s.area / s.circumference
@@ -50,12 +49,9 @@ object Demo
     println("circle.area  = " + circle.area +     ",  circle.circumference = " + circle.circumference)
     println("circle.color = " + circle.getColor + ",  rectangle.color = "      + rectangle.getColor)
 
-
     val circleACR = areaCircumferenceRatio(circle)
     val rectACR   = areaCircumferenceRatio(rectangle)
     println("circleACR = " + circleACR + ",  rectACR = " + rectACR)
-
-
   }
 }
 ==========================================================================
