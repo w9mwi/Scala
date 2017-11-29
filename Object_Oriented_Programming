@@ -4,10 +4,19 @@ import java.awt.geom.{Ellipse2D, Rectangle2D}
 
 object Demo
 {
-  class Shape(private var color:Color)
+  // The following Shape class is an abstract class.  Methods and member data that
+  // are NOT given a value in a class declaration are considered to be abstract.
+  // This Shape class MUST be declared as abstract because the area and circumference
+  // members are NOT given a value.  If just one member of a class is NOT given
+  // a value (i.e., an Int that's not given a value, a method that is only defined),
+  // the class MUST be declared abstract.  NOTE: An abstract class cannot be
+  // instantiated!!!  An abstract class MUST be used by a super class (a class that
+  // extends an abstract class) for it to be of any use.  It's possible for an abstract
+  // class to extend (inherit from) another abstract class.
+  abstract class Shape(val color:Color)
   {
-    def area:Double = 0.0
-    def circumference:Double = 0.0
+    def area:Double
+    def circumference:Double
     def draw(g:Graphics2D): Unit =
     {
       g.setPaint(color)
@@ -15,10 +24,14 @@ object Demo
     def getColor:Color = { color }
   }
 
-  class Rectangle(val width:Double, val height:Double) extends Shape(Color.BLUE)
+  class Rectangle(val width:Double, val height:Double, c:Color) extends Shape(c)
   {
-    override def area:Double = width * height
-    override def circumference:Double = 2.0 * width * height
+    // NOTE: Since the area() and circumference() methods below are NOT
+    //       given a value in the abstract Shape class that's extended,
+    //       the "override" keyword is NOT needed--although if it was
+    //       included, it would still work.
+    def area:Double = width * height
+    def circumference:Double = 2.0 * width * height
     override def draw(g:Graphics2D): Unit =
     {
       super.draw(g) // Calls the Shape.draw() method, so the Shape's color gets set.
@@ -26,10 +39,14 @@ object Demo
     }
   }
 
-  class Circle(val radius:Double) extends Shape(Color.PINK)
+  class Circle(val radius:Double, c:Color) extends Shape(c)
   {
-    override def area:Double = math.Pi * radius * radius
-    override def circumference:Double = 2.0 * math.Pi * radius
+    // NOTE: Since the area() and circumference() methods below are NOT
+    //       given a value in the abstract Shape class that's extended,
+    //       the "override" keyword is NOT needed--although if it was
+    //       included, it would still work.
+    def area:Double = math.Pi * radius * radius
+    def circumference:Double = 2.0 * math.Pi * radius
     override def draw(g:Graphics2D): Unit =
     {
       super.draw(g) // Calls the Shape.draw() method, so the Shape's color gets set.
@@ -44,14 +61,15 @@ object Demo
 
   def main(args: Array[String]):Unit =
   {
-    val circle:Circle       = new Circle(5.0)
-    val rectangle:Rectangle = new Rectangle(4.0, 5.0)
+    val circle:Circle       = new Circle(5.0, Color.RED)
+    val rectangle:Rectangle = new Rectangle(4.0, 5.0, Color.YELLOW)
     println("circle.area  = " + circle.area +     ",  circle.circumference = " + circle.circumference)
     println("circle.color = " + circle.getColor + ",  rectangle.color = "      + rectangle.getColor)
 
     val circleACR = areaCircumferenceRatio(circle)
     val rectACR   = areaCircumferenceRatio(rectangle)
     println("circleACR = " + circleACR + ",  rectACR = " + rectACR)
+
   }
 }
 ==========================================================================
