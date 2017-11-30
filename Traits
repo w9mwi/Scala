@@ -6,14 +6,15 @@ A trait is similar to an abstract class in many ways.  The two primary differenc
 
 A trait can only inherit from another trait.  For a trait to inherit
 from another trait, the "extends" keyword is used, just as the "extends"
-keyword is used for a class to inherit from another class.
+keyword is used for a class to inherit from another class.  However,
+a trait can NOT inherit from a class.
 
-Scala will NOT allow multiple inheritance, so you cannot list multiple classes
-after the extends keyword.  However, Scala allows a class to use multiple traits
+Scala will NOT allow multiple inheritance, so you can NOT list multiple classes
+after the extends keyword.  However, Scala allows a class to use multiple traits,
 which is done using the "with" keyword.  Here's an example...
 
 Assume you want to represent a Person, but there are multiple categories
-of a Person...  Parent, Child, GeneralAdult, Father, Mother, Male, Female.
+of a Person...  Parent, Child, GeneralAdult, Father, Mother, Male, Female
 
 Since a Father is a Person + Parent + Male, a Father class could NOT inherit
 from Person + Parent + Male, because that would be inheriting from multiple
@@ -23,3 +24,26 @@ trait Person {...}
 trait Parent extends Person {...}
 trait Male extends Person {...}
 class Father extends Parent with Male {...}
+
+An alternative to constructing a Father class would be to use traits
+as mix-in types, like this...
+
+trait Person {...}
+trait Parent {...}
+trait Male {...}
+class Father extends Person with Parent with Male {...}
+
+In this example, Parent and Male are traits that do NOT inherit from the
+Person.  Instead, they are MIXED IN with the Person to create Father.
+This approach is perhaps a bit more advanced, and if the Parent and Male
+types involve code that requires them to know they will be used with a Person,
+you will need to use SELF-TYPES, which are discussed in Appendix B of the book.
+
+When coding an abstract type that will be used with inheritance, should
+a trait be used, or an abstract class?...  The rule of thumb is to use
+a trait because it allows the flexibility of multiple inheritance.  While
+a trait cannot take arguments (as can an abstract class), any values that
+you'd want to provide as arguments can be put into a trait and left
+undefined, so th class that implements the trait will have to provide
+those values.
+
