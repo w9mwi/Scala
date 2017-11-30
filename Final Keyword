@@ -1,0 +1,10 @@
+SEE PAGE 464
+
+Some times it is useful to declare a class member or method that cannot
+be overridden/changed in a subtype.  This requirement can be enforced using
+the "final" keyword.  Use the "final" keyword to modify member data or methods
+that you do NOT want changed in subtypes.
+
+The "final" keyword can also be used to modify an entire class.  A class
+that's "final" means it cannot be a subtype of another class, which means
+another class cannot inherit from it.
