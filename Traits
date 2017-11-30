@@ -1,0 +1,25 @@
+SEE P.463
+A trait is similar to an abstract class in many ways.  The two primary differences are:
+
+1) Traits cannot take arguments, as an abstract class can.
+2) You cannot inherit from more than one trait.
+
+A trait can only inherit from another trait.  For a trait to inherit
+from another trait, the "extends" keyword is used, just as the "extends"
+keyword is used for a class to inherit from another class.
+
+Scala will NOT allow multiple inheritance, so you cannot list multiple classes
+after the extends keyword.  However, Scala allows a class to use multiple traits
+which is done using the "with" keyword.  Here's an example...
+
+Assume you want to represent a Person, but there are multiple categories
+of a Person...  Parent, Child, GeneralAdult, Father, Mother, Male, Female.
+
+Since a Father is a Person + Parent + Male, a Father class could NOT inherit
+from Person + Parent + Male, because that would be inheriting from multiple
+classes, which isn't allowed.  Here is how you could use traits to do this...
+
+trait Person {...}
+trait Parent extends Person {...}
+trait Male extends Person {...}
+class Father extends Parent with Male {...}
