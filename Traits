@@ -9,9 +9,9 @@ from another trait, the "extends" keyword is used, just as the "extends"
 keyword is used for a class to inherit from another class.  However,
 a trait can NOT inherit from a class.
 
-Scala will NOT allow multiple inheritance, so you can NOT list multiple classes
-after the extends keyword.  However, Scala allows a class to use multiple traits,
-which is done using the "with" keyword.  Here's an example...
+Scala will NOT allow a class to have multiple inheritance, so you can NOT list
+multiple classes after the extends keyword.  However, Scala allows a class to
+use multiple traits, which is done using the "with" keyword.  Here's an example...
 
 Assume you want to represent a Person, but there are multiple categories
 of a Person...  Parent, Child, GeneralAdult, Father, Mother, Male, Female
@@ -22,7 +22,7 @@ classes, which isn't allowed.  Here is how you could use traits to do this...
 
 trait Person {...}
 trait Parent extends Person {...}
-trait Male extends Person {...}
+trait Male   extends Person {...}
 class Father extends Parent with Male {...}
 
 An alternative to constructing a Father class would be to use traits
@@ -44,6 +44,5 @@ a trait be used, or an abstract class?...  The rule of thumb is to use
 a trait because it allows the flexibility of multiple inheritance.  While
 a trait cannot take arguments (as can an abstract class), any values that
 you'd want to provide as arguments can be put into a trait and left
-undefined, so th class that implements the trait will have to provide
+undefined, so the class that implements the trait will have to provide
 those values.
-
