@@ -69,7 +69,6 @@ object Demo
     val circleACR = areaCircumferenceRatio(circle)
     val rectACR   = areaCircumferenceRatio(rectangle)
     println("circleACR = " + circleACR + ",  rectACR = " + rectACR)
-
   }
 }
 ==========================================================================
