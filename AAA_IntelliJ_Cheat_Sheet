@@ -1,3 +1,6 @@
+Alt+Enter : Pops up a list of classes to import  from.  When one is selected,
+            the import statement will be added to the code.
+
 Alt+= : When hovering over a var/val, you can determine its data type by pressing the "Alt" and "=" keys.
 
 "Copy Path" : Right-click on one of the folders/files in the Project tree, select "Copy Path",
