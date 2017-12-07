@@ -9,7 +9,7 @@ from another trait, the "extends" keyword is used, just as the "extends"
 keyword is used for a class to inherit from another class.  However,
 a trait can NOT inherit from a class.
 
-Classes do NOT alow multiple inheritance.
+Classes do NOT allow multiple inheritance.
 Traits DO allow multiple inheritance.
 
 Scala will NOT allow a class to have multiple inheritance, so you can NOT list
