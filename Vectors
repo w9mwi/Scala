@@ -1,0 +1,1 @@
+If you want an immutable collection that has efficient indexing, the default choice would generally be to use the Vector class.
