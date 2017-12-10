@@ -1,0 +1,12 @@
+StringOps is an immutable subtype of IndexedSeq.  StringOps provides Scala collection
+operations on strings, as many of the methods that we use on strings sre not defined
+in the java.lang.String type.  Instead, there is an implicit conversion from
+java.lang.String to scala.collection.immutable.StringOps.  That is how the following
+line of code works, as java.lang.String doesn't have a filter() or partition() method.
+
+val (upper, lower) = "Tis is a string.".filter(_.isLetter).partition(_.isUpper)
+
+When Scala interprets the above line of code, it sees the filter() and partition()
+methods don't exist in java.lang.String, so it then looks for an implicit
+conversion that will give a type that has the needed methods.  In this case the
+conversion will be to StringOps.
