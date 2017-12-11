@@ -10,3 +10,53 @@ immutable by default...
 
 scala.collection.immutable.Set - The default Set used when an import statement for Set isn't declared.
 import scala.collection.mutable.Set - To use a mutable Set, you must include this import statement.
+
+The code below shows examples of how to use Sets..
+=============================================================================================
+import scala.collection.mutable.Set
+// import scala.collection.immutable.Set
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var array:Array[Int] = Array(1, 2, 3)
+    var set:Set[Int]     = Set(1, 2, 3)
+
+    array.foreach(println) // Prints the contents of array.
+    println("set = " + set) // Prints the contents of set.
+
+    // Do the following to add an element to the set.  This works
+    // if the set is mutable, or immutable.
+    set += 4 // Adds a new element to set having the Int value of 4.
+    println("set = " + set) // Prints the contents of set.
+
+    set += 2 // This code does nothing because the set already contains a value of 2.
+    println("set = " + set) // Prints the contents of set.
+
+    // The following code removes an element (with index = 2) from the set.  This
+    // code works ONLY if you're using the type: scala.collection.mutable.Set
+    set.remove(2)
+    println("set = " + set) // Prints the contents of set.
+
+    set += -77 // This adds -77 to the set.  Notice that it's placed at index 0, so set order is NOT preserved.
+    println("set = " + set) // Prints the contents of set.
+
+    // Since the order of a Set can easily change (by adding or removing elements),
+    // accessing a set element via an index doesn't have much meaning.  So instead
+    // of accessing a Set element via an index (as we do with Arrays and Lists),
+    // the following two lines of code return true or false, dependent on if the
+    // value specified within parenthesis is or isn't contained in the Set.
+    println("set(-77) = " + set(-77)) // Prints true because -77 is contained in set.
+    println("set(18) = " + set(18))   // Prints false because 18 is NOT contained in set.
+
+    // Using the apply() method below is identical to the 2 lines of code above.
+    println("set.apply(-77) = " + set.apply(-77)) // Prints true because -77 is contained in set.
+    println("set.apply(18) = " + set.apply(18))   // Prints false because 18 is NOT contained in set.
+
+    // Using the contains() method below is identical to the 2 lines of code above.
+    println("set.contains(-77) = " + set.contains(-77)) // Prints true because -77 is contained in set.
+    println("set.contains(18) = " + set.contains(18))   // Prints false because 18 is NOT contained in set.
+  }
+}
+=============================================================================================
