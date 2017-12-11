@@ -3,3 +3,10 @@ There are two main differences between a Set type and a Seq type.  They are:
 1) A Set does NOT allow duplicate values.  If you try adding a value to a
    Set that already exists in the Set, the Set contents remain unchanged.
 2) The order of elements in a Set is NOT guaranteed.
+
+There are mutable Sets and immutable Sets.  If you don't use an import
+statement to declare the type of Set you're using, the Set will be
+immutable by default...
+
+scala.collection.immutable.Set - The default Set used when an import statement for Set isn't declared.
+import scala.collection.mutable.Set - To use a mutable Set, you must include this import statement.
