@@ -1,3 +1,6 @@
+For more info. abouts Sets, see Page 503 of book, and:
+http://docs.scala-lang.org/overviews/collections/sets.html
+
 There are two main differences between a Set type and a Seq type.  They are:
 
 1) A Set does NOT allow duplicate values.  If you try adding a value to a
@@ -28,7 +31,7 @@ object Demo
 
     // Do the following to add an element to the set.  This works
     // if the set is mutable, or immutable.
-    set += 4 // Adds a new element to set having the Int value of 4.
+    set += 4 // Same result as: set.add(4)
     println("set = " + set) // Prints the contents of set.
 
     set += 2 // This code does nothing because the set already contains a value of 2.
@@ -36,7 +39,7 @@ object Demo
 
     // The following code removes an element (with index = 2) from the set.  This
     // code works ONLY if you're using the type: scala.collection.mutable.Set
-    set.remove(2)
+    set -= 2 // Same result as: set.remove(2)
     println("set = " + set) // Prints the contents of set.
 
     set += -77 // This adds -77 to the set.  Notice that it's placed at index 0, so set order is NOT preserved.
