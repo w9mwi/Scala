@@ -16,7 +16,7 @@ object Demo
     private val bound = 100
 
     def x = { _x } // This is a getter method.
-    // The method below is a setter method.  There must be no whitespace before or after the _ character.
+    // The method below is a setter method.  There must be no whitespace before or after the _ character for x_=
     def x_= (newValue: Int): Unit =
     {
       if (newValue < bound) _x = newValue
@@ -24,7 +24,7 @@ object Demo
     }
 
     def y = { _y } // This is a getter method.
-    // The method below is a setter method.
+    // The method below is a setter method.  There must be no whitespace before or after the _ character for y_=
     def y_= (newValue: Int): Unit =
     {
       if (newValue < bound) _y = newValue
