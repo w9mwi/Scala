@@ -4,7 +4,8 @@ Below are some examples of how to use standard Scala classes (not case classes).
 The syntax used for defining getter and setter methods for regular Scala
 classes is rather strange.  The following code demonstrates how to use
 getter and setter methods for standard Scala classes.  Read the comments
-for details
+for details.  For more info on Scala classes see:
+http://docs.scala-lang.org/tour/classes.html
 
 object Demo
 {
