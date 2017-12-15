@@ -1,0 +1,49 @@
+Below are some examples of how to use standard Scala classes (not case classes).
+
+========================================================================
+The syntax used for defining getter and setter methods for regular Scala
+classes is rather strange.  The following code demonstrates how to use
+getter and setter methods for standard Scala classes.  Read the comments
+for details
+
+object Demo
+{
+  class Point
+  {
+    private var _x = 0
+    private var _y = 0
+    private val bound = 100
+
+    def x = { _x } // This is a getter method.
+    // The method below is a setter method.  There must be no whitespace before or after the _ character.
+    def x_= (newValue: Int): Unit =
+    {
+      if (newValue < bound) _x = newValue
+      else printWarning
+    }
+
+    def y = { _y } // This is a getter method.
+    // The method below is a setter method.
+    def y_= (newValue: Int): Unit =
+    {
+      if (newValue < bound) _y = newValue
+      else printWarning
+    }
+
+    private def printWarning = println("WARNING: Out of bounds!")
+  }
+
+  def main(args: Array[String]) =
+  {
+    val point1 = new Point
+
+    // The following 2 lines call the above setter methods x_= and y_=
+    point1.x = 99  // This line calls the x_= setter method.
+    point1.y = 101 // This line calls the y_= setter method.
+
+    // The following 2 lines call the above getter methods x and y
+    println("point1.x = " + point1.x) // This line calls the x getter method.
+    println("point1.y = " + point1.y) // This line calls the y getter method.
+  }
+}
+========================================================================
