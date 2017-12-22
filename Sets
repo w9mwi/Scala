@@ -68,29 +68,31 @@ object Demo
     println("G) mutSet(-77) = " + mutSet(-77))                   // PRINTS: G) mutSet(-77) = true
     println("H) mutSet.apply(-77) = " + mutSet.apply(-77))       // PRINTS: H) mutSet.apply(-77) = true
     println("I) mutSet.contains(-77) = " + mutSet.contains(-77)) // PRINTS: I) mutSet.contains(-77) = true
-    println("J) mutSet(18) = " + mutSet(18) + "\n")              // PRINTS: J) mutSet(18) = false
+    println("J) mutSet(18) = " + mutSet(18))                     // PRINTS: J) mutSet(18) = false
+    mutSet.retain(x => x < -50)
+    println("K) mutSet.retain(x => x < 10) = " + mutSet + "\n")  // PRINTS: K) mutSet.retain(x => x < 10) = Set(-77)
 
     // ***************************************************************************************
     // In this section, we manipulate immutSet, which is IMMUTABLE.
     // Notice that immutSet is declared as a var.  If immutSet was declared as a val,
     // the following code would throw errors at runtime.
-    println("K) immutSet = " + immutSet) // PRINTS: K) immutSet = Set(5, 6, 9, 7, 8)
+    println("L) immutSet = " + immutSet) // PRINTS: L) immutSet = Set(5, 6, 9, 7, 8)
     immutSet ++= arrayInt
-    println("L) immutSet = " + immutSet) // PRINTS: L) immutSet = Set(5, 10, 6, 9, 13, 7, 18, 16, 8)
+    println("M) immutSet = " + immutSet) // PRINTS: M) immutSet = Set(5, 10, 6, 9, 13, 7, 18, 16, 8)
     immutSet --= arrayInt
-    println("M) immutSet = " + immutSet) // PRINTS: M) immutSet = Set(5, 6, 9, 7, 8)
+    println("N) immutSet = " + immutSet) // PRINTS: N) immutSet = Set(5, 6, 9, 7, 8)
 
     // Remove the 7 Int value from immutSet.  NOTE: The remove() method does NOT exist for an immutable Set.
     immutSet -= 7
-    println("N) immutSet = " + immutSet) // PRINTS: N) immutSet = Set(5, 6, 9, 8)
+    println("O) immutSet = " + immutSet) // PRINTS: O) immutSet = Set(5, 6, 9, 8)
 
     // Add the 3 Int value to mutSet, and then add the 4 Int value to mutSet.  NOTE: The add() method does
     // NOT exist for an immutable Set.
     immutSet += 3
-    println("O) immutSet = " + immutSet) // PRINTS: O) immutSet = Set(5, 6, 9, 3, 8)
+    println("P) immutSet = " + immutSet) // PRINTS: P) immutSet = Set(5, 6, 9, 3, 8)
 
     immutSet += -77 // Add the -77 Int value to immutSet
-    println("P) immutSet = " + immutSet) // PRINTS: P) immutSet = Set(5, 6, 9, 3, 8, -77)
+    println("Q) immutSet = " + immutSet) // PRINTS: Q) immutSet = Set(5, 6, 9, 3, 8, -77)
 
     // Since the order of a Set can easily change (by adding or removing elements), accessing
     // a set element via an index doesn't have much meaning.  So instead of accessing a Set
@@ -99,10 +101,12 @@ object Demo
     // of the following 3 methods, which all do the same thing:
     // The () method, the apply() method, or the contains() method
     // NOTE: true is returned by these 3 methods if the Set contains the element; otherwise, false is returned
-    println("Q) immutSet(-77) = " + immutSet(-77))                   // PRINTS: Q) immutSet(-77) = true
-    println("R) immutSet.apply(-77) = " + immutSet.apply(-77))       // PRINTS: R) immutSet.apply(-77) = true
-    println("S) immutSet.contains(-77) = " + immutSet.contains(-77)) // PRINTS: S) immutSet.contains(-77) = true
-    println("T) immutSet(18) = " + immutSet(18) + "\n")              // PRINTS: T) immutSet(18) = false
+    println("R) immutSet(-77) = " + immutSet(-77))                   // PRINTS: R) immutSet(-77) = true
+    println("S) immutSet.apply(-77) = " + immutSet.apply(-77))       // PRINTS: S) immutSet.apply(-77) = true
+    println("T) immutSet.contains(-77) = " + immutSet.contains(-77)) // PRINTS: T) immutSet.contains(-77) = true
+    println("U) immutSet(18) = " + immutSet(18))                     // PRINTS: U) immutSet(18) = false
+
+    // NOTE: The retain() method (called above) is available for mutable Sets only, NOT for immutable Sets.
   }
 }
 =============================================================================================
