@@ -63,7 +63,7 @@ object Demo
     // element via an index (as we do with Arrays and Lists), we call a method to determine
     // whether or not a specific value is contained in the Set.  To do this, we can call any
     // of the following 3 methods, which all do the same thing:
-    // The () method, the set() method, or the contains() method
+    // The () method, the apply() method, or the contains() method
     // NOTE: true is returned by these 3 methods if the Set contains the element; otherwise, false is returned
     println("G) mutSet(-77) = " + mutSet(-77))                   // PRINTS: G) mutSet(-77) = true
     println("H) mutSet.apply(-77) = " + mutSet.apply(-77))       // PRINTS: H) mutSet.apply(-77) = true
@@ -97,7 +97,7 @@ object Demo
     // element via an index (as we do with Arrays and Lists), we call a method to determine
     // whether or not a specific value is contained in the Set.  To do this, we can call any
     // of the following 3 methods, which all do the same thing:
-    // The () method, the set() method, or the contains() method
+    // The () method, the apply() method, or the contains() method
     // NOTE: true is returned by these 3 methods if the Set contains the element; otherwise, false is returned
     println("Q) immutSet(-77) = " + immutSet(-77))                   // PRINTS: Q) immutSet(-77) = true
     println("R) immutSet.apply(-77) = " + immutSet.apply(-77))       // PRINTS: R) immutSet.apply(-77) = true
