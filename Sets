@@ -16,50 +16,93 @@ import scala.collection.mutable.Set - To use a mutable Set, you must include thi
 
 The code below shows examples of how to use Sets..
 =============================================================================================
-import scala.collection.mutable.Set
-// import scala.collection.immutable.Set
+import scala.collection.immutable
+import scala.collection.mutable
 
 object Demo
 {
   def main(args: Array[String])
   {
-    var array:Array[Int] = Array(1, 2, 3)
-    var set:Set[Int]     = Set(1, 2, 3)
+    val arrayInt:Array[Int]         = Array[Int](10, 13, 16, 18)
+    var mutSet:mutable.Set[Int]     = mutable.Set(4, 3, 2, 1)
+    var immutSet:immutable.Set[Int] = immutable.Set(9, 8, 7, 6, 5)
 
-    array.foreach(println) // Prints the contents of array.
-    println("set = " + set) // Prints the contents of set.
+    // WARNING!  CAUTION!  DANGER!...  The order of elements in a Set is NOT preserved!
+    // Therefore, you can never trust that elements will appear in any particular order.
 
-    // Do the following to add an element to the set.  This works
-    // if the set is mutable, or immutable.
-    set += 4 // Same result as: set.add(4)
-    println("set = " + set) // Prints the contents of set.
+    // ***************************************************************************************
+    // In this section, we manipulate mutSet, which is MUTABLE.
+    // The ++= operator works for the TraversableOnce type.  Since all collections in Scala
+    // are a subtype of TraversableOnce, the ++= operator works for all Scala collections that
+    // are mutable.  Here, we add all elements contained in arrayInt to mutSet...
+    println("A) mutSet = " + mutSet) // PRINTS: A) mutSet = Set(1, 2, 3, 4)
+    mutSet ++= arrayInt
+    println("B) mutSet = " + mutSet) // PRINTS: B) mutSet = Set(1, 16, 13, 2, 3, 18, 10, 4)
 
-    set += 2 // This code does nothing because the set already contains a value of 2.
-    println("set = " + set) // Prints the contents of set.
+    // The --= operator works for the TraversableOnce type.  Since all collections in Scala
+    // are a subtype of TraversableOnce, the --= operator works for all Scala collections that
+    // are mutable.  Here, we remove all elements contained in arrayInt from mutSet...
+    mutSet --= arrayInt
+    println("C) mutSet = " + mutSet) // PRINTS: C) mutSet = Set(1, 2, 3, 4)
 
-    // The following code removes an element (with index = 2) from the set.  This
-    // code works ONLY if you're using the type: scala.collection.mutable.Set
-    set -= 2 // Same result as: set.remove(2)
-    println("set = " + set) // Prints the contents of set.
+    // Remove the 4 Int value from mutSet, and then remove the 3 Int value from mutSet...
+    mutSet -= 4 // -= does the same as the remove() method.
+    mutSet.remove(3) // remove() does the same as -=.
+    println("D) mutSet = " + mutSet) // PRINTS: D) mutSet = Set(1, 2)
 
-    set += -77 // This adds -77 to the set.  Notice that it's placed at index 0, so set order is NOT preserved.
-    println("set = " + set) // Prints the contents of set.
+    // Add the 3 Int value to mutSet, and then add the 4 Int value to mutSet...
+    mutSet += 3 // += does the same as the add() method.
+    mutSet.add(4) // add() does the same as +=.
+    println("E) mutSet = " + mutSet) // PRINTS: E) mutSet = Set(1, 2, 3, 4)
 
-    // Since the order of a Set can easily change (by adding or removing elements),
-    // accessing a set element via an index doesn't have much meaning.  So instead
-    // of accessing a Set element via an index (as we do with Arrays and Lists),
-    // the following two lines of code return true or false, dependent on if the
-    // value specified within parenthesis is or isn't contained in the Set.
-    println("set(-77) = " + set(-77)) // Prints true because -77 is contained in set.
-    println("set(18) = " + set(18))   // Prints false because 18 is NOT contained in set.
+    mutSet += -77 // Add the -77 Int value to mutSet
+    println("F) mutSet = " + mutSet) // PRINTS: F) mutSet = Set(1, 2, 3, -77, 4)
 
-    // Using the apply() method below is identical to the 2 lines of code above.
-    println("set.apply(-77) = " + set.apply(-77)) // Prints true because -77 is contained in set.
-    println("set.apply(18) = " + set.apply(18))   // Prints false because 18 is NOT contained in set.
+    // Since the order of a Set can easily change (by adding or removing elements), accessing
+    // a set element via an index doesn't have much meaning.  So instead of accessing a Set
+    // element via an index (as we do with Arrays and Lists), we call a method to determine
+    // whether or not a specific value is contained in the Set.  To do this, we can call any
+    // of the following 3 methods, which all do the same thing:
+    // The () method, the set() method, or the contains() method
+    // NOTE: true is returned by these 3 methods if the Set contains the element; otherwise, false is returned
+    println("G) mutSet(-77) = " + mutSet(-77))                   // PRINTS: G) mutSet(-77) = true
+    println("H) mutSet.apply(-77) = " + mutSet.apply(-77))       // PRINTS: H) mutSet.apply(-77) = true
+    println("I) mutSet.contains(-77) = " + mutSet.contains(-77)) // PRINTS: I) mutSet.contains(-77) = true
+    println("J) mutSet(18) = " + mutSet(18) + "\n")              // PRINTS: J) mutSet(18) = false
 
-    // Using the contains() method below is identical to the 2 lines of code above.
-    println("set.contains(-77) = " + set.contains(-77)) // Prints true because -77 is contained in set.
-    println("set.contains(18) = " + set.contains(18))   // Prints false because 18 is NOT contained in set.
+    // ***************************************************************************************
+    // In this section, we manipulate immutSet, which is IMMUTABLE.
+    // Notice that immutSet is declared as a var.  If immutSet was declared as a val,
+    // the following code would throw errors at runtime.
+    println("K) immutSet = " + immutSet) // PRINTS: K) immutSet = Set(5, 6, 9, 7, 8)
+    immutSet ++= arrayInt
+    println("L) immutSet = " + immutSet) // PRINTS: L) immutSet = Set(5, 10, 6, 9, 13, 7, 18, 16, 8)
+    immutSet --= arrayInt
+    println("M) immutSet = " + immutSet) // PRINTS: M) immutSet = Set(5, 6, 9, 7, 8)
+
+    // Remove the 7 Int value from immutSet.  NOTE: The remove() method does NOT exist for an immutable Set.
+    immutSet -= 7
+    println("N) immutSet = " + immutSet) // PRINTS: N) immutSet = Set(5, 6, 9, 8)
+
+    // Add the 3 Int value to mutSet, and then add the 4 Int value to mutSet.  NOTE: The add() method does
+    // NOT exist for an immutable Set.
+    immutSet += 3
+    println("O) immutSet = " + immutSet) // PRINTS: O) immutSet = Set(5, 6, 9, 3, 8)
+
+    immutSet += -77 // Add the -77 Int value to immutSet
+    println("P) immutSet = " + immutSet) // PRINTS: P) immutSet = Set(5, 6, 9, 3, 8, -77)
+
+    // Since the order of a Set can easily change (by adding or removing elements), accessing
+    // a set element via an index doesn't have much meaning.  So instead of accessing a Set
+    // element via an index (as we do with Arrays and Lists), we call a method to determine
+    // whether or not a specific value is contained in the Set.  To do this, we can call any
+    // of the following 3 methods, which all do the same thing:
+    // The () method, the set() method, or the contains() method
+    // NOTE: true is returned by these 3 methods if the Set contains the element; otherwise, false is returned
+    println("Q) immutSet(-77) = " + immutSet(-77))                   // PRINTS: Q) immutSet(-77) = true
+    println("R) immutSet.apply(-77) = " + immutSet.apply(-77))       // PRINTS: R) immutSet.apply(-77) = true
+    println("S) immutSet.contains(-77) = " + immutSet.contains(-77)) // PRINTS: S) immutSet.contains(-77) = true
+    println("T) immutSet(18) = " + immutSet(18) + "\n")              // PRINTS: T) immutSet(18) = false
   }
 }
 =============================================================================================
