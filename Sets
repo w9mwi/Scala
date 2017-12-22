@@ -14,7 +14,7 @@ immutable by default...
 scala.collection.immutable.Set - The default Set used when an import statement for Set isn't declared.
 import scala.collection.mutable.Set - To use a mutable Set, you must include this import statement.
 
-The code below shows examples of how to use Sets..
+The code below shows examples of how to use both immutable and mutable Sets..
 =============================================================================================
 import scala.collection.immutable
 import scala.collection.mutable
