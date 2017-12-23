@@ -110,3 +110,71 @@ object Demo
   }
 }
 =============================================================================================
+
+=============================================================================================
+The following code shows how to use ordered sets, also known as sorted sets,
+which is specified by Scala's SortedSet type.
+import scala.collection.{immutable, mutable}
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var immutSortSet:immutable.SortedSet[Int] = immutable.SortedSet(10, 4, 8, 2)
+    var mutSortSet:mutable.SortedSet[Int]     = mutable.SortedSet(10, 4, 8, 2)
+    var mutStringSortSet:mutable.SortedSet[String]     = mutable.SortedSet("Tom", "Jim")
+
+    // NOTE: When the mutable and immutable SortedSet contents are printed,
+    //       we see that their type is TreeSet...
+    println("A) immutSortSet = " + immutSortSet) // PRINTS: A) immutSortSet = TreeSet(2, 4, 8, 10)
+    immutSortSet = immutSortSet.filter(x => x > 4)
+    println("B) immutSortSet = " + immutSortSet)// PRINTS: B) immutSortSet = TreeSet(8, 10)
+
+    println("C) mutSortSet = " + mutSortSet) // PRINTS: C) mutSortSet = TreeSet(2, 4, 8, 10)
+    mutSortSet = mutSortSet.filter(x => x > 4)
+    println("D) mutSortSet = " + mutSortSet) // PRINTS: D) mutSortSet = TreeSet(8, 10)
+
+    // The following 2 lines of code print identical results...
+    for (setElement <- immutSortSet) { println(setElement) }
+    immutSortSet.foreach(println)
+
+    // The following 2 lines of code print identical results...
+    for (setElement <- mutStringSortSet) { println(setElement) }
+    mutStringSortSet.foreach(println)
+
+    /**
+      * @param name
+      */
+    class Person(var name: String) extends Ordered[Person]
+    {
+      override def toString = name
+
+      def compare (that:Person) = // NOTE: The "that" keyword is required on this line of code.
+      {
+        // The following line of code does NOT require the "that" keyword,
+        // but using it makes the code easier to understand.
+        if (this.name == that.name) 0 else if (this.name > that.name) 1 else -1;
+      }
+    }
+
+    val tom = new Person("Tom")
+    val jim = new Person("Jim")
+
+    // NOTE: If the Person class above didn't extend the Ordered[Person] type,
+    //       AND implement the compare() method, the following two lines of
+    //       code would generate compile or runtime errors.  The Person.toString
+    //       method overridden in the Person class above provides a way to print
+    //       the contents of the tom and jim Person types.
+    val mutPerson   = mutable.SortedSet(tom, jim)
+    val immutPerson = immutable.SortedSet(tom, jim)
+
+    // The following 2 lines of code print identical results...
+    for (setElement <- mutPerson) { println(setElement) }
+    mutPerson.foreach(println)
+
+     // The following 2 lines of code print identical results...
+    for (setElement <- immutPerson) { println(setElement) }
+    immutPerson.foreach(println)
+  }
+}
+=============================================================================================
