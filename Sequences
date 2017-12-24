@@ -1,0 +1,6 @@
+Sequence is a trait.  If you look at the following println statement, you'll
+see the elements of the Sequence were rendered into an Immutable List.
+
+val seq: Seq[String] = Seq("Plain Donut", "Strawberry Donut", "Chocolate Donut")
+println(s"seq = $seq") // PRINTS: seq = List(Plain Donut, Strawberry Donut, Chocolate Donut)
+
