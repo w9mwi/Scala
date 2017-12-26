@@ -1,6 +1,6 @@
 NOTE: The #:: operator below is used on Scala Streams.  It's analogous to the
-      :: cons operator used on Scala Lists.  A Stream element (on the left side
-      of the operator) gets prepended to an existing Stream (on the right side
+      :: cons operator used on Scala Lists.  A single Stream element (on the left
+      side of the operator) gets prepended to an existing Stream (on the right side
       of the operator).  Unlike the :: operator, the #:: operator does NOT evaluate
       the right-hand side of the expression until it's requested (lazy evaluation).
 
