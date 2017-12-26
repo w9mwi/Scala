@@ -1,1 +1,19 @@
-Put info. about the Scala Stream type here.
+object Demo
+{
+  def main(args: Array[String]) =
+  {
+    val stream:Stream[Any] = 1 #:: 2 #:: 3 #:: "POOP" #:: Stream.empty
+    println(stream)
+
+    val answer:Stream[Int] = fibFrom(1, 2)
+    println("answer = " + answer)
+  }
+
+  /**
+    * Compute and return fibonnaci number.
+    */
+  def fibFrom(a: Int, b: Int): Stream[Int] =
+  {
+    a #:: fibFrom(b, a + b)
+  }
+}
