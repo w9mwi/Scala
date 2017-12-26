@@ -1,21 +1,36 @@
-NOTE: The '#::' operator below is used on Scala Streams.  It's analogous to the
-      '::' cons operator used on Scala Lists.  A Stream element (on the left side
+NOTE: The #:: operator below is used on Scala Streams.  It's analogous to the
+      :: cons operator used on Scala Lists.  A Stream element (on the left side
       of the operator) gets prepended to an existing Stream (on the right side
-      of the operator).
+      of the operator).  Unlike the :: operator, the #:: operator does NOT evaluate
+      the right-hand side of the expression until it's requested (lazy evaluation).
 
 object Demo
 {
   def main(args: Array[String]) =
   {
-    val stream:Stream[Any] = 1 #:: 2 #:: 3 #:: "POOP" #:: Stream.empty
+    val stream:Stream[Any] = 1 #:: 2 #:: 3 #:: Stream.empty
     println(stream) // PRINTS: Stream(1, ?)  (Because of lazy evaluation.)
 
-    val answer:Stream[Int] = fibFrom(1, 2)
-    println("answer = " + answer) // PRINTS: Stream(1, ?)  (Because of lazy evaluation.)
+    // Calling the take(7) method below returns the first 7 elements of the
+    // Stream.  Which means the fibFrom() function below terminates once
+    // it builds a Stream consisting of 7 elements.
+    val fibStream:Stream[Int] = fibFrom(1, 1).take(7)
+    println("fib List = " + fibStream.toList)    // PRINTS: fib List = List(1, 1, 2, 3, 5, 8, 13)
+    println("fib Sum = " + fibStream.toList.sum) // PRINTS: fib Sum = 33
   }
 
   /**
-    * Compute and return fibonnaci number.
+    * THIS IS A RECURSIVE FUNCTION!
+    * Compute and return a fibonnaci number.  If this function used the :: operator
+    * instead of the #:: operator, then every call to the function would result in
+    * another call, thus causing infinite recursion.  Since it uses the #:: operator,
+    * the right-hand side is NOT EVALUATED until it's requested (lazy evaluation).
+    *
+    * @param a - The first of 2 numbers that consist of a fibonacci set, such
+    *            as:  (1, 1) or (1, 2) or (2, 3) or (3, 5) or (5, 8), etc.
+    * @param b - The second of 2 numbers that consist of a fibonacci set, such
+    *            as:  (1, 1) or (1, 2) or (2, 3) or (3, 5) or (5, 8), etc.
+    * @return - The result
     */
   def fibFrom(a: Int, b: Int): Stream[Int] =
   {
