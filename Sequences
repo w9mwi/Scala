@@ -4,3 +4,10 @@ see the elements of the Sequence were rendered into an Immutable List.
 val seq: Seq[String] = Seq("Plain Donut", "Strawberry Donut", "Chocolate Donut")
 println(s"seq = $seq") // PRINTS: seq = List(Plain Donut, Strawberry Donut, Chocolate Donut)
 
+The following two lines of Scala code are equivalent, as
+a List of Int values is identical to a Seq of Int values.
+
+val a = Seq(1,2,3)
+val a:Seq[Int] = List(1,2,3)
+
+SEE: https://stackoverflow.com/questions/10866639/difference-between-a-seq-and-a-list-in-scala
