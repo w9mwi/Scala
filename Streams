@@ -1,12 +1,17 @@
+NOTE: The '#::' operator below is used on Scala Streams.  It's analogous to the
+      '::' cons operator used on Scala Lists.  A Stream element (on the left side
+      of the operator) gets prepended to an existing Stream (on the right side
+      of the operator).
+
 object Demo
 {
   def main(args: Array[String]) =
   {
     val stream:Stream[Any] = 1 #:: 2 #:: 3 #:: "POOP" #:: Stream.empty
-    println(stream)
+    println(stream) // PRINTS: Stream(1, ?)  (Because of lazy evaluation.)
 
     val answer:Stream[Int] = fibFrom(1, 2)
-    println("answer = " + answer)
+    println("answer = " + answer) // PRINTS: Stream(1, ?)  (Because of lazy evaluation.)
   }
 
   /**
