@@ -178,3 +178,35 @@ object Demo
   }
 }
 =============================================================================================
+The following code shows another example of how to use Sets.
+Read in-line comments below for details.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val inputFile:String = "/home/tbouril/ch8.txt"
+    println(io.Source.fromFile(inputFile).mkString + "\n")
+    println(uniqueWords(inputFile))
+  }
+
+  /**
+    * Convert the text contained in the fileName passed to this function
+    * to a Set of unique words.
+    *
+    * @param fileName
+    * @return A Set of unique words.
+    */
+  def uniqueWords(fileName:String):Set[String] =
+  {
+    val source = io.Source.fromFile(fileName)
+    // NOTE: The split() method below splits the string into multiple strings using
+    //       a single space character (" ") as the delimiter.  The + character after
+    //       the space character designates that ONE OR MORE space characters will
+    //       act as a delimiter.  If a * character was used, it would mean that
+    //       ZERO OR MORE space characters would act as the delimiter.
+    val words:Set[String] = source.getLines().toSeq.flatMap(_.split(" *")).map(_.filter(_.isLetter).toLowerCase).toSet
+    source.close()
+    words
+  }
+}
