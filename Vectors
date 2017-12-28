@@ -4,3 +4,26 @@ as well as process the List's head, use a Vector.  As accessing elements within
 a Vector is much more efficient than accessing elements in a List.
 
 A Scala Vector is immutable, whereas a Scala List can be mutable or immutable.
+==================================================================================
+import scala.collection.immutable.Vector
+
+object Demo
+{
+  def main(args: Array[String]) =
+  {
+    var vect:Vector[String] = Vector("A", "B", "C", "D", "E", "F")
+    println("A) " + vect)              // PRINTS: A) Vector(A, B, C, D, E, F)
+    println("B) vect(4) = " + vect(4)) // PRINTS: B) vect(4) = E
+
+    // The updated() method below does NOT alter the contents
+    // of vect, as Vectors are immutable.
+    println("C) " + vect.updated(1, "X")) // PRINTS: C) Vector(A, X, C, D, E, F)
+    println("D) " + vect)                 // PRINTS: D) Vector(A, B, C, D, E, F)
+
+    // To obtain a Vector where the updated() method "changes" the value of a Vector
+    // element, you need obtain the new Vector that the updated() method returns...
+    vect = vect.updated(1, "X")
+    println("E) " + vect) // PRINTS: E) Vector(A, X, C, D, E, F)
+  }
+}
+==================================================================================
