@@ -1,1 +1,6 @@
-If you want an immutable collection that has efficient indexing, the default choice would generally be to use the Vector class.
+Scala Vectors are very similar to Scala Lists.  If you only need to process the head
+of a List, then use a List.  But if you need to access elements within the List,
+as well as process the List's head, use a Vector.  As accessing elements within
+a Vector is much more efficient than accessing elements in a List.
+
+A Scala Vector is immutable, whereas a Scala List can be mutable or immutable.
