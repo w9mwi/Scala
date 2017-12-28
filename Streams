@@ -12,6 +12,7 @@ object Demo
     println(stream)          // PRINTS: Stream(1, ?)  (Because of lazy evaluation.)
     println(stream.toList)   // PRINTS: List(1, 2, 3)
     println(stream.mkString) // PRINTS: 123
+    println(stream)          // PRINTS: Stream(1, 2, 3)
 
     // Calling the take(7) method below returns the first 7 elements of the
     // Stream.  Which means the fibFrom() function below terminates once
