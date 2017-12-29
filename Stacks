@@ -1,0 +1,32 @@
+object Demo
+{
+  // The Scala Stack class is deprecated.  Stack is an inelegant
+  // and potentially poorly-performing wrapper around List.
+  // Instead, use List as a stack, as shown in the main() method below.
+  //
+  //  stack.push(x)  becomes    x::list
+  //  stack.pop      becomes  list.tail
+  //
+  def main(args: Array[String]) =
+  {
+    // Create an empty List that will be used as a stack...
+    var listAsStack:List[String] = List.empty[String] // NOTE: List.empty[String] returns Nil
+    println("A) listAsStack = " + listAsStack)
+
+    // Push 3 new elements onto listAsStack...
+    listAsStack = "Plain Donut" :: "Strawberry Donut" :: "Chocolate Donut" :: listAsStack
+    // Create a List that will be used as a stack...
+    // listAsStack = List("Plain Donut", "Strawberry Donut", "Chocolate Donut")
+    println("B) listAsStack = " + listAsStack)
+
+    // Push 1 new element onto the listAsStack...
+    listAsStack = "Vanilla Donut" :: listAsStack
+    println("C) listAsStack = " + listAsStack)
+
+    // Pop the top element off listAsStack...
+    var head:String = listAsStack.head
+    println("D) head = " + head)
+    listAsStack = listAsStack.tail
+    println("E) listAsStack = " + listAsStack)
+  }
+}
