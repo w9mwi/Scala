@@ -1,5 +1,44 @@
+Like most other Scala collections, a Map can be mutable or immutable.
+By default, Maps are immutable, which means you don't need to specify
+an import statement for Map.  Use the following import statements
+accordingly...
+
+import scala.collection.immutable.Map
+import scala.collection.mutable.Map
+
 The term Map has its origins in mathematics.  A mapping in mathematics is something that
 takes values from one set and returns values from another set.  A function in mathematics
 is technically a mapping.  The Scala Map collection type is very similar to that definition,
 in that it maps from a "key" to a "value."  For example a key could be a zip code that's
 of type Int, and the value would be "city, state" of type String.
+==========================================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var immutMap = Map(1 -> "one", 2 -> "two", 3 -> "three", 4 -> "four", 5 -> "five")
+    // NOTE: When iterating through all elements of a Map, the order of its elements
+    //       may be different than the order of when the Map was constructed.
+    println("A) " + immutMap) // PRINTS:  A) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
+
+    // NOTE: A Map's key can be of any type, and a Map's value can be of any type!
+    //       Here's how to obtain a Map's value from its key.  (key = 3, value = "three")
+    println("B) immutMap(3) = "       + immutMap(3))       // PRINTS: B) immutMap(3) = three
+    println("C) immutMap.apply(3) = " + immutMap.apply(3)) // PRINTS: C) immutMap.apply(3) = three
+
+    // To add a Map element to an existing Map, do the following...
+    immutMap += (6 -> "six")
+    println("D) " + immutMap) // PRINTS: D) Map(5 -> five, 1 -> one, 6 -> six, 2 -> two, 3 -> three, 4 -> four)
+
+    // To remove a Map element from an existing Map, do the following...
+    immutMap -= 6
+    println("E) " + immutMap + "\n") // PRINTS: E) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
+
+    // The following 2 lines of code print identical results--all the elements contained in immutMap.
+    immutMap.foreach(println); println
+    for (map <- immutMap) { println(map) }
+
+//    var mutMap:mutable.Map = mutable.Map("one" -> 1, "two" -> 2, "three" -> 3)
+  }
+}
+==========================================================================================
