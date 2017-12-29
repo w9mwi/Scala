@@ -1,0 +1,5 @@
+The term Map has its origins in mathematics.  A mapping in mathematics is something that
+takes values from one set and returns values from another set.  A function in mathematics
+is technically a mapping.  The Scala Map collection type is very similar to that definition,
+in that it maps from a "key" to a "value."  For example a key could be a zip code that's
+of type Int, and the value would be "city, state" of type String.
