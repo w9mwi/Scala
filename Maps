@@ -5,6 +5,7 @@ accordingly...
 
 import scala.collection.immutable.Map
 import scala.collection.mutable.Map
+import scala.collection.{immutable, mutable}
 
 The term Map has its origins in mathematics.  A mapping in mathematics is something that
 takes values from one set and returns values from another set.  A function in mathematics
@@ -12,11 +13,13 @@ is technically a mapping.  The Scala Map collection type is very similar to that
 in that it maps from a "key" to a "value."  For example a key could be a zip code that's
 of type Int, and the value would be "city, state" of type String.
 ==========================================================================================
+import scala.collection.{immutable, mutable}
+
 object Demo
 {
   def main(args: Array[String])
   {
-    var immutMap = Map(1 -> "one", 2 -> "two", 3 -> "three", 4 -> "four", 5 -> "five")
+    var immutMap:immutable.Map[Int, String] = Map(1 -> "one", 2 -> "two", 3 -> "three", 4 -> "four", 5 -> "five")
     // NOTE: When iterating through all elements of a Map, the order of its elements
     //       may be different than the order of when the Map was constructed.
     println("A) " + immutMap) // PRINTS:  A) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
@@ -38,7 +41,8 @@ object Demo
     immutMap.foreach(println); println
     for (map <- immutMap) { println(map) }
 
-//    var mutMap:mutable.Map = mutable.Map("one" -> 1, "two" -> 2, "three" -> 3)
+    // If you want to use a mutable Map, declare it like this...
+    var mutMap:mutable.Map[String, Int] = mutable.Map("one" -> 1, "two" -> 2, "three" -> 3)
   }
 }
 ==========================================================================================
