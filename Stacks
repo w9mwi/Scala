@@ -5,7 +5,7 @@ NOTE: The Scala Stack class is deprecated.  Stack is an inelegant and
 object Demo
 {
   /**
-    * This ListStack class uses the Scala List type as a FIFO stack.
+    * This ListStack class uses the Scala List type as a FILO stack.
     */
   class ListStack
   {
