@@ -45,9 +45,8 @@ object Demo
     immutMap -= 6
     println("E) " + immutMap) // PRINTS: E) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
 
-    // If you try to remove a Map element that doesn't, because the key you use doesn't exist in the Map,
-    // nothing will happen.  Example: Here, we try moving the Map element with a key value of 99,
-    // which doesn't exist.
+    // If you try to remove a Map element that doesn't exist in the Map, nothing will happen.
+    // Example: Here, we try removing the Map element having a key of 99, which doesn't exist.
     immutMap -= 99
     println("F) " + immutMap + "\n") // PRINTS: E) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
 
