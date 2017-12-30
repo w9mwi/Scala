@@ -64,7 +64,7 @@ object Demo
 
     // To use a mutable Map, declare it by specifying the mutable.Map type like this...
     var mutMap:mutable.Map[String, Int] = mutable.Map("one" -> 1, "two" -> 2, "three" -> 3)
-    println("\n\nG) " + mutMap)
+    println("\n\nG) " + mutMap) // PRINTS: G) Map(one -> 1, three -> 3, two -> 2)
 
     // Obtain all elements from mutMap that are NOT the ("three" -> 3) pair.
     // NOTE: In the following line of code, replacing ("three" -> 3) with ("three", 3)
