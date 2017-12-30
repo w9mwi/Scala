@@ -13,6 +13,11 @@ is technically a mapping.  The Scala Map collection type is very similar to that
 in that it maps from a "key" to a "value."  For example a key could be a zip code that's
 of type Int, and the value would be "city, state" of type String.
 
+The contents of a Map are essentially a tuple type having two values.
+So a Map of ("two" -> 2) is stored as the tuple pair ("two", 2).
+The code sample below shows this by printing the the contents
+of a Map one Map element at a time.
+
 A Map can multiple elements where the key->value pairs in each element are
 of different types.  For example, the following val myMap has as its first
 element an Int->String key->value pair.  Its second element a String->Int
@@ -51,7 +56,9 @@ object Demo
     immutMap -= 99
     println("F) " + immutMap + "\n") // PRINTS: E) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
 
-    // The following 2 lines of code print identical results--all the elements contained in immutMap.
+    // NOTE: The contents of a Map are essentially a tuple type having two values.  This can be
+    //       viewed by printing the contents of immutMap in the following 2 lines of code, which
+    //       both print identical results--all elements (tuples) contained in immutMap...
     immutMap.foreach(print); println     // PRINTS: (5,five)(1,one)(2,two)(3,three)(4,four)
     for (map <- immutMap) { print(map) } // PRINTS: (5,five)(1,one)(2,two)(3,three)(4,four)
 
