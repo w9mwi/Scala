@@ -18,7 +18,7 @@ of different types.  For example, the following val myMap has as its first
 element an Int->String key->value pair.  Its second element a String->Int
 key->value pair.  And its third element a Double->Float key->value pair.
 
-val myMap = Map(1 -> "one", "two"->2, 123.4D -> 567.8F)
+val myMap = Map(1 -> "one", "two" -> 2, 123.4D -> 567.8F)
 println(myMap) // PRINTS: Map(1 -> one, two -> 2, 123.4 -> 567.8)
 ==========================================================================================
 import scala.collection.{immutable, mutable}
