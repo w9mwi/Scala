@@ -252,3 +252,7 @@ object Demo
     doubleFloatsGreaterThan3.foreach(println)
   }
 }
+===========================================================================
+To see another example of how to use the Scala yield keyword,
+search the following Git page for "yield"...
+--> https://github.com/w9mwi/Scala/blob/master/Maps
