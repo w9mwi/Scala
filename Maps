@@ -71,6 +71,24 @@ object Demo
     //       obtains the identical results...
     mutMap = mutMap.filterNot(x => x == ("three" -> 3))
     println("H) " + mutMap) // PRINTS: H) Map(one -> 1, two -> 2)
+
+    // By calling the map() method as shown on the following line of code,
+    // we transform the (one -> 1, two -> 2) contents of mutMap to
+    // an ArrayBuffer.  If this same map() method was called on an
+    // immutable.Iterable[Int] type instead, the map() method would
+    // have returned a value of List(2, 4) instead of ArrayBuffer(2, 4).
+    var arrayBuf:mutable.Iterable[Int] = mutMap.map(tuple => tuple._2 * 2)
+    println("I) " + arrayBuf) // PRINTS: I) ArrayBuffer(2, 4)
+
+    // The following for() comprehension returns the identical result
+    // as does calling the mutMap.map() method immediately above.
+    arrayBuf = for ((key, value) <- mutMap) yield value * 2
+    println("J) " + arrayBuf) // PRINTS: J) ArrayBuffer(2, 4)
+
+    mutMap = mutMap.map(tuple => tuple._1 -> tuple._2 * 2)
+    println("K) " + mutMap) // PRINTS: K) Map(one -> 2, two -> 4)
+    mutMap = for((key, value) <- mutMap) yield (key -> value * 2)
+    println("L) " + mutMap) // PRINTS: L) Map(one -> 4, two -> 8)
   }
 }
 ==========================================================================================
