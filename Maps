@@ -46,11 +46,12 @@ object Demo
     println("E) " + immutMap + "\n") // PRINTS: E) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
 
     // The following 2 lines of code print identical results--all the elements contained in immutMap.
-    immutMap.foreach(println); println
-    for (map <- immutMap) { println(map) }
+    immutMap.foreach(print); println     // PRINTS: (5,five)(1,one)(2,two)(3,three)(4,four)
+    for (map <- immutMap) { print(map) } // PRINTS: (5,five)(1,one)(2,two)(3,three)(4,four)
 
-    // If you want to use a mutable Map, declare it like this...
+    // To use a mutable Map, declare it by specifying the mutable.Map type like this...
     var mutMap:mutable.Map[String, Int] = mutable.Map("one" -> 1, "two" -> 2, "three" -> 3)
+    println("\n\nF) " + mutMap)
   }
 }
 ==========================================================================================
