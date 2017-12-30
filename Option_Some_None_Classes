@@ -97,3 +97,71 @@ object Demo
     println(result) // Prints: The result var has been assigned the None object, so "None" is printed.
   }
 }
+============================================================
+============================================================
+object Demo
+{
+  /**
+    * This ListStack class uses the Scala List type as a FIFO stack.
+    */
+  class ListStack
+  {
+    // ONLY when this ListStack class is instantiated does the following
+    // private var stack get declared and initialized.  It's effectively
+    // all of the "constructor" code that exists in this class.
+    private var stack:List[Int] = Nil; // NOTE: Nil is the same as List()--they're both an empty List.
+
+    /**
+      * Pops an item off the stack.
+      * @return the None Option type if the stack is empty;
+      *         otherwise, return the Some Option type which includes the value.
+      */
+    def pop():Option[Int] =
+    {
+      if (stack.isEmpty)
+      {
+        None
+      }
+      else
+      {
+        val result = stack.head
+        stack = stack.tail
+        Some(result)
+      }
+    }
+
+    /**
+      * Pushes an item onto the stack.
+      * @param value the value pushed onto the stack.
+      */
+    def push(value:Int):Unit =
+    {
+      stack = value :: stack
+    }
+  }
+
+  /**
+    * This main() function demonstrates using the ListStack class defined above,
+    * as well as the Option, Some, and None Scala types.
+    * @param args
+    */
+  def main(args: Array[String]) =
+  {
+    val tom = new ListStack() // Instantiate a ListStack class.
+
+    // Push multiple items onto the ListStack...
+    tom.push(1); tom.push(2); tom.push(3); tom.push(4); tom.push(5);
+    tom.push(6); tom.push(7); tom.push(8); tom.push(9); tom.push(10);
+
+    // Pop every element off the ListStack, and print it.  If the ListStack
+    // is empty (because no item was pushed onto it), the following while()
+    // loop will detect that, and nothing will print.
+    var result:Option[Int] = tom.pop // Pop the first item off the ListStack.
+    while (result != None)
+    {
+      // If this code executes, result is not of the None type, so it's therefore of the Some type.
+      print(result.get + "  ") // The get method obtains the literal value popped off the ListStack.
+      result = tom.pop         // Pop the next item off the ListStack.
+    }
+  }
+}
