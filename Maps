@@ -12,6 +12,14 @@ takes values from one set and returns values from another set.  A function in ma
 is technically a mapping.  The Scala Map collection type is very similar to that definition,
 in that it maps from a "key" to a "value."  For example a key could be a zip code that's
 of type Int, and the value would be "city, state" of type String.
+
+A Map can multiple elements where the key->value pairs in each element are
+of different types.  For example, the following val myMap has as its first
+element an Int->String key->value pair.  Its second element a String->Int
+key->value pair.  And Its third element a Double->Float key->value pair.
+
+val myMap = Map(1 -> "one", "two"->2, 123.4D -> 567.8F)
+println(myMap) // PRINTS: Map(1 -> one, two -> 2, 123.4 -> 567.8)
 ==========================================================================================
 import scala.collection.{immutable, mutable}
 
