@@ -15,12 +15,13 @@ object Demo
     * the word count, and String is the word that gets counted.
     *
     * @param fileName
-    * @return A Map where each element is an (Int, String) tuple,
+    * @return A Map where each element is an (Int, String) tuple
     *         where Int is the word count, and word is the word
     *         that gets counted.
     */
   def wordCount_1(fileName:String):mutable.Map[String, Int] =
   {
+
     import scala.io.BufferedSource
     val source:BufferedSource = io.Source.fromFile(fileName)
     // NOTE 1: The split() method below splits the string into multiple strings using
@@ -30,22 +31,38 @@ object Demo
     //         ZERO OR MORE space characters would act as the delimiter.
     //
     // NOTE 2: The following line of commented-out code comes from the uniqueWords()
-    //         function shown on my Sets Git page.  Notice the difference between
+    //         function shown on my GitHub "Sets" page.  Notice the difference between
     //         it and the following line of code in this wordCount() function--they're
     //         very similar, but not identical...
  // val words:Set[String] = source.getLines().toSeq.flatMap(_.split(" +")).map(_.filter(_.isLetter).toLowerCase).toSet
     val words:Seq[String] = source.getLines().toSeq.flatMap(_.split(" +")).map(_.filter(_.isLetter).toLowerCase)
 
-    // NOTE: The contents of val words is identical to the contents of the input text file.
+    // NOTE: At this point in the code, the contents of val words is
+    //       now identical to the contents of the input text file.
 
     // The following line of code instantiates a mutable.Map of the type we need.  Think
-    // of mutable.Map[String, Int]() as analogous to List[String]() or List[Int]()
-    // an empty mutable.Map[String, Int] is empty like a List[String]() or List[Int]()
+    // of mutable.Map[String, Int]() as analogous to List[String]() or List[Int]() an
+    // empty mutable.Map[String, Int] is empty just like List[String]() or List[Int]()
+    // are empty.
     val wordCounts:mutable.Map[String, Int] = mutable.Map[String, Int]()
 
+    // NOTE: At this point in the code, the wordCounts Map is empty.  Since wordCounts
+    //       is a mutable.Map we can add new elements to it, or update existing elements,
+    //       by using the += operator below...
     for (w <- words)
     {
-      if (wordCounts.contains(w)) wordCounts += w -> (wordCounts(w) + 1)  else  wordCounts += w -> 1
+      if (wordCounts.contains(w))
+      {
+        // If this code executes, the wordCounts Map already contains a key for the word w.
+        // So the following line of code CHANGES/UPDATES the word count of word w by 1 (one).
+        wordCounts += (w -> (wordCounts(w) + 1))
+      }
+      else
+      {
+        // If this code executes, it means the word w does NOT yet exist in the wordCounts Map,
+        // so we add it here for the first time, with a word count of 1 (one)...
+        wordCounts += (w -> 1)
+      }
     }
     source.close()
     wordCounts
