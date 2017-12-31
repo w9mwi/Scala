@@ -1,0 +1,53 @@
+object Demo
+{
+  import scala.collection.mutable
+
+  def main(args: Array[String])
+  {
+    val inputFile:String = "/home/tbouril/ch8.txt"
+    println(io.Source.fromFile(inputFile).mkString + "\n") // Print contents of the text file.
+    println(wordCount_1(inputFile))
+  }
+
+  /**
+    * Convert the text contained in the fileName passed to this function
+    * to a Map consisting of the (Int, Count) tuple, where Int represents
+    * the word count, and String is the word that gets counted.
+    *
+    * @param fileName
+    * @return A Map where each element is an (Int, String) tuple,
+    *         where Int is the word count, and word is the word
+    *         that gets counted.
+    */
+  def wordCount_1(fileName:String):mutable.Map[String, Int] =
+  {
+    import scala.io.BufferedSource
+    val source:BufferedSource = io.Source.fromFile(fileName)
+    // NOTE 1: The split() method below splits the string into multiple strings using
+    //         a single space character (" ") as the delimiter.  The + character after
+    //         the space character designates that ONE OR MORE space characters will
+    //         act as a delimiter.  If a * character was used, it would mean that
+    //         ZERO OR MORE space characters would act as the delimiter.
+    //
+    // NOTE 2: The following line of commented-out code comes from the uniqueWords()
+    //         function shown on my Sets Git page.  Notice the difference between
+    //         it and the following line of code in this wordCount() function--they're
+    //         very similar, but not identical...
+ // val words:Set[String] = source.getLines().toSeq.flatMap(_.split(" +")).map(_.filter(_.isLetter).toLowerCase).toSet
+    val words:Seq[String] = source.getLines().toSeq.flatMap(_.split(" +")).map(_.filter(_.isLetter).toLowerCase)
+
+    // NOTE: The contents of val words is identical to the contents of the input text file.
+
+    // The following line of code instantiates a mutable.Map of the type we need.  Think
+    // of mutable.Map[String, Int]() as analogous to List[String]() or List[Int]()
+    // an empty mutable.Map[String, Int] is empty like a List[String]() or List[Int]()
+    val wordCounts:mutable.Map[String, Int] = mutable.Map[String, Int]()
+
+    for (w <- words)
+    {
+      if (wordCounts.contains(w)) wordCounts += w -> (wordCounts(w) + 1)  else  wordCounts += w -> 1
+    }
+    source.close()
+    wordCounts
+  }
+}
