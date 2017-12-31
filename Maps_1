@@ -26,6 +26,27 @@ key->value pair.  And its third element a Double->Float key->value pair.
 val myMap = Map(1 -> "one", "two" -> 2, 123.4D -> 567.8F)
 println(myMap) // PRINTS: Map(1 -> one, two -> 2, 123.4 -> 567.8)
 ==========================================================================================
+This small block of code demonstrates how to use a mutable Map...
+
+object Demo
+{
+  import scala.collection.mutable
+
+  def main(args: Array[String])
+  {
+    // NOTE: tom is a val, so we cannot change the Map that tom points to.
+    //       However, because tom is a mutable.Map, we can change/update
+    //       any existing value stored in it, as the below code demonstrates.
+    val tom:mutable.Map[String, Int] = mutable.Map("pop" -> 1)
+    println("A) tom = " + tom)      // PRINTS: A) tom = Map(pop -> 1)
+    println("B) " + tom.get("pop")) // PRINTS: Some(1)   The following line of code uses this same construct...
+
+    // The following line of code UPDATES (CHANGES) the mutable.Map tom--incrementing its Int value by one...
+    tom.put("pop" , tom.get("pop").get + 1)
+    println("C) tom = " + tom) // PRINTS: C) tom = Map(pop -> 2)
+  }
+}
+
 import scala.collection.{immutable, mutable}
 
 object Demo
