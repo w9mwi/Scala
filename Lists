@@ -326,21 +326,27 @@ ___ filter - EXAMPLE:
              println(result) // result = List(7)
 ___ filterNot - The opposite of the filter method.
 ___ flatMap - EXAMPLE:
-              The flatMap method is essentially a combination of the map
-              method being run first, followed by the flatten method.
+              The flatMap() method called below is essentially a combination of the
+              map() method run first, followed by the flatten() method run second.
+
               val fish:List[String]               = List[String]("alewife", "bass", "perch", "northern", "walleye")
               val waterBirds:List[String]         = List[String]("eagle", "duck", "goose")
               val waterAnimals:List[List[String]] = List[List[String]](fish, waterBirds)
-              val flatMap:List[String]            = waterAnimals.flatMap(x => x)
-              println("fish                 = " + fish)
-              println("waterBirds           = " + waterBirds)
-              println("waterAnimals         = " + waterAnimals)
-              println("flatMap waterAnimals = " + flatMap)
-              PRINTS THE FOLLOWING 4 LINES:
-              fish                 = List(alewife, bass, perch, northern, walleye)
-              waterBirds           = List(eagle, duck, goose)
-              waterAnimals         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
-              flatMap waterAnimals = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+              println("A) fish                             = " + fish)
+              println("B) waterBirds                       = " + waterBirds)
+              println("C) waterAnimals                     = " + waterAnimals)
+              println("D) waterAnimals.map(x => x)         = " + waterAnimals.map(x => x)) // NOTE: map(x => x) changes nothing.
+              println("E) waterAnimals.flatten             = " + waterAnimals.flatten)
+              println("F) waterAnimals.map(x => x).flatten = " + waterAnimals.map(x => x).flatten)
+              println("G) waterAnimals.flatMap(x => x)     = " + waterAnimals.flatMap(x => x))
+          //  A) fish                             = List(alewife, bass, perch, northern, walleye)
+          //  B) waterBirds                       = List(eagle, duck, goose)
+          //  C) waterAnimals                     = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
+          //  D) waterAnimals.map(x => x)         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
+          //  E) waterAnimals.flatten             = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+          //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+          //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+
 ___ flatten - Read the following web page for explanations and examples of how to use the flatten method:
               https://alvinalexander.com/scala/how-to-flatten-list-lists-in-scala-with-flatten-method
 ___ foldLeft - See the foldRight example below.
