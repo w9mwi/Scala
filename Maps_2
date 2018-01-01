@@ -36,7 +36,7 @@ object Demo
     //
     // NOTE 2: The following line of commented-out code comes from the uniqueWords()
     //         function shown on my GitHub "Sets" page.  Notice the difference between
-    //         it and the following line of code in this wordCount() function--they're
+    //         it and the following line of code in this wordCount_1() function--they're
     //         very similar, but not identical...
  // val words:Set[String] = source.getLines().toSeq.flatMap(_.split(" +")).map(_.filter(_.isLetter).toLowerCase).toSet
     val words:Seq[String] = source.getLines().toSeq.flatMap(_.split(" +")).map(_.filter(_.isLetter).toLowerCase)
@@ -45,14 +45,15 @@ object Demo
     //       now identical to the contents of the input text file.
 
     // The following line of code instantiates a mutable.Map of the type we need.  Think
-    // of mutable.Map[String, Int]() as analogous to List[String]() or List[Int]() an
+    // of mutable.Map[String, Int]() as analogous to List[String]() or List[Int]().  An
     // empty mutable.Map[String, Int] is empty just like List[String]() or List[Int]()
     // are empty.
     val wordCounts:mutable.Map[String, Int] = mutable.Map[String, Int]()
 
     // NOTE: At this point in the code, the wordCounts Map is empty.  Since wordCounts
     //       is a mutable.Map we can add new elements to it, or update existing elements,
-    //       by using the += operator below...
+    //       by using the += operator below.  NOTE: The immutable.Map does NOT have
+    //       the += operator available because += is basically an update operator.
     for (w <- words)
     {
       if (wordCounts.contains(w))
