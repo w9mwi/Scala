@@ -339,6 +339,7 @@ ___ flatMap - EXAMPLE:
               println("E) waterAnimals.flatten             = " + waterAnimals.flatten)
               println("F) waterAnimals.map(x => x).flatten = " + waterAnimals.map(x => x).flatten)
               println("G) waterAnimals.flatMap(x => x)     = " + waterAnimals.flatMap(x => x))
+          //  PRINTS THE FOLLOWING 7 LINES...
           //  A) fish                             = List(alewife, bass, perch, northern, walleye)
           //  B) waterBirds                       = List(eagle, duck, goose)
           //  C) waterAnimals                     = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
