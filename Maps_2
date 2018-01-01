@@ -5,8 +5,13 @@ object Demo
   def main(args: Array[String])
   {
     val inputFile:String = "/home/tbouril/ch8.txt"
-    println(io.Source.fromFile(inputFile).mkString + "\n") // Print contents of the text file.
-    println(wordCount_1(inputFile))
+    println("=========================================================\n" +
+            "CONTENTS OF THE TEXT FILE BEING PROCESSED:\n" + io.Source.fromFile(inputFile).mkString)
+    println("=========================================================\n" +
+            "RESULTS RETURNED BY wordCount_1():\n" + wordCount_1(inputFile))
+    println("=========================================================\n" +
+            "RESULTS RETURNED BY wordCount_2():\n" + wordCount_2(inputFile))
+    println("=========================================================")
   }
 
   /**
@@ -21,7 +26,6 @@ object Demo
     */
   def wordCount_1(fileName:String):mutable.Map[String, Int] =
   {
-
     import scala.io.BufferedSource
     val source:BufferedSource = io.Source.fromFile(fileName)
     // NOTE 1: The split() method below splits the string into multiple strings using
@@ -64,6 +68,49 @@ object Demo
         wordCounts += (w -> 1)
       }
     }
+    source.close()
+    wordCounts
+  }
+
+  /**
+    * Read the comments in the wordCount_1() function above,
+    * as this wordCount_2() function gets passed the same value,
+    * and returns the same results.  Only the code is different.
+    */
+  def wordCount_2(fileName:String):mutable.Map[String, Int] =
+  {
+
+    import scala.io.BufferedSource
+    val source:BufferedSource = io.Source.fromFile(fileName)
+
+    // The following line of code is identical to the line used in the wordCount_1() function above.
+    val words:Seq[String] = source.getLines().toSeq.flatMap(_.split(" +")).map(_.filter(_.isLetter).toLowerCase)
+
+    // NOTE: At this point in the code, the contents of val words is
+    //       now identical to the contents of the input text file.
+
+    // NOTE: The following call foldLeft() is a curried function, which contains 2 parameter lists.
+    //       The first parameter list contains the compiled value that you start with (an empty Map).
+    //       The second parameter is the function used by foldLeft() to obtain the result.
+    //       So foldLeft() uses an empty Map, which gets populated with the returned result.
+    //       Then, the function passed to foldLeft as the second parameter is called
+    //       with each element contained in the words Seq., one word at a time until
+    //       all words in it have been processed.
+    //
+    //       The FIRST TIME time the function passed to foldLeft() gets called...
+    //       (map, word) - map is empty
+    //                     word is the first word contained in the words Seq.
+    //
+    //       The SECOND TIME the function passed to foldLeft() gets called...
+    //       (map, word) - map contains the first word in the words Seq., with a count of one.
+    //                     word is the second word contained in the words Seq.
+    //       This repeats until all words in the words Seq. have been processed.
+    val wordCounts = words.foldLeft(mutable.Map[String,Int]())  ((map, word) => {
+                                                                                  if (map.contains(word))
+                                                                                    map + (word -> (map(word) + 1))
+                                                                                  else
+                                                                                    map + (word -> 1)
+                                                                                })
     source.close()
     wordCounts
   }
