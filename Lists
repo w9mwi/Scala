@@ -357,10 +357,10 @@ ___ foldRight - For more info. regarding foldLeft and foldRight, see "CURRYING E
                 val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
                 // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
-                //       as they get passed a value, and return a function
-                //       that gets passed a value and returns a value.
-                //       When foldLeft and foldRight are called below, they
-                //       get called with TWO PARAMETER LISTS.
+                //       as they get passed a value, and they return a function
+                //       that gets passed a value and returns a value.  When
+                //       foldLeft and foldRight are called below, they get
+                //       called with TWO PARAMETER LISTS.
 
                 // The following foldLeft function works on intList as follows:
                 // The first argument list (0) takes the base value that's used
