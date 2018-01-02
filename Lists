@@ -529,3 +529,9 @@ ___ takeWhile - Also see the dropWhile method, which is the inverse of this take
                 println("myList.takeWhile(_ > 43.6F)  = " + myList.takeWhile(_ > 43.6F))
                 println("myList.takeWhile(_ > 43.7F)  = " + myList.takeWhile(_ > 43.7F))
                 println("myList.takeWhile(_ > 17.6F)  = " + myList.takeWhile(_ > 17.6F))
+              // PRINTS THE FOLLOWING:
+              // myList                       = List(43.7, 17.7, 77.7, 567.89, 144.8)
+              // myList.takeWhile(_ == 43.7F) = List(43.7)
+              // myList.takeWhile(_ > 43.6F)  = List(43.7)
+              // myList.takeWhile(_ > 43.7F)  = List()
+              // myList.takeWhile(_ > 17.6F)  = List(43.7, 17.7, 77.7, 567.89, 144.8)
