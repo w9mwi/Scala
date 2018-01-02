@@ -517,12 +517,15 @@ ___ tails - Gives an iterator that runs through sublists, starting with the full
             }
 ___ takeWhile - Also see the dropWhile method, which is the inverse of this takeWhile method.
                 Pass this method a function that operates on a single element of the collection
-                and returns a Boolean.  This method returns a new collection all elements
-                at the beginning for which that function is true.
-                val myList:List[Float] = List(43.7F, 17.7F, 77.7F, 567.89F, 144.8F)
-                val result1:List[Float] = myList.takeWhile(_ > 43.7F)
-                val result2:List[Float] = myList.takeWhile(_ > 43.6F)
-                val result3:List[Float] = myList.takeWhile(_ > 17.6F)
-                println("result1 = " + result1 + ",  result2 = " + result2 + ",  result3 = " + result3)
-                // Prints:  result1 = List(),  result2 = List(43.7),  result3 = List(43.7, 17.7, 77.7, 567.89, 144.8)
+                and returns a Boolean.  This method returns a new collection of all elements
+                for which that function is true beginning with the first element.  As soon
+                as an element is found for where the function returns false, nothing more
+                is returned.  That's why the fourth println below prints the empty List (List()),
+                because the function returns false for the first element in myList.
 
+                val myList:List[Float] = List(43.7F, 17.7F, 77.7F, 567.89F, 144.8F)
+                println("myList                       = " + myList)
+                println("myList.takeWhile(_ == 43.7F) = " + myList.takeWhile(_ == 43.7F))
+                println("myList.takeWhile(_ > 43.6F)  = " + myList.takeWhile(_ > 43.6F))
+                println("myList.takeWhile(_ > 43.7F)  = " + myList.takeWhile(_ > 43.7F))
+                println("myList.takeWhile(_ > 17.6F)  = " + myList.takeWhile(_ > 17.6F))
