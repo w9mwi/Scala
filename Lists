@@ -491,7 +491,7 @@ ___ reduceRight - EXAMPLE of reduceLeft and reduceRight:
 
     result = myList.reduceRight(_ * _) // result = 1 * (2 * (3 * 4)) = 24
     println("result = " + result) // Prints: 24
-___ sliding - Provides an iterator that gives the efect of sliding a window of a specified size across the sequence.
+___ sliding - Provides an iterator that gives the effect of sliding a window of a specified size across the sequence.
               EXAMPLE:
               val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
               intList.sliding(3).foreach(println)
