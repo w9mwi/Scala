@@ -18,7 +18,7 @@ add2Curried(123)(321)  OR  add2Curried(123)_  (NOTE the underscore char. is the 
 CRITERIA  NO. 3:
 It's possible that a function is a curried function without meeting the
 above two criteria.  The following function is a also a curried function.
-It's definition, followed by how the function is called, is shown here.
+Its definition, followed by how the function is called, is shown here.
 
 def add2Curried(x:Int) = { (y:Int) => x+y }
 
@@ -73,20 +73,20 @@ object Demo
 {
   def main(args: Array[String]):Unit =
   {
-    println("add1(123, 321)        = " + add1(123, 321))
-    println("add2Curried(123)(321) = " + add2Curried(123)(321))
-    println("add3Curried(123)(321) = " + add3Curried(123)(321))
+    println("add1(123, 321)        = " + add1(123, 321))        // PRINTS: add1(123, 321)        = 444
+    println("add2Curried(123)(321) = " + add2Curried(123)(321)) // PRINTS: add2Curried(123)(321) = 444
+    println("add3Curried(123)(321) = " + add3Curried(123)(321)) // PRINTS: add3Curried(123)(321) = 444
 
     // NOTE: It's NOT possible to call the add2Curried function with an underscore
     //       char (_) to designate the second param isn't being used, as is done
     //       below when calling the add3Curried function.
     val func1 = add2Curried(5)
-    println("func1 result = " + func1(20)) // Prints: func1 result = 25
+    println("func1 result = " + func1(20)) // PRINTS: func1 result = 25
 
     // NOTE: When passing add3Curried only one parameter, the below underscore
     //       char (_) is required to designate the second param isn't being used.
     val func2 = add3Curried(5)_
-    println("func2 result = " + func2(20)) // Prints: func2 result = 25
+    println("func2 result = " + func2(20)) // PRINTS: func2 result = 25
   }
 
   def add1(x:Int, y:Int):Int = { x+y }
@@ -107,6 +107,9 @@ object Demo
 
     println("strCatCurried_1(str1)(str2) = " +  strCatCurried_1(str1)(str2))
     println("strCatCurried_2(str1)(str2) = " +  strCatCurried_2(str1)(str2))
+    // THE 2 LINES OF CODE ABOVE PRINTS THE FOLLOWING:
+    // strCatCurried_1(str1)(str2) = Hello, Scala!
+    // strCatCurried_2(str1)(str2) = Hello, Scala!
   }
 
   def strCatCurried_1(s1: String) = (s2: String) => s1 + s2
@@ -122,11 +125,13 @@ object Demo
     val plus5  = (x:Double) => x+5.0D
     val square = (x:Double) => x*x
 
+    // NOTE: 54.0 = 5.0+(7.0*7.0)
     var result:Double = funcOfGunc(plus5, square)(7.0D)
-    println("result = " + result) // Prints: result = 54.0  NOTE: 54.0 = 5.0+(7.0*7.0)
+    println("result = " + result) // PRINTS: result = 54.0
 
+    // NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
     result = funcOfGunc(square, plus5)(7.0D)
-    println("result = " + result) // Prints: result = 144.0  NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
+    println("result = " + result) // PRINTS: result = 144.0
   }
 
   def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
@@ -141,7 +146,7 @@ object Demo
     val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
     // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
-    //       as they get passed a value, and return a function
+    //       as they get passed a value, and RETURN A FUNCTION
     //       that gets passed a value and returns a value.
     //       When foldLeft and foldRight are called below, they
     //       get called with TWO PARAMETER LISTS.
@@ -151,29 +156,35 @@ object Demo
     // as the first operand.  The second argument list (_ - _) is the
     // function to apply.
     // 0−7−4−6−3−9−1 = ((((((0−7)−4)−6)−3)−9)−1) = -30
+    // NOTE: intList.foldLeft(0)(_ - _) below is the same as: intList.foldLeft(0)((x, y) => x-y)
     println("intList.foldLeft(0)(_ - _) = " + intList.foldLeft(0)(_ - _))
+    // PRINTS: intList.foldLeft(0)(_ - _) = -30
 
     // The following foldRight function works on intList as follows:
     // The first argument list (0) takes the base value that's used
     // as the first operand.  The second argument list (_ - _) is the
     // function to apply.
     // 0−(1−(9−(3−(6−(4−7))))) = 14
+    // NOTE: intList.foldRight(0)(_ - _) below is the same as: intList.foldRight(0)((x, y) => x-y))
     println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
+    // PRINTS: intList.foldRight(0)(_ - _) = 14
 
-
-    val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
+    val wordList:List[String] = List[String]("How", "many", "characters", "are", "in", "this", "wordList?")
     // NOTE: The second parameter list for foldRight has its tuple order as (word, count),
     //       which is the reverse order used by the foldLeft function below.
-    var wordCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
-    println("wordCount.foldRight = " + wordCount)
+    var charCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
+    println("wordList.foldRight = " + charCount) // PRINTS: wordList.foldRight = 35
 
     // NOTE: The second parameter list for foldLeft has its tuple order as (count, word),
     //       which is the reverse order used by the foldRight function above.
-    wordCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
-    println("wordCount.foldLeft = " + wordCount)
+    charCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
+    println("wordList.foldLeft = " + charCount) // PRINTS: wordList.foldLeft = 35
 
     println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
     println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
+    // THE 2 LINES OF CODE ABOVE PRINTS:
+    // wordList.foldLeft(0)(_+_.length)    = 35
+    // wordList.foldRight(0)(_.length + _) = 35
   }
 }
 ====================================================================
