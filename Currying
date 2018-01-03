@@ -200,9 +200,12 @@ object Demo
     // Because this is what gets evaluated: 0−(1−(9−(3−(6−(4−7)))))
     // Where the zero (0) comes not from intList, but from
     // the zero passed to myFoldRightFunc function call.
-    println("result = " + result)
+    println("result = " + result) // PRINTS: result = 14
   }
 
+  /**
+    * THIS IS A RECURSIVE FUNCTION!
+    */
   def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
   {
     if (list.isEmpty)
