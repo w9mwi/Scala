@@ -83,9 +83,10 @@ object Demo
   }
 }
 
-val list = List(0 to 10 by 5: _*)
-val vect = Vector(4 to 7: _*)
-println(list, vect) // PRINTS: (List(0, 5, 10),Vector(4, 5, 6, 7))
+val array = (0 to 9).toArray
+val list  = List(0 to 10 by 5: _*)
+val vect  = Vector(4 to 7: _*)
+println(array.mkString, list, vect) // PRINTS: (0123456789,List(0, 5, 10),Vector(4, 5, 6, 7))
 
 
 val evenNumbers:Range = new Range(0, 10, 2)
