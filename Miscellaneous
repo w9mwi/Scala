@@ -1,7 +1,7 @@
 // How to use the keyword 'type'.  You can create your own type
 // names in Scala by using existing types.  When you create your
 // own type, that type name should begin with a single uppercase
-// character.  Here are two examples--type Couner and type Location.
+// character.  Here are two examples--type Counter and type Location.
 object Demo
 {
   type Counter  = Int
@@ -42,7 +42,7 @@ object Demo
 // existing class.  In this example we add the decrement()
 // and increment() methods to the existing Scala String class.
 //
-// Assume you create a var of type String named 'state'. Now,
+// Assume you create a var of type String named 'state'.  Now,
 // when you type the text 'state.', your new decrement and
 // increment methods will appear in the list of methods to
 // choose from.
