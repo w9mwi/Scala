@@ -1,0 +1,41 @@
+The Buffer type is similar to an Array, but unlike an Array a Buffer can change size,
+which means it can easily grow and shrink.  Therefore, the Buffer type is immutable.
+(There is no mutable Buffer type.)
+
+There are several types of Scala Buffer types.  The two most significant Buffer types are
+ArrayBuffer and ListBuffer.  In the following sample code, although a Buffer is declared,
+we see an ArrayBuffer type when the Buffer contents are printed.
+=========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    import collection.mutable.Buffer
+    import collection.mutable.ListBuffer
+
+    val buf1 = Buffer(1, 2, 3, 4, 5); println(buf1)         // PRINTS: ArrayBuffer(1, 2, 3, 4, 5)
+    val buf2 = Buffer.fill(5)(math.random); println(buf2)   // PRINTS: ArrayBuffer(0.7788466721537356, ...4 more numbers)
+    val buf3 = ListBuffer("pop", "a", "top"); println(buf3) // PRINTS: ListBuffer(pop, a, top)
+  }
+}
+=========================================================================
+The following is a list of some common methods used by the Buffer type...
+
+___ +=(elem: A):Buffer[A]  - Append an element to the buffer and return the same buffer.
+___ +=:(elem: A):Buffer[A] - Prepend an element to the buffer and return the same buffer.
+___ ++=(xs:TraversableOnce[A]):Buffer[A]  - Append the elements in xs to the buffer and return the same buffer.
+___ ++=:(xs:TraversableOnce[A]):Buffer[A] - Prepend the elements in xs to the buffer and return the same buffer.
+___ -=(elem:A):Buffer[A]                 - Remove the element from the buffer and return the same buffer.
+___ --=(xs:TraversableOnce[A]):Buffer[A] - Remove all the elements in xs from the buffer and return the same buffer.
+
+___ append(elem:A):Unit                   - Append the element to the buffer.
+___ appendAll(xs:TraversableOnce[A]):Unit - Append the elements in xs to the buffer.
+___ clear():Unit - Remove all elements from the buffer.
+___ insert(n:Int, elems: A*):Unit               - Insert the specified elements at the specified index.
+___ insertAll(n:Int, elems:Traversable[A]):Unit - Insert all the elements in elems at index n.
+___ prepend(elems: A*):Unit - Prepend the elements to this buffer.
+___ prependAll(xs: TraversableOnce[A]):Unit - Prepend the elements in xs to this buffer.
+___ remove(n:Int, count:Int): Unit - Remove count elements starting with the one at index n.
+___ remove(n:Int): A               - Remove the one element at n and return it.
+___ trimEnd(n:Int): Unit   - Remove the last n elements from this buffer.
+___ trimStart(n:Int): Unit - Remove the first n elements from this buffer.
