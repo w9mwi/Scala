@@ -13,8 +13,8 @@ object Demo
     import collection.mutable.Buffer
     import collection.mutable.ListBuffer
 
-    var buf1 = Buffer(1, 2, 3, 4, 5); println(buf1)         // PRINTS: ArrayBuffer(1, 2, 3, 4, 5)
-    var buf2 = Buffer.fill(5)(math.random); println(buf2)   // PRINTS: ArrayBuffer(0.7788466721537356, ...4 more numbers)
+    var buf1 = Buffer(1, 2, 3, 4, 5);         println(buf1) // PRINTS: ArrayBuffer(1, 2, 3, 4, 5)
+    var buf2 = Buffer.fill(5)(math.random);   println(buf2) // PRINTS: ArrayBuffer(0.7788466721537356, ...4 more numbers)
     var buf3 = ListBuffer("pop", "a", "top"); println(buf3) // PRINTS: ListBuffer(pop, a, top)
 
     buf1 = buf1 += 6 += 7; println(buf1) // PRINTS: ArrayBuffer(1, 2, 3, 4, 5, 6, 7)
