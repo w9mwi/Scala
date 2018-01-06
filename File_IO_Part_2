@@ -56,20 +56,31 @@ object Demo
 {
   def main(args: Array[String])
   {
-    import java.io.{FileInputStream, FileOutputStream}
+    import java.io.{FileInputStream, FileNotFoundException, FileOutputStream, IOException}
 
-    // Copy the file designated by the FileInputStream
-    // to a new file designated by the FileOutputStream...
-    val fis  = new FileInputStream("/home/tbouril/ch8.txt")
-    val fos  = new FileOutputStream("/home/tbouril/ch8_copy.txt")
-    var byte = fis.read()
-    while (byte > 0)
+    try
     {
-      fos.write(byte)
-      byte = fis.read()
+      // Copy the file designated by the FileInputStream
+      // to a new file designated by the FileOutputStream...
+      val fis = new FileInputStream("/home/tbouril/ch8.txt")
+      val fos = new FileOutputStream("/home/tbouril/ch8_copy.txt")
+      var byte = fis.read()
+      while (byte > 0) {
+        fos.write(byte)
+        byte = fis.read()
+      }
+      fis.close()
+      fos.close()
     }
-    fis.close()
-    fos.close()
+    catch
+    {
+      // NOTE: If an exception is thrown and caught, the value of the "try" block returned
+      //       is the value of the "catch" for that partiicular "case."  If the try block
+      //       throws an exception, but that exception is NOT caught in the "catch" block,
+      //       the value returned by the "try' block is the Scala type "Nothing".
+      case poop:FileNotFoundException => println("The input or output file cannot be found.")
+      case poop:IOException => println("There was an IOException related to the input or output file.")
+    }
   }
 }
 =========================================================================================
