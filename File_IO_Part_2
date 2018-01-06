@@ -48,6 +48,7 @@ object Demo
       print(byte + " ") // PRINTS: Every character of the input file as an 8-bit Int value.
       byte = fis.read()
     }
+    fis.close()
   }
 }
 =========================================================================================
@@ -67,6 +68,8 @@ object Demo
       fos.write(byte)
       byte = fis.read()
     }
+    fis.close()
+    fos.close()
   }
 }
 =========================================================================================
