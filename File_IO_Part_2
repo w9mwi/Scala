@@ -45,7 +45,7 @@ object Demo
     var byte = fis.read()
     while (byte > 0)
     {
-      print(byte + " ") // PRINTS: Every character of the input file as an Int value.
+      print(byte + " ") // PRINTS: Every character of the input file as an 8-bit Int value.
       byte = fis.read()
     }
   }
