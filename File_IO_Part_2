@@ -7,7 +7,7 @@ ___ InputStream - The basic methods work on bytes  Here are some of them:
                   ___ close():Unit
                   ___ mark(readLimit:Int):Unit
                   ___ markSupported():Boolean
-                  ___ read():Int - An abstract method.  Returns a -1 when the end of stream is reached
+                  ___ read():Int - An abstract method.  Returns a -1 when the end of stream is reached.
                                    Otherwise, returns the value of the next byte in the stream as an
                                    Int in the range 0-255.
                   ___ read(b:Array[Byte]):Int
@@ -15,7 +15,7 @@ ___ InputStream - The basic methods work on bytes  Here are some of them:
                   ___ reset():Unit
                   ___ skip(long n):Long
                   
-___ OutputStream - The basic operations work on bytes.  Here are some of them:
+___ OutputStream - The basic methods work on bytes.  Here are some of them:
                    ___ close():Unit
                    ___ flush():Unit
                    ___ write(b:Array[Byte]):Unit
@@ -27,4 +27,28 @@ ___ Writer - The basic operations work on characters.
 
 Remember, the above methods come from the java.io package.  Refer to the Java
 API for docs:  https://docs.oracle.com/javase/9/docs/api/overview-summary.html
+
+The InputStream and OutputStream do not actually have any code to read from,
+or write to, anything (which is why they're abstract).  Their only purpose is
+to serve as a base class for inheritance.  The subtypes are more specific about
+which data source/sink the operate on.  The most obvious place to use an InputStream
+or OutputStream is with files on a disk drive.  Therefore, the FileInputStream and
+FileOutputStream are classes that inherit from InputStream and OutputStream respectively.
+=========================================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    import java.io.FileInputStream
+
+    val fis  = new FileInputStream("/home/tbouril/ch8.txt")
+    var byte = fis.read()
+    while (byte > 0)
+    {
+      print(byte + " ") // PRINTS: Every character of the input file as an Int value.
+      byte = fis.read()
+    }
+  }
+}
+=========================================================================================
 
