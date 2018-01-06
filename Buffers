@@ -2,9 +2,9 @@ The Buffer type is similar to an Array, but unlike an Array a Buffer can change 
 which means it can easily grow and shrink.  Therefore, the Buffer type is immutable.
 (There is no mutable Buffer type.)
 
-There are several types of Scala Buffer types.  The two most significant Buffer types are
-ArrayBuffer and ListBuffer.  In the following sample code, although a Buffer is declared,
-we see an ArrayBuffer type when the Buffer contents are printed.
+There are several Scala Buffer types.  The two most significant Buffer types are
+ArrayBuffer and ListBuffer.  In the following sample code, although a Buffer is
+declared, we see an ArrayBuffer type when the Buffer contents are printed.
 =========================================================================
 object Demo
 {
