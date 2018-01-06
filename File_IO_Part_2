@@ -51,4 +51,23 @@ object Demo
   }
 }
 =========================================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    import java.io.{FileInputStream, FileOutputStream}
+
+    // Copy the file designated by the FileInputStream
+    // to a new file designated by the FileOutputStream...
+    val fis  = new FileInputStream("/home/tbouril/ch8.txt")
+    val fos  = new FileOutputStream("/home/tbouril/ch8_copy.txt")
+    var byte = fis.read()
+    while (byte > 0)
+    {
+      fos.write(byte)
+      byte = fis.read()
+    }
+  }
+}
+=========================================================================================
 
