@@ -29,9 +29,9 @@ Remember, the above methods come from the java.io package.  Refer to the Java
 API for docs:  https://docs.oracle.com/javase/9/docs/api/overview-summary.html
 
 The InputStream and OutputStream do not actually have any code to read from,
-or write to, anything (which is why they're abstract).  Their only purpose is
-to serve as a base class for inheritance.  The subtypes are more specific about
-which data source/sink the operate on.  The most obvious place to use an InputStream
+or write to--which is why they're abstract.  Their only purpose is to serve
+as a base class for inheritance.  The subtypes are more specific about which
+data source/sink the operate on.  The most obvious place to use an InputStream
 or OutputStream is with files on a disk drive.  Therefore, the FileInputStream and
 FileOutputStream are classes that inherit from InputStream and OutputStream respectively.
 =========================================================================================
