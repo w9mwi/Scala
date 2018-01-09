@@ -75,7 +75,7 @@ object Demo
     catch
     {
       // NOTE: If an exception is thrown and caught, the value of the "try" block returned
-      //       is the value of the "catch" for that partiicular "case."  If the try block
+      //       is the value of the "catch" for that particular "case."  If the try block
       //       throws an exception, but that exception is NOT caught in the "catch" block,
       //       the value returned by the "try' block is the Scala type "Nothing".
       case poop:FileNotFoundException => println("The input or output file cannot be found.")
