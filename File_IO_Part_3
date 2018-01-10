@@ -2,6 +2,10 @@ If you need to read/write data in formats other than individual bytes
 (Strings, Chars, Ints, Floats, Doubles, Booleans, Bytes, etc.), use
 DataInputStream and DataOutputStream.
 
+Remember, these classes and methods come from the java.io package.
+So refer to the Java API for docs regarding these classes and methods:
+https://docs.oracle.com/javase/9/docs/api/overview-summary.html
+
 DataInputStream includes the following methods:
 ___ readBoolean():Boolean
 ___ readByte():Byte
@@ -26,3 +30,9 @@ ___ writeLong(v:Long):Unit
 ___ writeShort(v:Int):Unit
 ___ writeUTF(str:String):Unit
 
+In almost all casses you'll want to use buffering when doing file I/O for performance
+reasons.  So you'll want to wrap DataInputStream and DataInputStream wrapped around
+BufferedInputStream and BufferedOutputStream like in the following examples:
+
+val dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName)))
+val dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)))
