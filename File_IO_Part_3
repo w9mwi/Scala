@@ -1,1 +1,28 @@
-Use DataInputStream and DataOutputstream
+If you need to read/write data in formats other than individual bytes
+(Strings, Chars, Ints, Floats, Doubles, Booleans, Bytes, etc.), use
+DataInputStream and DataOutputStream.
+
+DataInputStream includes the following methods:
+___ readBoolean():Boolean
+___ readByte():Byte
+___ readChar():Char
+___ readDouble():Double
+___ readFloat():Float
+___ readInt():Int
+___ readLong():Long
+___ readShort():Short
+___ readUTF():String
+
+DataOutputStream includes the following methods:
+___ writeBoolean(v:Boolean):Unit
+___ writeByte(v:Int):Unit
+___ writeBytes(s:String):Unit
+___ writeChar(v:Int):Unit
+___ writeChars(s:String):Unit
+___ writeDouble(v:Double):Unit
+___ writeFloat(v:Float):Unit
+___ writeInt(v:Int):Unit
+___ writeLong(v:Long):Unit
+___ writeShort(v:Int):Unit
+___ writeUTF(str:String):Unit
+
