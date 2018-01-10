@@ -28,6 +28,13 @@ ___ Writer - The basic operations work on characters.
 Remember, the above methods come from the java.io package.  Refer to the Java
 API for docs:  https://docs.oracle.com/javase/9/docs/api/overview-summary.html
 
+NOTE: InputStream and OutputStream work only with bytes.  If you need to read/write
+      data in formats other than individual bytes (Strings, Chars, Ints, Floats,
+      and Doubles, as well as Bytes, use DataInputStream and DataOutputStream.
+      Read more about DataInputStream and DataOutputStream (as well as
+      BufferedInputStream and BufferedOutputStream), see the File_IO_Part3
+      section at: https://github.com/w9mwi/Scala/edit/master/File_IO_Part_3
+
 The InputStream and OutputStream do not actually have any code to read from,
 or write to--which is why they're abstract.  Their only purpose is to serve
 as a base class for inheritance.  The subtypes are more specific about which
