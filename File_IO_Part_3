@@ -31,7 +31,7 @@ ___ writeShort(v:Int):Unit
 ___ writeUTF(str:String):Unit
 
 In almost all casses you'll want to use buffering when doing file I/O for performance
-reasons.  So you'll want to wrap DataInputStream and DataInputStream wrapped around
+reasons.  So you'll want to wrap DataInputStream and DataInputStream around
 BufferedInputStream and BufferedOutputStream like in the following examples:
 
 val dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName)))
