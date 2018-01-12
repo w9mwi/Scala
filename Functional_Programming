@@ -25,6 +25,10 @@ object Demo
     println("sum_1() = " + sum_1(tom))
     println("sum_2() = " + sum_2(tom))
     println("tom.sum = " + tom.sum)
+
+    // The following 2 println statements print identical results.
+    println("tom.map(x => x*2) = " + tom.map(x => x*2))
+    println("tom.map(_*2)      = " + tom.map(_*2))
   }
 
   /**
