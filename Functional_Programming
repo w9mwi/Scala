@@ -1,14 +1,13 @@
-// FACTORIAL FUNCTION
 object Demo
 {
-  def main(args: Array[String]): Unit =    // The following 3 println statement print identical results.
-    println("sum_1() = " + sum_1(tom))
-    println("sum_2() = " + sum_2(tom))
-    println("tom.sum = " + tom.sum)
+  def main(args: Array[String]): Unit =
   {
-    println("factorial(4400) = " + factorial(4400))
+    println("factorial(11) = " + factorial(12))
   }
 
+  /**
+    * THIS IS A RECURSIVE FUNCTION.
+    */
   def factorial(x:BigInt):BigInt =
   {
     if (x <= 1) { return(1) }
