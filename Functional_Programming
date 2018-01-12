@@ -8,14 +8,47 @@ object Demo
 
   def factorial(x:BigInt):BigInt =
   {
-    if (x <= 1)
+    if (x <= 1) { return(1) }
+    else { x * factorial(x-1) }
+  }
+}
+// =================================================================
+// =================================================================
+object Demo
+{
+  def main(args: Array[String]) =
+  {
+
+    val tom:List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    println("sum_1() = " + sum_1(tom));
+    println("sum_2() = " + sum_2(tom));
+  }
+
+  /**
+    * This sum_1() function uses imperative programming, and
+    * returns the same result as the sum_2() function below.
+    */
+  def sum_1(ints:List[Int]):Int =
+  {
+    var sum = 0
+    for (number <- ints)
     {
-      return(1)
+      sum += number
     }
-    else
-    {
-      x * factorial(x-1)
-    }
+    sum
+  }
+
+  /**
+    * THIS IS A RECURSIVE FUNCTION!
+    * This sum_2() function uses functional programming, and
+    * returns the same result as the sum_1() function above.
+    */
+  def sum_2(list:List[Int]):Int = list match
+  {
+    // NOTE: Both the x, and the tail, names below could
+    //       be changed to any name you wish.
+    case Nil => 0
+    case x :: tail => x + sum_2(tail)
   }
 }
 // =================================================================
