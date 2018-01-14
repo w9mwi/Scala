@@ -1,3 +1,15 @@
+Case class is different from normal class in following ways...
+1) You can create instance of case class WITHOUT the "new" keyword.
+2) You can do pattern matching with case classes.
+3) The constructor parameters of case classes are treated as
+   public values and can be accessed directly, like this...
+
+   abstract class Term
+   case class Var(name: String) extends Term
+   val x = Var("Pop a top.");
+   println(x.name) // PRINTS: Pop a top.
+==================================
+
 A case class will work with pattern matching, where a regular class will
 NOT work with pattern matching.
 
@@ -25,10 +37,10 @@ have to otherwise manually write for a regular class.  For example:
    for all the class's member values.
 4) A case class allows for pattern matching.
 
-For more details about case classes, read the following:
+For more details about case classes, read the following web pages:
 --> http://www.alessandrolacava.com/blog/scala-case-classes-in-depth/
-
-
+--> http://www.scala-lang.org/old/node/258
+--> http://docs.scala-lang.org/tour/case-classes.html
 
 object Demo
 {
