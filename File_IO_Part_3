@@ -56,7 +56,7 @@ object Demo
 
     // THE FOLLOWING CODE DOES EXACTLY THE SAME AS THE ABOVE CODE,
     // EXCEPT IT USES THE HARDER-TO-UNDERSTAND  CURRIED FUNCTIONS
-    // withDIS() and withDOS.
+    // withDIS() and withDOS().
     // Write 10 random Doubles to a file named arrayOfDoubles.bin...
     writeDoubleArray(fileName, Array.fill(10)(math.random))
 
