@@ -139,3 +139,50 @@ object Demo
 }
 
 ========================================================================================
+
+object Demo
+{
+  import java.io._
+
+  class Student(val name:String, val grades:Array[Int]) extends Serializable
+
+  /**
+    * This Scala program gets run from the command line.  The first time you run this
+    * program from the command line, you pass it arguments that tell the program to
+    * generates a new file named junk.bin, and WRITE DATA to that file.  The next
+    * time you run this program, you pass it arguments that tell the program to
+    * READ DATA from that junk.bin file, and print that data to the console window.
+    * Follow these instructions:
+    *
+    * 1) Save this text file to a file named: Demo.scala
+    * 2) From the command line window, compile this file and
+    *    execute the compiled file by doing the following...
+    *    $ scalac Demo.scala
+    *    $ scala Demo -w junk.bin John 98 78 88 93 100 83
+    *    $ scala Demo -r junk.bin
+    *
+    * @param args Arguments passed from the command line shown above.
+    */
+  def main(args: Array[String])
+  {
+    args(0) match
+    {
+      case "-r" =>
+        val ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(args(1))))
+        ois.readObject() match
+        {
+          case student:Student => println(student.name + " " + student.grades.mkString(", "))
+          case _               => println("Unidentified type.")
+        }
+        ois.close()
+
+      case "-w" =>
+        val oos     = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(args(1))))
+        val student = new Student(args(2), args.drop(3).map(_.toInt))
+        oos.writeObject(student)
+        oos.close()
+
+      case _ => println("Usage: (-r or -w) + filename + personName + grade_1  grade_2, ...")
+    }
+  }
+}
