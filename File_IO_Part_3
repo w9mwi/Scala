@@ -144,10 +144,12 @@ object Demo
 {
   import java.io._
 
-  // NOTE: The Student class defined here "extends Serializable"
-  //       The reason for extending the Student class to Serializable
-  //       is so that we can then use methods defined in ObjectInputStream
-  //       and ObjectOutputStream.
+  // NOTE: The Student class defined here "extends Serializable".  The
+  //       reason for extending the Student class to Serializable is so
+  //       that we can then use methods defined in ObjectInputStream and
+  //       ObjectOutputStream.  Since "case class" Scala types automatically
+  //       extends Serializable, if the following Student class was instead
+  //       a "case class", we wouldn't have to extends Serializable.
   class Student(val name:String, val grades:Array[Int]) extends Serializable
 
   /**
