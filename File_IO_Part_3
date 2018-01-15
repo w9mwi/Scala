@@ -144,7 +144,10 @@ object Demo
 {
   import java.io._
 
-  // NOTE: The Student class defined here "extends Serializable"!!!...
+  // NOTE: The Student class defined here "extends Serializable"
+  //       The reason for extending the Student class to Serializable
+  //       is so that we can then use methods defined in ObjectInputStream
+  //       and ObjectOutputStream.
   class Student(val name:String, val grades:Array[Int]) extends Serializable
 
   /**
@@ -170,7 +173,7 @@ object Demo
 
     args(0) match
     {
-      case "-r" => // Read data from the filename passed to the argument at index 1.
+      case "-r" => // Read data from fileName...
         val ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileName)))
         ois.readObject() match
         {
@@ -181,13 +184,13 @@ object Demo
         }
         ois.close()
 
-      case "-w" => // Write data to the filename passed to the argument at index 1.
+      case "-w" => // Write data to fileName...
         val oos     = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)))
         val student = new Student(args(2), args.drop(3).map(_.toInt))
         oos.writeObject(student)
         oos.close()
 
-      case _ => println("Usage: (-r or -w) + filename + personName + grade_1  grade_2, ...")
+      case _ => println("Usage: (-r or -w) + fileName + studentName + grade_1  grade_2, ...")
     }
   }
 }
