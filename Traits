@@ -3,7 +3,8 @@ http://docs.scala-lang.org/tour/traits.html
 
 A trait is similar to an abstract class in many ways.  The two primary differences are:
 
-1) Traits cannot take arguments, as an abstract class can.
+1) A Trait cannot take arguments, as an abstract class can.
+2) A Trait cannot have constructor parameters.
 2) You cannot inherit from more than one trait.
 
 A trait can only inherit from another trait.  For a trait to inherit
