@@ -52,3 +52,53 @@ a trait cannot take arguments (as can an abstract class), any values that
 you'd want to provide as arguments can be put into a trait and left
 undefined, so the class that implements the trait will have to provide
 those values.
+
+===========================================================================
+object Demo
+{
+  // THIS CODE DEMONSTRATES HOW TO USE A SCALA TRAIT
+  trait Iterator[A]
+  {
+    def hasNext: Boolean
+    def next(): A
+  }
+
+  class IntIterator(to: Int) extends Iterator[Int]
+  {
+    private var current = 0
+    override def hasNext: Boolean = { current < to }
+    override def next(): Int =
+    {
+      if (hasNext)
+      {
+        val total = current
+        current += 1
+        total
+      }
+      else { 0 } // Once the Iterartor is "spent", this "else" statement (which returns zero) always executes
+    }
+  }
+
+  /**
+    * @param args Arguments passed from the command line.
+    */
+  def main(args: Array[String])
+  {
+    val iterator = new IntIterator(10)
+    // The 13 print statements below collectively print the following:
+    // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0
+    print(iterator.next() + ", ") // PRINTS: 0
+    print(iterator.next() + ", ") // PRINTS: 1
+    print(iterator.next() + ", ") // PRINTS: 2
+    print(iterator.next() + ", ") // PRINTS: 3
+    print(iterator.next() + ", ") // PRINTS: 4
+    print(iterator.next() + ", ") // PRINTS: 5
+    print(iterator.next() + ", ") // PRINTS: 6
+    print(iterator.next() + ", ") // PRINTS: 7
+    print(iterator.next() + ", ") // PRINTS: 8
+    print(iterator.next() + ", ") // PRINTS: 9
+    print(iterator.next() + ", ") // PRINTS: 0
+    print(iterator.next() + ", ") // PRINTS: 0
+    println(iterator.next())      // PRINTS: 0
+  }
+}
