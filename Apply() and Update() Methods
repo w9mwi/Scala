@@ -63,7 +63,7 @@ object Demo
       // NOTE: The s.id and s.name references below will generate a compile error
       //       if the Student class doesn't have a val or var preceding its name
       //       and id parameters.
-      students.find(s => s.id == key || s.name == key)
+      students.find(s => (s.id == key || s.name == key))
     }
   }
 
