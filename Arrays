@@ -123,7 +123,7 @@ object Demo
     intList = 1::intList
     intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
     intList = List.tabulate(10)(i => i*i)
-    intList.foreach(println)  // Prints these 10 elements of intList: 0, 1, 4, 9, 16, 25, 26, 49, 64, 81
+    intList.foreach(println)  // Prints these 10 elements of intList: 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
 
     // Create a new 6-element Array, where each element in the Array is initialized with
     // the value: (3*x*x + 5x - 7)   Where the value x is the index of the Array.
