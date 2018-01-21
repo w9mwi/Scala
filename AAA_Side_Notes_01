@@ -92,7 +92,7 @@ There are three (3) main levels of visibility in Scala, they are:
                members are also in subtypes (children) of the class.
 ==================================================================
 The binding of data and functions/methods together is called ENCAPSULATION.
-One of the golas of to strive for in object-oriented programs is to have
+One of the goals  to strive for in object-oriented programs is to have
 SEPARATION OF INTERFACE AND IMPLEMENTATION.  The interface refers to how
 you interact with the object--meaning its public members and methods.  The
 implementation refers to the behavior of the methods.  You want interface
