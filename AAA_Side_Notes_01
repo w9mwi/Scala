@@ -26,7 +26,8 @@ OBJECT-ORIENTED PROGRAMMING (PAGE 394)
 An object contains both data and functonality that operates on that
 data.  A class is a blueprint for an object.
 
-Case classes do NOT contain curly braces, as do regular classes.
+A case class can contain curly braces, as do regular classes.  But
+it's possible for a case class to NOT contain curly braces.
 
 When you specify "def" to write a "function" within a class, it's
 considered a method which can access vals/vars (and alter vars)
