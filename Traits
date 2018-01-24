@@ -5,7 +5,9 @@ A trait is similar to an abstract class in many ways.  The two primary differenc
 
 1) A Trait cannot take arguments, as an abstract class can.
 2) A Trait cannot have constructor parameters.
-2) You cannot inherit from more than one trait.
+3) A class can be defined as inheriting from from multiple traits,
+   but when the code is executed, behavior from only one trait
+   will be implemented.
 
 A trait can only inherit from another trait.  For a trait to inherit
 from another trait, the "extends" keyword is used, just as the "extends"
@@ -100,5 +102,39 @@ object Demo
     print(iterator.next() + ", ") // PRINTS: 0
     print(iterator.next() + ", ") // PRINTS: 0
     println(iterator.next())      // PRINTS: 0
+  }
+}
+===========================================================================
+object Demo
+{
+  trait Drawable
+  {
+    def draw() { }
+  }
+
+  trait Cowboy extends Drawable
+  {
+    override def draw() { println("A bang!") }
+  }
+
+  trait Artist extends Drawable
+  {
+    override def draw() { println("A picture painting.") }
+  }
+
+  // NOTE: The "with" keyword goes between type names for multiple inheritance.
+  //       You can chain on multiple "with X" clauses to mix in more traits.  If
+  //       a class is to be part of the extended type, it must be specified BEFORE
+  //       the first "with X" clause.
+  class ArtistCowboy extends Artist with Cowboy
+  class CowboyArtist extends Cowboy with Artist
+
+  def main(args: Array[String])
+  {
+    val artCow = new ArtistCowboy()
+    val cowArt = new CowboyArtist()
+
+    artCow.draw()
+    cowArt.draw()
   }
 }
