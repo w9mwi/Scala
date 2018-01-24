@@ -105,6 +105,8 @@ object Demo
   }
 }
 ===========================================================================
+// SEE: For more details about the following code, read:
+//      https://www.safaribooksonline.com/blog/2013/05/30/traits-how-scala-tames-multiple-inheritance/
 object Demo
 {
   trait Drawable
