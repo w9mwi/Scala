@@ -127,16 +127,22 @@ object Demo
   // NOTE: The "with" keyword goes between type names for multiple inheritance.
   //       You can chain on multiple "with X" clauses to mix in more traits.  If
   //       a class is to be part of the extended type, it must be specified BEFORE
-  //       the first "with X" clause.
-  class ArtistCowboy extends Artist with Cowboy
-  class CowboyArtist extends Cowboy with Artist
+  //       the first "with X" clause.  READ ALL IN-LINE COMMENTS BELOW...
+
+  class ArtistCowboy extends Artist with Cowboy // Inherits from trait Artist and trait Cowboy.  (Multiple inheritance.)
+  class CowboyArtist extends Cowboy with Artist // Inherits from trait Cowboy and trait Artist.  (Multiple inheritance.)
 
   def main(args: Array[String])
   {
     val artCow = new ArtistCowboy()
     val cowArt = new CowboyArtist()
 
-    artCow.draw()
-    cowArt.draw()
+    // The artCow and cowArt classes both implement multiple inheritance.  So how does Scala know
+    // which draw() method to use, the Cowboy.draw() method or the Artist.draw() method?
+    // The answer is the draw() method contained in the LAST class/trait appearing AFTER
+    // the "extends" keyword.  So artCow.draw() calls the Cowboy.draw() method, and cowArt.draw()
+    // calls the Artist.draw() method...
+    artCow.draw() // PRINTS: "A bang!"
+    cowArt.draw() // PRINTS: "A picture painting."
   }
 }
