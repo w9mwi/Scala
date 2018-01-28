@@ -56,9 +56,9 @@ object Demo
     tom.push(1); tom.push(2); tom.push(3); tom.push(4); tom.push(5);
     tom.push(6); tom.push(7); tom.push(8); tom.push(9); tom.push(10);
 
-    // Pop every item off the ListStack, and print it.  If the ListStack
-    // is empty (because no item was pushed onto it), the following while()
-    // loop will detect that, and nothing will print.
+    // The while() loop below will execute (pop items off the ListStack,
+    // and print the value of the item popped off the ListStack) until
+    // the stack becomes empty.
     var result:Option[Int] = tom.pop // Pop the first item off the ListStack.
     while (result != None)
     {
