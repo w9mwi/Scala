@@ -22,3 +22,14 @@ object Demo
   def isEven(number: Int) = number % 2 == 0
 }
 ==========================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    sayHello(helloJoe)  // PRINTS: Hey, Joe!
+  }
+
+  def sayHello(callback: () => Unit): Unit = { callback() }
+  def helloJoe(): Unit                     = { println("Hey, Joe!") }
+}
+==========================================================
