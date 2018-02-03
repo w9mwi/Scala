@@ -2,6 +2,36 @@ object Demo
 {
   def main(args: Array[String])
   {
+    val intList:List[Int] = List(1, 2, 3).map(doubleFunc)
+    intList.foreach(print) // PRINTS: 246
+    println
+
+    // The following line of commented-out code will NOT compile.
+    // To rectify this problem, see the TWO LINES immediately below
+    // that are NOT commented out.
+//  val functions_1                           = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
+    val functions_1:Map[String, (Int) => Int] = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
+    val functions_2                           = Map("2X" -> doubleFunc _, "3X" -> tripleFunc _)
+
+    var doubleVar = functions_1("2X") // PRINTS: 246
+    var tripleVar = functions_1("3X") // PRINTS: 369
+    println(doubleVar(123))
+    println(tripleVar(123))
+
+    doubleVar = functions_2("2X") // PRINTS: 246
+    tripleVar = functions_2("3X") // PRINTS: 369
+    println(doubleVar(123))
+    println(tripleVar(123))
+  }
+
+  def doubleFunc(i:Int):Int = { i * 2 }
+  def tripleFunc(i:Int):Int = { i * 3 }
+}
+==========================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
     val intList:List[Int] = List.range(0, 12)
     var evenInts = intList.filter(isEven)
     evenInts.foreach(print)  // PRINTS: 0246810
