@@ -132,10 +132,14 @@ object Demo
     intArray = Array.tabulate(6){x => 3*x*x + 5*x - 7} // Uses {}, equivalent to the line above.
     intArray.foreach(println)
 
-    // Besides using the Array.fill() or List.fill() methods, another way to fill
-    // an entire Array or List with initial values is to use the Array.range() or
-    // List.range() method, as shown below...
-    val array = Array.range(0, 10)
+    // NOTE: The last value printed below will ALWAYS be ONE LESS than maximum value in
+    //       the range.  So in this instance, the last value printed is eleven (11)...
+    intArray = Array.range(0, 12)
+    intList  = List.range(0, 12)
+
+    intArray.foreach(print) // PRINTS: 01234567891011
+    println
+    intList.foreach(print)  // PRINTS: 01234567891011
   }
 }
 ==================================================================
