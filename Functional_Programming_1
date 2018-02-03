@@ -36,7 +36,7 @@ object Demo
     executeAndPrint(multiply, 7, 4) // PRINTS: 28  (7 * 4 = 28)
 
     val intTuple:IntTuple = executeTwoFunctions(sum, multiply, 7, 4)
-    println("intTuple = " + intTuple) // PRINTS: (11, 28)
+    println("intTuple = " + intTuple) // PRINTS: intTuple = (11,28)
     println("sum(7, 4) = " + intTuple._1 +
             ", multiply(7, 4) = " + intTuple._2) // PRINTS: sum(7, 4) = 11,  multiply(7, 4) = 28
   }
