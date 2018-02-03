@@ -1,0 +1,13 @@
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val intList:List[Int] = List.range(0, 12)
+    val evenInts = intList.filter(isEven)
+
+    evenInts.foreach(print)  // PRINTS: 0246810
+  }
+
+  def isEven(number: Int) = number % 2 == 0
+}
+==========================================================
