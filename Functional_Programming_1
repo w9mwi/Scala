@@ -3,8 +3,19 @@ object Demo
   def main(args: Array[String])
   {
     val intList:List[Int] = List.range(0, 12)
-    val evenInts = intList.filter(isEven)
+    var evenInts = intList.filter(isEven)
+    evenInts.foreach(print)  // PRINTS: 0246810
 
+    // Here's a second way of obtaining the identical
+    // evenInts result shown above...
+    evenInts = intList.filter(_ % 2 == 0)
+    println
+    evenInts.foreach(print)  // PRINTS: 0246810
+
+    // Here's a third way of obtaining the identical
+    // evenInts result shown above...
+    evenInts = intList.filter(i => (i % 2 == 0))
+    println
     evenInts.foreach(print)  // PRINTS: 0246810
   }
 
