@@ -24,12 +24,47 @@ object Demo
 ==========================================================
 object Demo
 {
+  type IntTuple = (Int, Int)
+
   def main(args: Array[String])
   {
     sayHello(helloJoe)  // PRINTS: Hey, Joe!
+    println
+    executeNtimes(helloJoe, 5)  // PRINTS: Hey, Joe!  Hey, Joe!  Hey, Joe!  Hey, Joe!  Hey, Joe!
+    println
+    executeAndPrint(sum, 7, 4)      // PRINTS: 11  (7 + 4 = 11)
+    executeAndPrint(multiply, 7, 4) // PRINTS: 28  (7 * 4 = 28)
+
+    val intTuple:IntTuple = executeTwoFunctions(sum, multiply, 7, 4)
+    println("intTuple = " + intTuple) // PRINTS: (11, 28)
+    println("sum(7, 4) = " + intTuple._1 +
+            ", multiply(7, 4) = " + intTuple._2) // PRINTS: sum(7, 4) = 11,  multiply(7, 4) = 28
   }
 
   def sayHello(callback: () => Unit): Unit = { callback() }
-  def helloJoe(): Unit                     = { println("Hey, Joe!") }
+  def helloJoe(): Unit                     = { print("Hey, Joe!  ") }
+
+  def executeNtimes(func: () => Unit, n: Int): Unit =
+  {
+    for (x <- 1 to n) { func() }
+  }
+
+  def executeAndPrint(func: ((Int, Int) => Int), x:Int, y:Int):Unit =
+  {
+    val result:Int = func(x, y)
+    println(result)
+  }
+
+  def executeTwoFunctions(f1:(Int, Int) => Int,
+                          f2:(Int, Int) => Int,
+                          a:Int, b:Int): IntTuple =
+  {
+    val result1 = f1(a, b)
+    val result2 = f2(a, b)
+    (result1, result2)  // EQUIVALENT TO THIS LINE OF CODE : (f1(a, b),  f2(a, b))
+  }
+
+  def sum(number1: Int, number2: Int)      = number1 + number2
+  def multiply(number1: Int, number2: Int) = number1 * number2
 }
 ==========================================================
