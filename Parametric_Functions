@@ -4,6 +4,10 @@ and Lists (List[Char], List[Double], List[Int]) can have types.
 To make a function work with multiple data types (as Array and List functions do),
 you need to declare the function as parametric, as in this example:
 =================================================================================
+See this parametric function...
+def map[A,B](func: (A) => B, list:Seq[A]):Seq[B] =
+...on this web page. --> https://github.com/w9mwi/Scala/blob/master/Functional_Programming_1
+=================================================================================
 object Demo
 {
   def main(args:Array[String]): Unit =
