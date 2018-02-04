@@ -1,3 +1,24 @@
+
+Call-By-Value parameter - If you define a Person class such as this...
+
+                          case class Person(var name:String)
+                          
+                          ...and the pass it into a Scala function it's a Call-By-Value argument,
+                          which is a POINTER to the Person object passed to the method/function.
+                          This means there is no copy of the Person object, just a pointer to
+                          the Person object that exists somewhere in RAM.  If the argument is
+                          a "var", it means you can alter the contents (mutate) of that object.
+                          Call-By-Value means the parameter is either a primitive type that
+                          can't be changed (i.e., Int), or a pointer to an object like the above
+                          Person object.
+Call-By-Name Parameter - A Call-By-Name parameter is like a parameter that's a "def method",
+                         it's body is evaluated whenever it's used inside the function.
+                         Better names for Call-By-Name might be:
+                         * Call-On-Access          * Evaluate-On-Access        * Evaluate-On-Use
+                         * Evaluate-When-Accessed  * Evaluate-When-Referenced
+                         
+
+==========================================================
 object Demo
 {
   def main(args: Array[String])
