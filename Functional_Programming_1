@@ -98,3 +98,34 @@ object Demo
   def multiply(number1: Int, number2: Int) = number1 * number2
 }
 ==========================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val list:List[Int] = List(1, 2, 3)
+    val myMap:Seq[Any] = map(timesTwo, list)
+    myMap.foreach(print) // PRINTS: 246  (Which comes from: 1*2=2, 2*2=4, 2*3=6)
+    println()
+
+    val list2:List[String] = List("Tom", "Jim", "Beam")
+    val myMap2 = map(doubleString, list2)
+    myMap2.foreach(print) // PRINTS: Tom_TomJim_JimBeam_Beam
+  }
+
+  def map[A,B](func: (A) => B, list:Seq[A]):Seq[B] =
+  {
+    val result:Seq[B] = { for { x <- list } yield func(x) }
+    result
+  }
+
+  def timesTwo(number:Int):Int =
+  {
+    number * 2
+  }
+
+  def doubleString(str:String):String =
+  {
+    str + "_" + str
+  }
+}
+==========================================================
