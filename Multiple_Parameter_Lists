@@ -13,7 +13,7 @@ It's easy to understand the "=> Boolean" (returns a Boolean) and
 the "=> Unit" (returns nothing) syntax, but undertanding the
 "testCondition:" and "codeBlock:" syntax isn't so easy--as you'd
 expect some text to exist between the colon (:) and the rocket
-(=>) symbols.
+(=>) symbols, OR for the colon (:) symbol to not exist at all.
 
 object Demo
 {
