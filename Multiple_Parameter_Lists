@@ -61,6 +61,7 @@ object Demo
     //       can be replaced with...  (test1 && test2)(codeBlock)
     //       or replaced with this... (test1 && test2) codeBlock
     //       ...and it functions the same.
-    if (test1 && test2) codeBlock
+    if (test1 && test2){codeBlock}
   }
 }
+============================================================
