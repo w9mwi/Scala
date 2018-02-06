@@ -1,0 +1,35 @@
+Functions in Scala can have not only multiple parameters, but
+multiple parameter lists/groups.  For example, the myWhileLoop()()
+function below contains two separate parameter groups.  Even though
+the code below appears very short and simple, it's quite difficult
+to really understand all its syntax.  For example, why do the 1st
+and 2nd parameter groups of the myWhileLoop()() function have this
+syntax...
+
+1st parameter group: (testCondition: => Boolean)
+2nd parameter group: (codeBlock: => Unit)
+
+It's easy to understand the "=> Boolean" (returns a Boolean) and
+the "=> Unit" (returns nothing) syntax, but undertanding the
+"testCondition:" and "codeBlock:" syntax isn't so easy.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var idx:Int = 0
+    myWhileLoop(idx < 5)
+    {
+      print("idx = " + idx + ", ") // PRINTS: idx = 0, idx = 1, idx = 2, idx = 3, idx = 4,
+      idx += 1
+    }
+  }
+
+  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit =
+  {
+    // NOTE: (testCondition) below represents this code: (idx < 5)
+    //       { codeBlock }   below represents this code: print("idx = " + idx + ", ");  idx += 1
+    while(testCondition) { codeBlock }
+  }
+}
+============================================================
