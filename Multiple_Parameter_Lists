@@ -41,7 +41,6 @@ object Demo
 }
 ============================================================
 Here's another code example similar to the one above...
-
 object Demo
 {
   def main(args: Array[String])
@@ -51,8 +50,11 @@ object Demo
 
     ifBothTrue(age > 18)(numberOfAccidents == 0)
     {
-      print("You get to purchase our overpriced insurance!")
+      println("You get to purchase our overpriced insurance!")
     }
+
+    // YIKES, this also works!...
+    ifBothTrue(age > 18)(numberOfAccidents == 0)( println("You get to purchase our overpriced insurance!") )
   }
 
   def ifBothTrue(test1: => Boolean)(test2: => Boolean)(codeBlock: => Unit):Unit =
