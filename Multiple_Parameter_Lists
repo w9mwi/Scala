@@ -27,9 +27,14 @@ object Demo
 
   def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit =
   {
-    // NOTE: (testCondition) below represents this code: (idx < 5)
-    //       { codeBlock }   below represents this code: print("idx = " + idx + ", ");  idx += 1
-    while(testCondition) { codeBlock }
+    // NOTE: The below syntax...      while(testCondition){codeBlock}
+    //       can be replaced with...  while(testCondition)(codeBlock)
+    //       or replaced with this... while(testCondition) codeBlock
+    //       ...and it functions the same.
+    //
+    //       (testCondition) below represents this code: (idx < 5)
+    //       {codeBlock}     below represents this code: { print("idx = " + idx + ", ");  idx += 1 }
+    while(testCondition){codeBlock}
   }
 }
 ============================================================
