@@ -40,3 +40,27 @@ object Demo
   }
 }
 ============================================================
+Here's another code example similar to the one above...
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val age:Int = 19
+    val numberOfAccidents:Int = 0
+
+    ifBothTrue (age > 18)(numberOfAccidents == 0)
+    {
+      print("You get to purchase our overpriced insurance!")
+    }
+  }
+
+  def ifBothTrue(test1: => Boolean)(test2: => Boolean)(codeBlock: => Unit):Unit =
+  {
+    // NOTE: The below syntax...      (test1 && test2){codeBlock}
+    //       can be replaced with...  (test1 && test2)(codeBlock)
+    //       or replaced with this... (test1 && test2) codeBlock
+    //       ...and it functions the same.
+    if (test1 && test2) codeBlock
+  }
+}
