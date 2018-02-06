@@ -49,7 +49,7 @@ object Demo
     val age:Int = 19
     val numberOfAccidents:Int = 0
 
-    ifBothTrue (age > 18)(numberOfAccidents == 0)
+    ifBothTrue(age > 18)(numberOfAccidents == 0)
     {
       print("You get to purchase our overpriced insurance!")
     }
