@@ -11,7 +11,9 @@ syntax...
 
 It's easy to understand the "=> Boolean" (returns a Boolean) and
 the "=> Unit" (returns nothing) syntax, but undertanding the
-"testCondition:" and "codeBlock:" syntax isn't so easy.
+"testCondition:" and "codeBlock:" syntax isn't so easy--as you'd
+expect for some text to exist between the colon (:) and the rocket
+(=>) symbols.
 
 object Demo
 {
