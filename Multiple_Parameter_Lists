@@ -31,7 +31,7 @@ object Demo
   {
     // NOTE: The below syntax...      while(testCondition){codeBlock}
     //       can be replaced with...  while(testCondition)(codeBlock)
-    //       or replaced with this... while(testCondition) codeBlock
+    //       or replaced with...      while(testCondition) codeBlock
     //       ...and it functions the same.
     //
     //       (testCondition) below represents this code: (idx < 5)
