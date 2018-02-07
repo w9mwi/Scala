@@ -41,6 +41,7 @@ object Demo
 }
 ============================================================
 Here's another code example similar to the one above...
+
 object Demo
 {
   def main(args: Array[String])
@@ -67,3 +68,34 @@ object Demo
   }
 }
 ============================================================
+This code example demonstrates how a function (with multiple
+parameter lists) can use an implicit parameter.  If a function
+gets called numerous times, you may want to use an implicit
+parameter so you don't have to keep passing that same parameter
+to the function, over and over again.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    printIntIfTrue(123)(false) // PRINTS: nothing because the second param is false
+    printIntIfTrue(456)(true)  // PRINTS: 456 because the second param is true
+
+    // Because the printIntIfTrue()() function below takes an implicit parameter
+    // of type Boolean, and because an implicit Boolean val/var exists before
+    // printIntIfTrue() gets called, the printIntIfTrue()() will execute when
+    // calling it WITHOUT a second parameter!  NOTE: If multiple implicit Boolean
+    // vals/vars exist before printIntIfTrue()() gets called without a second
+    // parameter, a runtime error occurs.  Multiple implicit vals/vars can
+    // exist (without causing an error) as long as they are of different types,
+    // as shown below.
+    implicit val boolean_1:Boolean = true
+    implicit val string_1:String   = "BEER"
+    printIntIfTrue(420) // PRINTS: 420 because the boolean_1 val is true
+  }
+
+  def printIntIfTrue(a:Int)(implicit b:Boolean):Unit =
+  {
+    if (b) { println(a) }
+  }
+}
