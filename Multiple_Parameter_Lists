@@ -74,6 +74,10 @@ gets called numerous times, you may want to use an implicit
 parameter so you don't have to keep passing that same parameter
 to the function, over and over again.
 
+NOTE: A method/function/constructor can have ONLY ONE implicit parameter
+      (regardles of how many parameters or parameter lists exist), and
+      and it MUST occur in the LAST parameter list.
+
 object Demo
 {
   def main(args: Array[String])
