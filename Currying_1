@@ -20,8 +20,14 @@ In order to fully evalaute f(z), f(x) must be evaluated first,
 f(y) must be evaluated second, and f(z) must be evaluated last.
 In other words, both f(x) and f(y) are partial functions of f(z).
 
-This means when f(x) is exalauted, f(z) is partially applied.
+This means when f(x) is evalauted, f(z) is partially applied.
 And when f(y) is evaluated, f(z) is again partially applied.
-Therefore, f(z) obtains its result via partially-applied
-functions.
+Only after f(z) is fully evalauted, is f(z) fully applied.
 
+A partially-applied function gets passed a function with
+multiple parameters, and returns a function with fewer
+parameters.
+
+To obtain a result for f(z), this is what must happen in Scala code.
+
+1) Define the following functions 
