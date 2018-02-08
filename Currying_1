@@ -1,1 +1,17 @@
+Using functions that have multiple parameter groups makes it
+easier to create partially-applied functions.
 
+A function that takes multiple arguments (whether or not
+those arguments are contained in one or multiple parameter
+groups) can be translated into a series of function calls
+that each take a single argument.  Assume the following:
+
+f(x) = x + 1
+f(y) = f(x) * y
+f(z) = (f(y)) ^ 2
+
+If x = 3, and y = 2, and z = 3, the following is true...
+
+f(x) = 3 + 1 = 4
+f(y) = 4 * 2 = 8
+f(z) = 8 ^ 3 = 512
