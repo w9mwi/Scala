@@ -43,6 +43,18 @@ object Demo
 
 
 ========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val result:Int = plus2(11)
+    println("result = " + result) // PRINTS: result = 13 (2 + 11 = 13)
+  }
+
+  def plus(a:Int)(b:Int):Int = { a + b }
+  def plus2 = plus(2)(_)
+}
+========================================================================
 Using functions that have multiple parameter groups makes it
 easier to create partially-applied functions.
 
