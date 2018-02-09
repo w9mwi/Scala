@@ -23,6 +23,23 @@ with multiple parameters, and RETURNS A FUNCTION with fewer parameters.
 Since f(x) and f1(y) above both return functions, f(x) and f1(y) are
 both partially applied functions.  f2(z) returns a result, NOT a function.
 Therefore, f2(z) is NOT a partially applied function.
+========================================================================
+CURRYING CODE EXAMPLE NO. 1...
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var func1:(Int => Int) = sum1(2)
+    println(func1(5)) // PRINTS: 7  (2 + 5 = 7)
+
+    func1 = sum2(2)(42)
+    println(func1(5)) // PRINTS: 49 (2 + 42 + 5 = 49)
+  }
+
+  def sum1(a: Int):(Int => Int)       = { b => a + b }
+  def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c }
+}
 
 
 ========================================================================
