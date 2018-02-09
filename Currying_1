@@ -1,6 +1,15 @@
 Currying - A function that takes multiple arguments can be
            translated into a series of function calls that
-           each take a single argument.
+           each take a single argument.  Here's an example
+           where we curry the following 3-argument function
+           into 3 separate functions that each take a single
+           argument...
+
+result = f(x)(y)(z)
+
+f1     = f(x)
+f2     = f1(y)
+result = f2(z)
 
 Using functions that have multiple parameter groups makes it
 easier to create partially-applied functions.
