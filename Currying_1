@@ -7,9 +7,9 @@ Currying - A function that takes multiple arguments can be
 
 result = f(x)(y)(z)
 
-f1     = f(x)
-f2     = f1(y)
-result = f2(z)
+f1     = f(x)   // f(x)  returns a function that gets assigned to f1.  Therefore, f1 is a function.
+f2     = f1(y)  // f1(y) returns a function that gets assigned to f2.  Therefore, f2 is a function.
+result = f2(z)  // f2(z) returns a result, which is NOT a function.
 
 Using functions that have multiple parameter groups makes it
 easier to create partially-applied functions.
