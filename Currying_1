@@ -1,3 +1,7 @@
+Currying - A function that takes multiple arguments can be
+           translated into a series of function calls that
+           each take a single argument.
+
 Using functions that have multiple parameter groups makes it
 easier to create partially-applied functions.
 
