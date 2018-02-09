@@ -19,7 +19,7 @@ is still partially applied.  Only after the f2(z) function is called
 is the f2(z) function fully applied.
 
 In other words, a partially-applied function gets passed a function
-with multiple parameters, and RETURN A FUNCTION with fewer parameters.
+with multiple parameters, and RETURNS A FUNCTION with fewer parameters.
 Since f(x) and f1(y) above both return functions, f(x) and f1(y) are
 both partially applied functions.  f2(z) returns a result, NOT a function.
 Therefore, f2(z) is NOT a partially applied function.
