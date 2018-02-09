@@ -11,6 +11,21 @@ f1     = f(x)   // f(x)  returns a function that gets assigned to f1.  Therefore
 f2     = f1(y)  // f1(y) returns a function that gets assigned to f2.  Therefore, f2 is a function.
 result = f2(z)  // f2(z) returns a result, which is NOT a function.
 
+DEFINITION OF A PARTIALLY APPLIED FUNCTION:
+To obtain the final result above, we need to call a function 3 times.
+When the f(x) function above is called, the f2(z) function is partially
+applied.  When the f1(y) function above is called, the f2(z) function
+is still partially applied.  Only after the f2(z) function is called
+is the f2(z) function fully applied.
+
+In other words, a partially-applied function gets passed a function
+with multiple parameters, and RETURN A FUNCTION with fewer parameters.
+Since f(x) and f1(y) above both return functions, f(x) and f1(y) are
+both partially applied functions.  f2(z) returns a result, NOT a function.
+Therefore, f2(z) is NOT a partially applied function.
+
+
+========================================================================
 Using functions that have multiple parameter groups makes it
 easier to create partially-applied functions.
 
