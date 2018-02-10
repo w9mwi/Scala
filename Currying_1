@@ -1,3 +1,7 @@
+DEFINITION OF A PARTIALLY APPLIED FUNCTION:
+A partially-applied function gets passed a function with multiple
+parameters, and RETURNS A FUNCTION with fewer parameters.
+
 Currying - A function that takes multiple arguments can be
            translated into a series of function calls that
            each take a single argument.  Here's an example
@@ -11,19 +15,19 @@ f1     = f(x)   // f(x)  returns a function that gets assigned to f1.  Therefore
 f2     = f1(y)  // f1(y) returns a function that gets assigned to f2.  Therefore, f2 is a function.
 result = f2(z)  // f2(z) returns a result, which is NOT a function.
 
-DEFINITION OF A PARTIALLY APPLIED FUNCTION:
-To obtain the final result above, we need to call a function 3 times...
+To obtain the final result above, we need to call 3 functions:
+1) f(x) must get called first.
+2) f1(y) must get called second.
+3) f2(z) must get called last.
 
-Immediately after the f(x) function above is called (and just before
+Immediately after the f(x) function is called above (and just before
 the f1(y) function is called), the f2(z) function is partially applied.
 Immediately after the f1(y) function is called (and just before the
 f2(z) function is called), the f2(z) function is still partially applied.
 Only after the f2(z) function is called (when it returns a result), is
 the f2(z) function fully applied.
 
-A partially-applied function gets passed a function with multiple
-parameters, and RETURNS A FUNCTION with fewer parameters.  Since the
-f2(z) function is built from caling both the f(x) and f1(y) functions,
+Since the f2(z) function is built from caling both the f(x) and f1(y) functions,
 f(x) and f1(y) are partially-applied functions of function f2(z).
 ========================================================================
 object Demo
@@ -57,36 +61,4 @@ object Demo
   def plus2 = plus(2)(_)  // NOTE: This plus2()() function calls the plus() function defined above.
 }
 ========================================================================
-Using functions that have multiple parameter groups makes it
-easier to create partially-applied functions.
 
-A function that takes multiple arguments (whether or not
-those arguments are contained in one or multiple parameter
-groups) can be translated into a series of function calls
-that each take a single argument.  Assume the following:
-
-f(x) = x + 1
-f(y) = f(x) * y
-f(z) = (f(y)) ^ 2
-
-If x = 2, and y = 4, and z = 3, the following is true...
-
-f(x) = 2 + 1  = 3
-f(y) = 3 * 4  = 12
-f(z) = 12 ^ 3 = 1728
-
-In order to fully evalaute f(z), f(x) must be evaluated first,
-f(y) must be evaluated second, and f(z) must be evaluated last.
-In other words, both f(x) and f(y) are partial functions of f(z).
-
-This means when f(x) is evalauted, f(z) is partially applied.
-And when f(y) is evaluated, f(z) is again partially applied.
-Only after f(z) is fully evalauted, is f(z) fully applied.
-
-A partially-applied function gets passed a function with
-multiple parameters, and returns a function with fewer
-parameters.
-
-To obtain a result for f(z), this is what must happen in Scala code.
-
-1) Define the following functions 
