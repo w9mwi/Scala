@@ -2,6 +2,11 @@ DEFINITION OF A PARTIALLY APPLIED FUNCTION:
 A partially-applied function gets passed a function with multiple
 parameters, and RETURNS A FUNCTION with fewer parameters.
 
+Partially applied functions give you this capability:
+
+* You write a general function.
+* You create a specific function from the general function.
+
 Currying - A function that takes multiple arguments can be
            translated into a series of function calls that
            each take a single argument.  Here's an example
