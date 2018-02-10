@@ -61,4 +61,25 @@ object Demo
   def plus2 = plus(2)(_)  // NOTE: This plus2()() function calls the plus() function defined above.
 }
 ========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val greeting = "This is Scala"
+    var result = wrap("<div>")(greeting)("</div>")
+    println("result = " + result) // PRINTS: result = <div>This is Scala</div>
+
+    // NOTE: wrapWithDiv is a partially-applied function BEFORE IT GETS CALLED
+    //       because it's defined as a function that returns a function.
+    //       Therefore, only AFTER wrapWithDiv() gets called is it fully applied.
+    result = wrapWithDiv(greeting)
+    println("result = " + result) // PRINTS: result = <div>This is Scala</div>
+  }
+
+  def wrap(prefix:String)(html:String)(suffix:String):String = { prefix + html + suffix }
+  // NOTE: wrapWithDiv is defined by calling the wrap() function and passing
+  //       to it the Scala placeholder underscore symbol (_).
+  def wrapWithDiv:(String => String) = wrap("<div>")(_)("</div>")
+}
+========================================================================
 
