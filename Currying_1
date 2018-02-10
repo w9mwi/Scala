@@ -57,7 +57,7 @@ object Demo
     println("result = " + result) // PRINTS: result = 13 (2 + 11 = 13)
   }
 
-  def plus(a:Int)(b:Int):Int = { a + b }
+  def plus(a:Int)(b:Int):Int = { println("a = " + a + ",  b = " + b);  a + b } // PRINTS: a = 2,  b = 11
   def plus2 = plus(2)(_)  // NOTE: This plus2()() function calls the plus() function defined above.
 }
 ========================================================================
