@@ -93,7 +93,7 @@ object Demo
   {
     val addFunction = add _  // Converts the def add() function (defined below)
                              // into a true function via an "Eta Expansion".
-    val addCurried = addFunction.curried // Converts the addFunction nto a curried function.
+    val addCurried = addFunction.curried // Converts the addFunction into a curried function.
     val result:Int = addCurried(23)(46)
     println("result = " + result) // PRINTS: result = 69
   }
