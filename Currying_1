@@ -54,7 +54,7 @@ object Demo
   }
 
   def plus(a:Int)(b:Int):Int = { a + b }
-  def plus2 = plus(2)(_)
+  def plus2 = plus(2)(_)  // NOTE: This plus2()() function calls the plus() function defined above.
 }
 ========================================================================
 Using functions that have multiple parameter groups makes it
