@@ -12,36 +12,38 @@ f2     = f1(y)  // f1(y) returns a function that gets assigned to f2.  Therefore
 result = f2(z)  // f2(z) returns a result, which is NOT a function.
 
 DEFINITION OF A PARTIALLY APPLIED FUNCTION:
-To obtain the final result above, we need to call a function 3 times.
-When the f(x) function above is called, the f2(z) function is partially
-applied.  When the f1(y) function above is called, the f2(z) function
-is still partially applied.  Only after the f2(z) function is called
-is the f2(z) function fully applied.
+To obtain the final result above, we need to call a function 3 times...
 
-In other words, a partially-applied function gets passed a function
-with multiple parameters, and RETURNS A FUNCTION with fewer parameters.
-Since f(x) and f1(y) above both return functions, f(x) and f1(y) are
-both partially applied functions.  f2(z) returns a result, NOT a function.
-Therefore, f2(z) is NOT a partially applied function.
+Immediately after the f(x) function above is called (and just before
+the f1(y) function is called), the f2(z) function is partially applied.
+Immediately after the f1(y) function is called (and just before the
+f2(z) function is called), the f2(z) function is still partially applied.
+Only after the f2(z) function is called (when it returns a result), is
+the f2(z) function fully applied.
+
+A partially-applied function gets passed a function with multiple
+parameters, and RETURNS A FUNCTION with fewer parameters.  Since the
+f2(z) function is built from caling both the f(x) and f1(y) functions,
+f(x) and f1(y) are partially-applied functions of function f2(z).
 ========================================================================
-CURRYING CODE EXAMPLE NO. 1...
-
 object Demo
 {
   def main(args: Array[String])
   {
-    var func1:(Int => Int) = sum1(2)
+    // Immediately after sum1(2) gets called, the func1 function is partially applied.
+    // After func1(5) gets called, the func1 function is fully applied.
+    val func1:(Int => Int) = sum1(2)
     println(func1(5)) // PRINTS: 7  (2 + 5 = 7)
 
-    func1 = sum2(2)(42)
-    println(func1(5)) // PRINTS: 49 (2 + 42 + 5 = 49)
+    // Immediately after sum2(2)(42) gets called, the func2 function is partially applied.
+    // After func2(5) gets called, the func2 function is fully applied.
+    val func2:(Int => Int) = sum2(2)(42)
+    println(func2(5)) // PRINTS: 49 (2 + 42 + 5 = 49)
   }
 
   def sum1(a: Int):(Int => Int)       = { b => a + b }
   def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c }
 }
-
-
 ========================================================================
 object Demo
 {
