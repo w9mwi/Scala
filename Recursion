@@ -1,0 +1,20 @@
+========================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val myList:List[Int] = List (215, 683, 9673, 8436, 420, 815)
+    println("sum = " + sum(myList)) // PRINTS: sum = 20242
+  }
+
+  /**
+    * THIS IS A RECURSIVE FUNCTION, which returns the sum of
+    * all Ints contained in the List passed to this function.
+    */
+  def sum(list:List[Int]):Int =
+  {
+    if (list == Nil) { 0 }
+    else { list.head + sum(list.tail) }
+  }
+}
+========================================================
