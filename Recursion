@@ -42,7 +42,10 @@ object Demo
     */
   def sum3(list:List[Int]):Int = list match
   {
-    case Nil => 0
+    // NOTE: Don't confuse the "=>" symbol below with the "=>"
+    //       symbol used by function literals.  Scala case
+    //       statements always require the "=>" symbol.
+    case Nil        => 0
     case head::tail => head + sum3(tail)
   }
 }
