@@ -1,3 +1,26 @@
+THREE (3) STEPS FOR WRITING SCALA RECURSIVE FUNCTIONS
+====================================================
+When you write a recursive functions, your job may
+be easier if you ask the following 3 questions...
+
+STEP 1) What is the recursive function's signature?
+        In other words, what do you pass to it, and
+        what does it return?
+
+STEP 2) What is the exit condition of the function?
+        In other words, what's the expression required
+        for the if() statement to make the function
+        return a value and therefore terminate?
+        
+        FYI, a recursive function's if() statement will
+        determine if the function will return a value,
+        or if the function will make a recursive call.
+
+STEP 3) What is the algorithm of the function?  Write
+        down the problem, and think of how it could
+        best be solved.
+
+
 ========================================================
 The 3 functions defined in the sample code below
 (sum1(), sum2(), and sum3()) are all functionally
