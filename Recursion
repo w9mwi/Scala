@@ -1,20 +1,49 @@
 ========================================================
+The 3 functions defined in the sample code below
+(sum1(), sum2(), and sum3()) are all functionally
+equivalent.  Each function gets passed a List[Int]
+type, and returns the sum of all Ints contained in
+the List.  The sum2() and sum3() functions below
+use the "match" Scala keyword.
+
 object Demo
 {
   def main(args: Array[String])
   {
     val myList:List[Int] = List (215, 683, 9673, 8436, 420, 815)
-    println("sum = " + sum(myList)) // PRINTS: sum = 20242
+    println("sum1 = " + sum1(myList)) // PRINTS: sum1 = 20242
+    println("sum2 = " + sum2(myList)) // PRINTS: sum2 = 20242
+    println("sum3 = " + sum3(myList)) // PRINTS: sum3 = 20242
   }
 
   /**
     * THIS IS A RECURSIVE FUNCTION, which returns the sum of
     * all Ints contained in the List passed to this function.
     */
-  def sum(list:List[Int]):Int =
+  def sum1(list:List[Int]):Int =
   {
     if (list == Nil) { 0 }
-    else { list.head + sum(list.tail) }
+    else { list.head + sum1(list.tail) }
+  }
+
+  /**
+    * THIS IS A RECURSIVE FUNCTION, which returns the sum of
+    * all Ints contained in the List passed to this function.
+    */
+  def sum2(list:List[Int]):Int = list match
+  {
+    case Nil => 0
+    case _   => list.head + sum2(list.tail)
+  }
+
+  /**
+    * THIS IS A RECURSIVE FUNCTION, which returns the sum of
+    * all Ints contained in the List passed to this function.
+    */
+  def sum3(list:List[Int]):Int = list match
+  {
+    case Nil => 0
+    case head::tail => head + sum3(tail)
   }
 }
 ========================================================
