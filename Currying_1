@@ -28,7 +28,7 @@ result = f(x)(y)(z)
 
 f1     = f(x)   // f(x)  returns a function that gets assigned to f1.  Therefore, f1 is a function.
 f2     = f1(y)  // f1(y) returns a function that gets assigned to f2.  Therefore, f2 is a function.
-result = f2(z)  // f2(z) returns a result, which is NOT a function.
+result = f2(z)  // f2(z) returns a result, which is NOT a function, but some value.
 
 To obtain the final result above, we need to call 3 functions:
 1) f(x)  must get called first.
