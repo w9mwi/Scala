@@ -7,7 +7,14 @@ Partially applied functions give you this capability:
 * You write a general function.
 * You create a specific function from the general function.
 
-Currying - A function that takes multiple arguments can be
+Currying - DEFINITION #1:
+           The technique of transforming a function that takes
+           multiple arguments into a function that takes a single
+           argument, where the other arguments having been specified
+           by the curry.
+
+           DEFINITION #2:
+           A function that takes multiple arguments can be
            translated into a series of function calls that
            each take a single argument.  Here's an example
            where we curry the following 3-argument function
@@ -21,7 +28,7 @@ f2     = f1(y)  // f1(y) returns a function that gets assigned to f2.  Therefore
 result = f2(z)  // f2(z) returns a result, which is NOT a function.
 
 To obtain the final result above, we need to call 3 functions:
-1) f(x) must get called first.
+1) f(x)  must get called first.
 2) f1(y) must get called second.
 3) f2(z) must get called last.
 
