@@ -1,3 +1,6 @@
+SEE THE FOLOWING WEB PAGE FOR MORE INFO. ON CURRYING:
+--> http://www.codecommit.com/blog/scala/function-currying-in-scala
+
 DEFINITION OF A PARTIALLY APPLIED FUNCTION:
 A partially-applied function gets passed a function with multiple
 parameters, and RETURNS A FUNCTION with fewer parameters.
