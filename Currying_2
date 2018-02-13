@@ -1,32 +1,15 @@
-HOW TO IDENTIFY A CURRIED FUNCTION
-----------------------------------
-To determine if a function is a curried function, check the function's
-parameter list.
+NOTE: Before reading this section, read the Curying_1 section first, here:
+      https://github.com/w9mwi/Scala/edit/master/Currying_1
 
-CRITERIA NO. 1:
-If a function definition contains MULTIPLE PARAMETER LISTS (not multiple
-parameters, but multiple parameter lists), then the function is a curried
-function.  EXAMPLE:
-def add3Curried(x:Int)(y:Int) = { x+y }
-
-CRITERIA  NO. 2:
-If a function gets called with MULTIPLE PARAMETER LISTS (not multiple
-parameters, but with multiple parameter lists), then the function is
-also a curried function.  EXAMPLE:
-add2Curried(123)(321)  OR  add2Curried(123)_  (NOTE the underscore char. is the second parameter.)
-
-CRITERIA  NO. 3:
-It's possible that a function is a curried function without meeting the
-above two criteria.  The following function is a also a curried function.
-Its definition, followed by how the function is called, is shown here.
+This web page just contains aditional examples and info. about
+currying that was initially discussed on the Currying_1 web page.
 
 def add2Curried(x:Int) = { (y:Int) => x+y }
 
 val func1 = add2Curried(5)
 println("func1 result = " + func1(20)) // Prints: func1 result = 25
 
-We can see the above (Criteria No. 3) add2Curried function is a curried
-function because...
+We can see the above add2Curried function is a curried function because...
 
 1) The function definition takes one parameter, and returns a function
    that returns a value.
