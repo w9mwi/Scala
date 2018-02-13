@@ -110,3 +110,54 @@ object Demo
   def add(x:Int, y:Int):Int = { x + y }
 }
 ========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // The add_1() function is a just a standard, normal function.
+    // The first time the add_1() is called here, it's called in
+    // the usual way....
+    println("add_1(7, 3) = " + add_1(7, 3)) // PRINTS: add_1(7, 3) = 10
+
+    // Perform an "Eta Expansion" on add_1(), transforming the "def" function into a true function...
+    val addFunc:((Int, Int) => Int) = add_1 _
+
+    val addFuncCurried:(Int => (Int => Int)) = addFunc.curried // Make the add_1() function a curried function.
+    println("addFuncCurried(7)(3) = " + addFuncCurried(7)(3)) // PRINTS: addFuncCurried(7)(3) = 10
+
+    // addFuncCurried called with one param returns a PARTIALLY APPLIED function...
+    val partiallyAppliedCurried:(Int => Int) = addFuncCurried(7)
+    // Call partiallyAppliedCurried to make addFuncCurried FULLY APPLIED...
+    println("partiallyAppliedCurried(3) = " + partiallyAppliedCurried(3)) // PRINTS: partiallyAppliedCurried(3) = 10
+
+    // *****************************************************************************************
+    // The add_2()() function called below is a curried function,
+    // and can be called in the following two (2) ways...
+    //
+    // 1) Call sum_2()() once by passing to it both Int params, so it
+    //    returns an Int result...
+    println("add_2(7)(3) = " + add_2(7)(3)) // PRINTS: add_2(7)(3) = 10
+
+    // 2) Call sum_2()() twice...  sum_2()() is called the first time by
+    //    initializing its x Int parameter, and it returns a function.
+    //    (At this point, the sum_2()() function is PARTIALLY APPLIED)
+    //    Then, sum_2()() is called the second time by initializing
+    //    its y Int parameter so it will now return an Int value.
+    //    (At this point, the sum_2()() function is FULLY APPLIED.)
+    val func:(Int => Int) = add_2(7)(_) // The func function is PARTIALLY APPLIED here.
+    println("func(3) = " + func(3)) // PRINTS: func(3) = 10  (func is now FULLY APPLIED.)
+  }
+
+  /**
+    * This add_1() function is a normal function, NOT a curried function.
+    */
+  def add_1(x:Int, y:Int):Int = { x + y }
+
+  /**
+    * This add_2() function is a CURRIED FUNCTION because
+    * it takes multiple arguments, and returns a function
+    * that takes a single argument.
+    */
+  def add_2(x:Int) = { (y:Int) => x + y }
+}
+========================================================================
