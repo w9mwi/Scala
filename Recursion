@@ -20,14 +20,14 @@ STEP 3) What is the algorithm of the function?  Write
         down the problem, and think of how it could
         best be solved.
 
-
-========================================================
-The 3 functions defined in the sample code below
-(sum1(), sum2(), and sum3()) are all functionally
+The 3 functions defined in the sample code immediately
+below (sum1(), sum2(), and sum3()) are all functionally
 equivalent.  Each function gets passed a List[Int]
 type, and returns the sum of all Ints contained in
 the List.  The sum2() and sum3() functions below
 use the "match" Scala keyword.
+===================================================================
+===================================================================
 
 object Demo
 {
@@ -75,7 +75,24 @@ object Demo
     case head::tail => head + sum3(tail)
   }
 }
-========================================================
+===================================================================
+===================================================================
+The 3 functions defined in the sample code immediately above
+(sum1(), sum2(), and sum3()) are all recursive functions.  The
+problem with these standard recursive functions is that every time
+the function calls itself, it consume more stack memory.  So if
+a function is deeply recursive, a stack overflow can occur.
+
+To prevent the possibility of stack overflow, a tail-recursive
+function can be used instead.  A tail-recursive function is a
+a function that calls itself as its VERY LAST ACTION.  The
+sum1(), sum2(), and sum3() functions in the sample code above
+are NOT tail-recursive because their last action is an addition
+that gets performed AFTER the recursive function call is made.
+
+Read in-line comments in the below sample code for more info.
+===================================================================
+===================================================================
 object Demo
 {
   def main(args: Array[String])
@@ -85,19 +102,37 @@ object Demo
     println("listSum = " + listSum) // PRINTS: listSum = 45
   }
 
+  /**
+    * NOTE: The sumTailRecursive() function is defined INSIDE this sum() function.
+    *       You could move the sumTailRecursive() function so it's defined OUTSIDE
+    *       this sum() function without any change in behavior.  However, if
+    *       sumTailRecursive() was moved outside, it could be called directly
+    *       from main(), which would not be useful.
+    *
+    *       When the VERY LAST ACTION of a function is a call to itself (as we
+    *       see in sumTailRecursive() below), the function is tail-recursive.
+    *       When a function is tail-recursive, the Scala compiler detects it
+    *       and optimizes the JVM bytecode so the recursive function requires
+    *       only a single stack frame.  This makes it run faster, saves memory,
+    *       and prevents the possibility of the function failing because
+    *       of a stack overflow.
+    */
   def sum(list:List[Int]):Int =
   {
     import scala.annotation.tailrec
     @tailrec  // NOTE: The @tailrec annotation informs the compiler to enforce
-              //       tail recursion on the function immediately below.
-    def sumWithAccumulator(currentSum:Int, list:List[Int]):Int =
+              //       tail-recursion on the function immediately below.
+    def sumTailRecursive(currentSum:Int, list:List[Int]):Int =
     {
       list match
       {
+          // NOTE: If the two lines immediately below are swapped, this function works the same.
         case Nil        => currentSum
-        case head::tail => sumWithAccumulator(head+currentSum, tail)
+        case head::tail => sumTailRecursive(head+currentSum, tail)
       }
     }
-    sumWithAccumulator(0, list)
+    sumTailRecursive(0, list) // NOTE: The 0 (zero) is passed to the currentSum parameter.
   }
 }
+===================================================================
+===================================================================
