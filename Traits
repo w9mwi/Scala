@@ -1,3 +1,36 @@
+You might think that traits are like Java interfaces with concrete methods,
+but they can actually do much more.  Traits can, for example, declare fields
+and maintain state.  In fact, you can do anything in a trait definition that
+you can do in a class definition, and the syntax looks exactly the same,
+with only two exceptions.  First, a trait cannot have any "class" parameters,
+i.e., parameters passed to the primary constructor of a class.  In other words,
+although you could define a class like this:
+
+class Point(x: Int, y: Int)
+
+The following attempt to define a trait would not compile:
+
+trait NoPoint(x: Int, y: Int) // Does not compile
+
+You'll find out in Section 20.5 how to work around this restriction.
+
+The other difference between classes and traits is that whereas in classes,
+super calls are statically bound, in traits, they are dynamically bound.
+
+If you write "super.toString" in a class, you know exactly which method
+implementation will be invoked.  When you write the same thing in a trait,
+however, the method implementation to invoke for the super call is undefined
+when you define the trait. Rather, the implementation to invoke will be
+determined anew each time the trait is mixed into a concrete class.
+
+This curious behavior of super is key to allowing traits to work as stackable
+modifications, which will be described in Section 12.5. The rules for resolving
+super calls will be given in Section 12.6.
+
+SEE --> http://www.artima.com/pins1ed/traits.html
+
+===================================================================
+
 For more info on Scala Traits SEE P.463 of book, or:
 http://docs.scala-lang.org/tour/traits.html
 
