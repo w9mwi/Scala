@@ -76,3 +76,28 @@ object Demo
   }
 }
 ========================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val list:List[Int] = List.range(1, 10) // range(1, 10) creates a List of 9 Ints:  1 through 9
+    val listSum:Int    = sum(list)
+    println("listSum = " + listSum) // PRINTS: listSum = 45
+  }
+
+  def sum(list:List[Int]):Int =
+  {
+    import scala.annotation.tailrec
+    @tailrec  // NOTE: The @tailrec annotation informs the compiler to enforce
+              //       tail recursion on the function immediately below.
+    def sumWithAccumulator(currentSum:Int, list:List[Int]):Int =
+    {
+      list match
+      {
+        case Nil        => currentSum
+        case head::tail => sumWithAccumulator(head+currentSum, tail)
+      }
+    }
+    sumWithAccumulator(0, list)
+  }
+}
