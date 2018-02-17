@@ -179,15 +179,44 @@ object Demo
   }
 }
 =======================================================================================
-Rich Interface - A rich interface has many methods, which makes it convenient because
-                 the caller is likely to find a method that exactly matches the
+Rich Interface - A rich interface has many methods, which makes it convenient to use
+                 because the caller is likely to find a method that exactly matches the
                  functionality she needs.
 
 Thin Interface - A thin interface has fewer methods than a rich interface, so it's easier
                  for the programmer to write a thin interface than a rich interface.
-                 However, using a thin interface will likely result in the programmer having
-                 to write more code because the thin interface supplies fewer methods
+                 However, the programmer who uses a thin interface will likely require
+                 her to write more code because the thin interface supplies fewer methods
                  than the rich interface.
 
 Traits can be used to enrich a thin interface, transforming it into a rich interface,
-as is shown in the following example.
+as is shown in the following example...
+
+Look at the Point, Rectangle, and Component classes defined here.  Continue reading below.
+
+class Point(val x: Int, val y: Int)
+class Rectangle(val topLeft: Point, val bottomRight: Point)
+{
+  def left = topLeft.x
+  def right = bottomRight.x
+  def width = right - left
+  // Assume many more methods belong to this Rectangle class.
+}
+abstract class Component
+{
+  def topLeft: Point
+  def bottomRight: Point
+
+  def left = topLeft.x
+  def right = bottomRight.x
+  def width = right - left
+  // Assume many more methods belong to this abstract class Component.
+}
+
+Notice the left, right, and width methods defined in the Rectangle class
+are identical to the ones defined in the abstract class Component.  These
+3 methods will also likely reside in any other classes representing
+rectangular objects.
+
+
+
