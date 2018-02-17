@@ -178,3 +178,16 @@ object Demo
     cowArt.draw() // PRINTS: "A picture painting."
   }
 }
+=======================================================================================
+Rich Interface - A rich interface has many methods, which makes it convenient because
+                 the caller is likely to find a method that exactly matches the
+                 functionality she needs.
+
+Thin Interface - A thin interface has fewer methods than a rich interface, so it's easier
+                 for the programmer to write a thin interface than a rich interface.
+                 Using a thin interface will likely result in the programmer having
+                 to write more code because the thin interface supplies fewer methods
+                 than the rich interface.
+
+Traits can be used to enrich a thin interface, transforming it into a rich interface,
+as is shown in the following example.
