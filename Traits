@@ -185,7 +185,7 @@ Rich Interface - A rich interface has many methods, which makes it convenient be
 
 Thin Interface - A thin interface has fewer methods than a rich interface, so it's easier
                  for the programmer to write a thin interface than a rich interface.
-                 Using a thin interface will likely result in the programmer having
+                 However, using a thin interface will likely result in the programmer having
                  to write more code because the thin interface supplies fewer methods
                  than the rich interface.
 
