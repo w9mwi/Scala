@@ -220,3 +220,19 @@ rectangular objects.
 
 
 
+This repetition can be eliminated with an enrichment trait.  The trait will
+have two abstract methods: one that returns the top-left coordinate of the
+object, and another that returns the bottom-right coordinate.  It can then
+supply concrete implementations of all the other geometric queries.
+
+trait Rectangular
+{
+  def topLeft: Point
+  def bottomRight: Point
+
+  def left = topLeft.x
+  def right = bottomRight.x
+  def width = right - left
+  // Assume many more methods belong to this trait named Rectangular.
+}
+
