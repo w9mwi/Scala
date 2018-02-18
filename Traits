@@ -200,7 +200,7 @@ class Rectangle(val topLeft: Point, val bottomRight: Point)
   def left = topLeft.x
   def right = bottomRight.x
   def width = right - left
-  // Assume many more methods belong to this Rectangle class.
+  // Assume more methods belong to this Rectangle class.
 }
 abstract class Component
 {
@@ -210,20 +210,19 @@ abstract class Component
   def left = topLeft.x
   def right = bottomRight.x
   def width = right - left
-  // Assume many more methods belong to this abstract class Component.
+  // Assume more methods belong to this abstract class Component.
 }
 
-Notice the left, right, and width methods defined in the Rectangle class
-are identical to the ones defined in the abstract class Component.  These
-3 methods will also likely reside in any other classes representing
+Notice the left, right, and width methods defined above in the Rectangle class
+are identical to the ones defined above in the abstract class Component.
+These 3 methods will also likely reside in any other classes representing
 rectangular objects.
 
-
-
-This repetition can be eliminated with an enrichment trait.  The trait will
-have two abstract methods: one that returns the top-left coordinate of the
-object, and another that returns the bottom-right coordinate.  It can then
-supply concrete implementations of all the other geometric queries.
+This repetition can be eliminated with an enrichment trait shown immediately
+below that's named Rectangular.  This Rectangular trait has two abstract
+methods: one that returns the top-left coordinate of the object, and another
+that returns the bottom-right coordinate.  It can then supply concrete
+implementations of all the other geometric queries.
 
 trait Rectangular
 {
@@ -233,6 +232,19 @@ trait Rectangular
   def left = topLeft.x
   def right = bottomRight.x
   def width = right - left
-  // Assume many more methods belong to this trait named Rectangular.
+  // Assume more methods belong to this trait named Rectangular.
+}
+
+We can now redefine the above class Rectangle, and abstract class Component,
+as follows.  This time, both classes are defined by extending the Rectangular
+trait.  In other words, bith these classes "mix in" the Rectangular trait...
+
+abstract class Component extends Rectangular
+{
+  // Assume more methods belong to this abstract class Component.
+}
+class Rectangle(val topLeft: Point, val bottomRight: Point) extends Rectangular
+{
+  // Assume more methods belong to this Rectangle class.
 }
 
