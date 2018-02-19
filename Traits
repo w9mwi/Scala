@@ -228,7 +228,7 @@ trait Rectangular
 
 We can now redefine the above class Rectangle, and abstract class Component,
 as follows.  This time, both classes are defined by extending the Rectangular
-trait.  In other words, bith these classes "mix in" the Rectangular trait...
+trait.  In other words, both these classes "mix in" the Rectangular trait...
 
 abstract class Component extends Rectangular
 {
