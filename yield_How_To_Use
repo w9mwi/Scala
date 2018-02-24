@@ -253,6 +253,23 @@ object Demo
   }
 }
 ===========================================================================
+object Demo
+{
+  case class Person(firstName:String, lastName:String)
+
+  def main(args:Array[String]): Unit =
+  {
+    val people:List[Person] = List(Person("Barney", "Rubble"), Person("Fred", "Flintstone"), Person("Betty", "Rubble"))
+    val namesStartingWithB:List[String] = for
+                                          {
+                                            p <- people
+                                            fname = p.firstName
+                                            if (fname.startsWith("B"))
+                                          } yield fname.toUpperCase
+    println(namesStartingWithB) // PRINTS: List(BARNEY, BETTY)
+  }
+}
+===========================================================================
 To see another example of how to use the Scala yield keyword,
 search the following Git page for "yield"...
 --> https://github.com/w9mwi/Scala/blob/master/Maps
