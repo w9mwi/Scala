@@ -1,14 +1,15 @@
 ===========================================================================
   A Scala for comprehension can contain the following 3 expressions...
-  1) Generators
-  2) Filters
-  3) Definitions
+  
+  1) Generators - Every for comprehension begins with a generator.  Multiple generators are possible.
+  2) Definitions - A definition binds the pattern on the left with the expression on the right.
+  3) Filters
   
   Here's an example:
   for {
         p <- people                 // GENERATOR
-        fname = p.firstName         // DEFINITION
-        if (fname.startsWith("B"))  // FILTER
+        fname = p.firstName         // DEFINITION - Note the a val/var keyword isn't used in a for comprehension.
+        if (fname.startsWith("B"))  // FILTER - Must have a boolean value, so an if() statement is often used.
       } yield fname.toUpperCase
 Here is a Scala code example...
 ===========================================================================
@@ -29,6 +30,34 @@ object Demo
   }
 }
 ===========================================================================
+Scala for loops are based on mathematical set comprehensions.  They are
+a way to filter, transform, and combine lists.
+===========================================================================
+If you want a custom data type (aka, a custom class) to wotk with a for
+comprehension, it should contain the following functions...
+
+1) A foreach() method so it allows "for loops".
+2) A map() method so it can be used as a generator in for comprehensions.
+3) A flatMap() method allows the data type (class) to be used with multiple generators.
+4) A withFilter() method allows the filter expression as an if() statement within the for comprehension.
+
+If you want your custom class (data type) to work well with for comrehensions, it
+doesn't require all 4 of the above methods, but it will work very well if it does.
+Here's an abstract class example definition of a class that will work with for
+comprehensions...
+
+abstract class CustomClass[A]
+{
+  def map[B](func: A => B):CustomClass[B]
+  def flatMap[B](func: A => CustomClass[B]):CustomClass[B]
+  def withFilter(func: A => Boolean):CustomClass[A]
+  def foreach(func: A => Unit):Unit
+}
+
+
+
+===========================================================================
+
 // ----------------------------------------------------------
 // ----------------------------------------------------------
 // for() loop examples that return a "yield" value...
