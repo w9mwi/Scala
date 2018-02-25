@@ -43,8 +43,7 @@ comprehension, it should contain the following functions...
 
 If you want your custom class (data type) to work well with for comrehensions, it
 doesn't require all 4 of the above methods, but it will work very well if it does.
-Here's an abstract class example definition of a class that will work with for
-comprehensions...
+Here's an abstract class example definition of a class that will work with for comprehensions...
 
 abstract class CustomClass[A]
 {
