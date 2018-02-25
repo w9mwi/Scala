@@ -1,3 +1,34 @@
+===========================================================================
+  A Scala for comprehension can contain the following 3 expressions...
+  1) Generators
+  2) Filters
+  3) Definitions
+  
+  Here's an example:
+  for {
+        p <- people                 // GENERATOR
+        fname = p.firstName         // DEFINITION
+        if (fname.startsWith("B"))  // FILTER
+      } yield fname.toUpperCase
+Here is a Scala code example...
+===========================================================================
+object Demo
+{
+  case class Person(firstName:String, lastName:String)
+
+  def main(args:Array[String]): Unit =
+  {
+    val people:List[Person] = List(Person("Barney", "Rubble"), Person("Fred", "Flintstone"), Person("Betty", "Rubble"))
+    val namesStartingWithB:List[String] = for
+                                          {
+                                            p <- people
+                                            fname = p.firstName
+                                            if (fname.startsWith("B"))
+                                          } yield fname.toUpperCase
+    println(namesStartingWithB) // PRINTS: List(BARNEY, BETTY)
+  }
+}
+===========================================================================
 // ----------------------------------------------------------
 // ----------------------------------------------------------
 // for() loop examples that return a "yield" value...
@@ -253,22 +284,8 @@ object Demo
   }
 }
 ===========================================================================
-object Demo
-{
-  case class Person(firstName:String, lastName:String)
 
-  def main(args:Array[String]): Unit =
-  {
-    val people:List[Person] = List(Person("Barney", "Rubble"), Person("Fred", "Flintstone"), Person("Betty", "Rubble"))
-    val namesStartingWithB:List[String] = for
-                                          {
-                                            p <- people
-                                            fname = p.firstName
-                                            if (fname.startsWith("B"))
-                                          } yield fname.toUpperCase
-    println(namesStartingWithB) // PRINTS: List(BARNEY, BETTY)
-  }
-}
+===========================================================================
 ===========================================================================
 To see another example of how to use the Scala yield keyword,
 search the following Git page for "yield"...
