@@ -55,10 +55,59 @@ abstract class CustomClass[A]
   def foreach(func: A => Unit):Unit
 }
 
-
-
 ===========================================================================
+import scala.collection.mutable.ArrayBuffer
 
+object Demo
+{
+  case class Person(firstName:String, lastName:String)
+  case class Sequence[A](initialElems: A*) // NOTE: The A* designates a variable number of args of data type A.
+  {
+    // NOTE: Every line of code within a class (i.e., this Sequence class) that is
+    //       NOT a method gets executed when the class's constructor is called.
+    //       Therefore, the following two lines of code get executed when this
+    //       Sequence class's constructor is called.  You'd think that because
+    //       elems is a val type, the second line below wouldn't compile because
+    //       it's the second time elems is being assigned a value.  But that's not
+    //       what's happening.  The first line below is only declaring that elems
+    //       is an ArrayBuffer of type A.  The only time elems actually gets
+    //       assigned a value is in the second line below.
+    private val elems = ArrayBuffer[A]()
+    elems ++= initialElems // This line of code is equivalent to this:  for { e <- initialElems } elems += e
+
+    def foreach(block: A => Unit):Unit = { elems.foreach(block) }
+    def map[B](func: A => B):Sequence[B] =
+    {
+      val myMap:ArrayBuffer[B] = elems.map(func)
+      new Sequence(myMap: _*) // NOTE: The _ char makes Sequence() work with a variable number of arguments.
+    }
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    // NOTE: The Sequence class can work with different types (i.e., String, Int, Person etc.) because
+    //       it's defined as a parametric class, where the data type is determined at run time.
+    val strings:Sequence[String] = Sequence("one", "two")
+    val nums:Sequence[Int]       = Sequence(1, 2, 3, 4, 5)
+    val names:Sequence[Person]   = Sequence(Person("Joe", "Blow"), Person("Jack", "Smack"), Person("Frank", "Crank"))
+
+    // NOTE: The following for() loops would cause compile errors if the
+    //       foreach() method wasn't defined in the above Sequence class.
+    val strResult:Sequence[String]    = for (str <- strings) yield str
+    val intResult:Sequence[Int]       = for { i <- nums  }   yield i*2
+    val personResult:Sequence[Person] = for (name <- names)  yield name
+
+    for (str <- strResult) print(str + " ") // PRINTS: one two
+    println
+    for (int <- intResult) print(int + " ") // PRINTS: 2 4 6 8 10
+    println
+    for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
+
+  }
+}
+===========================================================================
+===========================================================================
+===========================================================================
 // ----------------------------------------------------------
 // ----------------------------------------------------------
 // for() loop examples that return a "yield" value...
