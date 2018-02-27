@@ -91,8 +91,8 @@ object Demo
     val nums:Sequence[Int]       = Sequence(1, 2, 3, 4, 5)
     val names:Sequence[Person]   = Sequence(Person("Joe", "Blow"), Person("Jack", "Smack"), Person("Frank", "Crank"))
 
-    // NOTE: The following for() loops would cause compile errors if the
-    //       foreach() method wasn't defined in the above Sequence class.
+    // NOTE: The following for() loops would cause compile errors if the foreach()
+    //       and map() methods weren't defined in the above Sequence class.
     val strResult:Sequence[String]    = for (str <- strings) yield str
     val intResult:Sequence[Int]       = for { i <- nums  }   yield i*2
     val personResult:Sequence[Person] = for (name <- names)  yield name
