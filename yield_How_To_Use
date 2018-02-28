@@ -300,69 +300,68 @@ object Demo
 import scala.collection.mutable.ArrayBuffer
 object Demo
 {
-  // NOTE: The asterisk char (*) in the arguments list
-  //       designates a variable number of arguments.
-  case class Sequence[T](initialElems: T*)
+  case class Person(firstName:String, lastName:String)
+  case class Sequence[A](initialElems: A*) // NOTE: The A* designates a variable number of args of data type A.
   {
-    private val elems = ArrayBuffer[T]()
+    // NOTE: Every line of code within a class (i.e., this Sequence class) that is
+    //       NOT a method gets executed when the class's constructor is called.
+    //       Therefore, the following two lines of code get executed when this
+    //       Sequence class's constructor is called.  You'd think that because
+    //       elems is a val type, the second line below wouldn't compile because
+    //       it's the second time elems is being assigned a value.  But that's not
+    //       what's happening.  The first line below is only declaring that elems
+    //       is an ArrayBuffer of type A.  The only time elems actually gets
+    //       assigned a value is in the second line below.
+    private val elems = ArrayBuffer[A]()
+    elems ++= initialElems // This line of code is equivalent to this:  for { e <- initialElems } elems += e
 
-    // Initialize the elems val with all params passed
-    // to this Sequence case class.
-    elems ++= initialElems
-
-    // The following commented-out for() loop + yield statement is
-    // equivalent to this single line of code above:  elems ++= initialElems
-    //  for
-    //  {
-    //    e <- initialElems
-    //  } yield elems += e
-
-    def foreach(block: T => Unit): Unit =
+    def foreach(block: A => Unit):Unit = { elems.foreach(block) }
+    def map[B](func: A => B):Sequence[B] =
     {
-      elems.foreach(block)
+      val myMap:ArrayBuffer[B] = elems.map(func)
+      new Sequence(myMap: _*) // NOTE: _* makes Sequence() work with a variable number of arguments.
     }
-
-    def map[U](f: T => U): Sequence[U] =
+    def withFilter(p: A => Boolean):Sequence[A] =
     {
-      val tuMap:ArrayBuffer[U] = elems.map(f)
-      Sequence(tuMap: _*) // _* makes a collection work with a variable number of arguments.
-    }
-
-    def withFilter(p: T => Boolean): Sequence[T] =
-    {
-      val tmpArrayBuffer = elems.filter(p)
-      Sequence(tmpArrayBuffer: _*) // _* makes a collection work with a variable number of arguments.
+      val tempArrayBuffer:ArrayBuffer[A] = elems.filter(p)
+      Sequence(tempArrayBuffer: _*) // NOTE: _* makes Sequence() work with a variable number of arguments.
     }
   }
 
-  def main(args:Array[String]):Unit =
+  def main(args:Array[String]): Unit =
   {
-    val chars   = Sequence('A', 'B', 'C', 'X', 'Y', 'Z')
-    val floats  = Sequence(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-    val ints    = Sequence(1, 2, 3, 4, 5)
-    val strings = Sequence("Manitowoc", "Wisconsin", "USA")
+    // NOTE: The Sequence class can work with different types (i.e., String, Int, Person etc.) because
+    //       it's defined as a parametric class, where the data type is determined at run time.
+    val strings:Sequence[String] = Sequence("one", "two", "three")
+    val nums:Sequence[Int]       = Sequence(1, 2, 3, 4, 5)
+    val names:Sequence[Person]   = Sequence(Person("Joe", "Blow"), Person("Jack", "Smack"), Person("Frank", "Crank"))
 
-    println(chars);  println(floats);  println(ints);  println(strings);
+    // NOTE: The following 3 for() loops would cause compile errors if the foreach()
+    //       and map() methods weren't defined in the above Sequence class.  The
+    //       if() statement embedded within the 2nd for() loop below would cause
+    //       a compile error if the withFilter() method wasn't defined in the
+    //       above Sequence class.  To summarize...
+    //       1) The single generators below (i.e., (str < strings)) work because Sequence.foreach() is defined above.
+    //       2) The below yield statements work because Sequence.map() is defined above.
+    //       3) The below "if i > 2" statement worka because Sequence.withFilter() is defined above.
+    val strResult:Sequence[String]    = for (str <- strings)        yield str
+    val intResult:Sequence[Int]       = for { i <- nums; if i > 2 } yield i*2
+    val personResult:Sequence[Person] = for (name <- names)         yield name
 
-    // The following 2 lines of code won't work unless the above
-    // Sequence case class implements the foreach() method.
-    strings.foreach(println) // Prints all elements of the strings ArrayBuffer.
-    for (tom <- strings) { println(tom) } // Prints all elements of the strings ArrayBuffer.
+    for (str <- strResult) print(str + " ") // PRINTS: one two three
+    println
+    for (int <- intResult) print(int + " ") // PRINTS: 6 8 10
+    println
+    for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
 
-    // The following "yield" statement won't work unless the above
-    // Sequence case class implements the map() method.
-    val doubleInts = for { idx <- ints } yield idx*2
-    doubleInts.foreach(println);  println();
-    // The following "if idx > 3.0F" statement won't work unless the above
-    // Sequence case class implements the withFilter() method.
-    val doubleFloatsGreaterThan3 = for { idx <- floats; if idx > 3.0F } yield idx*2
-    doubleFloatsGreaterThan3.foreach(println)
   }
 }
 ===========================================================================
 
 ===========================================================================
-===========================================================================
+Read this web page for more details on how the yield keyword functions.
+--> http://docs.scala-lang.org/tutorials/FAQ/yield.html
+
 To see another example of how to use the Scala yield keyword,
 search the following Git page for "yield"...
 --> https://github.com/w9mwi/Scala/blob/master/Maps
