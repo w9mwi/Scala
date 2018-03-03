@@ -84,6 +84,37 @@ object Demo
   }
 }
 =============================================================
+object Demo
+{
+  def printNumber(number:Option[Int]):Unit =
+  {
+    if (number == None)  { println("The number is not valid.")}
+    else                 { println("number = " + number.get) }
+  }
+
+  def convertStringToInt(str:String):Option[Int] =
+  {
+    try
+    {
+      Some(str.trim.toInt)  // EQUIVALENT TO THIS LINE OF CODE:  Some(Integer.parseInt(str.trim))
+    }
+    catch
+    {
+      case ex:Exception => None
+    }
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    val validStringNumber   = "123456";
+    val invalidStringNumber = "12345X";
+    var intNumber:Option[Int] = convertStringToInt(validStringNumber)
+    printNumber(intNumber)
+
+    intNumber = convertStringToInt(invalidStringNumber)
+    printNumber(intNumber)
+  }
+}
 =============================================================
 object Demo
 {
