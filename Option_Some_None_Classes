@@ -85,7 +85,8 @@ object Demo
 }
 ================================================================
 The following example of using Option/Some/None is virtually the
-same as the above example.
+same as the above example, but uses the get() method called on
+the Option class.
 ================================================================
 object Demo
 {
