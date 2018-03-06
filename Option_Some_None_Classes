@@ -83,7 +83,10 @@ object Demo
     }
   }
 }
-=============================================================
+================================================================
+The following example of using Option/Some/None is virtually the
+same as the above example.
+================================================================
 object Demo
 {
   def printNumber(number:Option[Int]):Unit =
