@@ -119,6 +119,44 @@ object Demo
     printNumber(intNumber)
   }
 }
+================================================================
+The following example of using Option/Some/None is virtually the
+same as the two examples above, but uses thematch keyword.
+================================================================
+object Demo
+{
+  def convertStringToInt(str:String):Option[Int] =
+  {
+    try
+    {
+      Some(str.trim.toInt)  // EQUIVALENT TO THIS LINE OF CODE:  Some(Integer.parseInt(str.trim))
+    }
+    catch
+    {
+      case ex:Exception => None
+    }
+  }
+
+  def printNumber(strNumber:Option[Int]):Unit =
+  {
+    strNumber match
+    {
+      case Some(strNumber) => println ("number = " + strNumber)
+      case None            => println ("The number is not valid.")
+    }
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    val validStringNumber:String   = "123456";
+    val invalidStringNumber:String = "12345X";
+    var intNumber:Option[Int] = convertStringToInt(validStringNumber)
+    printNumber(intNumber) // PRINTS: number = 123456
+
+    intNumber = convertStringToInt(invalidStringNumber)
+    printNumber(intNumber) // PRINTS: The number is not valid.
+  }
+}
 =============================================================
 object Demo
 {
