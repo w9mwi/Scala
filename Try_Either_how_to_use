@@ -1,0 +1,10 @@
+This page describes how to use the Scala types
+"Either" and "Try".  NOTE: The "Try" type is not
+that same as the "try" Scala keyword that's used
+with "catch".
+
+Just like the "Option" type will always have a subclass
+"Some " or "None", the "Either" type will always have
+a subclass of "Success" or "Failure".  Where "Failure"
+contains the reason why something failed.
+
