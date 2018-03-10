@@ -12,3 +12,49 @@ Just like the "Option" type will always have a subclass
 a subclass of "Success" or "Failure".  Where "Failure"
 contains the reason why something failed.
 
+The following code example is an alternative to using Option/Some/None,
+as seen on this page...
+--> https://github.com/w9mwi/Scala/blob/master/Option_Some_None_Classes
+========================================================================
+object Demo
+{
+  import scala.util.{Try, Success, Failure}
+
+  def convertStringToInt(str:String):Try[Int] =
+  {
+    Try(str.trim.toInt)
+  }
+
+  def printNumber(strNumber:Try[Int]):Unit =
+  {
+    strNumber match
+    {
+
+      case Success(strNumber) => println ("number = " + strNumber)
+      case Failure(excepMsg)  => println ("Failure message = " + excepMsg)
+    }
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    val validStringNumber:String   = "123456";
+    val invalidStringNumber:String = "12345X";
+    var intNumber:Try[Int] = convertStringToInt(validStringNumber)
+    printNumber(intNumber) // PRINTS: number = 123456
+
+    intNumber = convertStringToInt(invalidStringNumber)
+    printNumber(intNumber) // PRINTS: Failure message = java.lang.NumberFormatException: For input string: "12345X"
+
+    intNumber = for {
+                      a <- convertStringToInt(validStringNumber)
+                      b <- convertStringToInt(validStringNumber)
+                    } yield a + b
+    printNumber(intNumber) // PRINTS: number = 246912
+
+    intNumber = for {
+                      a <- convertStringToInt("1")
+                      b <- convertStringToInt(invalidStringNumber)
+                    } yield a + b
+    printNumber(intNumber) // PRINTS: Failure message = java.lang.NumberFormatException: For input string: "12345X"
+  }
+}
