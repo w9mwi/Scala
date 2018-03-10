@@ -29,7 +29,6 @@ object Demo
   {
     strNumber match
     {
-
       case Success(strNumber) => println ("number = " + strNumber)
       case Failure(excepMsg)  => println ("Failure message = " + excepMsg)
     }
