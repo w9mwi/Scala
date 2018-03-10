@@ -3,7 +3,7 @@ This page describes how to use the Scala types
 that same as the "try" Scala keyword that's used
 with "catch".
 
-SEE ALSO --> 
+SEE ALSO --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None_Classes
 
 Just like the "Option" type will always have a subclass
 "Some " or "None", the "Either" type will always have
