@@ -1,8 +1,14 @@
- Instead of returning an object when a function succeeds,
- and null when it fails, your function can instead return
- an instance of the "Option" class, where the "Option"
- object will in reality be a "None" object or a "Some"
- object.
+NOTE: A main major weakness of using Option is that it
+      doesn't tell you why something failed.  If you
+      need to know why something failed, you can use
+      "Try" or "Either" (not mentioned within this web
+      page) in the Scala API.
+
+Instead of returning an object when a function succeeds,
+and null when it fails, your function can instead return
+an instance of the "Option" class, where the "Option"
+object will in reality be a "None" object or a "Some"
+object.
  
  NOTE: Both the "Some" class and the "None" class are
        children of the "Option" class.
