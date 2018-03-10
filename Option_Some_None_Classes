@@ -3,6 +3,8 @@ NOTE: A main major weakness of using Option is that it
       need to know why something failed, you can use
       "Try" or "Either" (not mentioned within this web
       page) in the Scala API.
+      
+SEE ALSO --> https://github.com/w9mwi/Scala/edit/master/Try_Success_Failure_classes
 
 Instead of returning an object when a function succeeds,
 and null when it fails, your function can instead return
