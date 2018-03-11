@@ -1,4 +1,15 @@
+BASIC FUNCTIONAL PROGRAMMING RULES TO FOLLOW
+============================================
+1) Use no Null values.  In place of using
+   Null, use instead the Option/Some/None
+   or Try/Success/Failure types.
+2) Use only pure functions, which never return
+   Null or throw exceptions.
+3) Use immutable "val" instead of mutable "var"
+4) Whenever you use an if() statement, always
+   use an accompanying else statement.
 
+================================================================
 Call-By-Value parameter - If you define a Person class such as this...
 
                           case class Person(var name:String)
@@ -18,7 +29,7 @@ Call-By-Name Parameter - A Call-By-Name parameter is like a parameter that's a "
                          * Evaluate-When-Accessed  * Evaluate-When-Referenced
                          
 
-==========================================================
+================================================================
 object Demo
 {
   def main(args: Array[String])
