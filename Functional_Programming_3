@@ -1,4 +1,41 @@
+The following is an example of how to use a case class as a function.
+==========================================================================
+object Demo
+{
+  case class StringToInt(func: String => Int)
 
+  def main(args:Array[String]): Unit =
+  {
+    val myString:String = "Once upon a slime.";
+    println("myString = " + myString) // PRINTS: myString = Once upon a slime.
+
+    // Here we declare stringLen to be a StringToInt case class type, and
+    // pass it an anonymous function that converts a String to an Int...
+    var stringLen:StringToInt = StringToInt { tom:String => tom.length } // NOTE: Here we use curly braces {}.
+
+    // NOTE: When the following line of code accesses the StringToInt case class's
+    //       func parameter, the String to Int conversion occurs...
+    var myStringLength:Int = stringLen.func(myString)
+    println("myStringLength = " + myStringLength) // PRINTS: myStringLength = 18
+
+
+    // THE FOLLOWING CODE IS EASIER TO UNDERSTAND THAN THE ABOVE CODE...
+    // Instead of passing in-line code directly to the StringToInt case class
+    // as was done above, here we attain the exact same results by passing
+    // the StringToInt case class the convertStringToLength() function that's
+    // defined below.
+    stringLen = StringToInt(convertStringToLength) // NOTE: Here we use parenthesis ().
+    myStringLength = stringLen.func(myString)
+    println("myStringLength = " + myStringLength) // PRINTS: myStringLength = 18
+   }
+
+  def convertStringToLength(str:String): Int =
+  {
+    str.length
+  }
+}
+==========================================================================
+==========================================================================
 The blockOfCode parameter passed to the timer() function below returns
 an Int value.  Then, inside the timer() function, the blockOfCode passed
 to it gets executed.  NOTE: blockOfCode does NOT have a parameter value
