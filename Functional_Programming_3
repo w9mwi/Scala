@@ -18,7 +18,6 @@ object Demo
   type IntDoubleTuple = (Int, Double)
 
   /**
-    * NOTE: The reason the 
     * @param blockOfCode -
     * @tparam A - The A type in the timer() function below is really the IntDoubleTuple
     *             type defined above.  If you replace all three A references in the timer()
