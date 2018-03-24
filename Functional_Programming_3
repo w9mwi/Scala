@@ -1,0 +1,47 @@
+
+The following sample program passes a function (AKA, a block of code)
+which returns an Int type to the function named timer().  Then, inside
+the timer() function, the blockOfCode function passed to it gets executed.
+==========================================================================
+object Demo
+{
+  type IntDoubleTuple = (Int, Double)
+
+  /**
+    * @param blockOfCode -
+    * @tparam A - The A type in the timer() function below is really the IntDoubleTuple
+    *             type defined above.  If you replace all three A references in the timer()
+    *             function below with references to IntDoubleTuple, the code still works.
+    *
+    * @return the type A in this example is the IntDoubleTuple type defined above.
+    */
+  def timer[A](blockOfCode: => A) =  // NOTE: blockOfCode is a block of code that returns the type A.
+  {
+    val startTime:Long = System.nanoTime
+    // When the following line of code gets called, all code contained in the blockOfCode param
+    // passed to this timer() function executes, including the Thread.sleep(1000) method.  The
+    // value returned to codeBlock is the single Int value 42 returned by the blockOfCode parameter.
+    val codeBlock:A = blockOfCode
+
+    // Even though codeBlock is of type A (the IntDoubleTuple type defined above),
+    // codeBlock contains ONLY a single Int value, which is the Int value 42
+    // returned by the blockOfCode parameter.  THAT'S WEIRD!...  Because if you
+    // try to access codeBlock._1 or codeBlock._2, you'll get a compile error!
+    println("codeBlock = " + codeBlock) // PRINTS: codeBlock = 42
+
+    val stopTime:Long  = System.nanoTime
+    val delta:Long     = stopTime - startTime
+    (codeBlock, delta / 1000000D)  // Returns the tuple (Int, Double)
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    // Here, we pass a block of code as a parameter to the timer() function defined above.
+    // The block of code is everything contained between the {} braces...
+    val resultTuple:IntDoubleTuple = timer { Thread.sleep(1000); 42}
+
+    // The following line prints this:  resultTuple._1 = 42, resultTuple._2 = 1012.724867
+    println("resultTuple._1 = " + resultTuple._1 + ", resultTuple._2 = " + resultTuple._2)
+  }
+}
+==========================================================================
