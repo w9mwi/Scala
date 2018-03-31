@@ -107,13 +107,12 @@ object Demo
     val myCaseClassInstance_2 = Transform2ParamsTo1Param( (str1:String, str2:String) => str1.length + str2.length )
 
     println(myCaseClassInstance_1.func("Green Bay",           "Wisconsin")) // PRINTS: 18
-    println(myCaseClassInstance_1.func("International Falls", "Minnesota")) // PRINTS: 28
+    println(myCaseClassInstance_2.func("International Falls", "Minnesota")) // PRINTS: 28
 
     // Because Transform2ParamsTo1Param defines its func to take generic types,
     // it can still function the same when passed different types.  The following
     // line of code passes to it two Int types,
     val myCaseClassInstance_3 = Transform2ParamsTo1Param{ (int_1:Int, int_2:Int) => int_1 + int_2 }
     println(myCaseClassInstance_3.func(44, 66)) // PRINTS: 110
-
   }
 }
