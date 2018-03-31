@@ -91,9 +91,8 @@ object Demo
     println("resultTuple._1 = " + resultTuple._1 + ", resultTuple._2 = " + resultTuple._2)
   }
 }
-
 ==========================================================================
-
+==========================================================================
 object Demo
 {
   case class Transform2ParamsTo1Param[A, B](func: (A, A) => B)
@@ -115,4 +114,28 @@ object Demo
     val myCaseClassInstance_3 = Transform2ParamsTo1Param{ (int_1:Int, int_2:Int) => int_1 + int_2 }
     println(myCaseClassInstance_3.func(44, 66)) // PRINTS: 110
   }
+}
+==========================================================================
+==========================================================================
+object Demo
+{
+  case class StringToIntCaseClass(str:String)(funcPassedAsParam: String => Int)
+  {
+      // Initialize funcCaseClass to the function passed to the case class.
+    def funcCaseClass = funcPassedAsParam(str)
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    // The first param passed to stringToInt() is a String, the second parameter is a function.
+    val func_1 = stringToInt("North Pole, Alaska") { str:String => str.length }
+    println("func_1 = " + func_1) // PRINTS: func_1 = 18
+
+    // The following code does the same as above, except it uses a function
+    // defined in a case class.
+    val func_2 = StringToIntCaseClass("Christmas Tree") { str:String => str.length }
+    println("func_2.funcCaseClass = " + func_2.funcCaseClass) // PRINTS: func_2.funcCaseClass = 14
+  }
+
+  def stringToInt(str:String)(func: String => Int) = func(str)
 }
