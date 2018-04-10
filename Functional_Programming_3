@@ -128,12 +128,12 @@ object Demo
   def main(args:Array[String]): Unit =
   {
     // The first param passed to stringToInt() is a String, the second parameter is a function.
-    val func_1 = stringToInt("North Pole, Alaska") { str:String => str.length }
+    val func_1:Int = stringToInt("North Pole, Alaska") { str:String => str.length }
     println("func_1 = " + func_1) // PRINTS: func_1 = 18
 
     // The following code does the same as above, except it uses a function
-    // defined in a case class.
-    val func_2 = StringToIntCaseClass("Christmas Tree") { str:String => str.length }
+    // defined in the above case class.
+    val func_2:StringToIntCaseClass = StringToIntCaseClass("Christmas Tree") { str:String => str.length }
     println("func_2.funcCaseClass = " + func_2.funcCaseClass) // PRINTS: func_2.funcCaseClass = 14
   }
 
