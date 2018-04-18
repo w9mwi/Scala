@@ -29,7 +29,6 @@ object Demo
     println("H) " + stringList4.flatMap(z => z)) // PRINTS: H) List(one, two, three, four, five, six, seven)
     println("I) " + stringList4.map(s => s.length))         // PRINTS: I) List(3, 4)
     println("J) " + stringList4.flatten.map(s => s.length)) // PRINTS: J) List(3, 3, 5, 4, 4, 3, 5)
-    println("K) " + stringList4.flatMap(x => x))            // PRINTS: K) List(one, two, three, four, five, six, seven)
   }
 }
 ===========================================================================
