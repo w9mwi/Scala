@@ -1,0 +1,35 @@
+===========================================================================
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // NOTE: The signature of the List.map method is:  map[B](f: (A) => B): List[B]
+    var stringList:List[String] = List("Hey", "Neptune")
+    val intList1:List[Int] = stringList.map(s => s.length) // Equivalent to the next line of code.
+    val intList2:List[Int] = stringList.map(_.length)      // Equivalent to the previous line of code.
+    println("A) " + intList1) // PRINTS: A) List(3, 7)
+    println("B) " + intList2) // PRINTS: B) List(3, 7)
+
+    // NOTE: The signature of the List.flatMap method is: def flatMap[B](f: (A) => GenTraversableOnce[B]): List[B]
+    //       For this example we can simplify that to:    def flatMap[B](f: (A) => List[B]): List[B]
+    stringList = List("mucked", "up", "all", "over")
+    var stringList1 = stringList.flatMap(s => s.split("ck")) // Equivalent to the next line of code.
+    var stringList2 = stringList.flatMap(_.split("ck"))      // Equivalent to the previous line of code.
+    var stringList3 = stringList.flatMap(_.split(""))
+    println("C) " + stringList1) // PRINTS: C) List(mu, ed, up, all, over)
+    println("D) " + stringList2) // PRINTS: D) List(mu, ed, up, all, over)
+    println("E) " + stringList3) // PRINTS: E) List(m, u, c, k, e, d, u, p, a, l, l, o, v, e, r)
+
+    stringList1 = List("one", "two", "three")
+    stringList2 = List("four", "five", "six", "seven")
+    val stringList4:List[List[String]] = List(stringList1, stringList2)
+
+    println("F) " + stringList4)                 // PRINTS: F) List(List(one, two, three), List(four, five, six, seven))
+    println("G) " + stringList4.flatten)         // PRINTS: G) List(one, two, three, four, five, six, seven)
+    println("H) " + stringList4.flatMap(z => z)) // PRINTS: H) List(one, two, three, four, five, six, seven)
+    println("I) " + stringList4.map(s => s.length))         // PRINTS: I) List(3, 4)
+    println("J) " + stringList4.flatten.map(s => s.length)) // PRINTS: J) List(3, 3, 5, 4, 4, 3, 5)
+    println("K) " + stringList4.flatMap(x => x))            // PRINTS: K) List(one, two, three, four, five, six, seven)
+  }
+}
+===========================================================================
