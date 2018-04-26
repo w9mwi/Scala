@@ -225,6 +225,11 @@ ___ startsWith - EXAMPLE:
 
 SEARCHING:
 ==========
+___ find - EXAMPLE:
+           Finds the FIRST ELEMENT of the sequence satisfying a predicate, if any.
+           val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+           var result:Option[Int] = intList.find(_<4)
+           println(result) // Prints: Some(3)
 ___ indexOf - EXAMPLE:
               val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno")
               val result:Int = myList.indexOf("mno")
