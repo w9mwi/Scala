@@ -170,6 +170,31 @@ object Demo
 =============================================================
 object Demo
 {
+  def main(args:Array[String]): Unit =
+  {
+    val strInt1 = "123"
+    val strInt2 = "456"
+    val strInt3 = "111X"
+    val intNumber1:Option[Int] = makeInt(strInt1)
+    val intNumber2:Option[Int] = makeInt(strInt2)
+    val intNumber3:Option[Int] = makeInt(strInt3)
+
+    // If makeInt() returns the Some type, the Option.getOrElse() method below returns
+    // the Int value of that Some type.  If makeInt() returns the None type, the
+    // Option.getOrElse() method below returns the Int value passed to it.
+    val sum = intNumber1.getOrElse(0) + intNumber2.getOrElse(0) + intNumber3.getOrElse(0)
+    println(sum) // PRINTS: 579
+  }
+
+  def makeInt(str:String):Option[Int] =
+  {
+    try { Some(str.trim.toInt) }
+    catch { case excep: Exception => None }
+  }
+}
+=============================================================
+object Demo
+{
   def main(args: Array[String]) =
   {
     val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
