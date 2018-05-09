@@ -282,17 +282,25 @@ object Demo
     val strInt2 = "34"
     val strInt3 = "56"
     val strInt4 = "78"
+    val strInt5 = "9X" // An INVALID String Int value!
     val intNumber1:Option[Int] = makeInt(strInt1)
     val intNumber2:Option[Int] = makeInt(strInt2)
     val intNumber3:Option[Int] = makeInt(strInt3)
     val intNumber4:Option[Int] = makeInt(strInt4)
+    val intNumber5:Option[Int] = makeInt(strInt5)
 
-    val sum:Option[Int] =  for
+    var sum:Option[Int] =  for
                            {
                              a <- intNumber1; b <- intNumber2; c <- intNumber3; d <- intNumber4
                            } yield a + b + c + d
     println(sum) // PRINTS: Some(180)
 
+    // NOTE: The following sum value will be None, because strInt5 is an invalid String Int value....
+    sum =  for
+           {
+             a <- intNumber1; b <- intNumber2; c <- intNumber3; d <- intNumber4; e <- intNumber5
+           } yield a + b + c + d + e
+    println(sum) // PRINTS: None
   }
 
   def makeInt(str:String):Option[Int] =
