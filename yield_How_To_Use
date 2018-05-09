@@ -356,9 +356,35 @@ object Demo
 
   }
 }
-===========================================================================
+======================================================================
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val strInt1 = "12"
+    val strInt2 = "34"
+    val strInt3 = "56"
+    val strInt4 = "78"
+    val intNumber1:Option[Int] = makeInt(strInt1)
+    val intNumber2:Option[Int] = makeInt(strInt2)
+    val intNumber3:Option[Int] = makeInt(strInt3)
+    val intNumber4:Option[Int] = makeInt(strInt4)
 
-===========================================================================
+    val sum:Option[Int] =  for
+                           {
+                             a <- intNumber1; b <- intNumber2; c <- intNumber3; d <- intNumber4
+                           } yield a + b + c + d
+    println(sum) // PRINTS: Some(180)
+
+  }
+
+  def makeInt(str:String):Option[Int] =
+  {
+    try { Some(str.trim.toInt) }
+    catch { case excep: Exception => None }
+  }
+}
+======================================================================
 Read this web page for more details on how the yield keyword functions.
 --> http://docs.scala-lang.org/tutorials/FAQ/yield.html
 
