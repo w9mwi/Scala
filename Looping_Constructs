@@ -1,6 +1,9 @@
 LOOPING CONSTRUCTS
 To understand more about how for() loops and yield work, SEE:
 https://alvinalexander.com/scala/scala-for-loops-foreach-how-to-translated-by-compiler
+
+NOTE: Any class that implements BOTH the map() and flatMap() methods can be used in a
+for-expression.  See Chapter 61 in Functional Programming Simplified (Scala Edition)
 =====================================================
 do
 {
