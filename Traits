@@ -84,8 +84,8 @@ object Demo
   // THIS CODE DEMONSTRATES HOW TO USE A SCALA TRAIT
   trait Iterator[A]
   {
-    def hasNext: Boolean
-    def next(): A
+    def hasNext: Boolean // NOTE: The hasNext value is implemented in the below class that extends this trait.
+    def next(): A        // NOTE: The next() method is implemented in the below class that extends this trait.
   }
 
   class IntIterator(to: Int) extends Iterator[Int]
