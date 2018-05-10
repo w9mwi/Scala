@@ -1,0 +1,25 @@
+
+MONAD - When speaking casually, some people say that any
+        Scala class that implements both the map() and
+        flatMap() methods is a MONAD.  That is NOT totally
+        accurate, but it is close to being true.  Some
+        Scala guy once said...
+
+        "The only thing monads are relevant for, from a
+        Scala language perspective, is their ability of
+        being used in a for-comprehension."
+
+        In Scala there is no base Monad trait to extend.
+        All you have to do is implement map() and flatMap()
+        so your class can be used as a generator in for
+        expressions.  The List and Option Scala classes
+        are true monads!!!
+
+FUNCTOR - At some point in history, someone declared that
+          "things that can be mapped-over shall be called
+          functors."  Therefore, classes like List, Option,
+          Future (and many others) are all functors.  Again...
+          "Functors are things that can be mapped over."
+          
+          Functor = map-able = A class that contains a map() method.
+          
