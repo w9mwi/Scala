@@ -186,17 +186,19 @@ object Demo
     val v2 = new Vect(2, -4, 7)
     val v3 = v1 + v2
     val v4 = v3 * 8
-    println("v1 = " + v1.toString)
-    println("v2 = " + v2.toString)
-    println("v3 = v1 + v2 = " + v3.toString)
-    println("v4 = v3 * 8 = " + v4.toString)
+    println("v1 = " + v1.toString) // PRINTS: v1 = <1.0, 77.88, 3.0>
+    println("v2 = " + v2.toString) // PRINTS: v2 = <2.0, -4.0, 7.0>
+    println("v3 = v1 + v2 = " + v3.toString) // PRINTS: v3 = v1 + v2 = <3.0, 73.88, 10.0>
+    println("v4 = v3 * 8 = " + v4.toString)  // PRINTS: v4 = v3 * 8 = <24.0, 591.04, 80.0>
 
     // The following println() calls this function 3 times: apply(idx:Int):Double
     // Once for v1(0), once time for v1(1), and once for v1(2)
     println("v1(0) = " + v1(0) + ", v1(1) = " + v1(1) + ", v1(2) = " + v1(2))
+     // PRINTS: v1(0) = 1.0, v1(1) = 77.88, v1(2) = 3.0
 
-    // The following println() prints the same values as the above println(), except they
-    // are referenced via member vals, instead of via an index via the apply() method.
+    // The following println() prints the same values as the above println(), except they are
+    // referenced via member vals, instead of via apply() method like the println() above.
     println("v1.x = " + v1.x + ",  v1.y = " + v1.y + ",  v1.z = " + v1.z)
+     // PRINTS: v1.x = 1.0,  v1.y = 77.88,  v1.z = 3.0
   }
 }
