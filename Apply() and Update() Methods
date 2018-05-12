@@ -8,8 +8,6 @@ the "apply" name, it makes it look like you're treating the object as
 a function--this is how all functions work in Scala.  Everything
 in Scala is an object, including functions.
 
-A FUNCTION IS JUST AN OBJECT OF A TYPE THAT HAS AN APPLY METHOD.
-
 When you call an Array or a List with an integer index you are invoking
 the Array's or List's apply() method.  EXAMPLE:
 
@@ -106,7 +104,7 @@ object Demo
 
     def apply(cell:String):Double =
     {
-      // NOTE: The partition() method gets passed a function that returns a boolean.
+      // NOTE: The partition() method gets passed a function that returns a Boolean.
       //       The partition() method then returns two collections that make up a tuple.
       //       The first collection in the returned tuple contains only the elements for
       //       which the function passed to partition() is true.  The second collection
@@ -140,7 +138,7 @@ object Demo
   def main(args: Array[String]):Unit =
   {
     val ss = new Spreadsheet(10, 10)
-    ss("c5") = 14
+    ss("c5") = 14  // This line of code calls the above update() method.
     ss(3,8) = 24
     // The following println() prints this:
     // ss("c5") = 14.0
