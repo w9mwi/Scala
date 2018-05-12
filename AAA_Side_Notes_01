@@ -37,8 +37,16 @@ In the following sample code, the name and id parameters passed to
 the Student class upon instantiation are NOT ACCESSIBLE outside the
 Student class because arguments passed to a class are NOT turned
 into class members, and thus cannot be accessed outside
-the class--unless the class is modified as explained in the sample
-code below.  Read the comments below to better understand this.
+the class.  The params passed to the Student class above ARE accesible
+outside the class if one (or both) of the following are done:
+
+1) If you make the "class" a "case class" the params passed to the
+   "case class" will be accessible outside the "case class".
+2) If you make a class's params "var" types (they are "val"
+   types by default) the params passed to the "case class" will
+   be accessible outside the "case class".
+
+Read the comments in the code sample below to understand this.
 ==================================================================
 object Demo
 {
@@ -80,16 +88,16 @@ object Demo
 ==================================================================
 There are three (3) main levels of visibility in Scala, they are:
 
-1) Public - NOTE: There does NOT exist a Public (or public) keyword in Scala.
+1) Public - NOTE: There does NOT exist a Public/public keyword in Scala.
                   If you want something public, it's public BY DEFAULT, which
                   means you wouldn't use the private or protected keyword.
-                  If the visibility level is public, the val/var or method is
-                  accessible by any code inside, or outside, the class.
-2) private - This means the member val/var/method can be accessed only inside the class.
-             If you prefix a declaration inside a class with the private keyword,
-             that member will be private.
-3) protected - A protected declaration is much like private, except that protected
-               members are also in subtypes (children) of the class.
+                  If the visibility level is public, a class's val/var or
+                  method is accessible by code inside, or outside, the class.
+2) private - A "private" declaration means a class's member val/var/method
+             can be accessed only inside the class.  If you prefix a declaration
+             inside a class with the private keyword, that member will be private.
+3) protected - A protected declaration is much like private, except protected class
+               members are also accessible in subtypes (children) of the class.
 ==================================================================
 The binding of data and functions/methods together is called ENCAPSULATION.
 One of the goals  to strive for in object-oriented programs is to have
