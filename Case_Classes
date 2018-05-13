@@ -60,6 +60,11 @@ object Demo
   // NOTE: The Email, SMS, VoiceRecording, and TrashNotify case classes declarations
   //       below all extend the Notification class, which is an abstract class.
   //       Therefore, these 4 case classes can be treated as a Notification class.
+  //       Since all 4 of these case classes are of the Notification class type,
+  //       all 4 of these case classes can be used within a "match" statement
+  //       for pattern matching (as shown below).  Then, the "match" statement
+  //       below is used to determine which subclass (Email, SMS, VoiceRecording
+  //       or TrashNotify) has been passed to the showNotification() function.
   abstract class Notification
   case class Email(sender:String, title:String, body:String) extends Notification
   case class SMS(caller:String, message:String) extends Notification
