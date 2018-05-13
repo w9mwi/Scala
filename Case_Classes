@@ -37,8 +37,8 @@ have to otherwise manually write for a regular class.  For example:
 
 1) All data passed to a case class are automatically turned into
    public vals by default.
-2) A case class automatically creates a companion object that has
-   an apply() method, so you can create instances of the case class
+2) A case class automatically creates a companion object that has an
+   apply() method, so you can create instances of the case class
    without using the "new" keyword.
 3) A copy() method is automatically created that has default arguments
    for all the class's member values.
