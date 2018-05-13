@@ -1,4 +1,4 @@
-The Buffer type is similar to an Array, but unlike an Array a Buffer can change size,
+The Buffer type is similar to an Array, but unlike an Array, a Buffer can change size,
 which means it can easily grow and shrink.  Therefore, the Buffer type is immutable.
 (There is no mutable Buffer type.)
 
@@ -17,8 +17,8 @@ object Demo
     var buf2 = Buffer.fill(5)(math.random);   println(buf2) // PRINTS: ArrayBuffer(0.7788466721537356, ...4 more numbers)
     var buf3 = ListBuffer("pop", "a", "top"); println(buf3) // PRINTS: ListBuffer(pop, a, top)
 
-    buf1 = buf1 += 6 += 7; println(buf1) // PRINTS: ArrayBuffer(1, 2, 3, 4, 5, 6, 7)
-    buf1 = 0 +=: buf1;     println(buf1) // PRINTS: ArrayBuffer(0, 1, 2, 3, 4, 5, 6, 7)
+    buf1 += 6 += 7;    println(buf1) // PRINTS: ArrayBuffer(1, 2, 3, 4, 5, 6, 7)
+    buf1 = 0 +=: buf1; println(buf1) // PRINTS: ArrayBuffer(0, 1, 2, 3, 4, 5, 6, 7)
   }
 }
 =========================================================================
