@@ -20,7 +20,7 @@ Scala "class" type in following ways...
 A case class will work with pattern matching, where a regular class will
 NOT work with pattern matching.
 
-When creating a new case class , using the "new" keyword is optional--so
+When creating a new case class, using the "new" keyword is optional--so
 generally it's not used.  When creating a regular class, the "new"
 keyword is REQUIRED.
 
