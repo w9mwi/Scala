@@ -107,15 +107,29 @@ object Demo
 {
   def main(args: Array[String])
   {
-    val addFunction = add _  // Converts the def add() function (defined below)
-                             // into a true function via an "Eta Expansion".
-    val addCurried = addFunction.curried // Converts the addFunction into a curried function.
-    val result:Int = addCurried(23)(46)
-    println("result = " + result) // PRINTS: result = 69
+    // The following line of code converts the add() function defined below
+    // (which contains one parameter list) into a curried function (which
+    // contains two parameter lists) via an "Eta Expansion".  The "Eta
+    // Expansion" occurs by adding the underscore character (_) after
+    // the add.
+    val addFunction        = add _
+    val addFunctionCurried = addFunction.curried // Converts the addFunction into a curried function.
+
+    println(add(123, 456))                // PRINTS: 579
+    println(addFunction(123, 456))        // PRINTS: 579
+    println(addFunctionCurried(123)(456)) // PRINTS: 579
+
+    // The following 2 lines of code calls addFunctionCurried twice.
+    // When the first line of code calls it, it's PARTIALLY APPLIED.
+    // When the second line of code calls it, it's FULLY APPLIED.
+    val func:(Int => Int) = addFunctionCurried(123)
+    println(func(456)) // PRINTS: 579
   }
 
-  // NOTE: add() is a regular Scala function.  In the code above,
-  //       this add() function is used to create a curried function.
+  /**
+    * The below add() function is a regular Scala function.  In the code
+    * above, this add() function is used to create a curried function.
+    */
   def add(x:Int, y:Int):Int = { x + y }
 }
 ========================================================================
