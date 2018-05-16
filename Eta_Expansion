@@ -1,0 +1,38 @@
+Read the in-line comments in the below sample code.  For more details
+about "Eta Expansion", do a web search on it.
+======================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val intList = List(7, 9)
+
+    // When you write your own functions/methods (like the mySquare() below),
+    // you can convert them to functions which can be used by the map() method.
+    // You do this by performing an "Eta Expansion" on the function as shown
+    // in the following line of code by making the declaration where the
+    // underscore character (_) appears as the last character...
+    val squareFunction:(Int => Int) = mySquare _
+
+    // When the squareFunction declaration is made above, the Scala compiler
+    // translates that code into the following commented-out code, where the
+    // "new Function1[Int, Int]" text is optional...
+    // val squareFunction:(Int => Int) = new Function1[Int, Int]
+    // {
+    //   def apply(x: Int):Int = mySquare(x)
+    // }
+
+    var result:List[Int] = intList.map(squareFunction)
+    println("result = " + result) // PRINTS: result = List(49, 81)
+
+    // The following result is identical to the result obtained above...
+    result = intList.map(i => i*i)
+    println("result = " + result) // PRINTS: result = List(49, 81)
+  }
+
+  /**
+    * mySquare()
+    */
+  def mySquare(x:Int):Int = { x * x }
+
+}
