@@ -111,9 +111,9 @@ object Demo
     // (which contains one parameter list) into a curried function (which
     // contains two parameter lists) via an "Eta Expansion".  The "Eta
     // Expansion" occurs by adding the underscore character (_) after
-    // the "add" method name.  Also see the following web page to see
-    // a more detailed explanation of "Eta Expansion".
-    // --> 
+    // the "add" method name.  For a more detailed explanation of an
+    // "Eta Expansion", read the following web page:
+    // --> https://stackoverflow.com/questions/39445018/what-is-the-eta-expansion-in-scala
     val addFunction        = add _
     val addFunctionCurried = addFunction.curried // Converts the addFunction into a curried function.
 
