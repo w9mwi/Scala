@@ -48,8 +48,8 @@ object Demo
   {
     import java.io.FileInputStream
 
-    val fis  = new FileInputStream("/home/tbouril/ch8.txt")
-    var byte = fis.read()
+    val fis:FileInputStream  = new FileInputStream("/home/tbouril/ch8.txt")
+    var byte:Int = fis.read()
     while (byte > 0)
     {
       print(byte + " ") // PRINTS: Every character of the input file as an 8-bit Int value.
