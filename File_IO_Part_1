@@ -32,9 +32,7 @@ object Demo
       fileSource.close // When done using the file, always close it!
     }
     catch
-    {
-      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
-    }
+    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 }
 =========================================================
@@ -107,18 +105,14 @@ object Demo
       // ************************************************
     }
     catch
-    {
-      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
-    }
+    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 
   /**
     * This dataGrid() function is a mind-mess.  Revisit this later.
     */
   def dataGrid(lines:Iterator[String], delim:String): Array[Array[Double]] =
-  {
-    (lines.map(s=>s.split(delim).map(_.toDouble))).toArray
-  }
+  { (lines.map(s=>s.split(delim).map(_.toDouble))).toArray }
 
   /**
     * This fileToDataGrid() function is a mind-mess.  Revisit this later.
@@ -159,9 +153,7 @@ object Demo
       scan.close() // Don't forget to close the Scanner!
     }
     catch
-    {
-      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
-    }
+    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 }
 =========================================================
@@ -178,9 +170,7 @@ object Demo
 
     // Read each Int from the ints.txt file and print them to the console window.
     while (scan.hasNextInt)
-    {
-      println("Integer = " + scan.nextInt)
-    }
+    { println("Integer = " + scan.nextInt) }
   }
 }
 =========================================================
@@ -200,9 +190,7 @@ object Demo
       // where each number is followed by a single-space char.
       var pw = new PrintWriter(filePathAndName)
       for (idx <- 1 to 100)
-      {
-        pw.print(math.random + " ")
-      }
+      { pw.print(math.random + " ") }
       pw.flush();  pw.close(); // Don't forget to flush, then close the file!
 
       // Next, append 10 integers to the existing output.txt file created above.
@@ -210,9 +198,7 @@ object Demo
       // if it already exists, so all new data will be appended to existing data.
       pw = new PrintWriter(new FileWriter(filePathAndName, true))
       for (idx <- 1 to 10)
-      {
-        pw.print(idx + " ")
-      }
+      { pw.print(idx + " ") }
       pw.flush();  pw.close(); // Don't forget to flush, then close the file!
 
       // Create a function literal that replaces ' ' Chars with '\n' Chars,
@@ -227,9 +213,7 @@ object Demo
       fileSource.close() // Don't forget to close the file!
     }
     catch
-    {
-      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
-    }
+    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 }
 =========================================================
@@ -251,9 +235,7 @@ object Demo
       mapFile(inFile, outFile, c=>c.toUpper)
     }
     catch
-    {
-      case fnfe:FileNotFoundException => println("File Not Found, Jack!")
-    }
+    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 
   /**
@@ -270,9 +252,7 @@ object Demo
     val in:BufferedSource = Source.fromFile(inFile)
 
     for (c <- in)
-    {
-      pw.print(if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') trans(c) else c)
-    }
+    { pw.print(if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') trans(c) else c) }
     in.close();  pw.close();
   }
 }
@@ -312,13 +292,9 @@ object Demo
     //       Array should always contain either zero elements, or one element.
     println("data contains " + data.length + " element(s).")
     if (data.length == 1)
-    {
-      println("Year = " + year + ", Sex = " + sex + ", Name = " + name + ", Number Born = " + data(0)._4)
-    }
+    { println("Year = " + year + ", Sex = " + sex + ", Name = " + name + ", Number Born = " + data(0)._4) }
     else
-    {
-      println("No data found for Year = " + year + ", Sex = " + sex + ", Name = " + name)
-    }
+    { println("No data found for Year = " + year + ", Sex = " + sex + ", Name = " + name) }
 
     val female1959:Array[NameData] = nameData.filter(x => x._1 == "F"  &&  x._2 == 1959)
     var maxNames:Int   = female1959.map(_._4).max
