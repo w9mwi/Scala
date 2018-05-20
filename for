@@ -317,7 +317,8 @@ object Demo
   def parseLine(line:String): NameData =
   {
     val parts:Array[String] = line.split(",")
-    (parts(1), parts(2).toInt, parts(3), parts(4).toInt)
+    val nd:NameData = (parts(1), parts(2).toInt, parts(3), parts(4).toInt)
+    nd // Return the NameData tuple.
   }
 }
 =========================================================
