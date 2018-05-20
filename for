@@ -297,7 +297,7 @@ object Demo
     { println("No data found for Year = " + year + ", Sex = " + sex + ", Name = " + name) }
 
     val female1959:Array[NameData] = nameData.filter(x => x._1 == "F"  &&  x._2 == 1959)
-    var maxNames:Int   = female1959.map(_._4).max
+    var maxNames:Int = female1959.map(_._4).max
 
     // Print the NameData for the most common female name(s) born in 1959.
     female1959.filter(_._4 == maxNames).foreach(println)
