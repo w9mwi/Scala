@@ -250,6 +250,8 @@ object Demo
     val pw:PrintWriter    = new PrintWriter(outFile)
     val in:BufferedSource = Source.fromFile(inFile)
 
+    // The following for() loop converts each Char read from the
+    // inFile to upper case, then writes it to the outFile.
     for (c <- in) { pw.print(if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') trans(c) else c) }
     in.close();  pw.close();
   }
