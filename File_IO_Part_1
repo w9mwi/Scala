@@ -200,10 +200,6 @@ object Demo
       { pw.print(idx + " ") }
       pw.flush();  pw.close(); // Don't forget to flush, then close the file!
 
-      // Create a function literal that replaces ' ' Chars with '\n' Chars,
-      // which is used below.
-      def replaceChar:(Char => Char) = { (a:Char) => if (a == ' ') '\n' else a }
-
       // Next, open the output.txt file that was created above,
       // then print its contents to the console window.
       val fileSource:BufferedSource = Source.fromFile(filePathAndName)
@@ -212,7 +208,14 @@ object Demo
       fileSource.close() // Don't forget to close the file!
     }
     catch
-    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
+      { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
+
+
+    /**
+      * This function replaces ' ' Chars with '\n' Chars,
+      * @return
+      */
+    def replaceChar:(Char => Char) = { (a:Char) => if (a == ' ') '\n' else a }
   }
 }
 =========================================================
