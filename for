@@ -188,16 +188,14 @@ object Demo
       // Create a new file, then write 100 random numbers to it,
       // where each number is followed by a single-space char.
       var pw = new PrintWriter(filePathAndName)
-      for (idx <- 1 to 100)
-      { pw.print(math.random + " ") }
+      for (idx <- 1 to 100) { pw.print(math.random + " ") }
       pw.flush();  pw.close(); // Don't forget to flush, then close the file!
 
       // Next, append 10 integers to the existing output.txt file created above.
       // The "true" Boolean parameter below prevents the file from being overwritten
       // if it already exists, so all new data will be appended to existing data.
       pw = new PrintWriter(new FileWriter(filePathAndName, true))
-      for (idx <- 1 to 10)
-      { pw.print(idx + " ") }
+      for (idx <- 1 to 10) { pw.print(idx + " ") }
       pw.flush();  pw.close(); // Don't forget to flush, then close the file!
 
       // Next, open the output.txt file that was created above,
@@ -208,7 +206,7 @@ object Demo
       fileSource.close() // Don't forget to close the file!
     }
     catch
-      { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
+    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
 
 
     /**
@@ -252,8 +250,7 @@ object Demo
     val pw:PrintWriter    = new PrintWriter(outFile)
     val in:BufferedSource = Source.fromFile(inFile)
 
-    for (c <- in)
-    { pw.print(if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') trans(c) else c) }
+    for (c <- in) { pw.print(if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') trans(c) else c) }
     in.close();  pw.close();
   }
 }
