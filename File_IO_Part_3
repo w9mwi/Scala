@@ -49,7 +49,7 @@ object Demo
     // Write 10 random Doubles to a file named arrayOfDoubles.bin...
     writeArrayOfDoubles(fileName, Array.fill(10)(math.random))
     // Read and print all Double numbers contained in the arrayOfDoubles.bin file...
-    var doubleArray:Array[Double] =readArrayOfDoubles(fileName)
+    var doubleArray:Array[Double] = readArrayOfDoubles(fileName)
     doubleArray.foreach(println) // PRINTS: The entire contents of doubleArray.
 
     println("=====================")
