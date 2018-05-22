@@ -59,36 +59,25 @@ object Demo
     // Array, in a visual-friendly format...
     for (idx <- matrix.indices)
     {
-      for (jdx <- 0 to 1)
-      {
-        print(" " + matrix(idx)(jdx))
-      }
+      for (jdx <- 0 to 1) { print(" " + matrix(idx)(jdx)) }
       println()
     }
-
     println()
-    // ******************************************************************************
-    // ******************************************************************************
+
     // CREATE, INITIALIZE, AND DISPLAY A 3X5 MULTI-DIMENSIONAL ARRAY...
     val myMatrix:Array[Array[Int]] = Array.ofDim[Int](3,5)
 
     // Initialize every element in the the 2-dimensional Array...
     for (idx <- myMatrix.indices)
     {
-      for (jdx <- myMatrix(idx).indices)
-      {
-        myMatrix(idx)(jdx) = jdx
-      }
+      for (jdx <- myMatrix(idx).indices) { myMatrix(idx)(jdx) = jdx }
     }
 
     // Print the content of every element in the 2-dimensional
     // Array, in a visual-friendly format...
     for (idx <- myMatrix.indices)
     {
-      for (jdx <- myMatrix(idx).indices)
-      {
-        print(" " + myMatrix(idx)(jdx))
-      }
+      for (jdx <- myMatrix(idx).indices) { print(" " + myMatrix(idx)(jdx)) }
       println()
     }
   }
