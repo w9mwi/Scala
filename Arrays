@@ -146,12 +146,13 @@ object Demo
 
     // Loop through every element in the twoD Array, and print its contents...
     for (idx <- twoD.indices)
+    {
       for (jdx <- twoD(idx).indices)
       {
         count += 1
         println(count + ") twoD(" + idx + ")(" + jdx + ") = " + twoD(idx)(jdx))
       }
-
+    }
     println()
     println("Loop through every element in the twoD Array that contains a 3-element Array.")
     println("Then, calculate and print the average of those 3 numbers for each element.")
