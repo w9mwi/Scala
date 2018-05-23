@@ -59,7 +59,7 @@ object Demo
   def doubleFunc(i:Int):Int = { i * 2 }
   def tripleFunc(i:Int):Int = { i * 3 }
 }
-==========================================================
+===========================================================
 object Demo
 {
   def main(args: Array[String])
