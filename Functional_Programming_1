@@ -14,7 +14,7 @@ Call-By-Value parameter - If you define a Person class such as this...
 
                           case class Person(var name:String)
                           
-                          ...and the pass it into a Scala function it's a Call-By-Value argument,
+                          ...and then pass it into a Scala function it's a Call-By-Value argument,
                           which is a POINTER to the Person object passed to the method/function.
                           This means there is no copy of the Person object, just a pointer to
                           the Person object that exists somewhere in RAM.  If the argument is
