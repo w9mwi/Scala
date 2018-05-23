@@ -38,10 +38,12 @@ object Demo
     intList.foreach(print) // PRINTS: 246
     println
 
-    // The following line of commented-out code will NOT compile.  To rectify
-    // this problem, the commented-out line can be rewritten like the TWO LINES
-    // immediately below it.
-//  val functions_1                           = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
+    // The following line of commented-out code will NOT compile.  To rectify this
+    // problem, the commented-out line can be rewritten like the TWO LINES
+    // immediately below it.  To understand the what the underscore character (_)
+    // does in the functions2 declaration below, read about Eta Expansions on this
+    // github page:  https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
+    // val functions_1                        = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
     val functions_1:Map[String, (Int) => Int] = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
     val functions_2                           = Map("2X" -> doubleFunc _, "3X" -> tripleFunc _)
 
