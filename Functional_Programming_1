@@ -152,7 +152,7 @@ object Demo
 
     // Call the map() function below via a String type--which is a subtype of Seq.
     val list2:List[String] = List("Tom", "Jim", "Beam")
-    val myMap2 = map(doubleString, list2)
+    val myMap2:Seq[String] = map(doubleString, list2)
     myMap2.foreach(print) // PRINTS: Tom_TomJim_JimBeam_Beam
   }
 
