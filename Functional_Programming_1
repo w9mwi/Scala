@@ -146,7 +146,7 @@ object Demo
   {
     // Call the map() function below via a List type--which is a subtype of Seq.
     val list:List[Int] = List(1, 2, 3)
-    val myMap:Seq[Any] = map(timesTwo, list)
+    val myMap:Seq[Int] = map(timesTwo, list)
     myMap.foreach(print) // PRINTS: 246  (Which comes from: 1*2=2, 2*2=4, 2*3=6)
     println()
 
