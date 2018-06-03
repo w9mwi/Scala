@@ -62,6 +62,7 @@ object Demo
     val myString:String = "This is a string."
     val myInt:Int = 9876
     val myPerson:Person = Person("Tom", "Jim", "Beam", 123456789)
+    val myDouble = 666.66D
 
     println(determineDataType(myArray))
     println(determineDataType(myList))
@@ -69,6 +70,7 @@ object Demo
     println(determineDataType(myString))
     println(determineDataType(myInt))
     println(determineDataType(myPerson))
+    println(determineDataType(myDouble))
   }
 
   /**
@@ -85,6 +87,7 @@ object Demo
       case dataType:String        => "The data type = String"
       case dataType:Int           => "The data type = Int"
       case dataType:Person        => "The data type = Person"
+      case _                      => "The data type is undetermined."
     }
   }
 }
