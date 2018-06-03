@@ -49,6 +49,46 @@ For more details about case classes, read the following web pages:
 --> http://www.scala-lang.org/old/node/258
 --> http://docs.scala-lang.org/tour/case-classes.html
 
+====================================================================================
+object Demo
+{
+  case class Person(var firstName:String, middleName:String, lastName:String, ssn:Int)
+
+  def main(args:Array[String]): Unit =
+  {
+    val myArray:Array[String] = Array("AA", "BB", "YY", "ZZ")
+    val myList:List[Float] = List(1.23F, 45.6F, -78.9F)
+    val myChar:Char = 'T'
+    val myString:String = "This is a string."
+    val myInt:Int = 9876
+    val myPerson:Person = Person("Tom", "Jim", "Beam", 123456789)
+
+    println(determineDataType(myArray))
+    println(determineDataType(myList))
+    println(determineDataType(myChar))
+    println(determineDataType(myString))
+    println(determineDataType(myInt))
+    println(determineDataType(myPerson))
+  }
+
+  /**
+    * This function uses pattern matching to determine the data type
+    * of the data parameter passed to it.
+    */
+  def determineDataType(data:Any):String =
+  {
+    data match
+    {
+      case dataType:Array[String] => "The data type = Array[String]"
+      case dataType:List[Float]   => "The data type = List[Float]"
+      case dataType:Char          => "The data type = Char"
+      case dataType:String        => "The data type = String"
+      case dataType:Int           => "The data type = Int"
+      case dataType:Person        => "The data type = Person"
+    }
+  }
+}
+====================================================================================
 object Demo
 {
   // By default, a case class's parameters are val types (when you don't specify
