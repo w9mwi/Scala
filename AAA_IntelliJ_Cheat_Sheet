@@ -3,6 +3,10 @@ Alt+Enter : Pops up a list of classes to import  from.  When one is selected,
 
 Alt+= : When hovering over a var/val, you can determine its data type by pressing the "Alt" and "=" keys.
 
+Ctrl+Alt+O : Optimize imports
+
+Ctld+Shift+D : Opens a Scala REPL console.
+
 "Copy Path" : Right-click on one of the folders/files in the Project tree, select "Copy Path",
               and the full directory path + file name is copied into the clipboard.
 
