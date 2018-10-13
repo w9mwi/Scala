@@ -90,36 +90,33 @@ object Demo
 A HIGHER-ORDER FUNCTION is a function that operates on other functions.
 In other words, a HIGHER-ORDER FUNCTION is a function that gets passed
 a function as a parameter, and/or returns a function.  The following
-code defines two functions (compose and compose2, both of which have
-identical behavior) that are higher-order functions--as they both
+code defines the compose_1() and compose_2() functions (both of which
+have identical behavior) that are higher-order functions--as they both
 get passed functions as parameters, and they both return a function.
-Both compose and compose2 return the function f(g(x))...
+Both compose_1() and compose_2() return the function f(g(x))...
 
 object Demo
 {
-  val plus5   = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
-  val square  = (x:Double) => x*x    // EQUIVALENT TO:  def square(x:Double):Double = x*x
-  val compose = (f:Double  => Double, g:Double => Double, x:Double) => f(g(x))
+  val plus5  = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
+  val square = (x:Double) => x*x    // EQUIVALENT TO:  def square(x:Double):Double = x*x
 
-  // The following compose2() function gets passed 2 functions as params (f and g),
+  // The following compose_1() function gets passed 2 functions as params (f and g),
   // and returns a function that gets passed a Double and returns a Double.
-  def compose2(f:Double => Double, g:Double => Double):Double => Double =
-  {
-    x => f(g(x)) // This is the returned function.
-  }
+  def compose_1(f:Double => Double, g:Double => Double):Double => Double = { x => f(g(x)) }
+  val compose_2 = (f:Double  => Double, g:Double => Double, x:Double) => f(g(x))
 
   def main(args: Array[String])
   {
-    val a:(Double => Double) = compose2(plus5, square) // EQUIVALENT TO:  val a  = compose2(plus5, square)
-    val b                    = compose2(square, plus5) // EQUIVALENT TO:  val b:(Double => Double) = compose2(square, plus5)
+    val a:(Double => Double) = compose_1(plus5, square) // EQUIVALENT TO:  val a  = compose_1(plus5, square)
+    val b                    = compose_1(square, plus5) // EQUIVALENT TO:  val b:(Double => Double) = compose_1(square, plus5)
 
     println("a(3) = " + a(3)) // PRINTS: a(3) = 14.0
     println("b(3) = " + b(3)) // PRINTS: b(3) = 64.0
 
-    // The following 2 calls to compose() are identical
+    // The following 2 calls to compose_2() are identical
     // to the above two function calls a(3) and b(3)...
-    println("compose(plus5,  square, 3) = " + compose(plus5, square, 3)) // PRINTS: compose(plus5,  square, 3) = 14.0
-    println("compose(square, plus5,  3) = " + compose(square, plus5, 3)) // PRINTS: compose(square, plus5,  3) = 64.0
+    println("compose_2(plus5,  square, 3) = " + compose_2(plus5, square, 3)) // PRINTS: compose_2(plus5,  square, 3) = 14.0
+    println("compose_2(square, plus5,  3) = " + compose_2(square, plus5, 3)) // PRINTS: compose_2(square, plus5,  3) = 64.0
   }
 }
 
