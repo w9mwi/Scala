@@ -90,19 +90,22 @@ object Demo
 A HIGHER-ORDER FUNCTION is a function that operates on other functions.
 In other words, a HIGHER-ORDER FUNCTION is a function that gets passed
 a function as a parameter, and/or returns a function.  The following
-code defines the compose_1() and compose_2() functions (both of which
-have identical behavior) that are higher-order functions--as they both
-get passed functions as parameters, and they both return a function.
-Both compose_1() and compose_2() return the function f(g(x))...
+code defines the compose_1() and compose_2() functions that are
+higher-order functions--as they both get passed functions as parameters,
+and they both return a function.  Both compose_1() and compose_2()
+return the function f(g(x))...
 
 object Demo
 {
   val plus5  = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
   val square = (x:Double) => x*x    // EQUIVALENT TO:  def square(x:Double):Double = x*x
 
-  // The following compose_1() function gets passed 2 functions as params (f and g),
+  // The following compose_1() function gets passed 2 functions (as params f and g),
   // and returns a function that gets passed a Double and returns a Double.
   def compose_1(f:Double => Double, g:Double => Double):Double => Double = { x => f(g(x)) }
+
+  // The following compose_2() function gets passed 2 functions (as params f and g), and
+  // Int param, and returns a function that gets passed a Double and returns a Double.
   val compose_2 = (f:Double  => Double, g:Double => Double, x:Double) => f(g(x))
 
   def main(args: Array[String])
