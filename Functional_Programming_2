@@ -100,13 +100,10 @@ object Demo
   val plus5  = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
   val square = (x:Double) => x*x    // EQUIVALENT TO:  def square(x:Double):Double = x*x
 
-  // The following compose_1() function gets passed 2 functions (as params f and g),
+  // The following compose_1() function gets passed 2 functions as params (f and g),
   // and returns a function that gets passed a Double and returns a Double.
-  def compose_1(f:Double => Double, g:Double => Double):Double => Double = { x => f(g(x)) }
-
-  // The following compose_2() function gets passed 2 functions (as params f and g), and
-  // Int param, and returns a function that gets passed a Double and returns a Double.
-  val compose_2 = (f:Double  => Double, g:Double => Double, x:Double) => f(g(x))
+  def compose_1(f:Double => Double, g:Double => Double):(Double => Double) = { x => f(g(x)) }
+  val compose_2 = (f:Double => Double, g:Double => Double, x:Double) => f(g(x))
 
   def main(args: Array[String])
   {
@@ -122,6 +119,7 @@ object Demo
     println("compose_2(square, plus5,  3) = " + compose_2(square, plus5, 3)) // PRINTS: compose_2(square, plus5,  3) = 64.0
   }
 }
+
 
 // =================================================================
 // =================================================================
