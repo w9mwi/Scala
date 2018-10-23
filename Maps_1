@@ -47,6 +47,7 @@ object Demo
   }
 }
 
+==========================================================================================
 import scala.collection.{immutable, mutable}
 
 object Demo
@@ -75,7 +76,7 @@ object Demo
     // If you try to remove a Map element that doesn't exist in the Map, nothing will happen.
     // Example: Here, we try removing the Map element having a key of 99, which doesn't exist...
     immutMap -= 99
-    println("F) " + immutMap + "\n") // PRINTS: E) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
+    println("F) " + immutMap + "\n") // PRINTS: F) Map(5 -> five, 1 -> one, 2 -> two, 3 -> three, 4 -> four)
 
     // NOTE: The contents of a Map are essentially a tuple type having two values.  This can be
     //       viewed by printing the contents of immutMap in the following 2 lines of code, which
