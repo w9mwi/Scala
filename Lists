@@ -21,7 +21,7 @@ its a var.  The var indicates that myList can be used to point
 to a different List.  For example, you can do the following:
 
 var myList = List(1, 2, 3);
-myList = List(9, 8, 7);  // Allowed because myArray is a var.
+myList = List(9, 8, 7);  // Allowed because myList is a var.
 
 Unlike Arrays, Lists cannot be multi-dimensional.  You can PREPEND
 values to an existing var List by using the cons operator (::).
