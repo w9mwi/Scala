@@ -26,13 +26,21 @@ myList = List(9, 8, 7);  // Allowed because myArray is a var.
 Unlike Arrays, Lists cannot be multi-dimensional.  You can PREPEND
 values to an existing var List by using the cons operator (::).
 Note that this can be done only with a var List, not a val List.
-Here's an example.
+Prepending a value to a List literally creates a new List as
+shown in the example immediately below.
 
 var myList = List(1, 2, 3);
 myList = 0::myList
 myList.foreach(println)
 
-Prepending a value to a List, as shown above, literally creates a new List.
+You combine two Lists into one List by using the List append
+operator, which consists of 3 colon characters (:::), as
+shown in the example immediately below.
+
+val list_1:List[Int] = List(1, 22, 333)
+val list_2:List[Int] = List(7, 88, 999)
+val list_result:List[Int] = list_1 ::: list_2
+println(list_result)  // PRINTS: List(1, 22, 333, 7, 88, 999)
 
 Since all Lists (including empty lists) end with a Nil value, you
 cannot append values to an existing List, even if it's a var List.
