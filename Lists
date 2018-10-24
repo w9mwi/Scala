@@ -33,9 +33,9 @@ var myList = List(1, 2, 3);
 myList = 0::myList
 myList.foreach(println)
 
-You combine two Lists into one List by using the List append
-operator, which consists of 3 colon characters (:::), as
-shown in the example immediately below.
+You can combine two Lists into one List by using the List
+append operator, which consists of 3 colon characters (:::),
+as shown in the example immediately below.
 
 val list_1:List[Int] = List(1, 22, 333)
 val list_2:List[Int] = List(7, 88, 999)
