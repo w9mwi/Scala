@@ -15,10 +15,12 @@ a List of 3 integers that's initialized to the values of
 var myList = List(1, 2, 3)
 
 Even though the above myList is declared as a var, we can't change the
-values contained in each List element.  A List in Scala is IMMUTABLE,
-which means a List's element values can never be altered, even if
-its a var.  The var indicates that myList can be used to point
-to a different List.  For example, you can do the following:
+values contained in each List element.  A List in Scala is IMMUTABLE
+by default, which means a List's element values can never be altered,
+even if it's a var.  (It is possible to declare a List as mutable
+instead of immutable via an import statement.)  The var indicates
+that myList can be used to point to a different List.  For example,
+you can do the following:
 
 var myList = List(1, 2, 3);
 myList = List(9, 8, 7);  // Allowed because myList is a var.
