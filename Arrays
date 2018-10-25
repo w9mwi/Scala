@@ -10,8 +10,9 @@ index.  The following line of code creates an Array of
 val myArray:Array[Int] = Array[Int](1, 2, 3)
 
 The square brackets '[]' in the above code indicates that the
-Array is a paramaterized type.  In the above example, this
-paramaterized type is declared to be of type Int.  The above
+Array is a parameterized type.  (NOTE: ALL COLLECTION TYPES IN
+SCALA ARE PARAMETERIZED TYPES.)  In the above example, this
+parameterized type is declared to be of type Int.  The above
 line of code can also be written as shown below (without the
 [Int]), as the compiler will be able to determine the type
 will be Int.
