@@ -21,9 +21,11 @@ val myArray = Array(1, 2, 3)
 
 The following example declares an Array containing un-initialized
 elements, and the elements are initialized after the declaration.
-When an Array is declared, but not initialized, all its elements
+When an Array is declared but not initialized, all its elements
 have a default value of zero (for numbers), and null for non-numeric
-data types.
+data types.  NOTE: FOR ALL NUMERIC TYPES, THE DEFAULT VALUE IS
+ZERO.  FOR THE BOOLEAN TYPE, THE DEFAULT VALUE IS FALSE.  FOR ALL
+NON-NUMERIC TYPES, THE DEFAULT VALUE IS NULL.
 
 val myArray:Array[Int] = new Array[Int](3);
 
