@@ -86,6 +86,36 @@ object Demo
   }
 }
 ==================================================================
+// This section of code perfoms some basic Array manipulation.
+// Read the in-line comments below for details.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val tjb:Array[Int] = Array(1,2,3)
+
+    // The following line prints exactly the same results as the line immediately BELOW it.
+    for (idx <- tjb.indices) { println(tjb(idx)) }
+
+    // The following line prints exactly the same results as the line immediately ABOVE it.
+    tjb.foreach(println)
+    changeArray(tjb)  // This function will change the values contained in the tjb Array passed to it.
+    tjb.foreach(println) // Verify that the values in the tjb Array have changed.
+  }
+
+  /** The changeArray() method/function below returns the type Unit (nothing),
+   *  but it literally changes the values contained in the Array passed to it.
+   *  So after changeArray() is called, the method that called it will have
+   *  different values in the Array that it passed to this method/function. */
+  def changeArray(arr:Array[Int]): Unit =
+  {
+    arr(0) = 123
+    arr(1) = 456
+    arr(2) = 789
+  }
+}
+==================================================================
 Pages 167-168 - How to FILL AND TABULATE Arrays and Lists.
 
 object Demo
