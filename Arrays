@@ -62,7 +62,7 @@ object Demo
     // Array, in a visual-friendly format...
     for (idx <- matrix.indices)
     {
-      for (jdx <- 0 to 1) { print(" " + matrix(idx)(jdx)) }
+      for (jdx <- matrix(idx).indices) { print(" " + matrix(idx)(jdx)) }
       println()
     }
     println()
@@ -85,7 +85,6 @@ object Demo
     }
   }
 }
-==================================================================
 // This section of code perfoms some basic Array manipulation.
 // Read the in-line comments below for details.
 
