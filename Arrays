@@ -114,7 +114,44 @@ object Demo
     arr(2) = 789
   }
 }
-==================================================================
+===========================================================================
+Page 140 - Using a recursive function to tabluate the contents of an Array.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val arr:Array[Int] = Array(23, 32, 64)
+
+    // The second element passed to operateOnArray() designates the index
+    // of the first Array element to be included in the tabulation.  EXAMPLE:
+    // If the index value is 2, the tabulation will begin with the Array(2)
+    // element--the Array(0) and Array(1) elements will NOT be included
+    // in the tabulation.
+    val result:Int = operateOnArray(arr, 0, _*_)
+    println("result = " + result) // PRINTS: result = 47104
+  }
+
+  /**
+    * This RECURSIVE function loops through every element of the Array passed
+    * to it, BEGINNING at the Array index value passed to this function.
+    * Each time this function calls itself, it performs an operation on the
+    * Array(index) and Array(index+1) elements.  This function terminates
+    * when the index passed to it equals the length of the Array passed to it.
+    */
+  def operateOnArray(arr:Array[Int], index:Int, func:(Int, Int) => Int):Int =
+  {
+    if (index < arr.length-1)
+    {
+      func(arr(index), operateOnArray(arr, index+1, func))
+    }
+    else
+    {
+      arr(arr.length-1)
+    }
+  }
+}
+===========================================================================
 Pages 167-168 - How to FILL AND TABULATE Arrays and Lists.
 
 object Demo
