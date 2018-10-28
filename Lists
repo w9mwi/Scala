@@ -59,11 +59,39 @@ if (myList.isEmpty)
 {
   println("myList is empty.")
 }
+========================================================================
+When using Scala Lists, you will very frequently call the List head()
+and tail() methods, as demonstrated by the following code.  The List.head()
+method always returns the data type contained in the List's first element.
+The List.tail() method always returns the entire List except for the first
+element.  It's possible for a single List to contain different data types
+(i.e., Int, Float, String, etc.) in each of its elements by declaring
+a List with the "Any" parameter type as shown below.
 
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val array:Array[Char] = Array('1', '2', '3', '4')
+    val list_1:List[Int] = List(12, 34, 56, 78)
+    val list_2:List[Any] = List("one two three four", 12, 12.34F, 12.34D, array)
+    val str:String = "one two three four"
+
+    val listHead_1:Int       = list_1.head
+    val listTail_1:List[Int] = list_1.tail
+    println("listHead_1 = " + listHead_1) // PRINTS: listHead_1 = 12
+    println("listTail_1 = " + listTail_1) // PRINTS: listTail_1 = listTail_1 = List(34, 56, 78)
+
+    val listHead_2:Any       = list_2.head
+    val listTail_2:List[Any] = list_2.tail
+    println("listHead_2 = " + listHead_2) // PRINTS: listHead_2 = one two three four
+    println("listTail_2 = " + listTail_2) // PRINTS: listTail_2 = List(12, 12.34, 12.34, [C@48140564)
+  }
+}
+========================================================================
 Below is Scala code that performs a mathematical operation
 on all elements in a List, using a recursive function.
-========================================================================
-========================================================================
+
 object Demo
 {
   def main(args: Array[String])
