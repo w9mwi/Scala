@@ -114,7 +114,27 @@ object Demo
     arr(2) = 789
   }
 }
-===========================================================================
+
+================================================================================
+When using Scala Arrays, it's possible for a single Array to contain different
+data types (i.e., Int, Float, String, List, etc.) in each of its elements by
+declaring an Array with the "Any" parameter type as shown below.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val list:List[Char] = List('1', '2', '3', '4')
+    val array_1:Array[Int] = Array(12, 34, 56, 78)
+    val array_2:Array[Any] = Array("one two three four", 12, 12.34F, 12.34D, list)
+
+    // Print the contents of both array_1 and array_2...
+    array_1.foreach(println)
+    array_2.foreach(println)
+  }
+}
+
+================================================================================
 Page 140 - Using a recursive function to tabluate the contents of an Array.
 
 object Demo
