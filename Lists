@@ -129,7 +129,7 @@ object Demo
       case a::t => func(a, operateOnList2(t, func))
       // NOTE: In this code example, the following line never executes
       //       because the first two lines of this match statement
-      //       match all possible cases.
+      //       match all possible scenarios.
       case _ => 0
     }
   }
