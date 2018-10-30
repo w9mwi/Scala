@@ -467,15 +467,17 @@ ___ foreach - This method gets passed a function that operates on all elements i
 ___ grouped - Runs through the sequence, grouping items into groups of the specified size.
               EXAMPLE:
               val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-              intList.grouped(2).foreach(println)
-
-              var count = 0
+              intList.grouped(2).foreach(println) // PRINTS: List(7, 4)
+                                                  //         List(6, 3)
+              var count = 0                       //         List(9, 1)
               for (x <- intList.grouped(2))
               {
-                count += 1
-                // Print the same intList.grouped(2) as the above call to foreach.
-                println("count = " + count + ", " + x)
-              }
+                 count += 1
+                 // Print the same intList.grouped(2) as the above call to foreach.
+                 println("count = " + count + ", " + x) // PRINTS: count = 1, List(7, 4)
+              }                                         //         count = 2, List(6, 3)
+                                                        //         count = 3, List(9, 1)
+
 ___ indexWhere - Pass this method a function that operates on a single element of the collection.
                  Returns the index of the FIRST element for which the function is true.  Returns
                  -1 if the function is NOT true for any of the elements.
