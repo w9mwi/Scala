@@ -484,14 +484,14 @@ ___ indexWhere - Pass this method a function that operates on a single element o
                  val result:Int = myList.indexWhere(_ > 50.0F)
                  println(result) // Prints: 2
 ___ inits - Provides an iterator going from the full sequence to an empty one, removing elements from the end.
-            EXAMPLE:
-            val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-            var count = 0
-            for (x <- intList.inits)
-            {
-              count += 1
-              println("count = " + count + ", " + x)
-            }
+                                                                 // The below println statement PRINTS:
+            val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)  // count = 1, List(7, 4, 6, 3, 9, 1)
+            var count = 0                                        // count = 2, List(7, 4, 6, 3, 9)
+            for (x <- intList.inits)                             // count = 3, List(7, 4, 6, 3)
+            {                                                    // count = 4, List(7, 4, 6)
+              count += 1                                         // count = 5, List(7, 4)
+              println("count = " + count + ", " + x)             // count = 6, List(7)
+            }                                                    // count = 7, List()
 ___ lastIndexWhere - Pass this method a function that operates on a single element of the collection
                      and returns a Boolean.  This method returns the index of the LAST element for
                      which the function is true.  Returns -1 if the function is NOT true for any
