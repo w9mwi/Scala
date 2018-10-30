@@ -1,6 +1,6 @@
 
 The "case class" Scala type is different from the regular
-Scala "class" type in following ways...
+Scala "class" type in the following ways...
 
 1) You can create instance of case class WITHOUT the "new" keyword.
 2) You can do pattern matching with case classes.
