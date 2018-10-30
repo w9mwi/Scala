@@ -82,6 +82,8 @@ object Demo
   {
     data match
     {
+      // NOTE: The name "dataType" used below is arbitrary.  That name could
+      //       be anything, such as "temp", "myData", "joe", "abc", etc.
       case dataType:Array[String] => "The data type = Array[String]"
       case dataType:List[Float]   => "The data type = List[Float]"
       case dataType:Char          => "The data type = Char"
