@@ -281,7 +281,7 @@ ___ indexOf - EXAMPLE:
               val result:Int = myList.indexOf("mno")
               println("result = " + result) // Prints: result = 4
 ___ lastIndexOf - EXAMPLE:
-                  val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno")
+                  val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno") // NOTE: There are 2 "mno" strings.
                   val result:Int = myList.lastIndexOf("mno")
                   println("result = " + result) // Prints: result = 5
 ___ diff - EXAMPLE:
