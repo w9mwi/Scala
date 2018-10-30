@@ -342,6 +342,11 @@ ___ sum - EXAMPLE:
 
 HIGHER-ORDER METHODS, ETC.
 ==========================
+Among this group of higher-order functions, there are specifically
+TWO (2) of these functions that are widely used and very popular.
+They are the filter() function and the map() function.  You should
+make it a point to understand those two functions very well.
+
 ___ count - EXAMPLE:
             val myList:List[Float] = List(123.4F, 456.7F, 78.9F)
             println("myList.count = " + myList.count(_ > 100.0F)) // Prints: myList.count = 2
