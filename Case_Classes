@@ -3,8 +3,9 @@ The "case class" Scala type is different from the regular
 Scala "class" type in the following ways...
 
 1) You can create instance of case class WITHOUT the "new" keyword.
-2) You can do pattern matching with case classes.
-3) The constructor parameters of case classes are treated as
+2) A case class implements the copy() method, a regular class doesn't.
+3) You can do pattern matching with case classes.
+4) The constructor parameters of case classes are treated as
    public values and can be accessed directly, like this...
 
    abstract class Term
@@ -12,7 +13,7 @@ Scala "class" type in the following ways...
    val x = Var("Pop a top.");
    println(x.name) // PRINTS: Pop a top.
 
-4) The "case class" Scala type automatically inherits
+5) The "case class" Scala type automatically inherits
    from the type Serializable.
 
 ==================================
