@@ -18,8 +18,8 @@ So a Map of ("two" -> 2) is stored as the tuple pair ("two", 2).
 The code sample below shows this by printing the the contents
 of a Map one Map element at a time.
 
-A Map can multiple elements where the key->value pairs in each element are
-of different types.  For example, the following val myMap has as its first
+A Map can have multiple elements where the key->value pairs in each element
+are of different types.  For example, the following val myMap has as its first
 element an Int->String key->value pair.  Its second element a String->Int
 key->value pair.  And its third element a Double->Float key->value pair.
 
