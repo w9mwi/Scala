@@ -103,19 +103,20 @@ object Demo
   // if the instance of CaseClassDemo is declared a val.
   case class CaseClassDemo(var str:String, var integer:Int, var float:Float)
 
-  // NOTE: The Email, SMS, VoiceRecording, and TrashNotify case classes declarations
-  //       below all extend the Notification class, which is an abstract class.
-  //       Therefore, these 4 case classes can be treated as a Notification class.
-  //       Since all 4 of these case classes are of the Notification class type,
-  //       all 4 of these case classes can be used within a "match" statement
-  //       for pattern matching (as shown below).  Then, the "match" statement
-  //       below is used to determine which subclass (Email, SMS, VoiceRecording
-  //       or TrashNotify) has been passed to the showNotification() function.
+  // NOTE: The Email, SMS, VoiceRecording, MessageInABottle, SmokeSignal case class
+  //       declarations below all extend the Notification class, which is an abstract
+  //       class.  Therefore, these 5 case classes can be treated as a Notification class.
+  //       Since all 5 of these case classes are of the Notification class type, all
+  //       5 of these case classes can be used within a "match" statement for pattern
+  //       matching (as shown below).  The "match" statement below is used to determine
+  //       which Notification subclass (Email, SMS, VoiceRecording, MessageInABottle,
+  //       SmokeSignal) has been passed to the showNotification() function.
   abstract class Notification
   case class Email(sender:String, title:String, body:String) extends Notification
   case class SMS(caller:String, message:String) extends Notification
   case class VoiceRecording(contactName:String, link:String) extends Notification
-  case class TrashNotify() extends Notification
+  case class MessageInABottle(message:String) extends Notification
+  case class SmokeSignal(smokeCode:String) extends Notification
 
   def main(args: Array[String])
   {
@@ -143,23 +144,27 @@ object Demo
     val someEmail:Email = Email("Sender Bender", "Titletown, USA", "Hi.  See you later.")
     val someSms:SMS = SMS("12345", "Are you there?")
     val someVoiceRecording:VoiceRecording = VoiceRecording("Tom", "www.420.com")
-    val someTrash:TrashNotify = TrashNotify()
+    val someMessageInABottle:MessageInABottle = MessageInABottle("SOS")
+    val someSmokeSignal:SmokeSignal = SmokeSignal("Send more beer.")
 
     println()
-    println(showNotification(someTrash))
-    println(showNotification(someVoiceRecording))
     println(showNotification(someEmail))
     println(showNotification(someSms))
+    println(showNotification(someVoiceRecording))
+    println(showNotification(someMessageInABottle))
+    println(showNotification(someSmokeSignal))
   }
 
   def showNotification(notification:Notification):String =
   {
     notification match
     {
+      // NOTE: The names used inside the parenthesis below are arbitrary--you can use any name you want.
       case Email(email, title, _) => s"You have an email from $email with title: $title"
       case SMS(number, message) =>  s"You have an SMS from $number! Message: $message"
       case VoiceRecording(name, link) =>  s"You received a Voice Recording from $name!  To hear it, click: $link"
-      case _ => s"This is some other type of Notification message--trash it!"
+      case MessageInABottle(messsage) =>  s"You received this message in a bottle: $message
+      case _ => s"This is some other type of Notification message!"
     }
   }
 }
