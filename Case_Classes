@@ -163,7 +163,7 @@ object Demo
       case Email(email, title, _) => s"You have an email from $email with title: $title"
       case SMS(number, message) =>  s"You have an SMS from $number! Message: $message"
       case VoiceRecording(name, link) =>  s"You received a Voice Recording from $name!  To hear it, click: $link"
-      case MessageInABottle(messsage) =>  s"You received this message in a bottle: $message
+      case MessageInABottle(message) =>  s"You received this message in a bottle: $message"
       case _ => s"This is some other type of Notification message!"
     }
   }
