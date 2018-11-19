@@ -79,7 +79,7 @@ object Demo
     val listHead_1:Int       = list_1.head
     val listTail_1:List[Int] = list_1.tail
     println("listHead_1 = " + listHead_1) // PRINTS: listHead_1 = 12
-    println("listTail_1 = " + listTail_1) // PRINTS: listTail_1 = listTail_1 = List(34, 56, 78)
+    println("listTail_1 = " + listTail_1) // PRINTS: listTail_1 = List(34, 56, 78)
 
     val listHead_2:Any       = list_2.head
     val listTail_2:List[Any] = list_2.tail
