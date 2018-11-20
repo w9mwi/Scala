@@ -259,7 +259,8 @@ ___ isEmpty - EXAMPLE:
               val result1:Boolean = myList1.isEmpty
               val result2:Boolean = myList2.isEmpty
               println("result1 = " + result1 + ",  result2 = " + result2) // PRINTS: result1 = true,  result2 = false
-___ asInstanceOf[] - See code example for isInstanceOf[] (directly below) to see how asInstanceOf[] is used.
+___ asInstanceOf[] - Used to cast one class/type to another class/type.  See code example for isInstanceOf[]
+                     (directly below) to see how asInstanceOf[] is used.
 ___ isInstanceOf[] - The following code shows how to use isInstanceOf[] to determine the data type of some value.
                      val array:Array[Char] = Array('1', '2', '3', '4')
                      val list_2:List[Any]  = List("one two three four", 12, 12.34F, 12.34D, array)
