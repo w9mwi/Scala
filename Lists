@@ -125,8 +125,8 @@ object Demo
   {
     list match
     {
-      case a::Nil => a
-      case a::t => func(a, operateOnList2(t, func))
+      case head::Nil  => head  // This line executes when there's only one element in the List.
+      case head::tail => func(head, operateOnList2(tail, func))
       // NOTE: In this code example, the following line never executes
       //       because the first two lines of this match statement
       //       match all possible scenarios.
