@@ -229,22 +229,28 @@ ___ patch - Calling the patch() method on a List returns a List where 1 or more 
             // Replace 1 element beginning at index 2 with Nil...
             val list_3 = list.patch(2, Nil, 1) // list_3 = List(1, 2, 4, 5)
 ___ slice - EXAMPLE:
-            val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
-            val newList:List[String] = myList.slice(2,5)
-            println("newList = " + newList) // Prints: newList = List(ghi, jkl, mno)
+            val letters:List[Char] = List('a','b','c','d','e')
+            // Return elements of the letters List from index 1 UNTIL index 3.
+            val result:List[Char] = letters.slice(1,3)
+            println("result = " + result) // PRINTS: result = List(b, c)
 ___ splitAt - EXAMPLE:
-              val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
-              val newList:(List[String], List[String]) = myList.splitAt(3) // newList is a tuple type.
-              println("newList = " + newList) // Prints: newList = (List(abc, def, ghi),List(jkl, mno, pqr))
+              // Split a single List into two separate Lists at List index 4...
+              type StringListTuple        = (List[String], List[String])
+              val myList:List[String]     = List("abc", "def", "ghi", "jkl", "mno", "pqr")
+              val newList:StringListTuple = myList.splitAt(4) // newList is a tuple type.
+              println("newList._1 = " + newList._1) // PRINTS: newList._1 = List(abc, def, ghi, jkl)
+              println("newList._2 = " + newList._2) // PRINTS: newList._2 = List(mno, pqr)
+              println("newList = " + newList)       // PRINTS: newList = (List(abc, def, ghi, jkl),List(mno, pqr))
 ___ take - EXAMPLE:
+           // Return the first 4 elements of myList...
            val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
-           val newList:List[String] = myList.take(3)
-           println("newList = " + newList) // Prints: newList = List(abc, def, ghi)
+           val newList:List[String] = myList.take(4)
+           println("newList = " + newList) // PRINTS: newList = List(abc, def, ghi, jkl)
 ___ takeRight - EXAMPLE:
+                // Return the last 4 elements of myList...
                 val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
-                val newList:List[String] = myList.takeRight(2)
-                println("newList = " + newList) // Prints: newList = List(mno, pqr)
-
+                val newList:List[String] = myList.takeRight(4)
+                println("newList = " + newList) // PRINTS: newList = List(ghi, jkl, mno, pqr)
 
 BOOLEAN TESTS:
 ==============
