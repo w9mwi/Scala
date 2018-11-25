@@ -262,6 +262,8 @@ ___ isEmpty - EXAMPLE:
 ___ asInstanceOf[] - Used to cast one class/type to another class/type.  See code example for isInstanceOf[]
                      (directly below) to see how asInstanceOf[] is used.
 ___ isInstanceOf[] - The following code shows how to use isInstanceOf[] to determine the data type of some value.
+                     NOTE: To determine a data value's class/type, you can also use Scala's "match" statement,
+                           which may be preferable to using isInstanceOf[].
                      val array:Array[Char] = Array('1', '2', '3', '4')
                      val list_2:List[Any]  = List("one two three four", 12, 12.34F, 12.34D, array)
                      val myArray:Any   = list_2(4) // Obtains the 5th element of list_2, which is of type: Array[Char]
