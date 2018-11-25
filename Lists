@@ -209,22 +209,25 @@ Arrays and Lists.  See pages 143-148 in the Scala book for details.
 
 BASIC METHODS:
 =============
-___ drop - EXAMPLE:
+___ drop - Return all elements except the first n elements, where n is the Int parameter passed.  EXAMPLE:
            val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
            val newList = myList.drop(1)
            println("newList = " + newList) // Prints:  newList = List(def, ghi, jkl, mno, pqr)
-___ init - EXAMPLE:
+___ init - Returns all elements except the last.  EXAMPLE:
            val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
            val newList:List[String] = myList.init
            println("newList = " + newList) // Prints:  newList = List(abc, def, ghi, jkl, mno)
-___ last - EXAMPLE:
+___ last - Returns the last element.  EXAMPLE:
            val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
            val newList:String = myList.last
            println("newList = " + newList) // Prints:  newList = List(pqr)
 ___ patch - Calling the patch() method on a List returns a List where 1 or more elements of the List
-            is removed from the List, and replaced by a GenSeq.  For example, in the following sample
-            code, assume accounts is a List.  1 element beginning at index will be replaced with Nil.
-            accounts = accounts.patch(index, Nil, 1)
+            is removed from the List, and replaced by a GenSeq.  EXAMPLE:
+            val list:List[Int]  = List(1, 2, 3, 4, 5)
+            // Replace 2 elements beginning at index 0 with Nil...
+            val list_2 = list.patch(0, Nil, 2) // list_2 = List(3, 4, 5)
+            // Replace 1 element beginning at index 2 with Nil...
+            val list_3 = list.patch(2, Nil, 1) // list_3 = List(1, 2, 4, 5)
 ___ slice - EXAMPLE:
             val myList:List[String]  = List("abc", "def", "ghi", "jkl", "mno", "pqr")
             val newList:List[String] = myList.slice(2,5)
