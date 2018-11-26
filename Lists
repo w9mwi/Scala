@@ -294,7 +294,7 @@ ___ startsWith - EXAMPLE:
                  val myList1:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
                  val myList2:List[String] = List("abc", "def")
                  val result:Boolean = myList1.startsWith(myList2)
-                 println("result = " + result) // Prints: result = true
+                 println("result = " + result) // PRINTS: result = true
 
 
 SEARCHING:
@@ -305,22 +305,25 @@ ___ find - EXAMPLE:
            var result:Option[Int] = intList.find(_<4)
            println(result) // Prints: Some(3)
            result = intList.find(_>10)
-           println(result) // Prints: None
+           println(result) // PRINTS: None
 ___ indexOf - EXAMPLE:
               val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno")
               val result:Int = myList.indexOf("mno")
-              println("result = " + result) // Prints: result = 4
+              println("result = " + result) // PRINTS: result = 4
 ___ lastIndexOf - EXAMPLE:
                   val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "mno") // NOTE: There are 2 "mno" strings.
                   val result:Int = myList.lastIndexOf("mno")
-                  println("result = " + result) // Prints: result = 5
-___ diff - EXAMPLE:
+                  println("result = " + result) // PRINTS: result = 5
+___ diff - Returns the DIFFERENCE between 2 Lists.  EXAMPLE:
            val myList1:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
            val myList2:List[String] = List("pqr", "mno", "jkl", "ghi", "def", "abc")
            val myList3:List[String] = List("mno", "abc")
+           // result1 = every element in myList1 that does NOT exist in myList2
            val result1:List[String] = myList1.diff(myList2)
+           // result2 = every element in myList1 that does NOT exist in myList3
            val result2:List[String] = myList1.diff(myList3)
-           println("result1 = " + result1 + ", result2 = " + result2) // Prints: result1 = List(), result2 = List(def, ghi, jkl, pqr)
+           println("result1 = " + result1 + ", result2 = " + result2)
+           // PRINTS: result1 = List(), result2 = List(def, ghi, jkl, pqr)
 ___ mkString EXAMPLE:
              val myList:List[String] = List("abc", "def", "ghi", "jkl", "mno", "pqr")
              println("myList                               = " + myList)
@@ -338,7 +341,7 @@ ___ reverse - EXAMPLE:
 ___ toList  - EXAMPLE:
               val myArray:Array[String] = Array("abc", "def", "ghi", "jkl", "mno", "pqr")
               val myList:List[String]   = myArray.toList
-              println(myList) // Prints: List(abc, def, ghi, jkl, mno, pqr)
+              println(myList) // PRINTS: List(abc, def, ghi, jkl, mno, pqr)
 ___ toArray - EXAMPLE:
               val myList:List[String]   = List("abc", "def", "ghi", "jkl", "mno", "pqr")
               val myArray:Array[String] = myList.toArray
