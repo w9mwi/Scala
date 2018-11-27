@@ -450,8 +450,13 @@ ___ flatMap - EXAMPLE:
 ___ flatten - Read the following web page for explanations and examples of how to use the flatten method:
               https://alvinalexander.com/scala/how-to-flatten-list-lists-in-scala-with-flatten-method
 ___ foldLeft - See the foldRight example below.
-___ foldRight - For more info. regarding foldLeft and foldRight, see "CURRYING EXAMPLE 3" and "CURRYING EXAMPLE 4"
-                at the bottom of this URL:  https://github.com/w9mwi/Scala/blob/master/Currying
+___ foldRight - Both foldLeft and foldRight are CURRIED FUNCTIONS.  A CURRIED FUNCTION is a function that...
+                1) Takes one set of arguments
+                   ...AND...
+                2) RETURNS A FUNCTION that takes another set of arguments.
+
+                For more info. regarding foldLeft and foldRight, see "CURRYING EXAMPLE 3" and "CURRYING EXAMPLE 4"
+                at this URL: https://github.com/w9mwi/Scala/blob/master/Currying_2
                 EXAMPLE:
                 val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
