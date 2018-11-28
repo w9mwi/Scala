@@ -121,58 +121,7 @@ object Demo
 }
 ====================================================================
 CURRYING EXAMPLE 4
-====================================================================
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
-    // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
-    //       as they get passed a value, and RETURN A FUNCTION
-    //       that gets passed a value and returns a value.
-    //       When foldLeft and foldRight are called below, they
-    //       get called with TWO PARAMETER LISTS.
-
-    // The following foldLeft function works on intList as follows:
-    // The first argument list (0) takes the base value that's used
-    // as the first operand.  The second argument list (_ - _) is the
-    // function to apply.
-    // 0−7−4−6−3−9−1 = ((((((0−7)−4)−6)−3)−9)−1) = -30
-    // NOTE: intList.foldLeft(0)(_ - _) below is the same as: intList.foldLeft(0)((x, y) => x-y)
-    println("intList.foldLeft(0)(_ - _) = " + intList.foldLeft(0)(_ - _))
-    // PRINTS: intList.foldLeft(0)(_ - _) = -30
-
-    // The following foldRight function works on intList as follows:
-    // The first argument list (0) takes the base value that's used
-    // as the first operand.  The second argument list (_ - _) is the
-    // function to apply.
-    // 0−(1−(9−(3−(6−(4−7))))) = 14
-    // NOTE: intList.foldRight(0)(_ - _) below is the same as: intList.foldRight(0)((x, y) => x-y))
-    println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
-    // PRINTS: intList.foldRight(0)(_ - _) = 14
-
-    val wordList:List[String] = List[String]("How", "many", "characters", "are", "in", "this", "wordList?")
-    // NOTE: The second parameter list for foldRight has its tuple order as (word, count),
-    //       which is the reverse order used by the foldLeft function below.
-    var charCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
-    println("wordList.foldRight = " + charCount) // PRINTS: wordList.foldRight = 35
-
-    // NOTE: The second parameter list for foldLeft has its tuple order as (count, word),
-    //       which is the reverse order used by the foldRight function above.
-    charCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
-    println("wordList.foldLeft = " + charCount) // PRINTS: wordList.foldLeft = 35
-
-    println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
-    println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
-    // THE 2 LINES OF CODE ABOVE PRINTS:
-    // wordList.foldLeft(0)(_+_.length)    = 35
-    // wordList.foldRight(0)(_.length + _) = 35
-  }
-}
-====================================================================
-CURRYING EXAMPLE 5
-====================================================================
 object Demo
 {
   def main(args:Array[String]): Unit =
