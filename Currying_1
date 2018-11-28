@@ -14,28 +14,28 @@ object Demo
     // The add_1() function gets the Int 5 value assigned to its x parameter,
     // and returns a function.  The returned function takes an Int value for
     // its y parameter, and returns the Int value (x + y).
-    var plus5 = add_1(5)
-    var result = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
+    var plus5:(Int => Int) = add_1(5)
+    var result:Int         = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
     println("result = " + result) // PRINTS: result = 11
 
     // The add_2() function gets the Int 5 value assigned to its x parameter,
     // and returns a function.  The returned function takes an Int value for
     // its y parameter, and returns the Int value (x + y).
-    plus5 = add_2(5)
+    plus5  = add_2(5)
     result = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
     println("result = " + result) // PRINTS: result = 11
 
     // The add_3() function gets the Int 5 value assigned to its x parameter,
     // and returns a function.  The returned function takes an Int value for
     // its y parameter, and returns the Int value (x + y).
-    plus5 = add_3(5)
+    plus5  = add_3(5)
     result = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
     println("result = " + result) // PRINTS: result = 11
 
     result = add_4(5)(6)
     println("result = " + result) // PRINTS: result = 11
 
-    plus5 = add_4(5)
+    plus5  = add_4(5)
     result = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
     println("result = " + result) // PRINTS: result = 11
   }
@@ -50,7 +50,7 @@ object Demo
   {
     y:Int => x + y
   }
-  def add_4(x:Int)(y:Int) = x + y
+  def add_4(x:Int)(y:Int):Int = x + y
 }
 
 
