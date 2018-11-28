@@ -3,9 +3,9 @@ SEE THE FOLOWING WEB PAGE FOR MORE INFO. ON CURRYING:
 
 The following code sample demonstrates the use of a CURRIED FUNCTION.
 A CURRIED FUNCTION is a function that...
-1) Takes one set of arguments
+1) Gets passed a value and returns a function.
    ...AND...
-2) RETURNS A FUNCTION that takes another set of arguments.
+2) The returned function gets passed a value, and returns a value.
 
 object Demo
 {
