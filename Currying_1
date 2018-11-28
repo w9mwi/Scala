@@ -93,16 +93,18 @@ object Demo
     // PRINTS: intList.foldRight(0)(_ - _) = 14
 
     val wordList:List[String] = List[String]("How", "many", "characters", "are", "in", "this", "wordList?")
-    // NOTE: The second parameter list for foldRight has its tuple order as (word, count),
+    // NOTE: The second parameter list for foldRight MUST have its tuple order as (word, count),
     //       which is the reverse order used by the foldLeft function below.
     var charCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
     println("wordList.foldRight = " + charCount) // PRINTS: wordList.foldRight = 35
 
-    // NOTE: The second parameter list for foldLeft has its tuple order as (count, word),
+    // NOTE: The second parameter list for foldLeft MUST have its tuple order as (count, word),
     //       which is the reverse order used by the foldRight function above.
     charCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
     println("wordList.foldLeft = " + charCount) // PRINTS: wordList.foldLeft = 35
 
+    // NOTE: The second parameter list for foldLeft MUST BE DIFFERENT than the second
+    //       parameter list for foldRight, as shown in the following 2 lines...
     println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
     println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
     // THE 2 LINES OF CODE ABOVE PRINTS:
