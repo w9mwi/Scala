@@ -108,6 +108,18 @@ object Demo
     // THE 2 LINES OF CODE ABOVE PRINTS:
     // wordList.foldLeft(0)(_+_.length)    = 35
     // wordList.foldRight(0)(_.length + _) = 35
+
+    // The following code calls foldLeft and FoldRight on a List[String]...
+    var strList:List[String] = List[String]("ABC", "DEF", "GHI", "JKL", "MNO")
+    var strResult:String = strList.foldLeft("XYZ")(myFunc)
+    println(strResult) // PRINTS: XYZ-ABC-DEF-GHI-JKL-MNO
+    strResult = strList.foldRight("XYZ")(myFunc)
+    println(strResult) // PRINTS: ABC-DEF-GHI-JKL-MNO-XYZ
+  }
+
+  def myFunc(str1:String, str2:String):String =
+  {
+    str1.concat("-").concat(str2)
   }
 }
 
