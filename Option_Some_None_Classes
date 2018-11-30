@@ -17,26 +17,55 @@ object.
  NOTE: Both the "Some" class and the "None" class are
        children of the "Option" class.
 
+The find method on a sequence (i.e., Array, List, etc.) returns
+an "Option" type of "None" when a value cannot be found.
+
+
+=============================================================
+The following code sample shows how to determine if an Option class
+is a Some object (a valid value) or a None object (an invalid value).
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+    var result:Option[Int] = intList.find(_<4)
+
+    if (result == None)
+    {
+      println("result = None") // This line of code does NOT execute.
+    }
+    else
+    {
+      println("result.get = " + result.get) // PRINTS: result.get = 3
+    }
+
+    result = intList.find(_>10)
+    if (result == None)
+    {
+      println("result = None") // PRINTS: result = None
+    }
+    else
+    {
+      println("result.get = " + result.get) // This line of code does NOT execute.
+    }
+  }
+}
+
+=============================================================
+
+By having your function return a "Some" object (for a valid value),
+or a "None" object (for an invalid value), means the user of the
+function doesn't need to check for a null value in order to prevent
+a NullPointerException.
+
 Your function signature should declare that you're returning
 an "Option" that will be some data type, such as an Int, which
 is shown in the example below.  Declaring that the function
 returns an "Option" object lets the user of your function know
 what’s going on.  You should use an "Option" type when you are
 not certain if you will have a value or not.
-
-The find method on a sequence (i.e., Array, List, etc.) returns
-an "Option" type of "None" when a value cannot be found.  EXAMPLE:
-
-val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-var result:Option[Int] = intList.find(_<4)
-println(result) // Prints: Some(3)
-result = intList.find(_>10)
-println(result) // Prints: None
-
-By having your function return a "Some" object (for a valid value),
-or a "None" object (for an invalid value), means the user of the
-function doesn't need to check for a null value in order to prevent
-a NullPointerException.
 
 In the following example, the convertToInt() function is declared
 to return an "Option" object.  However, in reality, it will return
