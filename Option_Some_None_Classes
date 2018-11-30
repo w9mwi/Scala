@@ -1,4 +1,4 @@
-NOTE: A main major weakness of using Option is that it
+NOTE: A major weakness of using Option is that it
       doesn't tell you why something failed.  If you
       need to know why something failed, you can use
       "Try" or "Either" (not mentioned within this web
