@@ -26,12 +26,12 @@ object Demo
     println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
   }
 
-  // NOTE: The T character below represents the DATA TYPE that gets passed to myFunction.
-  //       The first t character below represents the DATA VALUE that gets passed to myFunction, which is type T.
-  //       The second t character below represents the DATA VALUE that gets returned.
-  //       The T and t chars shown below could be designated by any valid name.  However, it's
-  //       convention to use a single upper-case char to designate a DATA TYPE, and a single
-  //       lower-case char to designate a DATA VALUE.
+  // NOTE: The T character in the myFunction() below represents a DATA TYPE,
+  //       the 't' character represents a DATA VALUE.
+  //       We read the definition of myFunction() below like this...
+  //       1) myFunction() returns the data type T.  That's the [T]
+  //       2) myFunction gets passed a t parameter of type T.  That's the (t:T)
+  //       2) myFunction returns the data value t.  That's the 't' at the end.
   def myFunction[T](t:T) = t
 
   // The makeTuple function below take two parameters (parameter a, of type A, and parameter b of type B)
