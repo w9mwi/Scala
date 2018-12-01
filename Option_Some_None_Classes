@@ -121,6 +121,17 @@ the Option class.
 ================================================================
 object Demo
 {
+  def main(args:Array[String]): Unit =
+  {
+    val validStringNumber   = "123456";
+    val invalidStringNumber = "12345X";
+    var intNumber:Option[Int] = convertStringToInt(validStringNumber)
+    printNumber(intNumber) // PRINTS: number = 123456
+
+    intNumber = convertStringToInt(invalidStringNumber)
+    printNumber(intNumber) // PRINTS: The number is not valid.
+  }
+
   def printNumber(number:Option[Int]):Unit =
   {
     if (number == None)  { println("The number is not valid.")}
@@ -132,24 +143,24 @@ object Demo
     try   { Some(str.trim.toInt)      } // EQUIVALENT TO THIS LINE OF CODE:  Some(Integer.parseInt(str.trim))
     catch { case ex:Exception => None }
   }
-
-  def main(args:Array[String]): Unit =
-  {
-    val validStringNumber   = "123456";
-    val invalidStringNumber = "12345X";
-    var intNumber:Option[Int] = convertStringToInt(validStringNumber)
-    printNumber(intNumber)
-
-    intNumber = convertStringToInt(invalidStringNumber)
-    printNumber(intNumber)
-  }
 }
 ================================================================
 The following example of using Option/Some/None is virtually the
-same as the two examples above, but uses thematch keyword.
+same as the two examples above, but uses the "match" keyword.
 ================================================================
 object Demo
 {
+   def main(args:Array[String]): Unit =
+  {
+    val validStringNumber:String   = "123456";
+    val invalidStringNumber:String = "12345X";
+    var intNumber:Option[Int] = convertStringToInt(validStringNumber)
+    printNumber(intNumber) // PRINTS: number = 123456
+
+    intNumber = convertStringToInt(invalidStringNumber)
+    printNumber(intNumber) // PRINTS: The number is not valid.
+  }
+
   def convertStringToInt(str:String):Option[Int] =
   {
     try   { Some(str.trim.toInt)      } // EQUIVALENT TO THIS LINE OF CODE:  Some(Integer.parseInt(str.trim))
@@ -163,17 +174,6 @@ object Demo
       case Some(strNumber) => println ("number = " + strNumber)
       case None            => println ("The number is not valid.")
     }
-  }
-
-  def main(args:Array[String]): Unit =
-  {
-    val validStringNumber:String   = "123456";
-    val invalidStringNumber:String = "12345X";
-    var intNumber:Option[Int] = convertStringToInt(validStringNumber)
-    printNumber(intNumber) // PRINTS: number = 123456
-
-    intNumber = convertStringToInt(invalidStringNumber)
-    printNumber(intNumber) // PRINTS: The number is not valid.
   }
 }
 =============================================================
@@ -190,32 +190,25 @@ object Demo
 
     // If makeInt() returns the Some type, the Option.getOrElse() method below returns
     // the Int value of that Some type.  If makeInt() returns the None type, the
-    // Option.getOrElse() method below returns the Int value passed to it.
+    // Option.getOrElse() method below returns the Int value passed to it, which in
+    // the below example is 0 (zero).  Therefore, when we sum all three numbers below,
+    // if the number is invalid (a None value), getOrElse(0) returns 0 instead of None.
     val sum = intNumber1.getOrElse(0) + intNumber2.getOrElse(0) + intNumber3.getOrElse(0)
     println(sum) // PRINTS: 579
   }
 
   def makeInt(str:String):Option[Int] =
   {
-    try   { Some(str.trim.toInt) }
+    try   { Some(str.trim.toInt)          }
     catch { case excep: Exception => None }
   }
 }
-=============================================================
-object Demo
-{
-  def main(args: Array[String]) =
-  {
-    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-    var result:Option[Int] = intList.find(_<6) // Return 1st element in the List that's < 6.
-    result.foreach(println) // Prints: 4
-    println(result) // Prints: Some(4)
-    result = intList.find(_>10) // Return 1st element in the List that's > 10, of which there are none!
-    println(result) // Prints: The result var has been assigned the None object, so "None" is printed.
-  }
-}
-============================================================
-============================================================
+
+===========================================================================
+The following sample code defines ListStack class, which usies the
+Option/Some/None classes.  This ListStack is used to push/pop
+Int values onto/from a List[Int].
+
 object Demo
 {
   /**
@@ -277,39 +270,35 @@ object Demo
     }
   }
 }
+
 ======================================================================
 object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    val strInt1 = "12"
-    val strInt2 = "34"
-    val strInt3 = "56"
-    val strInt4 = "78"
-    val strInt5 = "9X" // An INVALID String Int value!
-    val intNumber1:Option[Int] = makeInt(strInt1)
-    val intNumber2:Option[Int] = makeInt(strInt2)
-    val intNumber3:Option[Int] = makeInt(strInt3)
-    val intNumber4:Option[Int] = makeInt(strInt4)
-    val intNumber5:Option[Int] = makeInt(strInt5)
+    val intNumber1:Option[Int] = makeInt("12")
+    val intNumber2:Option[Int] = makeInt("34")
+    val intNumber3:Option[Int] = makeInt("56")
+    val intNumber4:Option[Int] = makeInt("78")
+    val intNumber5:Option[Int] = makeInt("9X") // "9X" is an INVALID String Int value, so inNumber5 is a None value.
 
-    var sum:Option[Int] =  for
-                           {
-                             a <- intNumber1; b <- intNumber2; c <- intNumber3; d <- intNumber4
-                           } yield a + b + c + d
+    // Using a for comprehension, sum all valid Int values...
+    var sum:Option[Int] = for {
+                                a <- intNumber1; b <- intNumber2; c <- intNumber3; d <- intNumber4
+                              } yield a + b + c + d
     println(sum) // PRINTS: Some(180)
 
-    // NOTE: The following sum value will be None, because strInt5 is an invalid String Int value....
-    sum =  for
-           {
-             a <- intNumber1; b <- intNumber2; c <- intNumber3; d <- intNumber4; e <- intNumber5
-           } yield a + b + c + d + e
+    // // Using a for comprehension, sum all Int values, including the invalid intNumber5 value...
+    sum = for
+          {
+            a <- intNumber1; b <- intNumber2; c <- intNumber3; d <- intNumber4; e <- intNumber5
+          } yield a + b + c + d + e
     println(sum) // PRINTS: None
   }
 
   def makeInt(str:String):Option[Int] =
   {
-    try { Some(str.trim.toInt) }
+    try   { Some(str.trim.toInt)          }
     catch { case excep: Exception => None }
   }
 }
