@@ -24,6 +24,10 @@ object Demo
 
     println(makeThreeElementList('X', 'Y', 'Z'))        // PRINTS: List(X, Y, Z)
     println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
+
+    val intList:List[Int] = List(1, 2, 3, 4, 5, 6)
+    var result:Int = ourFold(intList, 0)(_+_)
+    println("result = " + result) // PRINTS: result = 21
   }
 
   // NOTE: The T character in the myFunction() definition below represents a DATA TYPE.
@@ -42,6 +46,12 @@ object Demo
   // parameter a2 of type A, and parameter a3 of type A) and returns a 3-element List
   // containing the 3 values passed to this function.
   def makeThreeElementList[A](a1:A, a2:A, a3:A) = List(a1, a2, a3)
+
+  def ourFold[A,B](list:List[A], base:B)(func:(A,B) => B):B =
+  {
+    if   (list.isEmpty) base
+    else func(list.head, ourFold(list.tail, base)(func))
+  }
 }
 
 =================================================================================
