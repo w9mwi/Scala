@@ -26,8 +26,8 @@ object Demo
     println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
   }
 
-  // NOTE: The T character in the myFunction() below represents a DATA TYPE,
-  //       the 't' character represents a DATA VALUE.
+  // NOTE: The T character in the myFunction() definition below represents a DATA TYPE.
+  //       The 't' character in the myFunction() definition below represents a DATA VALUE.
   //       We read the definition of myFunction() below like this...
   //       1) myFunction() returns the data type T.  That's the [T]
   //       2) myFunction gets passed a t parameter of type T.  That's the (t:T)
