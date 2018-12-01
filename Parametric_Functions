@@ -6,35 +6,32 @@ Array[Int]    - An Array of Ints
 List[Char]   - A List of Chars
 List[Double] - A List of Doubles
 List[Int]    - A List of Ints
+=================================================================================
+In the sample code below, we make 3 different functions work with multiple data
+types by declaring them as parametric functions.
 
-To make a function work with multiple data types (as Array and List functions do),
-you need to declare the function as parametric, as in this example:
-=================================================================================
-See this parametric function...
-def map[A,B](func: (A) => B, list:Seq[A]):Seq[B] =
-...on this web page. --> https://github.com/w9mwi/Scala/blob/master/Functional_Programming_1
-=================================================================================
 object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    println(myFunction('x'))      // Pass myFunction a Char type--it returns the Char you passed it.
-    println(myFunction("string")) // Pass myFunction a String type--it returns the String you passed it.
-    println(myFunction(123.4F))   // Pass myFunction a Float type--it returns the Float you passed it.
-    println(myFunction(987.6D))   // Pass myFunction a Double type--it returns the Double you passed it.
-    
-    println(makeTuple(987.6D, 123.4F))
-    println(makeTuple('x', "string"))
+    println(myFunction('X'))           // PRINTS: X
+    println(myFunction("My string"))   // PRINTS: My string
+    println(myFunction(123.4F))        // PRINTS: 123.4
+    println(myFunction(987.6D))        // PRINTS: 987.6
 
-    println(makeThreeElementList('X', 'Y', 'Z'))
-    println(makeThreeElementList("Pop", "Stop", "Top"))
+    println(makeTuple(987.6D, 123.4F)) // PRINTS: (987.6,123.4)
+    println(makeTuple('A', "zip"))     // PRINTS: (A,zip)
+
+    println(makeThreeElementList('X', 'Y', 'Z'))        // PRINTS: List(X, Y, Z)
+    println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
   }
 
-  // NOTE: The T character below represents the data TYPE that gets passed to myFunction.
-  //       The t character below represents the data VALUE that gets passed to myFunction, and then returned.
-  //       The T and t chars shown below could be designated by any valid name, but it's
-  //       convention to use a single upper-case char to designate a data type, and a single
-  //       lower-case char to designate a data value.
+  // NOTE: The T character below represents the DATA TYPE that gets passed to myFunction.
+  //       The first t character below represents the DATA VALUE that gets passed to myFunction.
+  //       The second t character below represents the DATA VALUE that gets returned.
+  //       The T and t chars shown below could be designated by any valid name.  However, it's
+  //       convention to use a single upper-case char to designate a DATA TYPE, and a single
+  //       lower-case char to designate a DATA VALUE.
   def myFunction[T](t:T) = t
 
   // The makeTuple function below take two parameters (parameter a, of type A, and parameter b of type B)
@@ -46,6 +43,7 @@ object Demo
   // containing the 3 values passed to this function.
   def makeThreeElementList[A](a1:A, a2:A, a3:A) = List(a1, a2, a3)
 }
+
 =================================================================================
 The code below shows how to declare and use a parametric class
 named "Sequence", as well the parametic method named "map".
@@ -109,3 +107,7 @@ object Demo
 
   }
 }
+=================================================================================
+See this parametric function...
+def map[A,B](func: (A) => B, list:Seq[A]):Seq[B] =
+...on this web page. --> https://github.com/w9mwi/Scala/blob/master/Functional_Programming_1
