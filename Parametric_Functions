@@ -27,7 +27,7 @@ object Demo
   }
 
   // NOTE: The T character below represents the DATA TYPE that gets passed to myFunction.
-  //       The first t character below represents the DATA VALUE that gets passed to myFunction.
+  //       The first t character below represents the DATA VALUE that gets passed to myFunction, which is type T.
   //       The second t character below represents the DATA VALUE that gets returned.
   //       The T and t chars shown below could be designated by any valid name.  However, it's
   //       convention to use a single upper-case char to designate a DATA TYPE, and a single
