@@ -33,7 +33,6 @@ object Demo
 
     // Find the first value in intList that is < 5, which is 4...
     var result:Option[Int] = intList.find(_ < 5)
-
     if (result == None)
       println("1) result = None") // This line of code does NOT execute.
     else if (result == Some)
@@ -76,23 +75,23 @@ object Demo
   {
     // Test the convertToInt() function with a String that DOES convert to a valid Int value...
     val test1:Option[Int] = convertToInt("123");
-    println("test1 = " + test1) // Prints: test1 = Some(123)
+    println("test1 = " + test1) // PRINTS: test1 = Some(123)
 
     // Test the convertToInt() function with a String that does NOT convert to a valid Int value...
     val test2:Option[Int] = convertToInt("9X7");
-    println("test2 = " + test2) // Prints: test2 = None
+    println("test2 = " + test2) // PRINTS: test2 = None
 
     // Create a List of strings containing valid and invalid Int values...
     val stringList:List[String] = List[String]("1", "2", "junk", "3", "trash")
-    println("stringList = " + stringList) // Prints: stringList = List(1, 2, junk, 3, trash)
+    println("stringList = " + stringList) // PRINTS: stringList = List(1, 2, junk, 3, trash)
 
     // Convert ONLY the Int values in stringList to a List of Int values...
     val intList:List[Int] = stringList.flatMap(convertToInt)
-    println("intList = " + intList) // Prints: intList = List(1, 2, 3)
+    println("intList = " + intList) // PRINTS: intList = List(1, 2, 3)
 
     // Sum all the values in intList...
     val sum:Int = intList.sum
-    println("sum = " + sum) // Prints: sum = 6
+    println("sum = " + sum) // PRINTS: sum = 6
   }
 
   /**
