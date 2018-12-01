@@ -1,5 +1,11 @@
-Functions can have parameter types, just like Arrays (Array[Char], Array[Double], Array[Int])
-and Lists (List[Char], List[Double], List[Int]) can have types.
+Functions can have parameter types, just like Arrays can have types...
+Array[Char]   - An Array of Chars
+Array[Double] - An Array of Doubles
+Array[Int]    - An Array of Ints
+...and just like Lists can have types...
+List[Char]   - A List of Chars
+List[Double] - A List of Doubles
+List[Int]    - A List of Ints
 
 To make a function work with multiple data types (as Array and List functions do),
 you need to declare the function as parametric, as in this example:
