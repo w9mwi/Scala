@@ -29,27 +29,24 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-    var result:Option[Int] = intList.find(_<4)
+    val intList:List[Int]  = List[Int](7, 4, 6, 3, 9, 1)
+
+    // Find the first value in intList that is < 5, which is 4...
+    var result:Option[Int] = intList.find(_ < 5)
 
     if (result == None)
-    {
-      println("result = None") // This line of code does NOT execute.
-    }
-    else
-    {
-      println("result.get = " + result.get) // PRINTS: result.get = 3
-    }
+      println("1) result = None") // This line of code does NOT execute.
+    else if (result == Some)
+      println("2) result.get = " + result.get) // This line of code does NOT execute.
+    else if (result == Some(4))
+      println("3) result.get = " + result.get) // PRINTS: 3) result.get = 4
 
-    result = intList.find(_>10)
+    // Find the first value in intList that is > 10, which does NOT exist...
+    result = intList.find(_ > 10)
     if (result == None)
-    {
-      println("result = None") // PRINTS: result = None
-    }
+      println("4) result = None") // PRINTS: 4) result = None
     else
-    {
-      println("result.get = " + result.get) // This line of code does NOT execute.
-    }
+      println("5) result.get = " + result.get) // This line of code does NOT execute.
   }
 }
 
