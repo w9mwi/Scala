@@ -86,7 +86,8 @@ object Demo
     println("stringList = " + stringList) // PRINTS: stringList = List(1, 2, junk, 3, trash)
 
     // Convert ONLY the Int values in stringList to a List of Int values.
-    // NOTE: The "None" objects returned by the convertToInt() function do NOT get put into intList!!!
+    // NOTE: The "None" objects returned by the convertToInt() function
+    //       do NOT get put into intList via the call to flatMap()!!!
     val intList:List[Int] = stringList.flatMap(convertToInt)
     println("intList = " + intList) // PRINTS: intList = List(1, 2, 3)
 
