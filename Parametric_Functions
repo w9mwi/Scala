@@ -29,9 +29,9 @@ object Demo
     val result_1:Int = ourFold(intList, 0)(_+_)
     println("result_1 = " + result_1) // PRINTS: result_1 = 21
 
-    val floatList:List[Float] = List(1.23F, 4.56F, 7.89F)
-    val result_2:Float = ourFold(floatList, 0.0F)(_+_)
-    println("result_2 = " + result_2) // PRINTS: result_2 = 13.68
+    val stringList:List[String] = List("A", "B", "C")
+    val result_2:String = ourFold(stringList, "D")(_ + "" + _)
+    println("result_2 = " + result_2) // PRINTS: result_2 = ABCD
   }
 
   // NOTE: The T character in the myFunction() definition below represents a DATA TYPE.
@@ -52,11 +52,12 @@ object Demo
   def makeThreeElementList[A](a1:A, a2:A, a3:A) = List(a1, a2, a3)
 
   /**
+    *
     * The result returned by this curried function is dependent on the type of List
-    * it gets passed (i.e., List[Int], List[Float], etc.) and the function that gets
+    * it gets passed (i.e., List[Int], List[String], etc.) and the function that gets
     * passed to it.  For example, if a List[Int] gets passed to this function,
-    * it will return an Int value.  If a List[Float] list gets passed to this function,
-    * it will return a Float value.  The value of the returned result is dependent
+    * it will return an Int value.  If a List[String] list gets passed to this function,
+    * it will return a String value.  The value of the returned result is dependent
     * on the function that gets passed to this function.
     *
     * @param list - A Scala List of type A, where A is a parameterized type.
