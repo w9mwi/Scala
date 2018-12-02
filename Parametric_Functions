@@ -52,7 +52,6 @@ object Demo
   def makeThreeElementList[A](a1:A, a2:A, a3:A) = List(a1, a2, a3)
 
   /**
-    *
     * The result returned by this curried function is dependent on the type of List
     * it gets passed (i.e., List[Int], List[Float], etc.) and the function that gets
     * passed to it.  For example, if a List[Int] gets passed to this function,
@@ -74,8 +73,6 @@ object Demo
     else func(list.head, ourFold(list.tail, base)(func))
   }
 }
-
-
 
 =================================================================================
 The code below shows how to declare and use a parametric class
