@@ -122,11 +122,15 @@ object Demo
   def main(args:Array[String]): Unit =
   {
     var scores:List[Double] = List()
+    // NOTICE: To designate that scores is a List of variable length,
+    //         the parameter passed is this: scores:*_
     var averageScore = calculateAverage(scores:_*)
     printScore(averageScore, "averageScore = ")    // PRINTS: The score is not a number.
 
     scores = List(1.23, 4.56, 7.89)
     println("scores = " + scores) // PRINTS: scores = List(1.23, 4.56, 7.89)
+    // NOTICE: To designate that scores is a List of variable length,
+    //         the parameter passed is this: scores:*_
     averageScore = calculateAverage(scores:_*)
     printScore(averageScore, "averageScore = ") // PRINTS: averageScore = 4.56
   }
