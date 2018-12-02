@@ -7,7 +7,7 @@ List[Char]   - A List of Chars
 List[Double] - A List of Doubles
 List[Int]    - A List of Ints
 =================================================================================
-In the sample code below, we make 3 different functions work with multiple data
+In the sample code below, we make 4 different functions work with multiple data
 types by declaring them as parametric functions.
 
 object Demo
@@ -26,8 +26,12 @@ object Demo
     println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
 
     val intList:List[Int] = List(1, 2, 3, 4, 5, 6)
-    var result:Int = ourFold(intList, 0)(_+_)
-    println("result = " + result) // PRINTS: result = 21
+    val result_1:Int = ourFold(intList, 0)(_+_)
+    println("result_1 = " + result_1) // PRINTS: result_1 = 21
+
+    val floatList:List[Float] = List(1.23F, 4.56F, 7.89F)
+    val result_2:Float = ourFold(floatList, 0.0F)(_+_)
+    println("result_2 = " + result_2) // PRINTS: result_2 = 13.68
   }
 
   // NOTE: The T character in the myFunction() definition below represents a DATA TYPE.
@@ -47,12 +51,31 @@ object Demo
   // containing the 3 values passed to this function.
   def makeThreeElementList[A](a1:A, a2:A, a3:A) = List(a1, a2, a3)
 
+  /**
+    *
+    * The result returned by this curried function is dependent on the type of List
+    * it gets passed (i.e., List[Int], List[Float], etc.) and the function that gets
+    * passed to it.  For example, if a List[Int] gets passed to this function,
+    * it will return an Int value.  If a List[Float] list gets passed to this function,
+    * it will return a Float value.  The value of the returned result is dependent
+    * on the function that gets passed to this function.
+    *
+    * @param list - A Scala List of type A, where A is a parameterized type.
+    * @param base - A value of type B, where B is a parameterized type.
+    * @param func - A function defined by the programmer that gets passed a value
+    *               of type A, and a value of type B.
+    * @tparam A See params above
+    * @tparam B See params above
+    * @return
+    */
   def ourFold[A,B](list:List[A], base:B)(func:(A,B) => B):B =
   {
     if   (list.isEmpty) base
     else func(list.head, ourFold(list.tail, base)(func))
   }
 }
+
+
 
 =================================================================================
 The code below shows how to declare and use a parametric class
