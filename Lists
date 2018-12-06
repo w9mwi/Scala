@@ -414,7 +414,18 @@ ___ exists - The exists method returns true if at least one element in the colle
              val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
              val result:Boolean = intList.exists(x => x==7)
              println(result) // result = true
-___ filter - EXAMPLE:
+___ filter - NOTE: The difference between the filter() and map() functions are as follows:
+                   The function passed to filter() returns a Boolean and gets applied to every
+                   element in the List.  If the Boolean returned by that function is true,
+                   then that element of the List gets returned by filter(), which constructs
+                   a new List that IS A SUBSET of the original List--thus the name filter.
+
+                   The map() function gets passed a function which gets applied to every element
+                   in the List.  That function then returns a value for every element in the List
+                   that is the same type contained in the List.  So List.map() returns a List
+                   containing the same number of elements as the List that it's applied to.
+                   
+             EXAMPLE:
              val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7)
              val result_1:List[Int] = intList.filter(_ > 6)
              println(result_1) // PRINTS: List(7)
@@ -555,9 +566,16 @@ ___ lastIndexWhere - Pass this method a function that operates on a single eleme
                      val myList:List[Float] = List(12.1F, 34.2F, 56.3F, 78.4F)
                      val result:Int = myList.lastIndexWhere(_ > 50.0F)
                      println(result) // Prints: 3
-___ map - Pass this method a function that operates on a single element of the collection and returns something.
-          The map method then returns a new collection that contains the results of applying that function
-          to the contents of each element in the original collection.
+___ map - NOTE: The difference between the filter() and map() functions are as follows:
+                The function passed to filter() returns a Boolean and gets applied to every
+                element in the List.  If the Boolean returned by that function is true,
+                then that element of the List gets returned by filter(), which constructs
+                a new List that IS A SUBSET of the original List--thus the name filter.
+
+                The map() function gets passed a function which gets applied to every element
+                in the List.  That function then returns a value for every element in the List
+                that is the same type contained in the List.  So List.map() returns a List
+                containing the same number of elements as the List it gets applied to.
           EXAMPLE:
           val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7);
           val result:List[Int] = intList.map(_*2)
