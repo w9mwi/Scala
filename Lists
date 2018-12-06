@@ -416,18 +416,18 @@ ___ exists - The exists method returns true if at least one element in the colle
              println(result) // result = true
 ___ filter - EXAMPLE:
              val intList:List[Int] = List[Int](1, 2, 3, 4, 5, 6, 7)
-             val result:List[Int] = intList.filter(_ > 6)
-             println(result) // PRINTS: List(7)
+             val result_1:List[Int] = intList.filter(_ > 6)
+             println(result_1) // PRINTS: List(7)
 
-             // The following code shows 2 ways of obtaining identical results by calling
-             // the filter() function.  Both println() statements below print:
+             // The following code shows TWO (2) ways of obtaining identical results by
+             // calling the filter() function.  Both println() statements below print:
              // RMN
-             // Randy Reject
-             val nameList = List("TJB", "RMN", "Randy Reject")
-             var name = nameList.filter(_.startsWith("R"))
-             name.foreach(println)
-             name = nameList.filter(x => x.startsWith("R"))
-             name.foreach(println)
+             // Randy_Reject
+             val nameList:List[String] = List("TJB", "RMN", "Randy_Reject")
+             var result_2:List[String] = nameList.filter(_.startsWith("R"))
+             result_2.foreach(println) // PRINTS: RMN Randy_Reject
+             result_2 = nameList.filter(x => x.startsWith("R"))
+             result_2.foreach(println) // PRINTS: RMN Randy_Reject
 ___ filterNot - The opposite of the filter method.
 ___ flatMap - EXAMPLE:
               The flatMap() method called below is essentially a combination of the
