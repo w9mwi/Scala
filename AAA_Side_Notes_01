@@ -161,13 +161,30 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
+    // ***********************************************************************
+    //  EXECUTING THIS CODE WILL PRINT THE FOLLOWING TO THE CONSOLE...
+    //  About to increment.
+    //  passByNameAndIncrement(9) = 10
+    //
+    //  About to increment.
+    //  passByValueAndIncrement(9) = 10
+    //  =================================
+    //  About to increment.
+    //  Evaluation.
+    //  passByNameAndIncrement({println("Evaluation."); 9}) = 10
+    //
+    //  Evaluation.
+    //  About to increment.
+    //  passByValueAndIncrement({println("Evaluation."); 9}) = 10
+    // ***********************************************************************
+    val aBlockOfCode:Int = { println("Evaluation."); 9 }
     var result:Int = passByNameAndIncrement(9)
     println("passByNameAndIncrement(9) = " + result + "\n")
     result = passByValueAndIncrement(9)
     println("passByValueAndIncrement(9) = " + result)
     println("=================================")
-    println("passByNameAndIncrement({println(\"Evaluation.\"); 9}) = " + passByNameAndIncrement({println("Evaluation."); 9}) + "\n")
-    println("passByValueAndIncrement({println(\"Evaluation.\"); 9}) = " + passByValueAndIncrement({println("Evaluation."); 9}))
+    println("passByNameAndIncrement({println(\"Evaluation.\"); 9}) = " + passByNameAndIncrement(aBlockOfCode) + "\n")
+    println("passByValueAndIncrement({println(\"Evaluation.\"); 9}) = " + passByValueAndIncrement(aBlockOfCode))
   }
 
   def passByValueAndIncrement(x:Int):Int =
@@ -181,20 +198,6 @@ object Demo
     println("About to increment.")
     x + 1
   }
-  // EXECUTING THIS CODE WILL PRINT THE FOLLOWING RESULTS:
-  //  About to increment.
-  //  passByNameAndIncrement(9) = 10
-  //
-  //  About to increment.
-  //  passByValueAndIncrement(9) = 10
-  //  =================================
-  //  About to increment.
-  //  Evaluation.
-  //  passByNameAndIncrement({println("Evaluation."); 9}) = 10
-  //
-  //  Evaluation.
-  //  About to increment.
-  //  passByValueAndIncrement({println("Evaluation."); 9}) = 10
 }
 
 ==================================================================
