@@ -161,43 +161,61 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    // ***********************************************************************
-    //  EXECUTING THIS CODE WILL PRINT THE FOLLOWING TO THE CONSOLE...
-    // Evaluation.
-    // About to increment.
-    // 1) passByNameAndIncrement(9) = 10
+    // ************************************************************************
+    // EXECUTING THE CODE BELOW WILL PRINT THE FOLLOWING TO THE CONSOLE...
+    // println() statement in blockOfCodeReturnsInt is executed.
+    // passByName() called.
+    // 1) passByName(9) = 10
     //
-    // About to increment.
-    // 2) passByValueAndIncrement(9) = 10
+    // passByValue() called.
+    // 2) passByValue(9) = 10
     // =================================
-    // About to increment.
-    // 3) passByNameAndIncrement(aBlockOfCode); 9}) = 10
+    // passByName() called.
+    // println() statement is executed.
+    // 3) passByName({ println("println() statement is executed."); 9; }) = 10
     //
-    // About to increment.
-    // 4) passByValueAndIncrement(aBlockOfCode); 9}) = 10
-    // ***********************************************************************
-    val aBlockOfCode:Int = { println("Evaluation."); 9 }  // This line PRINTS: Evaluation.
-    var result:Int = passByNameAndIncrement(9)
-    println("1) passByNameAndIncrement(9) = " + result + "\n")
-    result = passByValueAndIncrement(9)
-    println("2) passByValueAndIncrement(9) = " + result)
+    // println() statement is executed.
+    // passByValue() called.
+    // 4) passByValue({ println("println() statement is executed."); 9; }) = 10
+    // ************************************************************************
+    // The following line of code executes the embedded println() statement!...
+    val blockOfCodeReturnsInt:Int = { println("println() statement in blockOfCodeReturnsInt is executed."); 9; }
+
+    println("1) passByName(9) = " + passByName(9) + "\n")
+    println("2) passByValue(9) = " + passByValue(9))
     println("=================================")
-    println("3) passByNameAndIncrement(aBlockOfCode); 9}) = " + passByNameAndIncrement(aBlockOfCode) + "\n")
-    println("4) passByValueAndIncrement(aBlockOfCode); 9}) = " + passByValueAndIncrement(aBlockOfCode))
+    println("3) passByName({ println(\"println() statement is executed.\"); 9; }) = "
+            + passByName({ println("println() statement is executed."); 9; } )+ "\n")
+    println("4) passByValue({ println(\"println() statement is executed.\"); 9; }) = "
+            + passByValue({ println("println() statement is executed."); 9; }))
   }
 
-  def passByValueAndIncrement(x:Int):Int =
+  def passByValue(x:Int):Int =
   {
-    println("About to increment.")
+    println("passByValue() called.")
     x + 1
   }
 
-  def passByNameAndIncrement(x: => Int):Int =
+  /**
+    * Notice the argument passed to this function is (x: => Int), and
+    * NOT (x() => Int).  Here's the difference between those two:
+    *
+    * (x: => Int)  designates a block of code (one or more lines of Scala code) that
+    *              takes no arguments, and returns an Int value.  x represents the
+    *              value returned by the block of code, which is an Int value in
+    *              this example.
+    *
+    * (x() => Int) designates a function named x, that takes no arguments,
+    *              and returns an Int value.
+    *
+    * @param x
+    * @return
+    */
+  def passByName(x: => Int):Int =
   {
-    println("About to increment.")
+    println("passByName() called.")
     x + 1
   }
 }
-
 
 ==================================================================
