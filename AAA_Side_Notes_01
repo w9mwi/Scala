@@ -163,28 +163,27 @@ object Demo
   {
     // ***********************************************************************
     //  EXECUTING THIS CODE WILL PRINT THE FOLLOWING TO THE CONSOLE...
-    //  About to increment.
-    //  passByNameAndIncrement(9) = 10
+    // Evaluation.
+    // About to increment.
+    // 1) passByNameAndIncrement(9) = 10
     //
-    //  About to increment.
-    //  passByValueAndIncrement(9) = 10
-    //  =================================
-    //  About to increment.
-    //  Evaluation.
-    //  passByNameAndIncrement({println("Evaluation."); 9}) = 10
+    // About to increment.
+    // 2) passByValueAndIncrement(9) = 10
+    // =================================
+    // About to increment.
+    // 3) passByNameAndIncrement(aBlockOfCode); 9}) = 10
     //
-    //  Evaluation.
-    //  About to increment.
-    //  passByValueAndIncrement({println("Evaluation."); 9}) = 10
+    // About to increment.
+    // 4) passByValueAndIncrement(aBlockOfCode); 9}) = 10
     // ***********************************************************************
-    val aBlockOfCode:Int = { println("Evaluation."); 9 }
+    val aBlockOfCode:Int = { println("Evaluation."); 9 }  // This line PRINTS: Evaluation.
     var result:Int = passByNameAndIncrement(9)
-    println("passByNameAndIncrement(9) = " + result + "\n")
+    println("1) passByNameAndIncrement(9) = " + result + "\n")
     result = passByValueAndIncrement(9)
-    println("passByValueAndIncrement(9) = " + result)
+    println("2) passByValueAndIncrement(9) = " + result)
     println("=================================")
-    println("passByNameAndIncrement({println(\"Evaluation.\"); 9}) = " + passByNameAndIncrement(aBlockOfCode) + "\n")
-    println("passByValueAndIncrement({println(\"Evaluation.\"); 9}) = " + passByValueAndIncrement(aBlockOfCode))
+    println("3) passByNameAndIncrement(aBlockOfCode); 9}) = " + passByNameAndIncrement(aBlockOfCode) + "\n")
+    println("4) passByValueAndIncrement(aBlockOfCode); 9}) = " + passByValueAndIncrement(aBlockOfCode))
   }
 
   def passByValueAndIncrement(x:Int):Int =
@@ -199,5 +198,6 @@ object Demo
     x + 1
   }
 }
+
 
 ==================================================================
