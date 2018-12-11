@@ -1,5 +1,47 @@
+PASS BY VALUE VS. PASS BY NAME VS. PASS BY REFERENCE EXPLAINED
+(FROM PAGES 165-166)
 
+NOTE: 'Pass by name' is somewhat similar to 'pass by value',
+      and is described below.
 
+When a function is called via pass-by-value, the function gets a copy of
+the variable passed to it, but the function cannot change the variable
+that exists in the calling code.
+
+When a function is called via pass-by-reference, the function has the
+ability to change the variable in the calling code.
+
+Even though all vars in Scala are references, Scala ALLOWS ONLY PASS-BY-VALUE
+AND PASS-BY-NAME (NOT pass by reference).
+
+Although pass-by-reference is NOT allowed in Scala, Scala does allow
+pass-by-name, which few other languages allow.  In pass-by-name,
+an argument isn't passed by value, but is passed as a THUNK, which is
+basically some code that will be executed and given a value when the argument
+is used in a function.  You can envision pass-by-name as automatically
+creating a function that takes no arguments, and returns a value that will
+be executed each time the argument is used.  To show this, see the following
+code example.
+
+In the below code, notice the syntax for calling a function by name is to
+place the rocket symbol (=>) before the argument's type, like this:
+(x: => Int)
+If we were to place empty parentheses in front of the rocket, we would have
+a function that takes no arguments, and returns an Int, like this:
+(x() => Int)
+
+When the following passByNameAndIncrement() and passByValueAndIncrement()
+functions are called by passing a single Int value to them, they both
+appear to behave same way, as they both return the same Int result.  However,
+when we call those two functions by passing them a println statement followed
+by an Int value, we see that the order that println("About to increment.")
+and println("Evaluation.") statements get executed are different.
+
+This means that when you pass an argument by value, the argument is evaluated
+BEFORE the function executes.  When you pass an argument by name, the argument
+is evaluated WHEN the parameter is used.
+
+==============================================================
 object Demo
 {
   def main(args: Array[String]): Unit =
