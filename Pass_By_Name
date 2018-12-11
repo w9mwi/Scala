@@ -1,0 +1,95 @@
+
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    // ************************************************************************
+    // EXECUTING THE CODE BELOW WILL PRINT THE FOLLOWING TO THE CONSOLE...
+    // println() statement in blockOfCodeReturnsInt is executed.
+    // passByName() called.
+    // 1) passByName(9) = 10
+    // =================================
+    // passByValue() called.
+    // 2) passByValue(9) = 10
+    // =================================
+    // passByName() called.
+    // println() statement is executed.
+    // 3) passByName( { println("println() statement is executed."); 9; } ) = 10
+    // =================================
+    // println() statement is executed.
+    // passByValue() called.
+    // 4) passByValue( { println("println() statement is executed."); 9; } ) = 10
+    // =================================
+    // Get value.
+    // Get value.
+    // Get value.
+    // 5) multiplyThreeTimes({ println("Get value."); 9; }) = 729
+    // =================================
+    // 6) multiplyThreeTimes({ println("Get value."); number; }) = 336
+    // =================================
+    // 7) multiplyThreeTimes({ println("Get value."); number; }) = 990
+    // ************************************************************************
+
+    // The following line of code executes the embedded println() statement,
+    // and assigns the Int value 9 to blockOfCodeReturnsInt...
+    val blockOfCodeReturnsInt: Int = { println("println() statement in blockOfCodeReturnsInt is executed."); 9; }
+
+    println("1) passByName(9) = "  + passByName(9))
+    println("=================================")
+    println("2) passByValue(9) = " + passByValue(9))
+    println("=================================")
+    println("3) passByName( { println(\"println() statement is executed.\"); 9; } ) = " +
+            passByName( {println("println() statement is executed."); 9; } ))
+    println("=================================")
+    println("4) passByValue( { println(\"println() statement is executed.\"); 9; } ) = " +
+            passByValue( { println("println() statement is executed."); 9; } ))
+    println("=================================")
+    // The following line will print a value of 729 because 9*9*9 = 729
+    println("5) multiplyThreeTimes({ println(\"Get value.\"); 9; }) = " +
+            multiplyThreeTimes({ println("Get value."); 9; }))
+    println("=================================")
+    var number:Int = 5
+    // The following line will print a value of 336 because 6*7*8 = 729
+    println("6) multiplyThreeTimes({ println(\"Get value.\"); number; }) = " +
+            multiplyThreeTimes({ number += 1; number; }))
+    println("=================================")
+    // The following line will print a value of 990 because 9*10*11 = 990
+    println("7) multiplyThreeTimes({ println(\"Get value.\"); number; }) = " +
+            multiplyThreeTimes({ number += 1; number; }))
+  }
+
+  def passByValue(x: Int): Int =
+  {
+    println("passByValue() called.")
+    x + 1
+  }
+
+  /**
+    * Notice the argument passed to this function is (x: => Int), and
+    * NOT (x() => Int).  Here's the difference between those two:
+    *
+    * (x: => Int)  designates a block of code (one or more lines of Scala code) that
+    *              takes no arguments, and returns an Int value.  x represents the
+    *              value returned by the block of code, which is an Int value in
+    *              this example.  This is an example of PASS-BY-NAME.
+    *
+    * (x() => Int) designates a function named x, that takes no arguments,
+    * and returns an Int value.
+    *
+    * @param x
+    * @return
+    */
+  def passByName(x: => Int): Int =
+  {
+    println("passByName() called.")
+    x + 1
+  }
+
+  /**
+    * This is another "pass by name" function, similar to the passByName() function above.
+    * @param number
+    * @return
+    */
+  def multiplyThreeTimes(number: => Int): Int = { number * number * number }
+}
