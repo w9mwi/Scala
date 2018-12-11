@@ -42,6 +42,7 @@ BEFORE the function executes.  When you pass an argument by name, the argument
 is evaluated WHEN the parameter is used.
 
 ==============================================================
+
 object Demo
 {
   def main(args: Array[String]): Unit =
@@ -66,11 +67,11 @@ object Demo
     // Get value.
     // Get value.
     // Get value.
-    // 5) multiplyThreeTimes({ println("Get value."); 9; }) = 729
+    // 5) multiplyThreeTimes({ println("Get value."); number; }) = 125
     // =================================
-    // 6) multiplyThreeTimes({ println("Get value."); number; }) = 336
+    // 6) multiplyThreeTimes({ number += 1; number; }) = 336
     // =================================
-    // 7) multiplyThreeTimes({ println("Get value."); number; }) = 990
+    // 7) multiplyThreeTimes({ number += 1; number; }) = 990
     // ************************************************************************
 
     // The following line of code executes the embedded println() statement,
@@ -87,17 +88,17 @@ object Demo
     println("4) passByValue( { println(\"println() statement is executed.\"); 9; } ) = " +
             passByValue( { println("println() statement is executed."); 9; } ))
     println("=================================")
-    // The following line will print a value of 729 because 9*9*9 = 729
-    println("5) multiplyThreeTimes({ println(\"Get value.\"); 9; }) = " +
-            multiplyThreeTimes({ println("Get value."); 9; }))
-    println("=================================")
     var number:Int = 5
-    // The following line will print a value of 336 because 6*7*8 = 729
-    println("6) multiplyThreeTimes({ println(\"Get value.\"); number; }) = " +
+    // The following line will print a value of 125 because 5*5*5 = 125
+    println("5) multiplyThreeTimes({ println(\"Get value.\"); number; }) = " +
+            multiplyThreeTimes({ println("Get value."); number; }))
+    println("=================================")
+    // The following line will print a value of 336 because 6*7*8 = 336
+    println("6) multiplyThreeTimes({ number += 1; number; }) = " +
             multiplyThreeTimes({ number += 1; number; }))
     println("=================================")
     // The following line will print a value of 990 because 9*10*11 = 990
-    println("7) multiplyThreeTimes({ println(\"Get value.\"); number; }) = " +
+    println("7) multiplyThreeTimes({ number += 1; number; }) = " +
             multiplyThreeTimes({ number += 1; number; }))
   }
 
