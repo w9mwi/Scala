@@ -41,7 +41,7 @@ This means that when you pass an argument by value, the argument is evaluated
 BEFORE the function executes.  When you pass an argument by name, the argument
 is evaluated WHEN the parameter is used.
 
-==============================================================
+=========================================================================
 
 object Demo
 {
@@ -136,3 +136,6 @@ object Demo
     */
   def multiplyThreeTimes(number: => Int): Int = { number * number * number }
 }
+
+=========================================================================
+
