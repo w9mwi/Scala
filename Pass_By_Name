@@ -139,3 +139,50 @@ object Demo
 
 =========================================================================
 
+The Array.fill and List.fill functions are CURRIED FUNCTIONS that takes two argument lists.
+The first argument list is an Int value specifying the number of elements in the Array/List.
+The second argument is a PASS-BY-NAME argument specifying the value of each Array/List element.
+
+WARNING: The following code is only an example that shows how the Array/List fill() function
+         behaves.  It's unlikely you'd ever want to write code similar to this, cuz it's
+         way too convoluted/confusing.
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    var arrayInts:Array[Int] = Array.fill(10)(5)
+    for (x <- arrayInts) { print(x + " ") } // PRINTS: 5 5 5 5 5 5 5 5 5 5
+    println()
+
+    var listInts:List[Int] = List.fill(5)(10)
+    for (x <- listInts) { print(x + " ") } // PRINTS: 10 10 10 10 10
+    println()
+
+    var listStrings:List[String] = List.fill(5)("TJB")
+    for (x <- listStrings) { print(x + " ") } // PRINTS: TJB TJB TJB TJB TJB
+    println()
+
+    // Since the second argument list of Array.fill is PASSED BY NAME,
+    // it is evaluated for each element, as demonstrated in the
+    // following call to Array.fill, which prints this:
+    // Evaluating arg.
+    // Evaluating arg.
+    arrayInts = Array.fill(2){ println("Evaluating arg."); 5 } // NOTE: Adding () around the {} is optional.
+    // The following for() loop prints: 5 5
+    for (x <- arrayInts) { print(x + " ") }
+    println()
+
+    var number = 1
+    // Since the second argument list of List.fill is PASSED BY NAME,
+    // it is evaluated for each element, as demonstrated in the
+    // following call to List.fill, which prints this: 1 2 4
+    listInts = List.fill(3){ print(number + " "); number *= 2; number }
+    println()
+    // The following for() loop prints: 2 4 8
+    for (x <- listInts) { print(x + " ") }
+  }
+}
+
+=========================================================================
+
