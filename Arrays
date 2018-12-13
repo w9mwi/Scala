@@ -189,7 +189,7 @@ object Demo
     var stringList:List[String] = List[String]()
     // Initialize a new List with 6 elements that each have the "XYZ" value.
     stringList = List.fill(6)("XYZ")
-    stringList.foreach(println)  // Prints all 6 elements of the stringList.
+    stringList.foreach(println)  // Prints the XYZ string a total of 6 times.
 
     var intList:List[Int] = List[Int]()
     var idx = 1
