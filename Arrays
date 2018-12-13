@@ -173,30 +173,27 @@ object Demo
 }
 ===========================================================================
 Pages 167-168 - How to FILL AND TABULATE Arrays and Lists.
+See the "Scala/Pass_By_Name" section to understand details
+about passing the second argument list to Array.fill()()
+and List.fill()()
 
 object Demo
 {
   def main(args: Array[String])
   {
     var intArray:Array[Int] = Array[Int]()
-    intArray.foreach(println) // Prints nothing, because the Array was not initialized.
-
     // Initialize a new Array with 10 elements, that each have the Int value 4.
     intArray = Array.fill(10)(4)
-    intArray.foreach(println)  // Prints all 10 elements of the intArray.
+    intArray.foreach(println)  // Prints the number 4 a total of 10 times.
 
     var stringList:List[String] = List[String]()
-    stringList.foreach(println) // Prints nothing, because the List was not initialized.
-
     // Initialize a new List with 6 elements that each have the "XYZ" value.
     stringList = List.fill(6)("XYZ")
     stringList.foreach(println)  // Prints all 6 elements of the stringList.
 
     var intList:List[Int] = List[Int]()
-    intList.foreach(println)  // Prints nothing, because the List was not initialized.
-
     var idx = 1
-    intList = List.fill(5){idx*=2; idx} // NOTE: The second argument is in curly braces.
+    intList = List.fill(5)({idx*=2; idx}) // NOTE: The second argument is in curly braces.
     intList.foreach(println)  // Prints these 5 elements of intList:  2, 4, 8, 16, 32
     intList = 1::intList
     intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
@@ -206,21 +203,22 @@ object Demo
     // Create a new 6-element Array, where each element in the Array is initialized with
     // the value: (3*x*x + 5x - 7)   Where the value x is the index of the Array.
     // NOTE: All Arrays and Lists begin with an index value of zero (0).
-    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // Uses (), equivalent to the line below.
-    intArray = Array.tabulate(6){x => 3*x*x + 5*x - 7} // Uses {}, equivalent to the line above.
-    intArray.foreach(println)
+    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // NOTE: Uses (), equivalent to the line below.
+    intArray = Array.tabulate(6){x => 3*x*x + 5*x - 7} // NOTE: Uses {}, equivalent to the line above.
+    intArray.foreach(println) // Prints these 6 elements of intArray: -7, 1, 15, 35, 61, 93
 
-    // NOTE: The last value printed below will ALWAYS be ONE LESS than maximum value in
+    // NOTE: The last value printed below will ALWAYS be ONE LESS than the maximum value in
     //       the range.  So in this instance, the last value printed is eleven (11)...
     intArray = Array.range(0, 12)
-    intList  = List.range(0, 12)
-
     intArray.foreach(print) // PRINTS: 01234567891011
     println
+    intList  = List.range(0, 12)
     intList.foreach(print)  // PRINTS: 01234567891011
   }
 }
+
 ==================================================================
+
 Page 190
 object Demo
 {
