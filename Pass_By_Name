@@ -173,11 +173,11 @@ object Demo
     for (x <- arrayInts) { print(x + " ") }
     println()
 
-    var number = 1
+    var number:Int = 1
     // Since the second argument list of List.fill is PASSED BY NAME,
     // it is evaluated for each element, as demonstrated in the
     // following call to List.fill, which prints this: 1 2 4
-    listInts = List.fill(3){ print(number + " "); number *= 2; number }
+    listInts = List.fill(3){ print(number + " "); number *= 2; number } // NOTE: Adding () around the {} is optional.
     println()
     // The following for() loop prints: 2 4 8
     for (x <- listInts) { print(x + " ") }
