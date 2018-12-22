@@ -186,3 +186,42 @@ object Demo
 
 =========================================================================
 
+The following code sample is just another example of CURRIED FUNCTIONS
+implemented by Arrays and Lists.  In other words, the fill() and tabulate()
+function shown below are CURRIED FUNCTIONS.  Read the code sample immediately
+above for more details about how these CURRIED FUNCTIONS work.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var intArray:Array[Int] = Array.fill(10)(4)
+    intArray.foreach(println)  // Prints the number 4 a total of 10 times.
+
+    var stringList:List[String] = List.fill(6)("XYZ")
+    stringList.foreach(println)  // Prints the string "XYZ" a total of 6 times.
+
+    var idx:Int = 1
+    var intList:List[Int] = List.fill(5){(idx*=2); idx} // NOTE: The second argument is in curly braces.
+    intList.foreach(println)  // Prints these 5 elements of intList:  2, 4, 8, 16, 32
+    intList = 1::intList      // Prepend a 1 onto intList.
+    intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
+    intList = List.tabulate(10)(i => i*i)
+    intList.foreach(println)  // Prints these 10 elements of intList: 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
+
+    // Create a new 6-element Array, where each element in the Array is initialized with
+    // the value: (3*x*x + 5x - 7)   Where the value x is the index of the Array.
+    // NOTE: All Arrays and Lists begin with an index value of zero (0).
+    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // NOTE: Uses (), equivalent to the line below.
+    intArray = Array.tabulate(6){x => 3*x*x + 5*x - 7} // NOTE: Uses {}, equivalent to the line above.
+    intArray.foreach(println) // Prints these 6 elements of intArray: -7, 1, 15, 35, 61, 93
+
+    // NOTE: The last value printed below will ALWAYS be ONE LESS than the maximum value in
+    //       the range.  So in this instance, the last value printed is eleven (11)...
+    intArray = Array.range(0, 12)
+    intArray.foreach(print) // PRINTS: 01234567891011
+    println
+    intList  = List.range(0, 12)
+    intList.foreach(print)  // PRINTS: 01234567891011
+  }
+}
