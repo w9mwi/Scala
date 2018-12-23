@@ -118,7 +118,7 @@ object Demo
     *              this example.  This is an example of PASS-BY-NAME.
     *
     * (x() => Int) designates a function named x, that takes no arguments,
-    * and returns an Int value.
+    *              and returns an Int value.
     *
     * @param x
     * @return
