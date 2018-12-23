@@ -70,53 +70,9 @@ object Demo
   }
 }
 
-// ================================================================
-// ================================================================
+=================================================================================
 
-HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - PART 1
-See the PART 2 example below to see a different way of doing the same thing.
-
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    var averageScore = calculateAverage() // Pass no parameters!
-    printScore(averageScore, "averageScore = ") // PRINTS: The score is not a number.
-
-    averageScore = calculateAverage(1.23, 4.56, 7.89)
-    printScore(averageScore, "averageScore = ") // PRINTS: averageScore = 4.56
-  }
-
-  /**
-    * @param numbers - A Sequence of Double values representing a variable number of arguments.
-    *                  A variable number of arguments is represented by the asterisk (*)
-    *                  character in the parameter list.
-    * @return a Double value representing the average of all values passed to this function.
-    */
-  def calculateAverage(numbers:Double *): Double =
-  {
-    println(numbers) // PRINTS: WrappedArray(1.23, 4.56, 7.89)
-    numbers.sum / numbers.length
-  }
-
-  /**
-    * @param score
-    * @param msg
-    */
-  def printScore(score:Double, msg:String):Unit =
-  {
-    if   (score.isNaN) println("The score is not a number.")
-    else println(msg + score)
-  }
-}
-
-==========================================================================
-
-HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - PART 2
-This is an alternative to doing the same thing done in the PART 1 example above,
-as it passes a List[Double] to the calculateAverage() method as a single
-argument instead of hard-coded values.
-
+HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS
 object Demo
 {
   def main(args:Array[String]): Unit =
@@ -163,8 +119,7 @@ object Demo
   }
 }
 
-// ================================================================
-// ================================================================
+=================================================================================
 
 object Demo
 {
