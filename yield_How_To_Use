@@ -19,7 +19,12 @@ make a Scala for() loop return a single value, the for() loop uses the
         fname = p.firstName         // DEFINITION - Note the a val/var keyword isn't used in a for comprehension.
         if (fname.startsWith("B"))  // FILTER - Must have a boolean value, so an if() statement is often used.
       } yield fname.toUpperCase
-Here is a Scala code example...
+
+A for() loop can contain a FILTER, which is the if() statement within the for() loop shown above.
+The for() loop will return only values for which the if() statement is true.
+
+
+Below is a Scala code example...
 ===========================================================================
 object Demo
 {
