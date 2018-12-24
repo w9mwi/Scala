@@ -1,4 +1,15 @@
 How to use pattern matching via the Scala keyword "match".
+NOTE: In the code samples below, the "match" keyword is
+      always used with the "case" keyword, but the "case"
+      statement can be constructed differently, such as:
+
+      case 1  => println("January") // Matches on the Int value 1
+      case Person("Alice",   25) => println("Hi Alice!") // Matches on a specific Person value.
+      case z: Double    => "Double" // Matches on the data type specified the value z.
+
+Again, see below sample code for details on how match can be used.
+      
+
 =============================================================
 =============================================================
 import scala.annotation.switch
