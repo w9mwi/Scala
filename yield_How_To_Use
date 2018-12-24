@@ -1,7 +1,9 @@
 The while() loop is a statement only, and can't be used as an expression.
 Scala's for() loop (aka "for comprehension") CAN be used as an expression,
 which means the for() loop can return a result.  For example, a for()
-loop can return a result of Int, Char, String, List, Array, etc.
+loop can return a result of Int, Char, String, List, Array, etc.  To
+make a Scala for() loop return a single value, the for() loop uses the
+"yield" keyword.
 
 ===========================================================================
   A Scala "for comprehension" (aka "the for() loop") can contain the
