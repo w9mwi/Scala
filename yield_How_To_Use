@@ -1,5 +1,11 @@
+The while() loop is a statement only, and can't be used as an expression.
+Scala's for() loop (aka "for comprehension") CAN be used as an expression,
+which means the for() loop can return a result.  For example, a for()
+loop can return a result of Int, Char, String, List, Array, etc.
+
 ===========================================================================
-  A Scala for comprehension can contain the following 3 expressions...
+  A Scala "for comprehension" (aka "the for() loop") can contain the
+  following 3 expressions...
   
   1) Generators - Every for comprehension begins with a generator.  Multiple generators are possible.
   2) Definitions - A definition binds the pattern on the left with the expression on the right.
