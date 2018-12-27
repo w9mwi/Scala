@@ -38,7 +38,7 @@ for (name <- names if name.startsWith("J")) { println(name) }
 
 var sum = 0
 val x = List(7,8,9)
-x.foreach(sum += _)
+x.foreach(sum += _) // This line of code is equivalent to: x.map(sum += _)
 println(sum) // Prints the sum of 7 + 8 + 9 = 24
 
 =============================================================================
