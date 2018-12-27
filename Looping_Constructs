@@ -59,8 +59,8 @@ object Demo
     println()
     // NOTE: The ONLY DIFFERENCE between the following for() loop and the above for()
     //       loop is that below for() loop contains a "distance" value that stores
-    //       the value returned by the magnitude() function--so we only need to call
-    //       the magnitude() function ONLY ONCE every time the for() loop executes.
+    //       the value returned by the magnitude() function--so we need to call the
+    //       magnitude() function ONLY ONCE every time the for() loop executes.
     result = for ((x, y) <- points; distance = magnitude(x, y); if distance > 1.0) yield distance
     result.foreach(println) // Prints: 2.5942243542145693, 6.55133574166368
     println()
