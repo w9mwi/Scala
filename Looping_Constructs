@@ -4,7 +4,7 @@ https://alvinalexander.com/scala/scala-for-loops-foreach-how-to-translated-by-co
 
 NOTE: Any class that implements BOTH the map() and flatMap() methods can be used in a
 for-expression.  See Chapter 61 in Functional Programming Simplified (Scala Edition)
-=====================================================
+================================================================================
 
 NOTE: When a while() loop is entered, it will loop forever
       until the value of some var changes.  Therefore, some
@@ -18,7 +18,7 @@ do
    Some code here.
 } while(condition);
 
-// -------------------------------------------------------
+================================================================================
 To iterate through a data type that inherits from sequence
 (such as List, Array, ArrayBuffer, Vector, Seq, etc.),
 use the foreach() method...
@@ -41,8 +41,9 @@ val x = List(7,8,9)
 x.foreach(sum += _) // This line of code is equivalent to: x.map(sum += _)
 println(sum) // Prints the sum of 7 + 8 + 9 = 24
 
-=============================================================================
-// for() loop examples...
+================================================================================
+The sample code below shows more for() loop examples...
+
 object Demo
 {
   def main(args: Array[String])
@@ -72,7 +73,10 @@ object Demo
   // (x = 0.0, y = 0.0) and the (x, y) coordinate passed to this function.
   def magnitude(x:Double, y:Double):Double = math.sqrt(x*x+y*y)
 }
-=============================================================================
+
+================================================================================
+The sample code below shows more for() loop examples...
+
 object Demo
 {
   def main(args: Array[String])
@@ -164,8 +168,10 @@ loop.breakable
     }
   }
 }
-// ========================================================
+
+================================================================================
 HOW TO LOOP THROUGH A MAP
+
 object Demo
 {
   def main(args: Array[String])
@@ -177,7 +183,8 @@ object Demo
     }
   }
 }
-// ========================================================
-// ========================================================
-// ========================================================
-// ========================================================
+
+================================================================================
+================================================================================
+================================================================================
+
