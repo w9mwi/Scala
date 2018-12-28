@@ -155,12 +155,11 @@ object Demo
     for { idx <- 0 to 10  if idx % 2 == 0  if idx > 5 }    println(idx) // PRINTS: 6 8 10
     for ( idx <- 0 to 10  if idx % 2 == 0  if idx > 5 )    println(idx) // PRINTS: 6 8 10
 
-    // How to exist a for loop.  How to break out of a for loop.
+    // How to exit a for loop.  How to break out of a for loop.
     val numList = List(1,2,3,4,5,6,7,8,9,10);
     val loop    = new Breaks; // Obtained via: import scala.util.control.Breaks
     loop.breakable
     {
-      // NOTE: The 'number' variable used below is NOT declared before it's used....
       for (number <- numList)
       {
         println("number = " + number ); // PRINTS: number = 1  number = 2  number = 3  number = 4
