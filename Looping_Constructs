@@ -175,17 +175,17 @@ object Demo
 }
 
 ================================================================================
-HOW TO LOOP THROUGH A MAP
+How to loop through a Map...
 
 object Demo
 {
   def main(args: Array[String])
   {
-    val names:Map[String, String] = Map("fname" -> "Robert", "lname" -> "Goren")
-    for ((k,v) <- names)
-    {
-      println(s"key = $k, value = $v")
-    }
+    val names:Map[String, String] = Map("firstName" -> "Hans", "middleName" -> "Christmas", "lastName" -> "Anderson")
+    for ((k,v) <- names) { println(s"key = $k, value = $v") }
+    // PRINTS: key = firstName, value = Hans
+    //         key = middleName, value = Christmas
+    //         key = lastName, value = Anderson
   }
 }
 
