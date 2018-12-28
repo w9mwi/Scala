@@ -50,8 +50,8 @@ object Demo
   {
     type Point = (Double, Double)
 
-    var points:Array[Point] = Array((-0.3, 0.6), (1.2, 2.3), (3.4, 5.6))
-    var result = for ((x, y) <- points; if magnitude(x, y) < 1.0) yield magnitude(x, y)
+    var points:Array[Point]  = Array((-0.3, 0.6), (1.2, 2.3), (3.4, 5.6))
+    var result:Array[Double] = for ((x, y) <- points; if magnitude(x, y) < 1.0) yield magnitude(x, y)
     result.foreach(println) // Prints: 0.6708203932499369
     println()
     result = for ((x, y) <- points; if magnitude(x, y) > 1.0) yield magnitude(x, y)
