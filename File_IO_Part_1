@@ -103,9 +103,9 @@ object Demo
     * 0.0, 1.0, 0.0,
     * 0.0, 0.0, 1.0
     *
-    * This function converts that lines argument Iterator[String] to an Array[Array[Double]]
-    * type by returning the following result...
-    * Array(Array(1.0, 0.0, 0.0), Array = (0.0, 1.0, 0.0), Array = (0.0, 0.0, 1.0))
+    * This function converts the lines argument (of type Iterator[String]) to an
+    * Array[Array[Double]] type by returning the following result...
+    * Array(Array(1.0, 0.0, 0.0), Array(0.0, 1.0, 0.0), Array(0.0, 0.0, 1.0))
     */
   def dataGrid(lines:Iterator[String], delim:String): Array[Array[Double]] =
   {
