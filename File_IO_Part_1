@@ -1,5 +1,7 @@
-// The following example shows how to read a text file,
-// and print its contents to the screen.
+
+The following example shows how to read a text file,
+and print its contents to the screen.
+======================================================
 
 import java.io.FileNotFoundException
 import scala.io.{BufferedSource, Source}
@@ -10,31 +12,42 @@ object Demo
   {
     try
     {
+      // NOTE: For this program to work, create a ch8.txt file as shown on the next line.
       val filePathAndName:String = "/home/tbouril/ch8.txt"
       var fileSource:BufferedSource = Source.fromFile(filePathAndName)
 
-      // The fileSource DOES print here...
-      println("1) fileSource.mkString = " + fileSource.mkString)
+      // The following line of code prints to the console the entire contents
+      // of filePathAndName, exactly as it'd appear in a text editor.
+      println("1) fileSource.mkString = \n" + fileSource.mkString)
 
-      // The fileSource does NOT print here, because the file iterator has been "spent."
-      println("2) fileSource.mkString = " + fileSource.mkString)
-      fileSource.close // When done using the file, always close it!
+      // The following line of code PRINTS NOTHING to the console because
+      // the file iterator has been "spent."
+      println("2) fileSource.mkString = \n" + fileSource.mkString)
 
-      // By default (as shown ABOVE), a Source and BufferedSource file iterator is of
-      // type Iterator[Char], which means they read one Char at a time from the file.
-      // Reading Chars one at a time is inefficient--so we can use other Iterator
-      // types to read files.  For example, the code BELOW calls the getLines()
-      // method, which uses a file iterator of type Iterator[String], which reads
-      // one line of text (as a full String) at a time.
+      // Reinitialize fileSource so its iterator gets reset...
       fileSource = Source.fromFile(filePathAndName)
+
+      // The type Source extends Iterator[Char], and BufferedSource extends Source.
+      // That means BufferedSource and Source read one Char at a time from the file.
+      // Reading Chars one at a time is inefficient--so we can use other Iterator
+      // types to read files.  The code BELOW calls getLines(), which returns a type
+      // of Iterator[String], which reads one line of text (as a String) at a time.
       val fileContents:Iterator[String] = fileSource.getLines
-      println("\n3) fileContents = " + fileContents.mkString)
-      fileSource.close // When done using the file, always close it!
+      println("3) fileContents.foreach(println) = ")
+      // The following line of code prints to the console the entire contents
+      // of filePathAndName, exactly as it'd appear in a text editor.
+      fileContents.foreach(println)
+
+      // The following line of code PRINTS NOTHING to the console because
+      // the file iterator has been "spent."
+      println("4) fileContents.mkString = " + fileContents.mkString)
+      fileSource.close // Close the file because we're done using it.
     }
     catch
-    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
+      { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 }
+
 =========================================================
 =========================================================
 object Demo
