@@ -77,7 +77,18 @@ object Demo
       // a 3X3 two-dimensional Array.  Where each element of matrix corresponds
       // to one of the 9 numbers contained in the identityMatrix.txt file...
       val matrix:Array[Array[Double]] = fileToDataGrid(filePathAndName, delimiterString)
-      printMatrixContents(matrix) // PRINTS the entire contents of matrix.
+
+      // PRINT the entire contents of matrix, as shown immediately below...
+      printMatrixContents(matrix)
+      // matrix(0)(0) = 1.0
+      // matrix(0)(1) = 0.0
+      // matrix(0)(2) = 0.0
+      // matrix(1)(0) = 0.0
+      // matrix(1)(1) = 1.0
+      // matrix(1)(2) = 0.0
+      // matrix(2)(0) = 0.0
+      // matrix(2)(1) = 0.0
+      // matrix(2)(2) = 1.0
     }
     catch
       { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
@@ -133,7 +144,6 @@ object Demo
     }
   }
 }
-
 
 ==========================================================================================
 
