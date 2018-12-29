@@ -258,9 +258,9 @@ ___ split - EXAMPLE:
                   }
 
                   // The next line of code shows how to use 's' char as the delimiter, so the printed
-                  // String will NOT contain the lowercase 's' char.  The '+' in the following line
-                  // means split on >= 1 of consecutive 's' chars.  The '*' char would be used to
-                  // split on >= 0 consecutive 's' chars.
+                  // Array elements will NOT contain the lowercase 's' char.  The '+' in the following
+                  // line means split on >= 1 of consecutive 's' chars.  The '*' char would be used
+                  // in place of '+' to split on >= 0 consecutive 's' chars.
                   arrayString = myString.split("s+")
                   arrayString.foreach(println)
                }
