@@ -1,7 +1,6 @@
 
-The following example shows how to read a text file,
-and print its contents to the screen.
-======================================================
+The following example shows how to read a text file, and print its contents to the screen.
+==========================================================================================
 
 import java.io.FileNotFoundException
 import scala.io.{BufferedSource, Source}
@@ -48,8 +47,10 @@ object Demo
   }
 }
 
-=========================================================
-=========================================================
+==========================================================================================
+The following code shows how to...
+1) Read a comma-delimited matrix of numbers stored in a text file.
+2) Convert that text matrix into an two-dimensional Array of type Double.
 
 import java.io.FileNotFoundException
 import scala.io.Source
@@ -60,59 +61,82 @@ object Demo
   {
     try
     {
-      // NOTE: The identityMatrix.txt file referenced below contains this text:
+      // NOTE: The identityMatrix.txt file referenced below contains the following text.
+      //       Where there MUST NOT be any chars after the final 0 char shown below.
       //       1.0, 0.0, 0.0,
       //       0.0, 1.0, 0.0,
       //       0.0, 0.0, 1.0
       val filePathAndName:String = "/home/tbouril/identityMatrix.txt"
-      // The following delimiter argument (" *, *") means zero or more
-      // space chars. (' ') BEFORE the comma is valid, AND zero or more
-      // space chars. (' ') AFTER the comma is valid.  Calling fileToDataGrid()
-      // reads the identityMatrix.txt file into a 3X3 2-dimensional Array of
-      // Double types.
-      val matrix:Array[Array[Double]] = fileToDataGrid(filePathAndName, " *, *")
-      println(matrix.flatten.mkString) // Prints: 1.00.00.00.01.00.00.00.01.0
 
-      // ************************************************
-      // The following code prints the 2 indices of each element in the 2-dimensional matrix
-      // Array, and the contents of that element.  The first 2 of 8 lines printed are:
-      // matrix(0)(0) = 1.0
-      // matrix(0)(1) = 0.0
-      var count_1:Int = 0
-      var count_2:Int = 0
-      for (tempArray_1 <- matrix)
-      {
-        for (tempArray_2 <- tempArray_1)
-        {
-          println("matrix(" + count_1 + ")(" + count_2 + ") = " + tempArray_2)
-          count_2 += 1
-        }
-        count_1 += 1
-        count_2 = 0 // Must reset the second index to zero.
-      }
-      // ************************************************
+      // The following delimiterString (" *, *") means zero or more
+      // space chars. (' ') occur BEFORE the comma, AND zero or more
+      // space chars. (' ') occur AFTER the comma.
+      val delimiterString = " *, *"
+
+      // The following call to fileToDataGrid() initializes the matrix val into
+      // a 3X3 two-dimensional Array.  Where each element of matrix corresponds
+      // to one of the 9 numbers contained in the identityMatrix.txt file...
+      val matrix:Array[Array[Double]] = fileToDataGrid(filePathAndName, delimiterString)
+      printMatrixContents(matrix) // PRINTS the entire contents of matrix.
     }
     catch
-    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
+      { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 
   /**
-    * This dataGrid() function is a mind-mess.  Revisit this later.
-    */
-  def dataGrid(lines:Iterator[String], delim:String): Array[Array[Double]] =
-  { (lines.map(s=>s.split(delim).map(_.toDouble))).toArray }
-
-  /**
-    * This fileToDataGrid() function is a mind-mess.  Revisit this later.
+    *
     */
   def fileToDataGrid(fileName:String, delim:String): Array[Array[Double]] =
   {
+    // Initialize strIter so it will contains the following 3 lines of text,
+    // obtained from the identityMatrix.txt file.
+    // 1.0, 0.0, 0.0,
+    // 0.0, 1.0, 0.0,
+    // 0.0, 0.0, 1.0
     val strIter:Iterator[String] = Source.fromFile(fileName).getLines()
     dataGrid(strIter, delim)
   }
+
+  /**
+    * The lines:Iterator[String] argument passed to this function contains this text:
+    * 1.0, 0.0, 0.0,
+    * 0.0, 1.0, 0.0,
+    * 0.0, 0.0, 1.0
+    *
+    * This function converts that lines argument Iterator[String] to an Array[Array[Double]]
+    * type by returning the following result...
+    * Array(Array(1.0, 0.0, 0.0), Array = (0.0, 1.0, 0.0), Array = (0.0, 0.0, 1.0))
+    */
+  def dataGrid(lines:Iterator[String], delim:String): Array[Array[Double]] =
+  {
+    val result:Array[Array[Double]] = (lines.map(s=>s.split(delim).map(_.toDouble))).toArray
+    result
+  }
+
+  /**
+    * Print to the console the entire contents of the two-dimensional Array
+    * matrix passed to this function.
+    */
+  def printMatrixContents(matrix:Array[Array[Double]]): Unit =
+  {
+    var rowIndex:Int = 0
+    var columnIndex:Int = 0
+    for (row <- matrix)
+    {
+      columnIndex = 0
+      for (number <- row)
+      {
+        println("matrix(" + rowIndex + ")(" + columnIndex + ") = " + number)
+        columnIndex += 1
+      }
+      rowIndex += 1
+    }
+  }
 }
-=========================================================
-=========================================================
+
+
+==========================================================================================
+
 import java.io.{File, FileNotFoundException}
 import java.util.Scanner
 
