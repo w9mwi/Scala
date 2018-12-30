@@ -1,5 +1,5 @@
 
-The majority of classes in the java.io pakage are subtypes of
+The majority of classes in the java.io package are subtypes of
 one of these four different abstract types:
 
 ___ InputStream - The basic methods work on bytes  Here are some of them:
