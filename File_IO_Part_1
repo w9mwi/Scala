@@ -146,7 +146,6 @@ object Demo
 }
 
 ==========================================================================================
-
 import java.io.{File, FileNotFoundException}
 import java.util.Scanner
 
@@ -158,44 +157,55 @@ object Demo
   {
     try
     {
-      // Instead of reading text from a file, the following line of code
-      // reads text from a URL.  This text is then converted to a String.
-      val text:BufferedSource = Source.fromURL("https://www.yahoo.com/")
-      val pop = text.mkString
+      // NOTE: The identityMatrix.txt file referenced below contains the following text.
+      //       Where there MUST NOT be any chars after the final 0 char shown below.
+      //       1.0, 0.0, 0.0,
+      //       0.0, 1.0, 0.0,
+      //       0.0, 0.0, 1.0
+      val filePathAndName:String = "/home/tbouril/identityMatrix.txt"
 
-      // Below we use the Java Scanner class to read one "word" at a time,
-      // and print it to the console.  Where "word" is any text String
-      // separated by the delimiter, and the delimiter is whitespace by default.
-      val filePathAndName:String = "/home/tbouril/ch8.txt"
+      // Below we use the Java Scanner class to read from the file one "word"
+      // at a time, and print it to the console.  Where "word" is any text
+      // string separated by the delimiter.  If you don't specify a delimiter
+      // (as is done below by calling useDelimiter()), the default delimiter
+      // is whitespace (a space char, tab char, etc.).  FYI, calling the
+      // Calling the reset() method sets the Scanner to the default delimiter
+      // (whitespace).
       val scan:Scanner = new Scanner(new File(filePathAndName))
-      while (scan.hasNext)
-      {
-        println(scan.next())
-      }
-      scan.close() // Don't forget to close the Scanner!
+
+      // Set the delimiter pattern for the file we're reading.  The following delimiter
+      // pattern (" *, *") means that zero or more space chars can occur BEFORE the
+      // comma, AND zero or more space chars can occur AFTER the comma.
+      scan.useDelimiter(" *, *")
+
+      // The following while() loop prints the contents of scan with
+      // a single space char after each number, as is shown below...
+      while (scan.hasNext) { print(scan.next() + " ") }
+      // PRINTS: 1.0 0.0 0.0
+      //         0.0 1.0 0.0
+      //         0.0 0.0 1.0
+
+        // The following while() loop prints NOTHING because the scan iterator is "spent."
+      while (scan.hasNext) { print(scan.next() + " ")}
+
+      scan.close() // Close the Scanner when done using it.
+
+      // Instead of reading text from a file, the following line of code reads text from
+      // a URL.  This text is then converted to a string and printed to the console.
+      val yahooText:BufferedSource = Source.fromURL("https://www.yahoo.com/")
+      println(yahooText.mkString)
+
+      // The following println PRINTS NOTHING because the yahooText iterator
+      // was "spent" in its above call to mkString
+      println(yahooText.mkString)
     }
     catch
-    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
+      { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 }
-=========================================================
-import java.io.File
-import java.util.Scanner
 
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    // ints.txt is a text file of integers separated by space
-    // and newline chars.
-    val scan:Scanner = new Scanner(new File("/home/tbouril/ints.txt"))
+==========================================================================================
 
-    // Read each Int from the ints.txt file and print them to the console window.
-    while (scan.hasNextInt)
-    { println("Integer = " + scan.nextInt) }
-  }
-}
-=========================================================
 import java.io.{FileNotFoundException, FileWriter, PrintWriter}
 import scala.io.{BufferedSource, Source}
 
@@ -238,7 +248,8 @@ object Demo
     def replaceChar:(Char => Char) = { (a:Char) => if (a == ' ') '\n' else a }
   }
 }
-=========================================================
+
+==========================================================================================
 import java.io.{FileNotFoundException, PrintWriter}
 import scala.io.{BufferedSource, Source}
 
@@ -278,8 +289,8 @@ object Demo
     in.close();  pw.close();
   }
 }
-=========================================================
-=========================================================
+
+==========================================================================================
 import scala.io.Source
 
 object Demo
@@ -343,5 +354,4 @@ object Demo
     nd // Return the NameData tuple.
   }
 }
-=========================================================
-=========================================================
+==========================================================================================
