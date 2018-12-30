@@ -321,69 +321,104 @@ object Demo
   }
 }
 
-
 ==========================================================================================
 import scala.io.Source
 
 object Demo
 {
-  type NameData = (String, Int, String, Int)
+  // The following defined type NameData is a tuple that corresponds to data
+  // data values contained in every line of text in the WI.TXT file, which
+  // this program reads from.
+  type NameData = (String, Int, String, Int) // Corresponds to: (sex, year, name, numberBorn)
 
   def main(args: Array[String]) =
   {
-    // Each line of the WI.TXT file contains comma-delimted String
-    // data in this format:  stateAbbreviation, sex, year, name, numberBorn
-    // EXAMPLE:  WI,M,1958,Thomas,1445
-    val fileName:String = "/home/tbouril/ScalaData/WI.TXT"
+    // Each line of the WI.TXT file (that is read from below) contains a comma-delimited
+    // string of data in this format:  stateAbbreviation, sex, year, name, numberBorn
+    // The following is a snippet of text from the WI.TXT file:
+    // WI,F,1910,Mary,260
+    // WI,F,1910,Helen,252
+    // WI,F,1910,Margaret,244
+    // WI,F,1910,Dorothy,207
+    // WI,F,1910,Evelyn,186
+    // WI,F,1910,Alice,165
+    // WI,F,1910,Ruth,162
+    // WI,F,1910,Mildred,147
+    // WI,F,1910,Marie,145
+    // WI,F,1910,Florence,134
+    // WI,M,1958,Thomas,1445
+    // WI,F,1959,Rose,100
+    // WI,F,1959,Mary,1775
+    // WI,F,1960,Pam,69
+    // WI,F,1960,Roxanne,69
+    // WI,F,1960,Sheryl,69
+    val fileName:String = "/home/tbouril/software_dev/scala/ScalaData/WI.TXT"
 
-    // Initialize an Array[String], where each element of the Array
-    // contains a single line of text obtained from the WI.TXT file.
+    // The following line of code reads every line of text from the WI.TXT file
+    // into nameArray.  The number of elements in nameArray will equal the number
+    // of lines (rows) of text in the WI.TXT file.
     val nameArray:Array[String]  = Source.fromFile(fileName).getLines().toArray
+    println("nameArray.length = " + nameArray.length + " (Equals the number of lines in the WI.TXT file.)")
+
+    // The following line of code calls the map() function on every element of nameArray,
+    // and returns an Array of type NameData.  The nameData Array will contains the same
+    // number of elements as nameArray.  But the nameData Array has elements of type NameData.
     val nameData:Array[NameData] = nameArray.map(parseLine)
+    println("nameData.length = " + nameData.length)
 
-    // Print the NameData tuple obtained from every element of the nameData Array.
-    // nameData.foreach(println)
-
-    println("nameArray contains " + nameArray.length + " lines of text.")
-
+    // Set the following 3 vals to the sex, year, and name you want to filter on.
     val sex:String  = "M"
     val year:Int    = 1958
     val name:String = "Thomas"
-    val data:Array[NameData] = nameData.filter(nd => nd._1.equalsIgnoreCase(sex)  &&
-                                               nd._2 == year  &&
-                                               nd._3.equalsIgnoreCase(name))
 
-    // NOTE: Because of the way the WI.TXT file's data is defined, the data
-    //       Array should always contain either zero elements, or one element.
-    println("data contains " + data.length + " element(s).")
-    if (data.length == 1)
-    { println("Year = " + year + ", Sex = " + sex + ", Name = " + name + ", Number Born = " + data(0)._4) }
+    // The following line of code filters the nameData Array on the sex, year, and name
+    // defined above.  The filteredData Array will get assigned the filtered result.
+    // Since only one line of text in WI.TXT can possibly match the filter settings,
+    // the filteredData Array will contain either 0 elements (if no data matches the
+    // filter) or 1 element.
+    var filteredData:Array[NameData] = nameData.filter(data => data._1.equalsIgnoreCase(sex) &&
+                                                       data._2 == year &&
+                                                       data._3.equalsIgnoreCase(name))
+    if (filteredData.length == 1)
+    { println("Year = " + year + ", Sex = " + sex + ", Name = " + name + ", Number Born = " + filteredData(0)._4) }
     else
     { println("No data found for Year = " + year + ", Sex = " + sex + ", Name = " + name) }
 
-    val female1959:Array[NameData] = nameData.filter(x => x._1 == "F"  &&  x._2 == 1959)
-    var maxNames:Int = female1959.map(_._4).max
+    // Filter the nameData Array on females born in 1959.
+    filteredData = nameData.filter(data => data._1 == "F"  &&  data._2 == 1959)
+    println("Number of females born in 1959 = " + filteredData.length)
+
+    // For all the elements contained in filteredData, obtain the maximum number contained
+    // in the tuple's 4th element.  We'll use this mostPopular Int value below.
+    var mostPopular:Int = filteredData.map(_._4).max
 
     // Print the NameData for the most common female name(s) born in 1959.
-    female1959.filter(_._4 == maxNames).foreach(println)
+    println("The most popular female names of 1959 are: ")
+    filteredData.filter(_._4 == mostPopular).foreach(println)
 
     // Print the NameData for all female names occurring 100 times and born in 1959.
-    val rose:Array[NameData] = nameData.filter(x => x._1 == "F"  &&  x._2 == 1959  &&  x._4 == 100)
-    rose.foreach(println)
+    println("List of all females names born in 1959, where the total born was 100:")
+    filteredData = nameData.filter(x => x._1 == "F"  &&  x._2 == 1959  &&  x._4 == 100)
+    filteredData.foreach(println)
   }
 
   /**
-    * Pass this function a line of text delimited by commas where the line
-    * of text has this format: (String, String, Int, String, Int).  Then,
-    * return the final 4 values of that String as the type NameData.
-    * @param line
-    * @return
+    * Pass this function a single line of text read from the WI.TXT file.
+    * Return 4 values of data from that line of text as the tuple defined
+    * by NameData at the top of this program.
     */
   def parseLine(line:String): NameData =
   {
-    val parts:Array[String] = line.split(",")
-    val nd:NameData = (parts(1), parts(2).toInt, parts(3), parts(4).toInt)
-    nd // Return the NameData tuple.
+    // The following line of code reads 5 data values (delimited by 4 commas) from
+    // the line of text passed to this function into the data Array.  This means
+    // the data Array will contain 5 elements, one element for each piece of data.
+    val data:Array[String] = line.split(",")
+
+    // Construct a NameData type (defined at the top of this program) from
+    // the data Array.  NOTE: We don't use the first element of the data Array
+    // (data(0)) because that's the state abbreviation, which we don't need.
+    val nameData:NameData = (data(1), data(2).toInt, data(3), data(4).toInt)
+    nameData
   }
 }
 ==========================================================================================
