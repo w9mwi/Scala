@@ -205,7 +205,6 @@ object Demo
 }
 
 ==========================================================================================
-
 import java.io.{FileNotFoundException, FileWriter, PrintWriter}
 import scala.io.{BufferedSource, Source}
 
@@ -217,35 +216,60 @@ object Demo
     {
       val filePathAndName:String = "/home/tbouril/output.txt"
 
-      // Create a new file, then write 100 random numbers to it,
+      // Create a new file, then write 5 random numbers to it,
       // where each number is followed by a single-space char.
       var pw = new PrintWriter(filePathAndName)
-      for (idx <- 1 to 100) { pw.print(math.random + " ") }
-      pw.flush();  pw.close(); // Don't forget to flush, then close the file!
+      for (idx <- 1 to 5) { pw.print(math.random + " ") }
+      pw.flush(); // flush the PrintWriter before it's used again below.
 
-      // Next, append 10 integers to the existing output.txt file created above.
+      // Next, append 5 integers to the existing output.txt file created above.
       // The "true" Boolean parameter below prevents the file from being overwritten
-      // if it already exists, so all new data will be appended to existing data.
+      // if it already exists, so all new data will be APPENDED to existing data.
       pw = new PrintWriter(new FileWriter(filePathAndName, true))
-      for (idx <- 1 to 10) { pw.print(idx + " ") }
-      pw.flush();  pw.close(); // Don't forget to flush, then close the file!
+      for (idx <- 1 to 5) { pw.print(idx + " ") }
+      pw.flush(); // Always flush the PrintWriter before closing it.
+      pw.close(); // Always close the PrintWriter when done using it.
 
-      // Next, open the output.txt file that was created above,
-      // then print its contents to the console window.
+      // Open the output.txt file that was created above,
+      // and print its contents to the console window.
       val fileSource:BufferedSource = Source.fromFile(filePathAndName)
       val stringOfNumbers:String = fileSource.mkString.map(replaceChar)
-      println("stringOfNumbers = " + stringOfNumbers)
-      fileSource.close() // Don't forget to close the file!
+      fileSource.close() // Close the file when done using it.
+      println(stringOfNumbers)
+      // NOTE: The first 5 numbers printed will be different than the ones shown below, as they're random numbers.
+      // PRINTS: 0.648140024571042
+      //         0.40746398975208087
+      //         0.31017414471515214
+      //         0.5752929936068312
+      //         0.6250777711271934
+      //         1
+      //         2
+      //         3
+      //         4
+      //         5
+
+      // NOTE: It may be difficult to understand the replaceChar() function because
+      //       in its definition below it appears to not take an argument, and it
+      //       appears to return a function.  In reality, replaceChar() is passed
+      //       a Char, and returns a Char.  Notice how the replaceChar() function is
+      //       passed to the map() function above, and how it's called here...
+      val myChar:Char = replaceChar(' ')
+      println(myChar) // Prints the newline char ('\n'), which is invisible.
     }
     catch
-    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
-
+      { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
 
     /**
-      * This function replaces ' ' Chars with '\n' Chars,
-      * @return
+      * This function gets passed a Char value and returns a Char value.
+      * NOTICE the unconventional-looking syntax for this function!!!
+      *
+      * @return a newline ('\n') Char when passed a space (' ') Char;
+      *         otherwise, return the same Char passed to this function.
       */
-    def replaceChar:(Char => Char) = { (a:Char) => if (a == ' ') '\n' else a }
+    def replaceChar:(Char => Char) =
+    {
+      (myChar:Char) => (if (myChar == ' ') '\n' else myChar)
+    }
   }
 }
 
