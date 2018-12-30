@@ -48,12 +48,14 @@ object Demo
   {
     import java.io.FileInputStream
 
-    val fis:FileInputStream  = new FileInputStream("/home/tbouril/ch8.txt")
+    // Read every byte from the ch8.txt file, then print to the
+    // console every one of those bytes as an 8-bit Int value.
+    val fis:FileInputStream  = new FileInputStream("/home/tbouril/software_dev/scala/ScalaData/ch8.txt")
     var byte:Int = fis.read()
     while (byte > 0)
     {
-      print(byte + " ") // PRINTS: Every character of the input file as an 8-bit Int value.
-      byte = fis.read()
+      print(byte + " ") // Prints the byte as an 8-bit Int value.
+      byte = fis.read() // Read the next byte of the file.
     }
     fis.close()
   }
