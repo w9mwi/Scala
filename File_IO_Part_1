@@ -283,36 +283,44 @@ object Demo
   {
     try
     {
+      // NOTE: This program won't work unless you first create the input.txt file.
+      //       shown below.  The input.txt file should contain multiple lines of
+      //       mostly lower-case chars.  This program will then convert all those
+      //       chars to upper-case, and write the results to the output.txt file.
       val inFile:String  = "/home/tbouril/input.txt"
       val outFile:String = "/home/tbouril/output.txt"
 
-      // The literal function c=>c.toUpper is what's
-      // used to convert chars to uppercase.
-      mapFile(inFile, outFile, c=>c.toUpper)
+      // The literal function c=>c.toUpper is what's used to convert
+      // all lower-case chars to upper-case chars.
+      convertFile(inFile, outFile, c=>c.toUpper)
     }
     catch
-    { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
+      { case fnfe:FileNotFoundException => println("File Not Found, Jack!") }
   }
 
   /**
-    * This function reads from the inFile, and writes that text to the
-    * the outFile as all upper-case chars.
+    * This function reads from the infile param passed to this method,
+    * converts all its lower-case chars to upper-case chars, and then
+    * writes the results to the outfile param passed to this method.
     *
     * @param inFile - An input file that contains text.
     * @param outFile - An output file that contains text copied from the inFile.
     * @param trans - A literal function that converts a char to uppercase.
     */
-  def mapFile(inFile:String, outFile:String, trans:Char=>Char): Unit =
+  def convertFile(inFile:String, outFile:String, trans:Char=>Char): Unit =
   {
     val pw:PrintWriter    = new PrintWriter(outFile)
     val in:BufferedSource = Source.fromFile(inFile)
 
-    // The following for() loop converts each Char read from the
-    // inFile to upper case, then writes it to the outFile.
-    for (c <- in) { pw.print(if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') trans(c) else c) }
-    in.close();  pw.close();
+    // The following for() loop reads each char (one-by-one) from the
+    // inFile.  It then converts each lower-case char to upper-case
+    // (if applicable), and writes all chars (whether converted to
+    // lower-case or not) to the outfile.
+    for (char <- in) { pw.print(if (char >= 'a' && char <= 'z') trans(char) else char) }
+    in.close();  pw.close();  // Close the input and output files.
   }
 }
+
 
 ==========================================================================================
 import scala.io.Source
