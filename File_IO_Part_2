@@ -61,19 +61,22 @@ object Demo
   }
 }
 =========================================================================================
+This program copies one file to another file.
+
 object Demo
 {
-  def main(args: Array[String])
+  def main(args: Array[String]):Unit =
   {
     import java.io.{FileInputStream, FileNotFoundException, FileOutputStream, IOException}
 
     try
     {
-      // Copy the file designated by the FileInputStream
-      // to a new file designated by the FileOutputStream...
-      val fis = new FileInputStream("/home/tbouril/ch8.txt")
-      val fos = new FileOutputStream("/home/tbouril/ch8_copy.txt")
+      // This program copies one file to another file.
+      val fis = new FileInputStream("/home/tbouril/software_dev/scala/ScalaData/ch8.txt")
+      val fos = new FileOutputStream("/home/tbouril/software_dev/scala/ScalaData/ch8_copy.txt")
       var byte = fis.read()
+      // Read one byte at a time from the input file (which already exists), and write that
+      // byte to an output file.  The output file will be an exact copy of the input file.
       while (byte > 0)
       {
         fos.write(byte)
@@ -88,8 +91,8 @@ object Demo
       //       is the value of the "catch" for that particular "case."  If the try block
       //       throws an exception, but that exception is NOT caught in the "catch" block,
       //       the value returned by the "try' block is the Scala type "Nothing".
-      case poop:FileNotFoundException => println("The input or output file cannot be found.")
-      case poop:IOException => println("There was an IOException related to the input or output file.")
+      case fail:FileNotFoundException => println("The input or output file cannot be found.")
+      case fail:IOException => println("There was an IOException related to the input or output file.")
     }
   }
 }
