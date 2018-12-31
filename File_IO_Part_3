@@ -91,7 +91,7 @@ object Demo
     // the number of elements in arrayOfDoubles.  Then,
     // write the contents of arrayOfDoubles to the file...
     withDOS(fileName)(dos => { dos.writeInt(arrayOfDoubles.size);
-                               arrayOfDoubles.foreach(x => dos.writeDouble(x))  })
+    arrayOfDoubles.foreach(x => dos.writeDouble(x))  })
   }
 
   def readArrayOfDoubles_1(fileName:String):Array[Double] =
@@ -100,7 +100,10 @@ object Demo
     // 1) Creates an Array[Double] containing the number of elements obtained from
     //    calling dis.readInt.
     // 2) The Array[Double] created is filled with values by calling dis.readDouble.
-    // 3) The Array[Double] that gets created is then returned by this function.
+    // 3) dis.readInt gets called before dis.readDouble.  dis.readDouble gets called
+    //    multiple times.  The number of times it gets called is equal to the number
+    //    returned by dis.readInt.
+    // 4) The Array[Double] that gets created is then returned by this function.
     val dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName)))
     try { Array.fill(dis.readInt)(dis.readDouble) } finally { dis.close() }
   }
@@ -111,7 +114,10 @@ object Demo
     // 1) Creates an Array[Double] containing the number of elements obtained from
     //    calling dis.readInt.
     // 2) The Array[Double] created is filled with values by calling dis.readDouble.
-    // 3) The Array[Double] that gets created is then returned by this function.
+    // 3) dis.readInt gets called before dis.readDouble.  dis.readDouble gets called
+    //    multiple times.  The number of times it gets called is equal to the number
+    //    returned by dis.readInt.
+    // 4) The Array[Double] that gets created is then returned by this function.
     withDIS(fileName)(dis => Array.fill(dis.readInt)(dis.readDouble))
   }
 
