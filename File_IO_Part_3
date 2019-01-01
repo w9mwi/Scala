@@ -41,9 +41,10 @@ val dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fil
 The following sample program creates an Array[Double] type that contains 10 elements.
 Each of those 10 elements contain a random number of type double.  The Array is
 then written to a file.  Finally, that file is read, and its contents are printed
-to the console.  The sample code below performs this TWO TIMES, the only difference
-between the two are how it's done.  Read the in-line comments below for details.
+to the console.
 
+The sample code below contains 3 SECTIONS.  Each section does exactly the same thing,
+but does it in a different way.  Read the in-line comments below for details.
 object Demo
 {
   import java.io._
@@ -52,22 +53,31 @@ object Demo
   {
     val fileName:String = "/home/tbouril/arrayOfDoubles.bin"
 
+    println("SECTION 1 =====================")
     // NOTE: This section of code does exactly the same thing as the
-    //       BELOW section of code, except it calls...
-    //       writeArrayOfDoubles_1() instead of writeArrayOfDoubles_2()
-    //       readArrayOfDoubles_1() instead of readArrayOfDoubles_2()
-    writeArrayOfDoubles_1(fileName, Array.fill(10)(math.random))
+    //       BOTH BELOW SECTIONS of code, except it calls...
+    //       1) writeArrayOfDoubles_1()
+    //       2) readArrayOfDoubles_1()
+    writeArrayOfDoubles_1(fileName, Array.fill(5)(math.random))
     var doubleArray:Array[Double] = readArrayOfDoubles_1(fileName)
     doubleArray.foreach(println) // PRINTS: The entire contents of doubleArray.
 
-    println("=====================")
-
-    // NOTE: This section of code does exactly the same thing as the
-    //       ABOVE section of code, except it calls...
-    //       writeArrayOfDoubles_2() instead of writeArrayOfDoubles_1()
-    //       readArrayOfDoubles_2() instead of readArrayOfDoubles_1()
-    writeArrayOfDoubles_2(fileName, Array.fill(10)(math.random))
+    println("\nSECTION 2 =====================")
+    // NOTE: This section of code does exactly the same thing as
+    //       BOTH ABOVE AND BELOW SECTIONS of code, except it calls...
+    //       1) writeArrayOfDoubles_2()
+    //       2) readArrayOfDoubles_2()
+    writeArrayOfDoubles_2(fileName, Array.fill(5)(math.random))
     doubleArray = readArrayOfDoubles_2(fileName)
+    doubleArray.foreach(println) // PRINTS: The entire contents of doubleArray.
+
+    println("\nSECTION 3 =====================")
+    // NOTE: This section of code does exactly the same thing as the
+    //       BOTH ABOVE SECTIONS of code, except it calls...
+    //       1) writeArrayOfDoubles_2() with a println() statement to BETTER UNDERSTAND CURRYING!!!
+    //       2) readArrayOfDoubles_3()
+    writeArrayOfDoubles_2(fileName, Array.fill(5){println("SECTION 3 of main() called."); math.random})
+    doubleArray = readArrayOfDoubles_3(fileName)
     doubleArray.foreach(println) // PRINTS: The entire contents of doubleArray.
   }
 
@@ -79,23 +89,21 @@ object Demo
     {
       // Write an Int value to the file that designates
       // the number of elements in arrayOfDoubles.
-      dos.writeInt(arrayOfDoubles.size)
-      // Write the contents of arrayOfDoubles to the file...
-      arrayOfDoubles.foreach(x => dos.writeDouble(x))
+      dos.writeInt(arrayOfDoubles.size)               // Writes the array's size to the file.
+      arrayOfDoubles.foreach(x => dos.writeDouble(x)) // Writes the array's entire contents to the file.
     } finally { dos.close() }
   }
 
   def writeArrayOfDoubles_2(fileName:String, arrayOfDoubles:Array[Double])
   {
-    // Write an Int value to the file that designates
-    // the number of elements in arrayOfDoubles.  Then,
-    // write the contents of arrayOfDoubles to the file...
-    withDOS(fileName)(dos => { dos.writeInt(arrayOfDoubles.size);
-    arrayOfDoubles.foreach(x => dos.writeDouble(x))  })
+    withDOS(fileName)(dos => { dos.writeInt(arrayOfDoubles.size) // Writes the array's size to the file.
+    arrayOfDoubles.foreach(x => dos.writeDouble(x))  })          // Writes the array's entire contents to the file.
   }
 
   def readArrayOfDoubles_1(fileName:String):Array[Double] =
   {
+    val dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName)))
+
     // The following call to Array.fill(dis.readInt)(dis.readDouble) does the following:
     // 1) Creates an Array[Double] containing the number of elements obtained from
     //    calling dis.readInt.
@@ -104,7 +112,6 @@ object Demo
     //    multiple times.  The number of times it gets called is equal to the number
     //    returned by dis.readInt.
     // 4) The Array[Double] that gets created is then returned by this function.
-    val dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName)))
     try { Array.fill(dis.readInt)(dis.readDouble) } finally { dis.close() }
   }
 
@@ -121,19 +128,12 @@ object Demo
     withDIS(fileName)(dis => Array.fill(dis.readInt)(dis.readDouble))
   }
 
-  def withDOS[A](fileName:String)(func:DataOutputStream => A):A =
+  def readArrayOfDoubles_3(fileName:String):Array[Double] =
   {
-    // NOTE: Because this function is a parametric function, the func
-    //       parameter passed can return different data types.  Whatever
-    //       data type the func parameter returns will also be the data
-    //       type returned by this function.  In this example that
-    //       data type is Array[Double].
-    //
-    // This function opens the fileName that is passed as a parameter, then
-    // it executes the func that is passed as a parameter.  This function
-    // returns the same data type that its func parameter returns.
-    val dos:DataOutputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)))
-    try { func(dos) } finally { dos.close() }
+    // NOTE: The ONLY difference between this function and readArrayOfDoubles_2()
+    //       is that this function contains a println() statement so you can see
+    //       when dis.readDouble() get scalled, and you can BETTER UNDERSTAND CURRYING!!!
+    withDIS(fileName)(dis => Array.fill(dis.readInt){println("readArrayOfDoubles_3() called."); dis.readDouble})
   }
 
   def withDIS[A](fileName:String)(func:DataInputStream => A):A =
@@ -149,6 +149,21 @@ object Demo
     // returns the same data type that its func parameter returns.
     val dis:DataInputStream = new DataInputStream(new BufferedInputStream(new FileInputStream(fileName)))
     try { func(dis) } finally { dis.close() }
+  }
+
+  def withDOS[A](fileName:String)(func:DataOutputStream => A):A =
+  {
+    // NOTE: Because this function is a parametric function, the func
+    //       parameter passed can return different data types.  Whatever
+    //       data type the func parameter returns will also be the data
+    //       type returned by this function.  In this example that
+    //       data type is Array[Double].
+    //
+    // This function opens the fileName that is passed as a parameter, then
+    // it executes the func that is passed as a parameter.  This function
+    // returns the same data type that its func parameter returns.
+    val dos:DataOutputStream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)))
+    try { func(dos) } finally { dos.close() }
   }
 }
 ========================================================================================
