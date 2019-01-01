@@ -38,8 +38,8 @@ val dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileNa
 val dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)))
 
 ========================================================================================
-The following sample program creates an Array[Double] type that contains 10 elements.
-Each of those 10 elements contain a random number of type double.  The Array is
+The following sample program creates an Array[Double] type that contains 5 elements.
+Each of those 5 elements contain a random number of type double.  The Array is
 then written to a file.  Finally, that file is read, and its contents are printed
 to the console.
 
