@@ -7,6 +7,11 @@ for efficiency.  If an Iterator was designed to be reusable, iterating
 through a file would be less efficient.  And, as was just stated,
 there is no good reason to iterate through a file more than once.
 
+Just as the Array and List types are parametric (you can have
+List[String], List[Char], Array[Double], Array[Any], etc.),
+so are Iterators.  Source and BuferedSource are specifically
+Iterator[Char].
+
 import java.io.FileNotFoundException
 import scala.io.{BufferedSource, Source}
 
