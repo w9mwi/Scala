@@ -36,7 +36,7 @@ object Demo
       // of filePathAndName, exactly as it'd appear in a text editor.
       println("The fileContents iterator is NOT SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
       fileContents.foreach(println)
-      println("The fileContents iterator is IS SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
+      println("The fileContents iterator IS SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
 
       // The following line of code PRINTS NOTHING to the console because
       // the file iterator has been "spent."
