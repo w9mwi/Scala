@@ -45,6 +45,7 @@ to the console.
 
 The sample code below contains 3 SECTIONS.  Each section does exactly the same thing,
 but does it in a different way.  Read the in-line comments below for details.
+
 object Demo
 {
   import java.io._
