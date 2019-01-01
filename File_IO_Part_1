@@ -1,5 +1,12 @@
 
-The following example shows how to read a text file, and print its contents to the screen.
+The following example shows how to read a text file without an Iterator,
+and again with an Iterator.  And then print the files contents to the
+console.  Because reading/writing files is very slow, you'll want to do
+all reading/writing in a single swoop.  This is why an Iterator gets
+"spent", because it's designed for efficiency.  If an Iterator was
+designed to be reusable, iterating through a file would be less
+efficient.  And, as was just stated, there is no good reason to
+iterate through a file more than once.
 
 import java.io.FileNotFoundException
 import scala.io.{BufferedSource, Source}
@@ -34,12 +41,12 @@ object Demo
       println("3) fileContents.foreach(println) = ")
       // The following line of code prints to the console the entire contents
       // of filePathAndName, exactly as it'd appear in a text editor.
-      println("The fileContents iterator is NOT SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
+      println("The fileContents Iterator is NOT SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
       fileContents.foreach(println)
-      println("The fileContents iterator IS SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
+      println("The fileContents Iterator IS SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
 
       // The following line of code PRINTS NOTHING to the console because
-      // the file iterator has been "spent."
+      // the fileContents iterator has been "spent."
       println("4) fileContents.mkString = " + fileContents.mkString)
       fileSource.close // Close the file because we're done using it.
     }
