@@ -1,6 +1,5 @@
 
 The following example shows how to read a text file, and print its contents to the screen.
-==========================================================================================
 
 import java.io.FileNotFoundException
 import scala.io.{BufferedSource, Source}
@@ -35,7 +34,9 @@ object Demo
       println("3) fileContents.foreach(println) = ")
       // The following line of code prints to the console the entire contents
       // of filePathAndName, exactly as it'd appear in a text editor.
+      println("The fileContents iterator is NOT SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
       fileContents.foreach(println)
+      println("The fileContents iterator is IS SPENT because fileContents.isEmpty() = " + fileContents.isEmpty)
 
       // The following line of code PRINTS NOTHING to the console because
       // the file iterator has been "spent."
