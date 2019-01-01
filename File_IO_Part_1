@@ -22,9 +22,9 @@ object Demo
 
       // The following line of code prints to the console the entire contents
       // of filePathAndName, exactly as it'd appear in a text editor.
-      println("The fileSource iterator is NOT SPENT because fileSource.isEmpty() = " + fileSource.isEmpty)
+      println("The fileSource Iterator is NOT SPENT because fileSource.isEmpty() = " + fileSource.isEmpty)
       println("1) fileSource.mkString = \n" + fileSource.mkString)
-      println("The fileSource iterator IS SPENT because fileSource.isEmpty() = " + fileSource.isEmpty)
+      println("The fileSource Iterator IS SPENT because fileSource.isEmpty() = " + fileSource.isEmpty)
 
       // The following line of code PRINTS NOTHING to the console because
       // the file iterator has been "spent."
