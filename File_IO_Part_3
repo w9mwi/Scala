@@ -132,7 +132,7 @@ object Demo
   {
     // NOTE: The ONLY difference between this function and readArrayOfDoubles_2()
     //       is that this function contains a println() statement so you can see
-    //       when dis.readDouble() get scalled, and you can BETTER UNDERSTAND CURRYING!!!
+    //       when dis.readDouble() gets called, and you can BETTER UNDERSTAND CURRYING!!!
     withDIS(fileName)(dis => Array.fill(dis.readInt){println("readArrayOfDoubles_3() called."); dis.readDouble})
   }
 
