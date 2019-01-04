@@ -18,27 +18,58 @@ object Demo
     val numberOctal:Int        = Integer.parseInt("7654321", 8) // Returns the octal number as a Base-10 Int.
     val numberOctalBig:BigInt  = BigInt("76543217654321234", 8) // Returns the octal number as a Base-10 BigInt.
 
+    //       %c - Prints Char characters.
+    //       %d - Prints integer number types (BigInt, Int, Long) as Base-10 integers.
+    //       %e - Prints floating-point number types (Double, Float) in Base-10 exponent notation.
+    //       %f - Prints floating-point number types (Double, Float).
+    //       %g - Prints floating-point number types (Double, Float).  Substitutes %e or %f dependent on the number.
+    //       %o - Prints integer numbers in octal format.
+    //       %s - Prints Strings.
+    //       %x - Prints integer numbers in hexadecimal format.
     // NOTE: numberBinary is printed as a binary number by calling Java's Integer.toBinaryString() method.
     //       There is no similar method available to print numberBinaryBig as a binary number.
-    //       %c - Print Char characters.
-    //       %d - Print integer number types (BigInt, Int, Long) as Base-10 integers.
-    //       %e - Print floating-point number types (Double, Float) in Base-10 exponent notation.
-    //       %f - Print floating-point number types (Double, Float).
-    //       %g - Print floating-point number types (Double, Float).  Substitutes %e or %f dependent on the number.
-    //       %o - Print integer numbers in octal format.
-    //       %s - Print Strings.
-    //       %x - Print integer numbers in hexadecimal format.
-    printf("numberBinary = %s\n", Integer.toBinaryString(numberBinary))
-    printf("numberBigInt = %d  -  numberLong = %d  -  numberInt = %d\n", numberBigInt, numberLong, numberInt)
-    printf("numberDouble = %f  -  numberFloat = %f\n", numberDouble, numberFloat)
-    printf("numberDouble = %e  -  numberFloat = %e\n", numberDouble, numberFloat)
-    printf("numberDouble = %g  -  numberFloat = %g\n", numberDouble, numberFloat)
-    printf("numberHex = %x  -  numberHexBig = %x\n", numberHex, numberHexBig)
-    printf("numberOctal = %o  -  numberOctalBig = %o\n", numberOctal, numberOctalBig)
+    printf("A) numberBinary = %s\n", Integer.toBinaryString(numberBinary))
+    printf("B) numberBigInt = %d  |  numberLong = %d  |  numberInt = %d\n", numberBigInt, numberLong, numberInt)
+    printf("C) numberDouble = %f  |  numberFloat = %f\n", numberDouble, numberFloat)
+    printf("D) numberDouble = %e  |  numberFloat = %e\n", numberDouble, numberFloat)
+    printf("E) numberDouble = %g  |  numberFloat = %g\n", numberDouble, numberFloat)
+    printf("F) numberHex    = %x  |  numberHexBig = %x\n", numberHex, numberHexBig)
+    printf("G) numberOctal  = %o  |  numberOctalBig = %o\n", numberOctal, numberOctalBig)
 
     // The following code shows how to print a Char and String.
     val myChar:Char         = 'X'
     val cityAndState:String = "Manitowoc, Wisconsin"
-    printf("myChar = %c  -  cityAndState = %s\n", myChar, cityAndState)
+    printf("H) myChar = %c  |  cityAndState = %s\n", myChar, cityAndState)
+
+    println("\n==================================================\n")
+
+    val numberDouble_2:Double = -1234567890.987655D
+    val numberFloat_2:Float   = 887766.55F
+    // In the following printf()...
+    // %20.5f - Prints the number 5 places after the decimal, right-justified, in a field 20-chars wide.
+    // %15.2f - Prints the number 2 places after the decimal, right-justified, in a field 15-chars wide.
+    // PRINTS: "I) numberDouble_2 =    -1234567890.98766, numberFloat_2 =       887766.56"
+    printf("I) numberDouble_2 = %20.5f, numberFloat_2 = %15.2f\n", numberDouble_2, numberFloat_2)
+    // In the following printf()...
+    // %20.4e - Prints the number in exp. notation, 4 places after the decimal, right-justified, in a field 20-chars wide.
+    // %15.3e - Prints the number in exp. notation, 3 places after the decimal, right-justified, in a field 15-chars wide.
+    // PRINTS: "J) numberDouble_2 =          -1.2346e+09, numberFloat_2 =       8.878e+05"
+    printf("J) numberDouble_2 = %20.4e, numberFloat_2 = %15.3e\n", numberDouble_2, numberFloat_2)
+    // In the following printf()...
+    // %20.5g - Prints the number in exp. notation, accurate to 5 places, right-justified, in a field 20-chars wide.
+    // %15.3g - Prints the number in exp. notation, accurate to 3 places, right-justified, in a field 15-chars wide.
+    // PRINTS: "K) numberDouble_2 =          -1.2346e+09, numberFloat_2 =        8.88e+05"
+    printf("K) numberDouble_2 = %20.5g, numberFloat_2 = %15.3g\n", numberDouble_2, numberFloat_2)
+
+    val numberInt_2:Int       = 12345
+    val numberLong_2:Long     = -9876543210123L
+    val numberBigInt_2:BigInt = BigInt("12345678901234567890")
+    // In the following printf()...
+    // %10d - Prints the integer number, right-justified, in a field 10-chars wide.
+    // %15d - Prints the integer number, right-justified, in a field 15-chars wide.
+    // %25d - Prints the integer number, right-justified, in a field 20-chars wide.
+    // PRINTS: "L) numberInt_2 =      12345, numberLong_2 =  -9876543210123, numberBigInt_2 =      12345678901234567890"
+    printf("L) numberInt_2 = %10d, numberLong_2 = %15d, numberBigInt_2 = %25d\n", numberInt_2, numberLong_2, numberBigInt_2)
+
   }
 }
