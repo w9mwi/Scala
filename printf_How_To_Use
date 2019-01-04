@@ -70,6 +70,5 @@ object Demo
     // %25d - Prints the integer number, right-justified, in a field 20-chars wide.
     // PRINTS: "L) numberInt_2 =      12345, numberLong_2 =  -9876543210123, numberBigInt_2 =      12345678901234567890"
     printf("L) numberInt_2 = %10d, numberLong_2 = %15d, numberBigInt_2 = %25d\n", numberInt_2, numberLong_2, numberBigInt_2)
-
   }
 }
