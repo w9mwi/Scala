@@ -16,7 +16,7 @@ object Demo
 
     // When the squareFunction declaration is made above, the Scala compiler
     // translates that code into the following commented-out code, where the
-    // "new Function1[Int, Int]" text is optional...
+    // "new Function1[Int, Int]" text shown below is optional...
     // val squareFunction:(Int => Int) = new Function1[Int, Int]
     // {
     //   def apply(x: Int):Int = mySquare(x)
@@ -30,9 +30,8 @@ object Demo
     println("result = " + result) // PRINTS: result = List(49, 81)
   }
 
-  /**
-    * mySquare()
-    */
+  /****************************
+  * The mySquare() function...
+  ****************************/
   def mySquare(x:Int):Int = { x * x }
-
 }
