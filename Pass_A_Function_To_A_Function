@@ -17,20 +17,19 @@ object Demo
   }
 
   /**
-    * NOTICE: The third argument to this function is written like this:
-    *         addOneToChar:(Char => Char)
+    * NOTICE: The third argument to the mapFile() function below is
+              written like this:  addOneToChar:(Char => Char)
     *
-    * HERE'S HOW TO UNDERSTAND THIS 3rd ARGUMENT...
-    *
+    * HOW TO UNDERSTAND THE SYNTAX OF PASSING A FUNCTION TO A FUNCTION...
     * When a function is passed to a function as an argument, that argument
-    * is written just like it's an Int, Float, String, List, etc.  In other
-    * words, a colon separates the argument name and the argument data type,
-    * Like this...
+    * is written just like it's an Int, Float, String, or List data type.
+    * In other words, a colon separates the argument name and the argument
+    * data type.  Like this...
     *
     * function(myInt:Int, myString:String, myFloat:Float, myList:List, myFunction:(Float => Int))
     *
     * Where myFunction is the name of the parameter, and "Float => Int" represents
-    * a function that gets passed a Float, and returns an Int.
+    * a function that gets passed a Float type, and returns an Int type.
     */
   def mapFile(inputFileName:String, outputFileName:String, addOneToChar:(Char => Char)):Unit =
   {
