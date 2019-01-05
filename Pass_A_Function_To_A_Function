@@ -1,0 +1,46 @@
+The following code demonstrates how to pass a function to
+another function as an argument, and explains the syntax.
+
+import java.io.PrintWriter
+import scala.io.{BufferedSource, Source}
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val inputFileName  = "/home/tbouril/in.txt"
+    val outputFileName = "/home/tbouril/out.txt"
+
+    // Each alpha char contained in inputFileName will be incremented by one,
+    // and written to outputFileName...
+    mapFile(inputFileName, outputFileName, x=> (x.toInt + 1).toChar)
+  }
+
+  /**
+    * NOTICE: The third argument to this function is written like this:
+    *         addOneToChar:(Char => Char)
+    *
+    * HERE'S HOW TO UNDERSTAND THIS 3rd ARGUMENT...
+    *
+    * When a function is passed to a function as an argument, that argument
+    * is written just like it's an Int, Float, String, List, etc.  In other
+    * words, a colon separates the argument name and the argument data type,
+    * Like this...
+    *
+    * function(myInt:Int, myString:String, myFloat:Float, myList:List, myFunction:(Float => Int))
+    *
+    * Where myFunction is the name of the parameter, and "Float => Int" represents
+    * a function that gets passed a Float, and returns an Int.
+    */
+  def mapFile(inputFileName:String, outputFileName:String, addOneToChar:(Char => Char)):Unit =
+  {
+    val input:BufferedSource = Source.fromFile(inputFileName)
+    val pw:PrintWriter = new PrintWriter(outputFileName)
+    for (char <- input)
+    {
+      pw.print(if ((char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z')) addOneToChar(char) else char)
+    }
+    input.close()
+    pw.close()
+  }
+}
