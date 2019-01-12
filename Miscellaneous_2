@@ -25,6 +25,7 @@ object Demo
     val result_1:Array[Int] = array_1.flatten // result_1 = Array(9, 8, 7, 6, 5, 10, 11, 12, 13, 14, 15, 16)
     result_1.foreach(println) // PRINTS: 9 8 7 6 5 10 11 12 13 14 15 16
 
+    // PART 4) below prints the IDENTICAL results as PART 3) above...
     println("PART 4) ================================")
     val array_2:Array[Int] = Array(22, 33, 44)
     val array_3:Array[Int] = Array(55, 66, 77)
@@ -36,7 +37,6 @@ object Demo
       array.foreach(println) // PRINTS: 9 8 7 6 5 10 11 12 13 14 15 16
     }
 
-    // PART 5) below prints the IDENTICAL results as PART 4) above...
     println("PART 5) ================================")
     val result_2:List[Int] = list_4.flatten // result_2 = List(22, 33, 44, 55, 66, 77, 88, 99)
     result_2.foreach(println) // PRINTS: 22 33 44 55 66 77 88 99
