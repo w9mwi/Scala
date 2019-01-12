@@ -1,3 +1,5 @@
+The code below shows some examples on how to use thre flatten() method.
+
 import scala.collection.immutable.NumericRange
 import scala.collection.immutable
 
