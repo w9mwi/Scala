@@ -43,6 +43,7 @@ object Demo
   def main(args: Array[String]):Unit =
   {
     println("PART 1) ================================")
+    // NOTE: This part just calls isPrime(), and has nothing to do with flatten() or flatMap().
     val number = 54321L
     println("isPrime(" + number + ") = " + isPrime(number))
 
@@ -105,5 +106,41 @@ object Demo
     numericRange.forall(number % _ != 0)
   }
 }
-========================================================================
-The following code sample shows some how to use the flatMap() method.
+===============================================================================
+The following code sample shows use of the flatten() and flatMap() methods.
+NOTE: When flatten() and flatMap() is called on a Seq, they return a Seq.
+      When flatten() and flatMap() is called on a List, they return a List.
+      When flatten() and flatMap() is called on an Array, they return a List!!!
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    println("PART 1) uses a Seq data type. ==================================")
+    val fruitsSeq:Seq[String] = Seq("apple", "banana", "orange")
+    val result_1:Seq[String]  = fruitsSeq.map(_.toUpperCase)
+    val result_2:Seq[Char]    = fruitsSeq.flatten
+    val result_3:Seq[Char]    = fruitsSeq.flatMap(_.toUpperCase)
+    println(result_1) // PRINTS: List(APPLE, BANANA, ORANGE)
+    println(result_2) // PRINTS: List(a, p, p, l, e, b, a, n, a, n, a, o, r, a, n, g, e)
+    println(result_3) // PRINTS: List(A, P, P, L, E, B, A, N, A, N, A, O, R, A, N, G, E)
+
+    println("PART 2) uses a List data type. ==================================")
+    val fruitsList:List[String] = List("apple", "banana", "orange")
+    val result_4:List[String]   = fruitsList.map(_.toUpperCase)
+    val result_5:List[Char]     = fruitsList.flatten
+    val result_6:List[Char]     = fruitsList.flatMap(_.toUpperCase)
+    println(result_4) // PRINTS: List(APPLE, BANANA, ORANGE)
+    println(result_5) // PRINTS: List(a, p, p, l, e, b, a, n, a, n, a, o, r, a, n, g, e)
+    println(result_6) // PRINTS: List(A, P, P, L, E, B, A, N, A, N, A, O, R, A, N, G, E)
+
+    println("PART 3) uses an Array data type. ==================================")
+    val fruitsArray:Array[String] = Array("apple", "banana", "orange")
+    val result_7:List[Char]       = fruitsList.flatten                // NOTICE: The type returned is List[Char]
+    val result_8:List[String]     = fruitsList.map(_.toUpperCase)     // NOTICE: The type returned is List[String]
+    val result_9:List[Char]       = fruitsList.flatMap(_.toUpperCase) // NOTICE: The type returned is List[Char]
+    result_7.foreach(println) // PRINTS: a  p  p  l  e  b  a  n  a  n  a  o  r  a  n  g  e
+    println(result_8)         // PRINTS: List(APPLE, BANANA, ORANGE)
+    result_9.foreach(println) // PRINTS: A  P  P  L  E  B  A  N  A  N  A  O  R  A  N  G  E
+  }
+}
