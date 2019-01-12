@@ -146,5 +146,18 @@ object Demo
     result_7.foreach(println) // PRINTS: a  p  p  l  e  b  a  n  a  n  a  o  r  a  n  g  e
     println(result_8)         // PRINTS: List(APPLE, BANANA, ORANGE)
     result_9.foreach(println) // PRINTS: A  P  P  L  E  B  A  N  A  N  A  O  R  A  N  G  E
+
+    println("PART 4) ==================================")
+    // NOTE: Sometimes you might think you can call flatMap() when you cannot.
+    //       Recall that flatMap() calls map() FIRST, and calls flatten() SECOND.
+    //       Calling doubleList_1.flatMap() below won't work because what must be
+    //       done is to call flatten() FIRST, and map() SECOND, as is done below.
+    val doubleList_1:List[Double]       = List(39.1, 97.3, 224.7, 359.9)
+    val doubleList_2:List[Double]       = List(21.7, 77.7, 194.7, 285.2)
+    val doubleList_3:List[List[Double]] = List(doubleList_1, doubleList_2)
+    val result_10:List[Double]          = doubleList_3.flatten
+    val result_11:List[Double]          = result_10.map(math.cos(_))
+    println(result_11) // PRINTS the cosine of each number in doubleList_1 and doubleList_2.
   }
 }
+===========================================================================
