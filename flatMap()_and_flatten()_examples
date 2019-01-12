@@ -161,3 +161,38 @@ object Demo
   }
 }
 ===========================================================================
+The following code shows how to use the map() and flatMap() methods,
+as well as the Some and None objects, which are both children of
+the Option object.
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val differentDataTypes = Seq("1", "2", "XYZ", "3", "string")
+
+    val result_1:Seq[Option[Int]] = differentDataTypes.map(toInt)
+    for (number <- result_1)
+    {
+      if (number == None) { println("An invalid number was found")}
+      else { println(number.get) } // Prints the valid Int number.
+    }
+
+    val result_2:Seq[Int] = differentDataTypes.flatMap(toInt)
+    result_2.foreach(println) // PRINTS: 1 2 3
+    println(result_2.sum)     // PRINTS: 6  (which is the value of 1 + 2 + 3)
+  }
+
+  /**
+    * Pass this method a valid Int value as a string.  If the string
+    * can't be converted to an Int, catch the exception and return
+    * the None object (which is how to handle the exception).
+    * Otherwise, return the valid Int wrapped in the Some object.
+    */
+  def toInt(s:String): Option[Int] =
+  {
+    try   { Some(Integer.parseInt(s.trim)) }
+    catch { case e: Exception => None }
+  }
+}
+===========================================================================
