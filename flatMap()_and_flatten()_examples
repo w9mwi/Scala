@@ -106,8 +106,12 @@ object Demo
     numericRange.forall(number % _ != 0)
   }
 }
-===============================================================================
-The following code sample shows use of the flatten() and flatMap() methods.
+===================================================================================
+The following code sample shows use of the flatten(), flatMap() and map() methods.
+Calling flatMap() is just like calls the flatten() method AND the map() method
+in one shot.  However, the name flatMap() is a bit misleading because flatMap()
+calls the map() method FIRST, and then calls the flatten() method SECOND.
+
 NOTE: When flatten() and flatMap() is called on a Seq, they return a Seq.
       When flatten() and flatMap() is called on a List, they return a List.
       When flatten() and flatMap() is called on an Array, they return a List!!!
