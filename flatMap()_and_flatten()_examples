@@ -160,27 +160,41 @@ object Demo
     println(result_11) // PRINTS the cosine of each number in doubleList_1 and doubleList_2.
   }
 }
-===========================================================================
-The following code shows how to use the map() and flatMap() methods,
-as well as the Some and None objects, which are both children of
-the Option object.
+================================================================================
+The following code shows how to use the flatten(), map() and flatMap() methods,
+as well as the Some and None objects, which are both children of the Option
+object.  Again, notice that the name flatMap() is a bit misleading because
+flatMap() calls the map() method FIRST, and then calls the flatten() method.
 
 object Demo
 {
   def main(args: Array[String]):Unit =
   {
-    val differentDataTypes = Seq("1", "2", "XYZ", "3", "string")
+    // This first part first calls flatten(), and then calls map(),
+    // which is equivalent to just calling flatMap().
+    println("PART 1) First call map(), then call flatten(). ===============================")
+    val stringNumbers = Seq("1", "2", "XYZ", "3", "123.45")
 
-    val result_1:Seq[Option[Int]] = differentDataTypes.map(toInt)
+    val result_1:Seq[Option[Int]] = stringNumbers.map(toInt)
+    println(result_1) // PRINTS: List(Some(1), Some(2), None, Some(3), None)
+    val result_2:Seq[Int] = result_1.flatten
+    println(result_2) // PRINTS: List(1, 2, 3)
+    result_2.foreach(println) // PRINTS: 1 2 3
+
+    println("\nPART 2) Use a for() loop to inspect/print the contents of result_1. ===============================")
     for (number <- result_1)
     {
-      if (number == None) { println("An invalid number was found")}
+      if (number == None) { println("The string can't be converted to valid Int.") }
       else { println(number.get) } // Prints the valid Int number.
     }
 
-    val result_2:Seq[Int] = differentDataTypes.flatMap(toInt)
+    println("\nPART 3) Call stringNumbers.flatMap(toInt), and print the result. ===============================")
+    val result_3:Seq[Int] = stringNumbers.flatMap(toInt)
     result_2.foreach(println) // PRINTS: 1 2 3
-    println(result_2.sum)     // PRINTS: 6  (which is the value of 1 + 2 + 3)
+
+    println("\nPART 4) Call result_3.sum(), and print the result. ===============================")
+    val result_4:Int = result_3.sum
+    println(result_4) // PRINTS: 6 (sum = 6 = 1 + 2 + 3)
   }
 
   /**
@@ -188,6 +202,7 @@ object Demo
     * can't be converted to an Int, catch the exception and return
     * the None object (which is how to handle the exception).
     * Otherwise, return the valid Int wrapped in the Some object.
+    *
     */
   def toInt(s:String): Option[Int] =
   {
