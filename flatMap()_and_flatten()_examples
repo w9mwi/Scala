@@ -192,7 +192,7 @@ object Demo
     result_2.foreach(println) // PRINTS: 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6
 
     println("\nPART 3 calls list.map(func).flatten() ==============================")
-    val result_3 = list.map(func).flatten // Equivalent to caling: list.map(x => func(x)).flatten
+    val result_3 = list.map(func).flatten // Equivalent to calling: list.map(x => func(x)).flatten
     result_3.foreach(println) // PRINTS: 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6
 
     // In PART 4 below, we just call list.flatMap(), which generates the
