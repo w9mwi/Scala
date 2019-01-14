@@ -217,3 +217,44 @@ object Demo
 }
 
 ===========================================================================
+import scala.collection.immutable.NumericRange
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val myMap = Map(1 -> "one", 2 -> "two", 3 -> "three")
+    // FYI: Calling myMap.flatten() will fail cuz myMap is already 'flattened'.
+    //      Calling myMap.flatMap() below succeeds cuz when the object can't
+    //      be flattened, flatMap() calls only the map() method.
+    //      This code would fail. -->  val result_4 = myMap.flatten
+
+    // myRange is the same as "1 to myMap.size" in the line below.
+    val myRange:Range = Range(1, myMap.size + 1, 1)
+    println(myRange) // PRINTS: Range 1 until 4
+
+    // MYSTERY: Printing result_1, result_2, and result_3 below
+    //          all print this: Vector(one, two, three)
+    //          However, result_1 and result_2 are of type: IndexedSeq[String]
+    //          While result_3 is of type: Vector[String]
+    //          Also, both flatMap() calls below return type: That
+    //          Also, both myMap.get() calls below return type: Option[String]
+    val result_1:IndexedSeq[String] = myRange.flatMap(myMap.get)         // Equivalent to the BELOW line.
+    val result_2:IndexedSeq[String] = 1 to myMap.size flatMap(myMap.get) // Equivalent to the ABOVE line.
+    println(result_2) // PRINTS: Vector(one, two, three)
+    println(result_2) // PRINTS: Vector(one, two, three)
+    val result_3:Vector[String] = Vector("one", "two", "three")
+    println(result_3) // PRINTS: Vector(one, two, three)
+
+    val chars = 'a' to 'z'
+    println(chars) // PRINTS: NumericRange a to z
+
+    // Just like in the code above, here we call flatMap() on a Range, TWICE...
+    val perms:IndexedSeq[String] = chars.flatMap { a => chars.flatMap { b => if (a != b) Seq("%c%c".format(a, b)) else Seq() }
+
+      // RESUME HERE...
+      // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
+    }
+  }
+}
+===========================================================================
