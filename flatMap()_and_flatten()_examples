@@ -110,7 +110,11 @@ object Demo
 The following code sample shows use of the flatten(), flatMap() and map() methods.
 Calling flatMap() is just like calls the flatten() method AND the map() method
 in one shot.  However, the name flatMap() is a bit misleading because flatMap()
-calls the map() method FIRST, and then calls the flatten() method SECOND.
+calls the map() method FIRST, and calls the flatten() method SECOND.
+
+If flatMap() is called on an class that is already 'flattened' (i.e, List(1, 2, 3)),
+calling flatMap() is equivalent to calling only the map() method.
+
 
 NOTE: When flatten() and flatMap() is called on a Seq, they return a Seq.
       When flatten() and flatMap() is called on a List, they return a List.
@@ -165,6 +169,9 @@ The following code shows how to use the flatten(), map() and flatMap() methods,
 as well as the Some and None objects, which are both children of the Option
 object.  Again, notice that the name flatMap() is a bit misleading because
 flatMap() calls the map() method FIRST, and then calls the flatten() method.
+
+If flatMap() is called on an class that is already 'flattened' (i.e, List(1, 2, 3)),
+calling flatMap() is equivalent to calling only the map() method.
 
 NOTE: In this example, you cannot call list.flatten() because list is already
       in its 'flattened' state.  But when you call list.map(), the returned
