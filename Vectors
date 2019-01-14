@@ -3,8 +3,8 @@ of a List, then use a List.  But if you need to access elements within the List,
 as well as process the List's head, use a Vector.  As accessing elements within
 a Vector is much more efficient than accessing elements in a List.
 
-A Scala Vector is immutable, whereas a Scala Array is mutable, and a Scala
-List can be mutable or immutable.
+A Scala Vector is immutable, whereas a Scala Array is mutable.
+A Scala List can be mutable or immutable.
 ==================================================================================
 import scala.collection.immutable.Vector
 
