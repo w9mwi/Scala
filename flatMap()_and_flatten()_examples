@@ -252,8 +252,9 @@ object Demo
     // Just like in the code above, here we call flatMap() on a Range, TWICE...
     val perms:IndexedSeq[String] = chars.flatMap { a => chars.flatMap { b => if (a != b) Seq("%c%c".format(a, b)) else Seq() }
 
-      // RESUME HERE...
-      // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
+    // RESUME HERE...
+    // Try running flatMap() on a List[List[Int]] type.
+    // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
     }
   }
 }
