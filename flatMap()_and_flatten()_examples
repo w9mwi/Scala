@@ -246,7 +246,7 @@ object Demo
     val result_3:Vector[String] = Vector("one", "two", "three")
     println(result_3) // PRINTS: Vector(one, two, three)
 
-    val chars = 'a' to 'z'
+    val chars:NumericRange[Char] = 'a' to 'z'
     println(chars) // PRINTS: NumericRange a to z
 
     // Just like in the code above, here we call flatMap() on a Range, TWICE...
