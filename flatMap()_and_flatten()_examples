@@ -234,28 +234,30 @@ object Demo
     println(myRange) // PRINTS: Range 1 until 4
 
     // MYSTERY: Printing result_1, result_2, and result_3 below
-    //          all print this: Vector(one, two, three)
-    //          However, result_1 and result_2 are of type: IndexedSeq[String]
-    //          While result_3 is of type: Vector[String]
-    //          Also, both flatMap() calls below return type: That
-    //          Also, both myMap.get() calls below return type: Option[String]
-    val result_1:IndexedSeq[String] = myRange.flatMap(myMap.get)         // Equivalent to the BELOW line.
-    val result_2:IndexedSeq[String] = 1 to myMap.size flatMap(myMap.get) // Equivalent to the ABOVE line.
+    //          ALL PRINT THIS: Vector(one, two, three)
+    //          However, result_1 and result_2 are of type: IndexedSeq[String],
+    //          while result_3 is of type: Vector[String]
+    //
+    //          FYI, both flatMap() calls below return type: That
+    //          FYI, both myMap.get() calls below return type: Option[String]
+    val result_1:IndexedSeq[String] = myRange.flatMap(myMap.get)           // Equivalent to the BELOW line.
+    val result_2:IndexedSeq[String] = (1 to myMap.size).flatMap(myMap.get) // Equivalent to the ABOVE line.
+    val result_3:Vector[String]     = Vector("one", "two", "three")
+    println(result_1) // PRINTS: Vector(one, two, three)
     println(result_2) // PRINTS: Vector(one, two, three)
-    println(result_2) // PRINTS: Vector(one, two, three)
-    val result_3:Vector[String] = Vector("one", "two", "three")
     println(result_3) // PRINTS: Vector(one, two, three)
 
     val chars:NumericRange[Char] = 'a' to 'z'
     println(chars) // PRINTS: NumericRange a to z
 
+
     // Just like in the code above, here we call flatMap() on a Range, TWICE...
     val perms:IndexedSeq[String] = chars.flatMap { a => chars.flatMap { b => if (a != b) Seq("%c%c".format(a, b)) else Seq() }
 
     // RESUME HERE...
-    // Try running flatMap() on a List[List[Int]] type.
     // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
     }
   }
 }
+
 ===========================================================================
