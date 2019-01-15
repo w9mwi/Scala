@@ -108,12 +108,23 @@ object Demo
 }
 ===================================================================================
 The following code sample shows use of the flatten(), flatMap() and map() methods.
-Calling flatMap() is just like calls the flatten() method AND the map() method
-in one shot.  However, the name flatMap() is a bit misleading because flatMap()
-calls the map() method FIRST, and calls the flatten() method SECOND.
 
-If flatMap() is called on an class that is already 'flattened' (i.e, List(1, 2, 3)),
-calling flatMap() is equivalent to calling only the map() method.
+IMPORTANT TO REMEMBER
+=====================
+1) The map() and flatMap() methods MUST be called on an already 'flattened' List,
+   or an error will be thrown.
+2) Once a List is already 'flattened', calling the flatten() method on it will
+   throw an error.
+3) The flatMap() method calls the map() method FIRST.  If the result of calling the
+   map() method is a List that is NOT 'flattened', flatMap() will call the flatten()
+   method.  Therefore, calling flatMap() on a List will ALWAYS result in a 'flattened' List.
+4) The name flatMap() is misleading because flatMap() calls the map() method FIRST,
+   and then calls the flatten() method.
+5) The flatten() method 'flattens' a List ONLY ONE LEVEL!  So if you call flatten()
+   on a List[List[Int]], the result will be a List[Int].  But if you call flatten()
+   on a List[List[List[Int]]], the result will be a List[List[Int]], which means
+   that List is still NOT fully 'flattened'.  A List that is fully-flattened means
+   it's a single-level List (i.e., List[Int]), NOT a List that contains another List.
 
 
 NOTE: When flatten() and flatMap() is called on a Seq, they return a Seq.
@@ -165,49 +176,78 @@ object Demo
   }
 }
 ================================================================================
-The following code shows how to use the flatten(), map() and flatMap() methods,
-as well as the Some and None objects, which are both children of the Option
-object.  Again, notice that the name flatMap() is a bit misleading because
-flatMap() calls the map() method FIRST, and then calls the flatten() method.
+The following code sample shows use of the flatten(), flatMap() and map() methods.
 
-If flatMap() is called on an class that is already 'flattened' (i.e, List(1, 2, 3)),
-calling flatMap() is equivalent to calling only the map() method.
-
-NOTE: In this example, you cannot call list.flatten() because list is already
-      in its 'flattened' state.  But when you call list.map(), the returned
-      result is of type List[List[Int]], which means you call the flatten()
-      method on the returned result.
+IMPORTANT TO REMEMBER
+=====================
+1) The map() and flatMap() methods MUST be called on an already 'flattened' List,
+   or an error will be thrown.
+2) Once a List is already 'flattened', calling the flatten() method on it will
+   throw an error.
+3) The flatMap() method calls the map() method FIRST.  If the result of calling the
+   map() method is a List that is NOT 'flattened', flatMap() will call the flatten()
+   method.  Therefore, calling flatMap() on a List will ALWAYS result in a 'flattened' List.
+4) The name flatMap() is misleading because flatMap() calls the map() method FIRST,
+   and then calls the flatten() method.
+5) The flatten() method 'flattens' a List ONLY ONE LEVEL!  So if you call flatten()
+   on a List[List[Int]], the result will be a List[Int].  But if you call flatten()
+   on a List[List[List[Int]]], the result will be a List[List[Int]], which means
+   that List is still NOT fully 'flattened'.  A List that is fully-flattened means
+   it's a single-level List (i.e., List[Int]), NOT a List that contains another List.
 
 object Demo
 {
   def main(args: Array[String]):Unit =
   {
-    val list:List[Int] = List(1,2,3,4,5)
-    // NOTE: If you attempt to call list.flatten() here, an exception will
-    //       be thrown because list is already in its 'flattened' state.
+    val list_1:List[Int] = List(1,2,3,4,5)
+    println("list_1 = " + list_1) // PRINTS: list_1 = List(1, 2, 3, 4, 5)
 
-    println("PART 1 calls list.map() ==============================")
-    // Calling list.map(x => func(x)) will call func() once for each Int
-    // contained in list.  Each time func() gets called, it will return
+    // NOTE: If you attempt to call list_1.flatten() here, an exception will
+    //       be thrown because list_1 is already in its 'flattened' state.
+
+    // Calling list_1.map(x => func(x)) will call func() once for each Int
+    // contained in list_1.  Each time func() gets called, it will return
     // a List containing 3 Int values.
-    val result_1:List[List[Int]] = list.map(x => func(x)) // Equivalent to calling list.map(func)
-    println(result_1) // PRINTS: List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
+    val result_1:List[List[Int]] = list_1.map(x => func(x)) // Equivalent to calling list_1.map(func)
+    println("result_1 = " + result_1) // PRINTS: result_1 = List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
 
-    println("\nPART 2 calls result_1.flatten() ==============================")
     val result_2:List[Int] = result_1.flatten
-    println(result_2)         // PRINTS: List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
-    result_2.foreach(println) // PRINTS: 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6
+    println("result_2 = " + result_2) // PRINTS: result_2 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
 
-    println("\nPART 3 calls list.map(func).flatten() ==============================")
-    val result_3 = list.map(func).flatten // Equivalent to calling: list.map(x => func(x)).flatten
-    result_3.foreach(println) // PRINTS: 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6
+    val result_3 = list_1.map(func).flatten // Equivalent to calling: list_1.map(x => func(x)).flatten
+    println("result_3 = " + result_3)       // PRINTS: result_3 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
 
-    // In PART 4 below, we just call list.flatMap(), which generates the
-    // same result as PART1 + PART 2 above, and the same result returned
-    // in PART 3 above.
-    println("\nPART 4 calls list.flatMap() ==============================")
-    val result_4 = list.flatMap(func) // Equivalent to calling list.flatMap(x => func(x))
-    result_4.foreach(println) // PRINTS: 0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6
+    val result_4 = list_1.flatMap(func) // Equivalent to calling list_1.flatMap(x => func(x))
+    println("result_4 = " + result_4)   // PRINTS: result_4 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+
+    val list_2:List[Int]       = List(1, 2, 3)
+    val list_3:List[Int]       = List(4, 5, 6)
+    val list_4:List[Int]       = List(7, 8, 9)
+    val list_5:List[List[Int]] = List(list_2, list_3, list_4)
+    // NOTE: Here, we can successfully call flatMap(func) on list_2, list_3, or list_4
+    //       because those Lists are already 'flattened', and flatMap() can be called
+    //       ONLY on 'flattened' Lists.  But since list_5 is NOT 'flattened' we must
+    //       first 'flatten' it before we can call flatMap() on it.
+    val result_5:List[Int] = list_5.flatten.flatMap(func)
+    println("result_5 = " + result_5) // PRINTS: result_5 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9, 8, 9, 10)
+
+    val list_6:List[Int]       = List(10, 11, 12)
+    val list_7:List[Int]       = List(13, 14, 15)
+    val list_8:List[Int]       = List(16, 17, 18)
+    val list_9:List[List[Int]] = List(list_6, list_7, list_8)
+    // NOTE: Here, we can successfully call flatMap(func) on list_6, list_7, or list_8
+    //       because those Lists are already 'flattened', and flatMap() can be called
+    //       ONLY on 'flattened' Lists.  But since list_9 is NOT 'flattened' we must
+    //       first 'flatten' it before we can call flatMap() on it.
+    val result_6:List[Int] = list_9.flatten.flatMap(func)
+    println("result_6 = " + result_6) // PRINTS: result_6 = List(9, 10, 11, 10, 11, 12, 11, 12, 13, 12, 13, 14, 13, 14, 15, 14, 15, 16, 15, 16, 17, 16, 17, 18, 17, 18, 19)
+
+    val list_10:List[List[List[Int]]] = List(list_5, list_9)
+    // NOTE: Here, we must call flatten() TWICE before we call flatMap(func) on list_10.
+    //       This is because the flatten() method only 'flattens' a List ONE LEVEL!!!
+    //       list_10 is a List containing 2 Lists.  And those two Lists contain 3 Lists.
+    val result_7:List[Int] = list_10.flatten.flatten.flatMap(func)
+    println("result_7 = " + result_7) // PRINTS: result_7 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13, 12, 13, 14, 13, 14, 15, 14, 15, 16, 15, 16, 17, 16, 17, 18, 17, 18, 19)
   }
 
   /**
