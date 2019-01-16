@@ -241,9 +241,19 @@ object Demo
     val list_10:List[List[List[Int]]] = List(list_5, list_9)
     // NOTE: Here, we must call flatten() TWICE before we call flatMap(func) on list_10.
     //       This is because the flatten() method only 'flattens' a List ONE LEVEL!!!
-    //       list_10 is a List containing 2 Lists.  And those two Lists contain 3 Lists.
+    //       list_10 is a List containing 2 Lists.  And each of those 2 Lists contain 3 Lists.
     val result_7:List[Int] = list_10.flatten.flatten.flatMap(func)
     println("result_7 = " + result_7) // PRINTS: result_7 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6, 5, 6, 7, 6, 7, 8, 7, 8, 9, 8, 9, 10, 9, 10, 11, 10, 11, 12, 11, 12, 13, 12, 13, 14, 13, 14, 15, 14, 15, 16, 15, 16, 17, 16, 17, 18, 17, 18, 19)
+
+    // Finally, we demonstrate that the following two lines of code are equivalent:
+    // list_8.map(func).flatten
+    // list_8.flatMap(func)
+    val result_8:List[Int] = list_8.map(func).flatten
+    val result_9:List[Int] = list_8.flatMap(func)
+    if (result_8 == result_9)
+    {
+      println("result_8 = result_9 = " + result_8) // PRINTS: result_8 = result_9 = List(15, 16, 17, 16, 17, 18, 17, 18, 19)
+    }
   }
 
   /**
