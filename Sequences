@@ -14,6 +14,8 @@ SEE: https://stackoverflow.com/questions/10866639/difference-between-a-seq-and-a
 
 ===============================================================================================
 The following code sample shows the similarities between the Seq type and the List type.
+To read more about the difference between List and Seq types...
+SEE --> https://stackoverflow.com/questions/10866639/difference-between-a-seq-and-a-list-in-scala
 
 object Demo
 {
