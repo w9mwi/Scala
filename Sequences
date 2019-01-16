@@ -21,7 +21,7 @@ object Demo
   {
     // NOTE: A List CAN'T be assigned a Seq, but a Seq CAN be assigned a List.
     val myList_1:List[Int] = List(1,2,3)
-    val myList_2:List[Int] = Seq(1,2,3).toList // This line won't compile without calling list().
+    val myList_2:List[Int] = Seq(1,2,3).toList // This line won't compile without calling the toList() method.
     val mySeq_1:Seq[Int]   = Seq(1,2,3)
     val mySeq_2:Seq[Int]   = List(1,2,3)
     if (myList_1 == myList_2  &&  myList_1 == mySeq_1  &&  myList_1 == mySeq_2)
