@@ -254,6 +254,17 @@ object Demo
     {
       println("result_8 = result_9 = " + result_8) // PRINTS: result_8 = result_9 = List(15, 16, 17, 16, 17, 18, 17, 18, 19)
     }
+
+    // The following two lines of code generate identical results.  The only difference
+    // is the first line calls an anonymous function (a function literal), while the
+    // second line calls a defined function.  However, both the anonymous function and
+    // the defined function perform the same action.  Even though the anonymous function
+    // returns a Seq[Int], and the defined function returns a List[Int] they both
+    // print as a List[Int].  (Because Seq is very similar to List.)
+    val mySeq_1:Seq[Int] = Seq(1,2,3,4) flatMap { x => Seq(x-1, x, x+1) }
+    val mySeq_2:Seq[Int] = Seq(1,2,3,4).flatMap(func)
+    println("mySeq_1 = " + mySeq_1) // PRINTS: mySeq_1 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5)
+    println("mySeq_2 = " + mySeq_2) // PRINTS: mySeq_2 = List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5)
   }
 
   /**
