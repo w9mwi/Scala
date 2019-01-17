@@ -1,7 +1,7 @@
 Scala Vectors are very similar to Scala Lists.  If you only need to process the head
 of a List, then use a List.  But if you need to access elements within the List,
-as well as process the List's head, use a Vector.  As accessing elements within
-a Vector is much more efficient than accessing elements in a List.
+as well as process the List's head, use a Vector because accessing indexed elements
+in a Vector is more efficient than accessing indexed elements in a List.
 
 A Scala Vector is immutable, whereas a Scala Array is mutable.
 A Scala List can be mutable or immutable.
