@@ -275,7 +275,6 @@ object Demo
 
 ===========================================================================
 import scala.collection.immutable.NumericRange
-
 object Demo
 {
   def main(args: Array[String]):Unit =
@@ -306,15 +305,46 @@ object Demo
 
     val chars:NumericRange[Char] = 'a' to 'z'
     println(chars) // PRINTS: NumericRange a to z
-
-
-    // Just like in the code above, here we call flatMap() on a Range, TWICE...
-    val perms:IndexedSeq[String] = chars.flatMap { a => chars.flatMap { b => if (a != b) Seq("%c%c".format(a, b)) else Seq() }
-
-    // RESUME HERE...
-    // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
-    }
   }
 }
 
 ===========================================================================
+
+import scala.collection.immutable.NumericRange
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val chars:NumericRange[Char] = 'a' to 'z'
+    println(chars) // PRINTS: NumericRange a to z
+
+    // The following line is very difficult to understand, so it's rewritten below.
+    val perms_1:IndexedSeq[String] = chars.flatMap(a => chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq() ))
+    println(perms_1) // PRINTS: Vector(ab, ac, ad, ae, af, ... zw, zx, zy)
+
+    // The following line is a rewritten version of the above line to make it easier to understand.
+    val perms_2:IndexedSeq[String] = chars.flatMap(a => chars.flatMap(b => func_1(a, b)))
+    println(perms_2) // PRINTS: Vector(ab, ac, ad, ae, af, ... zw, zx, zy)
+  }
+
+  /**
+    * Calling this func_1 function as: chars.flatMap(func_1(a, b))
+    * is equivalent to calling this:   chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq())
+    */
+  def func_1(a:Char, b:Char):Seq[String] =
+  {
+    if (a != b)
+    {
+      val seqString:Seq[String] = Seq("%c%c".format(a, b))
+      seqString
+    }
+    else Seq() // Seq() = List() = Nil
+  }
+}
+
+// RESUME HERE...
+// https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
+
+===========================================================================
+
