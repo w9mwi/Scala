@@ -56,7 +56,7 @@ a for comprehension, it should contain the following functions...
 3) A flatMap() method allows the data type (class) to be used with multiple generators.
 4) A withFilter() method allows the filter expression as an if() statement within the for comprehension.
 
-If you want your custom class (data type) to work well with for comrehensions, it
+If you want your custom class (data type) to work well with for comprehensions, it
 doesn't require all 4 of the above methods, but it will work very well if it does.
 Here's an abstract class example definition of a class that will work with for comprehensions...
 
