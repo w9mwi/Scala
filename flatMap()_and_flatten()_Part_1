@@ -282,7 +282,7 @@ ___ the Range and NumericRange types
 ___ the Vector type
 ___ the IndexedSeq[String] type
 ___ the List[Int] type
-___ the List[List[Int]]
+___ the List[List[Int]] type
 ___ the flatMap() function
 ___ the flatten() function
 
