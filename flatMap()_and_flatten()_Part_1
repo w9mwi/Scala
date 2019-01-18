@@ -274,20 +274,38 @@ object Demo
 }
 
 ===========================================================================
+The sample code in this section demonstrates: 
+
+___ the Map[Int, String] type
+___ the Option/Some/None type (obtained via the get() method)
+___ the Range and NumericRange types
+___ the Vector type
+___ the IndexedSeq[String] type
+___ the List[Int] type
+___ the List[List[Int]]
+___ the flatMap() function
+___ the flatten() function
+
 import scala.collection.immutable.NumericRange
 object Demo
 {
   def main(args: Array[String]):Unit =
   {
-    val myMap = Map(1 -> "one", 2 -> "two", 3 -> "three")
+    val myMap:Map[Int, String] = Map(1 -> "one", 2 -> "two", 3 -> "three")
+    println("myMap = " + myMap) // PRINTS: myMap = Map(1 -> one, 2 -> two, 3 -> three)
     // FYI: Calling myMap.flatten() will fail cuz myMap is already 'flattened'.
-    //      Calling myMap.flatMap() below succeeds cuz when the object can't
-    //      be flattened, flatMap() calls only the map() method.
-    //      This code would fail. -->  val result_4 = myMap.flatten
+    // This code would fail here cuz myMap is already 'flattened'.  -->  val result_4 = myMap.flatten
+
 
     // myRange is the same as "1 to myMap.size" in the line below.
     val myRange:Range = Range(1, myMap.size + 1, 1)
-    println(myRange) // PRINTS: Range 1 until 4
+    println("myRange = " + myRange)       // PRINTS: myRange = Range 1 until 4
+    val myRangeMap:IndexedSeq[Option[String]] = myRange.map(myMap.get)
+    println("myRangeMap = " + myRangeMap) // PRINTS: myRangeMap = Vector(Some(one), Some(two), Some(three))
+    myRangeMap.foreach(println)           // PRINTS:                     Some(one)  Some(two)  Some(three)
+    for (x <- myRangeMap){ println(x.get) /* PRINTS:                          one        two        three */ }
+
+
 
     // MYSTERY: Printing result_1, result_2, and result_3 below
     //          ALL PRINT THIS: Vector(one, two, three)
@@ -305,9 +323,13 @@ object Demo
 
     val chars:NumericRange[Char] = 'a' to 'z'
     println(chars) // PRINTS: NumericRange a to z
+
+    val list_1:List[Int]       = List(6, 7, 8, 9, 10)
+    val list_2:List[Int]       = List(1, 2, 3, 4, 5)
+    val list_3:List[List[Int]] = List(list_1, list_2)
+    println(list_3.flatten.map(i=>i*i)) // PRINTS: List(36, 49, 64, 81, 100, 1, 4, 9, 16, 25)
   }
 }
-
 ===========================================================================
 
 import scala.collection.immutable.NumericRange
