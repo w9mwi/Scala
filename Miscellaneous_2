@@ -1,1 +1,51 @@
-Currently contains nothing.  Waiting to add stuff later.
+The following code sample show how results can differ by calling
+flatten() vs. map() vs. flatMap() on a Seq() collection.
+
+NOTE: In this example, all calls to flatten() and flatMap() generate
+      the the same result.
+
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val pop_2 = Seq(1,2,3,4) flatten (x => // NOTE: flatten() is called.
+      if (x%2 == 0) Seq(x) // Returns a NOT-null Seq()
+      else Seq()           // Returns a NULL Seq()
+      )
+    println("1) Seq() - flatten = " + pop_2) // PRINTS: 1) Seq() - flatten = List(2, 4)
+
+    val pop_6 = Seq(1,2,3,4) map (x => // NOTE: map() is called.
+      if (x%2 == 0) Seq(x) // Returns a NOT-null Seq()
+      else Seq()           // Returns a NULL Seq()
+      )
+    println("2) Seq() - map = " + pop_6) // PRINTS: 2) Seq() - map = List(List(), List(2), List(), List(4))
+
+    val pop_4 = Seq(1,2,3,4) flatMap (x => // NOTE: flatMap() is called.
+      if (x%2 == 0) Seq(x) // Returns a NOT-null Seq()
+      else Seq()           // Returns a NULL Seq()
+      )
+    println("3) Seq() - flatMap = " + pop_4) // PRINTS: pop_4 = 3) Seq() - flatMap = List(2, 4)
+
+    val pop_1 = Seq(1,2,3,4) flatten ( x => // NOTE: flatten() is called.
+      if (x%2 == 0) Some(x) // Returns: Some(x)
+      else None             // Returns: None
+      )
+    println("4) Some() - flatten = " + pop_1) // PRINTS: 4) Some() - flatten = List(2, 4)
+
+    val pop_5 = Seq(1,2,3,4) map ( x => // NOTE: map() is called.
+      if (x%2 == 0) Some(x) // Returns: Some(x)
+      else None             // Returns: None
+      )
+    println("5) Some() - map = " + pop_5) // PRINTS: 5) Some() - map = List(None, Some(2), None, Some(4))
+
+    val pop_3 = Seq(1,2,3,4) flatMap ( x => // NOTE: flatMap() is called.
+      if (x%2 == 0) Some(x) // Returns: Some(x)
+      else None             // Returns: None
+      )
+    println("6) Some() - flatMap = " + pop_3) // PRINTS: 6) Some() - flatMap = List(2, 4)
+  }
+}
+
+====================================================================================================
+
