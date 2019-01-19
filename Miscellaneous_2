@@ -1,4 +1,4 @@
-The following code sample show how results can differ by calling
+The following code sample shows how results can differ by calling
 flatten() vs. map() vs. flatMap() on a Seq() collection.
 
 NOTE: In this example, all calls to flatten() and flatMap() generate
