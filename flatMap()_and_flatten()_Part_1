@@ -334,6 +334,7 @@ object Demo
 ===========================================================================
 
 import scala.collection.immutable.NumericRange
+import scala.collection.mutable.ListBuffer
 
 object Demo
 {
@@ -342,20 +343,74 @@ object Demo
     val chars:NumericRange[Char] = 'a' to 'z'
     println(chars) // PRINTS: NumericRange a to z
 
-    // The following line is very difficult to understand, so it's rewritten below.
-    val perms_1:IndexedSeq[String] = chars.flatMap(a => chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq() ))
-    println(perms_1) // PRINTS: Vector(ab, ac, ad, ae, af, ... zw, zx, zy)
+    // **************************************************************************
+    // This section uses IMPERATIVE-STYLE code so we can easily understand how
+    // perms_1 gets built.  We use a MUTABLE var ListBuffer, cuz that's a type
+    // of List that can be modified.
+    var perms_1:ListBuffer[String] = ListBuffer()
+    for (a <- chars)
+    {
+      for (b <- chars)
+      {
+        if (a != b)
+        {
+          if (perms_1 == Nil)
+          {
+            // This if() statement gets executed ONLY ONCE, and is the first
+            // assignment made to perms_1.
+            perms_1 = ListBuffer(a.toString + b.toString)
+          }
+          else
+          {
+            perms_1 = perms_1 += (a.toString + b.toString)
+          }
+        }
+      }
+    }
+    println(perms_1) // PRINTS: ListBuffer(ab, ac, ad, ae, af, ... zw, zx, zy)
+    // **************************************************************************
 
-    // The following line is a rewritten version of the above line to make it easier to understand.
-    val perms_2:IndexedSeq[String] = chars.flatMap(a => chars.flatMap(b => func_1(a, b)))
+
+    // The above section uses IMPERATIVE programming so you can easily understand
+    // how the above perms_1 ListBuffer gets constructed.  The following 3
+    // sections of code generate IDENTICAL RESULTS as the above section.  But the
+    // following 3 sections use FUNCTIONAL programming, which may be very
+    // difficult to understand without first understanding the above IMPERATIVE
+    // example.
+
+
+    // **************************************************************************
+    // The following is a for() comprehension that yields a result into the
+    // perms_2 val.  A for() comprehension can contain a GENERATOR, a DEFINITION,
+    // and a FILTER.  The below for() loop does NOT contain a DEFINITION.
+    // A DEFINITION is an assignment to a val, without the val keyword,
+    val perms_2:IndexedSeq[String] = for
+                                     {
+                                       a <- chars  // This is a GENERATOR
+                                       b <- chars  // This is a GENERATOR
+                                       if (a != b) // This is a FILTER
+                                     } yield "%c%c".format(a, b)
     println(perms_2) // PRINTS: Vector(ab, ac, ad, ae, af, ... zw, zx, zy)
+    // **************************************************************************
+
+    // **************************************************************************
+    // The following line is very difficult to understand, so it's rewritten below.
+    val perms_3:IndexedSeq[String] = chars.flatMap(a => chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq() ))
+    println(perms_3) // PRINTS: Vector(ab, ac, ad, ae, af, ... zw, zx, zy)
+    // **************************************************************************
+
+    // **************************************************************************
+    // The following line is a rewritten version of the above line to make it easier to understand.
+    val perms_4:IndexedSeq[String] = chars.flatMap(a => chars.flatMap(b => func_1(a, b)))
+    println(perms_4) // PRINTS: Vector(ab, ac, ad, ae, af, ... zw, zx, zy)
+    // **************************************************************************
   }
 
   /**
-    * Calling this function is what makes the perms_2 value above contain two-Char pairs.
+    * Calling this function is what makes the perms_4 value above contain two-Char pairs.
     * Those two-Char pairs are ALWAYS DIFFERENT Chars, like this: ba, bc, and never like bb
     * This func_1 function is called above by this line: chars.flatMap(func_1(a, b))
-    * It is equivalent to calling this:   chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq())
+    * It is equivalent to calling this:  chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq())
     */
   def func_1(a:Char, b:Char):Seq[String] =
   {
@@ -372,4 +427,3 @@ object Demo
 // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
 
 ===========================================================================
-
