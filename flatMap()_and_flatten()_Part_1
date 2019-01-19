@@ -352,8 +352,10 @@ object Demo
   }
 
   /**
-    * Calling this func_1 function as: chars.flatMap(func_1(a, b))
-    * is equivalent to calling this:   chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq())
+    * Calling this function is what makes the perms_2 value above contain two-Char pairs.
+    * Those two-Char pairs are ALWAYS DIFFERENT Chars, like this: ba, bc, and never like bb
+    * This func_1 function is called above by this line: chars.flatMap(func_1(a, b))
+    * It is equivalent to calling this:   chars.flatMap(b => if (a != b) Seq("%c%c".format(a, b)) else Seq())
     */
   def func_1(a:Char, b:Char):Seq[String] =
   {
