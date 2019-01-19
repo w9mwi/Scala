@@ -354,16 +354,7 @@ object Demo
       {
         if (a != b)
         {
-          if (perms_1 == Nil)
-          {
-            // This if() statement gets executed ONLY ONCE, and is the first
-            // assignment made to perms_1.
-            perms_1 = ListBuffer(a.toString + b.toString)
-          }
-          else
-          {
             perms_1 = perms_1 += (a.toString + b.toString)
-          }
         }
       }
     }
@@ -423,7 +414,6 @@ object Demo
     else Seq() // Seq() = List() = Nil
   }
 }
-
 
 // RESUME HERE...
 // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
