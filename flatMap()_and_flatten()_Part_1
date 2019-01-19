@@ -286,6 +286,7 @@ ___ the List[List[Int]] type
 ___ the flatMap() function
 ___ the flatten() function
 
+
 import scala.collection.immutable.NumericRange
 object Demo
 {
@@ -300,11 +301,10 @@ object Demo
     // myRange is the same as "1 to myMap.size" in the line below.
     val myRange:Range = Range(1, myMap.size + 1, 1)
     println("myRange = " + myRange)       // PRINTS: myRange = Range 1 until 4
-    val myRangeMap:IndexedSeq[Option[String]] = myRange.map(myMap.get)
+    val myRangeMap:IndexedSeq[Option[String]] = myRange.map(myMap.get) // Same as myMap.get(_)
     println("myRangeMap = " + myRangeMap) // PRINTS: myRangeMap = Vector(Some(one), Some(two), Some(three))
     myRangeMap.foreach(println)           // PRINTS:                     Some(one)  Some(two)  Some(three)
     for (x <- myRangeMap){ println(x.get) /* PRINTS:                          one        two        three */ }
-
 
 
     // MYSTERY: Printing result_1, result_2, and result_3 below
@@ -314,7 +314,7 @@ object Demo
     //
     //          FYI, both flatMap() calls below return type: That
     //          FYI, both myMap.get() calls below return type: Option[String]
-    val result_1:IndexedSeq[String] = myRange.flatMap(myMap.get)           // Equivalent to the BELOW line.
+    val result_1:IndexedSeq[String] = myRange.flatMap(myMap.get(_))        // Equivalent to the BELOW line.
     val result_2:IndexedSeq[String] = (1 to myMap.size).flatMap(myMap.get) // Equivalent to the ABOVE line.
     val result_3:Vector[String]     = Vector("one", "two", "three")
     println(result_1) // PRINTS: Vector(one, two, three)
@@ -330,6 +330,7 @@ object Demo
     println(list_3.flatten.map(i=>i*i)) // PRINTS: List(36, 49, 64, 81, 100, 1, 4, 9, 16, 25)
   }
 }
+
 ===========================================================================
 
 import scala.collection.immutable.NumericRange
