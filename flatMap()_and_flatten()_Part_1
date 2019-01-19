@@ -384,6 +384,7 @@ object Demo
     // perms_2 val.  A for() comprehension can contain a GENERATOR, a DEFINITION,
     // and a FILTER.  The below for() loop does NOT contain a DEFINITION.
     // A DEFINITION is an assignment to a val, without the val keyword,
+    // which could look like this:  fname = p.firstName
     val perms_2:IndexedSeq[String] = for
                                      {
                                        a <- chars  // This is a GENERATOR
@@ -422,6 +423,7 @@ object Demo
     else Seq() // Seq() = List() = Nil
   }
 }
+
 
 // RESUME HERE...
 // https://alvinalexander.com/scala/collection-scala-flatmap-examples-map-flatten
