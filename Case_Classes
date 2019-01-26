@@ -67,41 +67,6 @@ For more details about case classes, read the following web pages:
 --> http://docs.scala-lang.org/tour/case-classes.html
 
 ====================================================================================
-The following sample code shows how to use a case class for pattern matching,
-which you can think of as "data type" matching.  As pattern matching is used
-to determine data type.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    case class Pops(var tom:Int)
-    val tjb = Pops(8765)
-
-    println(showNotification(456.789D))      // PRINTS: This is a Double: 456.789
-    println(showNotification(12345))         // PRINTS: This is an Int:   12345
-    println(showNotification(tjb))           // PRINTS: This is an unknown data type.
-    println(showNotification(-987.65F))      // PRINTS: This is a Float:  -987.65
-    println(showNotification("ZZZ XXX YYY")) // PRINTS: This is a String: ZZZ XXX YYY
-  }
-
-  def showNotification(dataType:Any):String =
-  {
-    dataType match
-    {
-      // NOTE: The name "rox" used below is arbitrary--you can use any name you want.
-      //       The name "rox" is the name given to the value, which is then followed
-      //       by a colon char (:) and the data type itself (Int, Float, etc.)
-      case rox:Int    => s"This is an Int:   $rox"
-      case rox:Float  => s"This is a Float:  $rox"
-      case rox:String => s"This is a String: $rox"
-      case rox:Double => s"This is a Double: $rox"
-      case _          => s"This is an unknown data type."
-    }
-  }
-}
-
-====================================================================================
 
 The following sample code shows how to use a case class for pattern matching,
 which you can think of as "data type" matching.  As pattern matching is used
