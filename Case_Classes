@@ -90,6 +90,8 @@ object Demo
     dataType match
     {
       // NOTE: The name "rox" used below is arbitrary--you can use any name you want.
+      //       The name "rox" is the name given to the value, which is then followed
+      //       by a colon char (:) and the data type itself (Int, Float, etc.)
       case rox:Int    => s"This is an Int:   $rox"
       case rox:Float  => s"This is a Float:  $rox"
       case rox:String => s"This is a String: $rox"
