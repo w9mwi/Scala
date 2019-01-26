@@ -136,7 +136,7 @@ object Demo
     // In the following call to evalQuadratic(), the values passed are
     // received by evalQuadratic() in the order that they're passed.
     val answer1 = evalQuadratic(a, b, c, x)
-    println("answer1 = " + answer1)
+    println("answer1 = " + answer1) // PRINTS: answer1 = 82.24799999999999
 
     // The following call to evalQuadratic() uses NAMED ARGUMENTS.
     // When NAMED ARGUMENTS are used, the values passed to the function
@@ -144,7 +144,7 @@ object Demo
     // parameter names defined in the function.  So in this case,
     // the order of values a, b, c, and x doesn't matter.
     val answer2 = evalQuadratic(b=3.4, x=6.7, c=5.6, a=1.2)
-    println("answer2 = " + answer2)
+    println("answer2 = " + answer2) // PRINTS: answer2 = 82.24799999999999
 
     // The following line of code would FAIL TO COMPILE cuz the evalQuadratic()
     // function below doesn't have an argument with the name 'h'.
@@ -155,7 +155,7 @@ object Demo
     // vals/vars, instead of being assigned literal values as in the
     // previous example.
     val answer3 = evalQuadratic(b=b2, x=x2, c=c2, a=a2)
-    println("answer3 = " + answer3)
+    println("answer3 = " + answer3) // PRINTS: answer3 = 82.24799999999999
 
     // Finally, functions can also use DEFAULT VALUES.  When a
     // function uses DEFAULT VALUES, the function call does NOT
@@ -165,6 +165,7 @@ object Demo
     val answer5 = funcWithDefaultValues(1, 2, 3)
     val answer6 = funcWithDefaultValues(1, 2, 3, 4)
     println("answer4 = " + answer4 + ",  answer5 = " + answer5 + ",  answer6 = " + answer6)
+    // PRINTS: answer4 = 582.0,  answer5 = 462.0,  answer6 = 10.0
   }
 
   def evalQuadratic(a:Double, b:Double, c:Double, x:Double):Double =
