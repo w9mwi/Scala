@@ -11,6 +11,9 @@ Again, see below sample code for details on how match can be used.
       
 
 ====================================================================================
+The following sample code shows how to use a case class for pattern matching,
+which you can think of as "data type" matching.  As pattern matching is used
+here to determine the data type.
 
 object Demo
 {
@@ -25,7 +28,7 @@ object Demo
     println(performMatch(-987.65F))      // PRINTS: This is a Float:  -987.65
     println(performMatch("ZZZ XXX YYY")) // PRINTS: This is a String: ZZZ XXX YYY
     println(performMatch('X'))           // PRINTS: The data type is unknown.
-    println(performMatch(tjb))           // PRINTS: This is a Double: 456.789
+    println(performMatch(tjb))           // PRINTS: This is a class of type Pops: Pops(8765)
   }
 
   /**
