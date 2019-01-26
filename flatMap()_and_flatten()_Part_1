@@ -396,6 +396,11 @@ object Demo
     val perms_4:IndexedSeq[String] = chars.flatMap(a => chars.flatMap(b => func_1(a, b)))
     println(perms_4) // PRINTS: Vector(ab, ac, ad, ae, af, ... zw, zx, zy)
     // **************************************************************************
+
+    val result_1 = Option(3) flatMap { i =>  // Calling map() or flatMap() on this line generates identical results.
+                   Option(4) map { j => i * j }
+    }
+    println(result_1) // PRINTS: Some(12)
   }
 
   /**
