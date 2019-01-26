@@ -10,8 +10,46 @@ NOTE: In the code samples below, the "match" keyword is
 Again, see below sample code for details on how match can be used.
       
 
-=============================================================
-=============================================================
+====================================================================================
+
+object Demo
+{
+  case class Pops(var tom:Int)
+
+  def main(args: Array[String])
+  {
+    val tjb = Pops(8765)
+
+    println(performMatch(456.789D))      // PRINTS: This is a Double: 456.789
+    println(performMatch(12345))         // PRINTS: This is an Int:   12345
+    println(performMatch(-987.65F))      // PRINTS: This is a Float:  -987.65
+    println(performMatch("ZZZ XXX YYY")) // PRINTS: This is a String: ZZZ XXX YYY
+    println(performMatch('X'))           // PRINTS: The data type is unknown.
+    println(performMatch(tjb))           // PRINTS: This is a Double: 456.789
+  }
+
+  /**
+    * Using the match keyword, determine the data type of the argument passed
+    * to this function.
+    */
+  def performMatch(dataType:Any):String =
+  {
+    dataType match
+    {
+      // NOTE: The name "rox" used below is arbitrary--you can use any name you want.
+        //     rox is the name you give to the value, followed by the colon char. (:),
+        //     followed by the data type you're matching on.
+      case rox:Pops   => s"This is a class of type Pops: $rox"
+      case rox:Int    => s"This is an Int:   $rox"
+      case rox:Float  => s"This is a Float:  $rox"
+      case rox:String => s"This is a String: $rox"
+      case rox:Double => s"This is a Double: $rox"
+      case _          => s"The data type is unknown."
+    }
+  }
+}
+
+====================================================================================
 import scala.annotation.switch
 
 object Demo
