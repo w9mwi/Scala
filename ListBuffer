@@ -19,7 +19,6 @@ object Demo
     val fileName:String = "/home/tbouril/section.txt"
     val section:ListBuffer[Student] = createSection()
     saveSectionToFile(fileName, section)
-
   }
 
   /**
