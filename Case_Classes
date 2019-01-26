@@ -1,15 +1,20 @@
 
+Scala provides three (3) constructs for creating user-defined types:
+1) a trait
+2) an object
+3) a class  (The two kinds of classes are: "case class" and "class"
+
 The "case class" Scala type is different from the regular
 Scala "class" type in the following ways...
 
-1) THIS IS LIKELY THE SINGLE BIGGEST ADVANTAGE OF USING A CASE CLASS!...
+1) THIS IS LIKELY THE SINGLE BIGGEST ADVANTAGE OF USING A CASE CLASS...
    -->  All data passed to a case class are automatically turned into public
         vals by default.  So it generally takes ONLY ONE LINE OF CODE to
-        define and declare a case class!!!  Where defining/declaring a
+        define and declare a case class!  Where defining/declaring a
         regular class generally consumes multiple lines of code.
-2) You can create instance of case class WITHOUT the "new" keyword.
+2) You can create an instance of case class WITHOUT the "new" keyword.
 3) A case class implements the copy() method, a regular class doesn't.
-4) You can do pattern matching with case classes.
+4) You can perform pattern matching with case classes.
 5) The "case class" Scala type automatically inherits
    from the type Serializable.
 6) The constructor parameters of case classes are treated as
@@ -62,6 +67,44 @@ For more details about case classes, read the following web pages:
 --> http://docs.scala-lang.org/tour/case-classes.html
 
 ====================================================================================
+The following sample code shows how to use a case class for pattern matching,
+which you can think of as "data type" matching.  As pattern matching is used
+to determine data type.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    case class Pops(var tom:Int)
+    val tjb = Pops(8765)
+
+    println(showNotification(456.789D))      // PRINTS: This is a Double: 456.789
+    println(showNotification(12345))         // PRINTS: This is an Int:   12345
+    println(showNotification(tjb))           // PRINTS: This is an unknown data type.
+    println(showNotification(-987.65F))      // PRINTS: This is a Float:  -987.65
+    println(showNotification("ZZZ XXX YYY")) // PRINTS: This is a String: ZZZ XXX YYY
+  }
+
+  def showNotification(dataType:Any):String =
+  {
+    dataType match
+    {
+      // NOTE: The name "rox" used below is arbitrary--you can use any name you want.
+      case rox:Int    => s"This is an Int:   $rox"
+      case rox:Float  => s"This is a Float:  $rox"
+      case rox:String => s"This is a String: $rox"
+      case rox:Double => s"This is a Double: $rox"
+      case _          => s"This is an unknown data type."
+    }
+  }
+}
+
+====================================================================================
+
+The following sample code shows how to use a case class for pattern matching,
+which you can think of as "data type" matching.  As pattern matching is used
+to determine data type.
+
 object Demo
 {
   case class Person(var firstName:String, middleName:String, lastName:String, ssn:Int)
@@ -106,6 +149,10 @@ object Demo
   }
 }
 ====================================================================================
+The following sample code shows how to use a case class for pattern matching,
+which you can think of as "data type" matching.  As pattern matching is used
+to determine data type.
+
 object Demo
 {
   // By default, a case class's parameters are val types (when you don't specify
