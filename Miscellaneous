@@ -146,6 +146,10 @@ object Demo
     val answer2 = evalQuadratic(b=3.4, x=6.7, c=5.6, a=1.2)
     println("answer2 = " + answer2)
 
+    // The following line of code would FAIL TO COMPILE cuz the evalQuadratic()
+    // function doesn't have an argument with the name 'h'.
+    // evalQuadratic(b=3.4, x=6.7, c=5.6, h=1.2)
+
     // The following call to evalQuadratic() also uses NAMED ARGUMENTS.
     // But in this instance, the params are assigned values via other
     // vals/vars, instead of being assigned literal values as in the
