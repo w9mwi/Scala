@@ -290,7 +290,7 @@ object Demo
     }
 
     // If you're interested in obtaining only the a and c values of point, you
-    // can use the _ wildcard to "catch and discard" the b value of point...
+    // can use the _ wildcard char to "catch and discard" the b value of point...
     for(Point3D(a, _, c) <- points)
     {
       println("Point3D(a, b, c) = " + a + ", _, " + c)
