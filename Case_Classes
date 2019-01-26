@@ -246,6 +246,8 @@ object Demo
 }
 =====================================================================
 =====================================================================
+The following code demonstrates the use of case class's copy() method.
+
 object Demo
 {
   case class Point3D(x:Double, y:Double, z:Double)
@@ -278,6 +280,13 @@ object Demo
     for(point <- points)
     {
       println("Sum of Point3D(" + point.x + ", " + point.y + ", " + point.z + ") = "  + (point.x + point.y + point.z))
+    }
+
+    // NOTE: In the following for() loop, you can define the generator using Point3D(a, b, c)
+    //       (as shown below) to obtain each element contained in the points collection.
+    for(Point3D(a, b, c) <- points)
+    {
+      println("Point3D(a, b, c) = " + a, b, c)
     }
   }
 }
