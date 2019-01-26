@@ -293,7 +293,7 @@ object Demo
     // can use the _ wildcard char to "catch and discard" the b value of point...
     for(Point3D(a, _, c) <- points)
     {
-      println("Point3D(a, b, c) = " + a + ", _, " + c)
+      println("Point3D(a, b, c) = (" + a + ", _, " + c + ")")
     }
   }
 }
