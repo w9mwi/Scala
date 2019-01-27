@@ -1,3 +1,10 @@
+
+NOTE: The Scala Vector class is the recommended “go to” class for
+      IMMUTABLE, INDEXED SEQUENTIAL collections.
+
+NOTE: The Scala ArrayBuffer class is the recommended “go to” class for
+      MUTABLE, INDEXED SEQUENTIAL collections.
+
 A standard List is not mutable, so you cannot grow or shink the List,
 you can only create a new one.  A mutable List can be altered, but
 it doesn't contain operators that make growing/shrinking a List easy.
