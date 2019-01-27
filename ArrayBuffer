@@ -1,0 +1,8 @@
+
+NOTE: The Scala Vector class is the recommended “go to” class for
+      IMMUTABLE, INDEXED SEQUENTIAL collections.
+
+NOTE: The Scala ArrayBuffer class is the recommended “go to” class for
+      MUTABLE, INDEXED SEQUENTIAL collections.
+      
+=======================================================================
