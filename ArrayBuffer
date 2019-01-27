@@ -7,4 +7,19 @@ NOTE: The Scala ArrayBuffer class is the recommended “go to” class for
       sequential collection.  Use ListBuffer if you prefer a linear,
       sequential collection that is MUTABLE.
 
+Regarding ArrayBuffer Performance
+=================================
+Append, update, and random access take constant time (amortized time).
+Prepends and removes are linear in the buffer size.  The ArrayBuffer
+documentation states: ArrayBuffers are useful for efficiently building
+up a large collection whenever the new items are always added to the end.
+
+If you need a mutable sequential collection that works more like
+a List (i.e., a linear sequence rather than an indexed sequence)
+use ListBuffer instead of ArrayBuffer.  A ListBuffer is like an
+ArrayBuffer, except that it uses a linked list internally instead
+of an Array.  If you plan to convert the buffer to a List once it's
+built, use a ListBuffer instead of an ArrayBuffer.
+
 =======================================================================
+
