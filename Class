@@ -8,11 +8,15 @@ references in the println() statement will fail to compile.
 
 Without a "val" or "var" preceding an argument in a regular class,
 the argument remains only an argument, and doesn't become a member
-of the class (as it does in a case class).
+of the class (as it does in a case class).  Often, you do NOT want
+a member of a class visible outside the class.  So when you do NOT
+want an argument passed to a class constructor visible outside the
+class, you will use a regular class instead of a case class.
 
 You can reference john_1.name john_1.id in case class Student_1 when the
 class Student_2 does NOT contain a "val" or "var" keyword!  Because all
-arguments passed to a case class become members of the case class.
+arguments passed to a case class become members of the case class, and
+are therefore VISIBLE to code outside the case class.
 
 object Demo
 {
