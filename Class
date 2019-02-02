@@ -1,5 +1,36 @@
 Below are some examples of how to use standard Scala classes (not case classes).
 
+==========================================================================
+The following sample code shows a difference between a regular class and
+a case class.  If the class Student_2 doesn't contain a "val" or "var"
+keyword before the name and id arguments, then john_2.name and john_2.id
+references in the println() statement will fail to compile.
+
+However, you can reference john_1.name john_1.id in case class Student_1
+when the class Student_2 does NOT contain a "val" or "var" keyword!  So
+this is a difference between a regular class and a case class.
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val john_1 = new Student_1("John Doe", "0123456")
+    val john_2 = new Student_2("John Doe", "0123456")
+
+    println("john_1.name = " + john_1.name + ", john_1.id = " + john_1.id)
+    println("john_2.name = " + john_2.name + ", john_2.id = " + john_2.id)
+  }
+
+  case class Student_1(var name:String, var id:String)
+
+  // If the name and id arguments below are NOT preceded with a "val"
+  // or "var" keyword, the above println will fail to compile!
+  class Student_2(var name:String, var id:String)
+  {
+  }
+}
+
+
 ========================================================================
 The syntax used for defining getter and setter methods for regular Scala
 classes is rather strange.  The following code demonstrates how to use
