@@ -42,8 +42,21 @@ object Demo
   }
 }
 
+===============================================================================
+There are three (3) main levels of visibility in Scala, they are:
 
-========================================================================
+1) Public - NOTE: There does NOT exist a Public/public keyword in Scala.
+                  If you want something public, it's public BY DEFAULT, which
+                  means you wouldn't use the private or protected keyword.
+                  If the visibility level is public, a class's val/var or
+                  method is accessible by code inside, or outside, the class.
+2) private - A "private" declaration means a class's member val/var/method
+             can be accessed only inside the class.  If you prefix a declaration
+             inside a class with the private keyword, that member will be private.
+3) protected - A protected declaration is much like private, except protected class
+               members are also accessible in subtypes (children) of the class.
+
+===============================================================================
 The syntax used for defining getter and setter methods for regular Scala
 classes is rather strange.  The following code demonstrates how to use
 getter and setter methods for standard Scala classes.  Read the comments
