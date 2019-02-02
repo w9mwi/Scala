@@ -6,9 +6,13 @@ a case class.  If the class Student_2 doesn't contain a "val" or "var"
 keyword before the name and id arguments, then john_2.name and john_2.id
 references in the println() statement will fail to compile.
 
-However, you can reference john_1.name john_1.id in case class Student_1
-when the class Student_2 does NOT contain a "val" or "var" keyword!  So
-this is a difference between a regular class and a case class.
+Without a "val" or "var" preceding an argument in a regular class,
+the argument remains only an argument, and doesn't become a member
+of the class (as it does in a case class).
+
+You can reference john_1.name john_1.id in case class Student_1 when the
+class Student_2 does NOT contain a "val" or "var" keyword!  Because all
+arguments passed to a case class become members of the case class.
 
 object Demo
 {
@@ -21,10 +25,14 @@ object Demo
     println("john_2.name = " + john_2.name + ", john_2.id = " + john_2.id)
   }
 
+  // All arguments passed to a case class become members of the case class.
   case class Student_1(var name:String, var id:String)
 
   // If the name and id arguments below are NOT preceded with a "val"
-  // or "var" keyword, the above println will fail to compile!
+  // or "var" keyword, the above println will fail to compile!  This
+  // is because arguments passed to a regular class do NOT become
+  // members of the class unless those arguments are preceded with
+  the "val" or "var" keyword.
   class Student_2(var name:String, var id:String)
   {
   }
