@@ -18,6 +18,31 @@ class Student_2 does NOT contain a "val" or "var" keyword!  Because all
 arguments passed to a case class become members of the case class, and
 are therefore VISIBLE to code outside the case class.
 
+SOME ADVANCED VISIBILITY OPTIONS
+================================
+In addition to the above-mentioned modifiers, Scala has visibility modifiers.
+The keywords 'private' and 'protected' can be followed by square brackets [],
+and the name of an enclosing scope of one of the following...
+1) package
+2) class
+3) trait
+4) object
+These advanced modifiers will make class members publicly visible for everything
+at that scope snf cloder to the declaration.  The benefit of this is that special
+access can be attained closely related to the code without making a member public
+to the entire world.  The square brackets [] include the keyword 'this'.  The
+following declaration means that it is private not only to other pieces of code,
+but to any other instances of the enclosing class...
+
+private[this]
+
+Normally, if a method gets hold of a reference to another object of the same type,
+they can access private members.  This will NOT be the case if the members is
+private[this].   IN OTHER WORDS, private[this] ensure that the only object that
+can reference the private members is an object of the object itself, NOT via
+a reference from another object of the same type.
+
+
 object Demo
 {
   def main(args: Array[String]):Unit =
