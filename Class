@@ -10,9 +10,12 @@ There are three (3) main levels of visibility in Scala, they are:
                       is accessible by code inside, or outside, the class.
 2) private - A "private" declaration means a class's member val/var/method
              can be accessed only inside the class.  If you prefix a declaration
-             inside a class with the private keyword, that member will be private.
+             inside a class with the private keyword, that member will be visible
+             to that class only.  Therefore, a private method is NOT made avaiable
+             to subclasses!
 3) protected - A protected declaration is much like private, except protected class
                members are also accessible in subtypes (children) of the class.
+               Therefore, a protected method IS made avaiable to subclasses!
 
 ===============================================================================
 The syntax used for defining getter and setter methods for regular Scala
@@ -107,75 +110,67 @@ object Demo
 
 SOME ADVANCED VISIBILITY OPTIONS
 ================================
-In addition to the above-mentioned modifiers, Scala has visibility modifiers.
-The keywords 'private' and 'protected' can be followed by square brackets [],
-and the name of an enclosing scope of one of the following...
+In addition to the above-mentioned modifiers, Scala has other visibility modifiers.
+The keywords 'private' and 'protected' can be followed by square brackets [], and
+the name of an enclosing scope of one of the following...
 1) package
 2) class
 3) trait
 4) object
+If you want a make a method available to all members of the current package (aka,
+“package scope”), mark the method as being private to the current package, with
+the private[packageName] syntax as in this example:
+
+package com.acme.coolapp.model
+{
+    class Foo
+    {
+        private[model] def doX {}
+        private def doY {}
+    }
+    class Bar
+    {
+        val f = new Foo
+        f.doX  // compiles
+        f.doY  // won't compile
+    }
+}
+
 These advanced modifiers will make class members publicly visible for everything
-at that scope snf cloder to the declaration.  The benefit of this is that special
-access can be attained closely related to the code without making a member public
-to the entire world.  The square brackets [] include the keyword 'this'.  The
-following declaration means that it is private not only to other pieces of code,
-but to any other instances of the enclosing class...
+at that scope and closer to the declaration.  The benefit of this is that special
+access can be attained for closely-related code without making a member public
+to the entire world.
 
-private[this]
-
-Normally, if a method gets hold of a reference to another object of the same type,
-they can access private members.  This will NOT be the case if the members is
-private[this].   IN OTHER WORDS, private[this] ensure that the only object that
-can reference the private members is an object of the object itself, NOT via
-a reference from another object of the same type.  The sample code below shows
-how private[this] is used...
+The following code shows how private[this] differs from the standard private declaration.
+Read the comments at the top of the Account class definition...
 
 object Demo
 {
   def main(args: Array[String]):Unit =
   {
-    val myAccount_1 = new Account_A
-    myAccount_1.deposit(10)
-    myAccount_1.withdraw(9)
-    myAccount_1.deposit(99)
-    println("myAccount_1.balance_BEFORE = " + myAccount_1.balance)
+    val myAccount = new Account
 
-    // Use myAccount_2 to point at myAccount_1, so myAccount_2 can then access members of myAccount_1
-    val myAccount_2 = myAccount_1
-    myAccount_2.deposit(10)
-    myAccount_2.withdraw(9)
-    myAccount_2.deposit(99)
+    myAccount.deposit(111)
+    println("myAccount.bal = " + myAccount.balance) // PRINTS: myAccount.bal = 111
 
-    println("myAccount_1.balance_AFTER  = " + myAccount_1.balance)
-    println("myAccount_2.balance        = " + myAccount_2.balance)
+    myAccount.modifyBalDirectly(222)
+    println("myAccount.bal = " + myAccount.balance) // PRINTS: myAccount.bal = 222
 
-
-    val myAccount_3 = new Account_B
-    myAccount_3.deposit(10)
-    myAccount_3.withdraw(9)
-    myAccount_3.deposit(99)
-    println("myAccount_3.balance        = " + myAccount_3.balance)
-
-    // NOTICE: If you uncomment the below commented-out line, that
-    //         line WILL NOT COMPILE cuz the "var bal" declaration
-    //         in the Account_B class prohibits any other Account_B
-    //         class from pointing at it.
-    val myAccount_4 = new Account_B
-    // myAccount_4 = myAccount_3 // THIS LINE WILL NOT COMPILE!
+    myAccount.modifyBalViaArgument(myAccount, 333)  // Read the Account class comments below.
+    println("myAccount.bal = " + myAccount.balance) // PRINTS: myAccount.bal = 333
   }
 
-
   /**
-    * NOTICE: This ONLY difference between this Account_A class and the
-    *         BELOW Account_B class is this...
-    *         This Account_A class contains this declaration:
-    *         private var bal = 0
-    *         While the Account_B class BELOW contains this declaration:
-    *         private[this] var bal = 0
+    * NOTE: If you replace this line of code:  private var bal = 0
+    *       with this line of code:            private[this] var bal = 0
+    *       the modifyBalViaArgument() function WILL NOT COMPILE cuz it's
+    *       attempting to modify bal via an externally-declared class,
+    *       which isn't allowed when it's a private[this] declaration.
     */
-  class Account_A
+  class Account
   {
     private var bal = 0
+    // private[this] var bal = 0
 
     def deposit(amount:Int):Boolean =
     {
@@ -185,30 +180,10 @@ object Demo
     {
       if (amount > 0 && amount < balance) { bal -= amount; true } else false
     }
-    def balance = bal
-  }
-
-  /**
-    * NOTICE: This ONLY difference between this Account_B class and the
-    *         ABOVE Account_A class is this...
-    *         This Account_B class contains this declaration:
-    *         private[this] var bal = 0
-    *         While the Account_A class ABOVE contains this declaration:
-    *         private var bal = 0
-    */
-  class Account_B
-  {
-    private[this] var bal = 0
-
-    def deposit(amount:Int):Boolean =
-    {
-      if (amount > 0) { bal += amount; true } else false
-    }
-    def withdraw(amount:Int):Boolean =
-    {
-      if (amount > 0 && amount < balance) { bal -= amount; true } else false
-    }
+    def modifyBalDirectly(value:Int):Unit = { bal = value }
+    def modifyBalViaArgument(accountA:Account, value:Int):Unit = { accountA.bal = value }
     def balance = bal
   }
 }
+
 ========================================================================
