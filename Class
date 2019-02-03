@@ -139,7 +139,8 @@ package com.acme.coolapp.model
 These advanced modifiers will make class members publicly visible for everything
 at that scope and closer to the declaration.  The benefit of this is that special
 access can be attained for closely-related code without making a member public
-to the entire world.
+to the entire world.  For more details regarding scope, go to this URL...
+--> https://alvinalexander.com/scala/how-to-control-scala-method-scope-object-private-package
 
 The following code shows how private[this] differs from the standard private declaration.
 Read the comments at the top of the Account class definition...
