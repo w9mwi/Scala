@@ -1,72 +1,5 @@
 Below are some examples of how to use standard Scala classes (not case classes).
 
-==========================================================================
-The following sample code shows a difference between a regular class and
-a case class.  If the class Student_2 doesn't contain a "val" or "var"
-keyword before the name and id arguments, then john_2.name and john_2.id
-references in the println() statement will fail to compile.
-
-Without a "val" or "var" preceding an argument in a regular class,
-the argument remains only an argument, and doesn't become a member
-of the class (as it does in a case class).  Often, you do NOT want
-a member of a class visible outside the class.  So when you do NOT
-want an argument passed to a class constructor visible outside the
-class, you will use a regular class instead of a case class.
-
-You can reference john_1.name john_1.id in case class Student_1 when the
-class Student_2 does NOT contain a "val" or "var" keyword!  Because all
-arguments passed to a case class become members of the case class, and
-are therefore VISIBLE to code outside the case class.
-
-SOME ADVANCED VISIBILITY OPTIONS
-================================
-In addition to the above-mentioned modifiers, Scala has visibility modifiers.
-The keywords 'private' and 'protected' can be followed by square brackets [],
-and the name of an enclosing scope of one of the following...
-1) package
-2) class
-3) trait
-4) object
-These advanced modifiers will make class members publicly visible for everything
-at that scope snf cloder to the declaration.  The benefit of this is that special
-access can be attained closely related to the code without making a member public
-to the entire world.  The square brackets [] include the keyword 'this'.  The
-following declaration means that it is private not only to other pieces of code,
-but to any other instances of the enclosing class...
-
-private[this]
-
-Normally, if a method gets hold of a reference to another object of the same type,
-they can access private members.  This will NOT be the case if the members is
-private[this].   IN OTHER WORDS, private[this] ensure that the only object that
-can reference the private members is an object of the object itself, NOT via
-a reference from another object of the same type.
-
-
-object Demo
-{
-  def main(args: Array[String]):Unit =
-  {
-    val john_1 = new Student_1("John Doe", "0123456")
-    val john_2 = new Student_2("John Doe", "0123456")
-
-    println("john_1.name = " + john_1.name + ", john_1.id = " + john_1.id)
-    println("john_2.name = " + john_2.name + ", john_2.id = " + john_2.id)
-  }
-
-  // All arguments passed to a case class become members of the case class.
-  case class Student_1(var name:String, var id:String)
-
-  // If the name and id arguments below are NOT preceded with a "val"
-  // or "var" keyword, the above println will fail to compile!  This
-  // is because arguments passed to a regular class do NOT become
-  // members of the class unless those arguments are preceded with
-  the "val" or "var" keyword.
-  class Student_2(var name:String, var id:String)
-  {
-  }
-}
-
 ===============================================================================
 There are three (3) main levels of visibility in Scala, they are:
 
@@ -126,6 +59,156 @@ object Demo
     // The following 2 lines call the above getter methods x and y
     println("point1.x = " + point1.x) // This line calls the x getter method.
     println("point1.y = " + point1.y) // This line calls the y getter method.
+  }
+}
+
+==========================================================================
+The following sample code shows a difference between a regular class and
+a case class.  If the class Student_2 doesn't contain a "val" or "var"
+keyword before the name and id arguments, then john_2.name and john_2.id
+references in the println() statement will fail to compile.
+
+Without a "val" or "var" preceding an argument in a regular class,
+the argument remains only an argument, and doesn't become a member
+of the class (as it does in a case class).  Often, you do NOT want
+a member of a class visible outside the class.  So when you do NOT
+want an argument passed to a class constructor visible outside the
+class, you will use a regular class instead of a case class.
+
+You can reference john_1.name john_1.id in case class Student_1 when the
+class Student_2 does NOT contain a "val" or "var" keyword!  Because all
+arguments passed to a case class become members of the case class, and
+are therefore VISIBLE to code outside the case class.
+===============================================================================
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val john_1 = new Student_1("John Doe", "0123456")
+    val john_2 = new Student_2("John Doe", "0123456")
+
+    println("john_1.name = " + john_1.name + ", john_1.id = " + john_1.id)
+    println("john_2.name = " + john_2.name + ", john_2.id = " + john_2.id)
+  }
+
+  // All arguments passed to a case class become members of the case class.
+  case class Student_1(var name:String, var id:String)
+
+  // If the name and id arguments below are NOT preceded with a "val"
+  // or "var" keyword, the above println will fail to compile!  This
+  // is because arguments passed to a regular class do NOT become
+  // members of the class unless those arguments are preceded with
+  the "val" or "var" keyword.
+  class Student_2(var name:String, var id:String)
+  {
+  }
+}
+===============================================================================
+
+SOME ADVANCED VISIBILITY OPTIONS
+================================
+In addition to the above-mentioned modifiers, Scala has visibility modifiers.
+The keywords 'private' and 'protected' can be followed by square brackets [],
+and the name of an enclosing scope of one of the following...
+1) package
+2) class
+3) trait
+4) object
+These advanced modifiers will make class members publicly visible for everything
+at that scope snf cloder to the declaration.  The benefit of this is that special
+access can be attained closely related to the code without making a member public
+to the entire world.  The square brackets [] include the keyword 'this'.  The
+following declaration means that it is private not only to other pieces of code,
+but to any other instances of the enclosing class...
+
+private[this]
+
+Normally, if a method gets hold of a reference to another object of the same type,
+they can access private members.  This will NOT be the case if the members is
+private[this].   IN OTHER WORDS, private[this] ensure that the only object that
+can reference the private members is an object of the object itself, NOT via
+a reference from another object of the same type.  The sample code below shows
+how private[this] is used...
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val myAccount_1 = new Account_A
+    myAccount_1.deposit(10)
+    myAccount_1.withdraw(9)
+    myAccount_1.deposit(99)
+    println("myAccount_1.balance_BEFORE = " + myAccount_1.balance)
+
+    // Use myAccount_2 to point at myAccount_1, so myAccount_2 can then access members of myAccount_1
+    val myAccount_2 = myAccount_1
+    myAccount_2.deposit(10)
+    myAccount_2.withdraw(9)
+    myAccount_2.deposit(99)
+
+    println("myAccount_1.balance_AFTER  = " + myAccount_1.balance)
+    println("myAccount_2.balance        = " + myAccount_2.balance)
+
+
+    val myAccount_3 = new Account_B
+    myAccount_3.deposit(10)
+    myAccount_3.withdraw(9)
+    myAccount_3.deposit(99)
+    println("myAccount_3.balance        = " + myAccount_3.balance)
+
+    // NOTICE: If you uncomment the below commented-out line, that
+    //         line WILL NOT COMPILE cuz the "var bal" declaration
+    //         in the Account_B class prohibits any other Account_B
+    //         class from pointing at it.
+    val myAccount_4 = new Account_B
+    // myAccount_4 = myAccount_3 // THIS LINE WILL NOT COMPILE!
+  }
+
+
+  /**
+    * NOTICE: This ONLY difference between this Account_A class and the
+    *         BELOW Account_B class is this...
+    *         This Account_A class contains this declaration:
+    *         private var bal = 0
+    *         While the Account_B class BELOW contains this declaration:
+    *         private[this] var bal = 0
+    */
+  class Account_A
+  {
+    private var bal = 0
+
+    def deposit(amount:Int):Boolean =
+    {
+      if (amount > 0) { bal += amount; true } else false
+    }
+    def withdraw(amount:Int):Boolean =
+    {
+      if (amount > 0 && amount < balance) { bal -= amount; true } else false
+    }
+    def balance = bal
+  }
+
+  /**
+    * NOTICE: This ONLY difference between this Account_B class and the
+    *         ABOVE Account_A class is this...
+    *         This Account_B class contains this declaration:
+    *         private[this] var bal = 0
+    *         While the Account_A class ABOVE contains this declaration:
+    *         private var bal = 0
+    */
+  class Account_B
+  {
+    private[this] var bal = 0
+
+    def deposit(amount:Int):Boolean =
+    {
+      if (amount > 0) { bal += amount; true } else false
+    }
+    def withdraw(amount:Int):Boolean =
+    {
+      if (amount > 0 && amount < balance) { bal -= amount; true } else false
+    }
+    def balance = bal
   }
 }
 ========================================================================
