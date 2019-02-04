@@ -1,0 +1,20 @@
+Scala operator methods (+, -, *, /, +=, -=, etc.) are just plain
+Scala methods--they have all have the same rules, and same behavior
+as any other Scala method.  When you call a Scala operator method,
+you can exclude (or include) the dot (.) and exclude (or include)
+the parenthesis.  If you exclude both the dot (.) and the parenthesis,
+the operator gets placed between the two operands.
+
+The name of an operator method can be just a symbol like +, -, *, /,
+or an operator method can be named just like any other Scala method.
+Below are some examples.
+
+The following 3 lines are all equivalent, where list is a Scala List
+type that isn't set to Nil.   NOTE: Nil = List() = an empty List
+3 :: 4 :: list    // The dot (.) and parenthesis are excluded, but implied.
+3 :: (4 :: list)  // Shows the precedence of the above line.
+list.::(4).::.(3) // The dot (.) and parenthesis are included, but unnecessary.
+
+
+
+
