@@ -20,6 +20,7 @@ When you declare a new class without calling the "new" keyword, the apply() meth
 is being called, and the apply() method then calls "new".  If a class has an apply()
 method, you can create an instance of it without calling the "new" keyword.
 ====================================================================================
+
 object Demo
 {
   class Student(val name:String, val id:String)
@@ -35,25 +36,15 @@ object Demo
 
   class CourseSection(val subject:String, val number:Int, val title:String)
   {
-    private var students = List[Student]()
+    private var students:List[Student] = List[Student]()
 
-    def addStudent(stud:Student)
-    {
-      students ::= stud
-    }
-
-    def getStudents():List[Student] =
-    {
-      students
-    }
+    def addStudent(stud:Student) { students ::= stud }
+    def getStudents():List[Student] = { students }
 
     /**
       * This apply() method returns an Option type.  If the key String passed to this method
       * matches the name, or the id, of one or more Students, it returns the Some object
       * containing a List of Students; otherwise, the None object is returned.
-      *
-      * @param key
-      * @return
       */
     def apply(key:String):Option[Student] =
     {
@@ -73,13 +64,28 @@ object Demo
     course.addStudent(john)
     course.addStudent(tom)
 
-    // The following 2 lines of code are equivalent.  The first line calls the apply()
-    // method implicitly; the second line calls the apply() method explicitly.
+    // Here we see that calling course() and course.apply() are equivalent...
     // course("0123456") and course.apply("0123456") both return the type: Option[Student]
-    course("0123456").get.quizzes = List(88.0)
-    course.apply("0123456").get.quizzes = List(88.0)
+    // course("Tom B")   and course.apply("Tom B")   both return the type: Option[Student]
+    course("0123456").get.quizzes = List(88.0)     // PRINTS: The CourseSection.apply() method has been called.
+    course.apply("Tom B").get.quizzes = List(99.0) // PRINTS: The CourseSection.apply() method has been called.
+    println(john.quizzes) // PRINTS: List(88.0)
+    println(tom.quizzes)  // PRINTS: List(99.0)
+    val studentList:List[Student] = course.getStudents()
+    for (pop <- studentList)
+    {
+      println(pop.name + ", " + pop.id + ", " + pop.quizzes + ", " + pop.tests + ", " + pop.assignments)
+    }
+
+    // Search for a student in the course that's non-existent, (name/id = "XYZ")...
+    val student:Option[Student] = course.apply("XYZ")
+    if (student == None)
+    {
+      println("There is no student with a name/id = 'XYZ'")
+    }
   }
 }
+
 ====================================================================================
 The apply() method is sufficient for many situations like immutable collections where
 you only need to access an element of the collection (via the apply() method), but
