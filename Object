@@ -35,3 +35,9 @@ object Demo
     println(getMyShit)  // PRINTS: 987.666
   }
 }
+
+Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
+A companion object is an object that has the same name as the class to
+which it is a companion.  The companion object has access to private members
+of the companion class.  The class can also see private elements in the object.
+
