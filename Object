@@ -1,0 +1,37 @@
+A Scala object is somewhat similar to a Scala class.  Just as it's convention for
+a Scala class name to have its first letter capitalized, a Scala Object name should
+also have its first letter capitalized.  Declaring an object creates a single object
+in the current scope, and it contains any members and methods that you define within
+the object.  Unlike a Scala class, a Scala object can't be passed any arguments!
+This is because an object is NEVER created using the 'new' keyword, as you use with
+a class.
+
+An Scala object is like a Java static type, in that its members and methods are
+independent of any class that references the object's members or methods.  If
+two different Scala classes named ClassA and ClassB both reference the same Scala
+object, they will reference the object's same members and methods.  This is because
+a Scala object is NOT instantiated as are classes--Scala objects are "static."
+
+To use a Scala object's members or methods, you precede the member or method with the
+name of the object followed by the period (.) character, the same way you reference
+class members and methods.
+
+A top-level object declaration defines an entry point to a Scala application if it
+contains a method defined with this name and signature: main(Array[String])
+Here's an example...
+
+object Demo
+{
+  var shit:Float = -123.987F
+  def getMyShit():Float = shit
+  def setMyShit(value:Float):Unit = { shit = value }
+
+  def main(args: Array[String]):Unit =
+  {
+    println(shit)       // PRINTS: -123.987
+    println(getMyShit)  // PRINTS: -123.987
+    setMyShit(987.666F)
+    println(shit)       // PRINTS: 987.666
+    println(getMyShit)  // PRINTS: 987.666
+  }
+}
