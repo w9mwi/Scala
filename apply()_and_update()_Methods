@@ -172,10 +172,13 @@ object Demo
 }
 
 ====================================================================================
+
 object Demo
 {
   class Vect(val x:Double, val y:Double, val z:Double)
   {
+    // The following 6 functions are used as operators
+    // for computing results on this Vect class.
     def +(v:Vect):Vect   = new Vect(x+v.x, y+v.y, z+v.z)
     def -(v:Vect):Vect   = new Vect(x-v.x, y-v.y, z-v.z)
     def *(c:Double):Vect = new Vect(c*x,   c*y,   c*z)
@@ -185,44 +188,55 @@ object Demo
                                              z*v.x - x*v.z,
                                              x*v.y - y*v.x)
 
-    // This apply() function gets called in the main() method below
-    // when referencing a Vector's x, y, or z member via an index,
-    // such as:  v1(0),  v1(1),  v1(2)
+    // This apply() function uses pattern matching, and gets called
+    // by the main() method below.  When referencing a Vector's x, y,
+    // or z member via an index (i.e., v1(0),  v1(1),  v1(2)), this
+    // apply() function gets called, and returns the corresponding
+    // Vect member value.
     def apply(idx:Int):Double = idx match
     {
-      case 0 => x
-      case 1 => y
-      case 2 => z
+      case 0 => x // x is passed to the Vect() constructor
+      case 1 => y // y is passed to the Vect() constructor
+      case 2 => z // z is passed to the Vect() constructor
     }
 
-    // This apply() method is NOT called by any code.
     def apply(is:Seq[Int]):Seq[Double] =
     {
-      is.map(Array(x,y,z))
+      is.map(Array(x,y,z)) // NOTE: x, y, and z are passed to the Vect() constructor.
     }
 
+    // This toString() function overrides the Vect class's default toString()
+    // function, in order to make the Vect's values human-readable.
     override def toString:String = { "<" + x + ", " + y + ", " + z + ">" }
   }
 
   def main(args: Array[String]):Unit =
   {
-    val v1 = new Vect(1, 77.88, 3)
-    val v2 = new Vect(2, -4, 7)
-    val v3 = v1 + v2
-    val v4 = v3 * 8
-    println("v1 = " + v1.toString) // PRINTS: v1 = <1.0, 77.88, 3.0>
-    println("v2 = " + v2.toString) // PRINTS: v2 = <2.0, -4.0, 7.0>
+    val v1:Vect = new Vect(1, 77.88, 3)
+    val v2:Vect = new Vect(2, -4, 7)
+    val v3:Vect = v1 + v2 // NOTE: (v1 + v2) = (v1.+(v2))
+    val v4:Vect = v3 * 8  // NOTE: (v3 * 8)  = (v3.*(8))
+    println("v1 = " + v1.toString)           // PRINTS: v1 = <1.0, 77.88, 3.0>
+    println("v2 = " + v2.toString)           // PRINTS: v2 = <2.0, -4.0, 7.0>
     println("v3 = v1 + v2 = " + v3.toString) // PRINTS: v3 = v1 + v2 = <3.0, 73.88, 10.0>
     println("v4 = v3 * 8 = " + v4.toString)  // PRINTS: v4 = v3 * 8 = <24.0, 591.04, 80.0>
 
     // The following println() calls this function 3 times: apply(idx:Int):Double
-    // Once for v1(0), once time for v1(1), and once for v1(2)
+    // Once for v1(0), once for v1(1), and once for v1(2)
     println("v1(0) = " + v1(0) + ", v1(1) = " + v1(1) + ", v1(2) = " + v1(2))
-     // PRINTS: v1(0) = 1.0, v1(1) = 77.88, v1(2) = 3.0
+    // PRINTS: v1(0) = 1.0, v1(1) = 77.88, v1(2) = 3.0
 
-    // The following println() prints the same values as the above println(), except they are
-    // referenced via member vals, instead of via apply() method like the println() above.
+    // The following println() prints the same values as the above println(), except they're
+    // referenced via member vals, instead of via the apply() method as in the above println().
     println("v1.x = " + v1.x + ",  v1.y = " + v1.y + ",  v1.z = " + v1.z)
-     // PRINTS: v1.x = 1.0,  v1.y = 77.88,  v1.z = 3.0
+    // PRINTS: v1.x = 1.0,  v1.y = 77.88,  v1.z = 3.0
+
+    val mySeq:Seq[Int] = Seq(1)
+    val jim:Seq[Char]  = mySeq.map(Array('A', 'B', 'C')) // Calls the Seq.map() function.
+    println(jim) // PRINTS: List(B)
+
+    // The following line of code calls the above function: apply(is:Seq[Int]):Seq[Double]
+    val tom:Seq[Double] = v1(mySeq) // NOTE: v1(mySeq) = v1.apply(mySeq)
+    println(tom) // PRINTS: List(77.88)
   }
 }
