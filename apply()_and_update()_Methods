@@ -1,5 +1,5 @@
-THE APPLY METHOD
-----------------
+THE apply() METHOD
+------------------
 The apply() method is written just like any other method in a class,
 and you can call it just like any other method.  However, Scala will
 let you call the apply() method without using a period char (.), or
@@ -87,14 +87,25 @@ object Demo
 }
 
 ====================================================================================
+THE update() METHOD
+-------------------
+
 The apply() method is sufficient for many situations like immutable collections where
-you only need to access an element of the collection (via the apply() method), but
-never assign a value to an element.  To assign/change the value of an element of
-a collection, the update() method is used.  For example...
+you ONLY NEED TO ACCESS an element of the collection (via the apply() method), but
+you never need assign a value to an element.  To initially assign (or change) the value
+of an element of a collection, the update() method is used.  For example...
 
 obj(2) = 345.67
-...would get converted to this call...
+...would get converted to the below function call.  Where 2 is the element index,
+and 345.67 is the value that element gets assigned...
 obj.update(2, 345.67)
+
+In the code sample below, there are 3 apply() methods, and 3 update() methods.
+It's important to remember that THE LAST PARAMETER of an update() method is
+the value that gets assigned to the collection, and the other parameter(s)
+(which preceed the last parameter) are used as an index to access a specific
+element of the collection.
+
 ====================================================================================
 
 object Demo
