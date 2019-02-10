@@ -104,7 +104,7 @@ object Demo
     private val data:Array[Array[Double]] = Array.fill(rows, cols)(0.0)  // data is a 2-dimensional Array.
 
     def apply(c:String, r:Int):Double = { data(r)(calcColumn(c)) }
-    def apply(c:Int,    r:Int):Double = { data(r)(c) }     // Return the value stored at Array index (r)(c)
+    def apply(c:Int,    r:Int):Double = { data(r)(c) } // Return the value stored at Array index (r)(c)
     def apply(cell:String):Double =
     {
       // NOTE: The partition() method gets passed a function that returns a Boolean.
