@@ -96,18 +96,15 @@ obj(2) = 345.67
 ...would get converted to this call...
 obj.update(2, 345.67)
 ====================================================================================
+
 object Demo
 {
   class Spreadsheet(rows:Int, cols:Int)
   {
-    private val data = Array.fill(rows, cols)(0.0)  // data is a 2-dimensional Array.
+    private val data:Array[Array[Double]] = Array.fill(rows, cols)(0.0)  // data is a 2-dimensional Array.
 
-    def apply(c:Int, r:Int):Double     = { data(r)(c) }
-    def update(c:Int, r:Int, v:Double) = { data(r)(c) = v }
-
-    def apply(c:String, r:Int):Double     = { data(r)(calcColumn(c)) }
-    def update(c:String, r:Int, v:Double) = { data(r)(calcColumn(c)) = v }
-
+    def apply(c:String, r:Int):Double = { data(r)(calcColumn(c)) }
+    def apply(c:Int,    r:Int):Double = { data(r)(c) }     // Return the value stored at Array index (r)(c)
     def apply(cell:String):Double =
     {
       // NOTE: The partition() method gets passed a function that returns a Boolean.
@@ -120,6 +117,8 @@ object Demo
       data(r.toInt)(calcColumn(c))
     }
 
+    def update(c:Int,    r:Int, v:Double) = { data(r)(c) = v } // Change the value stored at Array index (r)(c)
+    def update(c:String, r:Int, v:Double) = { data(r)(calcColumn(c)) = v }
     def update(cell:String, v:Double) =
     {
       // NOTE: The partition() method gets passed a function that returns a boolean.
@@ -128,7 +127,7 @@ object Demo
       //       which the function passed to partition() is true.  The second collection
       //       in the returned tuple contains only the elements for which the function
       //       passed to partition() is false.  In this example, the tuple ("c", 5) is returned.
-      val (c, r) = cell.partition(_.isLetter)
+      val (c, r):(String, String)  = cell.partition(_.isLetter)
       data(r.toInt)(calcColumn(c)) = v
     }
 
@@ -136,7 +135,7 @@ object Demo
     {
       // NOTE: foldLeft is a curried function.  In this example, the first parameter passed to
       //       foldLeft is the value zero, which is used as the first operand.  The second
-      //       parameter is a function that gets passed a tuple (value,column), and returns an Int.
+      //       parameter is a function that gets passed a tuple (value,column) and returns an Int.
       column.toLowerCase.foldLeft(0)((value,column) => value*26+(column-'a'))
     }
   }
@@ -144,15 +143,20 @@ object Demo
   def main(args: Array[String]):Unit =
   {
     val ss = new Spreadsheet(10, 10)
-    ss("c5") = 14  // This line of code calls the above update() method.
-    ss(3,8) = 24
-    // The following println() prints this:
+    ss("c5")  = 14.0  // This line calls: update(cell:String, v:Double)     where 14.0  is the v:Double parameter.
+    ss(3,8)   = 24.0  // This line calls: update(c:Int, r:Int, v:Double)    where 24.0  is the v:Double parameter.
+    ss("J",9) = 12.34 // This line calls: update(c:String, r:Int, v:Double) where 12.34 is the v:Double parameter.
+
+    // The following println() calls all 3 of the apply() methods defined above.
+    println("ss(\"c5\")  = " + ss("c", 5) + "\nss(3,8)   = " + ss(3,8) + "\nss(\"d8\")  = " + ss("d8") + "\nss(\"J\",9) = " + ss("J",9))
+    // PRINTS:
     // ss("c5") = 14.0
     // ss(3,8)  = 24.0
     // ss("d8") = 24.0   NOTE: ss("d8") points to the same (row,column) cell as does ss(3,8)
-    println("ss(\"c5\") = " + ss("c", 5) + "\nss(3,8)  = " + ss(3,8) + "\nss(\"d8\") = " + ss("d8"))
+    // s("J,9") = 12.34
   }
 }
+
 ====================================================================================
 object Demo
 {
