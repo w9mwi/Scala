@@ -22,17 +22,20 @@ Here's an example...
 
 object Demo
 {
-  var shit:Float = -123.987F
-  def getMyShit():Float = shit
-  def setMyShit(value:Float):Unit = { shit = value }
+  var myShit:Float = -123.987F
+
+  def getMyShit():Float = Demo.myShit
+  def setMyShit(value:Float):Unit = { Demo.myShit = value }
 
   def main(args: Array[String]):Unit =
   {
-    println(shit)       // PRINTS: -123.987
-    println(getMyShit)  // PRINTS: -123.987
+    println(Demo.myShit)     // PRINTS: -123.987
+    println(Demo.getMyShit)  // PRINTS: -123.987
     setMyShit(987.666F)
-    println(shit)       // PRINTS: 987.666
-    println(getMyShit)  // PRINTS: 987.666
+    println(Demo.myShit)     // PRINTS: 987.666
+    println(Demo.getMyShit)  // PRINTS: 987.666
+    Demo.myShit = -666.666F
+    println(Demo.myShit)     // PRINTS: -666.666
   }
 }
 
