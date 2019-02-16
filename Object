@@ -52,7 +52,14 @@ object Demo2
 }
 
 Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
-A companion object is an object that has the same name as the class to
-which it is a companion.  The companion object has access to private members
-of the companion class.  The class can also see private elements in the object.
+A companion object is an object that has the same name as the class to which
+it is a companion.  The companion object has access to private members of the
+companion class.  Likewise, the class can see private elements in the object.
+BOTH the class and its companion object should be placed in the same file.
 
+When building a new Scala object, you may use the 'new' keyword, but it is
+optional.  Building an object always call the 'new' keyword.  If you don't
+use 'new' explicitly in your caode, 'new' gets invoked via the object's
+apply() method.  In the Scala API documentation, the circled 'c' represents
+a class, the circled 'o' represents an object, and the circled 't' represents
+a trait.
