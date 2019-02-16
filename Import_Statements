@@ -1,3 +1,31 @@
 The import statements that typically appear at the top of a file
 (in both Java and Scala code), have many options and variations
 in Scala.  Read section 16.4 on pages 410-412 for details.
+
+An import statement can be placed at the top of the file, as they
+always are in Java.  But in Scala, import statements can be used
+anywhere, but are effective only within the the curly braces {}
+that surond the import statement, so import statements have scope.
+
+The rocket (=>) can be used in import statements to give an imported
+class a different name.  For example, if your code needs to use
+both the Scala List and the Java List, you need a way to differentiate
+between the Java List and the Scala List.  To do that, you can reference
+the Java List as JavaList, by using the following import statement.
+
+import java.util.{List => JavaList}
+
+You can also hide a name by placing an underscore (_) to the right
+of the rocket (=>).  So if you want to import all of the java.util
+package EXCEPT for java.util.List, you can use this import statement.
+
+import java.util.{List => _, _}
+
+Due to the NESTING OF PACKAGES, there are times when a specific name could
+refere to more than one package.  To remove this ambiguity, that name _root_
+be used to refer to the base below all packages.  Therefore...
+
+import _root_.scala.io.Source
+
+...can be used to refer to the "Source" type even if thare are naming
+conflicts with "io" and "Source".
