@@ -39,6 +39,18 @@ object Demo
   }
 }
 
+object Demo2
+{
+  val myDemo = Demo
+  def main(args: Array[String]):Unit =
+  {
+    // Print the Demo.myShit value of the above-defined Demo object,
+    // from this Demo2 object.
+    println(Demo.myShit)   // PRINTS: -123.987
+    println(myDemo.myShit) // PRINTS: -123.987
+  }
+}
+
 Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
 A companion object is an object that has the same name as the class to
 which it is a companion.  The companion object has access to private members
