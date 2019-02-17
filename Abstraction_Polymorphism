@@ -51,3 +51,45 @@ object Demo
   }
 }
 =========================================================================================
+The following Scala sample code shows how the Rectangle and Circle classes defined below
+extend the Shape class.  Then, the Rectangle and Circle classes override the inherited
+Shape.area() and Shape.circumference methods.
+
+import scala.math.Pi
+import scala.swing.Graphics2D
+import java.awt.geom.Ellipse2D
+import java.awt.geom.Rectangle2D
+
+object Demo
+{
+  class Shape
+  {
+    def area:Double = 0.0
+    def circumference:Double = 0.0
+    def draw(g:Graphics2D):Unit = {}
+  }
+
+  class Rectangle(val width:Double, val height:Double) extends Shape
+  {
+    override def area:Double             = width*height
+    override def circumference:Double    = 2.0 * width*height
+    override def draw(g:Graphics2D):Unit = {g.fill(new Rectangle2D.Double(0.0, 0.0, width, height))}
+  }
+
+  class Circle(val radius:Double) extends Shape
+  {
+    override def area:Double             = Pi * radius * radius
+    override def circumference:Double    = 2.0 * math.Pi * radius
+    override def draw(g:Graphics2D):Unit = { g.fill(new Ellipse2D.Double(0.0, 0.0, 2.0 * radius, 2.0*radius)) }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val myRectangle = new Rectangle(6.54, 9.87)
+    val myCircle    = new Circle(5.67)
+
+    println("myRectangle.area() = " + myRectangle.area) // PRINTS: myRectangle.area() = 64.54979999999999
+    println("myCircle.area()    = " + myCircle.area)    // PRINTS: myCirle.area()     = 100.9987480609929
+  }
+}
+=========================================================================================
