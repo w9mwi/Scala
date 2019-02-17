@@ -56,7 +56,6 @@ extend the Shape class.  Then, the Rectangle and Circle classes override the inh
 Shape.area() and Shape.circumference methods.
 
 import java.awt.Color
-
 import scala.math.Pi
 import scala.swing.Graphics2D
 import java.awt.geom.Ellipse2D
@@ -64,7 +63,14 @@ import java.awt.geom.Rectangle2D
 
 object Demo
 {
-  class Shape(private var color:Color)
+  // NOTE: Shape is defined as an abstract class.  An abstract class cannot be instantiated
+  //       because it only exists as a "template" class to be used by classes that extend it.
+  //       (See the commented-out line in the main() method below.)
+  //       Methods and members that are not given a value is a class are considered to be
+  //       abstract.  Therefore, if just one class member is not set to a value (via the =
+  //       sign), or just one class method is not set to a value (via the = sign), then
+  //       the entire class must be defined as abstract.
+  abstract class Shape(private var color:Color)
   {
     // The 'protected' keyword is used by methods in this Shape class.  A 'protected' method
     // means the only classes that can call it are the Shape class, and classes that inherit
@@ -100,6 +106,10 @@ object Demo
 
   def main(args: Array[String]):Unit =
   {
+    // NOTE: The following commented-out line of code will NOT compile cuz Shape is an abstract (anonymous) class.
+    //       If you remove the 'abstract' keyword from the Shape class, the following line will compile.
+    // val myShape:Shape      = new Shape(Color.BLUE)
+
     val myRectangle:Rectangle = new Rectangle(6.54, 9.87, Color.PINK)
     val myCircle:Circle       = new Circle(5.67, Color.YELLOW)
 
