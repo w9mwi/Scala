@@ -22,3 +22,32 @@ Polymorphism - This word literally means "many shapes."  And example of polymorp
                   NOT have access to the data and methods defined in class B.
 
                2) Parametric Polymorphism
+
+=========================================================================================
+Any class you define in Scala has its own toString() method that exists by default.
+The following sample code shows the default Scala toString() method that gets called
+(on our user-defined class named Vect3D_1) returns a string that contains information
+that does not give us the info. we really want.  To fix that problem, we defined another
+class named Vect3D_2 that overrides the default toString() method, so it prints human-
+readable info.
+
+object Demo
+{
+  class Vect3D_1(val x:Double, val y:Double, val z:Double)
+
+  class Vect3D_2(val x:Double, val y:Double, val z:Double)
+  {
+    // Override the toString() method, so it prints human-readable information...
+    override def toString():String = { "Vect3D_2(" + x +", " + y + ", " + z + ")" }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val myVect_1 = new Vect3D_1(1.2, 2.2, 3.3)
+    println("myVect_1 = " + myVect_1.toString) // PRINTS: myVect_1 = Demo$Vect3D_1@16c0663d
+
+    val myVect_2 = new Vect3D_2(1.2, 2.2, 3.3)
+    println("myVect_2 = " + myVect_2.toString) // PRINTS: myVect_2 = Vect3D_2(1.2, 2.2, 3.3)
+  }
+}
+=========================================================================================
