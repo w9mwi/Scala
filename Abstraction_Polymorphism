@@ -64,9 +64,12 @@ object Demo
 {
   class Shape
   {
-    def area:Double = 0.0
-    def circumference:Double = 0.0
-    def draw(g:Graphics2D):Unit = {}
+    // The 'protected' keyword is used by methods in this Shape class.  A 'protected' method
+    // means the only classes that can call it are the Shape class, and classes that inherit
+    // (extends) the Shape class.
+    protected def area:Double             = 0.0
+    protected def circumference:Double    = 0.0
+    protected def draw(g:Graphics2D):Unit = {}
   }
 
   class Rectangle(val width:Double, val height:Double) extends Shape
@@ -85,11 +88,12 @@ object Demo
 
   def main(args: Array[String]):Unit =
   {
-    val myRectangle = new Rectangle(6.54, 9.87)
-    val myCircle    = new Circle(5.67)
+    val myRectangle:Rectangle = new Rectangle(6.54, 9.87)
+    val myCircle:Circle       = new Circle(5.67)
 
     println("myRectangle.area() = " + myRectangle.area) // PRINTS: myRectangle.area() = 64.54979999999999
     println("myCircle.area()    = " + myCircle.area)    // PRINTS: myCirle.area()     = 100.9987480609929
   }
 }
+
 =========================================================================================
