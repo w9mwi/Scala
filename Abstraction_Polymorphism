@@ -1,0 +1,24 @@
+Abstraction - You want to write code where some part of what it does is not
+              fully specified until it is used.
+
+Polymorphism - This word literally means "many shapes."  And example of polymorphism
+               would be to implement a sorting algorithm that could be applied
+               to multiple data types, such as Int, String, Float, Double, Char.
+
+               There are 2 types of polymorphism.  UNIVERSAL polymorphism implies the
+               code can work with an infinite nuber of types.  AD-HOC polymorphism
+               works with only a finite number of types.
+               
+               UNIVERSAL polymorphism consists of these two different forms...
+
+               1) Inclusion Polymorphism - Is obtained from sub-typing.  In other
+                  words, when all elements of one type are also part of another
+                  type.  Some examples of this are the Scala types Double, Float,
+                  Long, Int, Short, and Byte, which are all subtypes of the type
+                  AnyVal.  This is accomplished via inheritance, which is also
+                  known as subtyping.  So if class B inherits from class A, class
+                  B is a subtype of class A, and class B has access to all data
+                  and methods available in class A. However the parent class A does
+                  NOT have access to the data and methods defined in class B.
+
+               2) Parametric Polymorphism
