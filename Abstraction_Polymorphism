@@ -66,7 +66,7 @@ object Demo
   // NOTE: Shape is defined as an abstract class.  An abstract class cannot be instantiated
   //       because it only exists as a "template" class to be used by classes that extend it.
   //       (See the commented-out line in the main() method below.)
-  //       Methods and members that are not given a value is a class are considered to be
+  //       Methods and members that are not given a value in a class are considered to be
   //       abstract.  Therefore, if just one class member is not set to a value (via the =
   //       sign), or just one class method is not set to a value (via the = sign), then
   //       the entire class must be defined as abstract.
