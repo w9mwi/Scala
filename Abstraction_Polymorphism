@@ -1,5 +1,13 @@
-Abstraction - You want to write code where some part of what it does is not
-              fully specified until it is used.
+Abstraction - You want to write code where some part of what it does is not fully
+              specified until it is used.  When a class is defined as abstract
+              (using the "abstract" key word), it means that at least one of its
+              members or methods must be overridden in a subclass.  When you want
+              a class member or method that CAN'T be overridden in a subclass,
+              use the "final" keyword.  You can also define an entire class using
+              the "final" key word, which means that no subclass can modify it.
+              The most common example of why you'd want to define a class as
+              "final" is when you want that class to be immutable--so no subclass
+              can modify it.
 
 Polymorphism - This word literally means "many shapes."  And example of polymorphism
                would be to implement a sorting algorithm that could be applied
