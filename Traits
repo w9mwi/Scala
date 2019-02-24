@@ -38,7 +38,12 @@ A trait is similar to an abstract class in many ways.  The two primary differenc
 1) A trait CAN'T take arguments, as an abstract class CAN.
 2) A trait CAN'T have constructor parameters.  (A trait CAN'T take arguments.)
 3) A class can be defined as inheriting from from multiple traits, but when the
-   code is executed, behavior from only one trait will be implemented.
+   code is executed, BEHAVIOR FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
+   Because this is very important, we'll say it again...
+
+IMPORTANT: WHEN A CLASS INHERITS FROM MULTIPLE TRAITS, BEHAVIOR
+           FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
+   
 
 A TRAIT CAN ONLY INHERIT FROM ANOTHER TRAIT.  A trait CAN'T inherit from a class.
 For a trait to inherit from another trait, the "extends" keyword is used, just as
