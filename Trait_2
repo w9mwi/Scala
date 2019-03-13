@@ -1,0 +1,42 @@
+A trait can be used just like a Java interface.  As with interfaces,
+just define the methods in your trait that you want extending classes
+to implement.
+
+If a trait contains a member method that IS defined, that member method is concrete.
+If a trait contains a member value that IS initialized, that member value is concrete.
+If a trait contains a member method that is NOT defined, that member method is abstract.
+If a trait contains a member value that is NOT initialized, that member value is abstract.
+
+==========================================================================================
+object Demo
+{
+  trait Pet
+  {
+    def speak:Unit = { println("I speak the universal Pet language.") } // concrete implementation of speak() method.
+    def comeToMaster:Unit  // abstract implementation of comeToMaster() method.
+  }
+
+  class Dog extends Pet
+  {
+    def comeToMaster:Unit = { println("I'm a Dog, so I come when called.") }
+  }
+
+  class Cat extends Pet
+  {
+    override def speak:Unit = { println("MEOW") } // The override key word is required here.
+    def comeToMaster:Unit   = { println("I'm a Cat, so I don't follow orders.") }
+  }
+
+  def main(args: Array[String])
+  {
+    val catPet:Cat = new Cat()
+    catPet.speak        // PRINTS: MEOW
+    catPet.comeToMaster // PRINTS: I'm a Cat, so I don't follow orders.
+
+    val dogPet:Dog = new Dog()
+    dogPet.speak        // PRINTS: I speak the universal Pet language.
+    dogPet.comeToMaster // PRINTS: I'm a Dog, so I come when called.
+  }
+}
+==========================================================================================
+
