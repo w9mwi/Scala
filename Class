@@ -117,9 +117,9 @@ the name of an enclosing scope of one of the following...
 2) class
 3) trait
 4) object
-If you want a make a method available to all members of the current package (aka,
-“package scope”), mark the method as being private to the current package, with
-the private[packageName] syntax as in this example:
+If you want to a make a method available to all members of the current package
+(aka, “package scope”), mark the method as being private to the current package,
+with the private[packageName] syntax as in this example:
 
 package com.acme.coolapp.model
 {
