@@ -2,7 +2,7 @@
 Scala provides three (3) constructs for creating user-defined types:
 1) a trait
 2) an object
-3) a class  (The two kinds of classes are: "case class" and "class"
+3) a class  (Scala has two kinds class: "case class" and "class")
 
 The "case class" Scala type is different from the regular
 Scala "class" type in the following ways...
