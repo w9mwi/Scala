@@ -27,9 +27,9 @@ Scala "class" type in the following ways...
 
 
 ===============================================================================
-A regular Scala class can do anything a case class can does.  But implementing
+A regular Scala class can do anything a case class can do.  But implementing
 a case class adds lots of code for you that you don't need to write yourself.
-A case class automatically creates a companion object that contains and
+A case class automatically creates a companion object that contains the
 apply() method, so you can implement a case class without calling the 'new'
 keyword.  A case class also contains a copy() method that has default arguments
 for all values.  A case class can also be used for pattern matching.
@@ -42,8 +42,8 @@ When creating a new case class, using the "new" keyword is optional--so
 generally it's not used.  When creating a regular class, the "new"
 keyword is REQUIRED.
 
-A case class implements the copy() method (example shown below), but
-a regular class does NOT implement the copy() method.
+A case class implements the copy() method (example shown below),
+but a regular class does NOT implement the copy() method.
 
 Both case classes and regular classes can be defined so they're member
 values are "var" (mutable) or val (immutable).  By default (meaning
