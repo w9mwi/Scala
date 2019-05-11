@@ -40,6 +40,17 @@ IMPORTANT: When a class extends a trait that has an abstract method
              def comeToMaster(): Unit = { println("Woo-hoo, I'm coming!") }
            }
 
+           A class that extends a trait can override a trait's defined method
+           by redefining the trait's method inside the class, like this:
+
+           class Cat extends Pet
+           {
+             // The following speak() method overrides the trait's speak() method
+             // defined in the above example...
+             override def speak(): Unit = { println("meow") }
+             def comeToMaster(): Unit   = { println("That's not gonna happen.") }
+           }
+
 
 
 If you write "super.toString" in a class, you know exactly which method
