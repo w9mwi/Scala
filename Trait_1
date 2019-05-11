@@ -10,17 +10,37 @@ and maintain state.  In fact, you can do anything in a trait definition that
 you can do in a class definition, and the syntax looks exactly the same,
 with only two (2) exceptions...
 
-1) A trait cannot have any "class" parameters, i.e., parameters passed to the
-   primary constructor of a class.  In other words, although you could define
-   a class like this:
+1) A trait cannot contain parameters like a class can contain paramaters.
+   In other words, although you can define a class like this:
    class Point(x: Int, y: Int)
 
-   The following attempt to define a trait would not compile:
-   trait NoPoint(x: Int, y: Int) // Does not compile
+   The following attempt to define a trait would NOT compile because
+   it contains parameters:
+   trait NoPoint(x: Int, y: Int) // Won't compile
 
-2) The difference between classes and traits is that a call to super() in
-   a class is statically bound, but in traits a call to super() is
-   dynamically bound.
+2) Another difference between a classes and a trait is that a call
+   to super() in a class is statically bound, but in traits a call
+   to super() is dynamically bound.
+   
+IMPORTANT: When a class extends a trait that has an abstract method
+           (a method that's declared, but not defined), each abstract
+           method in contained in that trait must be defined in the
+           in the class that extends the trait!!!  Here's an example:
+
+           trait Pet
+           {
+              def speak { println("Yo") } // concrete implementation of a speak method
+              def comeToMaster(): Unit    // abstract
+           }
+           class Dog(name: String) extends Pet
+           {
+             // Because Dog extends the trait Pet, and the Pet.comeToMaster()
+             // method is abstract (meaning it's not defined in the trait),
+             // the comeToMaster() method MUST be defined in the Dog class...
+             def comeToMaster(): Unit = { println("Woo-hoo, I'm coming!") }
+           }
+
+
 
 If you write "super.toString" in a class, you know exactly which method
 implementation will be invoked.  When you write the same thing in a trait,
@@ -30,14 +50,13 @@ determined anew each time the trait is mixed into a concrete class.
 
 ===================================================================
 
-When you inherit from a trait, you use the "with" keyword, whereas inheriting from
-a class you use the "extends" keyword.
+When you inherit from a trait, you use the "with" keyword, whereas
+inheriting from a class you use the "extends" keyword.
 
 A trait is similar to an abstract class in many ways.  The two primary differences are:
 
-1) A trait CAN'T take arguments, as an abstract class CAN.
-2) A trait CAN'T have constructor parameters.  (A trait CAN'T take arguments.)
-3) A class can be defined as inheriting from from multiple traits, but when the
+1) A trait CAN'T take arguments/parameters, as an abstract class CAN.
+2) A class can be defined as inheriting from from multiple traits, but when the
    code is executed, BEHAVIOR FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
    Because this is very important, we'll say it again...
 
