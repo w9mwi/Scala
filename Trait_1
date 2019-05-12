@@ -10,21 +10,22 @@ and maintain state.  In fact, you can do anything in a trait definition that
 you can do in a class definition, and the syntax looks exactly the same,
 with only two (2) exceptions...
 
-1) A trait cannot contain parameters like a class can contain paramaters.
-   In other words, although you can define a class like this:
-   class Point(x: Int, y: Int)
+1) A trait cannot contain arguments/parameters like a class can.
+   For example, you can define a class like below, which comntains
+   the arguments/parameters x and y...
+   class Point(x: Int, y: Int) // Will compile
 
-   The following attempt to define a trait would NOT compile because
-   it contains parameters:
+   However, the following attempt to define a trait would
+   NOT compile because it contains arguments/parameters...
    trait NoPoint(x: Int, y: Int) // Won't compile
 
-2) Another difference between a classes and a trait is that a call
-   to super() in a class is statically bound, but in traits a call
-   to super() is dynamically bound.
+2) Another difference between a class and a trait is this...
+   A call to super() IN A CLASS is statically bound.
+   A call to super() IN A TRAIT is dynamically bound.
    
 IMPORTANT: When a class extends a trait that has an abstract method
            (a method that's declared, but not defined), each abstract
-           method in contained in that trait must be defined in the
+           method contained in the trait must be defined in the
            in the class that extends the trait!!!  Here's an example:
 
            trait Pet
@@ -51,18 +52,21 @@ IMPORTANT: When a class extends a trait that has an abstract method
              def comeToMaster(): Unit   = { println("That's not gonna happen.") }
            }
 
-
-
 If you write "super.toString" in a class, you know exactly which method
-implementation will be invoked.  When you write the same thing in a trait,
-however, the method implementation to invoke for the super call is undefined
-when you define the trait. Rather, the implementation to invoke will be
-determined anew each time the trait is mixed into a concrete class.
+implementation will be invoked.  However, when you define a trait, the
+method implementation to invoke for super() is undefined.  The implementation
+to invoke will be determined anew each time the trait is mixed into a concrete
+class, making it dynamically bound.
 
 ===================================================================
 
-When you inherit from a trait, you use the "with" keyword, whereas
-inheriting from a class you use the "extends" keyword.
+When you inherit from a class, you can only inherit from a single
+class only, and you use the 'extends' keyword.
+
+When you inherit from a trait, you can only inherit from a multiple
+traits.  Use the 'extends' keyword to inherit from the first trait,
+and use the 'with' keyword to inherit from all subsequent traits.
+(See code sample further below.)
 
 A trait is similar to an abstract class in many ways.  The two primary differences are:
 
@@ -74,7 +78,6 @@ A trait is similar to an abstract class in many ways.  The two primary differenc
 IMPORTANT: WHEN A CLASS INHERITS FROM MULTIPLE TRAITS, BEHAVIOR
            FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
    
-
 A TRAIT CAN ONLY INHERIT FROM ANOTHER TRAIT.  A trait CAN'T inherit from a class.
 For a trait to inherit from another trait, the "extends" keyword is used, just as
 the "extends" keyword is used for a class to inherit from another class.
@@ -89,8 +92,8 @@ use multiple traits, which is done using the "with" keyword.  Here's an example.
 Assume you want to represent a Person, but there are multiple categories
 of a Person...  Parent, Child, GeneralAdult, Father, Mother, Male, Female
 
-Since a Father is a Person + Parent + Male, a Father class could NOT inherit
-from Person + Parent + Male, because that would be inheriting from multiple
+Since a Father is a Person and Parent and Male, a Father class could NOT inherit
+from Person and Parent and Male, because that would be inheriting from multiple
 classes, which isn't allowed.  Here is how you could use traits to do this...
 
 trait Person {...} // NOTE: Person is a trait!
@@ -112,7 +115,7 @@ This approach is perhaps a bit more advanced, and if the Parent and Male
 types involve code that requires them to know they will be used with a Person,
 you will need to use SELF-TYPES, which are discussed in Appendix B of the book.
 
-QUESTION: Which should be used, a trait, or an abstract class?...
+QUESTION: Which should I use?  A trait, or an abstract class?...
 
 When coding an abstract type that will be used with inheritance, should
 a trait be used, or an abstract class?...  The rule of thumb is to use
