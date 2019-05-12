@@ -137,13 +137,13 @@ object Demo
 
   class IntIterator(to: Int) extends Iterator[Int]
   {
-    private var current = 0
-    override def hasNext: Boolean = { current < to }
-    override def next(): Int =
+    private var current:Int      = 0
+    override def hasNext:Boolean = { current < to }
+    override def next():Int =
     {
       if (hasNext)
       {
-        val total = current
+        val total:Int = current
         current += 1
         total
       }
@@ -156,7 +156,8 @@ object Demo
     */
   def main(args: Array[String])
   {
-    val iterator = new IntIterator(10)
+    val iterator:IntIterator = new IntIterator(10) // iterator is initialized to perform 10 iterations.
+
     // The 13 print statements below collectively print the following:
     // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0
     print(iterator.next() + ", ") // PRINTS: 0
@@ -169,9 +170,9 @@ object Demo
     print(iterator.next() + ", ") // PRINTS: 7
     print(iterator.next() + ", ") // PRINTS: 8
     print(iterator.next() + ", ") // PRINTS: 9
-    print(iterator.next() + ", ") // PRINTS: 0
-    print(iterator.next() + ", ") // PRINTS: 0
-    println(iterator.next())      // PRINTS: 0
+    print(iterator.next() + ", ") // PRINTS: 0 // next() returns 0 cuz the Iterator is spent.
+    print(iterator.next() + ", ") // PRINTS: 0 // next() returns 0 cuz the Iterator is spent.
+    println(iterator.next())      // PRINTS: 0 // next() returns 0 cuz the Iterator is spent.
   }
 }
 ===========================================================================
