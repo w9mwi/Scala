@@ -30,8 +30,8 @@ IMPORTANT: When a class extends a trait that has an abstract method
 
            trait Pet
            {
-              def speak() { println("Yo") } // concrete implementation of a speak method
-              def comeToMaster(): Unit    // abstract
+              def speak() { println("Yo") } // The method speak() is DEFINED, which means it's a concrete method.
+              def comeToMaster(): Unit      // comeToMaster() is UNDEFINED, which means it's an abstract method.
            }
            class Dog(name: String) extends Pet
            {
