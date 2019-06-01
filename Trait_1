@@ -30,7 +30,7 @@ IMPORTANT: When a class extends a trait that has an abstract method
 
            trait Pet
            {
-              def speak { println("Yo") } // concrete implementation of a speak method
+              def speak() { println("Yo") } // concrete implementation of a speak method
               def comeToMaster(): Unit    // abstract
            }
            class Dog(name: String) extends Pet
