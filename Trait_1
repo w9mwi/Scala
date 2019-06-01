@@ -11,7 +11,7 @@ you can do in a class definition, and the syntax looks exactly the same,
 with only two (2) exceptions...
 
 1) A trait cannot contain arguments/parameters like a class can.
-   For example, you can define a class like below, which comntains
+   For example, you can define a class like below, which contains
    the arguments/parameters x and y...
    class Point(x: Int, y: Int) // Will compile
 
