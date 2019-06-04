@@ -32,12 +32,12 @@ Polymorphism - This word literally means "many shapes."  An example of polymorph
                2) Parametric Polymorphism
 
 =========================================================================================
-Any class you define in Scala has its own toString() method that exists by default.
-The following sample code shows the default Scala toString() method that gets called
-(on our user-defined class named Vect3D_1) returns a string that contains information
-that does not give us the info. we really want.  To fix that problem, we defined another
-class named Vect3D_2 that overrides the default toString() method, so it prints human-
-readable info.
+Any class you define in Scala has its own toString() method that exists by default,
+because it's inherited from the AnyRef class.  The following sample code shows the default
+Scala toString() method that gets called on a user-defined class named Vect3D_1.  That
+toString() method (inherited from the AnyRef class) returns a string that contains
+cryptic information.  To fix that problem, we defined another class named Vect3D_2 that
+overrides the default toString() method, so it prints human-readable info.
 
 object Demo
 {
