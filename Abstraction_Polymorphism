@@ -9,7 +9,7 @@ Abstraction - You want to write code where some part of what it does is not full
               "final" is when you want that class to be immutable--so no subclass
               can modify it.
 
-Polymorphism - This word literally means "many shapes."  And example of polymorphism
+Polymorphism - This word literally means "many shapes."  An example of polymorphism
                would be to implement a sorting algorithm that could be applied
                to multiple data types, such as Int, String, Float, Double, Char.
 
