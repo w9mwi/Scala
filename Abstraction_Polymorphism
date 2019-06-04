@@ -29,7 +29,9 @@ Polymorphism - This word literally means "many shapes."  An example of polymorph
                   and methods available in class A. However the parent class A does
                   NOT have access to the data and methods defined in class B.
 
-               2) Parametric Polymorphism - ???
+               2) Parametric Polymorphism - Examples of this type of polymorphism can
+                  be seen by reading the Parametric_Functions section at this URL...
+                  --> https://github.com/w9mwi/Scala/blob/master/Parametric_Functions
 
 =========================================================================================
 Any class you define in Scala has its own toString() method that exists by default,
