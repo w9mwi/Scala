@@ -36,4 +36,34 @@ object Demo
     println("E) " + vect) // PRINTS: E) Vector(A, X, C, D, E, F)
   }
 }
+
+==================================================================================
+
+The following sample code shows how to override the Vector's toString() method
+(using polymorphism) to obtain the actual x, y, and z values represented by
+the Vector3D_2 class.
+
+object Demo
+{
+  class Vect3D_1(val x: Double, val y: Double, val z: Double)
+
+  class Vect3D_2(val x: Double, val y: Double, val z: Double)
+  {
+    // Override the toString() method, so it prints human-readable information...
+    override def toString(): String =
+    {
+      "Vect3D_2(" + x + ", " + y + ", " + z + ")"
+    }
+  }
+
+
+  def main(args: Array[String]): Unit =
+  {
+        val myVect_1 = new Vect3D_1(1.2, 2.2, 3.3)
+        println("myVect_1 = " + myVect_1.toString) // PRINTS: myVect_1 = Demo$Vect3D_1@16c0663d
+
+        val myVect_2 = new Vect3D_2(1.2, 2.2, 3.3)
+        println("myVect_2 = " + myVect_2.toString) // PRINTS: myVect_2 = Vect3D_2(1.2, 2.2, 3.3)
+  }
+}
 ==================================================================================
