@@ -133,9 +133,8 @@ object Demo
 
       list match
       {
-
-        // NOTE: If the two case statements immediately below are swapped,
-        //       this function works the same.
+        // NOTE: If the order of two case statements immediately below
+        //       are swapped, this function works the same.
         case Nil        => currentSum
         case head::tail => sumTailRecursive(head + currentSum, tail) // head + currentSum is where the math happens!
       }
