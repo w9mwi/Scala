@@ -121,7 +121,7 @@ object Demo
   {
     import scala.annotation.tailrec
     @tailrec  // NOTE: The @tailrec annotation informs the compiler to enforce
-    //       tail-recursion on the function immediately below.
+              //       tail-recursion on the function immediately below.
     def sumTailRecursive(currentSum:Int, list:List[Int]):Int =
     {
       if (list != Nil)
@@ -137,7 +137,7 @@ object Demo
         // NOTE: If the two case statements immediately below are swapped,
         //       this function works the same.
         case Nil        => currentSum
-        case head::tail => sumTailRecursive(head+currentSum, tail)
+        case head::tail => sumTailRecursive(head + currentSum, tail) // head + currentSum is where the math happens!
       }
     }
     sumTailRecursive(0, list) // NOTE: The 0 (zero) is passed to the currentSum parameter.
