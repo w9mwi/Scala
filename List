@@ -91,6 +91,25 @@ object Demo
   }
 }
 ========================================================================
+// THE FOLLOWING CODE IS IDENTICAL TO THE CODE IMMEDIATELY ABOVE, EXCEPT
+// IT USES VECTORS INSTEAD OF LISTS, AND VECTORS DO NOT WORK WITH THE
+// :: AND ::: OPERATORS AS LISTS DO.
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val myVector1: Vector[Int] = Vector(999)
+    println("myVector1.head = " + myVector1.head) // PRINTS: myVector1.head = 999
+    println("myVector1.tail = " + myVector1.tail) // PRINTS: myVector1.tail = Vector()
+
+    val myVector2: Vector[Int] = Vector(333, 666, 999)
+    println("myVector2.head = " + myVector1.head) // PRINTS: myVector2.head = 999
+    println("myVector2.tail = " + myVector2.tail) // PRINTS: myVector2.tail = Vector(333, 666)
+    println("myVector2(1) = " + myVector2(1))     // PRINTS: myVector2(1) = 333
+    println("myVector2(2) = " + myVector2(2))     // PRINTS: myVector2(2) = 666
+  }
+}
+========================================================================
 When using Scala Lists, you will very frequently call the List head()
 and tail() methods, as demonstrated by the following code.  The List.head()
 method always returns the data type contained in the List's first element.
