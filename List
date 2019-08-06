@@ -86,6 +86,7 @@ object Demo
     val myList2: List[Int] = myList1 ::: List(333, 666)
     println("myList2.head = " + myList1.head) // PRINTS: myList2.head = 999
     println("myList2.tail = " + myList2.tail) // PRINTS: myList2.tail = List(333, 666)
+    println("myList2(1) = " + myList2(1))     // PRINTS: myList2(1) = 333
     println("myList2(2) = " + myList2(2))     // PRINTS: myList2(2) = 666
   }
 }
