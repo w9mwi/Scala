@@ -59,7 +59,7 @@ Since all Lists (including empty lists) end with a Nil value, you
 cannot append values to an existing List, even if it's a var List.
 The following example shows us that an empty List contains a single
 Nil value.  We can detect that a List is empty by checking to see
-if the List == null, or by calling the isEmpty method, which is preferable.
+if the List == Nil, or by calling the isEmpty method, which is preferable.
 
 val myList = List()
 if (myList == Nil)
@@ -69,6 +69,25 @@ if (myList == Nil)
 if (myList.isEmpty)
 {
   println("myList is empty.")
+}
+========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val myList1: List[Int] = List(999)
+    println("myList1.head = " + myList1.head) // PRINTS: myList1.head = 999
+    println("myList1.tail = " + myList1.tail) // PRINTS: myList1.tail = List()
+
+    // The following commented-out line would not compile if you tried,
+    // because every List ends with an empty List (a Nil), and the cons
+    // operator (::) requires the first operand to be a value, NOT a List.
+    // val myList2:List[Int] = myList1 :: List(333, 666)
+    val myList2: List[Int] = myList1 ::: List(333, 666)
+    println("myList2.head = " + myList1.head) // PRINTS: myList2.head = 999
+    println("myList2.tail = " + myList2.tail) // PRINTS: myList2.tail = List(333, 666)
+    println("myList2(2) = " + myList2(2))     // PRINTS: myList2(2) = 666
+  }
 }
 ========================================================================
 When using Scala Lists, you will very frequently call the List head()
