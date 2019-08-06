@@ -15,6 +15,24 @@ in a Vector is more efficient than accessing indexed elements in a List.
 A Scala Vector is immutable, whereas a Scala Array is mutable.
 A Scala List can be mutable or immutable.
 ==================================================================================
+// THE FOLLOWING CODE COULD USE LISTS IN PLACE OF VECTORS, AND THE RESULTS
+// WOULD BE IDENTICAL.
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val myVector1: Vector[Int] = Vector(999)
+    println("myVector1.head = " + myVector1.head) // PRINTS: myVector1.head = 999
+    println("myVector1.tail = " + myVector1.tail) // PRINTS: myVector1.tail = Vector()
+
+    val myVector2: Vector[Int] = Vector(333, 666, 999)
+    println("myVector2.head = " + myVector1.head) // PRINTS: myVector2.head = 999
+    println("myVector2.tail = " + myVector2.tail) // PRINTS: myVector2.tail = Vector(333, 666)
+    println("myVector2(1) = " + myVector2(1))     // PRINTS: myVector2(1) = 333
+    println("myVector2(2) = " + myVector2(2))     // PRINTS: myVector2(2) = 666
+  }
+}
+==================================================================================
 import scala.collection.immutable.Vector
 
 object Demo
