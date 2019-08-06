@@ -1,0 +1,30 @@
+
+ANNUAL PERCENTAGE GROWTH RATE
+=============================
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val yearRange:Range = 1 to 100
+
+    println("ANNUAL GROWTH RATE = 2.0%")
+    calculate(0.02F, yearRange)
+
+    print("\nANNUAL GROWTH RATE = 3.0%\n")
+    calculate(0.03F, yearRange)
+  }
+
+  def calculate(annualRate:Float, yearRange:Range):Unit =
+  {
+    println("0) 1.00")
+    var total:Float = 1.0F
+    for (idx <- yearRange)
+    {
+      total += total * annualRate
+      println(idx + ") " + total)
+    }
+  }
+}
+======================================================================================
+======================================================================================
