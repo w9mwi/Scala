@@ -81,48 +81,31 @@ A TRAIT CAN ONLY INHERIT FROM ANOTHER TRAIT.  A trait CAN'T inherit from a class
 For a trait to inherit from another trait, the "extends" keyword is used, just as
 the "extends" keyword is used for a class to inherit from another class.
 
-Scala will NOT allow a class to have multiple inheritance, so you CAN'T list
-multiple classes after the extends keyword.  However, Scala allows a class to
-inherit multiple traits, which is done using the "with" keyword.  Here's an example...
+******************************************
+A trait can inherit ONLY from other traits.  A trait can NOT inherit from a class.
+A trait can inherit from zero, one, or multiple traits.
+EXAMPLE:
+class MyClassA { ... }
+trait MyTraitA { ... }
+trait MyTraitB { ... }
+trait MyTraitC { ... }
+trait MyTraitD extends MyTraitA with MyTraitB with MyTraitC { ... }
 
-Assume you want to represent a Person, but there are multiple categories
-of a Person...  Parent, Child, GeneralAdult, Father, Mother, Male, Female
+A class can inherit from only one class, and/or from multiple traits.
+EXAMPLE:
+class MyClassB extends MyClassA with MyTraitA with MyTraitB with MyTraitC { ... }
+...OR...
+class MyClassB extends MyTraitA with MyTraitB with MyTraitC { ... }
 
-Since a Father is a Person and Parent and Male, a Father class could NOT inherit
-from a Person class, and a Parent class, and a Male class, because a class cannot
-inherit from multiple classes.  Here's how you do that using traits instead...
 
-trait Person {...} // NOTE: Person is a trait!
-trait Parent extends Person {...}
-trait Male   extends Person {...}
-// NOTE: The following Father class inherits from the traits Parent and Male.
-class Father extends Parent with Male {...}
+QUESTION: When coding an abstract type that will be used with inheritance, should
+          a trait be used, or an abstract class?
 
-An alternative to constructing a Father class would be to use traits
-as mix-in types, like this...
-
-class Person {...}  // NOTE: Person is a class!
-trait Parent {...}
-trait Male {...}
-// NOTE: The following Father class inherits from the class Person,
-//       and inherits from the traits Parent and Male.
-class Father extends Person with Parent with Male {...}
-
-In this example, Parent and Male are traits that do NOT inherit from the
-Person.  Instead, they are MIXED-IN with the Person to create Father.
-This approach is perhaps a bit more advanced, and if the Parent and Male
-types involve code that requires them to know they will be used with a Person,
-you will need to use SELF-TYPES, which are discussed in Appendix B of the book.
-
-QUESTION: Which should I use?  A trait, or an abstract class?...
-
-When coding an abstract type that will be used with inheritance, should
-a trait be used, or an abstract class?...  The rule of thumb is to use
-a trait because it allows the flexibility of multiple inheritance.  While
-a trait cannot take arguments (as can an abstract class), any values that
-you'd want to provide as arguments can be put into a trait and left
-undefined, so the class that implements the trait will have to provide
-those values.
+ANSWER: The rule of thumb is to use a trait because it allows the flexibility
+        of multiple inheritance.  While a trait cannot take arguments (as can
+        an abstract class), any values that you'd want to provide as arguments
+        can be put into a trait and left undefined, so the class that implements
+        the trait will have to provide those values.
 
 ===========================================================================
 object Demo
