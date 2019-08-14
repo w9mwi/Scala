@@ -8,7 +8,7 @@ You might think that traits are like Java interfaces with concrete methods,
 but they can actually do much more.  Traits can, for example, declare fields
 and maintain state.  In fact, you can do anything in a trait definition that
 you can do in a class definition, and the syntax looks exactly the same,
-with only two (2) exceptions...
+with only three (3) exceptions...
 
 1) A trait cannot contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
@@ -22,8 +22,24 @@ with only two (2) exceptions...
 2) Another difference between a class and a trait is this...
    A call to super() IN A CLASS is statically bound.
    A call to super() IN A TRAIT is dynamically bound.
+
+3) A class can inherit from (extend) only one class, but a class can
+   inherit from multiple traits.  If a class inherits from only
+   traits (and not another class), the FIRST trait a class inherits
+   from is preceeded by the "extends" keyword.  All subsequent traits
+   inherited by a class are preceded with the "with" keyword, as
+   is shown in some sample code below.  If a class inherits from
+   another class, and also inherits from traits, the inherited class
+   must appear directly after the "extends" keyword, and all inherited
+   traits must appear directly after the "with" keyword.
    
-IMPORTANT: When a class extends a trait that has an abstract method
+A class does NOT allow multiple inheritance.
+A trait DOES allow multiple inheritance, but a trait can inherit
+ONLY from other traits, and NEVER from a class.
+
+
+IMPORTANT: A trait is very similar to an abstract class in many ways.
+           When a class extends a trait that has an abstract method
            (a method that's declared, but not defined), each abstract
            method contained in the trait must be defined in the
            in the class that extends the trait!!!  Here's an example:
@@ -58,33 +74,12 @@ method implementation to invoke for super() is undefined.  The implementation
 to invoke will be determined anew each time the trait is mixed into a concrete
 class, making it dynamically bound.
 
-===================================================================
-
-When you inherit from a class, you can only inherit from a single
-class only, and you use the 'extends' keyword.
-
-When you inherit from a trait, you can inherit from a single trait
-or multiple traits.  Use the 'extends' keyword to inherit from the
-first trait, and use the 'with' keyword to inherit from all subsequent
-traits.  (See code sample further below.)
-
-A trait is similar to an abstract class in many ways.
-The two primary differences are:
-
-1) A trait CAN'T take arguments/parameters, as an abstract class CAN.
-2) A class can be defined as inheriting from from multiple traits, but when the
-   code is executed, BEHAVIOR FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
-   Because this is very important, we'll say it again...
-
-   IMPORTANT: WHEN A CLASS INHERITS FROM MULTIPLE TRAITS, BEHAVIOR
-              FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
+IMPORTANT: WHEN A CLASS INHERITS FROM MULTIPLE TRAITS, BEHAVIOR
+           FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
    
 A TRAIT CAN ONLY INHERIT FROM ANOTHER TRAIT.  A trait CAN'T inherit from a class.
 For a trait to inherit from another trait, the "extends" keyword is used, just as
 the "extends" keyword is used for a class to inherit from another class.
-
-A class does NOT allow multiple inheritance.
-A trait DOES allow multiple inheritance, but a trait can inherit ONLY from other traits.
 
 Scala will NOT allow a class to have multiple inheritance, so you CAN'T list
 multiple classes after the extends keyword.  However, Scala allows a class to
@@ -94,12 +89,13 @@ Assume you want to represent a Person, but there are multiple categories
 of a Person...  Parent, Child, GeneralAdult, Father, Mother, Male, Female
 
 Since a Father is a Person and Parent and Male, a Father class could NOT inherit
-from Person and Parent and Male, because that would be inheriting from multiple
-classes, which isn't allowed.  Here is how you could use traits to do this...
+from a Person class, and a Parent class, and a Male class, because a class cannot
+inherit from multiple classes.  Here's how you do that using traits instead...
 
 trait Person {...} // NOTE: Person is a trait!
 trait Parent extends Person {...}
 trait Male   extends Person {...}
+// NOTE: The following Father class inherits from the traits Parent and Male.
 class Father extends Parent with Male {...}
 
 An alternative to constructing a Father class would be to use traits
@@ -108,10 +104,12 @@ as mix-in types, like this...
 class Person {...}  // NOTE: Person is a class!
 trait Parent {...}
 trait Male {...}
+// NOTE: The following Father class inherits from the class Person,
+//       and inherits from the traits Parent and Male.
 class Father extends Person with Parent with Male {...}
 
 In this example, Parent and Male are traits that do NOT inherit from the
-Person.  Instead, they are MIXED IN with the Person to create Father.
+Person.  Instead, they are MIXED-IN with the Person to create Father.
 This approach is perhaps a bit more advanced, and if the Parent and Male
 types involve code that requires them to know they will be used with a Person,
 you will need to use SELF-TYPES, which are discussed in Appendix B of the book.
@@ -138,7 +136,7 @@ object Demo
 
   class IntIterator(to: Int) extends Iterator[Int]
   {
-    private var current:Int      = 0
+    private var current:Int = 0
     override def hasNext:Boolean = { current < to }
     override def next():Int =
     {
@@ -176,8 +174,9 @@ object Demo
     println(iterator.next())      // PRINTS: 0 // next() returns 0 cuz the Iterator is spent.
   }
 }
+
 ===========================================================================
-Here's some more sample code showing how to use Scala traits...
+Here's another sample program showing how to use Scala traits...
 
 object Demo
 {
@@ -188,18 +187,18 @@ object Demo
 
   trait Cowboy extends Drawable
   {
-    override def draw() { println("BANG!  The Cowboy drew a gun.") }
+    override def draw() = { println("BANG!  The Cowboy drew a gun.") }
   }
 
   trait Artist extends Drawable
   {
-    override def draw() { println("PICTURE!  The Artist drew a painting.") }
+    override def draw() = { println("PICTURE!  The Artist drew a painting.") }
   }
 
   // NOTE: The "with" keyword goes between type names for multiple inheritance.
-  //       You can chain on multiple "with X" clauses to mix in more traits.  If
-  //       a class is to be part of the extended type, it must be specified BEFORE
-  //       the first "with X" clause.  READ ALL IN-LINE COMMENTS BELOW...
+  //       You can chain on multiple "with X" clauses to mix-in more traits.  If
+  //       a class is to be part of the extended type, the class must be specified
+  //       BEFORE the first "with X" clause.  READ ALL IN-LINE COMMENTS BELOW...
   class ArtistCowboy extends Artist with Cowboy // Inherits from trait Artist and trait Cowboy.  (Multiple inheritance.)
   class CowboyArtist extends Cowboy with Artist // Inherits from trait Cowboy and trait Artist.  (Multiple inheritance.)
 
@@ -209,7 +208,7 @@ object Demo
     val cowArt = new CowboyArtist()
 
     // The artCow and cowArt classes both implement multiple inheritance.  So how does Scala know
-    // which draw() method to use, the Cowboy.draw() method, or the Artist.draw() method?
+    // which draw() method to use, the Cowboy.draw() method, or the Artist.draw() method???
     // The answer is the draw() method contained in the LAST class/trait appearing AFTER
     // the "extends" keyword.  So artCow.draw() calls the Cowboy.draw() method, and cowArt.draw()
     // calls the Artist.draw() method...
@@ -277,7 +276,7 @@ trait Rectangular
 
 We can now redefine the above class Rectangle, and abstract class Component,
 as follows.  This time, both classes are defined by extending the Rectangular
-trait.  In other words, both these classes "mix in" the Rectangular trait...
+trait.  In other words, both these classes "mix-in" the Rectangular trait...
 
 abstract class Component extends Rectangular
 {
