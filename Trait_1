@@ -76,12 +76,7 @@ class, making it dynamically bound.
 
 IMPORTANT: WHEN A CLASS INHERITS FROM MULTIPLE TRAITS, BEHAVIOR
            FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED.
-   
-A TRAIT CAN ONLY INHERIT FROM ANOTHER TRAIT.  A trait CAN'T inherit from a class.
-For a trait to inherit from another trait, the "extends" keyword is used, just as
-the "extends" keyword is used for a class to inherit from another class.
 
-******************************************
 A trait can inherit ONLY from other traits.  A trait can NOT inherit from a class.
 A trait can inherit from zero, one, or multiple traits.
 EXAMPLE:
