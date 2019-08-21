@@ -12,8 +12,9 @@ object Demo
     // You do this by performing an "Eta Expansion" on the function, as shown
     // in the following line of code by adding the underscore character (_)
     // after the function name.  If you remove the underscore char after
-    // the mySquare function name below, that line will NOT compile.  Keep
-    // reading all comments below...
+    // the mySquare function name below, that line will NOT compile.  Using the
+    // underscore (_) char eliminates the need to declare the squareFunction's
+    // data type!!!  Keep reading all comments below...
     val squareFunction = mySquare _
 
     // When the squareFunction declaration is made above, the Scala compiler
