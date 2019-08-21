@@ -35,27 +35,29 @@ object Demo
   def main(args: Array[String])
   {
     val intList:List[Int] = List(1, 2, 3).map(doubleFunc)
+    println(intList)       // PRINTS: List(2, 4, 6)
     intList.foreach(print) // PRINTS: 246
-    println
+    println                // PRINTS: A line return.
 
-    // The following line of commented-out code will NOT compile.  To rectify this
-    // problem, the commented-out line can be rewritten like the TWO LINES
-    // immediately below it.  To understand the what the underscore character (_)
-    // does in the functions2 declaration below, read about Eta Expansions on this
-    // github page:  https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
-    // val functions_1                        = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
-    val functions_1:Map[String, (Int) => Int] = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
-    val functions_2                           = Map("2X" -> doubleFunc _, "3X" -> tripleFunc _)
+    // The below function_1 line is commented out cuz it will NOT compile.
+    // That commented-out line can be fixed by re-writing it as either the
+    // function_2 or function_3 lines below.  To understand the what the
+    // TWO (2) underscore chars (_) do in the below function_3 declaration,
+    // read about Eta Expansions on this github page:
+    // https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
+    // val function_1                        = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
+    val function_2:Map[String, (Int) => Int] = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
+    val function_3                           = Map("2X" -> doubleFunc _, "3X" -> tripleFunc _)
 
-    var doubleVar = functions_1("2X") // PRINTS: 246
-    var tripleVar = functions_1("3X") // PRINTS: 369
-    println(doubleVar(123))
-    println(tripleVar(123))
+    var doubleVar = function_2("2X")
+    var tripleVar = function_2("3X")
+    println(doubleVar(123)) // PRINTS: 246
+    println(tripleVar(123)) // PRINTS: 369
 
-    doubleVar = functions_2("2X") // PRINTS: 246
-    tripleVar = functions_2("3X") // PRINTS: 369
-    println(doubleVar(123))
-    println(tripleVar(123))
+    doubleVar = function_3("2X")
+    tripleVar = function_3("3X")
+    println(doubleVar(123)) // PRINTS: 246
+    println(tripleVar(123)) // PRINTS: 369
   }
 
   def doubleFunc(i:Int):Int = { i * 2 }
