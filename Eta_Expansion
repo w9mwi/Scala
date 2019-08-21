@@ -31,7 +31,7 @@ object Demo
   }
 
   /****************************
-  * The mySquare() function...
-  ****************************/
+    * The mySquare() function...
+    ****************************/
   def mySquare(x:Int):Int = { x * x }
 }
