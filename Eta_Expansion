@@ -7,12 +7,14 @@ object Demo
   {
     val intList = List(7, 9)
 
-    // When you write your own functions/methods (like the mySquare() below),
+    // When you write your own functions/methods (like mySquare() below),
     // you can convert them to functions which can be used by the map() method.
-    // You do this by performing an "Eta Expansion" on the function as shown
-    // in the following line of code by making the declaration where the
-    // underscore character (_) appears as the last character...
-    val squareFunction:(Int => Int) = mySquare _
+    // You do this by performing an "Eta Expansion" on the function, as shown
+    // in the following line of code by adding the underscore character (_)
+    // after the function name.  If you remove the underscore char after
+    // the mySquare function name below, that line will NOT compile.  Keep
+    // reading all comments below...
+    val squareFunction = mySquare _
 
     // When the squareFunction declaration is made above, the Scala compiler
     // translates that code into the following commented-out code, where the
@@ -21,6 +23,12 @@ object Demo
     // {
     //   def apply(x: Int):Int = mySquare(x)
     // }
+
+    // If you replace the above squareFunction declaration with either
+    // of the two commented-out declarations below, those declarations
+    // will compile and function properly...
+    // val squareFunction:(Int => Int) = mySquare
+    // val squareFunction:(Int => Int) = mySquare _  // NOTE the underscore (_) char.
 
     var result:List[Int] = intList.map(squareFunction)
     println("result = " + result) // PRINTS: result = List(49, 81)
@@ -31,7 +39,7 @@ object Demo
   }
 
   /****************************
-    * The mySquare() function...
-    ****************************/
+  * The mySquare() function.
+  ****************************/
   def mySquare(x:Int):Int = { x * x }
 }
