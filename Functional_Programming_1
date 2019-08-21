@@ -39,23 +39,23 @@ object Demo
     intList.foreach(print) // PRINTS: 246
     println                // PRINTS: A line return.
 
-    // The below function_1 line is commented out cuz it will NOT compile.
+    // The below mappedFunction_1 line is commented out cuz it will NOT compile.
     // That commented-out line can be fixed by re-writing it as either the
-    // function_2 or function_3 lines below.  To understand the what the
-    // TWO (2) underscore chars (_) do in the below function_3 declaration,
+    // mappedFunction_2 or mappedFunction_3 lines below.  To understand the what the
+    // TWO (2) underscore chars (_) do in the below mappedFunction_3 declaration,
     // read about Eta Expansions on this github page:
     // https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
-    // val function_1                        = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
-    val function_2:Map[String, (Int) => Int] = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
-    val function_3                           = Map("2X" -> doubleFunc _, "3X" -> tripleFunc _)
+    // val mappedFunction_1                        = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
+    val mappedFunction_2:Map[String, (Int) => Int] = Map("2X" -> doubleFunc,   "3X" -> tripleFunc)
+    val mappedFunction_3                           = Map("2X" -> doubleFunc _, "3X" -> tripleFunc _)
 
-    var doubleVar = function_2("2X")
-    var tripleVar = function_2("3X")
+    var doubleVar = mappedFunction_2("2X")
+    var tripleVar = mappedFunction_2("3X")
     println(doubleVar(123)) // PRINTS: 246
     println(tripleVar(123)) // PRINTS: 369
 
-    doubleVar = function_3("2X")
-    tripleVar = function_3("3X")
+    doubleVar = mappedFunction_3("2X")
+    tripleVar = mappedFunction_3("3X")
     println(doubleVar(123)) // PRINTS: 246
     println(tripleVar(123)) // PRINTS: 369
   }
