@@ -1,5 +1,5 @@
 The following is an example of how to use a case class as a function.
-==========================================================================
+===============================================================================
 object Demo
 {
   case class StringToInt(func: String => Int)
@@ -34,8 +34,7 @@ object Demo
     str.length
   }
 }
-==========================================================================
-==========================================================================
+===============================================================================
 The blockOfCode parameter passed to the timer() function below returns
 an Int value.  Then, inside the timer() function, the blockOfCode passed
 to it gets executed.  NOTE: blockOfCode does NOT have a parameter value
@@ -49,7 +48,7 @@ NOT have a parameter value passed to it.
 NOTE: The code sample below will still work if you replace...
       1)  (blockOfCode: => A)            with  (blockOfCode: => Int)
       2)  val codeBlock:A = blockOfCode  with  val codeBlock:Int = blockOfCode
-==============================================================================
+===============================================================================
 object Demo
 {
   type IntDoubleTuple = (Int, Double)
@@ -91,8 +90,7 @@ object Demo
     println("resultTuple._1 = " + resultTuple._1 + ", resultTuple._2 = " + resultTuple._2)
   }
 }
-==========================================================================
-==========================================================================
+===============================================================================
 object Demo
 {
   case class Transform2ParamsTo1Param[A, B](func: (A, A) => B)
@@ -115,8 +113,7 @@ object Demo
     println(myCaseClassInstance_3.func(44, 66)) // PRINTS: 110
   }
 }
-==========================================================================
-==========================================================================
+===============================================================================
 object Demo
 {
   case class StringToIntCaseClass(str:String)(funcPassedAsParam: String => Int)
