@@ -66,26 +66,33 @@ object Demo
 ===========================================================
 object Demo
 {
+  // To obtain a List of EVEN Ints from a List of Ints,
+  // call the List.filter() method.  The following code
+  // shows THREE (3) different examples of calling the
+  // List.filter() method.
   def main(args: Array[String])
   {
-    val intList:List[Int] = List.range(0, 12)
-    var evenInts = intList.filter(isEven)
+    val intList:List[Int]  = List.range(0, 12)
+
+    // EXAMPLE 1...
+    var evenInts:List[Int] = intList.filter(isEven)
     evenInts.foreach(print)  // PRINTS: 0246810
 
-    // Here's a second way of obtaining the identical
-    // evenInts result shown above...
+    // EXAMPLE 2...
     evenInts = intList.filter(_ % 2 == 0)
     println
     evenInts.foreach(print)  // PRINTS: 0246810
 
-    // Here's a third way of obtaining the identical
-    // evenInts result shown above...
+    // // EXAMPLE 3...
     evenInts = intList.filter(i => (i % 2 == 0))
     println
     evenInts.foreach(print)  // PRINTS: 0246810
   }
 
-  def isEven(number: Int) = number % 2 == 0
+  /**
+    * isEven(Int) function.
+    */
+  def isEven(number: Int):Boolean = { number % 2 == 0 }
 }
 ==========================================================
 object Demo
