@@ -144,7 +144,7 @@ object Demo
   {
     val result1 = f1(a, b)
     val result2 = f2(a, b)
-    (result1, result2)  // EQUIVALENT TO THIS LINE OF CODE : (f1(a, b),  f2(a, b))
+    (result1, result2)  // EQUIVALENT TO THIS LINE OF CODE: (f1(a, b),  f2(a, b))
   }
 
   def sum(number1: Int, number2: Int)      = number1 + number2
