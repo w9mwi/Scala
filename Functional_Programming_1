@@ -83,7 +83,7 @@ object Demo
     println
     evenInts.foreach(print)  // PRINTS: 0246810
 
-    // // EXAMPLE 3...
+    // EXAMPLE 3...
     evenInts = intList.filter(i => (i % 2 == 0))
     println
     evenInts.foreach(print)  // PRINTS: 0246810
