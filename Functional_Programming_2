@@ -14,8 +14,7 @@ object Demo
     else { x * factorial(x-1) }
   }
 }
-// =================================================================
-// =================================================================
+===============================================================================
 object Demo
 {
   def main(args: Array[String]) =
@@ -58,11 +57,11 @@ object Demo
     case x :: tail => x + sum_2(tail)
   }
 }
-// =================================================================
-// =================================================================
-// NOTE: The following 2 lines are examples of FUNCTION LITERALS...
-//       (a:Int, b:Int) => a+b
-//       (x:Double)     => x*x
+===============================================================================
+NOTE: The following 2 lines are examples of FUNCTION LITERALS...
+      (a:Int, b:Int) => a+b
+      (x:Double)     => x*x
+
 object Demo
 {
   // The following 2 vals (add and square) are initialized as functions.
@@ -85,8 +84,7 @@ object Demo
     println("square2(7) = " + square2(7))
   }
 }
-// =================================================================
-// =================================================================
+===============================================================================
 A HIGHER-ORDER FUNCTION is a function that operates on other functions.
 In other words, a HIGHER-ORDER FUNCTION is a function that gets passed
 a function as a parameter, and/or returns a function.  The following
@@ -120,13 +118,12 @@ object Demo
   }
 }
 
-
-// =================================================================
-// =================================================================
+===============================================================================
 The following code contains a function named "funcOfGunc", which is
 a parametric function (not type dependent) that's equivalent to the
 function named "compose2" in the FunctionFGX program immediately above.
 (Taken from Page 156 of the book.)
+
 object Demo
 {
   def main(args:Array[String]): Unit =
