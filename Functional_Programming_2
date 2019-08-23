@@ -21,13 +21,13 @@ object Demo
   {
     val tom:List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
     // The following 3 println statements print identical results.
-    println("sum_1() = " + sum_1(tom))
-    println("sum_2() = " + sum_2(tom))
-    println("tom.sum = " + tom.sum)
+    println("sum_1() = " + sum_1(tom)) // PRINTS: sum_1() = 55
+    println("sum_2() = " + sum_2(tom)) // PRINTS: sum_2() = 55
+    println("tom.sum = " + tom.sum)    // PRINTS: tom.sum = 55
 
     // The following 2 println statements print identical results.
-    println("tom.map(x => x*2) = " + tom.map(x => x*2))
-    println("tom.map(_*2)      = " + tom.map(_*2))
+    println("tom.map(x => x*2) = " + tom.map(x => x*2)) // PRINTS: tom.map(x => x*2) = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
+    println("tom.map(_*2)      = " + tom.map(_*2))      // PRINTS: tom.map(_*2)      = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
   }
 
   /**
@@ -49,13 +49,12 @@ object Demo
     * This sum_2() function uses functional programming, and
     * returns the same result as the sum_1() function above.
     */
-  def sum_2(list:List[Int]):Int = list match
-  {
-    // NOTE: Both the x, and the tail, names below could
-    //       be changed to any name you wish.
-    case Nil => 0
-    case x :: tail => x + sum_2(tail)
-  }
+  def sum_2(list:List[Int]):Int =
+  list match {
+               // The value's name "x" below could be changed any valid name you want.
+               case Nil => 0
+               case x :: tail => x + sum_2(tail)
+             }
 }
 ===============================================================================
 NOTE: The following 2 lines are examples of FUNCTION LITERALS...
