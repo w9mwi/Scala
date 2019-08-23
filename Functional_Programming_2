@@ -2,7 +2,7 @@ object Demo
 {
   def main(args: Array[String]): Unit =
   {
-    println("factorial(11) = " + factorial(12))
+    println("factorial(16) = " + factorial(16))
   }
 
   /**
