@@ -19,4 +19,4 @@ Add .jar file to class path : 1) From the menu, select: File / Project Structure
                               3) Click on the "Dependencies" tab of the dialog screen.
                               4) Click on the '+' sign near the far-right edge of the dialog screen.
                                  (NOT the '+' sign near the upper-left corner of the dialog screen!)
-                              5) From the menu list that appears, select: JARs or directories...
+                              5) From the menu list that appears, select: JARs or directories.
