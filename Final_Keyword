@@ -1,10 +1,24 @@
 SEE PAGE 464
 
-Some times it is useful to declare a class member or method that cannot
-be overridden/changed in a subtype.  This requirement can be enforced using
-the "final" keyword.  Use the "final" keyword to modify member data or methods
-that you do NOT want changed in subtypes.
+When something is "abstract", it basically means that it must be
+"overridden" in a subclass.  There are times when it is useful to
+declare that something can't be overridden, or changed in a subtype.
+The requirement can be enforced with the "final" keyword.  You can
+use "final" to modify member data or methods that you don't want
+to be changed in subtypes.
 
-The "final" keyword can also be used to modify an entire class.  A class
-that's "final" means it cannot be a subtype of another class, which means
-another class cannot inherit from it.
+The "final" keyword can also be used to modify a class to prevent
+it from having any subtypes.  In other words, another class is not
+allowed to inherit from (extends) a class that's defined as final.
+
+Some times it's useful to declare a class member or method that cannot
+be overridden/changed in a subtype.  This requirement can be enforced
+using the "final" keyword.  Use the "final" keyword to modify member
+data or methods that you do NOT want changed in subtypes.
+
+A very common example of where you should use the "final" keyword
+is to preserve behavior when a class defines a type that's immutable.
+If you can't inherit from a class (because it's defined as final),
+a subclass of that class can't exist.  This ensures no subclass
+can change or override a "final" class's behavior, because no
+other class can extend a "final" class.
