@@ -101,6 +101,26 @@ ANSWER: The rule of thumb is to use a trait because it allows the flexibility
         an abstract class), any values that you'd want to provide as arguments
         can be put into a trait and left undefined, so the class that implements
         the trait will have to provide those values.
+        
+METHOD RESOLUTION (LINEARIZATION) - Page 466
+============================================
+When you use inheritance, it's possible to create types for which there are
+multiple different method implementations.  Here are some rules for determining
+the method that'll be used...
+
+Assume you're using a class/object named Class_A/Object_A, and you're
+calling a method named method_A().  If method_A() IS defined in Class_A
+or Object_A, then that's the method that'll get called.  If method_A() is
+NOT defined in Class_A/Object_A, then the method_A() that gets called
+resides in one of the supertypes from which Class_A/Object_A inherits.
+Here's how Scala finds method_A()...
+
+Scala will look for method_A() in one of the supertypes BEGINNING WITH THE
+LAST SUPERTYPE in the "extends" list.  If method_A() is NOT in that supertype,
+Scala will look for method_A() in any supertype from which that LAST SUPERTYPE
+extends.  If method_A() is NOT found there, Scala moves to the next-to-last
+supertype in the "extends" list.  This process is repeated until method_A()
+is found.  This process is called LINEARIZATION.
 
 ===========================================================================
 object Demo
