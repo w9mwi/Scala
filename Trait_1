@@ -105,22 +105,36 @@ ANSWER: The rule of thumb is to use a trait because it allows the flexibility
 METHOD RESOLUTION (LINEARIZATION) - Page 466
 ============================================
 When you use inheritance, it's possible to create types for which there are
-multiple different method implementations.  Here are some rules for determining
-the method that'll be used...
+multiple different method implementations.  In other words, when using
+inheritence, the class/object/trait you're using may have access to multiple
+different implementations of a method with the same signature.  For example,
+assume we have a class named Class_A, like this...
 
-Assume you're using a class/object named Class_A/Object_A, and you're
-calling a method named method_A().  If method_A() IS defined in Class_A
-or Object_A, then that's the method that'll get called.  If method_A() is
-NOT defined in Class_A/Object_A, then the method_A() that gets called
-resides in one of the supertypes (which could be a trait) from which
-Class_A/Object_A inherits.  Here's how Scala finds method_A()...
+Class_A extends Class_B, Trait_A, Trait_B
+{
+   // Class_A definitions are made here...
+}
 
-Scala will look for method_A() in one of the supertypes (which could be a trait)
-BEGINNING WITH THE LAST SUPERTYPE in the "extends" list.  If method_A() is NOT
-in that supertype, Scala will look for method_A() in any supertype from which
-that LAST SUPERTYPE extends.  If method_A() is NOT found there, Scala moves
-to the next-to-last supertype in the "extends" list.  This process is repeated
-until method_A() is found.  This process is called LINEARIZATION.
+Assume we have a method with this name and signature:
+method_A(Int)
+
+If method_A(Int) IS defined in Class_A, that's the method that'll get
+called on Class_A, regardless if that same method signature exists in
+Class_B, Trait_A, Trait_B, or in some supertype of Class_B, Trait_A, Trait_B.
+
+If method_A(Int) is NOT defined in Class_A, Scala then looks for
+method_A(Int) in LAST type in the "extends" list, which is Trait_B.
+If method_A(Int) IS defined in Trait_B (or its supertypes), that's the
+one that'll get called.  If method_A(Int) is NOT defined in Trait_B,
+Scala will look for it in Trait_A (or its supertypes).  If method_A(Int)
+is NOT found in Trait_A (or its supertypes), Scala will look for it in
+Class_B and then its supertypes.
+
+Whenever Scala looks for a method in a supertype, it always begins
+with the LAST supertype in the "extends" list, moving from right
+to left.
+
+This process is called LINEARIZATION.
 
 ===========================================================================
 object Demo
