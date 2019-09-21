@@ -110,7 +110,7 @@ inheritence, the class/object/trait you're using may have access to multiple
 different implementations of a method with the same signature.  For example,
 assume we have a class named Class_A, like this...
 
-Class_A extends Class_B, with Trait_A, with Trait_B
+Class_A extends Class_B with Trait_A with Trait_B
 {
    // Class_A definitions are made here...
 }
