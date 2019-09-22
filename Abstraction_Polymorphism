@@ -14,7 +14,7 @@ Polymorphism - This word literally means "many shapes."  An example of polymorph
                to multiple data types, such as Int, String, Float, Double, Char.
 
                There are 2 types of polymorphism.  UNIVERSAL polymorphism implies the
-               code can work with an infinite nuber of types.  AD-HOC polymorphism
+               code can work with an infinite number of types.  AD-HOC polymorphism
                works with only a finite number of types.
                
                UNIVERSAL polymorphism consists of these TWO different forms...
