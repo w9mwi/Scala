@@ -145,7 +145,7 @@ this, run the following Scala code and read the in-line comments...
 
 object Demo
 {
-  class MultiplyByTwo() extends ((Int => Int))
+  class MultiplyByTwo() extends (Int => Int)
   {
     def apply(i:Int) = 2*i
   }
