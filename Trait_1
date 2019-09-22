@@ -155,12 +155,12 @@ object Demo
     val myList = List(1,2,3)
     val multiplyByTwo = new MultiplyByTwo()
 
-    // The following 2 println() statements WORK WITH OR WITHOUT the "extends ((Int => Int))"
+    // The following 2 println() statements WORK WITH OR WITHOUT the "extends (Int => Int)"
     // text in the above "class MultiplyByTwo()" declaration.
     println("multiplyByTwo.apply(5) = " + multiplyByTwo.apply(5)) // PRINTS: multiplyByTwo.apply(5) = 10
     println("multiplyByTwo(5) = " + multiplyByTwo(5))             // PRINTS: multiplyByTwo(5) = 10
 
-    // The following println() will NOT compile if you comment out the "extends ((Int => Int))"
+    // The following println() will NOT compile if you comment out the "extends (Int => Int)"
     // text in the above "class MultiplyByTwo()" declaration.
     println("myList.map(multiplyByTwo) = " + myList.map(multiplyByTwo)) // PRINTS: myList.map(multiplyByTwo) = List(2, 4, 6)
   }
