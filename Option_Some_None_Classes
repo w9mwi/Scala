@@ -219,7 +219,7 @@ object Demo
     // ONLY when this ListStack class is instantiated does the following
     // private var stack get declared and initialized.  It's effectively
     // all of the "constructor" code that exists in this class.
-    private var stack:List[Int] = Nil; // NOTE: Nil is the same as List()--they're both an empty List.
+    private var stack:List[Int] = Nil; // NOTE: Nil = List() = an empty List.
 
     /**
       * Pops an item off the stack.
