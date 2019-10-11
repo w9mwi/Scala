@@ -23,6 +23,39 @@ FUNCTOR - At some point in history, someone declared that
           Functor = map-able = A class that contains a map() method.
 
 =========================================================================
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val m1 = List(1,2,3)
+    val m2 = List(4,5,6)
+    val m3 = List(7,8,9)
+
+    // this for-comprehension
+    val poop:List[Int] = for {
+      a <- m1
+      b <- m2
+      c <- m3
+    } yield combine(a,b,c)
+
+    println(poop)
+    // is equivalent to this expression
+    val poop2:List[Int] = m1.flatMap(a => m2.flatMap(b => m3.map(c => combine(a,b,c))))
+    println(poop2)
+  }
+
+//  def combine(a:List[Int], b:List[Int], c:List[Int]):List[Int] =
+//  {
+//    a :: b :: c
+//  }
+
+  def combine(a:Int, b:Int, c:Int):Int =
+  {
+    a + b + c
+  }
+}
+
+=========================================================================
 
 MORE INFORMATION REGARDING MONADS
 =================================
