@@ -47,7 +47,7 @@ object Demo
     // NOTE: You can call the List.apply() method to initialize a List
     //       when you declare it--as was done when list1 was declared
     //       above.  Also, AFTER a List is initialized, you can call
-    //       the apply() method on that list to return an element in
+    //       the apply() method on that List to return an element in
     //       that List, as the following line of code shows.
     println("list4.apply(1) = " + list4.apply(1)) // PRINTS: list4.apply(1) = 4.0
     println("list4(1) = " + list4(1))             // PRINTS: list4(1) = 4.0
