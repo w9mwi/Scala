@@ -23,6 +23,9 @@ FUNCTOR - At some point in history, someone declared that
           Functor = map-able = A class that contains a map() method.
 
 =========================================================================
+The following code comes from:
+https://blog.redelastic.com/a-guide-to-scala-collections-exploring-monads-in-scala-collections-ef810ef3aec3
+
 object Demo
 {
   def main(args: Array[String]):Unit =
