@@ -30,8 +30,8 @@ object Demo
     // 2) Just call List(), where Scala calls List.apply() for you.
     val list1:List[Int] = List.apply(1, 2)
     val list2:List[Int] = List(3, 4)
-    println("List1 = " + list1) // PRINTS: List1 = List(1, 2)
-    println("List2 = " + list2) // PRINTS: List2 = List(3, 4)
+    println("1ist1 = " + list1) // PRINTS: 1ist1 = List(1, 2)
+    println("list2 = " + list2) // PRINTS: list2 = List(3, 4)
 
     // The following 2 lines of code shows 2 ways to convert
     // a List of Ints to a List of Doubles.
@@ -41,8 +41,16 @@ object Demo
     //    converts all elements in the List to Doubles.
     val list3 = list1.flatMap(makeListofDoubles)
     val list4 = list2.map(_.toDouble)
-    println("List3 = " + list3) // PRINTS: List3 = List(3.0, 4.0)
-    println("List4 = " + list4) // PRINTS: List4 = List(1.0, 2.0)
+    println("list3 = " + list3) // PRINTS: list3 = List(1.0, 2.0)
+    println("list4 = " + list4) // PRINTS: list4 = List(3.0, 4.0)
+
+    // NOTE: You can call the List.apply() method to initialize a List
+    //       when you declare it--as was done when list1 was declared
+    //       above.  Also, AFTER a List is initialized, you can call
+    //       the apply() method on that list to return an element in
+    //       that List, as the following line of code shows.
+    println("list4.apply(1) = " + list4.apply(1)) // PRINTS: list4.apply(1) = 4.0
+    println("list4(1) = " + list4(1))             // PRINTS: list4(1) = 4.0
   }
 
   def makeListofDoubles(int: Int): List[Double] = { List(int.toDouble) }
