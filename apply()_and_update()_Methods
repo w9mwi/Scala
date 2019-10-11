@@ -21,6 +21,10 @@ is being called, and the apply() method then calls "new".  If a class has an app
 method, you can create an instance of it without calling the "new" keyword.
 
 ====================================================================================
+Read ALL of the following in-line comments to undertand how the apply()
+method works, and to understand the difference between the flatMap()
+and map() methods.
+
 object Demo
 {
   def main(args: Array[String]) =
@@ -51,10 +55,24 @@ object Demo
     //       that List, as the following line of code shows.
     println("list4.apply(1) = " + list4.apply(1)) // PRINTS: list4.apply(1) = 4.0
     println("list4(1) = " + list4(1))             // PRINTS: list4(1) = 4.0
+
+    // The following line of code shows we can call list1.map() instead
+    // of list1.flatMap() as we did above.  However, list1.map() returns
+    // a List[List[Double]], where list1.flatMap() returns the preferred
+    // List[Double] type.
+    val list5:List[List[Double]] = list1.map(makeListOfDoubles)
+    println(list5)         // PRINTS: List(List(1.0), List(2.0))
+    println(list5.flatten) // PRINTS: List(1.0, 2.0)
+
   }
 
+  /**
+    * NOTE: When this makeListOfDoubles() function gets called by List.flatMap()
+    *       or List.map(), it gets called once for every element in the List.
+    */
   def makeListOfDoubles(int: Int): List[Double] = { List(int.toDouble) }
 }
+
 ====================================================================================
 object Demo
 {
