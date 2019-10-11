@@ -19,8 +19,36 @@ Calling myList(4) is equivalent to calling myList.apply(4)--both return the Int 
 When you declare a new class without calling the "new" keyword, the apply() method
 is being called, and the apply() method then calls "new".  If a class has an apply()
 method, you can create an instance of it without calling the "new" keyword.
-====================================================================================
 
+====================================================================================
+object Demo
+{
+  def main(args: Array[String]) =
+  {
+    // The following 2 lines of code shows 2 ways to initialize a List.
+    // 1) Explicitly call the List.apply() method.
+    // 2) Just call List(), where Scala calls List.apply() for you.
+    val list1:List[Int] = List.apply(1, 2)
+    val list2:List[Int] = List(3, 4)
+    println("List1 = " + list1) // PRINTS: List1 = List(1, 2)
+    println("List2 = " + list2) // PRINTS: List2 = List(3, 4)
+
+    // The following 2 lines of code shows 2 ways to convert
+    // a List of Ints to a List of Doubles.
+    // 1) Call the List's flatMap() method, passing flatMap()
+    //    a function that converts Ints to Doubles.
+    // 2) Call the List's map() method, passing it a function that
+    //    converts all elements in the List to Doubles.
+    val list3 = list1.flatMap(makeListofDoubles)
+    val list4 = list2.map(_.toDouble)
+    println("List3 = " + list3) // PRINTS: List3 = List(3.0, 4.0)
+    println("List4 = " + list4) // PRINTS: List4 = List(1.0, 2.0)
+  }
+
+  def makeListofDoubles(int: Int): List[Double] = { List(int.toDouble) }
+}
+
+====================================================================================
 object Demo
 {
   class Student(val name:String, val id:String)
