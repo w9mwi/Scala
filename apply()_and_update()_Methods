@@ -30,7 +30,7 @@ object Demo
     // 2) Just call List(), where Scala calls List.apply() for you.
     val list1:List[Int] = List.apply(1, 2)
     val list2:List[Int] = List(3, 4)
-    println("1ist1 = " + list1) // PRINTS: 1ist1 = List(1, 2)
+    println("list1 = " + list1) // PRINTS: list1 = List(1, 2)
     println("list2 = " + list2) // PRINTS: list2 = List(3, 4)
 
     // The following 2 lines of code shows 2 ways to convert
