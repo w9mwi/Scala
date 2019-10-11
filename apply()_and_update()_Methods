@@ -36,26 +36,25 @@ object Demo
     // The following 2 lines of code shows 2 ways to convert
     // a List of Ints to a List of Doubles.
     // 1) Call the List's flatMap() method, passing flatMap()
-    //    a function that converts Ints to Doubles.
+    //    a function that converts an Int to a List[Double].
     // 2) Call the List's map() method, passing it a function that
     //    converts all elements in the List to Doubles.
-    val list3 = list1.flatMap(makeListofDoubles)
-    val list4 = list2.map(_.toDouble)
+    val list3:List[Double] = list1.flatMap(makeListOfDoubles)
+    val list4:List[Double] = list2.map(_.toDouble)
     println("list3 = " + list3) // PRINTS: list3 = List(1.0, 2.0)
     println("list4 = " + list4) // PRINTS: list4 = List(3.0, 4.0)
 
     // NOTE: You can call the List.apply() method to initialize a List
     //       when you declare it--as was done when list1 was declared
     //       above.  Also, AFTER a List is initialized, you can call
-    //       the apply() method on that List to return an element in
+    //       the apply() method on that list to return an element in
     //       that List, as the following line of code shows.
     println("list4.apply(1) = " + list4.apply(1)) // PRINTS: list4.apply(1) = 4.0
     println("list4(1) = " + list4(1))             // PRINTS: list4(1) = 4.0
   }
 
-  def makeListofDoubles(int: Int): List[Double] = { List(int.toDouble) }
+  def makeListOfDoubles(int: Int): List[Double] = { List(int.toDouble) }
 }
-
 ====================================================================================
 object Demo
 {
