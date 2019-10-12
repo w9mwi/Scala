@@ -30,27 +30,24 @@ object Demo
 {
   def main(args: Array[String]):Unit =
   {
-    val m1 = List(1,2,3)
-    val m2 = List(4,5,6)
-    val m3 = List(7,8,9)
+    val monad1:List[Int] = List(1,2,3)
+    val monad2:List[Int] = List(4,5,6)
+    val monad3:List[Int] = List(7,8,9)
 
-    // this for-comprehension
-    val poop:List[Int] = for {
-      a <- m1
-      b <- m2
-      c <- m3
-    } yield combine(a,b,c)
+    val result1:List[Int] = for
+                            {
+                              a <- monad1
+                              b <- monad2
+                              c <- monad3
+                            } yield combine(a,b,c)
+    println(result1)
 
-    println(poop)
-    // is equivalent to this expression
-    val poop2:List[Int] = m1.flatMap(a => m2.flatMap(b => m3.map(c => combine(a,b,c))))
-    println(poop2)
+    // The following line of code is equivalent to the above for() comprehension.
+    // In fact, when the above for() comprehension is executed, Scala converts
+    // that for() comprehension into the the following equivalent code.
+    val result2:List[Int] = monad1.flatMap(a => monad2.flatMap(b => monad3.map(c => combine(a,b,c))))
+    println(result2)
   }
-
-//  def combine(a:List[Int], b:List[Int], c:List[Int]):List[Int] =
-//  {
-//    a :: b :: c
-//  }
 
   def combine(a:Int, b:Int, c:Int):Int =
   {
