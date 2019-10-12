@@ -1,0 +1,101 @@
+PARAMETRIC POLYMORPHISM
+=======================
+Revisit this later.  The following code example is from Page 481.
+
+object Demo
+{
+  class ToDValues[A] // The type A is specified when this ToDValues class is instantiated.
+  {
+    // Create a 24-element Array (one for each hour of the day) containing
+    // Option elements of type A.  Where A is a data type specified when
+    // this ToDValues class is instantiated.
+    private val values:Array[Option[A]] = Array.fill(24)(None:Option[A])
+
+    def apply(hour:Int):A =
+    {
+      values(hour).get
+    }
+
+    def get(hour:Int):Option[A] =
+    {
+      values(hour)
+    }
+
+    def update(hour:Int, v:A):Unit =
+    {
+      values(hour) = Some(v)
+    }
+
+    def update(time:String, v:A):Unit =
+    {
+      val hour = hourFromTime(time)
+      values(hour) = Some(v)
+    }
+
+    def clear(hour:Int):Unit =
+    {
+      values(hour) = None
+    }
+
+    def clear(time:String):Unit =
+    {
+      val hour = hourFromTime(time)
+      values(hour) = None
+    }
+
+    def combine(o:ToDValues[A], func:(Option[A], Option[A]) => Option[A]): ToDValues[A] =
+    {
+      val ret = new ToDValues[A]
+      for ((v, i) <- (values, o.values).zipped.map((v1, v2) => func(v1,v2))zipWithIndex)
+      {
+        ret.values(i) = v
+      }
+      ret
+    }
+
+    override def toString():String = "ToD :\n" +
+                                     (for((o, i) <- values.zipWithIndex) yield i + " : " + o).mkString("\n")
+
+    private def hourFromTime(time:String):Int =
+    {
+      // The following code first obtains the Int number before the colon char (:).
+      // If that Int number is NOT 12 AND the string ends with "PM", 12 gets added
+      // to that number; otherwise, 0 gets added to that number.  That Int number
+      // is then returned.
+      time.substring(0, time.indexOf(':')).toInt +
+      (
+        if (!time.startsWith("12") && time.endsWith("PM")) { 12 }
+        else { 0 }
+      )
+    }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val riders1 = new ToDValues[Int]
+    val riders2 = new ToDValues[Int]
+    val worker1 = new ToDValues[String]
+    val worker2 = new ToDValues[String]
+
+    riders1(12)       = 5  // CALLS: update(hour:Int, v:A):Unit     AS: update(12, 5)
+    riders1("8:24AM") = 10 // CALLS: update(time:String, v:A):Unit  AS: update("8:24AM", 10)
+    riders1(14)       = 7  // CALLS: update(hour:Int, v:A):Unit     AS: update(14, 7)
+    riders2("2:13PM") = 8  // CALLS: update(time:String, v:A):Unit  AS: update("2:13AM", 8)
+
+    worker1(12) = "Jason" // CALLS: update(hour:Int, v:A):Unit     AS: update(12, "Jason")
+
+    val totalRiders = riders1.combine(riders2, (o1, o2) => (o1, o2) match
+                      {
+                        case (None,    None)    => None
+                        case (Some(a), None)    => Some(a)
+                        case (None,    Some(b)) => Some(b)
+                        case (Some(a), Some(b)) => Some(a+b)
+                      })
+
+      println(riders1)
+      println("\n")
+      println(riders2)
+      println("\n")
+      println(totalRiders)
+  }
+}
