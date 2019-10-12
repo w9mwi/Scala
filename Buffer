@@ -5,7 +5,7 @@ which means it can easily grow and shrink.  Therefore, the Buffer type is immuta
 There are several Scala Buffer types.  The two most significant Buffer types are
 ArrayBuffer and ListBuffer.  In the following sample code, although a Buffer is
 declared, we see an ArrayBuffer type when the Buffer contents are printed.
-=========================================================================
+==========================================================================
 object Demo
 {
   def main(args: Array[String])
@@ -21,7 +21,7 @@ object Demo
     buf1 = 0 +=: buf1; println(buf1) // PRINTS: ArrayBuffer(0, 1, 2, 3, 4, 5, 6, 7)
   }
 }
-=========================================================================
+==========================================================================
 The following is a list of some common methods used by the Buffer type...
 
 ___ +=(elem: A):Buffer[A]  - Append an element to the buffer and return the same buffer.
