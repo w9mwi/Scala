@@ -43,8 +43,8 @@ object Demo
     println(result1)
 
     // The following line of code is equivalent to the above for() comprehension.
-    // In fact, when the above for() comprehension is executed, Scala converts
-    // that for() comprehension into the the following equivalent code.
+    // In fact, when the above for() comprehension is executed, Scala literally
+    // converts that for() comprehension into the following code when it's executed.
     val result2:List[Int] = monad1.flatMap(a => monad2.flatMap(b => monad3.map(c => combine(a,b,c))))
     println(result2)
   }
