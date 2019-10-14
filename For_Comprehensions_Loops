@@ -81,6 +81,12 @@ object Demo
     // 147-148-149-157-158-... = 1+4+7=12, 1+4+8=13, 1+4+9=14, 1+5+7=13, 1+5+8=14,...
     println(result1)
 
+    // The following line of code is equivalent to the for() loop immediately above.
+    // In fact, when the above for() loop is executed, Scala literally converts
+    // that for() loop into the following code when it's executed.
+    result1 = list1.flatMap(a => list2.flatMap(b => list3.map(c => sum(a,b,c))))
+    println(result1) // PRINTS: List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
+
 
     // Using a for() loop on a Map collection...
     val nameMap = Map("firstName" -> "Joe", "lastName" -> "Blow")
