@@ -45,8 +45,19 @@ object Demo
     // NOTE: The variable used by the yield statement must be the same variable the
     //       for() loop uses to obtain a value.  In the following line of code
     //       that variable is x.
-    val result:List[Int] = for { x <- list1 if (x > 1)} yield x
+    var result:List[Int] = for { x <- list1 if (x > 1)} yield x
     println(result) // PRINTS: List(2, 3)
+
+    // NOTE: The variable(s) used by the yield statement must be the same variable(s)
+    //       the for() loop uses to obtain value(s).  In the following line of code
+    //       those variables are: a, b, c
+    result = for { a <- list1; b <- list2; c <- list3 } yield combine(a,b,c)
+    println(result)
+  }
+
+  def combine(a:Int, b:Int, c:Int):Int =
+  {
+    a + b + c
   }
 }
 ================================================================================
