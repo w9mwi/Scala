@@ -1,5 +1,7 @@
-
 ================================================================================
+The following code show many examples of how to use Scala for() loop and
+foreach() statement, including examples that implement the "yield" keyword.
+
 object Demo
 {
   def main(args: Array[String]):Unit =
@@ -35,6 +37,27 @@ object Demo
     // instead of using a for() loop, as shown in the following line of code.
     list1.foreach(print); println // PRINTS: 123
 
+    val numbers = Map("ThreePointZero" -> 3.0,
+      "FourPointZero"  -> 4.0,
+      "ThreePointFive" -> 3.5)
+    numbers.foreach
+    {
+      // The following case statement prints this:
+      // key: ThreePointZero, value: 3.0
+      // key: FourPointZero, value: 4.0
+      // key: ThreePointFive, value: 3.5
+      case(key, value) => println(s"key: $key, value: $value")
+    }
+    // The following foreach() statement prints IDENTICAL results as the above foreach() statement.
+    numbers.foreach(x => println(s"key: ${x._1}, value: ${x._2}"))
+
+    numbers.values.foreach(x => print(x + " ")) // PRINTS: 3.0 4.0 3.5
+    println
+    numbers.keys.foreach(print) // PRINTS: ThreePointZeroFourPointZeroThreePointFive
+    println
+    numbers.keys.foreach(x => print(x + " ")) // PRINTS: ThreePointZero FourPointZero ThreePointFive
+    println
+
     // A for() loop can contain one or multiple if() statements to "filter" its results, as shown here...
     for (x <- list1 if (x > 1); if (x < 3) ) { println("x = " + x) } // PRINTS: x = 2
 
@@ -45,20 +68,37 @@ object Demo
     // NOTE: The variable used by the yield statement must be the same variable the
     //       for() loop uses to obtain a value.  In the following line of code
     //       that variable is x.
-    var result:List[Int] = for { x <- list1 if (x > 1)} yield x
-    println(result) // PRINTS: List(2, 3)
+    var result1:List[Int] = for { x <- list1 if (x > 1)} yield x
+    println(result1) // PRINTS: List(2, 3)
 
     // NOTE: The variable(s) used by the yield statement must be the same variable(s)
     //       the for() loop uses to obtain value(s).  In the following line of code
     //       those variables are: a, b, c
-    result = for { a <- list1; b <- list2; c <- list3 } yield combine(a,b,c)
-    // The following println(result) prints this:
+    result1 = for { a <- list1; b <- list2; c <- list3 } yield sum(a,b,c)
+    // The following println(result1) prints this:
     // List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
     // Those Int values are THE SUM of the single-digit Int values printed above.  For example:
     // 147-148-149-157-158-... = 1+4+7=12, 1+4+8=13, 1+4+9=14, 1+5+7=13, 1+5+8=14,...
-    println(result)
+    println(result1)
+
+
+    // Using a for() loop on a Map collection...
+    val nameMap = Map("firstName" -> "Joe", "lastName" -> "Blow")
+    val poop = for ((k,v) <- nameMap) yield { s"key = $k, value = $v" }
+    println(poop) // PRINTS: List(key = firstName, value = Joe, key = lastName, value = Blow)
+
+
+    val nums:Seq[Int]     = Seq(1,2,3)
+    val letters:Seq[Char] = Seq('a', 'b', 'c')
+    val result2:Seq[(Int, Char)] = for { n <- nums; c <- letters } yield (n, c)
+    println(result2) // PRINTS: List((1,a), (1,b), (1,c), (2,a), (2,b), (2,c), (3,a), (3,b), (3,c))
+
+
+    val names:Seq[String]            = Seq("joe", "jack", "jennifer")
+    val namesCapitalized:Seq[String] = for (x <- names) yield x.capitalize
+    println(namesCapitalized) // PRINTS: List(Joe, Jack, Jennifer)
   }
 
-  def combine(a:Int, b:Int, c:Int):Int = { a + b + c }
+  def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
 }
 ================================================================================
