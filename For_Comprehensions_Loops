@@ -1,5 +1,5 @@
 ================================================================================
-The following code show many examples of how to use Scala for() loop and
+The following code show many examples of how to use Scala's for() loop and
 foreach() statement, including examples that implement the "yield" keyword.
 
 object Demo
