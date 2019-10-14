@@ -52,12 +52,13 @@ object Demo
     //       the for() loop uses to obtain value(s).  In the following line of code
     //       those variables are: a, b, c
     result = for { a <- list1; b <- list2; c <- list3 } yield combine(a,b,c)
+    // The following println(result) prints this:
+    // List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
+    // Those Int values are THE SUM of the single-digit Int values printed above.  For example:
+    // 147-148-149-157-158-... = 1+4+7=12, 1+4+8=13, 1+4+9=14, 1+5+7=13, 1+5+8=14,...
     println(result)
   }
 
-  def combine(a:Int, b:Int, c:Int):Int =
-  {
-    a + b + c
-  }
+  def combine(a:Int, b:Int, c:Int):Int = { a + b + c }
 }
 ================================================================================
