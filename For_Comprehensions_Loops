@@ -41,17 +41,12 @@ object Demo
 
     // *****************************************************************************************
     // USING FOR LOOPS WITH THE YIELD KEYWORD.
-    // NOTE: When using A for() loop with the yield keyword, the code BEFORE the yield keyword
-    //       MUST be enclosed by curly braces {}, as shown in the following examples.
 
-    // If the expression contained in the following for() loop holds true
-    // for just one (or more) of the values in list1, it returns the value
-    val y:Int = 999;
-    for { x <- list1 if (x > 0); if (x > 3) } yield y
-    println(y)
-
-    // for { x <- list1 if (x > 0); if (x > 3) }
-    //println(poop)
+    // NOTE: The variable used by the yield statement must be the same variable the
+    //       for() loop uses to obtain a value.  In the following line of code
+    //       that variable is x.
+    val result:List[Int] = for { x <- list1 if (x > 1)} yield x
+    println(result) // PRINTS: List(2, 3)
   }
 }
 ================================================================================
