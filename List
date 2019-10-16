@@ -25,9 +25,8 @@ in a Vector is more efficient than accessing indexed elements in a List.
 
 A Scala Vector is immutable, whereas a Scala Array is mutable.
 A Scala List can be mutable or immutable.
-==================================================================================
 
-==============================================================
+==================================================================================
 
 In Scala, Lists are SEQUENCES, which means data is stored
 in elements that can be accessed via a sequential Integer
