@@ -1,3 +1,6 @@
+==================================================================================
+NOTE: The Scala Vector class is the recommended “go to” class for
+      IMMUTABLE, INDEXED SEQUENTIAL collections.
 
 NOTE: The Scala Vector class is the recommended “go to” class for
       IMMUTABLE, INDEXED SEQUENTIAL collections.
@@ -6,6 +9,23 @@ NOTE: The Scala ArrayBuffer class is the recommended “go to” class for
       MUTABLE, INDEXED SEQUENTIAL collections.  ArrayBuffer is an indexed,
       sequential collection.  Use ListBuffer if you prefer a linear,
       sequential collection that is MUTABLE.
+
+Use of List is very common in Scala, but it can sometimes be inefficient
+for random access because the time complexity of accessing an element is
+O(n). Scala provides an alternative collection, Vector, that is optimized
+for random access by storing its elements in a tree structure that has
+little memory overhead.  All operations on a Vector happen in effectively
+constant time, which means that for large collections it can be significantly
+more efficient than List.
+
+Scala Vectors are very similar to Scala Lists.  If you only need to process the head
+of a List, then use a List.  But if you need to access elements within the List,
+as well as process the List's head, use a Vector because accessing indexed elements
+in a Vector is more efficient than accessing indexed elements in a List.
+
+A Scala Vector is immutable, whereas a Scala Array is mutable.
+A Scala List can be mutable or immutable.
+==================================================================================
 
 ==============================================================
 
