@@ -37,10 +37,8 @@ object Demo
     // instead of using a for() loop, as shown in the following line of code.
     list1.foreach(print); println // PRINTS: 123
 
-    val numbers = Map("ThreePointZero" -> 3.0,
-      "FourPointZero"  -> 4.0,
-      "ThreePointFive" -> 3.5)
-    numbers.foreach
+    val numbers = Map("ThreePointZero" -> 3.0, "FourPointZero"  -> 4.0, "ThreePointFive" -> 3.5)
+    numbers.foreach // This foreach() loops through each element of numbers...
     {
       // The following case statement prints this:
       // key: ThreePointZero, value: 3.0
