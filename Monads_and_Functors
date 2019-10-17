@@ -4,18 +4,46 @@ object Demo
   // https://blog.redelastic.com/a-guide-to-scala-collections-exploring-monads-in-scala-collections-ef810ef3aec3
   def main(args: Array[String]):Unit =
   {
-    val o1 = Some("Hello")
-    val o2 = Some("World")
+    val list1:List[Int] = List(1,2)
+    val list2:List[Int] = List(3,4)
+    val list3:List[Int] = List(5,6)
 
-    for (a <- o1; b <- o2) { println(a, b) } // PRINTS: (Hello,World)
+    // NOTICE THE ORDER that the following for() loop prints the Ints in list1, list2, list3.
+    // It prints this: 135-136-145-146-235-236-245-246-
+    for (a <- list1; b <- list2; c <- list3) {print(a); print(b); print(c); print("-")}
+    println
 
-    val o3 = o1.flatMap(a => o2.map(b => a + " " + b))
-    o3.foreach(println)          // PRINTS: Hello World
-    for (c <- o3) { println(c) } // PRINTS: Hello World
+    // The following for() loop generates the IDENTICAL RESULT as the
+    // as the list1.flatMap(...) statement immediately below it.
+    // In fact, when Scala executes the following for() loop, it
+    // literally generates the identical code shown in the following
+    // list1.flatMap(...) statement!
+    var result1:List[Int] = for ( a <- list1; b <- list2; c <- list3 ) yield sum(a,b,c)
+    println(result1) // PRINTS: List(9, 10, 10, 11, 10, 11, 11, 12)
+    result1 = list1.flatMap(a => list2.flatMap(b => list3.map(c => sum(a,b,c))))
+    println(result1) // PRINTS: List(9, 10, 10, 11, 10, 11, 11, 12)
+    // Both of the above result1 values come from this math via the sum() function.
+    // 1+3+5=9, 1+3+6=10, 1+4+5=10, 1+4+6=11, 2+3+5=10, 2+3+6=11, 2+4+5=11, 2+4+6=12
 
 
+    // NOTE: When println contains multiple values (delimited by comma(s)),
+    //       it adds parenthesis around what's printed.  For example...
+    println("A", "B") // PRINTS: (A,B)
+    println("A")      // PRINTS: A
 
-    val tuple = for (a <- o1; b <- o2) yield(a, b)
-    println(tuple) // PRINTS: Some((Hello,World))
+    val some1:Some[String]     = Some("Hello")
+    val some2:Some[String]     = Some("World")
+    val option1:Option[String] = some1.flatMap(a => some2.map(b => a + " " + b))
+    println(option1)                  // PRINTS: Some(Hello World)
+    option1.foreach(println)          // PRINTS: Hello World
+    for (x <- option1) { println(x) } // PRINTS: Hello World
+
+    type StringTuple = (String, String)
+    val option2:Option[StringTuple] = for (a <- some1; b <- some2) yield(a, b)
+    println(option2)         // PRINTS: Some((Hello,World))
+    option2.foreach(println) // PRINTS: (Hello,World)
+
   }
+
+  def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
 }
