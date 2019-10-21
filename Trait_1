@@ -134,6 +134,52 @@ Whenever Scala looks for a method in a supertype, it always begins
 with the LAST supertype in the "extends/with" list, moving from right
 to left.  This process is called LINEARIZATION.
 
+===================================================================
+object Demo
+{
+  trait Trait_A
+  {
+    println("Trait_A is called.")
+  }
+
+  trait Trait_B
+  {
+    println("Trait_B is called.")
+  }
+
+  trait Trait_C
+  {
+    println("Trait_C is called.")
+  }
+
+  trait Trait_1 extends Trait_A with Trait_B with Trait_C
+  {
+    println("Trait_1 is called.")
+  }
+
+  trait Trait_2
+  {
+    println("Trait_2 is called.")
+  }
+
+  trait Trait_3
+  {
+    println("Trait_3 is called.")
+  }
+
+  class Class_1 extends Trait_1 with Trait_2 with Trait_3
+  {
+
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    var myClass = new Class_1()
+  }
+}
+===================================================================
+
+
 INHERITING FROM FUNCTION TYPES - Page 467
 =========================================
 When you treat an object like a function and pass it value arguments,
