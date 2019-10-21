@@ -157,12 +157,12 @@ object Demo
     println("Trait_1 is called.")
   }
 
-  trait Trait_2
+  trait Trait_2 extends Trait_A with Trait_B with Trait_C
   {
     println("Trait_2 is called.")
   }
 
-  trait Trait_3
+  trait Trait_3 extends Trait_A with Trait_B with Trait_C
   {
     println("Trait_3 is called.")
   }
