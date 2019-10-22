@@ -134,47 +134,53 @@ Whenever Scala looks for a method in a supertype, it always begins
 with the LAST supertype in the "extends/with" list, moving from right
 to left.  This process is called LINEARIZATION.
 
+Execute, and then change, the following code to see which traits
+get called, and the order in which they get called.  But first,
+read the in-line comments to understand its current behavior.
 ===================================================================
 object Demo
 {
-  trait Trait_A
-  {
-    println("Trait_A is called.")
-  }
-
-  trait Trait_B
-  {
-    println("Trait_B is called.")
-  }
-
-  trait Trait_C
-  {
-    println("Trait_C is called.")
-  }
+  trait Trait_A { println("Trait_A is called.") }
+  trait Trait_B { println("Trait_B is called.") }
+  trait Trait_C { println("Trait_C is called.") }
+  trait Trait_X { println("Trait_X is called.") }
+  trait Trait_Y { println("Trait_Y is called.") }
+  trait Trait_Z { println("Trait_Z is called.") }
 
   trait Trait_1 extends Trait_A with Trait_B with Trait_C
-  {
-    println("Trait_1 is called.")
-  }
+  { println("Trait_1 is called.") }
 
   trait Trait_2 extends Trait_A with Trait_B with Trait_C
-  {
-    println("Trait_2 is called.")
-  }
+  { println("Trait_2 is called.") }
 
   trait Trait_3 extends Trait_A with Trait_B with Trait_C
-  {
-    println("Trait_3 is called.")
-  }
+                with Trait_X with Trait_Y with Trait_Z
+  { println("Trait_3 is called.") }
 
-  class Class_1 extends Trait_1 with Trait_2 with Trait_3
-  {
-
-  }
+  class Class_1 extends Trait_3 with Trait_2 with Trait_1
+  { println("Class_1 is called.") }
 
   def main(args: Array[String]):Unit =
   {
     var myClass = new Class_1()
+
+    // This program prints the results shown below.  Notice that each
+    // of the NINE (9) defined traits gets executed ONLY ONE TIME.
+    // For example, even though Trait_1, Trait_2, Trait_3 all
+    // implement Trait_A, Trait_B, Trait_C, you might expect that
+    // Trait_A, Trait_B, Trait_C would each get called 3 times.
+    // But they each get called only once, via Trait_3.
+    //
+    // Trait_A is called.
+    // Trait_B is called.
+    // Trait_C is called.
+    // Trait_X is called.
+    // Trait_Y is called.
+    // Trait_Z is called.
+    // Trait_3 is called.
+    // Trait_2 is called.
+    // Trait_1 is called.
+    // Class_1 is called.
   }
 }
 ===================================================================
