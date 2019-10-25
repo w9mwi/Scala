@@ -20,3 +20,23 @@ Add .jar file to class path : 1) From the menu, select: File / Project Structure
                               4) Click on the '+' sign near the far-right edge of the dialog screen.
                                  (NOT the '+' sign near the upper-left corner of the dialog screen!)
                               5) From the menu list that appears, select: JARs or directories.
+                              
+================================================================
+
+Ctrl+Tab : Navigate through Intellij windows
+
+Ctrl+N : Find and open a class, file, etc.
+
+Ctrl + ` : Switch: Color Scheme
+                   Code Style Scheme
+                   Keymap
+                   View Mode
+                   Look and Feel
+
+Alt + <-- or --> : Move between file tabs.
+
+Ctrl + Alt + S : Change Font Size by checking the checkbox.
+
+View Tools Window : From menu, select:  View / Tools Window
+
+
