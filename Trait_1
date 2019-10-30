@@ -140,47 +140,42 @@ read the in-line comments to understand its current behavior.
 ===================================================================
 object Demo
 {
-  trait Trait_A { println("Trait_A is called.") }
-  trait Trait_B { println("Trait_B is called.") }
-  trait Trait_C { println("Trait_C is called.") }
-  trait Trait_X { println("Trait_X is called.") }
-  trait Trait_Y { println("Trait_Y is called.") }
-  trait Trait_Z { println("Trait_Z is called.") }
+  trait Trait_A                  { def method_A()          = { println("Trait_A.method_A() is called.") } }
+  trait Trait_B extends Trait_A  { override def method_A() = { println("Trait_B.method_A() is called.") } }
 
-  trait Trait_1 extends Trait_A with Trait_B with Trait_C
-  { println("Trait_1 is called.") }
+  class Class_1 extends Trait_A with Trait_B
+  { print("Class_1 is called - "); method_A }
 
-  trait Trait_2 extends Trait_A with Trait_B with Trait_C
-  { println("Trait_2 is called.") }
+  class Class_2 extends Trait_B with Trait_A
+  { print("Class_2 is called - "); method_A }
 
-  trait Trait_3 extends Trait_A with Trait_B with Trait_C
-                with Trait_X with Trait_Y with Trait_Z
-  { println("Trait_3 is called.") }
+  class Class_3 extends Class_1 with Trait_A
+  { print("Class_3 is called - "); method_A }
 
-  class Class_1 extends Trait_3 with Trait_2 with Trait_1
-  { println("Class_1 is called.") }
+  class Class_4 extends Class_2 with Trait_B
+  { print("Class_4 is called - "); method_A }
+
 
   def main(args: Array[String]):Unit =
   {
-    var myClass = new Class_1()
+    val myClass_1:Class_1 = new Class_1()
+    // PRINTS: Class_1 is called - Trait_B.method_A() is called.
+    println("==================")
 
-    // This program prints the results shown below.  Notice that each
-    // of the NINE (9) defined traits gets executed ONLY ONE TIME.
-    // For example, even though Trait_1, Trait_2, Trait_3 all
-    // implement Trait_A, Trait_B, Trait_C, you might expect that
-    // Trait_A, Trait_B, Trait_C would each get called 3 times.
-    // But they each get called only once, via Trait_3.
-    //
-    // Trait_A is called.
-    // Trait_B is called.
-    // Trait_C is called.
-    // Trait_X is called.
-    // Trait_Y is called.
-    // Trait_Z is called.
-    // Trait_3 is called.
-    // Trait_2 is called.
-    // Trait_1 is called.
-    // Class_1 is called.
+    val myClass_2:Class_2 = new Class_2()
+    // PRINTS: Class_2 is called - Trait_B.method_A() is called.
+    println("==================")
+
+    val myClass_3:Class_3 = new Class_3()
+    // PRINTS: Class_1 is called - Trait_B.method_A() is called.
+    //         Class_3 is called - Trait_B.method_A() is called.
+    println("==================")
+
+    val myClass_4:Class_4 = new Class_4()
+    // PRINTS: Class_2 is called - Trait_B.method_A() is called.
+    //         Class_4 is called - Trait_B.method_A() is called.
+    println("==================")
+
   }
 }
 ===================================================================
