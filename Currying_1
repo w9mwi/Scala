@@ -4,7 +4,43 @@ SEE THE FOLOWING WEB PAGE FOR MORE INFO. ON CURRYING:
 A CURRIED FUNCTION is a function that...
 1) Gets passed a value and returns a function.
    ...AND...
-2) The returned function gets passed a value, and returns a value.
+2) The function returned gets passed a value, and then returns a value.
+
+============================================================================================
+object Demo
+{
+  // A curried function is a function that does the following...
+  // 1) Gets passed a value and returns a function.
+  // ...AND...
+  // 2) The function returned gets passed a value, and then returns a value.
+
+  // The following 2 add functions are both curried functions,
+  // and are IDENTICAL.  They're written with different (but
+  // equivalent) syntax.
+  def add_1(a:Int)(b:Int):Int    = { a + b }
+  def add_2(a: Int):(Int => Int) = { (b: Int) => a + b }
+
+  def main(args: Array[String])
+  {
+    // Call the add_1() function here...
+    var func:(Int => Int) = add_1(123)
+    var intValue = func(456) // Equivalent to calling func.apply(456)
+    println("intValue = " + intValue) // PRINTS: intValue = 579
+
+    intValue = func.apply(456) // Equivalent to calling func(456)
+    println("intValue = " + intValue) // PRINTS: intValue = 579
+
+    // ================================================================
+    // Call the add_2() function here...
+    func = add_2(123)
+    intValue = func(654) // Equivalent to calling func.apply(444)
+    println("intValue = " + intValue) // PRINTS: intValue = 777
+
+    intValue = func.apply(654) // Equivalent to calling func(456)
+    println("intValue = " + intValue) // PRINTS: intValue = 777
+  }
+}
+============================================================================================
 
 The following code sample demonstrates the use of a 4 different CURRIED FUNCTIONS
 (add_1, add_2, add_3, add_4) that all have identical behavior, but are written
