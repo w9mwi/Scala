@@ -35,10 +35,10 @@ object Demo
     println("intValue = " + intValue) // PRINTS: intValue = 579
 
     // NOTE: The following line of code works the same with
-    //       or without the underscore (_) character shown,
+    //       or without the underscore (_) parameter shown,
     //       so it's optional.  The underscoare (_) char tells
     //       Scala you want to specify only the 1st argument.
-    func = add_1(123)_
+    func = add_1(123)(_)
     intValue = func(456)
     println("intValue = " + intValue) // PRINTS: intValue = 579
 
@@ -46,7 +46,7 @@ object Demo
     // This section calls the add_2 function.
 
     // NOTE: The following line of code will NOT compile using the
-    //       underscore (_) character, as the add_1 function does
+    //       underscore (_) argument, as the add_1 function does
     //       in the example immediately above.
     func = add_2(123)
     intValue = func(654) // Equivalent to calling func.apply(654)
@@ -83,15 +83,15 @@ object Demo
     // All below code show examples of PARTIALLY APPLIED FUNCTIONS, which means the
     // process of calling a curried function with some (but not all) of its arguments.
     // This means MORE THAN ONE FUNCTION CALL is required to obtain the final result.
-    var func1:Int => Int = curriedFunction(1)(2)(3)_ // The underscore (_) char is OPTIONAL here.
+    var func1:Int => Int = curriedFunction(1)(2)(3)(_) // The underscore (_) argument is OPTIONAL here.
     intResult = func1(4)
     println(intResult) // PRINTS: 10
 
-    var func2:(Int => Int => Int) = curriedFunction(1)(2)_ // The underscore (_) char is OPTIONAL here.
+    var func2:(Int => Int => Int) = curriedFunction(1)(2)(_) // The underscore (_) argument is OPTIONAL here.
     intResult = func2(3)(4)
     println(intResult) // PRINTS: 10
 
-    val func3:(Int => Int => Int => Int) = curriedFunction(1)_ // The underscore (_) char is OPTIONAL here.
+    val func3:(Int => Int => Int => Int) = curriedFunction(1)(_) // The underscore (_) argument is OPTIONAL here.
     intResult = func3(2)(3)(4)
     println(intResult) // PRINTS: 10
 
