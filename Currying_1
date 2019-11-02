@@ -35,7 +35,9 @@ object Demo
     println("intValue = " + intValue) // PRINTS: intValue = 579
 
     // NOTE: The following line of code works the same with
-    //       or without the underscore (_) character shown.
+    //       or without the underscore (_) character shown,
+    //       so it's optional.  The underscoare (_) char tells
+    //       Scala you want to specify only the 1st argument.
     func = add_1(123)_
     intValue = func(456)
     println("intValue = " + intValue) // PRINTS: intValue = 579
@@ -56,57 +58,6 @@ object Demo
     intValue = add_2(123)(654)
     println("intValue = " + intValue) // PRINTS: intValue = 777
   }
-}
-============================================================================================
-
-The following code sample demonstrates the use of a 4 different CURRIED FUNCTIONS
-(add_1, add_2, add_3, add_4) that all have identical behavior, but are written
-with different syntax.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // The add_1() function gets the Int 5 value assigned to its x parameter,
-    // and returns a function.  The returned function takes an Int value for
-    // its y parameter, and returns the Int value (x + y).
-    var plus5:(Int => Int) = add_1(5)
-    var result:Int         = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
-    println("result = " + result) // PRINTS: result = 11
-
-    // The add_2() function gets the Int 5 value assigned to its x parameter,
-    // and returns a function.  The returned function takes an Int value for
-    // its y parameter, and returns the Int value (x + y).
-    plus5  = add_2(5)
-    result = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
-    println("result = " + result) // PRINTS: result = 11
-
-    // The add_3() function gets the Int 5 value assigned to its x parameter,
-    // and returns a function.  The returned function takes an Int value for
-    // its y parameter, and returns the Int value (x + y).
-    plus5  = add_3(5)
-    result = plus5(6) // The plus5 function gets passed the Int value 6 as its y parameter.
-    println("result = " + result) // PRINTS: result = 11
-
-    result = add_4(5)(6)
-    println("result = " + result) // PRINTS: result = 11
-
-    plus5  = add_4(5)_ // The underscore (_) here is OPTIONAL--it tells Scala you want to specify only the 1st argument.
-    result = plus5(6)  // The plus5 function gets passed the Int value 6 as its y parameter.
-    println("result = " + result) // PRINTS: result = 11
-  }
-
-  // The following 4 functions are identical, they're just written differently.
-  // All 4 of these functions get called by passing an Int parameter, and
-  // all 4 of them return a function.  Where the function returned gets passed
-  // an Int parameter, and returns an Int value.
-  def add_1(x:Int):Int => Int   = (y:Int) => x + y
-  def add_2(x:Int):(Int => Int) = (y:Int) => x + y
-  def add_3(x:Int):(Int => Int) =
-  {
-    y:Int => x + y
-  }
-  def add_4(x:Int)(y:Int):Int = x + y
 }
 
 ================================================================================================
