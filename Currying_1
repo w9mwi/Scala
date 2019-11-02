@@ -16,10 +16,9 @@ object Demo
 
   // The following 2 add functions are both curried functions,
   // and are IDENTICAL.  They're written with different (but
-  // equivalent) syntax.
+  // functionally equivalent) syntax.
   def add_1(a:Int)(b:Int):Int    = { a + b }
   def add_2(a: Int):(Int => Int) = { (b: Int) => a + b }
-
 
   def main(args: Array[String])
   {
@@ -34,6 +33,12 @@ object Demo
     intValue = add_1(123)(456)
     println("intValue = " + intValue) // PRINTS: intValue = 579
 
+    // NOTE: The following line of code works the same with
+    //       or without the underscore (_) character shown.
+    func = add_1(123)_
+    intValue = func(456)
+    println("intValue = " + intValue) // PRINTS: intValue = 579
+
     // ================================================================
     // Call the add_2() function here...
     func = add_2(123)
@@ -45,6 +50,15 @@ object Demo
 
     intValue = add_2(123)(654)
     println("intValue = " + intValue) // PRINTS: intValue = 777
+
+    // NOTE: The following line of code will NOT compile with the
+    //       underscore (_) character, as the add_1 function does
+    //       in the example above.
+    func = add_2(123)
+    intValue = func(654)
+    println("intValue = " + intValue) // PRINTS: intValue = 777
+
+
   }
 }
 ============================================================================================
