@@ -59,6 +59,54 @@ object Demo
     println("intValue = " + intValue) // PRINTS: intValue = 777
   }
 }
+================================================================================================
+
+Currying can also be thought of as...
+   A function that takes multiple arguments can be translated into
+   a series of function calls that each take a single argument.
+   An example is a Scala function defined like this:
+
+   def curriedFunction(a:Int)(b:Int)(c:Int)(d:Int):Int = { a + b + c + d }
+
+See the below code sample for an example of how this works,
+and to see examples of calling prtially applied functions.
+
+================================================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var intResult:Int = curriedFunction(1)(2)(3)(4)
+    println(intResult) // PRINTS: 10
+
+    // The examples below show different, but equivalent, ways of calling curriedFunction.
+    // All below code show examples of PARTIALLY APPLIED FUNCTIONS, which means the
+    // process of calling a curried function with some (but not all) of its arguments.
+    // This means MORE THAN ONE FUNCTION CALL is required to obtain the final result.
+    var func1:Int => Int = curriedFunction(1)(2)(3)_ // The underscore (_) char is OPTIONAL here.
+    intResult = func1(4)
+    println(intResult) // PRINTS: 10
+
+    var func2:(Int => Int => Int) = curriedFunction(1)(2)_ // The underscore (_) char is OPTIONAL here.
+    intResult = func2(3)(4)
+    println(intResult) // PRINTS: 10
+
+    val func3:(Int => Int => Int => Int) = curriedFunction(1)_ // The underscore (_) char is OPTIONAL here.
+    intResult = func3(2)(3)(4)
+    println(intResult) // PRINTS: 10
+
+    // NOTE: func3 was already initialized above by calling: curriedFunction(1)
+    func2 = func3(2)
+    func1 = func2(3)
+    intResult = func1(4)
+    println(intResult) // PRINTS: 10
+  }
+
+  /**
+    * This is a curried function because it contains multiple argument lists.
+    */
+  def curriedFunction(a:Int)(b:Int)(c:Int)(d:Int):Int = { a + b + c + d }
+}
 
 ================================================================================================
 The foldLeft and foldRight methods used by the Scala List class are curried functions.
