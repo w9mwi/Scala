@@ -35,8 +35,8 @@ object Demo
     println("intValue = " + intValue) // PRINTS: intValue = 579
 
     // NOTE: The following line of code works the same with
-    //       or without the underscore (_) parameter shown,
-    //       so it's optional.  The underscore (_) char tells
+    //       or without the underscore (_) argument shown,
+    //       so it's optional.  The underscore (_) argument tells
     //       Scala you want to specify only the 1st argument.
     func = add_1(123)(_)
     intValue = func(456)
