@@ -22,7 +22,8 @@ object Demo
 
   def main(args: Array[String])
   {
-    // Call the add_1() function here...
+    // This section calls the add_1 function.
+
     var func:(Int => Int) = add_1(123)
     var intValue = func(456) // Equivalent to calling func.apply(456)
     println("intValue = " + intValue) // PRINTS: intValue = 579
@@ -40,7 +41,11 @@ object Demo
     println("intValue = " + intValue) // PRINTS: intValue = 579
 
     // ================================================================
-    // Call the add_2() function here...
+    // This section calls the add_2 function.
+
+    // NOTE: The following line of code will NOT compile using the
+    //       underscore (_) character, as the add_1 function does
+    //       in the example immediately above.
     func = add_2(123)
     intValue = func(654) // Equivalent to calling func.apply(654)
     println("intValue = " + intValue) // PRINTS: intValue = 777
@@ -50,15 +55,6 @@ object Demo
 
     intValue = add_2(123)(654)
     println("intValue = " + intValue) // PRINTS: intValue = 777
-
-    // NOTE: The following line of code will NOT compile with the
-    //       underscore (_) character, as the add_1 function does
-    //       in the example above.
-    func = add_2(123)
-    intValue = func(654)
-    println("intValue = " + intValue) // PRINTS: intValue = 777
-
-
   }
 }
 ============================================================================================
