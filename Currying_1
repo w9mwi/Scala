@@ -69,7 +69,7 @@ Currying can also be thought of as...
    def curriedFunction(a:Int)(b:Int)(c:Int)(d:Int):Int = { a + b + c + d }
 
 See the below code sample for an example of how this works,
-and to see examples of calling prtially applied functions.
+and to see examples of calling partially applied functions.
 
 ================================================================================================
 object Demo
