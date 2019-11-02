@@ -36,7 +36,7 @@ object Demo
 
     // NOTE: The following line of code works the same with
     //       or without the underscore (_) parameter shown,
-    //       so it's optional.  The underscoare (_) char tells
+    //       so it's optional.  The underscore (_) char tells
     //       Scala you want to specify only the 1st argument.
     func = add_1(123)(_)
     intValue = func(456)
