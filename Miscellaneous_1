@@ -71,8 +71,8 @@ object Demo
 }
 
 =================================================================================
-
 HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS
+
 object Demo
 {
   def main(args:Array[String]): Unit =
@@ -91,9 +91,9 @@ object Demo
     */
   def calculateAverage(numbers:Double *) =
   {
-    // The following if() statement serves no useful function.  The only purpose
-    // of this code is to use the isInstance() function to identify a data type,
-    // and then use the match keyword to identify a data type.
+    // The following code shows that you can identify a data type by calling
+    // isInstanceOf on a value, or by using the "match" keyword.  This code
+    // shows how to do both...
     if (numbers.isInstanceOf[Seq[Double]])
     {
       // This if() statement will be entered because the data type of numbers is: Seq[Double]
