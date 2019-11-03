@@ -6,6 +6,29 @@ A CURRIED FUNCTION is a function that...
    ...AND...
 2) The function returned gets passed a value, and then returns a value.
 
+Currying - DEFINITION #1:
+           The technique of transforming a function that takes
+           multiple arguments into a function that takes a single
+           argument, where the other arguments having been specified
+           by the curry.
+
+           DEFINITION #2:
+           A function that takes multiple arguments can be
+           translated into a series of function calls that
+           each take a single argument.  Here's an example
+           where we curry the following 3-argument function
+           into 3 separate functions that each take a single
+           argument...
+
+DEFINITION OF A PARTIALLY APPLIED FUNCTION:
+   A partially-applied function gets passed a function with multiple
+   parameters, and RETURNS A FUNCTION with fewer parameters.
+
+   Partially applied functions give you this capability:
+
+   * You write a general function.
+   * You create a specific function from the general function.
+
 ============================================================================================
 object Demo
 {
@@ -178,51 +201,6 @@ object Demo
 }
 
 ================================================================================================
-
-DEFINITION OF A PARTIALLY APPLIED FUNCTION:
-A partially-applied function gets passed a function with multiple
-parameters, and RETURNS A FUNCTION with fewer parameters.
-
-Partially applied functions give you this capability:
-
-* You write a general function.
-* You create a specific function from the general function.
-
-Currying - DEFINITION #1:
-           The technique of transforming a function that takes
-           multiple arguments into a function that takes a single
-           argument, where the other arguments having been specified
-           by the curry.
-
-           DEFINITION #2:
-           A function that takes multiple arguments can be
-           translated into a series of function calls that
-           each take a single argument.  Here's an example
-           where we curry the following 3-argument function
-           into 3 separate functions that each take a single
-           argument...
-
-result = f(x)(y)(z)
-
-f1     = f(x)   // f(x)  returns a function that gets assigned to f1.  Therefore, f1 is a function.
-f2     = f1(y)  // f1(y) returns a function that gets assigned to f2.  Therefore, f2 is a function.
-result = f2(z)  // f2(z) returns a result, which is NOT a function, but some value.
-
-To obtain the final result above, we need to call 3 functions:
-1) f(x)  must get called first.
-2) f1(y) must get called second.
-3) f2(z) must get called last.
-
-Immediately after the f(x) function is called above (and just before
-the f1(y) function is called), the f2(z) function is partially applied.
-Immediately after the f1(y) function is called (and just before the
-f2(z) function is called), the f2(z) function is still partially applied.
-Only after the f2(z) function is called (when it returns a result), is
-the f2(z) function fully applied.
-
-Since the f2(z) function is built from caling both the f(x) and f1(y) functions,
-f(x) and f1(y) are partially-applied functions of function f2(z).
-========================================================================
 object Demo
 {
   def main(args: Array[String])
@@ -257,7 +235,7 @@ object Demo
   }
 
   def plus(a:Int)(b:Int):Int = { println("a = " + a + ",  b = " + b);  a + b } // PRINTS: a = 2,  b = 11
-  def plus2 = plus(2)(_)  // NOTE: This plus2()() function calls the plus() function defined above.
+  def plus2 = plus(2)(_)  // NOTE: The underscore argument (_) is REQUIRED here.
 }
 ========================================================================
 object Demo
@@ -288,11 +266,11 @@ object Demo
     // The following line of code converts the add() function defined below
     // (which contains one parameter list) into a curried function (which
     // contains two parameter lists) via an "Eta Expansion".  The "Eta
-    // Expansion" occurs by adding the underscore character (_) after
+    // Expansion" occurs when adding the underscore character (_) after
     // the "add" method name.  For a more detailed explanation of an
     // "Eta Expansion", read the following web page:
     // --> https://stackoverflow.com/questions/39445018/what-is-the-eta-expansion-in-scala
-    val addFunction        = add _
+    val addFunction        = add _  // The underscore char (_) on this line is REQUIRED.
     val addFunctionCurried = addFunction.curried // Converts the addFunction into a curried function.
 
     println(add(123, 456))                // PRINTS: 579
@@ -313,6 +291,10 @@ object Demo
   def add(x:Int, y:Int):Int = { x + y }
 }
 ========================================================================
+The following code sample shows another example of transforming
+a regular function into a curried function by performing an eta
+expansion on it by adding the underscore (_) character.
+
 object Demo
 {
   def main(args: Array[String])
