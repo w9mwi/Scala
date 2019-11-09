@@ -9,6 +9,7 @@ NOTE: In the code samples below, the "match" keyword is
 
 See below sample code for details on how match can be used.
 ====================================================================================
+
 object Demo
 {
   /**
@@ -33,7 +34,8 @@ object Demo
     printNumber(numberDouble) // PRINTS: number value is unknown.
   }
 
-  def printNumberType(number:Any) {
+  def printNumberType(number:Any) // NOTE: number is defined here as type Any.
+  {
     number match {
            case x:Int   => println("number is of type Int")
            case y:Long  => println("number is of type Long")
@@ -42,7 +44,8 @@ object Demo
            }
   }
 
-  def printNumber(number:Any) {
+  def printNumber(number:Any)  // NOTE: number is defined here as type Any.
+  {
     number match {
            case 1      => println("number = 1")
            case 2      => println("number = 2")
@@ -54,7 +57,9 @@ object Demo
            }
   }
 }
+
 ====================================================================================
+
 The following sample code shows how to use a case class for pattern matching,
 which you can think of as "data type" matching.  As pattern matching is used
 here to determine the data type.
