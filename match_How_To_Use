@@ -7,9 +7,53 @@ NOTE: In the code samples below, the "match" keyword is
       case Person("Alice",   25) => println("Hi Alice!") // Matches on a specific Person value.
       case z: Double    => "Double" // Matches on the data type specified the value z.
 
-Again, see below sample code for details on how match can be used.
-      
+See below sample code for details on how match can be used.
+====================================================================================
+object Demo
+{
+  /**
+    * In this program, we demonstrate that the "match" keyword can be used to:
+    * 1) Determine a number's data type by calling printNumberType().
+    * 2) Determine a number's value by calling printNumber().
+    */
+  def main(args:Array[String]):Unit = {
+    val numberInt:    Int    = 2
+    val numberLong:   Long   = 1234L
+    val numberFloat:  Float  = 56.78F
+    val numberDouble: Double = 9876.5432D
 
+    printNumberType(numberInt)    // PRINTS: number is of type Int
+    printNumberType(numberLong)   // PRINTS: number is of type Long
+    printNumberType(numberFloat)  // PRINTS: number is of type Float
+    printNumberType(numberDouble) // PRINTS: number is an unknown data type.
+
+    printNumber(numberInt)    // PRINTS: number = 2
+    printNumber(numberLong)   // PRINTS: number = 1234
+    printNumber(numberFloat)  // PRINTS: number = 56.78
+    printNumber(numberDouble) // PRINTS: number value is unknown.
+  }
+
+  def printNumberType(number:Any) {
+    number match {
+           case x:Int   => println("number is of type Int")
+           case y:Long  => println("number is of type Long")
+           case z:Float => println("number is of type Float")
+           case _       => println("number is an unknown data type.")
+           }
+  }
+
+  def printNumber(number:Any) {
+    number match {
+           case 1      => println("number = 1")
+           case 2      => println("number = 2")
+           case 1233D  => println("number = 1233")
+           case 1234D  => println("number = 1234")
+           case 56.77F => println("number = 56.77")
+           case 56.78F => println("number = 56.78")
+           case _      => println("number value is unknown.")
+           }
+  }
+}
 ====================================================================================
 The following sample code shows how to use a case class for pattern matching,
 which you can think of as "data type" matching.  As pattern matching is used
