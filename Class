@@ -187,4 +187,62 @@ object Demo
   }
 }
 
-========================================================================
+====================================================================================
+AUXILIARY CLASS CONSTRUCTORS
+----------------------------
+A Scala Class can have multiple constructors.  The "default" constructor
+is known as the "primary constructor".  The programmer can create additional
+class constructors known as "auxiliary constructors" by defining them inside
+the class, using the "this" keyword as the following example shows.
+NOTE: The equal sign (=) in the constructor is optional--it's NOT required.
+
+def this(arg1:datatype, arg2:datatype) = { Constructor code here. }
+
+The following code contains TWO (2) auxiliary constructors defined
+by the programmer.  The programmer never defines the primary
+constructor because Scala defines it by default.
+
+object Demo
+{
+  class Company
+  {
+    private var companyName:String = ""
+    private var noOfEmployees:Int  = 0
+
+    def show()
+    {
+      println("Company Name: " + companyName + " - Number of Employees: " + noOfEmployees)
+    }
+
+    // This Auxiliary Constructor contains one argument...
+    def this(companyName: String)
+    {
+      this() // Calls the primary constructor, which is always available by default.
+      this.companyName = companyName
+    }
+
+    // This Auxiliary Constructor contains two arguments...
+    def this(companyName:String, noOfEmployees:Int)
+    {
+      this(companyName) // Calls the Auxiliary Constructor that has one argument.
+      this.noOfEmployees = noOfEmployees
+    }
+  }
+
+
+  def main(args: Array[String])
+  {
+    // Calls the Primary Constructor, which contains zero arguments...
+    val company1 = new Company()
+    company1.show()
+
+    // Calls the auxiliary constructor containing one argument...
+    val company2 = new Company("Joe's Pipes, Inc.")
+    company2.show()
+
+    // Calls the auxiliary constructor containing two arguments...
+    val company3= new Company("Hard-Rock Cement Company", 42)
+    company3.show()
+  }
+}
+====================================================================================
