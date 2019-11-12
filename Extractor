@@ -36,3 +36,28 @@ object Demo
   }
 }
 ========================================================================
+The following sample shows that your unapply() method doesn't really
+need to perform the opposite operation of the apply() method.
+
+object Demo
+{
+  // Main method
+  def main(args: Array[String])
+  {
+    def apply(q:Double):Double = q * 10
+
+    def unapply(r:Int):Option[Int] =
+    {
+      if (r % 5 == 0)
+        Some(r * 5)
+      else
+        None
+    }
+
+    println("apply(20) = " + apply(20))     // PRINTS: apply(20) = 200.0
+    println("unapply(20) = " + unapply(20)) // PRINTS: unapply(20) = Some(100)
+    println("unapply(19) = " + unapply(19)) // PRINTS: unapply(19) = None
+  }
+}
+========================================================================
+
