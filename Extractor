@@ -63,7 +63,8 @@ object Demo
 Extractors can be utilized in Pattern Matching.  While comparing the
 Object of an Extractor in Pattern Matching, the unapply method will
 be executed spontaneously.  The following code shows this example
-of Pattern Matching.
+of Pattern Matching. All "case classes" in Scala already have an
+Extractor, so it can be utilized spontaneously with Pattern Matching.
 
 object Demo
 {
