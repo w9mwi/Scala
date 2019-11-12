@@ -1,0 +1,38 @@
+A Scala Extractor is defined as an object that has a method
+named unapply() as one of its methods.  This unapply() method
+extracts an object and returns the attributes.  The unapply()
+method is also used in Pattern matching and Partial functions.
+Extractors also explain the apply() method, which takes arguments
+and constructs an object.  The unapply() method reverses the
+construction procedure of the apply() method.
+
+The following code shows an example of an apply() and unapply() method.
+The unapply() method simply "undoes" what the apply() method does.
+========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    def apply(firstname: String, lastname: String):String =
+    {
+      firstname + "James" + lastname
+    }
+
+    def unapply(string:String):Option[(String, String)] =
+    {
+      val array:Array[String] = string.split("James")
+
+      if (array.length == 2)
+        Some(array(0), array(1))
+      else
+        None
+    }
+
+    // The following 2 println() statements print:
+    // apply("Tom", "Jones"))    = TomJamesJones
+    // unapply("JonesJamesTom")) = Some((Jones,Tom))
+    println("""apply("Tom", "Jones"))    = """ + apply("Tom", "Jones"))
+    println("""unapply("JonesJamesTom")) = """ + unapply("JonesJamesTom"))
+  }
+}
+========================================================================
