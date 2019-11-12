@@ -60,4 +60,34 @@ object Demo
   }
 }
 ========================================================================
+Here's yet another example of Scala Extractor code--apply() and unapply().
 
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // This program prints the following text to the console.
+    // apply(25.0) is called.   x = 5.0
+    // unapply(5.0) is called.  y = 1.0
+
+    val x:Double = Demo(25) // NOTE: This line of code literally calls: Demo.apply(25) so x = 5.0
+    println("x = " + x)
+
+    // Apply pattern matching here...
+    x match
+    {
+      case Demo(y) => println("y = " + y) // This line of code literally calls: Demo.unapply(5.0)
+      case _ => println("Can't be evaluated.")
+    }
+  }
+
+  def apply(x:Double):Double = { print("apply(" + x + ") is called.   "); x / 5 }
+
+  def unapply(z:Double):Option[Double] =
+  {
+    print("unapply(" + z + ") is called.  ")
+    if (z % 5 == 0)
+      Some(z / 5)
+    else None
+  }
+}
