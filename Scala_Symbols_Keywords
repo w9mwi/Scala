@@ -7,6 +7,11 @@ https://docs.scala-lang.org/tutorials/FAQ/finding-symbols.html
 
 
 ======================================================================
+@ Symbol - When pattern matching "variable@pattern" binds the variable
+part to the value matched by the pattern, if the pattern matches.
+For more info, see:
+https://stackoverflow.com/questions/2359014/scala-operator
+======================================================================
 Sealed classes - Traits and classes can be marked with the "sealed"
 keyword, which means all subtypes must be declared in the same file.
 This assures that all subtypes are known.  This is useful for pattern
