@@ -17,9 +17,18 @@ sealed abstract class Furniture
 case class Couch() extends Furniture
 case class Chair() extends Furniture
 
-def findPlaceToSit(piece: Furniture): String = piece match
-{
-  case a: Couch => "Lie on the couch"
-  case b: Chair => "Sit on the chair"
-}
+def findPlaceToSit(pieceOfFurniture:Furniture):String =
+pieceOfFurniture match
+                 {
+                   case a: Couch => "Lie on the couch"
+                   case b: Chair => "Sit on the chair"
+                 }
+======================================================================
+??? (3 Question Marks) - In Scala, three consecutive question marks
+(???) designates a method/function stub that has NOT been coded.
+This is used only to document that a method/function should be needed
+in the future, but is curently not coded.  Examples:
+
+def myFutureFunction = ???                 // Argument list and return type NOT required.
+def myFutureFunction(s: String):Int = ???  // Argument list and return type can be included.
 ======================================================================
