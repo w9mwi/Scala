@@ -132,7 +132,6 @@ object Demo
 
   def main(args:Array[String]):Unit =
   {
-    testSeqStr()
     val stud:List[Student] = List(Student("Harris", List(Address("LosAngeles",   "California"))),
                                   Student("Reena",  List(Address("Houston",      "Texas"))),
                                   Student("Rob",    List(Address("Dallas",       "Texas"))),
@@ -141,8 +140,9 @@ object Demo
     val Texas:StrSeqContains = new StrSeqContains("Texas")
     // The following line of code calls State.unapply() AND StrSeqContains.unapply().
     // Both those unapply() methods are called 4 times--once for each student.
-    val students:List[String] = stud.collect { case student@State(Texas) => student.name }
+    val students:List[String] = stud.collect { case student@State(Texas()) => student.name }
     println(students) // PRINTS: List(Reena, Rob)
+    testSeqStr()
   }
 
   def testSeqStr():Unit =
