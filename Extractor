@@ -107,11 +107,11 @@ object Demo
   case class Address(city: String, state: String)
   case class Student(name: String, address: Seq[Address])
 
-  object City
+  object State
   {
     def unapply(stud:Student):Option[Seq[String]] =
     {
-      println("City.unapply() called.")
+      println("State.unapply() called.")
       // In the following line of code, "for(addr <- stud.address)" will return
       // a SINGLE Address, such as this:  Address(Jacksonville,Florida)
       // Then, "yield addr.state" returns ONLY THE STATE as a Seq[String] wrapped
@@ -139,9 +139,9 @@ object Demo
                                   Student("Chris",  List(Address("Jacksonville", "Florida"))))
 
     val Texas:StrSeqContains = new StrSeqContains("Texas")
-    // The following line of code calls City.unapply() AND StrSeqContains.unapply().
+    // The following line of code calls State.unapply() AND StrSeqContains.unapply().
     // Both those unapply() methods are called 4 times--once for each student.
-    val students:List[String] = stud.collect { case student@City(Texas) => student.name }
+    val students:List[String] = stud.collect { case student@State(Texas) => student.name }
     println(students) // PRINTS: List(Reena, Rob)
   }
 
