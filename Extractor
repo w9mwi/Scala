@@ -141,7 +141,7 @@ object Demo
     val Texas:StrSeqContains = new StrSeqContains("Texas")
     // The following line of code calls City.unapply() AND StrSeqContains.unapply().
     // Both those unapply() methods are called 4 times--once for each student.
-    val students:List[String] = stud.collect { case student@City(Texas()) => student.name }
+    val students:List[String] = stud.collect { case student@City(Texas) => student.name }
     println(students) // PRINTS: List(Reena, Rob)
   }
 
