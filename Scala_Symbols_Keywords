@@ -4,3 +4,22 @@ SEE THE FOLLOWING WEB PAGES.
 
 https://docs.scala-lang.org/tutorials/FAQ/finding-symbols.html
 https://docs.scala-lang.org/tutorials/FAQ/finding-symbols.html
+
+
+======================================================================
+Sealed classes - Traits and classes can be marked with the "sealed"
+keyword, which means all subtypes must be declared in the same file.
+This assures that all subtypes are known.  This is useful for pattern
+matching because we don’t need a "catch all" case, where the underscore
+character (_) is used.  Here's an example...
+
+sealed abstract class Furniture
+case class Couch() extends Furniture
+case class Chair() extends Furniture
+
+def findPlaceToSit(piece: Furniture): String = piece match
+{
+  case a: Couch => "Lie on the couch"
+  case b: Chair => "Sit on the chair"
+}
+======================================================================
