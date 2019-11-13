@@ -5,6 +5,11 @@ SEE THE FOLLOWING WEB PAGES.
 https://docs.scala-lang.org/tutorials/FAQ/finding-symbols.html
 https://docs.scala-lang.org/tutorials/FAQ/finding-symbols.html
 
+# Symbol - The pound sign (#) operator in Scala.
+
+See:
+https://stackoverflow.com/questions/9443004/what-does-the-operator-mean-in-scala
+https://stackoverflow.com/questions/48498685/what-is-somethinga-in-scala?noredirect=1&lq=1
 
 ======================================================================
 @ Symbol - When pattern matching "variable@pattern" binds the variable
