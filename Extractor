@@ -95,3 +95,55 @@ object Demo
     else None
   }
 }
+
+========================================================================
+For more info, on this example, see:
+https://www.journaldev.com/8270/scala-extractors-apply-unapply-and-pattern-matching
+
+object Demo
+{
+  case class Address(city: String, state: String)
+  case class Student(name: String, address: Seq[Address])
+
+  object City
+  {
+    def unapply(s: Student): Option[Seq[String]] =
+    { println("unapply() called.");  Some(for(c <- s.address) yield c.state) }
+  }
+
+  class StringSeqContains(value: String)
+  {
+    // NOTE: The contains() method tests whether the sequence contains a given value as an element.
+    //       in.contains(value) could also be written as: in contains value
+    def unapply(in:Seq[String]): Boolean = { in.contains(value) }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    testSeqStr()
+    val stud:List[Student] = List(Student("Harris", List(Address("LosAngeles",   "California"))),
+                                  Student("Reena",  List(Address("Houston",      "Texas"))),
+                                  Student("Rob",    List(Address("Dallas",       "Texas"))),
+                                  Student("Chris",  List(Address("Jacksonville", "Florida"))))
+
+    val Texas:StringSeqContains = new StringSeqContains("Texas")
+    val students:List[String] = stud.collect { case student@City(Texas()) => student.name }
+    println(students) // PRINTS: List(Reena, Rob)
+    }
+
+  def testSeqStr():Unit =
+  {
+    // This method exists just to demonstrate how a Seq[String] data
+    // type is used.  A Seq[String] is nearly the same (but NOT
+    // identical) data type as List[String], as shown here...
+    val seqStr:Seq[String] = Seq("123", "ABC", "789", "XYZ")
+    var list:List[String] = List()
+    list = seqStr(0) :: seqStr(1) :: seqStr(2) :: seqStr(3) :: list
+    println(list)   // PRINTS: List(123, ABC, 789, XYZ)
+    println(seqStr) // PRINTS: List(123, ABC, 789, XYZ)
+    // list = seqStr;  // This line will NOT compile cuz list and seqStr are different data types.
+    val seqStr2:Seq[String] = seqStr  // This line compiles cuz seqStr2 and seqStr are identical data types.
+    println(seqStr2) // PRINTS: List(123, ABC, 789, XYZ)
+  }
+}
+========================================================================
