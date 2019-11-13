@@ -100,6 +100,8 @@ object Demo
 For more info, on this example, see:
 https://www.journaldev.com/8270/scala-extractors-apply-unapply-and-pattern-matching
 
+========================================================================
+
 object Demo
 {
   case class Address(city: String, state: String)
@@ -107,18 +109,28 @@ object Demo
 
   object City
   {
-    def unapply(s: Student): Option[Seq[String]] =
-    { println("unapply() called.");  Some(for(c <- s.address) yield c.state) }
+    def unapply(stud:Student):Option[Seq[String]] =
+    {
+      println("City.unapply() called.")
+      // In the following line of code, "for(addr <- stud.address)" will return
+      // a SINGLE Address, such as this:  Address(Jacksonville,Florida)
+      // Then, "yield addr.state" returns ONLY THE STATE as a Seq[String] wrapped
+      // in an Option.  An example of what's returned is this:  Some(List(Florida))
+      Some(for(addr <- stud.address) yield addr.state)
+    }
   }
 
-  class StringSeqContains(value: String)
+  class StrSeqContains(strValue:String)
   {
-    // NOTE: The contains() method tests whether the sequence contains a given value as an element.
-    //       in.contains(value) could also be written as: in contains value
-    def unapply(in:Seq[String]): Boolean = { in.contains(value) }
+    def unapply(strSeq:Seq[String]):Boolean =
+    {
+      println("StrSeqContains.unapply() called.")
+      // The following contains() method tests if strSeq contains strValue
+      strSeq.contains(strValue) // This line can also be written as: strSeq contains strValue
+    }
   }
 
-  def main(args: Array[String]):Unit =
+  def main(args:Array[String]):Unit =
   {
     testSeqStr()
     val stud:List[Student] = List(Student("Harris", List(Address("LosAngeles",   "California"))),
@@ -126,10 +138,12 @@ object Demo
                                   Student("Rob",    List(Address("Dallas",       "Texas"))),
                                   Student("Chris",  List(Address("Jacksonville", "Florida"))))
 
-    val Texas:StringSeqContains = new StringSeqContains("Texas")
+    val Texas:StrSeqContains = new StrSeqContains("Texas")
+    // The following line of code calls City.unapply() AND StrSeqContains.unapply().
+    // Both those unapply() methods are called 4 times--once for each student.
     val students:List[String] = stud.collect { case student@City(Texas()) => student.name }
     println(students) // PRINTS: List(Reena, Rob)
-    }
+  }
 
   def testSeqStr():Unit =
   {
@@ -146,4 +160,3 @@ object Demo
     println(seqStr2) // PRINTS: List(123, ABC, 789, XYZ)
   }
 }
-========================================================================
