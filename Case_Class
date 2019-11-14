@@ -29,10 +29,14 @@ Scala "class" type in the following ways...
 ================================================================================
 A regular Scala class can do anything a case class can do.  But implementing
 a case class adds lots of code for you that you don't need to write yourself.
+A case class contains a copy() method that has default arguments for all values.
 A case class automatically creates a companion object that contains the
 apply() method, so you can implement a case class without calling the 'new'
-keyword.  A case class also contains a copy() method that has default arguments
-for all values.  A case class can also be used for pattern matching.
+keyword.  A case class also contains an unapply() method, which is used for
+pattern matching--so case classes are totally ready to be used for pattern
+matching, whereas you need to create your own unapply() method in a companion
+object to make pattern matching work on regular classes.
+
 ================================================================================
 
 A case class will work with pattern matching, where a regular class will
