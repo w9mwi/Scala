@@ -6,8 +6,17 @@ Extractors also explain the apply() method, which takes arguments
 and constructs an object.  The unapply() method reverses the
 construction procedure of the apply() method.
 
+The unapply method says: Pass me the object which was created by
+applying a function to argument X, and I will return the argument X.
+
+Since the purpose of unapply() is to extract values from an object,
+it is in some sense the exact opposite of a constructor, whose
+purpose it is to collect values and hide them in an object.
+
 unapply() (and unapplySeq()) is "silently" called on a class whenever
-you attempt to PATTERN MATCH on a class instance.
+you attempt to PATTERN MATCH on a class instance.  That is, unapply()
+gets called via the case statement that matches the object, which
+means Scala calls it in the background--you don't call it directly.
 
 The returned result type of an unapply() method must contain a get()
 method, which is used as an extractor pattern.  That's why unapply()
@@ -17,13 +26,13 @@ pattern match, it simply "undoes" what the apply() method does.
 
 Whenever you design a regular class (not a case class) that you want
 to pattern match on, you must write your own unapply() method for
-that class's companion object.  That is, if you want to pattern match
-on a class from which data must be extracted, like in this example:
+that class's COMPANION OBJECT.  That is, if you want to pattern match
+on a class from which data must be extracted, like this:
 case MyClass(x) => ...
 
 If you want to pattern match on an entire class, like the following
 line of code, you do NOT need to supply your own unapply() method
-on the class's compainion object.
+in the class's COMPANION OBJECT.
 case x:MyClass => ...
 
 Code below show examples of the apply() and unapply() methods,
