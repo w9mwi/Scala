@@ -8,4 +8,12 @@ By default, it’s also a singleton object.
 By Default, a Case Object contains the toString() and hashCode() methods,
 while a regular object does not contain those methods.
 
-By Default, a Case Object is Serializable, but a regular object is not.
+By Default, a Case Object IS Serializable, but a regular object is NOT.
+The following code shows that a regular Scala object is NOT Serializable,
+and a case object IS Serializable.
+
+object RegularObject
+case object CaseObject
+
+RegularObject.isInstanceOf[Serializable] // Returns false.
+CaseObject.isInstanceOf[Serializable]    // Returns true.
