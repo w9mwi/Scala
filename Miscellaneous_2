@@ -59,7 +59,7 @@ asInstanceOf() - This method is used to cast an object to a given a type.  If an
 isInstanceOf() - This method is used to test whether an object is of a given type
                  or not.  If so, it returns true; otherwise, it returns false.
                  EXAMPLE:
-                 val str = "Hello"
+                 val str:String = "Hello"
                  str.isInstanceOf[String] // isInstanceOf() returns true.
 
 =====================================================================================================
