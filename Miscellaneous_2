@@ -48,7 +48,7 @@ object Demo
 }
 
 ====================================================================================================
-What are the asInstanceOf() and isInstanceOf() methods used for?
+How are the asInstanceOf() and isInstanceOf() methods used?
 
 asInstanceOf() - This method is used to cast an object to a given a type.  If an invalid
                  cast is attempted, a java.lang.ClassCastException is thrown.
@@ -61,3 +61,14 @@ isInstanceOf() - This method is used to test whether an object is of a given typ
                  EXAMPLE:
                  val str = "Hello"
                  str.isInstanceOf[String] // isInstanceOf() returns true.
+
+=====================================================================================================
+How the "==" operator in Scala differs from the "==" operator in Java.
+
+In Scala, we do NOT need to call the equals() method to compare two instances or objects.
+When we compare two instances with ==, Scala calls that object’s equals() method automatically.
+
+Java’s == operator is used to check References Equality.  That is whether two references are
+pointing to the same object or not.  Scala’s == is used to check Instances Equality  That is
+whether two instances are equal or not.
+=====================================================================================================
