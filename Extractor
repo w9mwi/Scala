@@ -6,8 +6,52 @@ Extractors also explain the apply() method, which takes arguments
 and constructs an object.  The unapply() method reverses the
 construction procedure of the apply() method.
 
-The following code shows an example of an apply() and unapply() method.
-The unapply() method simply "undoes" what the apply() method does.
+unapply() (and unapplySeq()) is "silently" called on a class whenever
+you attempt to PATTERN MATCH on a class instance.
+
+The returned result type of an unapply() method must contain a get()
+method, which is used as an extractor pattern.  That's why unapply()
+methods typically return an Option type.  Because the Option type
+contains a get() method.  When the unapply() method is called on a
+pattern match, it simply "undoes" what the apply() method does.
+
+Code below show examples of the apply() and unapply() methods,
+as well as how unapply() is used in pattern matching.
+========================================================================
+object Demo
+{
+  class MyClass(val name:String)
+
+  object MyClass
+  {
+    // If you comment out the following unapply() method, this program won't compile.
+    // However, if you change MyClass (above) to a "case class", you CAN comment
+    // out the following unapply() method--cuz case classes contain an unapply()
+    // method by default.
+    def unapply(x:MyClass):Option[String] = { println("MyClass.unapply(" + x.name + ") called."); Some(x.name) }
+  }
+
+  // NOTICE: When this program executes, the MyClass.unapply() method gets
+  //         called BEFORE the println() in the case statement gets called!
+  //         (Cuz when pattern matching occurs, that's when the unapply()
+  //         method gets called.)  When this program executes, it prints
+  //         the following 2 lines of text:
+  // MyClass.unapply(Tom) called.
+  // Pattern match on MyClass(Tom)
+  def main(args: Array[String]):Unit =
+  {
+    val mc = new MyClass("Tom")
+
+    mc match
+    {
+        // When pattern matching successfully occurs on the following case statement,
+        // that case statement gets executed, which results in the MyClass.unapply()
+        // method getting called.
+      case MyClass(x) => println("Pattern match on MyClass(" + x + ")")
+      case _          => println("No pattern match.")
+    }
+  }
+}
 ========================================================================
 object Demo
 {
