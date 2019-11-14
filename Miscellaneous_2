@@ -48,4 +48,16 @@ object Demo
 }
 
 ====================================================================================================
+What are the asInstanceOf() and isInstanceOf() methods used for?
 
+asInstanceOf() - This method is used to cast an object to a given a type.  If an invalid
+                 cast is attempted, a java.lang.ClassCastException is thrown.
+                 EXAMPLE:
+                 val intValue:Int = 1234;
+                 val longValue:Long = intValue.asInstanceOf[Long] // Casts an Int type to a Long type.
+
+isInstanceOf() - This method is used to test whether an object is of a given type
+                 or not.  If so, it returns true; otherwise, it returns false.
+                 EXAMPLE:
+                 val str = "Hello"
+                 str.isInstanceOf[String] // isInstanceOf() returns true.
