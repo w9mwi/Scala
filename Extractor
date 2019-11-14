@@ -15,6 +15,17 @@ methods typically return an Option type.  Because the Option type
 contains a get() method.  When the unapply() method is called on a
 pattern match, it simply "undoes" what the apply() method does.
 
+Whenever you design a regular class (not a case class) that you want
+to pattern match on, you must write your own unapply() method for
+that class's companion object.  That is, if you want to pattern match
+on a class from which data must be extracted, like in this example:
+case MyClass(x) => ...
+
+If you want to pattern match on an entire class, like the following
+line of code, you do NOT need to supply your own unapply() method
+on the class's compainion object.
+case x:MyClass => ...
+
 Code below show examples of the apply() and unapply() methods,
 as well as how unapply() is used in pattern matching.
 ========================================================================
@@ -22,9 +33,13 @@ object Demo
 {
   class MyClass(val name:String)
 
+  // NOTE: The following MyClass is an object!!!  It's referred to
+  //       as the COMPANION OBJECT of the MyClass class defined above.
+  //       It is in the COMPANION OBJECT where you need to define
+  //       the unapply() method.
   object MyClass
   {
-    // If you comment out the following unapply() method, this program won't compile.
+    // If you comment out the following unapply() method, this code won't compile.
     // However, if you change MyClass (above) to a "case class", you CAN comment
     // out the following unapply() method--cuz case classes contain an unapply()
     // method by default.
@@ -32,12 +47,12 @@ object Demo
   }
 
   // NOTICE: When this program executes, the MyClass.unapply() method gets
-  //         called BEFORE the println() in the case statement gets called!
+  //         called BEFORE the case statement's println() method gets called!
   //         (Cuz when pattern matching occurs, that's when the unapply()
   //         method gets called.)  When this program executes, it prints
   //         the following 2 lines of text:
-  // MyClass.unapply(Tom) called.
-  // Pattern match on MyClass(Tom)
+  //         MyClass.unapply(Tom) called.
+  //         Pattern match on MyClass(Tom)
   def main(args: Array[String]):Unit =
   {
     val mc = new MyClass("Tom")
@@ -49,6 +64,13 @@ object Demo
         // method getting called.
       case MyClass(x) => println("Pattern match on MyClass(" + x + ")")
       case _          => println("No pattern match.")
+
+      // The following line of code DOES WORK in this example, and
+      // does NOT require the programmer to write her own unapply()
+      // method.  The following line of code will never execute cuz
+      // it's located below the other 2 case statements.  But if you
+      // move it to become the first case statement, it will execute!
+      case x:MyClass  =>  println("MyClass = " + x.name)
     }
   }
 }
