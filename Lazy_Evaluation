@@ -1,3 +1,14 @@
+In Scala, there are two kinds of program evaluations:
+
+1) Eager Evaluation - Declared like this:
+                      val counter:Int = 0
+                      Code is evaluated at compile-time, or program deployment-time,
+                      regardless if that code will be executed or not.
+2) Lazy Evaluation - Declared like this:
+                     lazy val counter:Int = 0
+                     Code is evaluated on-demand, which means when only when the code
+                     gets executed does it get evaluated.
+
 See the following URLs for more info about Lazy Evaluation:
 
 ___ https://www.scala-lang.org/blog/2017/11/28/view-based-collections.html
