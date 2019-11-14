@@ -7,6 +7,11 @@ NOTE: The Scala ArrayBuffer class is the recommended “go to” class for
       sequential collection.  Use ListBuffer if you prefer a linear,
       sequential collection that is MUTABLE.
 
+Difference Between Array and ArrayBuffer
+========================================
+A Scala Array is a fixed-size array.  Once an Array is created, its size cannot be changed.
+A Scala ArrayBuffer is variable in size--its size can increase or decrease dynamically.
+
 Regarding ArrayBuffer Performance
 =================================
 Append, update, and random access take constant time (amortized time).
