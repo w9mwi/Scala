@@ -13,8 +13,11 @@ Scala "class" type in the following ways...
         define and declare a case class!  Where defining/declaring a
         regular class generally consumes multiple lines of code.
 2) You can create an instance of case class WITHOUT the "new" keyword.
-3) A case class implements the copy() method, a regular class doesn't.
-4) You can perform pattern matching with case classes.
+   (This is because case classes contain an apply() method by default.)
+3) A case class automatically includes the copy(), toString(), hashCode(),
+   and equals() methods by default.
+4) You can perform pattern matching with case classes, because
+   case classes contain an unapply() method by default.
 5) The "case class" Scala type automatically inherits
    from the type Serializable.
 6) The constructor parameters of case classes are treated as
