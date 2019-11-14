@@ -1,0 +1,11 @@
+
+A regular Scala object is created using the “object” keyword.
+By default, it’s a singleton object.
+
+A Scala Case Object is created using the “case object” keywords.
+By default, it’s also a singleton object.
+
+By Default, a Case Object contains the toString() and hashCode() methods,
+while a regular object does not contain those methods.
+
+By Default, a Case Object is Serializable, but a regular object is not.
