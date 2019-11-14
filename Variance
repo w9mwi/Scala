@@ -10,22 +10,34 @@ Variance - Defines Inheritance relationship between Parameterized Types, such as
            the relationship between List[Int] and List[AnyVal], as List[Int]
            INHERITS FROM List[AnyVal].
 
-Scala supports the following THREE (3) kinds of Variance, which will be discussed futher below.
-1) Covariant
-2) Invariant
-3) Contravariant
+Scala supports the following THREE (3) kinds of Variance, which are discussed below.
+1) Covariant Variance
+2) Invariant Variance
+3) Contravariant Variance
 
 Covariant Variance
 ==================
 Covariant Variance is a kind of Inheritance Relationship between two Parameterized Types.
-For example, assume S is subtype of type T.  Therefore, List[S] is is a subtype of List[T].
+For example, assume S is a subtype of type T.  Therefore, List[S] is is a subtype of List[T].
 This kind of Inheritance Relationship between two Parameterized Types is known as Covariant.
 
 To represent a Covariance relationship between two Parameterized Types, Scala prefixes
-a Type Parameter with “+” symbol.  This is known as Variance Annotation.
+a Type Parameter with '+' character.  This '+' character is known as Variance Annotation,
+or in this example, Covariance Annotation.
 FOR EXAMPLE:  List[+T]
-??? --> The +T designates that a generic like List[S] can inherit from List[T]
+The +T designates that other generics (such as List[S]) can inherit from generic List[T].
+Here's another explanation...
 
+Parameterized Types List[Int], List[Float], List[String], etc. are all subtypes of List[AnyVal].
+If you look at the Scala API for List, you'll see List is defined as follows, containing the
+'+' (Covariance Annotation) character.
+sealed abstract class List[+A] extends ...
+SEE --> https://www.scala-lang.org/api/current/scala/collection/immutable/List.html
+
+Now we'll create our own generic class named Animal, which will allow Animal Parameterized Types
+(i.e., Animal[Puppy], Animal[Dog]) to inherit from it.
+
+Since Puppy is a subtype of Dog, Animal[Puppy] is a subtype of Animal[Dog].
 
 
 Invariant Variance
