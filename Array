@@ -2,6 +2,12 @@ ATTENTION:
 For sample code of methods that work on both Arrays and Lists,
 SEE: https://github.com/w9mwi/Scala/blob/master/Lists
 ==============================================================
+
+Difference Between Array and ArrayBuffer
+========================================
+A Scala Array is a fixed-size array.  Once an Array is created, its size cannot be changed.
+A Scala ArrayBuffer is variable in size--its size can increase or decrease dynamically.
+
 In Scala, Arrays are SEQUENCES, which means data is stored
 in elements that can be accessed via a sequential Integer
 index.  The following line of code creates an Array of
