@@ -1,18 +1,36 @@
 Variance in Scala defines Inheritance relationships of Parameterized Types.
 Variance is all about Sub-Typing, aka Inheritance.
 
-List[T] - List[T] in known as a Generic.  T is known as a "Type Parameter."  When
-          List[T] is used as a List[Int], or List[Float], or List[String], or
-          List[Boolean], etc. those are known as "Parameterized Types."
+List[T] - List[T] in known as a Generic.  T is known as a "Type Parameter."
+
+Parameterized Types - When List[T] is used as a List[Int], or List[Float], or List[String],
+                      or List[Boolean], etc. those are known as "Parameterized Types."
           
 Variance - Defines Inheritance relationship between Parameterized Types, such as
-           the relationship between List[Int] and List[AnyVal], because List[Int]
+           the relationship between List[Int] and List[AnyVal], as List[Int]
            INHERITS FROM List[AnyVal].
 
-Scala supports the following THREE (3) kinds of Variance.
-
+Scala supports the following THREE (3) kinds of Variance, which will be discussed futher below.
 1) Covariant
 2) Invariant
 3) Contravariant
 
+Covariant Variance
+==================
+Covariant Variance is a kind of Inheritance Relationship between two Parameterized Types.
+For example, assume S is subtype of type T.  Therefore, List[S] is is a subtype of List[T].
+This kind of Inheritance Relationship between two Parameterized Types is known as Covariant.
 
+To represent a Covariance relationship between two Parameterized Types, Scala prefixes
+a Type Parameter with “+” symbol.  This is known as Variance Annotation.
+FOR EXAMPLE:  List[+T]
+??? --> The +T designates that a generic like List[S] can inherit from List[T]
+
+
+
+Invariant Variance
+==================
+
+
+Contravariant Variance
+======================
