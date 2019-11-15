@@ -36,8 +36,11 @@ class Dog
 class Puppy extends Dog
 class AnimalCarer(val dog:Animal[Dog])
 
-Notice that AnimalCarer() above is defined so it must be instantiated with an Animal[Dog] class.
-So if you 
+Notice that AnimalCarer() above is defined to be instantiated with an Animal[Dog] class.
+If Animal[+T] above is changed to Animal[T], then AnimalCarer() would REQUIRE that it
+be instantiated ONLY with an Animal[Dog] class.  But when we have Animal[+T], then
+AnimalCarer() can be instantiated with an Animal[Dog] class, OR ANY CLASS THAT IS A
+SUBTYPE OF Animal[Dog], such as Animal[Puppy].  THIS IS WHAT COVARIANCE IS ALL ABOUT!!!
 
 
 Now we'll create our own generic class named Animal, which will allow Animal Parameterized Types
