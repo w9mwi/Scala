@@ -62,10 +62,10 @@ which just returns whatever gets passed to it, regardless of type.
 
 def myFunction[T](t:T) = { t }
 
-Variances don't apply to functions/methods that implement parameterized types,
-because variances apply ONLY to classes/types, NOT to functions/methods.
+Variance Annotation doesn't apply to functions/methods that implement parameterized types,
+because Variance Annotation applies ONLY to classes/types, NOT to functions/methods.
 Therefore, the above myFunction would never be defined using the '+' character,
-which denotes Variance Annotation.
+which denotes Covariance Annotation.
 
 ==============================================================================================
 
