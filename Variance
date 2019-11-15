@@ -110,5 +110,40 @@ Contravariant Variance is defined as this: If type S is a subtype of type T,
 Covariance Annotation is designated with a '+' character, like this: List[+T]
 Contravariance Annotation is designated with a '-' character, like this: List[-T]
 
+--> https://www.journaldev.com/9585/scala-variances-covariant-invariant-contravariant
+
+object Demo
+{
+  // If you remove the Variance Annotation (the '-' character) from
+  // the following abstract class, this line of code won't compile...
+  // typeCarer.display(superType)
+  // ...because ______
+  abstract class Type[-T] { def printTypeName:Unit }
+
+  class SuperType extends Type[Any]
+  {
+    override def printTypeName:Unit = { println("SuperType") }
+  }
+  class SubType extends Type[Int]
+  {
+    override def printTypeName:Unit = { println("SubType") }
+  }
+  class TypeCarer
+  {
+    def display(t:Type[Int]) { t.printTypeName }
+  }
+
+  def main(args:Array[String]):Unit =
+  {
+    val superType:SuperType = new SuperType()
+    val subType:SubType     = new SubType()
+    val typeCarer:TypeCarer = new TypeCarer()
+
+    typeCarer.display(subType)   // PRINTS: SubType
+    typeCarer.display(superType) // PRINTS: SuperType
+    println("The End.")
+  }
+}
+
 Invariant Variance
 ==================
