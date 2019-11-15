@@ -5,8 +5,8 @@ Variance is all about Sub-Typing, aka Inheritance.
 List[T] - List[T] in known as a Generic.  T is known as a "Type Parameter."
 
 Parameterized Types - List[T] means List can be used with many types, such as List[Int],
-                      or List[Float], or List[String], or List[Boolean], or List[Any], etc.
-                      So List[T] is a Parameterized Types.
+                      List[Float], List[String], List[Boolean], List[Any], etc.
+                      So List[T] is a Parameterized Type.
           
 Variance - Defines Inheritance relationship between Parameterized Types, such as
            the relationship between List[S] and List[T].
