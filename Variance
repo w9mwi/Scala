@@ -1,14 +1,15 @@
+
 Variance in Scala defines Inheritance relationships of Parameterized Types.
 Variance is all about Sub-Typing, aka Inheritance.
 
 List[T] - List[T] in known as a Generic.  T is known as a "Type Parameter."
 
-Parameterized Types - When List[T] is used as a List[Int], or List[Float], or List[String],
-                      or List[Boolean], etc. those are known as "Parameterized Types."
+Parameterized Types - List[T] means List can be used with many types, such as List[Int],
+                      or List[Float], or List[String], or List[Boolean], or List[Any], etc.
+                      So List[T] is a Parameterized Types.
           
 Variance - Defines Inheritance relationship between Parameterized Types, such as
-           the relationship between List[Int] and List[AnyVal], as List[Int]
-           INHERITS FROM List[AnyVal].
+           the relationship between List[S] and List[T].
 
 Scala supports the following THREE (3) kinds of Variance, which are discussed below.
 1) Covariant Variance
@@ -17,20 +18,21 @@ Scala supports the following THREE (3) kinds of Variance, which are discussed be
 
 Covariant Variance
 ==================
-Covariant Variance is a kind of INHERITANCE RELATIONSHIP BETWEEN TO PARAMATIZED TYPES.
+Covariant Variance is a kind of INHERITANCE RELATIONSHIP BETWEEN TWO (2) PARAMETERIZED TYPES.
 For example, if type S is a subtype of type T, then List[S] is is a subtype of List[T].
+EXAMPLE: Int is a subtype of Any, so List[Int] is a subtype of List[Any].
 This kind of Inheritance Relationship between two Parameterized Types is known as Covariant.
 
 To represent a Covariance relationship between two Parameterized Types, Scala prefixes a
 Type Parameter with the '+' character.  This '+' character is known as Variance Annotation,
 or in this example, Covariance Annotation.
 FOR EXAMPLE:  List[+T]
-If you look at the Scala API for List, you'll see List is defined using the
-'+' (Covariance Annotation) character, like this:
+If you look at the Scala API for List, you'll see List is defined using
+the '+' (Covariance Annotation) character, like this:
 sealed abstract class List[+A] extends ...
 SEE --> https://www.scala-lang.org/api/current/scala/collection/immutable/List.html
 
-In the code example shown further below we have this...
+In the code example shown further below we have these 4 lines...
 class Animal[+T](val animal:T)
 class Dog
 class Puppy extends Dog
@@ -39,15 +41,49 @@ class AnimalCarer(val dog:Animal[Dog])
 Notice that AnimalCarer() above is defined to be instantiated with an Animal[Dog] class.
 If Animal[+T] above is changed to Animal[T], then AnimalCarer() would REQUIRE that it
 be instantiated ONLY with an Animal[Dog] class.  But when we have Animal[+T], then
-AnimalCarer() can be instantiated with an Animal[Dog] class, OR ANY CLASS THAT IS A
-SUBTYPE OF Animal[Dog], such as Animal[Puppy].  THIS IS WHAT COVARIANCE IS ALL ABOUT!!!
+AnimalCarer() can be instantiated with an Animal[Dog] class, OR ANY ANIMAL TYPE
+THAT IS A SUBTYPE OF DOG, such as Animal[Puppy].  THIS IS COVARIANCE!!!
 
+This is exactly what we said above when we defined covariance:
+"If type S is a subtype of type T, then List[S] is is a subtype of List[T]."
+Let's restate that same sentence but: replace class List with class Animal.
+                                      replace type S with Puppy.
+                                      replace type T with Dog.
+"If type Puppy is a subtype of type Dog, then Animal[Puppy] is is a subtype of Animal[Dog]."
+To make the code example below satisfy this, then we must define the Animal class
+to be COVARIANT by adding the '+' character in front ot the 'T' parameterized type.
 
-Now we'll create our own generic class named Animal, which will allow Animal Parameterized Types
-(i.e., Animal[Puppy], Animal[Dog]) to inherit from it.
+==============================================================================================
 
-Since Puppy is a subtype of Dog, Animal[Puppy] is a subtype of Animal[Dog].
+object Demo
+{
+  // If you remove the Variance Annotation (the '+' character) from
+  // the following line of code, this line of code won't compile...
+  // val puppyCarer = new AnimalCarer(puppyAnimal)
+  // ...because AnimalCarer is passed a Puppy class when it requires
+  // a Dog class.  The '+' character in Animal[+T] resolves this problem.
+  class Animal[+T](val animal:T) { println("Animal = " + animal)}
+  class Dog
+  class Puppy extends Dog
+  class AnimalCarer(val dog:Animal[Dog])
 
+  def main(args:Array[String]):Unit =
+  {
+    val dog:Dog     = new Dog()
+    val puppy:Puppy = new Puppy()
+    val dogAnimal:Animal[Dog]     = new Animal[Dog](dog)
+    val puppyAnimal:Animal[Puppy] = new Animal[Puppy](puppy)
+
+    val dogCarer   = new AnimalCarer(dogAnimal)
+    // The following line will NOT compile if you change
+    // Animal[+T] above to Animal[T].
+    val puppyCarer = new AnimalCarer(puppyAnimal)
+
+    println("The End.")
+  }
+}
+
+==============================================================================================
 
 Invariant Variance
 ==================
