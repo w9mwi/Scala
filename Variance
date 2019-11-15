@@ -12,9 +12,9 @@ Variance - Defines Inheritance relationship between Parameterized Types, such as
            the relationship between List[S] and List[T].
 
 Scala supports the following THREE (3) kinds of Variance, all of which are discussed in detail below.
-1) Covariant Variance - EXAMPLE: If type S is a subtype of type T, then List[S] is is a subtype of List[T].
-2) Invariant Variance - EXAMPLE: If type S is a subtype of type T, then List[T] is is a subtype of List[S].
-3) Contravariant Variance
+1) Covariant Variance     - EXAMPLE:  If type S is a subtype of type T, then List[S] is is a subtype of List[T].
+2) Contravariant Variance - EXAMPLE:  If type S is a subtype of type T, then List[T] is is a subtype of List[S].
+3) Invariant Variance     - EXAMPLE:  
 
 Covariant Variance
 ==================
@@ -99,22 +99,17 @@ object Demo
 
 ==============================================================================================
 
-Invariant Variance
-==================
-Recall that Covariannce was defined as this:  If type S is a subtype of type T,
-                                              then List[S] is is a subtype of List[T].
-Invariant Variance is defined as this: If type S is a subtype of type T,
-                                       then List[T] is is a subtype of List[S].
+Contravariant Variance
+======================
+Recall that Covariant was defined as this:  If type S is a subtype of type T,
+                                            then List[S] is is a subtype of List[T].
+Contravariant Variance is defined as this: If type S is a subtype of type T,
+                                           then List[T] is is a subtype of List[S].
 
 RECALL: List[T] in known as a Generic.  T is known as a "Type Parameter."
 
 Covariance Annotation is designated with a '+' character, like this: List[+T]
-Invariance Annotation is designated with a '-' character, like this: List[-T]
+Contravariance Annotation is designated with a '-' character, like this: List[-T]
 
-
-
-
-
-
-Contravariant Variance
-======================
+Invariant Variance
+==================
