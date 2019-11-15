@@ -46,9 +46,9 @@ THAT IS A SUBTYPE OF DOG, such as Animal[Puppy].  THIS IS COVARIANCE!!!
 
 This is exactly what we said above when we defined covariance:
 "If type S is a subtype of type T, then List[S] is is a subtype of List[T]."
-Let's restate that same sentence but: replace class List with class Animal.
-                                      replace type S with Puppy.
-                                      replace type T with Dog.
+Let's restate that same sentence but: replace List with Animal.
+                                      replace S with Puppy.
+                                      replace T with Dog.
 "If type Puppy is a subtype of type Dog, then Animal[Puppy] is is a subtype of Animal[Dog]."
 To make the code example below satisfy this, then we must define the Animal class
 to be COVARIANT by adding the '+' character in front ot the 'T' parameterized type.
