@@ -101,12 +101,11 @@ object Demo
 
 Contravariant Variance
 ======================
-Recall that Covariant was defined as this:  If type S is a subtype of type T,
-                                            then List[S] is is a subtype of List[T].
+RECALL: List[T] in known as a Generic.  T is known as a "Type Parameter."
+Recall that Covariant is defined as this:  If type S is a subtype of type T,
+                                           then List[S] is is a subtype of List[T].
 Contravariant Variance is defined as this: If type S is a subtype of type T,
                                            then List[T] is is a subtype of List[S].
-
-RECALL: List[T] in known as a Generic.  T is known as a "Type Parameter."
 
 Covariance Annotation is designated with a '+' character, like this: List[+T]
 Contravariance Annotation is designated with a '-' character, like this: List[-T]
