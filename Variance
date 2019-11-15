@@ -53,6 +53,16 @@ Let's restate that same sentence but: replace List with Animal.
 To make the code example below satisfy this, then we must define the Animal class
 to be COVARIANT by adding the '+' character in front ot the 'T' parameterized type.
 
+Notice that a Scala function can use parameterized types as the following function does,
+which just returns whatever gets passed to it, regardless of type.
+
+def myFunction[T](t:T) = { t }
+
+Variances don't apply to functions/methods that implement parameterized types,
+because variances apply ONLY to classes/types, NOT to functions/methods.
+Therefore, the above myFunction would never be defined using the '+' character,
+which denotes Variance Annotation.
+
 ==============================================================================================
 
 object Demo
