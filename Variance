@@ -45,7 +45,7 @@ can be instantiated with an Animal[Dog] class, OR ANY ANIMAL TYPE THAT IS A SUBT
 DOG, such as Animal[Puppy].  THIS IS COVARIANCE!!!
 
 In other words, any code that required an Animal[Dog] type WITHOUT Covariance Annotation
-(Animal[T]), will work WITH Covariance Annotation (Animal[+T]), as long as the
+(Animal[T]) will work WITH Covariance Annotation (Animal[+T]), as long as the
 parameterized type IS A SUBTYPE of Dog.
 
 This is exactly what we said above when we defined covariance:
@@ -55,17 +55,17 @@ Let's restate that same sentence but: replace List with Animal.
                                       replace T with Dog.
 "If type Puppy is a subtype of type Dog, then Animal[Puppy] is a subtype of Animal[Dog]."
 So when covariance annotation is used (Animal[+T]), Animal[Puppy] will work anywhere
-Animal[Dog] would work without covariance annotation.
+Animal[Dog] would work without covariance annotation (without the '+' character).
 
-Notice that a Scala function can use parameterized types as the following function does,
-which just returns whatever gets passed to it, regardless of type.
+NOTICE: A Scala function/method can use parameterized types as the following function
+does, which just returns whatever gets passed to it--regardless of type passed to it.
 
 def myFunction[T](t:T) = { t }
 
-Variance Annotation doesn't apply to functions/methods that implement parameterized types,
-because Variance Annotation applies ONLY to classes/types, NOT to functions/methods.
-Therefore, the above myFunction would never be defined using the '+' character,
-which denotes Covariance Annotation.
+Variance Annotation NOT apply to functions/methods that implement parameterized types!
+Variance Annotation applies ONLY to classes/types, NOT to functions/methods!  Therefore,
+any function/method would NEVER be defined using the '+' or '-' character, which denote
+Variance Annotation.
 
 ==============================================================================================
 
@@ -105,7 +105,7 @@ RECALL: List[T] in known as a Generic.  T is known as a "Type Parameter."
 Recall that Covariant is defined as this:  If type S is a subtype of type T,
                                            then List[S] is is a subtype of List[T].
 Contravariant Variance is defined as this: If type S is a subtype of type T,
-                                           then List[T] is is a subtype of List[S].
+                                           then List[T] is a subtype of List[S].
 
 Covariance Annotation is designated with a '+' character, like this: List[+T]
 Contravariance Annotation is designated with a '-' character, like this: List[-T]
@@ -116,8 +116,7 @@ object Demo
 {
   // If you remove the Variance Annotation (the '-' character) from
   // the following abstract class, this line of code won't compile...
-  // typeCarer.display(superType)
-  // ...because ______
+  // baseType.display(superType).  Read in-line comment below for details.
   abstract class Type[-T] { def printTypeName:Unit }
 
   class SuperType extends Type[Any]
@@ -128,7 +127,7 @@ object Demo
   {
     override def printTypeName:Unit = { println("SubType") }
   }
-  class TypeCarer
+  class BaseType
   {
     def display(t:Type[Int]) { t.printTypeName }
   }
@@ -137,10 +136,21 @@ object Demo
   {
     val superType:SuperType = new SuperType()
     val subType:SubType     = new SubType()
-    val typeCarer:TypeCarer = new TypeCarer()
+    val baseType:BaseType   = new BaseType()
+    baseType.display(subType)   // PRINTS: SubType
 
-    typeCarer.display(subType)   // PRINTS: SubType
-    typeCarer.display(superType) // PRINTS: SuperType
+    // The following line of code will NOT compile if you remove the
+    // Contravariance Annotation (the '-' character) from abstract class
+    // "Type" defined above.  Recall, Contavariance is defined as this:
+    // If type S is a subtype of type T, then List[T] is a subtype of List[S].
+    // For this code sample, Contavariance is defined as follows:
+    // Type Int is a subtype of Any, so Type[Any] is a subtype of Type[Int].
+    // ...OR...
+    // Type Int is a subtype of Any, so SuperType is a subtype of SubType.
+    // THAT'S CONTRAVARIANCE!!!  Therefore, the following line of code
+    // requires Contavariance Annotation (the '-' character) above.
+    baseType.display(superType) // PRINTS: SuperType
+
     println("The End.")
   }
 }
