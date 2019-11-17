@@ -202,6 +202,7 @@ The following code contains TWO (2) auxiliary constructors defined
 by the programmer.  The programmer never defines the primary
 constructor because Scala defines it by default.
 
+
 object Demo
 {
   class Company
@@ -234,15 +235,15 @@ object Demo
   {
     // Calls the Primary Constructor, which contains zero arguments...
     val company1 = new Company()
-    company1.show()
+    company1.show() // PRINTS: Company Name:  - Number of Employees: 0
 
     // Calls the auxiliary constructor containing one argument...
     val company2 = new Company("Joe's Pipes, Inc.")
-    company2.show()
+    company2.show() // PRINTS: Company Name: Joe's Pipes, Inc. - Number of Employees: 0
 
     // Calls the auxiliary constructor containing two arguments...
     val company3= new Company("Hard-Rock Cement Company", 42)
-    company3.show()
+    company3.show() // PRINTS: Company Name: Hard-Rock Cement Company - Number of Employees: 42
   }
 }
 ====================================================================================
