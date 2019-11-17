@@ -30,6 +30,12 @@ In Scala, by default, Generic Types have Non-Variant relationship.
 If we define Parameterized Types without using “+’ or “-” symbols,
 then they are known as Invariants.
 
+Scala Variance Summary
+======================
+Covariant      [+T]  If S is subtype of T, then List[S] is also subtype of List[T]
+Contravariant  [-T]  If S is subtype of T, then List[T] is also subtype of List[S]
+Invariant       [T]  If S is subtype of T, then List[S] and List[T] are unrelated.
+
 
 Covariant Variance
 ==================
@@ -172,7 +178,3 @@ object Demo
     println("The End.")
   }
 }
-
-
-Invariant Variance
-==================
