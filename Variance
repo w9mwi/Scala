@@ -14,14 +14,15 @@ Variance - Defines Inheritance relationship between Parameterized Types, such as
 Scala supports the following THREE (3) kinds of Variance,
 all of which are discussed in detail below.
 1) Covariant Variance     - EXAMPLE 1: If type S is a subtype of type T, then List[S] is is a subtype of List[T].
-                            EXAMPLE 2: If A is a subset of B, and G[A] is a subset of G[B], then the T in G[T] is covariant.
+                            EXAMPLE 2: If A is a subset of B, and G[A] is a subset of G[B],
+                                       then the T in G[T] is covariant and would be written as G[+T]
 
 2) Contravariant Variance - EXAMPLE 1: If type S is a subtype of type T, then List[T] is is a subtype of List[S].
-                                       and the T in List[T] is Contravariant.
-                            EXAMPLE 2: If A is a subset of B, and G[B] is a subset of G[A], then the T in G[T] is covariant.
+                            EXAMPLE 2: If A is a subset of B, and G[B] is a subset of G[A],
+                                       then the T in G[T] is contravariant, and would be written as G[-T].
 
-3) Invariant Variance - If it's NOT Covariant AND NOT Contravariant, then it is Invariant.
-
+3) Invariant Variance - If it's NOT Covariant AND NOT Contravariant, then it is Invariant,
+                        and would be written as G[T].
 
 Covariant Variance
 ==================
