@@ -21,8 +21,15 @@ all of which are discussed in detail below.
                             EXAMPLE 2: If A is a subset of B, and G[B] is a subset of G[A],
                                        then the T in G[T] is contravariant, and would be written as G[-T].
 
-3) Invariant Variance - If it's NOT Covariant AND NOT Contravariant, then it is Invariant,
-                        and would be written as G[T].
+3) Invariant Variance - EXAMPLE: If S is a subtype of T, then List[S] and List[T] don’t have
+                                 Inheritance Relationship or Sub-Typing. That means both type
+                                 S and T are unrelated.  This kind of Relationship between two
+                                 Parameterized Types is known as Invariant, or Non-Variant.
+
+In Scala, by default, Generic Types have Non-Variant relationship.
+If we define Parameterized Types without using “+’ or “-” symbols,
+then they are known as Invariants.
+
 
 Covariant Variance
 ==================
