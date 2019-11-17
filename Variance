@@ -139,21 +139,25 @@ object Demo
     val baseType:BaseType   = new BaseType()
     baseType.display(subType)   // PRINTS: SubType
 
-    // The following line of code will NOT compile if you remove the
-    // Contravariance Annotation (the '-' character) from abstract class
-    // "Type" defined above.  Recall, Contavariance is defined as this:
+    // The following line of code will NOT compile if you remove the Contravariance
+    // Annotation (the '-' character) from the abstract class "Type" defined above.
+    // Recall, we previously defined Contavariance as this:
     // If type S is a subtype of type T, then List[T] is a subtype of List[S].
-    // For this code sample, Contavariance is defined as follows:
+    //
+    // So for this code sample, Contavariance is defined as follows:
     // Type Int is a subtype of Any, so Type[Any] is a subtype of Type[Int].
     // ...OR...
     // Type Int is a subtype of Any, so SuperType is a subtype of SubType.
+    //
     // THAT'S CONTRAVARIANCE!!!  Therefore, the following line of code
-    // requires Contavariance Annotation (the '-' character) above.
+    // requires Contavariance Annotation (the '-' character) in the
+    // abstract class "Type" defined above.
     baseType.display(superType) // PRINTS: SuperType
 
     println("The End.")
   }
 }
+
 
 Invariant Variance
 ==================
