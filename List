@@ -298,6 +298,7 @@ ___ patch - Calling the patch() method on a List returns a List where 1 or more 
             // Replace 1 element beginning at index 2 with Nil...
             val list_3 = list.patch(2, Nil, 1) // list_3 = List(1, 2, 4, 5)
 ___ slice - The slice() function is available in classes other than List, such as Array, String, etc.
+            For String class, you could use the substring() function instead.
             EXAMPLE:
             val letters:List[Char] = List('a','b','c','d','e')
             // Return elements of the letters List from index 1 UNTIL index 3.
