@@ -106,3 +106,25 @@ object Demo
   def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
 }
 ================================================================================
+
+object Demo
+{
+  def main(args:Array[String])
+  {
+    multiples(42,40) foreach
+    {
+      case(a,b) => println("(" + a + " ," + b + ")")
+      case _    => println("NOTHING!")
+    }
+  }
+
+  def multiples(x:Int, y:Int) =
+  {
+    for(a <- 0 until x; b <- a until x if a * b == y) yield Tuple2(a,b);
+    // PRINTS: (1 ,40)
+    //         (2 ,20)
+    //         (4 ,10)
+    //         (5 ,8)
+    
+  }
+}
