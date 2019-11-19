@@ -111,20 +111,33 @@ object Demo
 {
   def main(args:Array[String])
   {
+    // The following for() loop exists only to help understand the
+    // for() loop in the multiples() function below.  It prints every
+    // permutation from (0,0) to (41,41).  Therefore, the for() loop
+    // in the matches() function also iterates through the same
+    // permutations.
+    for (a <- 0 until 42; b <- a until 42) { print(a,b) }
+    println("\n=======================")
+
+    // NOTICE:  1) The following line of code calls the foreach() function.
+    //          2) The following line of code generates results identical
+    //             to the code further below using the case statements.
+    multiples(42,40).foreach(print) // PRINTS: (1,40)(2,20)(4,10)(5,8)
+    println("\n=======================")
     multiples(42,40) foreach
     {
-      case(a,b) => println("(" + a + " ," + b + ")")
+      case(a,b) => print("(" + a + ", " + b + ")") // PRINTS: (1, 40)(2, 20)(4, 10)(5, 8)
       case _    => println("NOTHING!")
     }
   }
 
+  /**
+    * This function returns a tuple of numbers that when multiplied
+    * equals the value of y passed to this function.
+    */
   def multiples(x:Int, y:Int) =
   {
-    for(a <- 0 until x; b <- a until x if a * b == y) yield Tuple2(a,b);
-    // PRINTS: (1 ,40)
-    //         (2 ,20)
-    //         (4 ,10)
-    //         (5 ,8)
-    
+    // NOTE: Tuple2() is a Scala API function.
+    for (a <- 0 until x; b <- a until x if a * b == y) yield Tuple2(a,b);
   }
 }
