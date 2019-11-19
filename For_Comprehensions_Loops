@@ -144,3 +144,19 @@ object Demo
     for (a <- 0 until x; b <- a until x if a * b == y) yield Tuple2(a,b);
   }
 }
+===================================================================================================
+object Demo
+{
+  def main(args:Array[String])
+  {
+    // The following 2 for() loops generate ientical results.
+    for (i <- Iterator.range(0, 15);  j <- Iterator.range(i, 15)  if i*j == 12)
+    {
+      print("(" + i + "," + j + ")") // PRINTS: (1,12)(2,6)(3,4)
+    }
+    println("\n================")
+    val result = for (i <- Iterator.range(0, 15);  j <- Iterator.range(i, 15)  if i*j == 12) yield (i,j)
+    result.foreach(print) // PRINTS: (1,12)(2,6)(3,4)
+  }
+}
+===================================================================================================
