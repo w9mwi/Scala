@@ -149,7 +149,7 @@ object Demo
 {
   def main(args:Array[String])
   {
-    // The following 2 for() loops generate ientical results.
+    // The following 2 for() loops generate identical results.
     for (i <- Iterator.range(0, 15);  j <- Iterator.range(i, 15)  if i*j == 12)
     {
       print("(" + i + "," + j + ")") // PRINTS: (1,12)(2,6)(3,4)
