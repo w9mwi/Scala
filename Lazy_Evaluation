@@ -18,14 +18,14 @@ object Demo
     //         (used for the first time), the first println below
     //         NEVER gets executed!  ONLY the second println statement
     //         gets executed!
-    lazy val number_1 = { println("This text NEVER prints."); 99 }
+    lazy val number_1:Int = { println("This text NEVER prints."); 99 }
     println("ONLY this text prints.")
     println("\n=============================\n")
 
     // NOTICE: Because a lazy val isn't evaluated until it's accessed
     //         (used for the first time), the 111111 text below prints
     //         AFTER the 222222 text prints.
-    lazy val number_2 = { println("111111"); 100 }
+    lazy val number_2:Int = { println("111111"); 100 }
     println("222222")
 
     // If the following println is commented out, the 111111 text won't print.
