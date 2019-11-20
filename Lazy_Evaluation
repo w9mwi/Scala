@@ -7,7 +7,8 @@ In Scala, there are two kinds of program evaluations:
 2) Lazy Evaluation - Declared like this:
                      lazy val counter:Int = 0
                      Code is evaluated on-demand, which means when only when the code
-                     gets executed does it get evaluated.
+                     gets executed does it get evaluated.  ONLY vals can be declared
+                     lazy, vars cannot be declared lazy.
 
 ========================================================================
 object Demo
