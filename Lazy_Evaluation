@@ -9,6 +9,31 @@ In Scala, there are two kinds of program evaluations:
                      Code is evaluated on-demand, which means when only when the code
                      gets executed does it get evaluated.
 
+========================================================================
+object Demo
+{
+  def main(args:Array[String])
+  {
+    // NOTICE: Because a lazy val isn't evaluated until it's accessed
+    //         (used for the first time), the first println below
+    //         NEVER gets executed!  ONLY the second println statement
+    //         gets executed!
+    lazy val number_1 = { println("This text NEVER prints."); 99 }
+    println("ONLY this text prints.")
+    println("\n=============================\n")
+
+    // NOTICE: Because a lazy val isn't evaluated until it's accessed
+    //         (used for the first time), the 111111 text below prints
+    //         AFTER the 222222 text prints.
+    lazy val number_2 = { println("111111"); 100 }
+    println("222222")
+
+    // If the following println is commented out, the 111111 text won't print.
+    println(number_2 + 1) // This line FORCES the 111111 AND the 101 to print.
+  }
+}
+========================================================================
+
 See the following URLs for more info about Lazy Evaluation:
 
 ___ https://www.scala-lang.org/blog/2017/11/28/view-based-collections.html
