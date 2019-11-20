@@ -8,19 +8,22 @@ The "case class" Scala type is different from the regular
 Scala "class" type in the following ways...
 
 1) THIS IS LIKELY THE SINGLE BIGGEST ADVANTAGE OF USING A CASE CLASS...
-   -->  All data passed to a case class are automatically turned into public
-        vals by default.  So it generally takes ONLY ONE LINE OF CODE to
-        define and declare a case class!  Where defining/declaring a
-        regular class generally consumes multiple lines of code.
+   -->  All data passed to a case class as arguments are automatically
+        turned into public vals by default.  So it generally takes
+        ONLY ONE LINE OF CODE to define and declare a case class!
+        Where defining/declaring a regular class generally consumes
+        multiple lines of code.
 2) You can create an instance of case class WITHOUT the "new" keyword.
-   (This is because case classes contain an apply() method by default.)
+   (This is because case classes contain an apply() method by default,
+    as well as an unapply() method, which is used in pattern matching.)
 3) A case class automatically includes the copy(), toString(), hashCode(),
    and equals() methods by default.
-4) You can perform pattern matching with case classes, because
-   case classes contain an unapply() method by default.
-5) The "case class" Scala type automatically inherits
-   from the type Serializable.
-6) The constructor parameters of case classes are treated as
+4) You can perform pattern matching with case classes, because case classes
+   contain an unapply() method by default.
+5) The "case class" Scala type automatically inherits from the type Serializable.
+6) A case class can NOT be declared without arguments/parameters.  This was
+   possible in very old versions of Scala, but not anymore.
+7) The constructor parameters of case classes are treated as
    public values and can be accessed directly, like this...
 
    abstract class Term
