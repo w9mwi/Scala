@@ -20,3 +20,7 @@ CaseObject.isInstanceOf[Serializable]    // Returns true.
 
 A "case class" can't be created without arguments/parameters.  However,
 you CAN create a "case object" without arguments/parameters.
+
+A case object CAN extrend a trait, as the following example shows.
+trait Event
+case object SimpleEvent extends Event
