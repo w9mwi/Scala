@@ -22,7 +22,8 @@ Scala "class" type in the following ways...
    contain an unapply() method by default.
 5) The "case class" Scala type automatically inherits from the type Serializable.
 6) A case class can NOT be declared without arguments/parameters.  This was
-   possible in very old versions of Scala, but not anymore.
+   possible in very old versions of Scala, but not anymore.  However, you CAN
+   create a "case object" without arguments/parameters.
 7) The constructor parameters of case classes are treated as
    public values and can be accessed directly, like this...
 
