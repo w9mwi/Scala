@@ -71,7 +71,25 @@ object Demo
 }
 
 =================================================================================
-HOW TO PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS
+PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - EXAMPLE 1
+
+object Demo
+{
+  // This display() method can take multiple String arguments.
+  def display(str:String *):Unit =
+  {
+    // For each String passed to this method, the print function is called.
+     str.map(print) // PRINTS: Play Scala Java
+  }
+
+  def main(args:Array[String])
+  {
+    display("Play ", "Scala ", "Java ")
+  }
+}
+
+=================================================================================
+PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - EXAMPLE 2
 
 object Demo
 {
@@ -89,36 +107,32 @@ object Demo
     *                  character in the following argument list.
     * @return a Double value representing the average of all Double values passed to this function.
     */
-  def calculateAverage(numbers:Double *) =
+  def calculateAverage(numbers:Double *):Double =
   {
-    // The following code shows that you can identify a data type by calling
-    // isInstanceOf on a value, or by using the "match" keyword.  This code
-    // shows how to do both...
+    // NOTE: The following if() statement exists ONLY to demonstrate how to
+    //       perform pattern matching (using the "matches" keyword) AND
+    //       how to use the isInstanceOf method.  The code within this
+    //       if() statement does NOT affect the printed output/results
+    //       of this program.
     if (numbers.isInstanceOf[Seq[Double]])
     {
-      // This if() statement will be entered because the data type of numbers is: Seq[Double]
       var junkInt:Int = 0
       numbers match
       {
-        case a: Seq[Double] => junkInt += 1 // This line will execute because the data type of numbers is: Seq[Double]
-        case _              => junkInt += 1
+        case a: Seq[Double] => junkInt += 1 // This line executes if the data type of numbers is Seq[Double].
+        case _              => junkInt += 2 // This line executes if the data type of numbers is NOT Seq[Double].
       }
     }
-    println(numbers)
+    println(numbers) // PRINTS: "List()" or "WrappedArray(1.23, 4.56, 7.89)"
     numbers.sum / numbers.length
   }
 
-  /**
-    * @param score
-    * @param msg
-    */
   def printScore(score:Double, msg:String):Unit =
   {
     if   (score.isNaN) println("The score is not a number.")
-    else println(msg + score)
+    else println(msg + score) // PRINTS: averageScore = 4.56
   }
 }
-
 =================================================================================
 
 object Demo
