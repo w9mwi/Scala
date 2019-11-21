@@ -330,6 +330,54 @@ object Demo
   }
 }
 =============================================================
+object Demo
+{
+  trait Computer
+  {
+    def getRAM():String
+    def getHDD():String
+    def getCPU():String
+    // Every class has a toString() method by default.  Here,
+    // we override toString() to return what we want.
+    override def toString = "RAM = " + getRAM +", HDD = " + getHDD + ", CPU = " + getCPU
+  }
+
+  private class PC(val ram:String, val hdd:String, val cpu:String) extends Computer
+  { // 3 methods defined here...
+    def getRAM():String = ram;   def getHDD():String = hdd;   def getCPU():String = cpu;
+  }
+
+  private class Server(val ram:String, val hdd:String, val cpu:String) extends Computer
+  { // 3 methods defined here...
+    def getRAM():String = ram;    def getHDD():String = hdd;  def getCPU():String = cpu;
+  }
+
+  object ComputerFactory
+  {
+    // NOTE: The apply() method gets invoked automatically by
+    //       Scala when the class constructor gets called.
+    def apply(compType:String, ram:String, hdd:String, cpu:String):Computer =
+    {
+      compType.toUpperCase match { case "PC"     => new PC(ram, hdd, cpu)
+                                   case "SERVER" => new Server(ram, hdd, cpu)
+                                   case _        => null }
+    }
+  }
+
+  def main(args:Array[String])
+  {
+    val pc         = ComputerFactory("pc",        " 2 GB", "500 GB", "2.4 GHz")
+    val server     = ComputerFactory("server",    "16 GB", "  1 TB", "2.9 GHz")
+    val noComputer = ComputerFactory("undefined", " 0 GB", "  0 GB", "0.0 GHz")
+    // The following 3 println statements print this:
+    // Factory PC Config:     RAM =  2 GB, HDD = 500 GB, CPU = 2.4 GHz
+    // Factory Server Config: RAM = 16 GB, HDD =   1 TB, CPU = 2.9 GHz
+    // No Computer:           null
+    println("Factory PC Config:     " + pc)
+    println("Factory Server Config: " + server)
+    println("No Computer:           " + noComputer)
+  }
+}
 =============================================================
 =============================================================
 =============================================================
