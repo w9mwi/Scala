@@ -17,3 +17,7 @@ case object CaseObject
 
 RegularObject.isInstanceOf[Serializable] // Returns false.
 CaseObject.isInstanceOf[Serializable]    // Returns true.
+
+A case class can be created with or without arguments/parameters.  However,
+if you're considering using a case class without arguments/parameters,
+you should instead use a case object.
