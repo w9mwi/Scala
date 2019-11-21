@@ -27,10 +27,15 @@ Scala "class" type in the following ways...
 7) The constructor parameters of case classes are treated as
    public values and can be accessed directly, like this...
 
-   abstract class Term
-   case class Var(name: String) extends Term
-   val x = Var("Pop a top.");
-   println(x.name) // PRINTS: Pop a top.
+object Demo
+{
+  def main(args:Array[String])
+  {
+    case class MyCaseClass(name_1: String, name_2:String)
+    val caseClass:MyCaseClass = MyCaseClass("String_1", "String_2")
+    println(caseClass.name_1, caseClass.name_2) // PRINTS: (String_1,String_2)
+  }
+}
 
 
 ================================================================================
