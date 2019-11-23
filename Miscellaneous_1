@@ -89,12 +89,6 @@ object Demo
 
     // For each String passed to this method, the print function is called.
     str.map(print) // PRINTS: Play Scala Java
-
-    // NOTICE!: The following println statement does NOT execute, even
-    //          though the if() + println statement above does execute.
-    if (str.isInstanceOf[Seq[String]])
-      println("str is of type Seq[String]") // This println NEVER executes!
-
   }
 
   def main(args:Array[String])
