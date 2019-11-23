@@ -75,11 +75,26 @@ PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - EXAMPLE 1
 
 object Demo
 {
-  // This display() method can take multiple String arguments.
+  /**
+    * @param str - NOTE: When a variable number of arguments is passed to a function
+    *                    as in this example, the asterisk (*) transforms the data type
+    *                    into a Seq[].  For example, even though the "str" argument
+    *                    is declared as a String, the asterisk transforms it into a
+    *                    a Seq[String].
+    */
   def display(str:String *):Unit =
   {
+    if (str.isInstanceOf[Seq[String]])
+      println("str is of type Seq[String]") // PRINTS: str is of type Seq[String]
+
     // For each String passed to this method, the print function is called.
-     str.map(print) // PRINTS: Play Scala Java
+    str.map(print) // PRINTS: Play Scala Java
+
+    // NOTICE!: The following println statement does NOT execute, even
+    //          though the if() + println statement above does execute.
+    if (str.isInstanceOf[Seq[String]])
+      println("str is of type Seq[String]") // This println NEVER executes!
+
   }
 
   def main(args:Array[String])
@@ -87,7 +102,6 @@ object Demo
     display("Play ", "Scala ", "Java ")
   }
 }
-
 =================================================================================
 PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - EXAMPLE 2
 
@@ -95,32 +109,33 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    var averageScore:Double = calculateAverage()      // PRINTS: List()
+    var averageScore:Double = calculateAverage()      // PRINTS: numbers IS a Seq[Double] data type.
+                                                      //         List()
     printScore(averageScore, "averageScore = ")       // PRINTS: The score is not a number.
-    averageScore = calculateAverage(1.23, 4.56, 7.89) // PRINTS: WrappedArray(1.23, 4.56, 7.89)
+    averageScore = calculateAverage(1.23, 4.56, 7.89) // PRINTS: numbers IS a Seq[Double] data type.
+                                                      //         WrappedArray(1.23, 4.56, 7.89)
     printScore(averageScore, "averageScore = ")       // PRINTS: averageScore = 4.56
   }
 
   /**
-    * @param numbers - A Seq[Double] value representing a variable number of arguments.
-    *                  A variable number of arguments is represented by the asterisk (*)
-    *                  character in the following argument list.
+    * @param numbers - NOTE: When a variable number of arguments is passed to a function
+    *                        as in this example, the asterisk (*) transforms the data type
+    *                        into a Seq[].  For example, even though the "numbers" argument
+    *                        is declared as a Double, the asterisk transforms it into a
+    *                        a Seq[Double].
     * @return a Double value representing the average of all Double values passed to this function.
     */
   def calculateAverage(numbers:Double *):Double =
   {
-    // NOTE: The following if() statement exists ONLY to demonstrate how to
-    //       perform pattern matching (using the "matches" keyword) AND
-    //       how to use the isInstanceOf method.  The code within this
-    //       if() statement does NOT affect the printed output/results
-    //       of this program.
+    // NOTE: The following if() statement exists to:
+    //       1) Demonstrate how to use the isInstanceOf[] method.
+    //       2) Demonstrate how to perform pattern matching using the "matches" keyword.
     if (numbers.isInstanceOf[Seq[Double]])
     {
-      var junkInt:Int = 0
       numbers match
       {
-        case a: Seq[Double] => junkInt += 1 // This line executes if the data type of numbers is Seq[Double].
-        case _              => junkInt += 2 // This line executes if the data type of numbers is NOT Seq[Double].
+        case a: Seq[Double] => println("numbers IS a Seq[Double] data type.")
+        case _              => println("numbers is NOT a Seq[Double] data type.")
       }
     }
     println(numbers) // PRINTS: "List()" or "WrappedArray(1.23, 4.56, 7.89)"
