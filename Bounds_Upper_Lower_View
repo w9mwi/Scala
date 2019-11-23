@@ -1,2 +1,16 @@
 
 --> https://www.journaldev.com/9609/scala-typebounds-upper-lower-and-view-bounds
+
+In Scala, Type Bounds are restrictions on Type Parameters or Type Variable.
+By using Type Bounds, we can define the limits of a Type Variable.  Scala Type
+Bounds ensure Type-Safe Application Development.
+
+Scala supports the following Type Bounds for Type Variables:
+
+1) Scala Upper Bounds - In Scala, we can define Upper Bound on Type Parameter as this:
+                        [T <: S]
+                        Which means Type Parameter T must be either same type as S or a sub-type of S.
+
+2) Scala Lower Bounds
+3) Scala View Bounds
+
