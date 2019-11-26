@@ -19,3 +19,34 @@ Scala supports the following Type Bounds for Type Variables:
                        automatically. We can define View Bound on Type Parameter as this:
                        [T <% S]
 
+==============================================================================================
+Upper Bounds Sample Code:
+
+object Demo
+{
+  class Animal
+  class Dog   extends Animal
+  class Puppy extends Dog
+  class AnimalCarer
+  {
+    def display[T <: Dog](t:T):Unit = { println(t) }
+  }
+
+  def main(args:Array[String]):Unit =
+  {
+    val animal      = new Animal
+    val dog         = new Dog
+    val puppy       = new Puppy
+    val animalCarer = new AnimalCarer
+
+    // The following commented-out line of code will NOT compile because the type
+    // passed to the display() method MUST be of type Dog, OR a subtype of Dog.
+    // animalCarer.display(animal)
+    animalCarer.display(dog)
+    animalCarer.display(puppy)
+  }
+}
+
+==============================================================================================
+==============================================================================================
+==============================================================================================
