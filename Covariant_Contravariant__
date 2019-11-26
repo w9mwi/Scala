@@ -13,16 +13,16 @@ Variance - Defines Inheritance relationship between Parameterized Types, such as
 
 Scala supports the following THREE (3) kinds of Variance,
 all of which are discussed in detail below.
-1) Covariant Variance     - EXAMPLE 1: If type S is a subtype of type T, then List[S] is is a subtype of List[T].
+1) Covariant Variance     - EXAMPLE 1: If type S is a subtype of type T, and List[S] is a subtype of List[T].
                             EXAMPLE 2: If A is a subset of B, and G[A] is a subset of G[B],
                                        then the T in G[T] is covariant and would be written as G[+T]
 
-2) Contravariant Variance - EXAMPLE 1: If type S is a subtype of type T, then List[T] is is a subtype of List[S].
+2) Contravariant Variance - EXAMPLE 1: If type S is a subtype of type T, and List[T] is is a subtype of List[S].
                             EXAMPLE 2: If A is a subset of B, and G[B] is a subset of G[A],
                                        then the T in G[T] is contravariant, and would be written as G[-T].
 
-3) Invariant Variance - EXAMPLE: If S is a subtype of T, then List[S] and List[T] don’t have
-                                 Inheritance Relationship or Sub-Typing. That means both type
+3) Invariant Variance - EXAMPLE: If S is a subtype of T, and List[S] and List[T] don’t have
+                                 Inheritance Relationship or Sub-Typing.  This means both type
                                  S and T are unrelated.  This kind of Relationship between two
                                  Parameterized Types is known as Invariant, or Non-Variant.
 
@@ -40,7 +40,7 @@ Invariant       [T]  If S is subtype of T, then List[S] and List[T] are unrelate
 Covariant Variance
 ==================
 Covariant Variance is a kind of INHERITANCE RELATIONSHIP BETWEEN TWO (2) PARAMETERIZED TYPES.
-For example, if type S is a subtype of type T, then List[S] is is a subtype of List[T].
+For example, if type S is a subtype of type T, then List[S] is a subtype of List[T].
 EXAMPLE: Int is a subtype of Any, so List[Int] is a subtype of List[Any].
 This kind of Inheritance Relationship between two Parameterized Types is known as Covariant.
 
@@ -70,7 +70,7 @@ In other words, any code that required an Animal[Dog] type WITHOUT Covariance An
 parameterized type IS A SUBTYPE of Dog.
 
 This is exactly what we said above when we defined covariance:
-"If type S is a subtype of type T, then List[S] is is a subtype of List[T]."
+"If type S is a subtype of type T, then List[S] is a subtype of List[T]."
 Let's restate that same sentence but: replace List with Animal.
                                       replace S with Puppy.
                                       replace T with Dog.
@@ -78,12 +78,12 @@ Let's restate that same sentence but: replace List with Animal.
 So when covariance annotation is used (Animal[+T]), Animal[Puppy] will work anywhere
 Animal[Dog] would work without covariance annotation (without the '+' character).
 
-NOTICE: A Scala function/method can use parameterized types as the following function
-does, which just returns whatever gets passed to it--regardless of type passed to it.
+NOTICE: A Scala function/method can use parameterized types as the following function does,
+        which just returns whatever gets passed to it--regardless of the type passed to it.
 
 def myFunction[T](t:T) = { t }
 
-Variance Annotation NOT apply to functions/methods that implement parameterized types!
+Variance Annotation does NOT apply to functions/methods that implement parameterized types!
 Variance Annotation applies ONLY to classes/types, NOT to functions/methods!  Therefore,
 any function/method would NEVER be defined using the '+' or '-' character, which denote
 Variance Annotation.
@@ -124,9 +124,9 @@ Contravariant Variance
 ======================
 RECALL: List[T] in known as a Generic.  T is known as a "Type Parameter."
 Recall that Covariant is defined as this:  If type S is a subtype of type T,
-                                           then List[S] is is a subtype of List[T].
+                                           and List[S] is a subtype of List[T].
 Contravariant Variance is defined as this: If type S is a subtype of type T,
-                                           then List[T] is a subtype of List[S].
+                                           and List[T] is a subtype of List[S].
 
 Covariance Annotation is designated with a '+' character, like this: List[+T]
 Contravariance Annotation is designated with a '-' character, like this: List[-T]
