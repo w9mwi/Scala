@@ -20,7 +20,7 @@ Scala supports the following Type Bounds for Type Variables:
                        [T <% S]
 
 ==============================================================================================
-Upper Bounds Sample Code:
+UPPER Bounds Sample Code.
 
 object Demo
 {
@@ -29,6 +29,8 @@ object Demo
   class Puppy extends Dog
   class AnimalCarer
   {
+    // This display() method will work if the type passed
+    // to it is a Dog OR a sub-type of Dog.
     def display[T <: Dog](t:T):Unit = { println(t) }
   }
 
@@ -41,12 +43,38 @@ object Demo
 
     // The following commented-out line of code will NOT compile because the type
     // passed to the display() method MUST be of type Dog, OR a subtype of Dog.
-    // animalCarer.display(animal)
-    animalCarer.display(dog)
-    animalCarer.display(puppy)
+    // animalCarer.display(animal) // This won't compile cuz Animal is NOT of type Dog, or a sub-type of Dog.
+    animalCarer.display(dog)       // This works cuz Dog is of type Dog.
+    animalCarer.display(puppy)     // This works cuz Puppy is a sub-type of Dog.
   }
 }
 
 ==============================================================================================
+LOWER Bounds Sample Code.
+
+object Demo
+{
+  class Animal
+  class Dog   extends Animal
+  class Puppy extends Animal
+  class AnimalCarer
+  {
+    // This display() method will work if the type passed
+    // to it is a Puppy OR a super-type of Puppy.
+    def display[T >: Puppy](t:T):Unit = { println(t) }
+  }
+
+  def main(args:Array[String]):Unit =
+  {
+    val animal      = new Animal
+    val dog         = new Dog
+    val puppy       = new Puppy
+    val animalCarer = new AnimalCarer
+
+    animalCarer.display(animal) // This works cuz Animal is a SUPER-type of Puppy.
+    animalCarer.display(dog)    // This works cuz Dog is a SUPER-type of Puppy.
+    animalCarer.display(puppy)  // This works cuz Puppy is of type of Puppy.
+  }
+}
 ==============================================================================================
 ==============================================================================================
