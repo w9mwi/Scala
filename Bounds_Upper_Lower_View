@@ -7,10 +7,15 @@ Bounds ensure Type-Safe Application Development.
 
 Scala supports the following Type Bounds for Type Variables:
 
-1) Scala Upper Bounds - In Scala, we can define Upper Bound on Type Parameter as this:
+1) Scala Upper Bounds - In Scala, we can define an UPPER Bound on Type Parameter as this:
                         [T <: S]
-                        Which means Type Parameter T must be either same type as S or a sub-type of S.
+                        Which means Type Parameter T must be either same type as S or a SUB-type of S.
 
-2) Scala Lower Bounds
-3) Scala View Bounds
+2) Scala Lower Bounds - In Scala, we can define a LOWER Bound on Type Parameter as this:
+                        [T >: S]
+                        Which means Type Parameter T must be either same type as S or a SUPER-type of S.
+
+3) Scala View Bounds - In Scala, a VIEW Bound is used when we want to use existing Implicit Conversions
+                       automatically. We can define View Bound on Type Parameter as this:
+                       [T <% S]
 
