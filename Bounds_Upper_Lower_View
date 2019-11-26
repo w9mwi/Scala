@@ -15,9 +15,11 @@ Scala supports the following Type Bounds for Type Variables:
                         [T >: S]
                         Which means Type Parameter T must be either same type as S or a SUPER-type of S.
 
-3) Scala View Bounds - In Scala, a VIEW Bound is used when we want to use existing Implicit Conversions
-                       automatically. We can define View Bound on Type Parameter as this:
+3) Scala View Bounds - In Scala, a VIEW Bound is used when we want to use existing IMPLICIT CONVERSIONS
+                       automatically.  We can define VIEW Bound on a Type Parameter like this:
                        [T <% S]
+                       In some scenarios, we need to use IMPLICIT CONVERSIONS to automatically solve our
+                       problem statement.  We can use Scala’s View Bounds to utilize these Implicits.
 
 ==============================================================================================
 UPPER Bounds Sample Code.
@@ -31,7 +33,7 @@ object Demo
   {
     // This display() method will work if the type passed
     // to it is a Dog OR a sub-type of Dog.
-    def display[T <: Dog](t:T):Unit = { println(t) }
+    def display[T <: Dog](t:T):Unit = { println(t) }  // [T <: Dog] designates UPPER bounds.
   }
 
   def main(args:Array[String]):Unit =
@@ -61,7 +63,7 @@ object Demo
   {
     // This display() method will work if the type passed
     // to it is a Puppy OR a super-type of Puppy.
-    def display[T >: Puppy](t:T):Unit = { println(t) }
+    def display[T >: Puppy](t:T):Unit = { println(t) }  // [T >: Puppy] designates LOWER bounds.
   }
 
   def main(args:Array[String]):Unit =
@@ -77,4 +79,6 @@ object Demo
   }
 }
 ==============================================================================================
+VIEW Bounds Sample Code.
+
 ==============================================================================================
