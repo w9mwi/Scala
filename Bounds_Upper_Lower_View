@@ -83,6 +83,7 @@ VIEW Bounds Sample Code.  This program compares 2 Strings using the '>' and '<' 
 
 object Demo
 {
+  // NOTE: 'Ordered' used below is a trait defined in the scala.math library.
   class Name[T <% Ordered[T]](val firstName: T, val lastName: T)
   {
     def greaterThan = if (firstName > lastName) firstName + " > " + lastName
