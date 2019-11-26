@@ -104,5 +104,31 @@ object Demo
   }
 }
 
+=================================================================================
+NOTE: The following sample code is VERY SIMILAR to the sample code immediately
+      above!  It shows that the String type can be used with the '>' and '<'
+      operators without implementing any "View Bounds" as the above code does.
+
+object Demo
+{
+  class Name(val firstName:String, val lastName:String)
+  {
+    def greaterThan = if (firstName > lastName) firstName + " > " + lastName
+                      else lastName + " > " + firstName
+    def lessThan    = if (firstName < lastName) firstName + " < " + lastName
+                      else lastName + " < " + firstName
+  }
+
+  def main(args:Array[String]):Unit =
+  {
+    val name1 = new Name("Poop", "Pop")
+    val name2 = new Name("Channel", "Chunnel")
+
+    println(name1.greaterThan) // PRINTS: Pop > Poop
+    println(name2.greaterThan) // PRINTS: Chunnel > Channel
+    println(name1.lessThan)    // PRINTS: Poop < Pop
+    println(name2.lessThan)    // PRINTS: Channel < Chunnel
+  }
+}
 
 ==============================================================================================
