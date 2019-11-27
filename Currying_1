@@ -46,12 +46,12 @@ object Demo
   }
 
   /**
-    * This multiply_1() function gets called with one Int argument.  It
-    * then returns a function which takes one Int argument.  When that
-    * returned function is called with an Int argument, the product of
-    * the two Int arguments is returned--as an Int, of course.
+    * This multiply_1() function gets called with one Int argument.  It then
+    * returns a function which takes one Int argument and returns an Int.
+    * So when that returned function is called with an Int argument, the
+    * product of the two Int arguments is returned--as an Int, of course.
     */
-  def multiply_1(a:Int) = (b:Int) => a*b
+  def multiply_1(a:Int):(Int => Int) = (b:Int) => a*b
 
   /**
     * This multiply_2() function is IDENTICAL to the multiply_1() function,
