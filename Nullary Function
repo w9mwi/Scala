@@ -1,0 +1,58 @@
+
+Assume we have a function that takes an argument that is a function.  That function
+argument (which is also a function) has a name, which gets passed some type, and it
+returns some type.  For example, the following function takes an argument (that is
+also a function) having the name processNumber, which takes an Int argument, and
+returns an Int.
+
+def myFunc(processNumber:(Int => Int)):Int = { Some code that returns an Int. }
+
+In Scala, you can pass a function an argument that is a function, has a name, and
+returns some type, but what it takes as an argument HAS NO TYPE.  This is called
+a Nullary Function.
+
+The reason a Nullary Function's argument has no type is because it gets passed an expression
+(i.e., executable code) instead of data that has a type.  The following code sample shows
+a recursive curried function which gets passed two Nullary Functions.  Read the in-line
+comments below to understand its behavior.
+
+============================================================================================
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var count = 5
+
+    // The following forloop function returns Unit.  When the forloop function is called here,
+    // IT IS CALLED WITH 2 ARGUMENT LISTS!  The second argument list contains the print AND
+    // the count -= 1 lines of code!!!  Whenever an argument contains multiple lines of
+    // executable code (versus an Int value, for example), the argument MUST be enclosed
+    // within curly braces {}, instead of within parenthesis ().
+    forloop(count > 0)
+    {
+      print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
+      count -= 1
+    }
+    println("\nThe End.")
+  }
+
+  /**
+    * NOTICE: This forloop function is recursive, has a multiple argument list, and BOTH
+    *         arguments are functions that are passed nothing.  Since these function
+    *         arguments (named "rule" and "body") get passed nothing (one returns a Boolean,
+    *         the other returns Unit), they are known as nullary functions.
+    */
+  def forloop(rule: => Boolean)(body: => Unit):Unit =
+  {
+    if (rule)
+    {
+      // The following line of code calls the function named body.  When body is called, the
+      // two lines of code contained in the forloop (located in the above main() method)
+      // get called.  If body is not called here, the count will never get printed, the Int
+      // value count will never get decremented, and forloop will run in an infinite loop!!!
+      body
+      forloop(rule)(body) // This is a RECURSIVE function call, which executes until "rule" becomes false.
+    }
+  }
+}
