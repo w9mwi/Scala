@@ -25,12 +25,14 @@ object Demo
     var count = 5
 
     // The following forloop function returns Unit.  When the forloop function is called here,
-    // IT IS CALLED WITH 2 ARGUMENT LISTS!  The second argument list contains the print AND
-    // the count -= 1 lines of code!!!  Whenever an argument contains multiple lines of
-    // executable code (versus an Int value, for example), the argument MUST be enclosed
+    // IT IS CALLED WITH 2 ARGUMENT LISTS!  The second argument list contains the print()
+    // statement AND the "count -= 1" lines of code!!!  Whenever an argument contains multiple
+    // lines of executable code (versus an Int value, for example), the argument MUST be enclosed
     // within curly braces {}, instead of within parenthesis ().
     forloop(count > 0)
     {
+      // The code contained within these curly braces {} is the second
+      // argument that gets passed to the forloop function.
       print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
       count -= 1
     }
@@ -38,10 +40,10 @@ object Demo
   }
 
   /**
-    * NOTICE: This forloop function is recursive, has a multiple argument list, and BOTH
-    *         arguments are functions that are passed nothing.  Since these function
-    *         arguments (named "rule" and "body") get passed nothing (one returns a Boolean,
-    *         the other returns Unit), they are known as nullary functions.
+    * NOTICE: This forloop function is a recursive curried function which has a multiple argument
+    *         list.  BOTH its arguments are Nullary Functions, which means they get passed
+    *         an expression (i.e., executable code) instead of some data type.  That is why
+    *         Nullary Functions contain no data type for the argument they get passed.
     */
   def forloop(rule: => Boolean)(body: => Unit):Unit =
   {
@@ -49,10 +51,13 @@ object Demo
     {
       // The following line of code calls the function named body.  When body is called, the
       // two lines of code contained in the forloop (located in the above main() method)
-      // get called.  If body is not called here, the count will never get printed, the Int
+      // get executed.  If body is not called here, the count will never get printed, the Int
       // value count will never get decremented, and forloop will run in an infinite loop!!!
       body
-      forloop(rule)(body) // This is a RECURSIVE function call, which executes until "rule" becomes false.
+
+      // The following line of code is a RECURSIVE function call, which
+      // will execute until the "rule" expression evaluates as false.
+      forloop(rule)(body)
     }
   }
 }
