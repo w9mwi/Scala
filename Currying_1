@@ -36,7 +36,8 @@ object Demo
   def main(args: Array[String])
   {
     var func:(Int => Int) = multiply_1(11) // At this point, the func() function is PARTIALLY APPLIED.
-    println(func(9)) // PRINTS: 99  (Because 11 X 9 = 99)
+    println(func(9))           // PRINTS: 99  (Because 11 X 9 = 99)
+    println(multiply_1(4)(22)) // PRINTS: 88  (Because 4 X 22 = 88)
 
     func = multiply_2(15) // At this point, the func() function is PARTIALLY APPLIED.
     println(func(6)) // PRINTS: 90  (Because 15 X 6 = 90)
