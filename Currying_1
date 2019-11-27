@@ -25,10 +25,39 @@ DEFINITION OF A PARTIALLY APPLIED FUNCTION:
    parameters, and RETURNS A FUNCTION with fewer parameters.
 
    Partially applied functions give you this capability:
-
    * You write a general function.
    * You create a specific function from the general function.
 
+============================================================================================
+This is an example of currying...
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var func:(Int => Int) = multiply_1(11)
+    println(func(9)) // PRINTS: 99  (Because 11 X 9 = 99)
+
+    func = multiply_2(15)
+    println(func(6)) // PRINTS: 90  (Because 15 X 6 = 90)
+
+    println(multiply_2(25)(3)) // PRINTS: 75  (Because 25 X 3 = 75)
+  }
+
+  /**
+    * This multiply_1() function gets called with one Int argument.  It
+    * then returns a function which takes one Int argument.  When that
+    * returned function is called with an Int argument, the product of
+    * the two Int arguments is returned--as an Int, of course.
+    */
+  def multiply_1(a:Int) = (b:Int) => a*b
+
+  /**
+    * This multiply_2() function is IDENTICAL to the multiply_1() function,
+    * except that it is written using Scala's multiple argument lists.
+    */
+  def multiply_2(a:Int)(b:Int):Int = a*b
+}
 ============================================================================================
 object Demo
 {
