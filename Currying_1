@@ -55,7 +55,7 @@ object Demo
 
   /**
     * This multiply_2() function is IDENTICAL to the multiply_1() function,
-    * except that it is written using Scala's multiple argument lists.
+    * except that it is written using Scala's multiple argument list.
     */
   def multiply_2(a:Int)(b:Int):Int = a*b
 }
