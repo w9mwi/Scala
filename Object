@@ -22,20 +22,20 @@ Here's an example...
 
 object Demo
 {
-  var myShit:Float = -123.987F
+  var myStuff:Float = -123.987F
 
-  def getMyShit():Float = Demo.myShit
-  def setMyShit(value:Float):Unit = { Demo.myShit = value }
+  def getMyStuff():Float = Demo.myStuff
+  def setMyStuff(value:Float):Unit = { Demo.myStuff = value }
 
   def main(args: Array[String]):Unit =
   {
-    println(Demo.myShit)     // PRINTS: -123.987
-    println(Demo.getMyShit)  // PRINTS: -123.987
-    setMyShit(987.666F)
-    println(Demo.myShit)     // PRINTS: 987.666
-    println(Demo.getMyShit)  // PRINTS: 987.666
-    Demo.myShit = -666.666F
-    println(Demo.myShit)     // PRINTS: -666.666
+    println(Demo.myStuff)     // PRINTS: -123.987
+    println(Demo.getMyStuff)  // PRINTS: -123.987
+    setMyStuff(987.666F)
+    println(Demo.myStuff)     // PRINTS: 987.666
+    println(Demo.getMyStuff)  // PRINTS: 987.666
+    Demo.myStuff = -666.666F
+    println(Demo.myStuff)     // PRINTS: -666.666
   }
 }
 
@@ -44,10 +44,10 @@ object Demo2
   val myDemo = Demo
   def main(args: Array[String]):Unit =
   {
-    // Print the Demo.myShit value of the above-defined Demo object,
+    // Print the Demo.myStuff value of the above-defined Demo object,
     // from this Demo2 object.
-    println(Demo.myShit)   // PRINTS: -123.987
-    println(myDemo.myShit) // PRINTS: -123.987
+    println(Demo.myStuff)   // PRINTS: -123.987
+    println(myDemo.myStuff) // PRINTS: -123.987
   }
 }
 
@@ -59,7 +59,7 @@ BOTH the class and its companion object should be placed in the same file.
 
 When building a new Scala object, you may use the 'new' keyword, but it is
 optional.  Building an object always call the 'new' keyword.  If you don't
-use 'new' explicitly in your caode, 'new' gets invoked via the object's
+use 'new' explicitly in your code, 'new' gets invoked via the object's
 apply() method.  In the Scala API documentation, the circled 'c' represents
 a class, the circled 'o' represents an object, and the circled 't' represents
 a trait.
