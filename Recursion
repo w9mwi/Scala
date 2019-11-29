@@ -142,8 +142,9 @@ object Demo
     sumTailRecursive(0, list) // NOTE: The 0 (zero) is passed to the currentSum parameter.
   }
 }
+
 ===================================================================
-===================================================================
+
 object Demo
 {
   def main(args: Array[String]):Unit =
@@ -176,4 +177,27 @@ object Demo
     if (number < 2) { 1 }
     else (fibonacci(number-1) + fibonacci(number-2))
   }
+}
+
+===================================================================
+
+object Demo
+{
+  /**
+    * This getList() function is BOTH a recursive function, and a
+    * parameteric function--which means different data types can
+    * be passed to its x argument.
+    */
+    def getList[T](x:T, noOfElements:Int): List[T] = {
+      if (noOfElements == 0)  Nil
+      // Every time the following line of code executes, a new
+      // List element gets appended to the List designated by x.
+      else x :: getList(x, noOfElements - 1)
+    }
+
+    def main(args: Array[String])
+    {
+      println(getList(3, 1))     // PRINTS: List(3)
+      println(getList("Hi", 5))  // PRINTS: List(Hi, Hi, Hi, Hi, Hi)
+    }
 }
