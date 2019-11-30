@@ -1,8 +1,9 @@
 Scala supports generic classes which are useful for the development of collection
-classes.  In the following example we declare an abstract class Multiply, where
-x designates any data type.  The "def multiply()" method defines arguments a and b
-of data type X.  The MultiplyInt and MultiplyDouble classes are defined to accept
-Integer and Double types respectively.  Read the in-line comments below.
+classes.  In the following example we declare an abstract class Multiply, where X
+designates any data type.  The "def multiply()" function defines arguments a and b
+of data type X, and it returns a data type of X.  The MultiplyInt and MultiplyDouble
+classes are defined to accept Integer and Double types respectively.  Read the
+in-line comments below.
 
 object Demo
 {
