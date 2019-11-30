@@ -15,9 +15,9 @@ object Demo
 
   def main(args:Array[String]): Unit =
   {
-    val numberInt:Int       = new MultiplyInt().multiply(123, 321)        // PRINTS: numberInt    = 39483
-    val numberDouble:Double = new MultiplyDouble().multiply(98.76, 67.89) // PRINTS: numberDouble = 6704.816400000001
-    println("numberInt    = " + numberInt)
-    println("numberDouble = " + numberDouble)
+    val numberInt:Int       = new MultiplyInt().multiply(123, 321)
+    val numberDouble:Double = new MultiplyDouble().multiply(98.76, 67.89)
+    println("numberInt    = " + numberInt)    // PRINTS: numberInt    = 39483
+    println("numberDouble = " + numberDouble) // PRINTS: numberDouble = 6704.816400000001
   }
 }
