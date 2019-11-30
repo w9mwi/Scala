@@ -1,0 +1,23 @@
+Scala supports generic classes which are useful for the development of collection
+classes.  In the following example we declare an abstract class Multiply, where
+x designates any data type.  The "def multiply()" method defines arguments a and b
+of data type X.  The MultiplyInt and MultiplyDouble classes are defined to accept
+Integer and Double types respectively.  Read the in-line comments below.
+
+object Demo
+{
+  // This Multiply[X] abstract class is used as a Generic Class, so
+  // its multiply() function will work with multiple data types.
+  abstract class Multiply[X] { def multiply(a:X, b:X):X }
+
+  class MultiplyInt    extends Multiply[Int]    { def multiply(a:Int,    b:Int):Int       = a * b }
+  class MultiplyDouble extends Multiply[Double] { def multiply(a:Double, b:Double):Double = a * b }
+
+  def main(args:Array[String]): Unit =
+  {
+    val numberInt:Int       = new MultiplyInt().multiply(123, 321)        // PRINTS: numberInt    = 39483
+    val numberDouble:Double = new MultiplyDouble().multiply(98.76, 67.89) // PRINTS: numberDouble = 6704.816400000001
+    println("numberInt    = " + numberInt)
+    println("numberDouble = " + numberDouble)
+  }
+}
