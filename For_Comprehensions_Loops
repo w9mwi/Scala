@@ -1,4 +1,21 @@
 ================================================================================
+A simple example of how a for comprehension works.
+
+object Demo
+{
+  def main(args:Array[String])
+  {
+    println(increment(1,30)) // PRINTS: List(5, 10, 15, 20, 25)
+  }
+
+  def increment(from: Int, to:Int):List[Int] =
+  {
+    for(idx <- List.range(from,to) if (idx % 5) == 0) yield idx
+  }
+}
+
+================================================================================
+
 The following code show many examples of how to use Scala's for() loop and
 foreach() statement, including examples that implement the "yield" keyword.
 
