@@ -157,7 +157,7 @@ object Demo
     */
   def multiples(x:Int, y:Int) =
   {
-    // NOTE: Tuple2() is a Scala API function.
+    // NOTE: Tuple2() is a Scala API function--replacing it with (a,b) also works.
     for (a <- 0 until x; b <- a until x if a * b == y) yield Tuple2(a,b);
   }
 }
