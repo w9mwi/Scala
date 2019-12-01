@@ -1,0 +1,57 @@
+This code sample demonstrates how to use these methods/functions...
+* groupBy
+* flatMap
+* map
+* _ (Underscore Symbol)
+
+object Demo
+{
+  def main(args:Array[String])
+  {
+    // Group the following List of donuts by the first Char in each String...
+    val donuts:List[String]                = List("Plain Donut", "Strawberry Donut", "Glazed Donut", "Stink Donut")
+    val donutsGroup:Map[Char, Seq[String]] = donuts.groupBy(_.charAt(0))
+    for (x <- donutsGroup) { print(x + ",  ") }
+    // PRINTS: (S,List(Strawberry Donut, Stink Donut)),  (G,List(Glazed Donut)),  (P,List(Plain Donut)),
+    println("\n============================")
+
+    // Group the following List of Ints by their value...
+    val intNumbers:List[Int]                = List(1, 4, 6, 8, 12, 4, 1, 1, 6, 73)
+    val intNumbersGroup:Map[Int, List[Int]] = intNumbers.groupBy(x=>x)
+    for (x <- intNumbersGroup) { print(x + ",  ") }
+    // PRINTS: (1,List(1, 1, 1)),  (6,List(6, 6)),  (73,List(73)),  (12,List(12)),  (8,List(8)),  (4,List(4, 4)),
+    println("\n============================")
+
+    val junk:List[List[Int]] = List(List(1, 2, 3), List(4,5,6), List(7,8,9))
+    println(junk)   // PRINTS: List(List(1, 2, 3), List(4, 5, 6), List(7, 8, 9))
+    val poop:List[Int] = junk.flatMap(x=>x)
+    println(poop)              // PRINTS: List(1, 2, 3, 4, 5, 6, 7, 8, 9)
+    println(poop.map(x=>x+10)) // PRINTS: List(11, 12, 13, 14, 15, 16, 17, 18, 19)
+    println(poop.map(_+10))    // PRINTS: List(11, 12, 13, 14, 15, 16, 17, 18, 19)
+
+    // *********************************************************************************
+    // Create a Donut case class that contains name and price...
+    case class Donut(name: String, price: Double)
+
+
+    val donuts2:List[Donut] = List(Donut("Plain Donut", 1.23), Donut("Strawberry Donut", 4.56), Donut("Glazed Donut", 7.89))
+    println(s"donuts2 = $donuts2")
+    // PRINTS: donuts2 = List(Donut(Plain Donut,1.23), Donut(Strawberry Donut,4.56), Donut(Glazed Donut,7.89))
+
+    // Group donuts2 by name (a String type) within a Map, where name is the key, and List[Donut] is the value.
+    val donutsGroup2:Map[String, List[Donut]] = donuts2.groupBy(_.name)
+    println(s"donutsGroup2 = $donutsGroup2")
+    // PRINTS:  donutsGroup2 = Map(Glazed Donut -> List(Donut(Glazed Donut,7.89)),
+    //                             Plain Donut -> List(Donut(Plain Donut,1.23)),
+    //                             Strawberry Donut -> List(Donut(Strawberry Donut,4.56)))
+
+    // Group donuts2 by price (a Double type) within a Map, where price is the key, and List[Donut] is the value.
+    val donutsGroup3:Map[Double, List[Donut]] = donuts2.groupBy(_.price)
+    println(s"donutsGroup3 = $donutsGroup3")
+    // PRINTS: donutsGroup3 = Map(7.89 -> List(Donut(Glazed Donut,7.89)),
+    //                            1.23 -> List(Donut(Plain Donut,1.23)),
+    //                            4.56 -> List(Donut(Strawberry Donut,4.56)))
+  }
+}
+
+===================================================================================================
