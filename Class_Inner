@@ -24,10 +24,10 @@ object Demo
     println(s"b1.b = ${b1.b}") // PRINTS: b1.b = 31
     println(s"b1.c = ${b1.c}") // PRINTS: b1.c = 43  (Because 12 + 31 = 43)
 
-    b1.a = 12;
-    b1.b = 34;
-    b2.a = 56;
-    b2.b = 78;
+    b1.a = 12
+    b1.b = 34
+    b2.a = 56
+    b2.b = 78
     println(s"b1.a = ${b1.a}") // PRINTS: b1.a = 12
     println(s"b1.b = ${b1.b}") // PRINTS: b1.b = 34
     println(s"b1.c = ${b1.c}") // PRINTS: b1.c = 46  (Because 12 + 34 = 46)
