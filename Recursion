@@ -139,7 +139,19 @@ object Demo
         case head::tail => sumTailRecursive(head + currentSum, tail) // head + currentSum is where the math happens!
       }
     }
-    sumTailRecursive(0, list) // NOTE: The 0 (zero) is passed to the currentSum parameter.
+    sumTailRecursive(0, list) // This line of code is called ONLY ONE TIME.
+
+    // Running this program prints the following:
+    // list.head, list.tail) = (1, List(2, 3, 4, 5, 6, 7, 8, 9))
+    // (list.head, list.tail) = (2, List(3, 4, 5, 6, 7, 8, 9))
+    // (list.head, list.tail) = (3, List(4, 5, 6, 7, 8, 9))
+    // (list.head, list.tail) = (4, List(5, 6, 7, 8, 9))
+    // (list.head, list.tail) = (5, List(6, 7, 8, 9))
+    // (list.head, list.tail) = (6, List(7, 8, 9))
+    // (list.head, list.tail) = (7, List(8, 9))
+    // (list.head, list.tail) = (8, List(9))
+    // (list.head, list.tail) = (9, List())
+    // listSum = 45
   }
 }
 
