@@ -1,3 +1,5 @@
+A Scala class that defines an unapply() method is called an extractor.
+
 A Scala Extractor is defined as an object that has a method
 named unapply() as one of its methods.  This unapply() method
 extracts an object and returns the attributes.  The unapply()
@@ -18,7 +20,7 @@ you attempt to PATTERN MATCH on a class instance.  That is, unapply()
 gets called via the case statement that matches the object, which
 means Scala calls it in the background--you don't call it directly.
 
-The returned result type of an unapply() method must contain a get()
+The returned result type of an unapply() method MUST contain a get()
 method, which is used as an extractor pattern.  That's why unapply()
 methods typically return an Option type.  Because the Option type
 contains a get() method.  When the unapply() method is called on a
