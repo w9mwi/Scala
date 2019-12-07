@@ -1,4 +1,54 @@
 ================================================================================
+A Scala for comprehension can contain the following 3 expressions:
+1) Generator.  Every for comprehension begins with a generator.  for compehensions
+               can have multiple generators.  The left side of a generator can
+               also be a pattern, such as in this example:
+               def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
+2) Definition.  A definition binds the pattern on the left to the value of the expression on the right.
+3) Filter.      A filter drops all elements from the iteration for which the expression returns false.
+
+Here is an example:
+for
+{
+  p <- persons           // Generator  (Iterates over all elements contained in persons.)
+  n = p.name             // Definition
+  if (n startsWith "To") // Filter
+} yield x                // The for comprehension result is stored in x.
+
+A generator has this general form:   pattern <- expression
+A definition has this general form:  pattern = expression
+A filter has this general form:      if (expression)
+
+The Scala compiler translates for comprehensions into a series of method calls
+that may include map(), flatMap(), foreach(), and withFilter().  Just as for
+comprehensions are compiled into those 4 functions, the opposite is also true.
+If you write a class that implements those functions, that class can be used
+inside a for comprehension.
+
+HOW TO WRITE A DATA TYPE THAT CAN BE USED IN A FOR COMPREHENSION
+================================================================
+1) If a custom data type defines a foreach() method, it allows
+   for loops (with single and multiple generators) like this:
+   for (x <- intList) println(x)
+2) If a custom data type defines ONLY map(), it can be used in
+   for expressions consisting of a SINGLE generator.
+3) If a custom data type defines BOTH flatMap() and map(),
+   it allows for expressions using multiple generators.
+4) If a custom data type defines withFilter(), it allows
+   for expressions containing an if() statement (aka, a filter).
+
+If you want your custom class to work well with a for expression,
+it should generally implement the following methods having the
+signatures shown below.
+
+abstract class MyCustomClass[A]
+{
+  def map[B](func: A => B):                    MyCustomClass[B]
+  def flatMap[B](func: A => MyCustomClass[B]): MyCustomClass[B]
+  def withFilter(x: A => Boolean):             MyCustomClass[A]
+  def foreach((x: A => Unit):                  Unit
+}
+================================================================================
 A simple example of how a for comprehension works.
 
 object Demo
