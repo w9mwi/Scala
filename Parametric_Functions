@@ -76,7 +76,7 @@ object Demo
 }
 
 =================================================================================
-The code below shows how to declare and use a parametric class
+This code sample shows how to declare and use a parametric class
 named "Sequence", as well the parametic method named "map".
 
 import scala.collection.mutable.ArrayBuffer
@@ -108,6 +108,23 @@ object Demo
       val tempArrayBuffer:ArrayBuffer[A] = elems.filter(p)
       Sequence(tempArrayBuffer: _*) // NOTE: _* makes Sequence() work with a variable number of arguments.
     }
+    def flatMap[B](func: A => Sequence[B]): Sequence[B] =
+    {
+      val mapResult:Sequence[Sequence[B]] = map(func)
+      flatten(mapResult) // This flatten() method is defined immediately below.
+    }
+    def flatten[B](seqOfSeq:Sequence[Sequence[B]]):Sequence[B] =
+    {
+      var arrayBuf:ArrayBuffer[B] = ArrayBuffer[B]()
+      for (listB <- seqOfSeq)
+      {
+        for (e <- listB)
+        {
+          arrayBuf += e
+        }
+      }
+      Sequence(arrayBuf: _*) // This converts the type ArrayBuffer[B] to type Sequence[B]
+    }
   }
 
   def main(args:Array[String]): Unit =
@@ -115,7 +132,7 @@ object Demo
     // NOTE: The Sequence class can work with different types (i.e., String, Int, Person etc.) because
     //       it's defined as a parametric class, where the data type is determined at run time.
     val strings:Sequence[String] = Sequence("one", "two", "three")
-    val nums:Sequence[Int]       = Sequence(1, 2, 3, 4, 5)
+    val numbers:Sequence[Int]    = Sequence(1, 2, 3, 4, 5)
     val names:Sequence[Person]   = Sequence(Person("Joe", "Blow"), Person("Jack", "Smack"), Person("Frank", "Crank"))
 
     // NOTE: The following 3 for() loops would cause compile errors if the foreach()
@@ -123,19 +140,34 @@ object Demo
     //       if() statement embedded within the 2nd for() loop below would cause
     //       a compile error if the withFilter() method wasn't defined in the
     //       above Sequence class.  To summarize...
-    //       1) The single generators below (i.e., (str < strings)) work because Sequence.foreach() is defined above.
+    //       1) The generators shown below (i.e., "for (str < strings)") work cuz Sequence.foreach() is defined above.
     //       2) The below yield statements work because Sequence.map() is defined above.
-    //       3) The below "if i > 2" statement worka because Sequence.withFilter() is defined above.
-    val strResult:Sequence[String]    = for (str <- strings)        yield str
-    val intResult:Sequence[Int]       = for { i <- nums; if i > 2 } yield i*2
-    val personResult:Sequence[Person] = for (name <- names)         yield name
+    //       3) The below "if i > 2" statement works because Sequence.withFilter() is defined above.
+    val strResult:Sequence[String]    = for (str <- strings)           yield str
+    val intResult:Sequence[Int]       = for { i <- numbers; if i > 2 } yield i*2
+    val personResult:Sequence[Person] = for (name <- names)            yield name
 
     for (str <- strResult) print(str + " ") // PRINTS: one two three
     println
     for (int <- intResult) print(int + " ") // PRINTS: 6 8 10
     println
     for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
+    println
 
+    // The following code REQUIRES the flatMap() method to be defined by the above case class named Sequence.
+    val myFriends   = Sequence(Person("Jack", "Daniels"),    Person("Johnny", "Walker"), Person("Jim", "Beam"))
+    val joesFriends = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
+
+    // For a class to work with MULTIPLE for() loop generators (as shown here), that class
+    // MUST implement a flatMap() method--as in the above-defined Sequence class.
+    val mutualFriends = for
+                        {
+                          myFriend   <- myFriends   // This is a GENERATOR.
+                          joesFriend <- joesFriends // This is another GENERATOR.
+                          if (myFriend.firstName == joesFriend.firstName &&
+                              myFriend.lastName  == joesFriend.lastName)
+                        } yield myFriend
+    println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
   }
 }
 =================================================================================
