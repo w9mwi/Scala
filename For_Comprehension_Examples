@@ -1,1 +1,180 @@
-123
+Below are some simple/intermediate sample code of how a "for comprehension" works.
+
+============================================================
+
+object Demo
+{
+  def main(args:Array[String])
+  {
+    println(increment(1,30)) // PRINTS: List(5, 10, 15, 20, 25)
+  }
+
+  def increment(from: Int, to:Int):List[Int] =
+  {
+    for(idx <- List.range(from,to) if (idx % 5) == 0) yield idx
+  }
+}
+
+================================================================================
+
+The following code show many examples of how to use Scala's for() loop and
+foreach() statement, including examples that implement the "yield" keyword.
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val range1:Range = 0 to 9
+    val range2:Range = 0 until 9
+
+    for (x <- range1) { print(x) }; println  // PRINTS: 0123456789
+    for (x <- range2) { print(x) }; println  // PRINTS: 012345678
+
+    val list1:List[Int] = List(1,2,3)
+    val list2:List[Int] = List(4,5,6)
+    val list3:List[Int] = List(7,8,9)
+
+    // NOTICE: Each of the following 4 for() loops uses a different
+    //         combination of parenthesis () and curly braces {}.
+    for (x <- list1) ( print(x) ); println // PRINTS: 123
+    for (x <- list1) { print(x) }; println // PRINTS: 123
+    for {x <- list1} ( print(x) ); println // PRINTS: 123
+    for {x <- list1} { print(x) }; println // PRINTS: 123
+
+    // The following commented-out for() loop will NOT compile cuz when a for() loop executes
+    // more than one statement, it REQUIRES curly braces {} instead of parenthesis ().
+    // for (x <- list1; y <- list2; z <- list3) ( print(x); print(y); print(z + "-") )
+
+    // The following for() loop REQUIRES curly braces {} cuz it executes more than one statement.
+    // The following for() loop prints a total of 81 single-digit Ints ranging from 1 through 9.
+    // (9 X 9 = 81)  The following for() loop prints this:
+    // 147-148-149-157-158-159-167-168-169-247-248-249-257-258-259-267-268-269-347-348-349-357-358-359-367-368-369-
+    for (x <- list1; y <- list2; z <- list3) { print(x); print(y); print(z + "-")}; println;
+
+    // To iterate through any collection (like a List), you can use a foreach() statement
+    // instead of using a for() loop, as shown in the following line of code.
+    list1.foreach(print); println // PRINTS: 123
+
+    val numbers = Map("ThreePointZero" -> 3.0, "FourPointZero"  -> 4.0, "ThreePointFive" -> 3.5)
+    numbers.foreach // This foreach() loops through each element of numbers...
+    {
+      // The following case statement prints this:
+      // key: ThreePointZero, value: 3.0
+      // key: FourPointZero, value: 4.0
+      // key: ThreePointFive, value: 3.5
+      case(key, value) => println(s"key: $key, value: $value")
+    }
+    // The following foreach() statement prints IDENTICAL results as the above foreach() statement.
+    numbers.foreach(x => println(s"key: ${x._1}, value: ${x._2}"))
+
+    numbers.values.foreach(x => print(x + " ")) // PRINTS: 3.0 4.0 3.5
+    println
+    numbers.keys.foreach(print) // PRINTS: ThreePointZeroFourPointZeroThreePointFive
+    println
+    numbers.keys.foreach(x => print(x + " ")) // PRINTS: ThreePointZero FourPointZero ThreePointFive
+    println
+
+    // A for() loop can contain one or multiple if() statements to "filter" its results, as shown here...
+    for (x <- list1 if (x > 1); if (x < 3) ) { println("x = " + x) } // PRINTS: x = 2
+
+
+    // *****************************************************************************************
+    // USING FOR LOOPS WITH THE YIELD KEYWORD.
+
+    // NOTE: The variable used by the yield statement must be the same variable the
+    //       for() loop uses to obtain a value.  In the following line of code
+    //       that variable is x.
+    var result1:List[Int] = for { x <- list1 if (x > 1)} yield x
+    println(result1) // PRINTS: List(2, 3)
+
+    // NOTE: The variable(s) used by the yield statement must be the same variable(s)
+    //       the for() loop uses to obtain value(s).  In the following line of code
+    //       those variables are: a, b, c
+    result1 = for { a <- list1; b <- list2; c <- list3 } yield sum(a,b,c)
+    // The following println(result1) prints this:
+    // List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
+    // Those Int values are THE SUM of the single-digit Int values printed above.  For example:
+    // 147-148-149-157-158-... = 1+4+7=12, 1+4+8=13, 1+4+9=14, 1+5+7=13, 1+5+8=14,...
+    println(result1)
+
+    // The following line of code is equivalent to the for() loop immediately above.
+    // In fact, when the above for() loop is executed, Scala literally converts
+    // that for() loop into the following code when it's executed.
+    result1 = list1.flatMap(a => list2.flatMap(b => list3.map(c => sum(a,b,c))))
+    println(result1) // PRINTS: List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
+
+
+    // Using a for() loop on a Map collection...
+    val nameMap = Map("firstName" -> "Joe", "lastName" -> "Blow")
+    val poop = for ((k,v) <- nameMap) yield { s"key = $k, value = $v" }
+    println(poop) // PRINTS: List(key = firstName, value = Joe, key = lastName, value = Blow)
+
+
+    val nums:Seq[Int]     = Seq(1,2,3)
+    val letters:Seq[Char] = Seq('a', 'b', 'c')
+    val result2:Seq[(Int, Char)] = for { n <- nums; c <- letters } yield (n, c)
+    println(result2) // PRINTS: List((1,a), (1,b), (1,c), (2,a), (2,b), (2,c), (3,a), (3,b), (3,c))
+
+
+    val names:Seq[String]            = Seq("joe", "jack", "jennifer")
+    val namesCapitalized:Seq[String] = for (x <- names) yield x.capitalize
+    println(namesCapitalized) // PRINTS: List(Joe, Jack, Jennifer)
+  }
+
+  def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
+}
+================================================================================
+
+object Demo
+{
+  def main(args:Array[String])
+  {
+    // The following for() loop exists only to help understand the
+    // for() loop in the multiples() function below.  It prints every
+    // permutation from (0,0) to (0,41)
+    //                  (1,1) to (1,41)
+    //                  ...
+    //                  (40,40) to (40,41)
+    //                  (41,41)
+    // So the for() loop in the matches() function iterates through the same permutations.
+    for (a <- 0 until 42; b <- a until 42) { print(a,b) }
+    println("\n=======================")
+
+    // NOTICE:  1) The following line of code calls the foreach() function.
+    //          2) The following line of code generates results identical
+    //             to the code further below using the case statements.
+    multiples(42,40).foreach(print) // PRINTS: (1,40)(2,20)(4,10)(5,8)
+    println("\n=======================")
+    multiples(42,40) foreach
+    {
+      case(a,b) => print("(" + a + ", " + b + ")") // PRINTS: (1, 40)(2, 20)(4, 10)(5, 8)
+      case _    => println("NOTHING!")
+    }
+  }
+
+  /**
+    * This function returns a tuple of numbers that when multiplied
+    * equals the value of y passed to this function.
+    */
+  def multiples(x:Int, y:Int) =
+  {
+    // NOTE: Tuple2() is a Scala API function--replacing it with (a,b) also works.
+    for (a <- 0 until x; b <- a until x if a * b == y) yield Tuple2(a,b);
+  }
+}
+===================================================================================================
+object Demo
+{
+  def main(args:Array[String])
+  {
+    // The following 2 for() loops generate identical results.
+    for (i <- Iterator.range(0, 15);  j <- Iterator.range(i, 15)  if i*j == 12)
+    {
+      print("(" + i + "," + j + ")") // PRINTS: (1,12)(2,6)(3,4)
+    }
+    println("\n================")
+    val result = for (i <- Iterator.range(0, 15);  j <- Iterator.range(i, 15)  if i*j == 12) yield (i,j)
+    result.foreach(print) // PRINTS: (1,12)(2,6)(3,4)
+  }
+}
+===================================================================================================
