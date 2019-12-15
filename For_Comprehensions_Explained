@@ -143,5 +143,73 @@ object Demo
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
   }
 }
-================================================================================
 
+================================================================================
+The following code sample is a more-well defined version of the code
+immediately above.
+
+import scala.collection.mutable.ArrayBuffer
+object Demo
+{
+  case class Person(firstName:String, lastName:String)
+
+  case class Sequence[A](private val initialElems: A*)
+  {
+    private val elems = ArrayBuffer[A]()
+    elems ++= initialElems
+
+    def flatMap[B](func: A => Sequence[B]):Sequence[B] =
+    {
+      val mapRes:Sequence[Sequence[B]] = map(func)
+      flattenLike(mapRes)
+    }
+
+    private def flattenLike[B](seqOfSeq:Sequence[Sequence[B]]):Sequence[B] =
+    {
+      var xs:ArrayBuffer[B] = ArrayBuffer[B]()
+      for (listB:Sequence[B] <- seqOfSeq)
+      {
+        for (elem <- listB)
+        {
+          xs += elem
+        }
+      }
+      Sequence(xs: _*)
+    }
+
+    def withFilter(func: A => Boolean) =
+    {
+      val tmpArrayBuffer = elems.filter(func)
+      Sequence(tmpArrayBuffer: _*)
+    }
+
+    def map[B](func: A=>B):Sequence[B] =
+    {
+      val arrayBuf:ArrayBuffer[B] = elems.map(func)
+      Sequence(arrayBuf: _*)
+    }
+
+    def foreach(block: A => Unit):Unit =
+    {
+      elems.foreach(block)
+    }
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    // The following code REQUIRES the flatMap() method to be defined by the above case class named Sequence.
+    val myFriends   = Sequence(Person("Jack", "Daniels"),    Person("Johnny", "Walker"), Person("Jim", "Beam"))
+    val joesFriends = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
+
+    // For a class to work with MULTIPLE for() loop generators (as shown here), that class
+    // MUST implement a flatMap() method--as in the above-defined Sequence class.
+    val mutualFriends = for
+      {
+        myFriend   <- myFriends   // This is a GENERATOR.
+        joesFriend <- joesFriends // This is another GENERATOR.
+        if (myFriend.firstName == joesFriend.firstName &&
+            myFriend.lastName  == joesFriend.lastName)
+      } yield myFriend
+    println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
+  }
+}
