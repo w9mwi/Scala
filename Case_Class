@@ -331,3 +331,39 @@ object Demo
     }
   }
 }
+======================================================================================
+The following code demonstrates the case class's copy() method on classes that
+contain other classes.
+
+object Demo
+{
+  case class Name(firstName:String, middleName:String, lastName:String)
+  case class CreditCard(name:Name, number:String, month:Int, year:Int, cvv:String)
+  case class User(id:Int, name:Name, billingInfo:BillingInfo, phone:String, email:String)
+  case class BillingInfo(creditCards:Seq[CreditCard])
+
+  def main(args: Array[String]) =
+  {
+    val jacksName:Name          = Name("Jack", "Drunk", "Daniels")
+    val creditCards:CreditCard  = CreditCard(jacksName, "3333-5555-7777-9999", 6, 2024, "987")
+    val billingInfo:BillingInfo = BillingInfo(Seq(creditCards))
+    var jack_1:User             = User(1, jacksName, billingInfo, "608-456-7890", "jack@daniels.com")
+    println(jack_1)
+
+    // Change/Update the User.phone field of jack_1...
+    jack_1 = jack_1.copy(phone="608-987-3456")
+    println(jack_1)
+
+    // Change/Update the Name.middleName field of jack_1...
+    var newName:Name = jack_1.name.copy(middleName = "Boozer")
+    jack_1 = jack_1.copy(name = newName)
+    println(jack_1)
+
+    // Change/Update the CreditCard.number field of jack_1...
+    // NOTE: The BillingInfo class can contain MULTIPLE credit cards.  Therefore, the following
+    //       line of code must contain the Seq index referencing the desired credit card.
+    var newCreditCard:CreditCard = jack_1.billingInfo.creditCards(0).copy(number = "8888-4444-9999-3333")
+    jack_1 = jack_1.copy(billingInfo = BillingInfo(Seq(newCreditCard)))
+    println(jack_1)
+  }
+}
