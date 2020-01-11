@@ -56,11 +56,10 @@ import scala.collection.mutable.ArrayBuffer
 object Demo
 {
   case class Person(firstName:String, lastName:String)
-
   case class Sequence[A](private val initialElems: A*)
   {
-    private val elems = ArrayBuffer[A]() // NOTE: ArrayBuffer is a MUTABLE type so its contents can change.
-    elems ++= initialElems
+    private val elems = ArrayBuffer[A]()
+    elems ++= initialElems // NOTE: ArrayBuffer is a MUTABLE type so the contents of elems can change.
 
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
     {
