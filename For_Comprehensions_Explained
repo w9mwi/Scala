@@ -56,106 +56,10 @@ import scala.collection.mutable.ArrayBuffer
 object Demo
 {
   case class Person(firstName:String, lastName:String)
-  case class Sequence[A](initialElems: A*) // NOTE: The A* designates a variable number of args of data type A.
-  {
-    // NOTE: Every line of code within a class (i.e., this Sequence class) that is
-    //       NOT a method gets executed when the class's constructor is called.
-    //       Therefore, the following two lines of code get executed when this
-    //       Sequence class's constructor is called.  You'd think that because
-    //       elems is a val type, the second line below wouldn't compile because
-    //       it's the second time elems is being assigned a value.  But that's not
-    //       what's happening.  The first line below is only declaring that elems
-    //       is an ArrayBuffer of type A.  The only time elems actually gets
-    //       assigned a value is in the second line below.
-    private val elems = ArrayBuffer[A]()
-    elems ++= initialElems // This line of code is equivalent to this:  for { e <- initialElems } elems += e
-
-    def foreach(block: A => Unit):Unit = { elems.foreach(block) }
-    def map[B](func: A => B):Sequence[B] =
-    {
-      val myMap:ArrayBuffer[B] = elems.map(func)
-      new Sequence(myMap: _*) // NOTE: _* makes Sequence() work with a variable number of arguments.
-    }
-    def withFilter(p: A => Boolean):Sequence[A] =
-    {
-      val tempArrayBuffer:ArrayBuffer[A] = elems.filter(p)
-      Sequence(tempArrayBuffer: _*) // NOTE: _* makes Sequence() work with a variable number of arguments.
-    }
-    def flatMap[B](func: A => Sequence[B]): Sequence[B] =
-    {
-      val mapResult:Sequence[Sequence[B]] = map(func)
-      flatten(mapResult) // This flatten() method is defined immediately below.
-    }
-    def flatten[B](seqOfSeq:Sequence[Sequence[B]]):Sequence[B] =
-    {
-      var arrayBuf:ArrayBuffer[B] = ArrayBuffer[B]()
-      for (listB <- seqOfSeq)
-      {
-        for (e <- listB)
-        {
-          arrayBuf += e
-        }
-      }
-      Sequence(arrayBuf: _*) // This converts the type ArrayBuffer[B] to type Sequence[B]
-    }
-  }
-
-  def main(args:Array[String]): Unit =
-  {
-    // NOTE: The Sequence class can work with different types (i.e., String, Int, Person etc.) because
-    //       it's defined as a parametric class, where the data type is determined at run time.
-    val strings:Sequence[String] = Sequence("one", "two", "three")
-    val numbers:Sequence[Int]    = Sequence(1, 2, 3, 4, 5)
-    val names:Sequence[Person]   = Sequence(Person("Joe", "Blow"), Person("Jack", "Smack"), Person("Frank", "Crank"))
-
-    // NOTE: The following 3 for() loops would cause compile errors if the foreach()
-    //       and map() methods weren't defined in the above Sequence class.  The
-    //       if() statement embedded within the 2nd for() loop below would cause
-    //       a compile error if the withFilter() method wasn't defined in the
-    //       above Sequence class.  To summarize...
-    //       1) The generators shown below (i.e., "for (str < strings)") work cuz Sequence.foreach() is defined above.
-    //       2) The below yield statements work because Sequence.map() is defined above.
-    //       3) The below "if i > 2" statement works because Sequence.withFilter() is defined above.
-    val strResult:Sequence[String]    = for (str <- strings)           yield str
-    val intResult:Sequence[Int]       = for { i <- numbers; if i > 2 } yield i*2
-    val personResult:Sequence[Person] = for (name <- names)            yield name
-
-    for (str <- strResult) print(str + " ") // PRINTS: one two three
-    println
-    for (int <- intResult) print(int + " ") // PRINTS: 6 8 10
-    println
-    for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
-    println
-
-    // The following code REQUIRES the flatMap() method to be defined by the above case class named Sequence.
-    val myFriends   = Sequence(Person("Jack", "Daniels"),    Person("Johnny", "Walker"), Person("Jim", "Beam"))
-    val joesFriends = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
-
-    // For a class to work with MULTIPLE for() loop generators (as shown here), that class
-    // MUST implement a flatMap() method--as in the above-defined Sequence class.
-    val mutualFriends = for
-                        {
-                          myFriend   <- myFriends   // This is a GENERATOR.
-                          joesFriend <- joesFriends // This is another GENERATOR.
-                          if (myFriend.firstName == joesFriend.firstName &&
-                              myFriend.lastName  == joesFriend.lastName)
-                        } yield myFriend
-    println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
-  }
-}
-
-================================================================================
-The following code sample is a more-well defined version of the code
-immediately above.
-
-import scala.collection.mutable.ArrayBuffer
-object Demo
-{
-  case class Person(firstName:String, lastName:String)
 
   case class Sequence[A](private val initialElems: A*)
   {
-    private val elems = ArrayBuffer[A]()
+    private val elems = ArrayBuffer[A]() // NOTE: ArrayBuffer is a MUTABLE type so its contents can change.
     elems ++= initialElems
 
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
@@ -169,10 +73,7 @@ object Demo
       var xs:ArrayBuffer[B] = ArrayBuffer[B]()
       for (listB:Sequence[B] <- seqOfSeq)
       {
-        for (elem <- listB)
-        {
-          xs += elem
-        }
+        for (elem <- listB) { xs += elem }
       }
       Sequence(xs: _*)
     }
@@ -189,27 +90,24 @@ object Demo
       Sequence(arrayBuf: _*)
     }
 
-    def foreach(block: A => Unit):Unit =
-    {
-      elems.foreach(block)
-    }
+    def foreach(block: A => Unit):Unit = { elems.foreach(block) }
   }
 
   def main(args:Array[String]): Unit =
   {
     // The following code REQUIRES the flatMap() method to be defined by the above case class named Sequence.
-    val myFriends   = Sequence(Person("Jack", "Daniels"),    Person("Johnny", "Walker"), Person("Jim", "Beam"))
+    val myFriends   = Sequence(Person("Jack",   "Daniels"),  Person("Johnny", "Walker"), Person("Jim", "Beam"))
     val joesFriends = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
 
     // For a class to work with MULTIPLE for() loop generators (as shown here), that class
     // MUST implement a flatMap() method--as in the above-defined Sequence class.
     val mutualFriends = for
-      {
-        myFriend   <- myFriends   // This is a GENERATOR.
-        joesFriend <- joesFriends // This is another GENERATOR.
-        if (myFriend.firstName == joesFriend.firstName &&
-            myFriend.lastName  == joesFriend.lastName)
-      } yield myFriend
+                        {
+                          myFriend   <- myFriends   // This is a GENERATOR.
+                          joesFriend <- joesFriends // This is another GENERATOR.
+                          if (myFriend.firstName == joesFriend.firstName &&
+                              myFriend.lastName  == joesFriend.lastName)
+                        } yield myFriend
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
   }
 }
