@@ -14,7 +14,7 @@ Here is an example:
 for
 {
   p <- persons           // Generator  (Iterates over all elements contained in persons.)
-  n = p.name             // Definition
+  n = p.name             // Definition  (Equivalent to: val n = p.name)
   if (n startsWith "To") // Filter
 } yield x                // The for comprehension result is stored in x.
 
