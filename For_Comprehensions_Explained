@@ -9,13 +9,16 @@ A Scala for comprehension can contain the following 3 expressions:
 
 2) Definition.  A definition binds the pattern on the left to the value of the expression on the right.
 3) Filter.      A filter drops all elements from the iteration for which the expression returns false.
+                For example.  For this filter...
+                if (name startsWith "To")
+                ...any value for name that does NOT start with the string "To" is dropped from the result.
 
 Here is an example:
 for
 {
   p <- persons           // Generator  (Iterates over all elements contained in persons.)
-  n = p.name             // Definition  (Equivalent to: val n = p.name)
-  if (n startsWith "To") // Filter
+  n = p.name             // Definition (Equivalent to: val n = p.name)
+  if (n startsWith "To") // Filter     (Any value n that does NOT start with the String "To" is dropped.)
 } yield x                // The for comprehension result is stored in x.
 
 A generator has this general form:   pattern <- expression
