@@ -25,11 +25,17 @@ A generator has this general form:   pattern <- expression
 A definition has this general form:  pattern = expression
 A filter has this general form:      if (expression)
 
-The Scala compiler translates for comprehensions into a series of method calls
-that may include map(), flatMap(), foreach(), and withFilter().  Just as for
-comprehensions are compiled into those 4 functions, the opposite is also true.
-If you write a class that implements those functions, that class can be used
-inside a for comprehension.
+The Scala compiler translates for comprehensions into
+a series of method calls that may include...
+
+map()
+flatMap()
+foreach()
+withFilter()
+
+Just as for comprehensions are compiled into those 4 functions, the
+opposite is also true.  If you write a class that implements these
+4 functions, that class can be used inside a for comprehension.
 
 HOW TO WRITE A DATA TYPE THAT CAN BE USED IN A FOR COMPREHENSION
 ================================================================
