@@ -60,15 +60,19 @@ abstract class MyCustomClass[A]
   def withFilter(x: A => Boolean):             MyCustomClass[A]
   def foreach((x: A => Unit):                  Unit
 }
-The following code sample implements a Sequence class that has implemented
-these four (4) methods.
-
 ================================================================================
+This code sample implements a Sequence class that has implemented the
+four (4) methods mentioned immediately above so this Sequence class
+will be able to work with for comprehensions.  This Sequence class will
+work with generic types, so its defined below as Sequence[A], where
+A is the generic type.
+
+
 import scala.collection.mutable.ArrayBuffer
 object Demo
 {
   case class Person(firstName:String, lastName:String)
-  case class Sequence[A](private val initialElems: A*)
+  case class Sequence[A](private val initialElems: A*) // A* designates a variable number of args of type A.
   {
     private val elems = ArrayBuffer[A]()
     elems ++= initialElems // NOTE: ArrayBuffer is a MUTABLE type so the contents of elems can change.
