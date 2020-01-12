@@ -61,12 +61,10 @@ abstract class MyCustomClass[A]
   def foreach((x: A => Unit):                  Unit
 }
 ================================================================================
-This code sample implements a Sequence class that has implemented the
-four (4) methods mentioned immediately above so this Sequence class
-will be able to work with for comprehensions.  This Sequence class will
-work with generic types, so its defined below as Sequence[A], where
-A is the generic type.
-
+This code sample defines a case class named Sequence, which implements
+the four (4) methods mentioned immediately above, so it will work with
+for comprehensions.  This Sequence class will work with generic types,
+so it's defined below as Sequence[A], where A is the generic type.
 
 import scala.collection.mutable.ArrayBuffer
 object Demo
