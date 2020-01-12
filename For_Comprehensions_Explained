@@ -50,8 +50,8 @@ HOW TO WRITE A DATA TYPE THAT CAN BE USED IN A FOR COMPREHENSION
    for expressions containing an if() statement (aka, a filter).
 
 If you want your custom class to work well with a for expression,
-it should generally implement the following methods having the
-signatures shown below.
+it should generally implement the 4 methods shown in the following
+MyCustomClass, with the method signatures shown below.
 
 abstract class MyCustomClass[A]
 {
