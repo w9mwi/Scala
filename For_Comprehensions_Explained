@@ -66,13 +66,15 @@ the four (4) methods mentioned immediately above, so it will work with
 for comprehensions.  This Sequence class will work with generic types,
 so it's defined below as Sequence[A], where A is the generic type.
 
+import scala.collection.JavaConverters._
 import scala.collection.mutable.ArrayBuffer
 object Demo
 {
   case class Person(firstName:String, lastName:String)
   case class Sequence[A](private val initialElems: A*) // A* designates a variable number of args of type A.
   {
-    private val elems = ArrayBuffer[A]()
+    private val elems:ArrayBuffer[A] = ArrayBuffer[A]()
+    // NOTE: The ArrayBuffer ++= operator (shown below) appends multiple elements to the ArrayBuffer.
     elems ++= initialElems // NOTE: ArrayBuffer is a MUTABLE type so the contents of elems can change.
 
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
@@ -88,18 +90,30 @@ object Demo
       {
         for (elem <- listB) { xs += elem }
       }
+      // NOTE: The below _* is known as "Type Ascription".  It's most often used
+      //       for invoking a varargs method with a single Seq parameter.
+      //       Ascription is basically just an up-cast performed at compile-time
+      //       for the sake of the type checker.
       Sequence(xs: _*)
     }
 
-    def withFilter(func: A => Boolean) =
+    def withFilter(func: A => Boolean):Sequence[A] =
     {
-      val tmpArrayBuffer = elems.filter(func)
+      val tmpArrayBuffer:ArrayBuffer[A] = elems.filter(func)
+      // NOTE: The below _* is known as "Type Ascription".  It's most often used
+      //       for invoking a varargs method with a single Seq parameter.
+      //       Ascription is basically just an up-cast performed at compile-time
+      //       for the sake of the type checker.
       Sequence(tmpArrayBuffer: _*)
     }
 
     def map[B](func: A=>B):Sequence[B] =
     {
       val arrayBuf:ArrayBuffer[B] = elems.map(func)
+      // NOTE: The below _* is known as "Type Ascription".  It's most often used
+      //       for invoking a varargs method with a single Seq parameter.
+      //       Ascription is basically just an up-cast performed at compile-time
+      //       for the sake of the type checker.
       Sequence(arrayBuf: _*)
     }
 
@@ -108,19 +122,20 @@ object Demo
 
   def main(args:Array[String]): Unit =
   {
+    val strings:Sequence[Int] = Sequence(1,2,3)
+
     // The following code REQUIRES the flatMap() method to be defined by the above case class named Sequence.
-    val myFriends   = Sequence(Person("Jack",   "Daniels"),  Person("Johnny", "Walker"), Person("Jim", "Beam"))
-    val joesFriends = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
+    val myFriends:Sequence[Person]   = Sequence(Person("Jack",   "Daniels"),  Person("Johnny", "Walker"), Person("Jim", "Beam"))
+    val joesFriends:Sequence[Person] = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
 
     // For a class to work with MULTIPLE for() loop generators (as shown here), that class
     // MUST implement a flatMap() method--as in the above-defined Sequence class.
-    val mutualFriends = for
-                        {
-                          myFriend   <- myFriends   // This is a GENERATOR.
-                          joesFriend <- joesFriends // This is another GENERATOR.
-                          if (myFriend.firstName == joesFriend.firstName &&
-                              myFriend.lastName  == joesFriend.lastName)
-                        } yield myFriend
+    val mutualFriends:Sequence[Person] = for
+                                         {
+                                           myFriend   <- myFriends   // This is a GENERATOR.
+                                           joesFriend <- joesFriends // This is another GENERATOR.
+                                           if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
+                                         } yield myFriend
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
   }
 }
