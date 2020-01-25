@@ -122,6 +122,8 @@ object Demo
 
   def main(args:Array[String]): Unit =
   {
+    // When Sequence(1,2,3) is executed on the following line, the Sequence constructor gets
+    // called, where its initialElems variable-number-of-arguments is set to 1, 2, 3.
     val strings:Sequence[Int] = Sequence(1,2,3)
 
     // The following code REQUIRES the flatMap() method to be defined by the above case class named Sequence.
