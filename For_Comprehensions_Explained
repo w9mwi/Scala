@@ -75,6 +75,7 @@ object Demo
   {
     private val elems:ArrayBuffer[A] = ArrayBuffer[A]()
     // NOTE: The ArrayBuffer ++= operator (shown below) appends multiple elements to the ArrayBuffer.
+    //       The ++= operator invokes the Scala for() loop like this:  for { x <- initialElems } elems += x
     elems ++= initialElems // NOTE: ArrayBuffer is a MUTABLE type so the contents of elems can change.
 
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
