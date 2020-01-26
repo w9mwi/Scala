@@ -48,15 +48,15 @@ with for expressions.  Classes defined by Scala that work with for expressions
 also implement these same 4 functions.
 
 If you want your class to work well with a for expression, it
-should generally implement the 4 methods shown in the following
-MyCustomClass, with the method signatures shown below.
+should generally implement the 4 functions shown in the following
+MyCustomClass, with the corresponding function signatures.
 
 abstract class MyCustomClass[A]
 {
-  def foreach((x: A => Unit):                  Unit
+  def foreach((func: A => Unit):               Unit
   def map[B](func: A => B):                    MyCustomClass[B]
   def flatMap[B](func: A => MyCustomClass[B]): MyCustomClass[B]
-  def withFilter(x: A => Boolean):             MyCustomClass[A]
+  def withFilter(func: A => Boolean):          MyCustomClass[A]
 }
 ================================================================================
 The code sample shown below defines a case class named Sequence, which
