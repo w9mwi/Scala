@@ -19,7 +19,7 @@ for
   person <- persons         // Generator  (Iterates over all elements contained in persons.)
   name = p.name             // Definition (Equivalent to: val name = p.name)
   if (name startsWith "To") // Filter     (The yielded result contains ONLY persons whose name begins with "To".)
-} yield x                   // The for comprehension result is stored in x.
+} yield x                   // The for expression's result is stored in x.
 
 A generator has this general form:   pattern <- expression
 A definition has this general form:  pattern = expression
@@ -28,29 +28,24 @@ A filter has this general form:      if (expression)
 The Scala compiler translates for comprehensions into
 a series of method calls that may include...
 
-map()
-flatMap()
-foreach()
-withFilter()
+foreach()    - Any class that implements a for expression REQUIRES the foreach() method be implemented!
+               That's because every for expression requires a generator, and the foreach() method
+               is required to implement a generator.  This example shows a for expression using
+               a single generator:  for (x <- intList) println(x)  // Uses a single generator.
+flatMap()    - This method enables a class to work with a for expression that implements
+               Scala's "yield" keyword, when that for expression contains MULTIPLE generators.
+               If a for expression contains ONLY ONE generator, the class needs to implement
+               only the map() function--the flatMap() function won't be called, so it's optional.
+map()        - This method enables a class to work with a for expression that implements
+               Scala's "yield" keyword.  However, the "yield" keyword will work with
+               ONLY ONE generator in the for expression.  If you want a class to work
+               in a for expression containing MULTIPLE generators, that class must implement
+               BOTH the map() and flatMap() functions.
+withFilter() - This method enables a class to work with a filter.
 
-Just as for comprehensions are compiled into those 4 functions, the
-opposite is also true.  If you write a class that implements these
-4 functions, that class can be used inside a for comprehension.
-
-HOW TO WRITE A DATA TYPE THAT CAN BE USED IN A FOR COMPREHENSION
-================================================================
-1) If a class defines a foreach() method, it allows for loops
-   (with single and multiple generators) like this:
-   for (x <- intList) println(x)
-   If a for expression implements the Scala "yield" keyword,
-   the class must also define a map() method!
-2) If a class defines ONLY map(), it can be used in for expressions
-   consisting of a SINGLE generator.  A for expression that implements
-   the Scala "yield" keyword must also define a map() method.
-3) If a class defines BOTH flatMap() and map(), it allows
-   for expressions using multiple generators.
-4) If a class defines withFilter(), it allows for expressions
-   containing an if() statement (aka, a filter).
+The 4 functions listed imediately above enable a user-defined class to work
+with for expressions.  Classes defined by Scala that work with for expressions
+also implement these same 4 functions.
 
 If you want your class to work well with a for expression, it
 should generally implement the 4 methods shown in the following
@@ -58,10 +53,10 @@ MyCustomClass, with the method signatures shown below.
 
 abstract class MyCustomClass[A]
 {
+  def foreach((x: A => Unit):                  Unit
   def map[B](func: A => B):                    MyCustomClass[B]
   def flatMap[B](func: A => MyCustomClass[B]): MyCustomClass[B]
   def withFilter(x: A => Boolean):             MyCustomClass[A]
-  def foreach((x: A => Unit):                  Unit
 }
 ================================================================================
 The code sample shown below defines a case class named Sequence, which
