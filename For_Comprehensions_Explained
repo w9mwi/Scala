@@ -39,18 +39,21 @@ opposite is also true.  If you write a class that implements these
 
 HOW TO WRITE A DATA TYPE THAT CAN BE USED IN A FOR COMPREHENSION
 ================================================================
-1) If a custom data type defines a foreach() method, it allows
-   for loops (with single and multiple generators) like this:
+1) If a class defines a foreach() method, it allows for loops
+   (with single and multiple generators) like this:
    for (x <- intList) println(x)
-2) If a custom data type defines ONLY map(), it can be used in
-   for expressions consisting of a SINGLE generator.
-3) If a custom data type defines BOTH flatMap() and map(),
-   it allows for expressions using multiple generators.
-4) If a custom data type defines withFilter(), it allows
-   for expressions containing an if() statement (aka, a filter).
+   If a for expression implements the Scala "yield" keyword,
+   the class must also define a map() method!
+2) If a class defines ONLY map(), it can be used in for expressions
+   consisting of a SINGLE generator.  A for expression that implements
+   the Scala "yield" keyword must also define a map() method.
+3) If a class defines BOTH flatMap() and map(), it allows
+   for expressions using multiple generators.
+4) If a class defines withFilter(), it allows for expressions
+   containing an if() statement (aka, a filter).
 
-If you want your custom class to work well with a for expression,
-it should generally implement the 4 methods shown in the following
+If you want your class to work well with a for expression, it
+should generally implement the 4 methods shown in the following
 MyCustomClass, with the method signatures shown below.
 
 abstract class MyCustomClass[A]
@@ -61,12 +64,11 @@ abstract class MyCustomClass[A]
   def foreach((x: A => Unit):                  Unit
 }
 ================================================================================
-This code sample defines a case class named Sequence, which implements
-the four (4) methods mentioned immediately above, so it will work with
-for comprehensions.  This Sequence class will work with generic types,
-so it's defined below as Sequence[A], where A is the generic type.
+The code sample shown below defines a case class named Sequence, which
+implements the four (4) methods mentioned immediately above, so it will
+work with for comprehensions.  This Sequence class will work with generic
+types, so it's defined below as Sequence[A], where A is the generic type.
 
-import scala.collection.JavaConverters._
 import scala.collection.mutable.ArrayBuffer
 object Demo
 {
