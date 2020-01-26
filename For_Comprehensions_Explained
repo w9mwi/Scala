@@ -1,18 +1,18 @@
 ================================================================================
 A Scala for comprehension can contain the following 3 expressions:
 1) Generator.  Every for expression begins with a generator.  A for expression
-               can contain MULTIPLE multiple generators.  The left side of a
-               generator can also be a pattern, as shown in the example below,
-               where getAnimals() is a function that rerurns a 3-element tuple,
-               and getTheSquirrel() is the defined function which yields the squirrel...
+               can contain MULTIPLE generators.  The left side of a generator
+               can also be a pattern, as shown in the example below, where
+               getAnimals() is a function that rerurns a 3-element tuple, and
+               getTheSquirrel() is the defined function which yields the squirrel...
 
                def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
 
 2) Definition.  A definition binds the pattern on the left to the value of the expression on the right.
 3) Filter.      A filter drops all elements from the iteration for which the expression returns false.
-                For example, in the for expression shown immediately below
-                if (name startsWith "To")
-                ...any value for name that does NOT start with the string "To" is dropped from the result.
+                For example, in the for expression shown immediately below, any person whose
+                name does NOT start with the string "To" is dropped from the result
+                based on this if() statement.  -->  if (name startsWith "To")
 
 for
 {
