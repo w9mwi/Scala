@@ -1,25 +1,25 @@
 ================================================================================
 A Scala for comprehension can contain the following 3 expressions:
-1) Generator.  Every for comprehension begins with a generator.  for compehensions
-               can have multiple generators.  The left side of a generator can
-               also be a pattern, such as the example on the following line.  Where
-               getAnimals() is a function that rerurns a 3-element tuple, and
-               getTheSquirrel() is the defined function which yields the squirrel...
+1) Generator.  Every for expression begins with a generator.  A for expression
+               can contain MULTIPLE multiple generators.  The left side of a
+               generator can also be a pattern, as shown in the example below,
+               where getAnimals() is a function that rerurns a 3-element tuple,
+               and getTheSquirrel() is the defined function which yields the squirrel...
+
                def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
 
 2) Definition.  A definition binds the pattern on the left to the value of the expression on the right.
 3) Filter.      A filter drops all elements from the iteration for which the expression returns false.
-                For example.  For this filter...
+                For example, in the for expression shown immediately below
                 if (name startsWith "To")
                 ...any value for name that does NOT start with the string "To" is dropped from the result.
 
-Here is an example:
 for
 {
-  p <- persons           // Generator  (Iterates over all elements contained in persons.)
-  n = p.name             // Definition (Equivalent to: val n = p.name)
-  if (n startsWith "To") // Filter     (Any value n that does NOT start with the String "To" is dropped.)
-} yield x                // The for comprehension result is stored in x.
+  person <- persons         // Generator  (Iterates over all elements contained in persons.)
+  name = p.name             // Definition (Equivalent to: val name = p.name)
+  if (name startsWith "To") // Filter     (The yielded result contains ONLY persons whose name begins with "To".)
+} yield x                   // The for comprehension result is stored in x.
 
 A generator has this general form:   pattern <- expression
 A definition has this general form:  pattern = expression
