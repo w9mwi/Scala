@@ -1,9 +1,10 @@
 
-Assume we have a function that takes an argument that is a function.  That function
-argument (which is also a function) has a name, which gets passed some type, and it
-returns some type.  For example, the following function takes an argument (that is
-also a function) having the name processNumber, which takes an Int argument, and
-returns an Int.
+Assume we have a function that takes an argument that's a function.  That function
+argument (which is a function) has a name, which gets passed some type, and it
+returns some type.  Here's an example...
+
+The myFunc() function defined below gets passed an argument (which is a function)
+having the name processNumber, which takes an Int argument, and returns an Int.
 
 def myFunc(processNumber:(Int => Int)):Int = { Some code that returns an Int. }
 
