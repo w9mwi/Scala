@@ -137,5 +137,6 @@ object Demo
                                            if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
                                          } yield myFriend
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
+    mutualFriends.foreach(println)              // PRINTS: Person(Jim,Beam)
   }
 }
