@@ -567,8 +567,28 @@ ___ flatMap - EXAMPLE:
           //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
           //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
-___ flatten - Read the following web page for explanations and examples of how to use the flatten method:
-              https://alvinalexander.com/scala/how-to-flatten-list-lists-in-scala-with-flatten-method
+___ flatten - The following code begins with a List containing a List of List[String].
+              flatten() is run on that value, generating a new result, on which flatten() is run.
+
+              val tom:List[List[List[String]]] = List(List(List("ABC"), List("DEF"), List("GHI")),
+                                                      List(List("RST"), List("UVW"), List("XYZ")))
+              tom.foreach(println)    // PRINTS: List(List(ABC), List(DEF), List(GHI))
+                                      //         List(List(RST), List(UVW), List(XYZ))
+              val tom2 = tom.flatten
+              tom2.foreach(println)   // PRINTS: List(ABC)
+                                      //         List(DEF)
+                                      //         List(GHI)
+                                      //         List(RST)
+                                      //         List(UVW)
+                                      //         List(XYZ)
+              val tom3 = tom2.flatten
+              tom3.foreach(println)   // PRINTS: ABC
+                                      //         DEF
+                                      //         GHI
+                                      //         RST
+                                      //         UVW
+                                      //         XYZ
+
 ___ foldLeft - See the foldRight example below.
 ___ foldRight - Both foldLeft and foldRight are CURRIED FUNCTIONS.  A CURRIED FUNCTION is a function that...
                 1) Takes one set of arguments
