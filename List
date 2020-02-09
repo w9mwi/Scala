@@ -544,9 +544,12 @@ ___ filter - NOTE: The difference between the filter() and map() functions are a
              result_2 = nameList.filter(x => x.startsWith("R"))
              result_2.foreach(println) // PRINTS: RMN Randy_Reject
 ___ filterNot - The opposite of the filter method.
-___ flatMap - EXAMPLE:
-              The flatMap() method called below is essentially a combination of the
+___ flatMap - The flatMap() method called below is essentially a combination of the
               map() method run first, followed by the flatten() method run second.
+              The flatMap() method always returns a List data type because the result of map()
+              getting executed on every member of the List means that every element of the
+              List has a result.  Therefore, the result consists of multiple elements which
+              get stored in a List.  EXAMPLES of using the flatMap() method...
 
               val fish:List[String]               = List[String]("alewife", "bass", "perch", "northern", "walleye")
               val waterBirds:List[String]         = List[String]("eagle", "duck", "goose")
@@ -567,8 +570,10 @@ ___ flatMap - EXAMPLE:
           //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
           //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
-___ flatten - In the code sample below, notice how flatten() returns a data type
-              that is DIFFERENT than the data type it's executed on.
+___ flatten - The flatten() method always results in a "flattened List", which means the returned
+              result must also be a List.  When a List cannot be further flattened, the flatten()
+              method will fail to execute.  In the code sample below, notice how flatten() returns
+              a List data type that is DIFFERENT than the List data type it's executed on.
 
               val tom1:List[List[List[String]]] = List(List(List("ABC"), List("DEF"), List("GHI")),
                                                        List(List("RST"), List("UVW"), List("XYZ")))
