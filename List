@@ -567,21 +567,22 @@ ___ flatMap - EXAMPLE:
           //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
           //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
-___ flatten - The following code begins with a List containing a List of List[String].
-              flatten() is run on that value, generating a new result, on which flatten() is run.
+___ flatten - The "tom" value below is a List containing a List of List[String].  flatten() is run
+              on that value, generating a new result "tom2" (a List[List[String]]).  flatten()
+              is then run on "tom2", generating a new result "tom3" (a [List[String])...
 
               val tom:List[List[List[String]]] = List(List(List("ABC"), List("DEF"), List("GHI")),
                                                       List(List("RST"), List("UVW"), List("XYZ")))
               tom.foreach(println)    // PRINTS: List(List(ABC), List(DEF), List(GHI))
                                       //         List(List(RST), List(UVW), List(XYZ))
-              val tom2 = tom.flatten
+              val tom2:tom2:List[List[String]] = tom.flatten
               tom2.foreach(println)   // PRINTS: List(ABC)
                                       //         List(DEF)
                                       //         List(GHI)
                                       //         List(RST)
                                       //         List(UVW)
                                       //         List(XYZ)
-              val tom3 = tom2.flatten
+              val tom3:List[String] = tom2.flatten
               tom3.foreach(println)   // PRINTS: ABC
                                       //         DEF
                                       //         GHI
