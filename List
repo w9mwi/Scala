@@ -567,15 +567,14 @@ ___ flatMap - EXAMPLE:
           //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
           //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
-___ flatten - The "tom" value below is a List[List[List[String]]].  flatten() is then run on that
-              value, generating a new result "tom2" that's a List[List[String]].  flatten() is then
-              run on "tom2", generating a new result "tom3" that's a [List[String]]...
+___ flatten - In the code sample below, notice how flatten() returns a data type
+              that is DIFFERENT than the data type it's executed on.
 
-              val tom:List[List[List[String]]] = List(List(List("ABC"), List("DEF"), List("GHI")),
-                                                      List(List("RST"), List("UVW"), List("XYZ")))
-              tom.foreach(println)    // PRINTS: List(List(ABC), List(DEF), List(GHI))
-                                      //         List(List(RST), List(UVW), List(XYZ))
-              val tom2:List[List[String]] = tom.flatten
+              val tom1:List[List[List[String]]] = List(List(List("ABC"), List("DEF"), List("GHI")),
+                                                       List(List("RST"), List("UVW"), List("XYZ")))
+              tom1.foreach(println)    // PRINTS: List(List(ABC), List(DEF), List(GHI))
+                                       //         List(List(RST), List(UVW), List(XYZ))
+              val tom2:List[List[String]] = tom1.flatten
               tom2.foreach(println)   // PRINTS: List(ABC)
                                       //         List(DEF)
                                       //         List(GHI)
@@ -589,6 +588,17 @@ ___ flatten - The "tom" value below is a List[List[List[String]]].  flatten() is
                                       //         RST
                                       //         UVW
                                       //         XYZ
+              val tom4:List[Char] = tom3.flatten
+              tom4.foreach(println)   // PRINTS: A
+                                      // PRINTS: B
+                                      // PRINTS: C
+                                      ...
+                                      // PRINTS: X
+                                      // PRINTS: Y
+                                      // PRINTS: Z
+              // The following line will FAIL TO EXECUTE because a
+              // List[Char] data type can NOT be further "flattened".
+              tom4.flatten // FAILS TO EXECUTE!
 
 ___ foldLeft - See the foldRight example below.
 ___ foldRight - Both foldLeft and foldRight are CURRIED FUNCTIONS.  A CURRIED FUNCTION is a function that...
