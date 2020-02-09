@@ -592,7 +592,7 @@ ___ flatten - In the code sample below, notice how flatten() returns a data type
               tom4.foreach(println)   // PRINTS: A
                                       // PRINTS: B
                                       // PRINTS: C
-                                      ...
+                                      // ...
                                       // PRINTS: X
                                       // PRINTS: Y
                                       // PRINTS: Z
