@@ -1,5 +1,5 @@
 ================================================================================
-A Scala for comprehension can contain the following 3 expressions:
+A Scala "for expression" can contain the following 3 expressions:
 1) Generator.  Every for expression begins with a generator.  A for expression
                can contain MULTIPLE generators.  The left side of a generator
                can also be a pattern, as shown in the example below, where
@@ -25,7 +25,7 @@ A generator has this general form:   pattern <- expression
 A definition has this general form:  pattern = expression
 A filter has this general form:      if (expression)
 
-The Scala compiler translates for comprehensions into
+The Scala compiler translates "for expressions" into
 a series of method calls that may include...
 
 foreach()    - Any class that defines this function can be used in a "BASIC FOR LOOP" (which
