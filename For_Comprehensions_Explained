@@ -28,28 +28,28 @@ A filter has this general form:      if (expression)
 The Scala compiler translates for comprehensions into
 a series of method calls that may include...
 
-foreach()    - Any class used in a for expression REQUIRES the foreach() function be implemented!
-               That's because every for expression requires a generator, and the foreach() function
-               is required to implement a generator.  This example shows a for expression using
-               a single generator:  for (x <- intList) println(x)  // Uses a single generator.
-flatMap()    - This function enables a class to work with a for expression that implements
-               Scala's "yield" keyword when that for expression contains MULTIPLE generators.
-               If a for expression contains ONLY ONE generator AND implements the "yield" keyword,
-               the class needs to implement ONLY the map() function--the flatMap() function
-               won't be called, so it's optional.
-map()        - Any class used in a for expression that uses the "yield" keyword MUST
-               implement the map() function!  If the for comprehension using the "yield"
-               keyword contains MULTIPLE generators, that class MUST implement BOTH the
-               map() AND flatMap() functions!
+foreach()    - Any class that defines this function can be used in a "BASIC FOR LOOP" (which
+               does NOT use the "yield" keyword) using a single generator, or multiple generators,
+               like this:  for (x <- intList) println(x)
+flatMap()    - This function enables a class to work with a "for expression" (which uses
+               the "yield" keyword) that implements MULTIPLE generators.  If a "for expression"
+               (which uses the "yield" keyword) contains ONLY ONE generator, the class needs
+               to implement ONLY the map() function--the flatMap() function won't be called,
+               so it's optional.
+map()        - Any class used in a "for expression" (which uses the "yield" keyword)
+               MUST implement the map() function!  If the "for expression" (which uses
+               the "yield" keyword) contains MULTIPLE generators, that class MUST
+               implement BOTH the map() AND flatMap() functions!
 withFilter() - This method enables a class to work with a filter.
 
 The 4 functions listed imediately above enable a user-defined class to work
-with for expressions.  Classes defined by Scala that work with for expressions
+with "for expressions" (which use the "yield" keyword).  Classes defined by
+Scala that work with "for expressions" (which use the "yield" keyword)
 also implement these same 4 functions.
 
-If you want your class to work well with a for expression, it
-should generally implement the 4 functions shown in the following
-MyCustomClass, with the corresponding function signatures.
+If you want your class to work well with a for expression (which use the "yield" keyword),
+it should generally implement the 4 functions shown in the following MyCustomClass,
+with the corresponding function signatures.
 
 abstract class MyCustomClass[A]
 {
@@ -61,8 +61,9 @@ abstract class MyCustomClass[A]
 ================================================================================
 The code sample shown below defines a case class named Sequence, which
 implements the four (4) methods mentioned immediately above, so it will
-work with for comprehensions.  This Sequence class will work with generic
-types, so it's defined below as Sequence[A], where A is the generic type.
+work with "for expressions" (which use the "yield" keyword).  This Sequence
+class will work with generic types, so it's defined below as Sequence[A],
+where A is the generic type.
 
 import scala.collection.mutable.ArrayBuffer
 object Demo
