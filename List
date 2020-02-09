@@ -596,9 +596,13 @@ ___ flatten - In the code sample below, notice how flatten() returns a data type
                                       // PRINTS: X
                                       // PRINTS: Y
                                       // PRINTS: Z
-              // The following line will FAIL TO EXECUTE because a
-              // List[Char] data type can NOT be further "flattened".
-              tom4.flatten // FAILS TO EXECUTE!
+              for (x <- tom4)
+              {
+                print(x + " ") // PRINTS: A B C D E F G H I R S T U V W X Y Z 
+              }
+              // The following commented-out line would FAIL TO EXECUTE because
+              // a List[Char] data type can NOT be further "flattened".
+              // tom4.flatten
 
 ___ foldLeft - See the foldRight example below.
 ___ foldRight - Both foldLeft and foldRight are CURRIED FUNCTIONS.  A CURRIED FUNCTION is a function that...
