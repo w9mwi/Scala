@@ -575,7 +575,7 @@ ___ flatten - The "tom" value below is a List containing a List of List[String].
                                                       List(List("RST"), List("UVW"), List("XYZ")))
               tom.foreach(println)    // PRINTS: List(List(ABC), List(DEF), List(GHI))
                                       //         List(List(RST), List(UVW), List(XYZ))
-              val tom2:tom2:List[List[String]] = tom.flatten
+              val tom2:List[List[String]] = tom.flatten
               tom2.foreach(println)   // PRINTS: List(ABC)
                                       //         List(DEF)
                                       //         List(GHI)
