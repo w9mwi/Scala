@@ -8,6 +8,7 @@ If a trait contains a member method that is NOT defined, that member method is a
 If a trait contains a member value that is NOT initialized, that member value is abstract.
 
 ==========================================================================================
+
 object Demo
 {
   trait Pet
