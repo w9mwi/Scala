@@ -1,5 +1,5 @@
-Sequence is a trait.  If you look at the following println statement, you'll
-see the elements of the Sequence were rendered into an Immutable List.
+The Scala Seq (Sequence) is a trait.  If you look at the following println statement,
+you'll see the elements of the Seq were rendered into an Immutable List.
 
 val seq: Seq[String] = Seq("Plain Donut", "Strawberry Donut", "Chocolate Donut")
 println(s"seq = $seq") // PRINTS: seq = List(Plain Donut, Strawberry Donut, Chocolate Donut)
@@ -10,7 +10,8 @@ a List of Int values is identical to a Seq of Int values.
 val a = Seq(1,2,3)
 val a:Seq[Int] = List(1,2,3)
 
-SEE: https://stackoverflow.com/questions/10866639/difference-between-a-seq-and-a-list-in-scala
+SEE     --> https://stackoverflow.com/questions/10866639/difference-between-a-seq-and-a-list-in-scala
+Seq API --> https://www.scala-lang.org/api/current/scala/collection/Seq.html
 
 ===============================================================================================
 The following code sample shows the similarities between the Seq type and the List type.
