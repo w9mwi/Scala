@@ -149,3 +149,4 @@ object Demo
 
   def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
 }
+
