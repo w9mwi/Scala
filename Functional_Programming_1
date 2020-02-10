@@ -27,9 +27,9 @@ Call-By-Name Parameter - A Call-By-Name parameter is like a parameter that's a "
                          Better names for Call-By-Name might be:
                          * Call-On-Access          * Evaluate-On-Access        * Evaluate-On-Use
                          * Evaluate-When-Accessed  * Evaluate-When-Referenced
-                         
 
 ================================================================
+
 object Demo
 {
   def main(args: Array[String])
