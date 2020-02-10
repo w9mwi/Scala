@@ -14,7 +14,3 @@ type that isn't set to Nil.   NOTE: Nil = List() = an empty List
 3 :: 4 :: list    // The dot (.) and parenthesis are excluded, but implied.
 3 :: (4 :: list)  // Shows the precedence of the above line.
 list.::(4).::.(3) // The dot (.) and parenthesis are included, but unnecessary.
-
-
-
-
