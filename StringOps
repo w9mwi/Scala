@@ -10,3 +10,4 @@ When Scala interprets the above line of code, it sees the filter() and partition
 methods don't exist in java.lang.String, so it then looks for an implicit
 conversion that will give a type that has the needed methods.  In this case the
 conversion will be to StringOps.
+
