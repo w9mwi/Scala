@@ -35,7 +35,7 @@ object Demo
     var result:Option[Int] = intList.find(_ < 5)
     if (result == None)
       println("1) result = None") // This line of code does NOT execute.
-    else if (result == Some)
+    else if (result == Some) // NOTE: This if() statement can NEVER be true cuz Some must be wrapped around an Int, like Some(0).
       println("2) result.get = " + result.get) // This line of code does NOT execute.
     else if (result == Some(4))
       println("3) result.get = " + result.get) // PRINTS: 3) result.get = 4
