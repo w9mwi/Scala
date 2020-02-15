@@ -126,7 +126,8 @@ object Demo
     val validStringNumber   = "123456";
     val invalidStringNumber = "12345X";
     var intNumber:Option[Int] = convertStringToInt(validStringNumber)
-    printNumber(intNumber) // PRINTS: number = 123456
+    printNumber(intNumber)          // PRINTS: number = 123456
+    printNumberIncorrect(intNumber) // PRINTS: The number is not valid.
 
     intNumber = convertStringToInt(invalidStringNumber)
     printNumber(intNumber) // PRINTS: The number is not valid.
@@ -136,6 +137,16 @@ object Demo
   {
     if (number == None)  { println("The number is not valid.")}
     else                 { println("number = " + number.get) }
+  }
+
+  def printNumberIncorrect(number:Option[Int]):Unit =
+  {
+    // The following if()/else statement doesn't work as YOU MIGHT EXPECT cuz
+    // even though number is of type "Some", the if() statement won't be true.
+    // To make the if() statement true, you must change it to:
+    // if (number == Some(123456))
+    if (number == Some)  { println("number = " + number.get) }
+    else                 { println("The number is not valid.")}
   }
 
   def convertStringToInt(str:String):Option[Int] =
