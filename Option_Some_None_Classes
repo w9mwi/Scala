@@ -204,8 +204,20 @@ object Demo
     // Option.getOrElse() method below returns the Int value passed to it, which in
     // the below example is 0 (zero).  Therefore, when we sum all three numbers below,
     // if the number is invalid (a None value), getOrElse(0) returns 0 instead of None.
-    val sum = intNumber1.getOrElse(0) + intNumber2.getOrElse(0) + intNumber3.getOrElse(0)
-    println(sum) // PRINTS: 579
+    val intSum:Int = intNumber1.getOrElse(0) + intNumber2.getOrElse(0) + intNumber3.getOrElse(0)
+    println("intSum = " + intSum) // PRINTS: intSum = 579
+
+    // Below, we demonstrate that the Option class can be used in for expressions.
+    // The first for expression below returns the None value because intNumber3
+    // is NOT a valid Int value.
+    var optionSum:Option[Int] = for { x <- intNumber1; y <- intNumber2; z <- intNumber3 } yield x + y + z
+    println("optionSum = " + optionSum) // PRINTS: optionSum = None
+
+    // The following for expression returns a Some value because both intNumber1
+    // and intNumber2 are valid Int values.
+    optionSum = for { x <- intNumber1; y <- intNumber2 } yield x + y
+    println("optionSum = " + optionSum)         // PRINTS: optionSum = Some(579)
+    println("optionSum.get = " + optionSum.get) // PRINTS: optionSum.get = 579
   }
 
   def makeInt(str:String):Option[Int] =
