@@ -135,7 +135,7 @@ the supertype of the RIGHT-MOST member in the "extends/with" list.  This
 process is called LINEARIZATION.
 
 Inspect and run the following program to understand how it's determined
-which method, get called, from which corresponding trait.
+which method gets called, from which corresponding trait.
 
 ==========================================================================================
 object Demo
