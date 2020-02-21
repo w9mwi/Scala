@@ -123,16 +123,16 @@ called on Class_A, regardless if that same method signature exists in
 Class_B, Trait_A, Trait_B, or in some supertype of Class_B, Trait_A, Trait_B.
 
 If method_A(Int) is NOT defined in Class_A, Scala then looks for
-method_A(Int) in LAST type in the "extends/with" list, which is Trait_B.
-If method_A(Int) IS defined in Trait_B (or its supertypes), that's the
-one that'll get called.  If method_A(Int) is NOT defined in Trait_B,
-Scala will look for it in Trait_A (or its supertypes).  If method_A(Int)
-is NOT found in Trait_A (or its supertypes), Scala will look for it in
-Class_B and then its supertypes.
+method_A(Int) beginning at the END of the "extends/with" list, which
+is Trait_B.  If method_A(Int) IS defined in Trait_B (or its supertypes),
+that's the one that'll get called.  If method_A(Int) is NOT defined in
+Trait_B, Scala will look for it in Trait_A (or its supertypes).  If
+method_A(Int) is NOT found in Trait_A (or its supertypes), Scala will
+look for it in Class_B and then its supertypes.
 
 Whenever Scala looks for a method in a supertype, it always begins
-with the LAST supertype in the "extends/with" list, moving from right
-to left.  This process is called LINEARIZATION.
+with the LAST supertype in the "extends/with" list, MOVING FROM RIGHT
+TO LEFT.  This process is called LINEARIZATION.
 
 Execute, and then change, the following code to see which traits
 get called, and the order in which they get called.  But first,
