@@ -199,6 +199,27 @@ object Demo
     myClass_4.method_B()
     myClass_4.method_C()
     println("=============================")
+
+    // PRINTS THE FOLLOWING:
+    // Class_1...
+    // Trait_B.method_A() is called.
+    // Trait_B.method_B() is called.
+    // Trait_C.method_C() is called.
+    // =============================
+    // Class_2...
+    // Trait_B.method_A() is called.
+    // Trait_B.method_B() is called.
+    // =============================
+    // Class_3...
+    // Trait_B.method_A() is called.
+    // Trait_B.method_B() is called.
+    // Trait_C.method_C() is called.
+    // =============================
+    // Class_4...
+    // Trait_B.method_A() is called.
+    // Trait_B.method_B() is called.
+    // Trait_C.method_C() is called.
+    //=============================
   }
 }
 
