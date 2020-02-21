@@ -130,56 +130,79 @@ Trait_B, Scala will look for it in Trait_A (or its supertypes).  If
 method_A(Int) is NOT found in Trait_A (or its supertypes), Scala will
 look for it in Class_B and then its supertypes.
 
-Whenever Scala looks for a method in a supertype, it always begins
-with the LAST supertype in the "extends/with" list, MOVING FROM RIGHT
-TO LEFT.  This process is called LINEARIZATION.
+Whenever Scala looks for a method in a supertype, it always begins with
+the supertype of the RIGHT-MOST member in the "extends/with" list.  This
+process is called LINEARIZATION.
 
-Execute, and then change, the following code to see which traits
-get called, and the order in which they get called.  But first,
-read the in-line comments to understand its current behavior.
-===================================================================
+Inspect and run the following program to understand how it's determined
+which method, get called, from which corresponding trait.
+
+==========================================================================================
 object Demo
 {
-  trait Trait_A                  { def method_A()          = { println("Trait_A.method_A() is called.") } }
-  trait Trait_B extends Trait_A  { override def method_A() = { println("Trait_B.method_A() is called.") } }
+  trait Trait_A
+  {
+    def method_A() = { println("Trait_A.method_A() is called.") }
+  }
+  trait Trait_B extends Trait_A
+  {
+    // Trait_B extends Trait_A, and Trait_A implements method_A().  Therefore,
+    // the method_A() declared here in Trait_B must contain the 'override' keyword
+    // or it won't compile.
+    override def method_A() = { println("Trait_B.method_A() is called.") }
+    def method_B()          = { println("Trait_B.method_B() is called.") }
+  }
+  trait Trait_C extends Trait_B
+  {
+    def method_C() = { println("Trait_C.method_C() is called.") }
+  }
 
-  class Class_1 extends Trait_A with Trait_B
-  { print("Class_1 is called - "); method_A }
+  // NOTICE the extends/with order in the Class_1 declaration below.
+  class Class_1 extends Trait_A with Trait_B with Trait_C
+  {  } // Empty class.
 
-  class Class_2 extends Trait_B with Trait_A
-  { print("Class_2 is called - "); method_A }
+  // NOTICE the extends/with order in the Class_2 declaration below.
+  class Class_2 extends Trait_A with Trait_B
+  {  } // Empty class.
 
-  class Class_3 extends Class_1 with Trait_A
-  { print("Class_3 is called - "); method_A }
+  // NOTICE the extends/with order in Class_3 declaration below.
+  class Class_3 extends Trait_C with Trait_B with Trait_A
+  {  } // Empty class.
 
-  class Class_4 extends Class_2 with Trait_B
-  { print("Class_4 is called - "); method_A }
+  // NOTICE the extends/with order in Class_4 declaration below.
+  class Class_4 extends Trait_C with Trait_B
+  {  } // Empty class.
 
 
   def main(args: Array[String]):Unit =
   {
     val myClass_1:Class_1 = new Class_1()
-    // PRINTS: Class_1 is called - Trait_B.method_A() is called.
-    println("==================")
-
+    println("Class_1...")
+    myClass_1.method_A()
+    myClass_1.method_B()
+    myClass_1.method_C()
+    println("=============================")
     val myClass_2:Class_2 = new Class_2()
-    // PRINTS: Class_2 is called - Trait_B.method_A() is called.
-    println("==================")
-
+    println("Class_2...")
+    myClass_2.method_A()
+    myClass_2.method_B()
+    println("=============================")
     val myClass_3:Class_3 = new Class_3()
-    // PRINTS: Class_1 is called - Trait_B.method_A() is called.
-    //         Class_3 is called - Trait_B.method_A() is called.
-    println("==================")
-
+    println("Class_3...")
+    myClass_3.method_A()
+    myClass_3.method_B()
+    myClass_3.method_C()
+    println("=============================")
     val myClass_4:Class_4 = new Class_4()
-    // PRINTS: Class_2 is called - Trait_B.method_A() is called.
-    //         Class_4 is called - Trait_B.method_A() is called.
-    println("==================")
-
+    println("Class_4...")
+    myClass_4.method_A()
+    myClass_4.method_B()
+    myClass_4.method_C()
+    println("=============================")
   }
 }
-===================================================================
 
+==========================================================================================
 
 INHERITING FROM FUNCTION TYPES - Page 467
 =========================================
