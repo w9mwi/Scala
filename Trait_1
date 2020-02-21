@@ -159,10 +159,10 @@ the call to myClass_3.method_A() calls the method_A() located in
 Trait_B (which extends Trait_A), instead of calling method_A() located
 in Trait_A, as you might expect to happen.  This result occurs because
 Scala FIRST searches for the method in the superclass of every trait,
-and then searches for the method in each trait.  NOTE: If you comment
-out this line in the code sample below and run the program...
+and then searches for the method in each trait.  NOTE: If you COMMENT
+OUT this line in the code sample shown below and then run the program...
 
-override def method_A() = { println("Trait_B.method_A() is called.") }
+// override def method_A() = { println("Trait_B.method_A() is called.") }
 
 This line will get printed for Class_3:            Trait_A.method_A() is called.
 Instead of this line getting printed for Class_3:  Trait_B.method_A() is called.
