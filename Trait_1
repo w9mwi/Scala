@@ -132,10 +132,37 @@ look for it in Class_B and then its supertypes.
 
 Whenever Scala looks for a method in a supertype, it always begins with
 the supertype of the RIGHT-MOST member in the "extends/with" list.  This
-process is called LINEARIZATION.
+process is called LINEARIZATION.  To make this more clear, let's use the
+the following Video class declaration to show how a method located in one of
+its traits would be found...
+
+class Video extends Trait_A with Trait_B with Trait_C
+{ } // Empty class.
+
+Assume a method named playVideo() was declared in Trait_A,
+or Trait_B, or Trait_C.  When that playVideo() method is called
+on this Video class, Scala looks for the playVideo() method
+in this order...
+
+1) In a superclass of Trait_C.
+2) In a superclass of Trait_B.
+3) In a superclass of Trait_A.
+4) In Trait_C.
+5) In Trait_B.
+6) In Trait_A.
+
+The first playVideo() method found in this search order
+is the one that will get called.
+
+You can see an example of this in the following sample code, where
+the call to myClass_3.method_A() calls method_A() located in Trait_B
+(a superclass of Trait_A), instead of calling method_A() located in
+Trait_A, as you might expect to happen.  This result occurs because
+Scala FIRST searches for a method in the superclass of every trait,
+and then searches for the method in each trait.
 
 Inspect and run the following program to understand how it's determined
-which method gets called, from which corresponding trait.
+which method gets called from which corresponding trait.
 
 ==========================================================================================
 object Demo
