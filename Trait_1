@@ -296,8 +296,11 @@ object Demo
   // THIS CODE DEMONSTRATES HOW TO USE A SCALA TRAIT
   trait Iterator[A]
   {
-    def hasNext: Boolean // NOTE: The hasNext value is implemented in the below class that extends this trait.
-    def next(): A        // NOTE: The next() method is implemented in the below class that extends this trait.
+    // The following 2 functions (hasNext and next) are abstract because they're
+    // only declared here, and NOT defined.  Any class/trait that inherits
+    // from this trait will need to implement the behavior of these functions.
+    def hasNext: Boolean // NOTE: The hasNext function is implemented in the below class that extends this trait.
+    def next(): A        // NOTE: The next() function is implemented in the below class that extends this trait.
   }
 
   class IntIterator(to: Int) extends Iterator[Int]
