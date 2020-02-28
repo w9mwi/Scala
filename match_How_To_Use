@@ -1,4 +1,5 @@
-How to use pattern matching via the Scala keyword "match".
+How to use pattern matching via the Scala keyword "match"...
+
 NOTE: In the code samples below, the "match" keyword is
       always used with the "case" keyword, but the "case"
       statement can be constructed differently, such as:
@@ -6,6 +7,19 @@ NOTE: In the code samples below, the "match" keyword is
       case 1  => println("January") // Matches on the Int value 1
       case Person("Alice",   25) => println("Hi Alice!") // Matches on a specific Person value.
       case z: Double    => "Double" // Matches on the data type specified the value z.
+
+It's possible to perfom pattern matching without using the "match" keyword,
+by using a single case statement.  To see how to do that, search this page
+for this text:  Seq(2,3,4)
+Which will take you to the sample code near the bottom of this page.
+
+==================================================================================
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val mySeq:Seq[Int] = Seq(2,3,4)
 
 See below sample code for details on how match can be used.
 ==================================================================================
