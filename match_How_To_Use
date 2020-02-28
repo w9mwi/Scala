@@ -8,10 +8,10 @@ NOTE: In the code samples below, the "match" keyword is
       case Person("Alice",   25) => println("Hi Alice!") // Matches on a specific Person value.
       case z: Double    => "Double" // Matches on the data type specified the value z.
 
-It's possible to perfom pattern matching without using the "match" keyword,
+It's possible to perform pattern matching without using the "match" keyword,
 by using a single case statement.  To see how to do that, search this page
 for this text:  Seq(2,3,4)
-Which will take you to the sample code near the bottom of this page.
+That text is contained in sample code near the bottom of this page.
 
 ==================================================================================
 
