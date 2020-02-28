@@ -8,7 +8,7 @@ NOTE: In the code samples below, the "match" keyword is
       case z: Double    => "Double" // Matches on the data type specified the value z.
 
 See below sample code for details on how match can be used.
-====================================================================================
+==================================================================================
 
 object Demo
 {
@@ -58,7 +58,7 @@ object Demo
   }
 }
 
-====================================================================================
+==================================================================================
 
 The following sample code shows how to use a case class for pattern matching,
 which you can think of as "data type" matching.  As pattern matching is used
@@ -101,7 +101,8 @@ object Demo
   }
 }
 
-====================================================================================
+==================================================================================
+
 import scala.annotation.switch
 
 object Demo
@@ -150,8 +151,9 @@ object Demo
     println(s"monthNumber = $monthNumber,  monthName = $monthName")
   }
 }
-=============================================================
-=============================================================
+
+==================================================================================
+
 object Demo
 {
   // Create a case class here, which is used for pattern matching.  When
@@ -192,8 +194,9 @@ object Demo
     println("tom.name = "     + tom.name +     ", tom.age = "     + tom.age)
   }
 }
-=============================================================
-=============================================================
+
+==================================================================================
+
 // The following is a pattern matching example that
 // can determine the data type of a val or var.
 object Demo
@@ -227,8 +230,9 @@ object Demo
     case _            => "Unknown"
   }
 }
-=============================================================
-=============================================================
+
+==================================================================================
+
 // Read the comments in the purchaseFood() function
 // to understand how this "match" sample code works.
 object Demo
@@ -267,7 +271,9 @@ object Demo
       case _ => false
     }
 }
-=============================================================
+
+==================================================================================
+
 object Demo
 {
   // By default, a case class's parameters are val types (when you don't specify
@@ -329,7 +335,9 @@ object Demo
     }
   }
 }
-=============================================================
+
+==================================================================================
+
 object Demo
 {
   trait Computer
@@ -378,7 +386,33 @@ object Demo
     println("No Computer:           " + noComputer)
   }
 }
-=============================================================
-=============================================================
-=============================================================
-=============================================================
+
+==================================================================================
+
+It's possible to perfom pattern matching without using the "match" keyword,
+by using a single case statement, as shown in the following code...
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val mySeq:Seq[Int] = Seq(2,3,4)
+    println("mySeq = " + mySeq)       // PRINTS: mySeq = List(2, 3, 4)
+    val mySeqZip:Seq[(Int,Int)] = mySeq.zipWithIndex
+    println("mySeqZip = " + mySeqZip) // PRINTS: mySeqZip = List((2,0), (3,1), (4,2))
+
+    // Every element of mySeqZip contains a List of (Int,Int) tuples.
+    // The following line of code loops though each element of that
+    // List, and calls the anonymous function contained in the loop.
+    // Each (Int,Int) tuple will match on the case statement, which
+    // will then invoke println.
+    mySeqZip.foreach { case (value, index) => println(s"$index:$value") }
+    // PRINTS:
+    // 0:2
+    // 1:3
+    // 2:4
+
+    // All of the above code can be written in this one line of code...
+    Seq(2,3,4).zipWithIndex.foreach { case (value, index) => println(s"$index:$value") }
+  }
+}
