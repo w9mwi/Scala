@@ -142,6 +142,51 @@ object Demo
     else println(msg + score) // PRINTS: averageScore = 4.56
   }
 }
+
+=================================================================================
+PASS A FUNCTION A VARIABLE NUMBER OF ARGUMENTS - EXAMPLE 3
+
+object Demo
+{
+  def printAll(strs: String *) // The asterisk char (*) designates multiple arguments.
+  {
+    println("---------")
+    strs.foreach(println)
+  }
+
+  def main(args: Array[String])
+  {
+    printAll()
+    printAll("ONE")
+    printAll("ONE", "TWO")
+    printAll("ONE", "TWO", "THREE")
+
+    val fruits:List[String] = List("apple", "banana", "blueberry", "cherry")
+
+    // The below call to printAll() prints this list of strings...
+    //    ---------
+    //    ---------
+    //    ONE
+    //    ---------
+    //    ONE
+    //    TWO
+    //    ---------
+    //    ONE
+    //    TWO
+    //    THREE
+    //    ---------
+    //    apple
+    //    banana
+    //    blueberry
+    //    cherry
+    // The _* in the following call to printAll() transforms fruits
+    // into the 4 separate strings that are contained in its List.
+    printAll(fruits: _*)
+    printAll(fruits.toString()) // PRINTS: List(apple, banana, blueberry, cherry)
+    println(fruits.flatten)     // PRINTS: List(a, p, p, l, e, b, a, n, a, n, a, b, l, u, e, b, e, r, r, y, c, h, e, r, r, y)
+  }
+}
+
 =================================================================================
 
 object Demo
