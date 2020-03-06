@@ -1,3 +1,52 @@
+Before Parametric Functions are discussed below, study
+the following code, which demonstrates these 2 concepts:
+
+1) Passing a variable number of String arguments to a function.
+2) Transforming a List[String] into a multiple strings, which are then
+   passed to a function that accepts multiple arguments of type String.
+
+object Demo
+{
+  def printAll(strs: String *) // The asterisk char (*) designates multiple arguments.
+  {
+    println("---------")
+    strs.foreach(println)
+  }
+
+  def main(args: Array[String])
+  {
+    printAll()
+    printAll("ONE")
+    printAll("ONE", "TWO")
+    printAll("ONE", "TWO", "THREE")
+
+    val fruits:List[String] = List("apple", "banana", "blueberry", "cherry")
+
+    // The below call to printAll() prints this list of strings...
+    //    ---------
+    //    ---------
+    //    ONE
+    //    ---------
+    //    ONE
+    //    TWO
+    //    ---------
+    //    ONE
+    //    TWO
+    //    THREE
+    //    ---------
+    //    apple
+    //    banana
+    //    blueberry
+    //    cherry
+    // The _* in the following call to printAll() transforms fruits
+    // into the 4 separate strings that are contained in its List.
+    printAll(fruits: _*)
+    printAll(fruits.toString()) // PRINTS: List(apple, banana, blueberry, cherry)
+    println(fruits.flatten)     // PRINTS: List(a, p, p, l, e, b, a, n, a, n, a, b, l, u, e, b, e, r, r, y, c, h, e, r, r, y)
+  }
+}
+
+=================================================================================
 Functions can have parameter types, just like Arrays can have types...
 Array[Char]   - An Array of Chars
 Array[Double] - An Array of Doubles
@@ -88,7 +137,7 @@ object Demo
     // NOTE: Every line of code within a class (i.e., this Sequence class) that is
     //       NOT a method gets executed when the class's constructor is called.
     //       Therefore, the following two lines of code get executed when this
-    //       Sequence class's constructor is called.  You'd think that because
+    //       Sequence class's constructor is called.  You might think that because
     //       elems is a val type, the second line below wouldn't compile because
     //       it's the second time elems is being assigned a value.  But that's not
     //       what's happening.  The first line below is only declaring that elems
@@ -98,21 +147,25 @@ object Demo
     elems ++= initialElems // This line of code is equivalent to this:  for { e <- initialElems } elems += e
 
     def foreach(block: A => Unit):Unit = { elems.foreach(block) }
+
     def map[B](func: A => B):Sequence[B] =
     {
       val myMap:ArrayBuffer[B] = elems.map(func)
-      new Sequence(myMap: _*) // NOTE: _* makes Sequence() work with a variable number of arguments.
+      new Sequence(myMap: _*) // NOTE: _* transforms myMap into multiple arguments, which the case class Sequence accepts.
     }
+
     def withFilter(p: A => Boolean):Sequence[A] =
     {
       val tempArrayBuffer:ArrayBuffer[A] = elems.filter(p)
-      Sequence(tempArrayBuffer: _*) // NOTE: _* makes Sequence() work with a variable number of arguments.
+      Sequence(tempArrayBuffer: _*) // NOTE: _* transforms tempArrayBuffer into multiple arguments, which the case class Sequence accepts.
     }
+
     def flatMap[B](func: A => Sequence[B]): Sequence[B] =
     {
       val mapResult:Sequence[Sequence[B]] = map(func)
       flatten(mapResult) // This flatten() method is defined immediately below.
     }
+
     def flatten[B](seqOfSeq:Sequence[Sequence[B]]):Sequence[B] =
     {
       var arrayBuf:ArrayBuffer[B] = ArrayBuffer[B]()
@@ -123,7 +176,12 @@ object Demo
           arrayBuf += e
         }
       }
-      Sequence(arrayBuf: _*) // This converts the type ArrayBuffer[B] to type Sequence[B]
+
+      // NOTE: _* below transforms arrayBuf into multiple arguments, which the case class Sequence accepts.
+      // So this flatten() function "flattens" the Sequence[Sequence[B]] data type passed to it
+      // into a Sequence[B] data type which gets returned.  When this flatten() function gets called,
+      // it's literally calling the Sequence class's constructor when this line executes!!!
+      Sequence(arrayBuf: _*)
     }
   }
 
