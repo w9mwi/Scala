@@ -91,7 +91,7 @@ object Demo
     }
   }
 }
-// This section of code perfoms some basic Array manipulation.
+// This section of code performs some basic Array manipulation.
 // Read the in-line comments below for details.
 
 object Demo
