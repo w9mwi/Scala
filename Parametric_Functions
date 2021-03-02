@@ -44,7 +44,8 @@ Functions can have parameter types, just like Arrays can have types...
 Array[Char]   - An Array of Chars
 Array[Double] - An Array of Doubles
 Array[Int]    - An Array of Ints
-...and just like Lists can have types...
+
+And just like Lists can have types...
 List[Char]   - A List of Chars
 List[Double] - A List of Doubles
 List[Int]    - A List of Ints
@@ -76,46 +77,53 @@ object Demo
     println("result_2 = " + result_2) // PRINTS: result_2 = ABCD
   }
 
-  // NOTE: The T character in the myFunction() definition below represents a DATA TYPE.
-  //       The 't' character in the myFunction() definition below represents a DATA VALUE.
-  //       We read the definition of myFunction() below like this...
-  //       1) myFunction() returns the data type T.  That's the [T]
-  //       2) myFunction gets passed a t parameter of type T.  That's the (t:T)
-  //       2) myFunction returns the data value t.  That's the 't' at the end.
-  def myFunction[T](t:T) = t
-
-  // The makeTuple function below take two parameters (parameter a, of type A, and parameter b of type B)
-  // and returns the tuple (a, b).
-  def makeTuple[A,B](a:A, b:B) = (a, b)
-
-  // The makeThreeElementList function below take three parameters (parameter a1, of type A,
-  // parameter a2 of type A, and parameter a3 of type A) and returns a 3-element List
-  // containing the 3 values passed to this function.
-  def makeThreeElementList[A](a1:A, a2:A, a3:A) = List(a1, a2, a3)
-
   /**
-    *
-    * The result returned by this curried function is dependent on the type of List
-    * it gets passed (i.e., List[Int], List[String], etc.) and the function that gets
-    * passed to it.  For example, if a List[Int] gets passed to this function,
-    * it will return an Int value.  If a List[String] list gets passed to this function,
-    * it will return a String value.  The value of the returned result is dependent
-    * on the function that gets passed to this function.
-    *
-    * @param list - A Scala List of type A, where A is a parameterized type.
-    * @param base - A value of type B, where B is a parameterized type.
-    * @param func - A function defined by the programmer that gets passed a value
-    *               of type A, and a value of type B.
-    * @tparam A See params above
-    * @tparam B See params above
-    * @return
-    */
-  def ourFold[A,B](list:List[A], base:B)(func:(A,B) => B):B =
+   * The result returned by this CURRIED FUNCTION is dependent on the type of List
+   * it gets passed (i.e., List[Int], List[String], etc.) AND the function that gets
+   * passed to it.  For example, if a List[Int] gets passed to this function,
+   * it will return an Int value.  If a List[String] list gets passed to this function,
+   * it will return a String value.  The value of the returned result is dependent
+   * on the function that gets passed to this function.
+   *
+   * WARNING: This ourFold() function will compile ONLY IF The 'A' parameterized type
+   *          has the same data type as the 'B' parameterized type.  Those 2 data types
+   *          must also work with the '+' operator because the '+' operator is used by
+   *          the function passed to the SECOND PARAMETER LIST of this ourFold() function.
+   *
+   * @param list - A Scala List of type A, where A is a parameterized type.
+   * @param base - A value of type B, where B is a parameterized type.
+   * @param func - A function defined by the programmer that gets passed a value
+   *               of type A, and a value of type B.
+   * @return - A value of type A.
+   */
+  def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
   {
+    // To understand why this ourFold() function definition designates
+    // a return type 'A' instead of type 'B', understand this...
+    // The below if() statement returns the param named base, which is of type A.
+    // The below else() statement returns the param func, which returns type A.
+    // Therefore, this ourFold() function ALWAYS returns type A, and must be
+    // defined that way.
     if   (list.isEmpty) base
     else func(list.head, ourFold(list.tail, base)(func))
   }
+
+  // The T character in the myFunction() definition below represents a DATA TYPE.
+  // The 't' character in the myFunction() definition below represents a DATA VALUE.
+  // The return type ":T" text is OPTIONAL because that's implied by the REQUIRED "[T]" text.
+  def myFunction[T](t:T):T = t // The return type ":T" text is optional.
+
+  // The below makeTuple() function takes two parameters (one of type A, one of type B),
+  // and returns a tuple of type (A, B).
+  // The return type ":(A, B)" text is OPTIONAL because that's implied by the REQUIRED "[A,B]" text.
+  def makeTuple[A,B](a:A, b:B):(A, B) = (a, b)
+
+  // The below makeThreeElementList() function takes three parameters all of type A,
+  // and returns a List of type A, containing the 3 values passed to this function.
+  // The return type ":List[A]" text is OPTIONAL because that's implied by the REQUIRED "[A]" text.
+  def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
+
 
 =================================================================================
 This code sample shows how to declare and use a parametric class
