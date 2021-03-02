@@ -110,20 +110,19 @@ object Demo
 
   // The T character in the myFunction() definition below represents a DATA TYPE.
   // The 't' character in the myFunction() definition below represents a DATA VALUE.
-  // The return type ":T" text is OPTIONAL because that's implied by the REQUIRED "[T]" text.
+  // NOTE: The return type ":T" text below is OPTIONAL.
   def myFunction[T](t:T):T = t // The return type ":T" text is optional.
 
   // The below makeTuple() function takes two parameters (one of type A, one of type B),
   // and returns a tuple of type (A, B).
-  // The return type ":(A, B)" text is OPTIONAL because that's implied by the REQUIRED "[A,B]" text.
+  // NOTE: The return type ":(A, B)" text below is OPTIONAL.
   def makeTuple[A,B](a:A, b:B):(A, B) = (a, b)
 
   // The below makeThreeElementList() function takes three parameters all of type A,
   // and returns a List of type A, containing the 3 values passed to this function.
-  // The return type ":List[A]" text is OPTIONAL because that's implied by the REQUIRED "[A]" text.
+  // NOTE: The return type ":List[A]" text below is OPTIONAL.
   def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
-
 
 =================================================================================
 This code sample shows how to declare and use a parametric class
