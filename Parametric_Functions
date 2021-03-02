@@ -17,14 +17,14 @@ object Demo
   {
     printAll()  // PRINTS: ---------
     printAll("ONE") // PRINTS: ---------
-                    //          ONE
+                    //         ONE
     printAll("ONE", "TWO") // PRINTS: ---------
-                           //          ONE
-                           //          TWO
+                           //         ONE
+                           //         TWO
     printAll("ONE", "TWO", "THREE") // PRINTS: ---------
-                                    //          ONE
-                                    //          TWO
-                                    //          THREE
+                                    //         ONE
+                                    //         TWO
+                                    //         THREE
 
     val fruits:List[String] = List("apple", "banana", "blueberry", "cherry")
     // The _* in the following call to printAll() transforms the List fruits
