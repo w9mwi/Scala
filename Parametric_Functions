@@ -78,17 +78,14 @@ object Demo
   }
 
   /**
-   * The result returned by this CURRIED FUNCTION is dependent on the type of List
-   * it gets passed (i.e., List[Int], List[String], etc.) AND the function that gets
-   * passed to it.  For example, if a List[Int] gets passed to this function,
-   * it will return an Int value.  If a List[String] list gets passed to this function,
-   * it will return a String value.  The value of the returned result is dependent
-   * on the function that gets passed to this function.
+   * This is a RECURSIVE, CURRIED FUNCTION.  The List passed to this function can
+   * be of any data type that works with the '+' operator, such as Int, Float, String,
+   * etc.  The data type must work with the '+' operator because both times this
+   * ourFold() function gets called (by the main() function) the 'func' parameter
+   * passed to it uses the '+' operator.
    *
-   * WARNING: This ourFold() function will compile ONLY IF The 'A' parameterized type
-   *          has the same data type as the 'B' parameterized type.  Those 2 data types
-   *          must also work with the '+' operator because the '+' operator is used by
-   *          the function passed to the SECOND PARAMETER LIST of this ourFold() function.
+   * Since both operands used by the '+' operator must be of the same data type,
+   * data type A and data type B MUST BE OF THE SAME DATA TYPE.
    *
    * @param list - A Scala List of type A, where A is a parameterized type.
    * @param base - A value of type B, where B is a parameterized type.
@@ -98,12 +95,18 @@ object Demo
    */
   def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
   {
-    // To understand why this ourFold() function definition designates
-    // a return type 'A' instead of type 'B', understand this...
+    // This ourFold() function returns the type A because...
     // The below if() statement returns the param named base, which is of type A.
-    // The below else() statement returns the param func, which returns type A.
-    // Therefore, this ourFold() function ALWAYS returns type A, and must be
-    // defined that way.
+    // The below else() statement returns the param named func, which returns the type A.
+    // Therefore, this ourFold() function must be defined above in its signature
+    // as returning the type A.
+
+    // NOTE: Every time this ourFold() function gets called recursively below,
+    //       the contents of the func param remain UNCHANGED because the func param
+    //       keeps getting passed the same value it was originally called with.
+    //       Every time this ourFold() function gets called recursively below,
+    //       the list param becomes one (1) element smaller, until the if()
+    //       statement executes, which terminates the recursion.
     if   (list.isEmpty) base
     else func(list.head, ourFold(list.tail, base)(func))
   }
@@ -123,6 +126,7 @@ object Demo
   // NOTE: The return type ":List[A]" text below is OPTIONAL.
   def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
+
 
 =================================================================================
 This code sample shows how to declare and use a parametric class
