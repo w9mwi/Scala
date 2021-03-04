@@ -132,6 +132,10 @@ object Demo
 This code sample shows how to declare and use a parametric class
 named "Sequence", as well the parametic method named "map".
 
+WARNING: THIS CODE WILL NOT COMPILE USING SCALA VER. 2.13.4
+WARNING: THIS CODE WILL NOT COMPILE USING SCALA VER. 2.13.4
+WARNING: THIS CODE WILL NOT COMPILE USING SCALA VER. 2.13.4
+
 import scala.collection.mutable.ArrayBuffer
 object Demo
 {
