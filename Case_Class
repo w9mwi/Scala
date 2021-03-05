@@ -4,8 +4,11 @@ Scala provides three (3) constructs for creating user-defined types:
 2) an object
 3) a class  (Scala has two kinds class: "case class" and "class")
 
-The "case class" Scala type is different from the regular
-Scala "class" type in the following 8 ways...
+A regular Scala class is capable of doing anything a "case class" can do.
+But implementing a regular Scala class may require you to write lots
+of additional code that a case class makes available by default.
+A Scala "case class" is different from the regular Scala "class"
+in the following 8 ways...
 
 1) THIS IS LIKELY THE SINGLE BIGGEST ADVANTAGE OF USING A CASE CLASS...
    All data passed to a case class as arguments are automatically
@@ -13,6 +16,11 @@ Scala "class" type in the following 8 ways...
    ONLY ONE LINE OF CODE to define and declare a case class!
    Where defining/declaring a regular class generally requires
    multiple lines of code.
+   
+   NOTE: Both case classes and regular classes can be defined so
+         their member values are "var" (mutable) or val (immutable).
+         By default (meaning the "val" or "var" is NOT specified),
+         member values are val.
 
 2) When you create a case class the following 6 methods become
    available BY DEFAULT, so you do NOT create them...
@@ -22,7 +30,8 @@ Scala "class" type in the following 8 ways...
       equals()
       hashCode()
       toString()
-      unapply() - This method allows pattern matching to work on a case class.
+      unapply() - This method allows pattern matching to work on a case class.  To make pattern matching work
+                  on a regular Scala class you need to create your own unapply() method in a companion object.
 
 3) The "case class" Scala type automatically inherits from the type Serializable.
 
@@ -60,49 +69,6 @@ Scala "class" type in the following 8 ways...
    }
 
 ================================================================================
-A regular Scala class can do anything a case class can do.  But implementing
-a case class adds lots of code for you that you don't need to write yourself.
-A case class contains a copy() method that has default arguments for all values.
-A case class automatically creates a companion object that contains the
-apply() method, so you can implement a case class without calling the 'new'
-keyword.  A case class also contains an unapply() method, which is used for
-pattern matching--so case classes are totally ready to be used for pattern
-matching, whereas you need to create your own unapply() method in a companion
-object to make pattern matching work on regular classes.
-
-================================================================================
-
-A case class will work with pattern matching, where a regular class will
-NOT work with pattern matching.
-
-When creating a new case class, using the "new" keyword is optional--so
-generally it's not used.  When creating a regular class, the "new"
-keyword is REQUIRED.
-
-A case class implements the copy() method (example shown below),
-but a regular class does NOT implement the copy() method.
-
-Both case classes and regular classes can be defined so they're member
-values are "var" (mutable) or val (immutable).  By default (meaning
-the "val" or "var" is not specified), member values are val.
-
-Anything you can accomplish with a case class, you can accomplish with
-a regular class.  A case class just adds a lot of code for you that you'd
-have to otherwise manually write for a regular class.  For example:
-
-1) THIS IS LIKELY THE SINGLE BIGGEST ADVANTAGE OF USING A CASE CLASS!...
-   -->  All data passed to a case class are automatically turned into public
-        vals by default.  So it generally takes ONLY ONE LINE OF CODE to
-        define and declare a case class!!!  Where defining/declaring a
-        regular class generally consumes multiple lines of code.
-2) A case class automatically creates a companion object that has an
-   apply() method, so you can create instances of the case class
-   without using the "new" keyword.
-3) A copy() method is automatically created that has default arguments
-   for all the class's member values.
-4) A case class allows for pattern matching.
-5) The "case class" Scala type automatically inherits
-   from the type Serializable.
 
 For more details about case classes, read the following web pages:
 --> http://www.alessandrolacava.com/blog/scala-case-classes-in-depth/
@@ -160,6 +126,7 @@ object Demo
     }
   }
 }
+
 ====================================================================================
 The following sample code shows how to use a case class for pattern matching,
 which you can think of as "data type" matching.  As pattern matching is used
