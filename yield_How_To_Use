@@ -22,8 +22,6 @@ make a Scala for() loop return a single value, the for() loop uses the
 
 A for() loop can contain a FILTER, which is the if() statement within the for() loop shown above.
 The for() loop will return only values for which the if() statement is true.
-
-
 Below is a Scala code example...
 ===========================================================================
 
@@ -124,10 +122,8 @@ object Demo
     for (int <- intResult) print(int + " ") // PRINTS: 2 4 6 8 10
     println
     for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
-
   }
 }
-===========================================================================
 ===========================================================================
 ===========================================================================
 // ----------------------------------------------------------
@@ -275,25 +271,7 @@ object Demo
     finalResult // finalResult is returned here.
   }
 }
-// *******************************************************************
-object Demo
-{
-  case class Person(firstName: String, lastName: String)
 
-  def main(args:Array[String]):Unit =
-  {
-    val people = List(Person("barney", "rubble"),
-                      Person("fred", "flintstone"))
-
-    val namesStartingWithB = for {
-                                   p <- people                // generator
-                                   fname = p.firstName        // definition
-                                   if (fname.startsWith("b")) // filter
-                                 } yield fname.toUpperCase
-
-    namesStartingWithB.foreach(println) // Prints: BARNEY
-  }
-}
 // *******************************************************************
 
 // NOTE: In the code shown below, creating the Sequence.foreach() method
@@ -318,6 +296,10 @@ object Demo
 //       3) An if() statement embedded within a for() loop comprehension
 //          works because the collection being traversed by the for()
 //          loop contains the withFilter() method.
+
+// WARNING: THIS CODE DEOS NOT COMPILE WITH SCALA VERSION 2.13.4
+// WARNING: THIS CODE DEOS NOT COMPILE WITH SCALA VERSION 2.13.4
+// WARNING: THIS CODE DEOS NOT COMPILE WITH SCALA VERSION 2.13.4
 
 import scala.collection.mutable.ArrayBuffer
 object Demo
@@ -375,7 +357,6 @@ object Demo
     for (int <- intResult) print(int + " ") // PRINTS: 6 8 10
     println
     for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
-
   }
 }
 ======================================================================
