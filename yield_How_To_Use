@@ -32,15 +32,16 @@ object Demo
   def main(args:Array[String]): Unit =
   {
     val states:List[String] = List("Alabama", "Alaska", "Wisconsin", "Wyoming")
-    val statesCapitalized:List[String] = for (x <- states) yield x.toUpperCase
-    statesCapitalized.foreach(println) // PRINTS: ALABAMA
-                                       //         ALASKA
-                                       //         WISCONSIN
-                                       //         WYOMING
+
+    // The following 2 lines generate IDENTICAL RESULTS, shown by the 2 println() statements below.
+    val statesCapitalized:List[String]  = for (x <- states) yield x.toUpperCase
+    val statesCapitalized2:List[String] = states.map(_.toUpperCase)
+    println(statesCapitalized)
+    println(statesCapitalized2)
 
     val people:List[Person] = List(Person("Barney", "Rubble"),
-                                   Person("Fred", "Flintstone"),
-                                   Person("Betty", "Rubble"))
+      Person("Fred", "Flintstone"),
+      Person("Betty", "Rubble"))
     val firstNamesStartingWithB:List[String] = for
     {
       p <- people                // This line is the GENERATOR.
