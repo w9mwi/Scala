@@ -26,24 +26,33 @@ The for() loop will return only values for which the if() statement is true.
 
 Below is a Scala code example...
 ===========================================================================
+
 object Demo
 {
   case class Person(firstName:String, lastName:String)
 
   def main(args:Array[String]): Unit =
   {
+    val states:List[String] = List("Alabama", "Alaska", "Wisconsin", "Wyoming")
+    val statesCapitalized = for (x <- states) yield x.toUpperCase
+    statesCapitalized.foreach(println) // PRINTS: ALABAMA
+                                       //         ALASKA
+                                       //         WISCONSIN
+                                       //         WYOMING
+
     val people:List[Person] = List(Person("Barney", "Rubble"),
                                    Person("Fred", "Flintstone"),
                                    Person("Betty", "Rubble"))
-    val namesStartingWithB:List[String] = for
-                                          {
-                                            p <- people                // This line is the GENERATOR.
-                                            fname = p.firstName        // This line is the DEFINITION.
-                                            if (fname.startsWith("B")) // This line is the FILTER.
-                                          } yield fname.toUpperCase
-    println(namesStartingWithB) // PRINTS: List(BARNEY, BETTY)
+    val firstNamesStartingWithB:List[String] = for
+    {
+      p <- people                // This line is the GENERATOR.
+      fname = p.firstName        // This line is the DEFINITION.
+      if (fname.startsWith("B")) // This line is the FILTER.
+    } yield fname.toUpperCase
+    println(firstNamesStartingWithB) // PRINTS: List(BARNEY, BETTY)
   }
 }
+
 ===========================================================================
 Scala for loops are based on mathematical set comprehensions.  They are
 a way to filter, transform, and combine lists.
