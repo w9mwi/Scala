@@ -32,7 +32,7 @@ object Demo
   def main(args:Array[String]): Unit =
   {
     val states:List[String] = List("Alabama", "Alaska", "Wisconsin", "Wyoming")
-    val statesCapitalized = for (x <- states) yield x.toUpperCase
+    val statesCapitalized:List[String] = for (x <- states) yield x.toUpperCase
     statesCapitalized.foreach(println) // PRINTS: ALABAMA
                                        //         ALASKA
                                        //         WISCONSIN
