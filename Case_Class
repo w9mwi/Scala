@@ -18,9 +18,9 @@ in the following 8 ways...
    multiple lines of code.
    
    NOTE: Both case classes and regular classes can be defined so
-         their member values are "var" (mutable) or val (immutable).
-         By default (meaning the "val" or "var" is NOT specified),
-         member values are public val.
+         their member values are "var" (mutable) or "val" (immutable).
+         When the "val" or "var" is NOT specified, member values
+         are "public val" by default.
 
 2) When you create a case class the following 6 methods become
    available BY DEFAULT, so you do NOT create them...
