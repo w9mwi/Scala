@@ -37,9 +37,9 @@ object Demo
                                    Person("Betty", "Rubble"))
     val namesStartingWithB:List[String] = for
                                           {
-                                            p <- people
-                                            fname = p.firstName
-                                            if (fname.startsWith("B"))
+                                            p <- people                // This line is the GENERATOR.
+                                            fname = p.firstName        // This line is the DEFINITION.
+                                            if (fname.startsWith("B")) // This line is the FILTER.
                                           } yield fname.toUpperCase
     println(namesStartingWithB) // PRINTS: List(BARNEY, BETTY)
   }
