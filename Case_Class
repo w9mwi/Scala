@@ -26,7 +26,8 @@ in the following 8 ways...
    available BY DEFAULT, so you do NOT create them...
 
       apply() - This method allows you to create a case class instance WITHOUT using the "new" keyword.
-      copy()
+      copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
+               and allows you to change member values in the newly-created copy.  An example is shown below.
       equals()
       hashCode()
       toString()
