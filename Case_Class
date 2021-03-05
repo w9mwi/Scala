@@ -20,7 +20,7 @@ in the following 8 ways...
    NOTE: Both case classes and regular classes can be defined so
          their member values are "var" (mutable) or val (immutable).
          By default (meaning the "val" or "var" is NOT specified),
-         member values are val.
+         member values are public val.
 
 2) When you create a case class the following 6 methods become
    available BY DEFAULT, so you do NOT create them...
