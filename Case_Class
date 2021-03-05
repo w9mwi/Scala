@@ -5,52 +5,59 @@ Scala provides three (3) constructs for creating user-defined types:
 3) a class  (Scala has two kinds class: "case class" and "class")
 
 The "case class" Scala type is different from the regular
-Scala "class" type in the following ways...
+Scala "class" type in the following 8 ways...
 
 1) THIS IS LIKELY THE SINGLE BIGGEST ADVANTAGE OF USING A CASE CLASS...
-   -->  All data passed to a case class as arguments are automatically
-        turned into public vals by default.  So it generally takes
-        ONLY ONE LINE OF CODE to define and declare a case class!
-        Where defining/declaring a regular class generally consumes
-        multiple lines of code.
-2) You can create an instance of case class WITHOUT the "new" keyword.
-   (This is because case classes contain an apply() method by default,
-    as well as an unapply() method, which is used in pattern matching.)
-3) When you create a case class these 4 methods become available by
-   default; you do NOT need to create them...
+   All data passed to a case class as arguments are automatically
+   turned into public vals by default.  So it generally takes
+   ONLY ONE LINE OF CODE to define and declare a case class!
+   Where defining/declaring a regular class generally requires
+   multiple lines of code.
+
+2) When you create a case class the following 6 methods become
+   available BY DEFAULT, so you do NOT create them...
+
+      apply() - This method allows you to create a case class instance WITHOUT using the "new" keyword.
       copy()
-      toString()
-      hashCode()
       equals()
-4) You can perform pattern matching with case classes, because case classes
-   contain an unapply() method by default.
-5) The "case class" Scala type automatically inherits from the type Serializable.
-6) A case class can NOT be declared without arguments/parameters.  This was
-   possible in very old versions of Scala, but not anymore.  However, you CAN
-   create a "case object" without arguments/parameters.
-7) A case class CAN be abstract, as the following line of code shows.
+      hashCode()
+      toString()
+      unapply() - This method allows pattern matching to work on a case class.
+
+3) The "case class" Scala type automatically inherits from the type Serializable.
+
+4) A case class CAN'T be declared without arguments/parameters.  This was
+   possible in very old versions of Scala, but not anymore.  However, you
+   CAN create a "case object" without arguments/parameters.
+
+5) A case class CAN be abstract, as the following example line of code shows.
    abstract case class Card(id:Int)
-8) A case class can't extend another case class.  But a case class CAN extend
-   a regular class or an abstract class.  The following example will work
+
+6) A case class CAN'T extend another case class.  But a case class CAN extend
+   a regular class OR an abstract class.  The following example will work
    with or without the "abstract" keyword:
+
    abstract class Card(id:Int)
    case class DebitCard(id:Int, name:String, number:Int) extends Card(id)
-9) A case class can extend a Trait, like the following line shows:
+
+7) A case class CAN extend a Trait, like the following example shows:
+
    trait Event
    case class ComplexEvent() extends Event
-10) The constructor parameters of case classes are treated as
-    public values and can be accessed directly, like this...
 
-object Demo
-{
-  def main(args:Array[String])
-  {
-    case class MyCaseClass(name_1: String, name_2:String)
-    val caseClass:MyCaseClass = MyCaseClass("String_1", "String_2")
-    println(caseClass.name_1, caseClass.name_2) // PRINTS: (String_1,String_2)
-  }
-}
+8) The constructor parameters of case classes are treated as
+   public values and can be accessed directly, like the
+   following code sample shows...
 
+   object Demo
+   {
+     def main(args:Array[String])
+     {
+       case class MyCaseClass(name_1: String, name_2:String)
+       val caseClass:MyCaseClass = MyCaseClass("String_1", "String_2")
+       println(caseClass.name_1, caseClass.name_2) // PRINTS: (String_1,String_2)
+     }
+   }
 
 ================================================================================
 A regular Scala class can do anything a case class can do.  But implementing
