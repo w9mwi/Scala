@@ -16,8 +16,12 @@ Scala "class" type in the following ways...
 2) You can create an instance of case class WITHOUT the "new" keyword.
    (This is because case classes contain an apply() method by default,
     as well as an unapply() method, which is used in pattern matching.)
-3) A case class automatically includes the copy(), toString(), hashCode(),
-   and equals() methods by default.
+3) When you create a case class these 4 methods become available by
+   default; you do NOT need to create them...
+      copy()
+      toString()
+      hashCode()
+      equals()
 4) You can perform pattern matching with case classes, because case classes
    contain an unapply() method by default.
 5) The "case class" Scala type automatically inherits from the type Serializable.
