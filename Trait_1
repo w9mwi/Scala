@@ -168,90 +168,64 @@ Instead of this line getting printed for Class_3:  Trait_B.method_A() is called.
 
 Inspect and run the following program to understand how it's determined
 which method gets called from which corresponding trait.
-
 ==========================================================================================
 object Demo
 {
   trait Trait_A
   {
-    def method_A() = { println("Trait_A.method_A() is called.") }
+    def func_A() = { println("Trait_A.func_A() is called.") }
   }
   trait Trait_B extends Trait_A
   {
-    // Trait_B extends Trait_A, and Trait_A implements method_A().  Therefore,
-    // the method_A() declared here in Trait_B must contain the 'override' keyword
+    // Trait_B extends Trait_A, and Trait_A implements func_A().  Therefore,
+    // the func_A() declared here in Trait_B must contain the 'override' keyword
     // or it won't compile.
-    override def method_A() = { println("Trait_B.method_A() is called.") }
-    def method_B()          = { println("Trait_B.method_B() is called.") }
+    override def func_A() = { println("Trait_B.func_A() is called.") }
+    def func_B()          = { println("Trait_B.func_B() is called.") }
   }
   trait Trait_C extends Trait_B
   {
-    def method_C() = { println("Trait_C.method_C() is called.") }
+    def func_C() = { println("Trait_C.func_C() is called.") }
   }
 
   // NOTICE the extends/with order in the Class_1 declaration below.
-  class Class_1 extends Trait_A with Trait_B with Trait_C
-  {  } // Empty class.
+  class Class_1 extends Trait_A with Trait_B with Trait_C  {  } // Empty class.
 
   // NOTICE the extends/with order in the Class_2 declaration below.
-  class Class_2 extends Trait_A with Trait_B
-  {  } // Empty class.
+  class Class_2 extends Trait_A with Trait_B  {  } // Empty class.
 
   // NOTICE the extends/with order in Class_3 declaration below.
-  class Class_3 extends Trait_C with Trait_B with Trait_A
-  {  } // Empty class.
+  class Class_3 extends Trait_C with Trait_B with Trait_A  {  } // Empty class.
 
   // NOTICE the extends/with order in Class_4 declaration below.
-  class Class_4 extends Trait_C with Trait_B
-  {  } // Empty class.
+  class Class_4 extends Trait_C with Trait_B  {  } // Empty class.
 
 
   def main(args: Array[String]):Unit =
   {
+    println("=============================")
     val myClass_1:Class_1 = new Class_1()
     println("Class_1...")
-    myClass_1.method_A()
-    myClass_1.method_B()
-    myClass_1.method_C()
+    myClass_1.func_A()  // PRINTS: Trait_B.func_A() is called.
+    myClass_1.func_B()  // PRINTS: Trait_B.func_B() is called.
+    myClass_1.func_C()  // PRINTS: Trait_C.func_C() is called.
     println("=============================")
     val myClass_2:Class_2 = new Class_2()
     println("Class_2...")
-    myClass_2.method_A()
-    myClass_2.method_B()
+    myClass_2.func_A()  // PRINTS: Trait_B.func_A() is called.
+    myClass_2.func_B()  // PRINTS: Trait_B.func_B() is called.
     println("=============================")
     val myClass_3:Class_3 = new Class_3()
     println("Class_3...")
-    myClass_3.method_A()
-    myClass_3.method_B()
-    myClass_3.method_C()
+    myClass_3.func_A()  // PRINTS: Trait_B.func_A() is called.
+    myClass_3.func_B()  // PRINTS: Trait_B.func_B() is called.
+    myClass_3.func_C()  // PRINTS: Trait_C.func_C() is called.
     println("=============================")
     val myClass_4:Class_4 = new Class_4()
     println("Class_4...")
-    myClass_4.method_A()
-    myClass_4.method_B()
-    myClass_4.method_C()
-    println("=============================")
-
-    // PRINTS THE FOLLOWING:
-    // Class_1...
-    // Trait_B.method_A() is called.
-    // Trait_B.method_B() is called.
-    // Trait_C.method_C() is called.
-    // =============================
-    // Class_2...
-    // Trait_B.method_A() is called.
-    // Trait_B.method_B() is called.
-    // =============================
-    // Class_3...
-    // Trait_B.method_A() is called.
-    // Trait_B.method_B() is called.
-    // Trait_C.method_C() is called.
-    // =============================
-    // Class_4...
-    // Trait_B.method_A() is called.
-    // Trait_B.method_B() is called.
-    // Trait_C.method_C() is called.
-    //=============================
+    myClass_4.func_A()  // PRINTS: Trait_B.func_A() is called.
+    myClass_4.func_B()  // PRINTS: Trait_B.func_B() is called.
+    myClass_4.func_C()  // PRINTS: Trait_C.func_C() is called.
   }
 }
 
