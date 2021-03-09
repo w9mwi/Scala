@@ -6,9 +6,9 @@ There are three ways to create a data type in Scala...
 
 You might think that traits are like Java interfaces with concrete methods,
 but they can actually do much more.  Traits can, for example, declare fields
-and maintain state.  In fact, you can do anything in a trait definition that
-you can do in a class definition, and the syntax looks exactly the same,
-with only four (4) exceptions...
+and maintain state.  You can do anything in a trait definition that you can
+do in a class definition (and the syntax looks exactly the same), with these
+four (4) exceptions...
 
 1) A trait cannot contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
