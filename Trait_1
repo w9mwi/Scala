@@ -110,7 +110,7 @@ of the classes/traits implemented by Class_A:  func_A(Int):Unit
 Assume we call func_A(Int) on Class_A.  Which func_A(Int) implementation
 will get called?  Here is the order how that is determined...
 
-1) If func_A(Int) IS defined in Class_A, that's the one that'll get called
+1) If func_A(Int) IS DEFINED in Class_A, that's the one that'll get called
    on Class_A, regardless if that same function signature exists in Class_B,
    Trait_A, Trait_B, or in some supertype of Class_B, Trait_A, Trait_B.
 
@@ -119,14 +119,14 @@ will get called?  Here is the order how that is determined...
    one it finds...
 
 3) If Trait_B contains func_A(Int) in one of its supertypes, the highest
-   func_A(Int) supertype that exists on Trait_B will get executed.  If
-   func_A(Int) can't be found in any Trait_B supertype, but Trait_B does
-   implement func_A(Int), Trait_B.func_A(Int) gets executed.
+   Trait_B supertype implementing func_A(Int) will get executed.  If
+   func_A(Int) can't be found in any Trait_B supertype, but Trait_B
+   implements func_A(Int), Trait_B.func_A(Int) gets executed.
 
 4) If func_A(Int) is NOT defined in Trait_B or its supertypes, Scala then
-   looks for (and will execute) func_A(Int) in the highest supertype of
-   Trait_A.  If func_A(Int) can't be found in any Trait_A supertype, but
-   Trait_A does implement func_A(Int), Trait_B.func_A(Int) gets executed.
+   looks for (and will execute) the highest supertype implementing func_A(Int)
+   on Trait_A.  If func_A(Int) can't be found in any Trait_A supertype, but
+   Trait_A does implement func_A(Int), Trait_A.func_A(Int) gets executed.
 
 5) If func_A(Int) is NOT defined in Trait_A or its supertypes, Scala then
    looks for (and will execute) func_A(Int) in the highest supertype of
@@ -136,8 +136,8 @@ will get called?  Here is the order how that is determined...
 Whenever Scala looks for a method in a supertype, it always begins with
 the supertype of the RIGHT-MOST member in the "extends/with" list.  This
 process is called LINEARIZATION.  To make this more clear, let's use the
-the following Video class declaration to show how a method located in one of
-its traits would be found...
+the following Video class declaration to show how a method located in one
+of its traits would be found...
 
 class Video extends Trait_A with Trait_B with Trait_C
 { } // Empty class.
