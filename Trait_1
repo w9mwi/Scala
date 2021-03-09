@@ -8,7 +8,7 @@ You might think that traits are like Java interfaces with concrete methods,
 but they can actually do much more.  Traits can, for example, declare fields
 and maintain state.  In fact, you can do anything in a trait definition that
 you can do in a class definition, and the syntax looks exactly the same,
-with only three (3) exceptions...
+with only four (4) exceptions...
 
 1) A trait cannot contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
@@ -23,7 +23,11 @@ with only three (3) exceptions...
    A call to super() IN A CLASS is statically bound.
    A call to super() IN A TRAIT is dynamically bound.
 
-3) A class can inherit from (extend) only one class, but a class can
+3) A class does NOT allow multiple inheritance.
+   A trait DOES allow multiple inheritance, but a trait can
+   inherit ONLY from other traits, and NEVER from a class.
+
+4) A class can inherit from (extend) only one class, but a class can
    inherit from multiple traits.  If a class inherits from only
    traits (and not another class), the FIRST trait a class inherits
    from is preceeded by the "extends" keyword.  All subsequent traits
@@ -32,11 +36,6 @@ with only three (3) exceptions...
    another class, and also inherits from traits, the inherited class
    must appear directly after the "extends" keyword, and all inherited
    traits must appear directly after the "with" keyword.
-   
-A class does NOT allow multiple inheritance.
-A trait DOES allow multiple inheritance, but a trait can inherit
-ONLY from other traits, and NEVER from a class.
-
 
 IMPORTANT: A trait is very similar to an abstract class in many ways.
            When a class extends a trait that has an abstract method
