@@ -21,12 +21,12 @@ three (3) exceptions...
 
 2) Another difference between a class and a trait is this...
 
-   A call to super() IN A CLASS is STATICALLY BOUND, which
-   means the method invoked via super() will always be the same.
+   A call to super() IN A CLASS is STATICALLY BOUND, which means when
+   the super() method is invoked, the same method always gets called.
 
-   A call to super() IN A TRAIT is DYNAMICALLY BOUND, which
-   means the method invoked via super() can change, and will
-   be determined at runtime.
+   A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means when
+   the super() method is invoked, the method that gets called can change,
+   because it's determined at runtime.
 
 3) A class can extend no more than one class.  A class can also
    extend zero, one, or multiple traits.
@@ -37,13 +37,13 @@ three (3) exceptions...
    Below are examples of the syntax used for declaring
    classes and traits which extend other classes/traits.
 
-   // A CLASS that extends one class, and multiple traits...
+   // A CLASS that extends one class, and multiple traits is defined like this...
    class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
 
-   // A CLASS that extends no class and multiple traits...
+   // A CLASS that extends no class and multiple traits is defined like this...
    class Class_1 extends Trait_A with Trait_B { ... }
 
-   // A TRAIT that extends multiple traits...
+   // A TRAIT that extends multiple traits is defined like this...
    trait Trait_E extends Trait_D with Trait_C with Trait_B with Trait_A { ... }
 
 
