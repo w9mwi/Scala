@@ -20,8 +20,13 @@ four (4) exceptions...
    trait Point(x: Int, y: Int) // Won't compile
 
 2) Another difference between a class and a trait is this...
-   A call to super() IN A CLASS is statically bound.
-   A call to super() IN A TRAIT is dynamically bound.
+
+   A call to super() IN A CLASS is STATICALLY BOUND, which
+   means the method invoked via super() will always be the same.
+
+   A call to super() IN A TRAIT is DYNAMICALLY BOUND, which
+   means the method invoked via super() can change, and will
+   be determined at runtime.
 
 3) A class does NOT allow multiple inheritance.
    A trait DOES allow multiple inheritance, but a trait can
