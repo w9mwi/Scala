@@ -76,17 +76,11 @@ IMPORTANT: A trait is very similar to an abstract class in many ways.
              def comeToMaster(): Unit   = { println("That's not gonna happen.") }
            }
 
-If you write "super.toString" in a class, you know exactly which method
-implementation will be invoked.  However, when you define a trait, the
-method implementation to invoke for super() is undefined.  The implementation
-to invoke will be determined anew each time the trait is mixed into a concrete
-class, making it DYNAMICALLY BOUND.
-
 IMPORTANT: WHEN A CLASS INHERITS FROM MULTIPLE TRAITS, BEHAVIOR
            FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED!
 
 QUESTION: When coding an abstract type that will be used with inheritance,
-          should a trait be used, or an abstract class?
+          should a "trait" be used, or an "abstract class"?
 
 ANSWER: The rule of thumb is to use a trait because it allows the flexibility
         of multiple inheritance.  While a trait cannot take arguments (as can
@@ -97,45 +91,60 @@ ANSWER: The rule of thumb is to use a trait because it allows the flexibility
 
 METHOD RESOLUTION (LINEARIZATION) - Page 466
 ============================================
-Assume we have the following class definition...
-
-Class_A extends Class_B with Trait_A with Trait_B
-{
-   // Class_A definitions are made here...
-}
-
-Also assume that we have defined this function in one or more
-of the classes/traits implemented by Class_A:  func_A(Int):Unit
-
-Assume we call func_A(Int) on Class_A.  Which func_A(Int) implementation
-will get called?  Here is the order how that is determined...
-
-1) If func_A(Int) IS DEFINED in Class_A, that's the one that'll get called
-   on Class_A, regardless if that same function signature exists in Class_B,
-   Trait_A, Trait_B, or in some supertype of Class_B, Trait_A, Trait_B.
-
-2) If func_A(Int) is NOT defined in Class_A, Scala then looks for
-   func_A(Int) IN THE FOLLOWING ORDER, and will execute the first
-   one it finds...
-
-3) If Trait_B contains func_A(Int) in one of its supertypes, the highest
-   Trait_B supertype implementing func_A(Int) will get executed.  If
-   func_A(Int) can't be found in any Trait_B supertype, but Trait_B
-   implements func_A(Int), Trait_B.func_A(Int) gets executed.
-
-4) If func_A(Int) is NOT defined in Trait_B or its supertypes, Scala then
-   looks for (and will execute) the highest supertype implementing func_A(Int)
-   on Trait_A.  If func_A(Int) can't be found in any Trait_A supertype, but
-   Trait_A does implement func_A(Int), Trait_A.func_A(Int) gets executed.
-
-5) If func_A(Int) is NOT defined in Trait_A or its supertypes, Scala then
-   looks for (and will execute) func_A(Int) in the highest supertype of
-   Class_B.  If func_A(Int) can't be found in any Class_B supertype, but
-   Class_B does implement func_A(Int), Class_B.func_A(Int) gets executed.
-   
 Whenever Scala looks for a method in a supertype, it always begins with
 the supertype of the RIGHT-MOST member in the "extends/with" list.  This
-process is called LINEARIZATION.  To make this more clear, let's use the
+process is called LINEARIZATION.  To understand this, run the following
+program.  When a function is called on the Class_1 object, the function
+that gets called is the FIRST FUNCTION FOUND IN THIS ORDER...
+
+1) In a superclass of Trait_D.
+2) In a superclass of Trait_C.
+3) In a superclass of Trait_B.
+4) In a superclass of Trait_A.
+5) In Trait_D.
+6) In Trait_C.
+7) In Trait_B.
+8) In Trait_A.
+
+object Demo
+{
+  trait Trait_A
+  {
+    def func_A() = { println("Trait_A.func_A() is called.") }
+  }
+  trait Trait_B extends Trait_A
+  {
+    def func_B() = { println("Trait_B.func_B() is called.") }
+  }
+  trait Trait_C extends Trait_B
+  {
+    def func_C() = { println("Trait_C.func_C() is called.") }
+  }
+  trait Trait_D extends Trait_C
+  {
+    def func_D() = { println("Trait_D.func_D() is called.") }
+  }
+
+  class Class_1 extends Trait_D {  } // Empty class.
+
+  def main(args: Array[String]):Unit =
+  {
+    println("=============================")
+    val myClass_1:Class_1 = new Class_1()
+    println("Class_1...")
+    myClass_1.func_A()  // PRINTS: Trait_A.func_A() is called.
+    myClass_1.func_B()  // PRINTS: Trait_B.func_B() is called.
+    myClass_1.func_C()  // PRINTS: Trait_C.func_C() is called.
+    myClass_1.func_D()  // PRINTS: Trait_D.func_D() is called.
+    println("=============================")
+  }
+}
+
+=====================================================
+CONTINUE HERE (MARCH 10, 2021)...
+
+
+To make this more clear, let's use the
 the following Video class declaration to show how a method located in one
 of its traits would be found...
 
