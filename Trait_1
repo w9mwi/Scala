@@ -6,9 +6,9 @@ There are three ways to create a data type in Scala...
 
 You might think that traits are like Java interfaces with concrete methods,
 but they can actually do much more.  Traits can, for example, declare fields
-and maintain state.  You can do anything in a trait definition that you can
-do in a class definition (and the syntax looks exactly the same), with these
-three (3) exceptions...
+and maintain state.  Scala traits and classes can often accomplish the same
+behavior, but there are some differences listed in the three (3) points
+below.
 
 1) A trait cannot contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
@@ -19,20 +19,19 @@ three (3) exceptions...
    compile because it contains arguments/parameters...
    trait Point(x: Int, y: Int) // Won't compile
 
-2) Another difference between a class and a trait is this...
-
-   A call to super() IN A CLASS is STATICALLY BOUND, which means when
+2) A call to super() IN A CLASS is STATICALLY BOUND, which means when
    the super() method is invoked, the same method always gets called.
 
    A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means when
    the super() method is invoked, the method that gets called can change,
    because it's determined at runtime.
 
-3) A class can extend no more than one class.  A class can also
-   extend zero, one, or multiple traits.
-
-   A trait can extend zero, one, or multiple traits.
+3) A class CAN extend zero or one class.
    A trait can NEVER extend (inherit from) a class.
+
+   A class can extend zero, one, or multiple traits.
+   A trait can extend zero, one, or multiple traits.
+   
    
    Below are examples of the syntax used for declaring
    classes and traits which extend other classes/traits.
