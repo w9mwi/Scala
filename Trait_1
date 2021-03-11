@@ -113,7 +113,7 @@ Scala searches for that function...
 1) In Class_1 (the base Scala class)
 2) In Class_2 (the Scala class that Class_1 extends)
 3) In a superclass of Class_2
-4) In a superclass of Trait_C  (Always begin with the right-most trait in the "extends" list.)
+4) In a superclass of Trait_C  (Always begin with the RIGHT-MOST trait in the "extends" list.)
 5) In a superclass of Trait_B
 6) In a superclass of Trait_A
 7) In Trait_C
