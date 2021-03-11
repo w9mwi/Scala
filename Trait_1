@@ -56,14 +56,9 @@ class Class_1 extends Class_2 with Trait_A with Trait_B with Trait_C
 
 Also assume a function named func_A is defined in multiple classes
 and/or traits, and all these func_A() definitions have identical
-signatures (args and return type).  When you call Class_1.func_A(),
-which of the many func_A() functions gets invoked?  The process of
-resolving which function gets invoked is called LINEARIZATION.
-
-THE FIRST INSTANCE OF THAT FUNCTION FOUND IS THE FUNCTION THAT WILL GET INVOKED.
-
-When Class_1.func_A() gets called, this is the order in which Scala searches
-for which func_A() should get invoked:
+signatures (args and return type).  When Class_1.func_A() gets called,
+this is the order in which Scala searches for which func_A()
+should get invoked:
 
 1) Class_1 (the Scala base class)
 2) superclass of Class_2
@@ -75,9 +70,12 @@ for which func_A() should get invoked:
 8) Trait_B
 9) Trait_A
 
+The process of resolving which function gets invoked is called LINEARIZATION.
+THE FIRST INSTANCE OF THAT FUNCTION FOUND IS THE FUNCTION THAT WILL GET INVOKED.
+
 So even if there are 10 functions all having the same name and signature defined
 in traits/classes extended by a base class, the base class will call ONLY ONE of
-those functions based on how Scala searched for that function.  Below is sample
+those functions based on how Scala searches for that function.  Below is sample
 code that shows an example of this.
 ==================================================================================
 
