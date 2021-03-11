@@ -5,46 +5,138 @@ There are three ways to create a data type in Scala...
 3) trait
 
 You might think that traits are like Java interfaces with concrete methods,
-but they can actually do much more.  Traits can, for example, declare fields
-and maintain state.  Scala traits and classes can often accomplish the same
-behavior, but there are some differences listed in the three (3) points
-below.
+but they can actually do much more.  Traits can declare fields and maintain
+state.  Scala traits and classes can often accomplish the same behavior,
+but there are some differences listed in the three (3) points below.
 
-1) A trait cannot contain arguments/parameters like a class can.
+1) A trait CAN'T contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
    the arguments/parameters x and y...
    class Point(x: Int, y: Int) // Will compile
 
-   But the following attempt to define a trait will NOT
-   compile because it contains arguments/parameters...
+   The following attempt to define a trait WON'T compile
+   because it contains arguments/parameters...
    trait Point(x: Int, y: Int) // Won't compile
 
 2) A call to super() IN A CLASS is STATICALLY BOUND, which means when
-   the super() method is invoked, the same method always gets called.
+   the super() method is invoked, the same method always gets called,
+   regardless of conditions at runtime.
 
    A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means when
    the super() method is invoked, the method that gets called can change,
    because it's determined at runtime.
 
 3) A class CAN extend zero or one class.
-   A trait can NEVER extend (inherit from) a class.
-
    A class can extend zero, one, or multiple traits.
-   A trait can extend zero, one, or multiple traits.
-   
-   
-   Below are examples of the syntax used for declaring
-   classes and traits which extend other classes/traits.
 
-   // A CLASS that extends one class, and multiple traits is defined like this...
-   class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
+   A trait CAN extend zero, one, or multiple traits.
+   A trait can NEVER extend a class.
 
-   // A CLASS that extends no class and multiple traits is defined like this...
-   class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
 
-   // A TRAIT that extends multiple traits is defined like this...
-   trait Trait_E extends Trait_D with Trait_C with Trait_B with Trait_A { ... }
+Below are three (3) SYNTAX EXAMPLES for declaring classes and traits,
+which extend other classes/traits.
 
+// A CLASS that extends one class, and multiple traits is defined like this...
+class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
+
+// A CLASS that extends no class and multiple traits is defined like this...
+class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
+
+// A TRAIT that extends multiple traits is defined like this...
+trait Trait_E extends Trait_D with Trait_C with Trait_B with Trait_A { ... }
+
+
+METHOD RESOLUTION (LINEARIZATION) - Page 466
+============================================
+It's possible for a function having the same name and signature
+to be defined in multiple Scala classes and traits.  Assume a
+base Scala class is named Class_1, and has this definition:
+
+class Class_1 extends Class_2 with Trait_A with Trait_B with Trait_C
+
+Also assume a function named func_A is defined in multiple classes
+and/or traits, and all these func_A() definitions have identical
+signatures (args and return type).  When you call Class_1.func_A(),
+which of the many func_A() functions gets invoked?  The process of
+resolving which function gets invoked is called LINEARIZATION.
+
+THE FIRST INSTANCE OF THAT FUNCTION FOUND IS THE FUNCTION THAT WILL GET INVOKED.
+
+When Class_1.func_A() gets called, this is the order in which Scala searches
+for which func_A() should get invoked:
+
+1) Class_1 (the Scala base class)
+2) superclass of Class_2
+3) Class_2 (Class_2 is searched AFTER searching the superclass of Class_2.)
+4) superclass of Trait_C  (Always begin with the RIGHT-MOST trait in the "extends" list.)
+5) superclass of Trait_B
+6) superclass of Trait_A
+7) Trait_C  (Base traits are searched AFTER their superclasses are searched.)
+8) Trait_B
+9) Trait_A
+
+So even if there are 10 functions all having the same name and signature defined
+in traits/classes extended by a base class, the base class will call ONLY ONE of
+those functions based on how Scala searched for that function.  Below is sample
+code that shows an example of this.
+==================================================================================
+
+object Demo
+{
+  trait Trait_A
+  {
+    println("Trait_A instantiated.")
+    def func_A() = { println("Trait_A.func_A() is called.") }
+  }
+  trait Trait_B extends Trait_A
+  {
+    println("Trait_B instantiated.")
+    def func_B() = { println("Trait_B.func_B() is called.") }
+  }
+  trait Trait_C extends Trait_B
+  {
+    println("Trait_C instantiated.")
+    def func_C() = { println("Trait_C.func_C() is called.") }
+    def func_D() = { println("Trait_C.func_D() is called.") }
+  }
+  trait Trait_D extends Trait_C
+  {
+    println("Trait_D instantiated.")
+  }
+  class Class_1 extends Trait_D
+  {
+    println("Class_1 instantiated.")
+  }
+  class Class_2
+  {
+    println("Class_2 instantiated.")
+    def func_A() = { println("Class_2.func_A() is called.") }
+  }
+  class Class_3 extends Class_2
+  {
+    println("Class_3 instantiated.")
+  }
+
+  /**********************
+   * main() function.
+   *********************/
+  def main(args: Array[String]):Unit =
+  {
+    println("=============================")
+    val myClass_1:Class_1 = new Class_1()
+    myClass_1.func_A()  // PRINTS: Trait_A.func_A() is called.
+    myClass_1.func_B()  // PRINTS: Trait_B.func_B() is called.
+    myClass_1.func_C()  // PRINTS: Trait_C.func_C() is called.
+    myClass_1.func_D()  // PRINTS: Trait_D.func_D() is called.
+    println("=============================")
+    val myClass_3:Class_3 = new Class_3()
+    // NOTE: The func_A() that gets called below by myClass_3.func_A() is located
+    //       in Class_2, NOT the func_A() located in Class_3 or Trait_A.
+    myClass_3.func_A()  // PRINTS: Class_2.func_A() is called.
+  }
+}
+
+==================================================================================
 
 IMPORTANT: A trait is very similar to an abstract class in many ways.
            When a class extends a trait that has an abstract method
@@ -52,31 +144,28 @@ IMPORTANT: A trait is very similar to an abstract class in many ways.
            method contained in the trait must be defined in the
            in the class that extends the trait!!!  Here's an example:
 
-           trait Pet
-           {
-              def speak() { println("Bow-Wow") } // speak() is DEFINED, which means it's a CONCRETE method.
-              def comeToMaster(): Unit           // comeToMaster() is UNDEFINED, which means it's an ABSTRACT  method.
-           }
-           class Dog(name: String) extends Pet
-           {
-             // Because Dog extends the trait Pet, and Pet contains an ABSTRACT method,
-             // the ABSTRACT method comeToMaster() MUST be defined in this Dog class...
-             def comeToMaster(): Unit = { println("Woo-hoo, I'm coming!") }
-           }
+trait Pet
+{
+   def speak() { println("Bow-Wow") } // speak() is DEFINED, which means it's a CONCRETE method.
+   def comeToMaster(): Unit           // comeToMaster() is UNDEFINED, which means it's an ABSTRACT  method.
+}
+class Dog(name: String) extends Pet
+{
+   // Because Dog extends the trait Pet, and Pet contains an ABSTRACT method,
+   // the ABSTRACT method comeToMaster() MUST be defined in this Dog class...
+   def comeToMaster(): Unit = { println("Woo-hoo, I'm coming!") }
+}
 
-           A class that extends a trait can override a trait's defined method
-           by redefining the trait's method inside the class, like this:
+A class that extends a trait can override a trait's defined method
+by redefining the trait's method inside the class, like this:
 
-           class Cat extends Pet
-           {
-             // The following speak() method overrides the trait's speak() method
-             // defined in the above example...
-             override def speak(): Unit = { println("Meow") }
-             def comeToMaster(): Unit   = { println("That's not gonna happen.") }
-           }
-
-IMPORTANT: WHEN A CLASS INHERITS FROM MULTIPLE TRAITS, BEHAVIOR
-           FROM ONLY ONE SINGLE TRAIT WILL BE IMPLEMENTED!
+class Cat extends Pet
+{
+   // The following speak() method overrides the trait's speak() method
+   // defined in the above example...
+   override def speak(): Unit = { println("Meow") }
+   def comeToMaster(): Unit   = { println("That's not gonna happen.") }
+}
 
 QUESTION: When coding an abstract type that will be used with inheritance,
           should a "trait" be used, or an "abstract class"?
@@ -86,73 +175,6 @@ ANSWER: The rule of thumb is to use a trait because it allows the flexibility
         an abstract class), any values that you'd want to provide as arguments
         can be put into a trait and left undefined, so the class that implements
         the trait will have to provide those values.
-
-
-METHOD RESOLUTION (LINEARIZATION) - Page 466
-============================================
-It's possible for a Scala function (having the same name and signature)
-to exist in a Scala class, AND in one or more of these locations:
-
-   * A class that it extends
-   * A superclass of the class it extends
-   * A trait that the class extends
-   * A superclass of a trait that the class extends
-
-If a Scala class has access to multiple functions having the same
-name and signature, and that function is called on the Scala class,
-which function gets invoked?  The process of resolving which function
-gets invoked is called LINEARIZATION.  The first instance of that
-function found is the function that gets called.  Assume the base
-Scala class has this definition:
-
-class Class_1 extends Class_2 with Trait_A with Trait_B with Trait_C
-
-When a function gets called on Class_1, this is the order in which
-Scala searches for that function...
-
-1) In Class_1 (the base Scala class)
-2) In Class_2 (the Scala class that Class_1 extends)
-3) In a superclass of Class_2
-4) In a superclass of Trait_C  (Always begin with the RIGHT-MOST trait in the "extends" list.)
-5) In a superclass of Trait_B
-6) In a superclass of Trait_A
-7) In Trait_C
-8) In Trait_B
-9) In Trait_A
-
-object Demo
-{
-  trait Trait_A
-  {
-    def func_A() = { println("Trait_A.func_A() is called.") }
-  }
-  trait Trait_B extends Trait_A
-  {
-    def func_B() = { println("Trait_B.func_B() is called.") }
-  }
-  trait Trait_C extends Trait_B
-  {
-    def func_C() = { println("Trait_C.func_C() is called.") }
-  }
-  trait Trait_D extends Trait_C
-  {
-    def func_D() = { println("Trait_D.func_D() is called.") }
-  }
-
-  class Class_1 extends Trait_D {  } // Empty class.
-
-  def main(args: Array[String]):Unit =
-  {
-    println("=============================")
-    val myClass_1:Class_1 = new Class_1()
-    println("Class_1...")
-    myClass_1.func_A()  // PRINTS: Trait_A.func_A() is called.
-    myClass_1.func_B()  // PRINTS: Trait_B.func_B() is called.
-    myClass_1.func_C()  // PRINTS: Trait_C.func_C() is called.
-    myClass_1.func_D()  // PRINTS: Trait_D.func_D() is called.
-    println("=============================")
-  }
-}
 
 =====================================================
 CONTINUE HERE (MARCH 10, 2021)...
