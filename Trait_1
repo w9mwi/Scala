@@ -27,10 +27,10 @@ but there are some differences listed in the three (3) points below.
    because it's determined at runtime.
 
 3) A class CAN extend zero or one class.
-   A class can extend zero, one, or multiple traits.
+   A class CAN extend zero, one, or multiple traits.
 
+   A trait CAN'T extend a class.
    A trait CAN extend zero, one, or multiple traits.
-   A trait can NEVER extend a class.
 
 
 Below are three (3) SYNTAX EXAMPLES for declaring classes and traits,
