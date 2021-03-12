@@ -73,10 +73,10 @@ should get invoked:
 The process of resolving which function gets invoked is called LINEARIZATION.
 THE FIRST INSTANCE OF THAT FUNCTION FOUND IS THE FUNCTION THAT WILL GET INVOKED.
 
-So even if there are 10 functions all having the same name and signature defined
-in traits/classes extended by a base class, the base class will call ONLY ONE of
-those functions based on how Scala searches for that function.  Below is sample
-code that shows an example of this.
+Even if there are 10 functions all having the same name and signature defined in
+traits/classes extended by a base class, the base class calls ONLY the first
+function Scala finds.  Below is sample code that shows examples of which func_A()
+function that gets invoked.
 ==================================================================================
 
 object Demo
