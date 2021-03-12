@@ -128,8 +128,10 @@ object Demo
     myClass_1.func_D()  // PRINTS: Trait_D.func_D() is called.
     println("=============================")
     val myClass_3:Class_3 = new Class_3()
-    // NOTE: The func_A() that gets called below by myClass_3.func_A() is located
-    //       in Class_2, NOT the func_A() located in Class_3 or Trait_A.
+    // NOTE: When the below myClass_3.func_A() line executes, it invokes the
+    //       Class_2.func_A() function (NOT myClass_3.func_A()) as that's
+    //       the first func_A() found by the Scala LINEARIZATION rules
+    //       described above.
     myClass_3.func_A()  // PRINTS: Class_2.func_A() is called.
   }
 }
