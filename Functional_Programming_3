@@ -168,7 +168,7 @@ object Demo
     // The following println() will NOT compile if you comment out the "extends (Int => Int)"
     // text in the above "class MultiplyByTwo()" declaration.
     println("myList.map(multiplyByTwo) = " + myList.map(multiplyByTwo)) // PRINTS: myList.map(multiplyByTwo) = List(2, 4, 6)
-    println("myList.filter((_ * 2) = " + myList.map(_ * 2))             // PRINTS: myList.filter((_ * 2) = List(2, 4, 6)
+    println("myList.map((_ * 2) = " + myList.map(_ * 2))                // PRINTS: myList.map((_ * 2) = List(2, 4, 6)
     println("myList.filter((_ > 2) = " + myList.filter(_ > 1))          // PRINTS: myList.filter((_ > 2) = List(2, 3)
   }
 }
