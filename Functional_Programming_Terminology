@@ -1,0 +1,19 @@
+
+Combinator - The idea of being able to combine, or chain,
+             functions together like a UNIX command
+             pipeline:   ps aux grep root wc -l
+
+Functor - Things that can be mapped over.  For example,
+          an Array and a List both contain elements.
+          For each of those elements a function can be
+          called that returns a value.  So you could
+          call a function named add() on every element
+          of the Array, or the List.
+
+
+
+Higher-Order Function - A function that can be passed other functions
+                        as parameters, and/or returns a function.
+
+Lambda - Another word for an anonymous function.
+

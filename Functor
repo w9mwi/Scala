@@ -1,7 +1,0 @@
-
-Functor - Things that can be mapped over.  For example,
-          an Array and a List both contain elements.
-          For each of those elements a function can be
-          called that returns a value.  So you could
-          call a function named add() on every element
-          of the Array, or the List.
