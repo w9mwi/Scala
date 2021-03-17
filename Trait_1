@@ -135,11 +135,16 @@ object Demo
 
 ==================================================================================
 
-IMPORTANT: A trait is very similar to an abstract class in many ways.
-           When a class extends a trait that has an abstract method
-           (a method that's declared, but not defined), each abstract
-           method contained in the trait must be defined in the
-           in the class that extends the trait!!!  Here's an example:
+If a trait contains a member function that IS defined, that member method is concrete.
+If a trait contains a member value that IS initialized, that member value is concrete.
+If a trait contains a member function that is NOT defined, that member method is abstract.
+If a trait contains a member value that is NOT initialized, that member value is abstract.
+
+A trait is very similar to an abstract class in many ways.
+When a class extends a trait that has an abstract method
+(a method that's declared, but not defined), each abstract
+method contained in the trait must be defined in the
+in the class that extends the trait!!!  Here's an example:
 
 trait Pet
 {
