@@ -39,3 +39,7 @@ Pure Function - A pure function's output (returned result) depends ONLY on the c
                 Also, any function that has no input parameters (i.e., the readLine function),
                 or returns nothing (returns type Unit), is NOT a pure function.
 
+                If there is no data dependency between two pure functions,
+                then the order in which they get called doesn't matter, or
+                they could be run simultaneously (in parallel).  Therefore,
+                pure functions are "thread safe."
