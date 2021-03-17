@@ -276,6 +276,40 @@ object Demo
 }
 
 =======================================================================================
+Here's another sample program showing how to use Scala traits...
+
+object Demo
+{
+  trait Pet
+  {
+    def speak:Unit = { println("I speak the universal Pet language.") } // concrete implementation of speak() method.
+    def comeToMaster:Unit  // abstract implementation of comeToMaster() method.
+  }
+
+  class Dog extends Pet
+  {
+    def comeToMaster:Unit = { println("I'm a Dog, so I come when called.") }
+  }
+
+  class Cat extends Pet
+  {
+    override def speak:Unit = { println("MEOW") } // The override key word is required here.
+    def comeToMaster:Unit   = { println("I'm a Cat, so I don't follow orders.") }
+  }
+
+  def main(args: Array[String])
+  {
+    val catPet:Cat = new Cat()
+    catPet.speak        // PRINTS: MEOW
+    catPet.comeToMaster // PRINTS: I'm a Cat, so I don't follow orders.
+
+    val dogPet:Dog = new Dog()
+    dogPet.speak        // PRINTS: I speak the universal Pet language.
+    dogPet.comeToMaster // PRINTS: I'm a Dog, so I come when called.
+  }
+}
+
+=======================================================================================
 Rich Interface - A rich interface has many methods, which makes it convenient to use
                  because the caller is likely to find a method that exactly matches the
                  functionality she needs.
