@@ -746,6 +746,11 @@ ___ permutations - Also see the combinations function.
                      // Print the same intList.permutations as the above call to foreach.
                      println("count = " + count + ", " + x)
                    }
+___ reduce - Example:
+             val myList:List[Int] = List(1, 2, 3, 4)
+             println(myList.reduce(_ max _))         // PRINTS: 4
+             println(myList.reduce((x, y) => x + y)) // PRINTS: 10
+             println(myList.reduce((x, y) => x - y)) // PRINTS: -8
 ___ reduceLeft - See reduceRight.
 ___ reduceRight - EXAMPLE of reduceLeft and reduceRight:
     val myList:List[Int] = List(1, 2, 3, 4)
