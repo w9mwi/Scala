@@ -1,21 +1,19 @@
 
-Combinator - The idea of being able to combine, or chain,
-             functions together like a UNIX command
-             pipeline:   ps aux grep root wc -l
+Combinator - The idea of being able to combine, or chain, functions
+             together like a UNIX command pipeline:
+             $ ps aux grep root wc -l
 
 
-Functor - Things that can be mapped over.  For example,
-          an Array and a List both contain elements.
-          For each of those elements a function can be
-          called that returns a value.  Here's an example
-          as a List being a functor:
+Functor - Things that can be mapped over.  For example, an Array and a List
+          both contain elements.  For each of those elements a function can
+          be called that returns a value.  A List is a functor:
 
           val myList:List[Int] = List(1, 2, 3, 4)
           println(myList.map(_ * 4)) // PRINTS: List(4, 8, 12, 16)
 
 
-Higher-Order Function - A function that can be passed other functions
-                        as parameters, and/or returns a function.
+Higher-Order Function - A function that can be passed a function as
+                        a parameter, and/or can return a function.
 
 
 Lambda - Another word for an anonymous function.
