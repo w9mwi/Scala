@@ -28,6 +28,7 @@ But there are three (3) differences between a Scala class and trait...
 
 3) A class CAN extend zero or one class.
    A class CAN extend zero, one, or multiple traits.
+   A class CAN extend a class AND one or more traits.
 
    A trait CAN'T extend a class.
    A trait CAN extend zero, one, or multiple traits.
