@@ -26,11 +26,14 @@ Pure Function - A function that depends only on its declared input parameters
 
                 * A global value
                 * Getting the date/time
+                * Generating a random number
                 * File I/O
                 * Database I/O
                 * Web service
                 * Video screen output
 
                 The function's output (returned result) depends ONLY on the
-                content of its input parameters, which aren't modified.
+                content of its input parameters, which aren't modified.  If
+                a function has no input parameters, or returns nothing (Unit),
+                then the function is NOT a pure function.
 
