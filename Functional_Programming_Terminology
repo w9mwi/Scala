@@ -1,7 +1,10 @@
 
-Combinator - The idea of being able to combine, or chain, functions
+Combinator - The idea of being able to combine functions
              together like a UNIX command pipeline:
              $ ps aux grep root wc -l
+
+             In Scala, functions can be combined by chaining, them like this:
+             val result = doThis(a).thenThis(b)andFinallyThis(c)
 
 
 Functor - Things that can be mapped over.  For example, an Array and a List
