@@ -30,7 +30,7 @@ Pure Function - A function that depends only on its declared input parameters
                 * File I/O
                 * Database I/O
                 * Web service
-                * Video screen output
+                * Writes to the video screen  (The println function is an example.)
 
                 The function's output (returned result) depends ONLY on the
                 content of its input parameters, which aren't modified.  If
