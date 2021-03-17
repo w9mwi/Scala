@@ -18,3 +18,10 @@ Higher-Order Function - A function that can be passed a function as
 
 Lambda - Another word for an anonymous function.
 
+
+Pure Function - A function that depends only on its declared input parameters
+                and its algorithm to generate its output (returned result).
+                It doesn't read or modify any values from the "outside world."
+                Where the "outside world" could be a global value, file I/O,
+                database I/O, web service, or video screen output.
+
