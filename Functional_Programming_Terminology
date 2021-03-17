@@ -21,8 +21,10 @@ Lambda - Another word for an anonymous function.
 
 Pure Function - A function that depends only on its declared input parameters
                 and its algorithm to generate its output (returned result).
-                It doesn't read or modify any values from the "outside world."
-                Some examples of the "outside world" are:
+                A pure function's output (returned result) depends ONLY on
+                the content of its input parameters, which aren't modified.
+                A pure function doesn't read or modify any values from the
+                "outside world."  Some examples of the "outside world" are:
 
                 * A global value
                 * Getting the date/time
@@ -32,8 +34,6 @@ Pure Function - A function that depends only on its declared input parameters
                 * Web service
                 * Writes to the video screen  (The println function is an example.)
 
-                The function's output (returned result) depends ONLY on the
-                content of its input parameters, which aren't modified.  If
-                a function has no input parameters, or returns nothing (Unit),
-                then the function is NOT a pure function.
+                If a function has no input parameters (i.e., the readLine() function), or
+                returns nothing (returns type Unit), the function is NOT a pure function.
 
