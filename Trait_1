@@ -180,50 +180,59 @@ object Demo
   trait Iterator[A]
   {
     // The following 2 functions (hasNext and next) are abstract because they're
-    // only declared here, and NOT defined.  Any class/trait that inherits
-    // from this trait will need to implement the behavior of these functions.
+    // NOT defined here, only declared.  Any class/trait that inherits from this
+    // trait MUST define (implement) these 2 functions.
     def hasNext: Boolean // NOTE: The hasNext function is implemented in the below class that extends this trait.
-    def next(): A        // NOTE: The next() function is implemented in the below class that extends this trait.
+    def next: A          // NOTE: The next    function is implemented in the below class that extends this trait.
   }
 
-  class IntIterator(to: Int) extends Iterator[Int]
+  /**
+   *
+   * @param maxIterIndex - This Int value designates the maximum upper limit of the iteration index.
+   */
+  class IntIterator(maxIterIndex: Int) extends Iterator[Int]
   {
-    private var current:Int = 0
-    override def hasNext:Boolean = { current < to }
-    override def next():Int =
+    private var currentIterIndex:Int = 0  // NOTE: currentIterIndex is a var type!
+    override def hasNext:Boolean = { currentIterIndex < maxIterIndex }
+    override def next:Int =
     {
       if (hasNext)
       {
-        val total:Int = current
-        current += 1
-        total
+        val nextIterIndex:Int = currentIterIndex
+        currentIterIndex += 1
+        nextIterIndex
       }
-      else { 0 } // Once the Iterator is "spent", this "else" statement (which returns zero) always executes.
+      else { 0 } // Once the Iterator is "spent" this "else" statement (which returns zero) always executes.
     }
   }
 
   /**
-    * @param args Arguments passed from the command line.
-    */
+   * @param args Arguments passed from the command line.
+   */
   def main(args: Array[String])
   {
     val iterator:IntIterator = new IntIterator(10) // iterator is initialized to perform 10 iterations.
 
-    // The 13 print statements below collectively print the following:
-    // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0
-    print(iterator.next() + ", ") // PRINTS: 0
-    print(iterator.next() + ", ") // PRINTS: 1
-    print(iterator.next() + ", ") // PRINTS: 2
-    print(iterator.next() + ", ") // PRINTS: 3
-    print(iterator.next() + ", ") // PRINTS: 4
-    print(iterator.next() + ", ") // PRINTS: 5
-    print(iterator.next() + ", ") // PRINTS: 6
-    print(iterator.next() + ", ") // PRINTS: 7
-    print(iterator.next() + ", ") // PRINTS: 8
-    print(iterator.next() + ", ") // PRINTS: 9
-    print(iterator.next() + ", ") // PRINTS: 0 // next() returns 0 cuz the Iterator is spent.
-    print(iterator.next() + ", ") // PRINTS: 0 // next() returns 0 cuz the Iterator is spent.
-    println(iterator.next())      // PRINTS: 0 // next() returns 0 cuz the Iterator is spent.
+    // The following print statements collectively print this single line:
+    // 0, 1, 2, 3, 4, 5, 6, 7, 8, true, 9, false, 0, 0, 0
+    print(iterator.next + ", ") // PRINTS: 0
+    print(iterator.next + ", ") // PRINTS: 1
+    print(iterator.next + ", ") // PRINTS: 2
+    print(iterator.next + ", ") // PRINTS: 3
+    print(iterator.next + ", ") // PRINTS: 4
+    print(iterator.next + ", ") // PRINTS: 5
+    print(iterator.next + ", ") // PRINTS: 6
+    print(iterator.next + ", ") // PRINTS: 7
+    print(iterator.next + ", ") // PRINTS: 8
+    // The following line returns true cuz the iterator is NOT yet spent.
+    print(iterator.hasNext + ", ") // PRINTS: true
+    print(iterator.next + ", ") // PRINTS: 9
+    // The following line returns false cuz the iterator IS spent.
+    print(iterator.hasNext + ", ") // PRINTS: false
+    // The following 3 lines return 0 cuz the iterator IS spent.
+    print(iterator.next + ", ") // PRINTS: 0
+    print(iterator.next + ", ") // PRINTS: 0
+    println(iterator.next)      // PRINTS: 0
   }
 }
 
