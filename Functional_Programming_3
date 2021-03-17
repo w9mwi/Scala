@@ -136,3 +136,39 @@ object Demo
 
   def stringToInt(str:String)(func: String => Int) = func(str)
 }
+
+===============================================================================
+
+INHERITING FROM FUNCTION TYPES - Page 467
+=========================================
+When you treat an object like a function and pass it value arguments,
+Scala expands that to call the apply() method on that object.  But for
+the type to really be a function type that can be used in places that
+expect functions (like calls to map(), filter(), foreach(), etc.) your
+type must actually be a subtype of the function type.  To understand
+this, run the following Scala code and read the in-line comments...
+
+object Demo
+{
+  class MultiplyByTwo() extends (Int => Int)
+  {
+    def apply(i:Int) = 2*i
+  }
+
+  def main(args: Array[String])
+  {
+    val myList = List(1,2,3)
+    val multiplyByTwo = new MultiplyByTwo()
+
+    // The following 2 println() statements WORK WITH OR WITHOUT the "extends (Int => Int)"
+    // text in the above "class MultiplyByTwo()" declaration.
+    println("multiplyByTwo.apply(5) = " + multiplyByTwo.apply(5)) // PRINTS: multiplyByTwo.apply(5) = 10
+    println("multiplyByTwo(5) = " + multiplyByTwo(5))             // PRINTS: multiplyByTwo(5) = 10
+
+    // The following println() will NOT compile if you comment out the "extends (Int => Int)"
+    // text in the above "class MultiplyByTwo()" declaration.
+    println("myList.map(multiplyByTwo) = " + myList.map(multiplyByTwo)) // PRINTS: myList.map(multiplyByTwo) = List(2, 4, 6)
+    println("myList.filter((_ * 2) = " + myList.map(_ * 2))             // PRINTS: myList.filter((_ * 2) = List(2, 4, 6)
+    println("myList.filter((_ > 2) = " + myList.filter(_ > 1))          // PRINTS: myList.filter((_ > 2) = List(2, 3)
+  }
+}
