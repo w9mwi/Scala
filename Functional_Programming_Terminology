@@ -24,7 +24,7 @@ Lambda - Another word for an anonymous function.
 
 
 Pure Function - A pure function's output (returned result) depends ONLY on the content of
-                its input parameters, which aren't modified, and the function's algorithm.
+                its input parameters (which aren't modified) and the function's algorithm.
                 A pure function doesn't read or modify any values from the "outside world."
                 Some examples of the "outside world" are:
 
@@ -33,7 +33,7 @@ Pure Function - A pure function's output (returned result) depends ONLY on the c
                 * Generating a random number
                 * File I/O
                 * Database I/O
-                * Web service
+                * Web service I/O
                 * Writes to the video screen  (The println function is an example.)
 
                 Also, any function that has no input parameters (i.e., the readLine function),
