@@ -49,47 +49,48 @@ NOTE: The code sample below will still work if you replace...
       1)  (blockOfCode: => A)            with  (blockOfCode: => Int)
       2)  val codeBlock:A = blockOfCode  with  val codeBlock:Int = blockOfCode
 ===============================================================================
+
 object Demo
 {
   type IntDoubleTuple = (Int, Double)
 
   /**
-    * @param blockOfCode -
-    * @tparam A - The A type in the timer() function below is really the IntDoubleTuple
-    *             type defined above.  If you replace all three A references in the timer()
-    *             function below with references to IntDoubleTuple, the code still works.
-    *
-    * @return the type A in this example is the IntDoubleTuple type defined above.
-    */
-  def timer[A](blockOfCode: => A) =  // NOTE: blockOfCode is a block of code that returns the type A.
-  {
-    val startTime:Long = System.nanoTime
-    // When the following line of code gets called, all code contained in the blockOfCode param
-    // passed to this timer() function executes, including the Thread.sleep(1000) method.  The
-    // value returned to codeBlock is the single Int value 42 returned by the blockOfCode parameter.
-    val codeBlock:A = blockOfCode
-
-    // Even though codeBlock is of type A (the IntDoubleTuple type defined above),
-    // codeBlock contains ONLY a single Int value, which is the Int value 42
-    // returned by the blockOfCode parameter.  THAT'S WEIRD!...  Because if you
-    // try to access codeBlock._1 or codeBlock._2, you'll get a compile error!
-    println("codeBlock = " + codeBlock) // PRINTS: codeBlock = 42
-
-    val stopTime:Long  = System.nanoTime
-    val delta:Long     = stopTime - startTime
-    (codeBlock, delta / 1000000D)  // Returns the tuple (Int, Double)
-  }
-
+   * main() function
+   */
   def main(args:Array[String]): Unit =
   {
-    // Here, we pass a block of code as a parameter to the timer() function defined above.
-    // The block of code is everything contained between the {} braces...
-    val resultTuple:IntDoubleTuple = timer { Thread.sleep(1000); 42}
-
-    // The following line prints this:  resultTuple._1 = 42, resultTuple._2 = 1012.724867
+    // In the following line of code, the timer() function defined further below gets called.
+    // So the timer() function's func parameter will contain ALL CODE shown in the following
+    // line between the {} braces.  So we're passing a function to the timer() function.
+    val resultTuple:IntDoubleTuple = timer { Thread.sleep(1000); 42 }
     println("resultTuple._1 = " + resultTuple._1 + ", resultTuple._2 = " + resultTuple._2)
   }
+
+  /**
+   * timer() function
+   *
+   * @param func - This param will literally contain the two lines of executable code that
+   *               get passed to it when this timer() function gets called via the main()
+   *               function.  Thus showing an example of where a function gets passed to
+   *               another function as a parameter.
+   * @param A - In this code sample, the 3 references to type A below could be replaced with type Int.
+   *
+   * @return the tuple (A, Double)
+   */
+  def timer[A](func: => A) = {
+      val startTime: Long = System.nanoTime
+      // When the following line of code executes, it executes all code contained in the func
+      // param passed to this timer() function.  Since the code contained in that func param
+      // returns an Int, codeBlock will get assigned an Int value.
+      val funcRetValue:A = func
+      println("funcRetValue = " + funcRetValue) // PRINTS: funcRetValue = 42
+
+      val stopTime: Long = System.nanoTime
+      val delta: Long = stopTime - startTime
+      (funcRetValue, delta / 1000000D)
+  }
 }
+
 ===============================================================================
 object Demo
 {
