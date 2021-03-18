@@ -63,7 +63,7 @@ object Demo
    *
    * @return the tuple (A, Double)
    */
-  def timer[A](func: => A) = {
+  def timer[A](func: => A) = {  // The "(func: => A)" text could be changed to "(func: A)", which is equivalent.
       val startTime: Long = System.nanoTime
       // When the following line of code executes, it executes all code contained in the func
       // param passed to this timer() function.  Since the code contained in that func param
