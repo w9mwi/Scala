@@ -106,23 +106,25 @@ object Demo
   }
 
   /**
-    * This function uses pattern matching to determine the data type
-    * of the data parameter passed to it.
-    */
+   * This function uses pattern matching to determine the data type
+   * of the data parameter passed to it.
+   */
   def determineDataType(data:Any):String =
   {
     data match
     {
-      // NOTE: The name 'dataType' used below is arbitrary.  That name could
-      //       be anything, such as 'temp', 'myData', 'joe', 'xyz', etc.
+      // NOTE: The text used immediately before the colon char (:) below is
+      //       arbitrary.  In this example we use dataType, temp, and xyz.
+      //       Or just the underscore char (_) can be used, which is also
+      //       demonstrated below.
       //       The value to the right of the => operator is what gets returned,
-      //       which is a String type in this example.
+      //       which in this function is a String type.
       case dataType:Array[String] => "The data type = Array[String]"
-      case dataType:List[Float]   => "The data type = List[Float]"
-      case dataType:Char          => "The data type = Char"
-      case dataType:String        => "The data type = String"
-      case dataType:Int           => "The data type = Int"
-      case dataType:Person        => "The data type = Person"
+      case temp:List[Float]       => "The data type = List[Float]"
+      case xyz:Char               => "The data type = Char"
+      case _:String               => "The data type = String"
+      case _:Int                  => "The data type = Int"
+      case _:Person               => "The data type = Person"
       case _                      => "The data type is undetermined."
     }
   }
