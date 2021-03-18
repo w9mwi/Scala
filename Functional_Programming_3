@@ -35,20 +35,6 @@ object Demo
   }
 }
 ===============================================================================
-The blockOfCode parameter passed to the timer() function below returns
-an Int value.  Then, inside the timer() function, the blockOfCode passed
-to it gets executed.  NOTE: blockOfCode does NOT have a parameter value
-passed to it (so it's not like a traditional function); however, it
-does return the Int value 42 (see code below).
-
-The reason the timer() function's parameter (blockOfCode: => A) doesn't
-contain a data type before the => rocket, is because blockOfCode does
-NOT have a parameter value passed to it.
-
-NOTE: The code sample below will still work if you replace...
-      1)  (blockOfCode: => A)            with  (blockOfCode: => Int)
-      2)  val codeBlock:A = blockOfCode  with  val codeBlock:Int = blockOfCode
-===============================================================================
 
 object Demo
 {
