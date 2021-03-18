@@ -151,7 +151,7 @@ object Demo
   //       matching (as shown below).  The "match" statement below is used to determine
   //       which Notification subclass (Email, SMS, VoiceRecording, MessageInABottle,
   //       SmokeSignal) has been passed to the showNotification() function.
-  abstract class Notification
+  abstract class Notification // Notification can be defined here as:  "abstract class", "class", "abstract trait" or "trait"
   case class Email(sender:String, title:String, body:String) extends Notification
   case class SMS(caller:String, message:String)              extends Notification
   case class VoiceRecording(contactName:String, link:String) extends Notification
