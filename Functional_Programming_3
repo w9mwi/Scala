@@ -65,9 +65,9 @@ object Demo
    */
   def timer[A](func: => A) = {  // The "(func: => A)" text could be changed to "(func: A)", which is equivalent.
       val startTime: Long = System.nanoTime
-      // When the following line of code executes, it executes all code contained in the func
-      // param passed to this timer() function.  Since the code contained in that func param
-      // returns an Int, codeBlock will get assigned an Int value.
+      // When the following line of code executes, it executes all code contained in the
+      // func param passed to this timer() function.  That code then returns a result,
+      // which gets assigned to funcRetValue.
       val funcRetValue:A = func
       println("funcRetValue = " + funcRetValue) // PRINTS: funcRetValue = 42
 
