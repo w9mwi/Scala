@@ -7,6 +7,30 @@ Combinator - The idea of being able to combine functions
              this example.  This is also called "functional composition."
              val result = doThis(a).thenThis(b)andFinallyThis(c)
 
+Expression-Oriented Programming (EOP) - Pure functional programming code is a superset of EOP.
+                                        Therefore, pure functional programming is also EOP.
+
+                                        An "expression" (as defined by EOP) is a line of code that
+                                        returns a result (evaluates to a result).  A "statement"
+                                        doesn't evaluate to a result because a statement doesn't
+                                        return a value.  The println() below is a statement (not
+                                        an expression) because it doesn't return a result.
+
+                                        println("Print some text to the screen.")
+
+                                        The following code evaluates to 3 expressions (not statements)
+                                        because that code evaluates to 3 separate results.
+
+                                        val taxPayment = calculateTax(incomeData)
+                                        val getMaxValue = if (a > b) a else b;
+                                        val isIntEven:Boolean = myInt match
+                                        {
+                                           case 0 | 2 | 4 | 6 | 8 => true
+                                           case 1 | 3 | 5 | 7 | 9 => false
+                                        }
+
+                                        In EOP (and FP), code that returns a result
+                                        (evaluates to a result) is an expression.
 
 Functor - Things that can be mapped over.  For example, an Array and a List
           both contain elements.  For each of those elements a function can
