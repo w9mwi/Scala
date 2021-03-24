@@ -3,6 +3,81 @@ The following code samples show how to pass a variable number of arguments to a 
 
 ============================================================================
 
+object Demo
+{
+  /**
+    * @param str - NOTE: When a variable number of arguments is passed to a function
+    *                    as in this example, the asterisk (*) transforms the data type
+    *                    into a Seq[].  For example, even though the "str" argument
+    *                    is declared as a String, the asterisk transforms it into a
+    *                    a Seq[String].
+    */
+  def display(str:String *):Unit =
+  {
+    if (str.isInstanceOf[Seq[String]])
+      println("str is of type Seq[String]") // PRINTS: str is of type Seq[String]
+
+    // For each String passed to this method, the print function is called.
+    str.map(print) // PRINTS: Play Scala Java
+  }
+
+  def main(args:Array[String])
+  {
+    display("Play ", "Scala ", "Java ")
+  }
+}
+
+============================================================================
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    var averageScore:Double = calculateAverage() // PRINTS: numbers IS a Seq[Double] data type.
+                                                 //         List()
+
+    printScore(averageScore, "averageScore = ") // PRINTS: The score is not a number.
+
+    averageScore = calculateAverage(1.23, 4.56, 7.89) // PRINTS: numbers IS a Seq[Double] data type.
+                                                      //         ArraySeq(1.23, 4.56, 7.89)
+
+    printScore(averageScore, "averageScore = ")  // PRINTS: averageScore = 4.56
+  }
+
+  /**
+   * @param numbers - NOTE: When a variable number of arguments is passed to a function
+   *                        as in this example, the asterisk (*) transforms the data type
+   *                        into a Seq[].  For example, even though the "numbers" argument
+   *                        is declared as a Double, the asterisk transforms it into a
+   *                        a Seq[Double].
+   * @return the average of all Double values passed to this function.
+   */
+  def calculateAverage(numbers:Double *):Double =
+  {
+    // NOTE: The following if() statement exists to:
+    //       1) Demonstrate how to use the isInstanceOf[] method.
+    //       2) Demonstrate how to perform pattern matching using the "matches" keyword.
+    if (numbers.isInstanceOf[Seq[Double]])
+    {
+      numbers match
+      {
+        case a: Seq[Double] => println("numbers IS a Seq[Double] data type.")
+        case _              => println("numbers is NOT a Seq[Double] data type.")
+      }
+    }
+    println(numbers)
+    numbers.sum / numbers.length // Return the average of all numbers passed to this function.
+  }
+
+  def printScore(score:Double, msg:String):Unit =
+  {
+    if   (score.isNaN) println("The score is not a number.")
+    else println(msg + score) // PRINTS: averageScore = 4.56
+  }
+}
+
+============================================================================
+
 object Demo {
   def main(args: Array[String]) {
     {
