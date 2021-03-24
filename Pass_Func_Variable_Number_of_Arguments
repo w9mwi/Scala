@@ -1,0 +1,40 @@
+
+
+============================================================================
+
+object Demo {
+  def main(args: Array[String]) {
+    {
+      val fruits: List[String] = List("apple", "banana", "blueberry", "cherry")
+
+      // The following 5 calls to the printAll() function shows that
+      // printAll() can accept a variable number of arguments.
+      printAll() // PRINTS: nothing (no text)
+      printAll("ONE") // PRINTS: ONE
+      printAll("ONE", "TWO") // PRINTS: ONE
+                                  //         TWO
+      printAll("ONE", "TWO", "THREE") // PRINTS: ONE
+                                           //         TWO
+                                           //         THREE
+
+      // The _* in the following call to printAll() transforms
+      // the List "fruits" into 4 SEPARATE STRINGS.
+      printAll(fruits: _*) // PRINTS: apple
+                           //         banana
+                           //         blueberry
+                           //         cherry
+      printAll(fruits.toString()) // PRINTS: List(apple, banana, blueberry, cherry)
+      println(fruits.flatten)     // PRINTS: List(a, p, p, l, e, b, a, n, a, n, a, b, l, u, e, b, e, r, r, y, c, h, e, r, r, y)
+    }
+
+    /**
+     * @param strs - A variable number of strings can get passed to this printAll() function.
+     */
+    def printAll(strs: String*) // The asterisk char (*) designates possible MULTIPLE ARGUMENTS.
+    {
+      strs.foreach(println)
+    }
+  }
+}
+
+============================================================================
