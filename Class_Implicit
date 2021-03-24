@@ -1,0 +1,39 @@
+The following code sample shows how to use implicit class.
+Using an implicit class, you can add new functions to an
+existing Scala class.  In this example we add the decrement()
+and increment() functions to the String class, which
+already exists in Scala.
+
+In the following example, we create a var named 'state'
+of type String.  Now, when you type the text 'state.' in
+your IDE, and then press "Ctrl + space bar", the 'increment'
+and 'decrement' function names you defined will appear in the
+IDE's dropdown menu, so you can select them.  This shows
+the functions you defined are now avaliable for the Scala
+String type.
+
+For this to work, your implicit class must have a single
+parameter (that matches the type of an existing Scala type),
+and your new function name(s) must be different than existing
+function names that already exist for that type.
+
+object Demo
+{
+  class EnhancedString(val str: String)
+  {
+    def decrement:String = { str.map(ch => (ch - 1).toChar) }
+    def increment:String = { str.map(ch => (ch + 1).toChar) }
+  }
+
+  // Define the stringToSring() function as an implicit function.
+  implicit def stringToString(str: String) = new EnhancedString(str)
+
+  def main(args: Array[String]): Unit =
+  {
+    var state:String = "Wisconsin"
+    state = state.increment
+    println(state) // PRINTS: Xjtdpotjo
+    state = state.decrement
+    println(state) // PRINTS: Wisconsin
+  }
+}
