@@ -17,6 +17,42 @@ parameter (that matches the type of an existing Scala type),
 and your new function name(s) must be different than existing
 function names that already exist for that type.
 
+NOTICE: The two (2) sample programs below have identical behavior.
+        The first sample shows the 'implicit' keyword being used
+        ONLY on a class definition.  The second sample shows the
+        'implicit' keyword being used ONLY on a function definition.
+
+====================================================================
+This is the same sample program as shown further below, except
+a class is defined as implicit instead of a function.
+
+object Demo
+{
+  // Define the EnhancedString class as an implicit class...
+  implicit class EnhancedString(val str: String)
+  {
+    def decrement:String = { str.map(ch => (ch - 1).toChar) }
+    def increment:String = { str.map(ch => (ch + 1).toChar) }
+  }
+
+  def main(args: Array[String]): Unit =
+  {
+    var state:String = "Wisconsin"
+
+    state = state.increment
+    println(state) // PRINTS: Xjtdpotjo
+    state = state.decrement
+    println(state) // PRINTS: Wisconsin
+    state = state.decrement
+    println(state) // PRINTS: Vhrbnmrhm
+  }
+}
+
+
+====================================================================
+This is the same sample program as shown above, except
+a function is defined as implicit instead of a class.
+
 object Demo
 {
   class EnhancedString(val str: String)
