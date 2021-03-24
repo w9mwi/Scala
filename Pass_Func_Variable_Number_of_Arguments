@@ -13,10 +13,10 @@ object Demo {
       printAll() // PRINTS: nothing (no text)
       printAll("ONE") // PRINTS: ONE
       printAll("ONE", "TWO") // PRINTS: ONE
-                                  //         TWO
+                             //         TWO
       printAll("ONE", "TWO", "THREE") // PRINTS: ONE
-                                           //         TWO
-                                           //         THREE
+                                      //         TWO
+                                      //         THREE
 
       // The _* in the following call to printAll() transforms
       // the List "fruits" into 4 SEPARATE STRINGS.
