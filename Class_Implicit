@@ -48,7 +48,6 @@ object Demo
   }
 }
 
-
 ====================================================================
 This is the same sample program as shown above, except
 a function is defined as implicit instead of a class.
