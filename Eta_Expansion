@@ -86,7 +86,8 @@ object Demo
 
     // You do NOT need to add the underscore (_) char when the data type of
     // the val/var is explicitly declared.  In this example the data type
-    // declaration is specified, which is: (Int => Int)
+    // (Int => Int) declaration is specified; therefore, the underscore (_)
+    // char is NOT required, it's optional.
     val tripleIntFunc_3:(Int => Int) = tripleIntFunc
     result = numbers.map(tripleIntFunc_3)
     println(result) // PRINTS: List(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30)
@@ -96,56 +97,3 @@ object Demo
 }
 
 ======================================================================
-
-
-
-======================================================================
-
-
-
-Read the in-line comments in the below sample code.  For more details
-about "Eta Expansion", do a web search on it.
-======================================================================
-object Demo
-{
-  def main(args: Array[String])
-  {
-    val intList = List(7, 9)
-
-    // When you write your own functions/methods (like mySquare() below),
-    // you can convert them to functions which can be used by the map() method.
-    // You do this by performing an "Eta Expansion" on the function, as shown
-    // in the following line of code by adding the underscore character (_)
-    // after the function name.  If you remove the underscore char after
-    // the mySquare function name below, that line will NOT compile.  Using the
-    // underscore (_) char eliminates the need to declare the squareFunction's
-    // data type!!!  Keep reading all comments below...
-    val squareFunction = mySquare _
-
-    // When the squareFunction declaration is made above, the Scala compiler
-    // translates that code into the following commented-out code, where the
-    // "new Function1[Int, Int]" text shown below is optional...
-    // val squareFunction:(Int => Int) = new Function1[Int, Int]
-    // {
-    //   def apply(x: Int):Int = mySquare(x)
-    // }
-
-    // If you replace the above squareFunction declaration with either
-    // of the two commented-out declarations below, those declarations
-    // will compile and function properly...
-    // val squareFunction:(Int => Int) = mySquare
-    // val squareFunction:(Int => Int) = mySquare _  // NOTE the underscore (_) char.
-
-    var result:List[Int] = intList.map(squareFunction)
-    println("result = " + result) // PRINTS: result = List(49, 81)
-
-    // The following result is identical to the result obtained above...
-    result = intList.map(i => i*i)
-    println("result = " + result) // PRINTS: result = List(49, 81)
-  }
-
-  /****************************
-  * The mySquare() function.
-  ****************************/
-  def mySquare(x:Int):Int = { x * x }
-}
