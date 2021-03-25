@@ -61,7 +61,7 @@ object Demo
   }
 
   // NOTE: This function definition must include the "implicit" keyword.
-  //       This function can have any name.
+  //       This function can be given any name.
   implicit def stupidDumbFuncName(str: String) = new EnhancedString(str)
 
   def main(args: Array[String]): Unit =
