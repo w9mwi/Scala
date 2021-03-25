@@ -46,40 +46,43 @@ val tripleIntFunc_2 = tripleIntFunc _  // WILL Compile!
 Adding the underscore char like this performs an "Eta Expansion"
 on the tripleIntFunc so it's treated as a partially applied
 function and can then be assigned to a val/var.  The following
-code shows an example of doing that.
+code shows an example of doing this.
 
-======================================================================
 ======================================================================
 
 object Demo
 {
   def main(args: Array[String]): Unit = {
+    val numbers:List[Int] = List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    println(numbers) // PRINTS: List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+    // Define a val to store a function...
     val doubleIntFunc:(Int => Int) = (number:Int) => number * 2
 
-    println(doubleIntFunc(222)) // PRINTS: 444
-    println(tripleIntFunc(222)) // PRINTS: 666
-
-    val numbers:List[Int] = List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-
-    var result = numbers.map(doubleIntFunc)
+    // Pass the function stored in the doubleIntFunc val to the List.map() function...
+    var result:List[Int] = numbers.map(doubleIntFunc)
     println(result) // PRINTS: List(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
 
+    // Pass the tripleIntFunc function (defined near the bottom
+    // of this program) to the List.map() function...
     result = numbers.map(tripleIntFunc)
     println(result) // PRINTS: List(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30)
 
-    // In the following code, we want to assign the tripleIntFunc() defined
-    // further below to a val (tripleIntFunc_2), and then pass that val to
-    // the List.map() function, so map() will execute the function stored
-    // in that val.  When you assign a function that has been defined
-    // using the 'def' keyword to a val/var, IT WON'T COMPILE UNLESS AN
-    // UNDERSCORE (_) CHAR IS APPENDED AFTER THE FUNCTION NAME, AS THE
-    // FOLLOWING LINE SHOWS...
-    val tripleIntFunc_2 = tripleIntFunc _ // The underscore (_) char IS REQUIRED.
+
+    // Here we want to assign the tripleIntFunc (defined near the bottom of this program)
+    // to a val.  That can't be done (code won't compile) unless an underscore (_) char
+    // is added AFTER tripleIntFunc, as shown in the following line of code.
+    val tripleIntFunc_2 = tripleIntFunc _ // Underscore char (_) is REQUIRED to compile.
     result = numbers.map(tripleIntFunc_2)
     println(result) // PRINTS: List(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30)
   }
+
   def tripleIntFunc(number:Int):Int = number * 3
 }
+
+======================================================================
+
+
 
 ======================================================================
 
