@@ -44,7 +44,7 @@ AFTER the function name, like this:
 
 val tripleIntFunc_2 = tripleIntFunc _  // WILL compile!
 
-Adding the underscore char like this performs an "Eta Expansion"
+Adding the underscore char like this performs an Eta Expansion
 on the tripleIntFunc so it's treated as a partially applied
 function and can then be assigned to a val/var.  The code sample
 below demonstrates this by implementing this line of code:
@@ -96,6 +96,43 @@ object Demo
   }
 
   def tripleIntFunc(number:Int):Int = number * 3
+}
+
+======================================================================
+Another code sample of how to use an Eta Expansion is shown below.
+Read in-line comments for details.
+
+object Demo
+{
+  def main(args: Array[String]): Unit = {
+    def doubleIntFunc(number:Int) = number * 2
+    def tripleIntFunc(number:Int) = number * 3
+
+    // The underscore (_) chars are REQUIRED in the functions declaration
+    // below because the functions data type is NOT explicitly declared.
+    val functions = Map("2x" -> doubleIntFunc _,
+                        "3x" -> tripleIntFunc _)
+
+    var result = functions("2x").apply(444)
+    println(result) // PRINTS: 888
+
+    result = functions("3x").apply(222)
+    println(result) // PRINTS: 666
+
+
+    // The following code is all identical to the above code EXCEPT
+    // that the underscore (_) chars are NOT required because the
+    // functions_2 datatype (Map[String, Int => Int]) is explicitly
+    // declared...
+    val functions_2:Map[String, Int => Int] = Map("2x" -> doubleIntFunc,
+                                                  "3x" -> tripleIntFunc)
+
+    var result_2 = functions_2("2x").apply(444)
+    println(result_2) // PRINTS: 888
+
+    result_2 = functions_2("3x").apply(222)
+    println(result_2) // PRINTS: 666
+  }
 }
 
 ======================================================================
