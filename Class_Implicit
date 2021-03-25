@@ -60,8 +60,9 @@ object Demo
     def increment:String = { str.map(ch => (ch + 1).toChar) }
   }
 
-  // Define the stringToString() function as an implicit function...
-  implicit def stringToString(str: String) = new EnhancedString(str)
+  // NOTE: This function definition must include the "implicit" keyword.
+  //       This function can have any name.
+  implicit def stupidDumbFuncName(str: String) = new EnhancedString(str)
 
   def main(args: Array[String]): Unit =
   {
