@@ -41,7 +41,7 @@ However, that line WON'T COMPILE because a function defined via the
 above.  This problem can be fixed by adding an underscore (_) char
 AFTER the function name, like this:
 
-val tripleIntFunc_2 = tripleIntFunc _  // WILL Compile!
+val tripleIntFunc_2 = tripleIntFunc _  // WILL compile!
 
 Adding the underscore char like this performs an "Eta Expansion"
 on the tripleIntFunc so it's treated as a partially applied
@@ -49,6 +49,13 @@ function and can then be assigned to a val/var.  The code sample
 below demonstrates this by implementing this line of code:
 
 val tripleIntFunc_2 = tripleIntFunc _
+
+Using the underscore (_) char eliminates the need to explicitly
+declare the data type of tripleIntFunc_2.  If the code explicitly
+declares the data type of tripleIntFunc_2, as shown in the following
+line, then the underscore (_) char is NOT required.
+
+val tripleIntFunc_2:(Int => Int) = tripleIntFunc  // WILL compile!
 
 ======================================================================
 
