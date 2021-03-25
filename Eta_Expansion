@@ -2,13 +2,13 @@ In Scala you can define a function in 2 different ways:
 
 1) A function can be defined as a val (or a var), so the val/var
    actually stores a function instead of storing a typical data
-   value like Int, String, List, etc.
+   value like an Int, String, List, etc.
 
 2) A function can be defined by using the 'def' keyword,
    which is the most common way functions are defined.
 
 The following sample code defines a function using both ways,
-where doubleIntFunc_1 is stored in a val, and doubleIntFunc_2
+where doubleIntFunc() is stored in a val, and tripleIntFunc()
 is defined using the 'def' keyword.
 
 ======================================================================
@@ -16,15 +16,12 @@ is defined using the 'def' keyword.
 object Demo
 {
   def main(args: Array[String]): Unit = {
-    val doubleIntFunc_1:(Int => Int) = (number:Int) => number * 2
-    var number:Int = doubleIntFunc_1(222)
-    println(number) // PRINTS: 444
+    val doubleIntFunc:(Int => Int) = (number:Int) => number * 2
 
-    number = doubleIntFunc_2(number)
-    println(number) // PRINTS: 888
-
-  def doubleIntFunc_2(number:Int):Int = number * 2
+    println(doubleIntFunc(222)) // PRINTS: 444
+    println(tripleIntFunc(222)) // PRINTS: 666
   }
+  def tripleIntFunc(number:Int):Int = number * 3
 }
 
 ======================================================================
