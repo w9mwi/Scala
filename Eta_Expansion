@@ -77,12 +77,18 @@ object Demo
     result = numbers.map(tripleIntFunc)
     println(result) // PRINTS: List(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30)
 
-
     // Here we want to assign the tripleIntFunc (defined near the bottom of this program)
     // to a val.  That can't be done (code won't compile) unless an underscore (_) char
     // is added AFTER tripleIntFunc, as shown in the following line of code.
     val tripleIntFunc_2 = tripleIntFunc _
     result = numbers.map(tripleIntFunc_2)
+    println(result) // PRINTS: List(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30)
+
+    // You do NOT need to add the underscore (_) char when the data type of
+    // the val/var is explicitly declared.  In this example the data type
+    // declaration is specified, which is: (Int => Int)
+    val tripleIntFunc_3:(Int => Int) = tripleIntFunc
+    result = numbers.map(tripleIntFunc_3)
     println(result) // PRINTS: List(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30)
   }
 
