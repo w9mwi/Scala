@@ -56,7 +56,8 @@ declare the data type of tripleIntFunc_2.  If the code explicitly
 declares the data type of tripleIntFunc_2 as shown in the following
 line, then the underscore (_) char is NOT required, it's optional.
 
-val tripleIntFunc_2:(Int => Int) = tripleIntFunc  // WILL compile!
+val tripleIntFunc_2:(Int => Int) = tripleIntFunc    // WILL compile!
+val tripleIntFunc_2:(Int => Int) = tripleIntFunc _  // WILL compile!
 
 ======================================================================
 
