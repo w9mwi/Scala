@@ -45,8 +45,10 @@ val tripleIntFunc_2 = tripleIntFunc _  // WILL Compile!
 
 Adding the underscore char like this performs an "Eta Expansion"
 on the tripleIntFunc so it's treated as a partially applied
-function and can then be assigned to a val/var.  The following
-code shows an example of doing this.
+function and can then be assigned to a val/var.  The code sample
+below demonstrates this by implementing this line of code:
+
+val tripleIntFunc_2 = tripleIntFunc _
 
 ======================================================================
 
