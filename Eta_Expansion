@@ -74,7 +74,7 @@ object Demo
     // Here we want to assign the tripleIntFunc (defined near the bottom of this program)
     // to a val.  That can't be done (code won't compile) unless an underscore (_) char
     // is added AFTER tripleIntFunc, as shown in the following line of code.
-    val tripleIntFunc_2 = tripleIntFunc _ // Underscore char (_) is REQUIRED to compile.
+    val tripleIntFunc_2 = tripleIntFunc _
     result = numbers.map(tripleIntFunc_2)
     println(result) // PRINTS: List(0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30)
   }
