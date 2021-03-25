@@ -11,7 +11,8 @@ The compiled code of a function defined as a val/var is
 different than the compiled code of a function defined
 using the 'def' keyword, even when both of those functions
 are defined to perform the identical operation, such as
-multiplying an Int value by two (2).
+multiplying an Int value by two (2), and returning an
+Int result.
 
 The following sample code defines a function using both ways,
 where doubleIntFunc() is stored in a val, and tripleIntFunc()
