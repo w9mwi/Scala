@@ -1,10 +1,13 @@
+Everything in Scala is an object, including classes, traits, and functions.
+Unlike a Scala class, a Scala object can't be passed any arguments!
+This is because an object is NEVER created using the 'new' keyword, as you
+use with a class.
+
 A Scala object is somewhat similar to a Scala class.  Just as it's convention for
 a Scala class name to have its first letter capitalized, a Scala Object name should
 also have its first letter capitalized.  Declaring an object creates a single object
 in the current scope, and it contains any members and methods that you define within
-the object.  Unlike a Scala class, a Scala object can't be passed any arguments!
-This is because an object is NEVER created using the 'new' keyword, as you use with
-a class.
+the object.
 
 An Scala object is like a Java static type, in that its members and methods are
 independent of any class that references the object's members or methods.  If
