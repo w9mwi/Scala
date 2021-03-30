@@ -1,8 +1,8 @@
 
 Scala provides three (3) constructs for creating user-defined types:
-1) a trait
-2) an object
-3) a class  (Scala has two kinds class: "case class" and "class")
+1) a trait   (Scala has two kinds trait:  "sealed trait" and "trait")
+2) an object (Scala has two kinds object: "case object" and "object")
+3) a class   (Scala has two kinds class:  "case class" and "class")
 
 A regular Scala class is capable of doing anything a "case class" can do.
 But implementing a regular Scala class may require you to write lots
