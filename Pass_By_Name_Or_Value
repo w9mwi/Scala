@@ -80,10 +80,7 @@ object Demo
    *
    * @return - an Int value.
    */
-  def passByName(x: => Int): Int =
-  {
-    x + 99
-  }
+  def passByName(x: => Int): Int = { x + 99 }
 
   /**
    * This is another "pass by name" function, similar to the passByName() function above.
