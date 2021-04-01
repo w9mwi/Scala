@@ -21,7 +21,7 @@ Pass-By-Value - This is the standard (very common) way a parameter
                 deleteRecord("Jane Sixpack", "9876-54-3212")
 
 Pass-By-Name - In pass-by-name, an argument/parameter is NOT passed by value,
-               but is passed as a THUNK, which is basically a block of executable
+               but is passed as a THUNK, which is a block of executable
                Scala code that gets executed, and returns a value when that
                argument/parameter is referenced in the function.  See the
                following code example.
