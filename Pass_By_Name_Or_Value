@@ -24,15 +24,8 @@ Pass-By-Name - In pass-by-name, an argument/parameter is NOT passed by value,
                but is passed as a THUNK, which is a block of executable
                Scala code that gets executed, and returns a value when that
                argument/parameter is referenced in the function.  See the
-               following code example.
-
-In the below code, notice the syntax for calling a function by name is to
-place the rocket symbol (=>) before the argument's type, like this:
-(x: => Int)
-
-If we were to place empty parentheses in front of the rocket, we would have
-a function that takes no arguments, and returns an Int, like this:
-(x() => Int)
+               following code for examples, and read the in-line comments
+               for detailed explanations.
 
 =========================================================================
 
