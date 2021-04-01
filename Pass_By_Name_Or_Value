@@ -1,45 +1,38 @@
 PASS BY VALUE VS. PASS BY NAME VS. PASS BY REFERENCE EXPLAINED
 (FROM PAGES 165-166)
 
-NOTE: 'Pass by name' is somewhat similar to 'pass by value',
-      and is described below.
-
 When a function is called via pass-by-value, the function gets a copy of
 the variable passed to it, but the function cannot change the variable
 that exists in the calling code.
 
-When a function is called via pass-by-reference, the function has the
-ability to change the variable in the calling code.
+When a function is called via pass-by-reference, the function has
+the ability to change the variable in the calling code.  Scala
+does NOT have this capability.  Scala allows ONLY pass-by-name
+and pass-by-value.
 
-Even though all vars in Scala are references, Scala ALLOWS ONLY PASS-BY-VALUE
-AND PASS-BY-NAME (NOT pass by reference).
+Pass-By-Value - This is the standard (very common) way a parameter
+                is passed to a function.  The following code snips
+                are examples of pass-by-value:
 
-Although pass-by-reference is NOT allowed in Scala, Scala does allow
-pass-by-name, which few other languages allow.  In pass-by-name,
-an argument isn't passed by value, but is passed as a THUNK, which is
-basically some code that will be executed and given a value when the argument
-is used in a function.  You can envision pass-by-name as automatically
-creating a function that takes no arguments, and returns a value that will
-be executed each time the argument is used.  To show this, see the following
-code example.
+                val name:String = "Joe Blow"
+                val ssn:String = "123-45-6789"
+
+                deleteRecord(name, ssn)
+                deleteRecord("Jane Sixpack", "9876-54-3212")
+
+Pass-By-Name - In pass-by-name, an argument/parameter is NOT passed by value,
+               but is passed as a THUNK, which is basically a block of executable
+               Scala code that gets executed, and returns a value when that
+               argument/parameter is referenced in the function.  See the
+               following code example.
 
 In the below code, notice the syntax for calling a function by name is to
 place the rocket symbol (=>) before the argument's type, like this:
 (x: => Int)
+
 If we were to place empty parentheses in front of the rocket, we would have
 a function that takes no arguments, and returns an Int, like this:
 (x() => Int)
-
-When the following passByNameAndIncrement() and passByValueAndIncrement()
-functions are called by passing a single Int value to them, they both
-appear to behave same way, as they both return the same Int result.  However,
-when we call those two functions by passing them a println statement followed
-by an Int value, we see that the order that println("About to increment.")
-and println("Evaluation.") statements get executed are different.
-
-This means that when you pass an argument by value, the argument is evaluated
-BEFORE the function executes.  When you pass an argument by name, the argument
-is evaluated WHEN the parameter is used.
 
 =========================================================================
 
@@ -47,94 +40,66 @@ object Demo
 {
   def main(args: Array[String]): Unit =
   {
-    // ************************************************************************
-    // EXECUTING THE CODE BELOW WILL PRINT THE FOLLOWING TO THE CONSOLE...
-    // println() statement in blockOfCodeReturnsInt is executed.
-    // passByName() called.
-    // 1) passByName(9) = 10
-    // =================================
-    // passByValue() called.
-    // 2) passByValue(9) = 10
-    // =================================
-    // passByName() called.
-    // println() statement is executed.
-    // 3) passByName( { println("println() statement is executed."); 9; } ) = 10
-    // =================================
-    // println() statement is executed.
-    // passByValue() called.
-    // 4) passByValue( { println("println() statement is executed."); 9; } ) = 10
-    // =================================
-    // Get value.
-    // Get value.
-    // Get value.
-    // 5) multiplyThreeTimes({ println("Get value."); number; }) = 125
-    // =================================
-    // 6) multiplyThreeTimes({ number += 1; number; }) = 336
-    // =================================
-    // 7) multiplyThreeTimes({ number += 1; number; }) = 990
-    // ************************************************************************
+    var result:Int = passByValue(9)
+    println("result = " + result) // PRINTS: result = 10
 
-    // The following line of code executes the embedded println() statement,
-    // and assigns the Int value 9 to blockOfCodeReturnsInt...
-    val blockOfCodeReturnsInt: Int = { println("println() statement in blockOfCodeReturnsInt is executed."); 9; }
+    result = passByName({ result = 101; result })
+    println("result = " + result) //PRINTS: result = 200
 
-    println("1) passByName(9) = "  + passByName(9))
-    println("=================================")
-    println("2) passByValue(9) = " + passByValue(9))
-    println("=================================")
-    println("3) passByName( { println(\"println() statement is executed.\"); 9; } ) = " +
-            passByName( {println("println() statement is executed."); 9; } ))
-    println("=================================")
-    println("4) passByValue( { println(\"println() statement is executed.\"); 9; } ) = " +
-            passByValue( { println("println() statement is executed."); 9; } ))
-    println("=================================")
-    var number:Int = 5
-    // The following line will print a value of 125 because 5*5*5 = 125
-    println("5) multiplyThreeTimes({ println(\"Get value.\"); number; }) = " +
-            multiplyThreeTimes({ println("Get value."); number; }))
-    println("=================================")
-    // The following line will print a value of 336 because 6*7*8 = 336
-    println("6) multiplyThreeTimes({ number += 1; number; }) = " +
-            multiplyThreeTimes({ number += 1; number; }))
-    println("=================================")
-    // The following line will print a value of 990 because 9*10*11 = 990
-    println("7) multiplyThreeTimes({ number += 1; number; }) = " +
-            multiplyThreeTimes({ number += 1; number; }))
+
+    var number:Int = 2
+    number = multiplyThreeTimes({ number })
+    println(number) // PRINTS: 8   (Because 2*2*2 = 8)
+
+    number = multiplyThreeTimes({ number += 1; number })
+    println(number) // PRINTS: 990   (Because 9*10*11 = 990)
+
+    number = multiplyThreeTimes({ number += 2; number })
+    println(number) // PRINTS: 982103808   (Because 992*994*996 = 982103808)
   }
 
-  def passByValue(x: Int): Int =
-  {
-    println("passByValue() called.")
-    x + 1
-  }
+  def passByValue(x: Int): Int =  { x + 1 }
 
   /**
-    * Notice the argument passed to this function is (x: => Int), and
-    * NOT (x() => Int).  Here's the difference between those two:
-    *
-    * (x: => Int)  designates a block of code (one or more lines of Scala code) that
-    *              takes no arguments, and returns an Int value.  x represents the
-    *              value returned by the block of code, which is an Int value in
-    *              this example.  This is an example of PASS-BY-NAME.
-    *
-    * (x() => Int) designates a function named x, that takes no arguments,
-    *              and returns an Int value.
-    *
-    * @param x
-    * @return
-    */
+   * Notice the argument passed to this function is (x: => Int) and
+   * NOT (x() => Int).  Here's the difference between those two:
+   *
+   * (x() => Int) designates a function named x, that takes no arguments,
+   *              and returns an Int value.
+   *
+   * (x: => Int)  x is a param that contains a block of code (one or more
+   *              lines of Scala code) that returns an Int value.  So when
+   *              the Scala code contained in the x param executes, its
+   *              last line of code evaluates to an Int value.
+   *              This is an example of PASS-BY-NAME.
+   *
+   * @param x - The x param stores a block of Scala code, which gets passed
+   *            to this function.  The block of code stored in the x param
+   *            MUST return an Int value; because the below code adds a 99
+   *            Int to that value, and returns the result.
+   *
+   * @return - an Int value.
+   */
   def passByName(x: => Int): Int =
   {
-    println("passByName() called.")
-    x + 1
+    x + 99
   }
 
   /**
-    * This is another "pass by name" function, similar to the passByName() function above.
-    * @param number
-    * @return
-    */
-  def multiplyThreeTimes(number: => Int): Int = { number * number * number }
+   * This is another "pass by name" function, similar to the passByName() function above.
+   *
+   * The z param passed to this function stores a block of Scala code that evaluates
+   * to (returns) an Int value.  So when this function executes z * z * z, it means
+   * the Scala code stored in the z param gets executed 3 times!
+   *
+   * @param z - The z param stores a block of Scala code, which gets passed
+   *            to this function.  The block of code stored in the z param
+   *            MUST return an Int value every time it executes, which in
+   *            this example is THREE (3) times.
+   *
+   * @return - An Int value.
+   */
+  def multiplyThreeTimes(z: => Int): Int = { z * z * z }
 }
 
 =========================================================================
