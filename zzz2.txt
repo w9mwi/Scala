@@ -1,3 +1,0 @@
-This is the zzz2.txt file.
-NEW TEXT!
-Bye!
