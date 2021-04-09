@@ -16,21 +16,17 @@ object Demo
   def main(args: Array[String])
   {
     printAll()  // PRINTS: ---------
-    printAll("ONE") // PRINTS: ---------
-                    //         ONE
-    printAll("ONE", "TWO") // PRINTS: ---------
-                           //         ONE
+    printAll("ONE") // PRINTS: ONE
+    printAll("ONE", "TWO") // PRINTS: ONE
                            //         TWO
-    printAll("ONE", "TWO", "THREE") // PRINTS: ---------
-                                    //         ONE
+    printAll("ONE", "TWO", "THREE") // PRINTS: ONE
                                     //         TWO
                                     //         THREE
 
     val fruits:List[String] = List("apple", "banana", "blueberry", "cherry")
     // The _* in the following call to printAll() transforms the List fruits
     // into the 4 separate strings that it contains.
-    printAll(fruits: _*)  // PRINTS: ---------
-                          //         apple
+    printAll(fruits: _*)  // PRINTS: apple
                           //         banana
                           //         blueberry
                           //         cherry
@@ -78,6 +74,12 @@ object Demo
   }
 
   /**
+   * NOTE: The first line of this function can be written either of these 2 ways,
+   *       and the resulting behavior will be identical:
+   *
+   *       1) def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
+   *       2) def ourFold[B,A](list:List[A], base:B)(func:(A,B) => B):B =
+   *
    * This is a RECURSIVE, CURRIED FUNCTION.  The List passed to this function can
    * be of any data type that works with the '+' operator, such as Int, Float, String,
    * etc.  The data type must work with the '+' operator because both times this
