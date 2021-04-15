@@ -25,7 +25,14 @@ Pass-By-Name - In pass-by-name, an argument/parameter is NOT passed by value,
                Scala code that gets executed, and returns a value when that
                argument/parameter is referenced in the function.  See the
                following code for examples, and read the in-line comments
-               for detailed explanations.
+               for detailed explanations.  Pass-By-Name isn't a very accurate
+               description.  Better names (which aren't used really anywhere)
+               might be:
+                  * Call-On-Access
+                  * Evaluate-On-Access
+                  * Evaluate-On-Use
+                  * Evaluate-When-Accessed
+                  * Evaluate-When-Referenced
 
 =========================================================================
 
