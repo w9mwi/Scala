@@ -26,14 +26,15 @@ Pass-By-Name - In pass-by-name, an argument/parameter is NOT passed by value,
                argument/parameter is referenced in the function.  See the
                following code for examples, and read the in-line comments
                for detailed explanations.  Pass-By-Name isn't a very accurate
-               description.  Better names (which aren't used really anywhere)
-               might be:
+               description.  Better names (which aren't really used) may be:
                   * Call-On-Access
                   * Evaluate-On-Access
                   * Evaluate-On-Use
                   * Evaluate-When-Accessed
                   * Evaluate-When-Referenced
 
+Below are some sample programs which demonstrate Scala's Pass-By-Name
+feature.  Read in-line comments for explanations.
 =========================================================================
 
 object Demo
@@ -97,6 +98,35 @@ object Demo
    * @return - An Int value.
    */
   def multiplyThreeTimes(z: => Int): Int = { z * z * z }
+}
+
+=========================================================================
+
+object Demo
+{
+  def main(args: Array[String]): Unit = {
+  {
+    // Here we call the timer() function (defined below) by first assigning
+    // a block of code (that gets passed to timer()) to a val...
+    val blockOfCode = { Thread.sleep(444); 123 }
+    val (result1, time1) = timer(blockOfCode)
+    println("result1 = " + result1 + ",  time1 = " + time1)
+
+    // Here we call the timer() function by directly passing it a block of code...
+    val (result2, time2) = timer { Thread.sleep(888); 456 }
+    println("result2 = " + result2 + ",  time2 = " + time2)
+  }
+
+  def timer[A](blockOfCode: => A) =
+    {
+      val startTime:Long = System.nanoTime()
+      val result:A = blockOfCode
+      val stopTime:Long = System.nanoTime()
+      val delta = stopTime - startTime
+      (result, delta / 1000000D)
+    }
+  }
+
 }
 
 =========================================================================
