@@ -101,19 +101,23 @@ object Demo
 }
 
 =========================================================================
-This example shows TWO (2) ways of passing a block of code to a function.
+This example shows TWO (2) examples of how to pass
+a block of code to a function.
 
 object Demo
 {
   def main(args: Array[String]): Unit = {
   {
-    // 1) Here we call the timer() function (defined below) by first assigning
-    //    a block of code to a val, and then passing that val to timer()...
+    // EXAMPLE 1) Here we call the timer() function (defined below) by first assigning
+    //            a block of code to a val, and then passing that val to timer().
+    //            This is an example of Pass-By-Name.
     val blockOfCode = { Thread.sleep(444); 123 }
     val (result1, time1) = timer(blockOfCode)
     println("result1 = " + result1 + ",  time1 = " + time1)
 
-    // 2) Here we call the timer() function by directly passing it a block of code...
+    // EXAMPLE 2) Here we call the timer() function (defined below)
+    //            by directly passing it a block of code.
+    //            This is another example of Pass-By-Name.
     val (result2, time2) = timer { Thread.sleep(888); 456 }
     println("result2 = " + result2 + ",  time2 = " + time2)
   }
@@ -121,6 +125,8 @@ object Demo
   def timer[A](blockOfCode: => A) =
     {
       val startTime:Long = System.nanoTime()
+      // The following line executes the block of Scala code contained
+      // in the blockOfCode param passed to this function.
       val result:A = blockOfCode
       val stopTime:Long = System.nanoTime()
       val delta = stopTime - startTime
