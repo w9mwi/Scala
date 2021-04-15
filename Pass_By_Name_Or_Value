@@ -101,18 +101,19 @@ object Demo
 }
 
 =========================================================================
+This example shows TWO (2) ways of passing a block of code to a function.
 
 object Demo
 {
   def main(args: Array[String]): Unit = {
   {
-    // Here we call the timer() function (defined below) by first assigning
-    // a block of code (that gets passed to timer()) to a val...
+    // 1) Here we call the timer() function (defined below) by first assigning
+    //    a block of code to a val, and then passing that val to timer()...
     val blockOfCode = { Thread.sleep(444); 123 }
     val (result1, time1) = timer(blockOfCode)
     println("result1 = " + result1 + ",  time1 = " + time1)
 
-    // Here we call the timer() function by directly passing it a block of code...
+    // 2) Here we call the timer() function by directly passing it a block of code...
     val (result2, time2) = timer { Thread.sleep(888); 456 }
     println("result2 = " + result2 + ",  time2 = " + time2)
   }
