@@ -1,65 +1,8 @@
 
-Assume we have a function that takes an argument that's a function.  That function
-argument (which is a function) has a name, which gets passed some type, and it
-returns some type.  Here's an example...
-
-The myFunc() function defined below gets passed an argument (which is a function)
-having the name processNumber, which takes an Int argument, and returns an Int.
-
-def myFunc(processNumber:(Int => Int)):Int = { Some code that returns an Int. }
-
 In Scala, you can pass a function an argument that is a function, has a name, and
 returns some type, but what it takes as an argument HAS NO TYPE.  This is called
 a Nullary Function.
 
-The reason a Nullary Function's argument has no type is because it gets passed an expression
-(i.e., executable code) instead of data that has a type.  The following code sample shows
-a recursive curried function which gets passed two Nullary Functions.  Read the in-line
-comments below to understand its behavior.
-
-============================================================================================
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    var count = 5
-
-    // The following forloop function returns Unit.  When the forloop function is called here,
-    // IT IS CALLED WITH 2 ARGUMENT LISTS!  The second argument list contains the print()
-    // statement AND the "count -= 1" lines of code!!!  Whenever an argument contains multiple
-    // lines of executable code (versus an Int value, for example), the argument MUST be enclosed
-    // within curly braces {}, instead of within parenthesis ().
-    forloop(count > 0)
-    {
-      // The code contained within these curly braces {} is the second
-      // argument that gets passed to the forloop function.
-      print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
-      count -= 1
-    }
-    println("\nThe End.")
-  }
-
-  /**
-    * NOTICE: This forloop function is a recursive curried function which has a multiple argument
-    *         list.  BOTH its arguments are Nullary Functions, which means they get passed
-    *         an expression (i.e., executable code) instead of some data type.  That is why
-    *         Nullary Functions contain no data type for the argument they get passed.
-    */
-  def forloop(rule: => Boolean)(body: => Unit):Unit =
-  {
-    if (rule)
-    {
-      // The following line of code calls the function named body.  When body is called, the
-      // two lines of code contained in the forloop (located in the above main() method)
-      // get executed.  If body is not called here, the count will never get printed, the Int
-      // value count will never get decremented, and forloop will run in an infinite loop!!!
-      body
-
-      // The following line of code is a RECURSIVE function call, which
-      // will execute until the "rule" expression evaluates as false.
-      forloop(rule)(body)
-    }
-  }
-}
-
+A Nullary Function is an example of a Pass-By-Value Function.  To learn more
+about Pass-By-Value (Nullary) Functions, see the following URL:
+--> https://github.com/w9mwi/Scala/blob/master/Pass_By_Name_Or_Value
