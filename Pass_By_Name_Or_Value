@@ -1,18 +1,18 @@
-PASS BY VALUE VS. PASS BY NAME VS. PASS BY REFERENCE EXPLAINED
-(FROM PAGES 165-166)
 
-When a function is called via pass-by-value, the function gets a copy of
+When a function is called via Pass-By-Value, the function gets a copy of
 the variable passed to it, but the function cannot change the variable
 that exists in the calling code.
 
-When a function is called via pass-by-reference, the function has
-the ability to change the variable in the calling code.  Scala
-does NOT have this capability.  Scala allows ONLY pass-by-name
-and pass-by-value.
+When a function is called via Pass-By-Reference, the function called
+can change the value of the param that it gets passed, so its value
+in the code that calls the function gets changed.  In other words,
+the function can change a value contained in the calling code.  Scala
+does NOT have this Pass-By-Reference capability.  Scala allows ONLY
+Pass-By-Name and Pass-By-Value.
 
 Pass-By-Value - This is the standard (very common) way a parameter
                 is passed to a function.  The following code snips
-                are examples of pass-by-value:
+                are examples of Pass-By-Value:
 
                 val name:String = "Joe Blow"
                 val ssn:String = "123-45-6789"
@@ -20,13 +20,14 @@ Pass-By-Value - This is the standard (very common) way a parameter
                 deleteRecord(name, ssn)
                 deleteRecord("Jane Sixpack", "9876-54-3212")
 
-Pass-By-Name - In pass-by-name, an argument/parameter is NOT passed by value,
-               but is passed as a THUNK, which is a block of executable
-               Scala code that gets executed, and returns a value when that
-               argument/parameter is referenced in the function.  See the
-               following code for examples, and read the in-line comments
-               for detailed explanations.  Pass-By-Name isn't a very accurate
-               description.  Better names (which aren't really used) may be:
+Pass-By-Name - In Pass-By-Name, an argument/parameter is NOT passed by value,
+               but is passed as a 'THUNK', which is a block of executable
+               Scala code that gets executed, and returns some value (Unit,
+               Int, Float, etc.) when that argument/parameter is referenced
+               in the function.  See the following code for examples, and
+               read the in-line comments for detailed explanations.
+               Pass-By-Name isn't a very accurate description.  Better names
+               for Pass-By-Name (which aren't really used) could be:
                   * Call-On-Access
                   * Evaluate-On-Access
                   * Evaluate-On-Use
@@ -34,7 +35,51 @@ Pass-By-Name - In pass-by-name, an argument/parameter is NOT passed by value,
                   * Evaluate-When-Referenced
 
 Below are some sample programs which demonstrate Scala's Pass-By-Name
-feature.  Read in-line comments for explanations.
+and Pass-By-Value feature.  Read in-line comments for explanations.
+=========================================================================
+
+object Demo
+{
+  def main(args: Array[String]): Unit = {
+    {
+      // This section of code demonstrates Pass-By-Value, where blockOfCode
+      // is the value passed to the passByValueFunc() function defined below.
+      val blockOfCode = { val randomInt = Math.random().toInt; randomInt + 456 }
+      val intNumber = passByValueFunc(blockOfCode)
+      println("passByValueFunc(blockOfCode) returned: " + intNumber + "\n")
+
+      // This section of code demonstrates Pass-By-Name, where funcRandomDouble (defined
+      // below) is the function name that is passed to the passByNameFunc() function.
+      passByNameFunc(funcRandomDouble)
+    }
+
+    // When a function is passed to a function as 'Pass-By-Value', note that
+    // parenthesis are NOT USED to designate that blockOfCode is a function,
+    // as parenthesis ARE USED with 'Pass-By-Name'.
+    def passByValueFunc(blockOfCode: => Int) =
+    {
+      println("passByValueFunc(blockOfCode) is called.")
+      blockOfCode // This line executes the Scala code contained in the blockOfCode parameter.
+    }
+
+    // When a function is passed to a function as 'Pass-By-Name', note that
+    // parenthesis ARE USED to designate that passedFunc is a function without
+    // parameters, as parenthesis are NOT USED with 'Pass-By-Value'.
+    def passByNameFunc(passedFunc:() => Double): Unit =
+    {
+      // NOTE: To execute the function that gets passed to this function,
+      // you MUST call its apply() method.
+      println("func(passedFunc) is called, where passedFunc.apply() = " + passedFunc.apply())
+    }
+
+    def funcRandomDouble(): Double =
+    {
+      println("funcRandomDouble() is called.")
+      Math.random()
+    }
+  }
+}
+
 =========================================================================
 
 object Demo
@@ -133,8 +178,9 @@ object Demo
       (result, delta / 1000000D)
     }
   }
-
 }
+
+=========================================================================
 
 =========================================================================
 
