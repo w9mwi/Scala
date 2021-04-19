@@ -20,12 +20,21 @@ Pass-By-Value - This is the standard (very common) way a parameter
                 deleteRecord(name, ssn)
                 deleteRecord("Jane Sixpack", "9876-54-3212")
 
+                You can also pass a function to another function.  When
+                you pass a function to another function, you can pass
+                the function as a parameter "by name" or "by value."
+
+                When you pass a function to another function "by value",
+                you are passing that function A BLOCK OF SCALA CODE, instead
+                of the name of a function that has been defined.  See
+                the code examples below for examples of Pass-By-Value
+                functions.  Another name for a Pass-By-Value function
+                is a "Nullary Function".
+
 Pass-By-Name - In Pass-By-Name, an argument/parameter is NOT passed by value,
-               but is passed as a 'THUNK', which is a block of executable
-               Scala code that gets executed, and returns some value (Unit,
-               Int, Float, etc.) when that argument/parameter is referenced
-               in the function.  See the following code for examples, and
-               read the in-line comments for detailed explanations.
+               but is passed as the name of a Scala function that has been
+               defined via the Scala 'def' keyword.
+
                Pass-By-Name isn't a very accurate description.  Better names
                for Pass-By-Name (which aren't really used) could be:
                   * Call-On-Access
