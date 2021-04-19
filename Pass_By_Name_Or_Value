@@ -18,7 +18,7 @@ Pass-By-Value - This is the standard (very common) way a parameter
                 val ssn:String = "123-45-6789"
 
                 deleteRecord(name, ssn)
-                deleteRecord("Jane Sixpack", "9876-54-3212")
+                deleteRecord("Jane Sixpack", "987-65-4321")
 
                 You can also pass a function to another function.  When
                 you pass a function to another function, you can pass
