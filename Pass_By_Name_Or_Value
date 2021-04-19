@@ -84,6 +84,61 @@ object Demo
 
 object Demo
 {
+  def main(args: Array[String])
+  {
+    var count = 5
+
+    // The forloop function called below has 2 ARGUMENT LISTS!
+    // At first look, it appears forLoop is called with only one argument list.
+    // But the second argument list is the Scala code contained between the
+    // 2 braces { } immediately following: forloop(count > 0)
+
+    forloop(count > 0) {
+      // The code contained within these curly braces { } is the
+      // second argument passed to the forloop function defined below.
+      print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
+      count -= 1
+    }
+    println("\nThe End.")
+  }
+
+  /**
+   * This forloop function is a recursive curried function which has a multiple argument list.
+   *
+   * The first argument list gets passed this Scala code:  count > 0
+   * The second argument list contains all Scala code between the two braces { },
+   * where forLoop() gets called in the main() function.
+   *
+   * BOTH arguments passed to this function are Nullary Functions, which means
+   * they get passed a Scala expression (which is executable code), instead
+   * of some data type.  Therefore Nullary Functions contain no data type
+   * for the argument they get passed.
+   *
+   * NOTE: A Nullary Function is another name for a Pass-By-Value Function.
+   *       So both argument lists passed to this forLoop function are
+   *       Pass-By-Value Functions.
+   */
+  def forloop(rule: => Boolean)(body: => Unit):Unit =
+  {
+    if (rule)
+    {
+      // The following line of code executes the Scala code contained
+      // in the 'body' parameter passed to this function.
+      body
+
+      // The following line of code is a RECURSIVE function call to
+      // this forLoop()() function.  This recursive function call
+      // will continue occurring as long as the 'rule' function passed
+      // evaluates to true.
+      forloop(rule)(body)
+    }
+  }
+}
+
+=========================================================================
+
+object Demo
+{
   def main(args: Array[String]): Unit =
   {
     var result:Int = passByValue(9)
