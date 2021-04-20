@@ -97,38 +97,48 @@ object Demo
   {
     var count = 5
 
-    // The forloop function called below has 2 ARGUMENT LISTS!
-    // At first look, it appears forLoop is called with only one argument list.
+    // The forloop_1 function called below has 2 ARGUMENT LISTS!
+    // At first look, it appears forLoop_1 is called with only one argument list.
     // But the second argument list is the Scala code contained between the
-    // 2 braces { } immediately following: forloop(count > 0)
+    // 2 braces { } immediately following: forloop_1(count > 0)
 
-    forloop(count > 0) {
-      // The code contained within these curly braces { } is the
-      // second argument passed to the forloop function defined below.
+    forloop_1(count > 0) {
+      // The code contained within these curly braces { } is the second
+      // argument passed to the forloop_1 function defined below.
       print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
       count -= 1
     }
-    println("\nThe End.")
+    println("\nEnd: forloop_1")
+
+
+    // In this section we call the forloop_2 function with one argument list
+    // having 2 parameters.  So this forloop_2 function behaves exactly like
+    // the above forloop_1 function.
+    count = 5
+    forloop_2(count > 0, {
+      print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
+      count -= 1
+    })
+    println("\nEnd: forloop_2")
   }
 
   /**
-   * This forloop function is a recursive curried function which has a multiple argument list.
+   * This forloop_1 function is a recursive function having a multiple argument list.
    *
    * The first argument list gets passed this Scala code:  count > 0
    * The second argument list contains all Scala code between the two braces { },
-   * where forLoop() gets called in the main() function.
+   * where forLoop_1 gets called in the main() function.
    *
    * BOTH arguments passed to this function are Nullary Functions, which means
    * they get passed a Scala expression (which is executable code), instead
-   * of some data type.  Therefore Nullary Functions contain no data type
+   * of some data type.  So a Nullary Function contains no data type
    * for the argument they get passed.
    *
    * NOTE: A Nullary Function is another name for a Pass-By-Value Function.
    *       So both argument lists passed to this forLoop function are
    *       Pass-By-Value Functions.
    */
-  def forloop(rule: => Boolean)(body: => Unit):Unit =
-  {
+  def forloop_1(rule: => Boolean)(body: => Unit):Unit = {
     if (rule)
     {
       // The following line of code executes the Scala code contained
@@ -136,10 +146,27 @@ object Demo
       body
 
       // The following line of code is a RECURSIVE function call to
-      // this forLoop()() function.  This recursive function call
-      // will continue occurring as long as the 'rule' function passed
-      // evaluates to true.
-      forloop(rule)(body)
+      // this forLoop_1 function.  This recursive function call will
+      // continue until the 'rule' passed to this function evaluates to true.
+      forloop_1(rule)(body)
+    }
+  }
+
+  /**
+   * This forloop_2 function has only one argument list containing 2 parameters.
+   * But it behaves exactly the same as the above forloop_1 function.
+   */
+  def forloop_2(rule: => Boolean, body: => Unit):Unit = {
+    if (rule)
+    {
+      // The following line of code executes the Scala code contained
+      // in the 'body' parameter passed to this function.
+      body
+
+      // The following line of code is a RECURSIVE function call to
+      // this forLoop_2 function.  This recursive function call will
+      // continue until the 'rule' passed to this function evaluates to true.
+      forloop_2(rule, body)
     }
   }
 }
