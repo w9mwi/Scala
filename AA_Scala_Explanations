@@ -1,0 +1,11 @@
+
+=========================================================================
+THE UNDERSCORE (_) CHARACTER
+
+The underscore character (_) in Scala is used in several different ways.
+As a rule of thumb, every time the underscore character (_) is used in
+Scala, you're telling the compiler that THE DETAILS AREN'T RELEVANT,
+and the compiler will act accordingly.
+
+=========================================================================
+
