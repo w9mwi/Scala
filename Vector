@@ -34,17 +34,20 @@ object Demo
 {
   def main(args: Array[String])
   {
-    val myVector1: Vector[Int] = Vector(999)
-    println("myVector1.head = " + myVector1.head) // PRINTS: myVector1.head = 999
+    val myVector1: Vector[Int] = Vector(555)
+    println("myVector1.head = " + myVector1.head) // PRINTS: myVector1.head = 555
     println("myVector1.tail = " + myVector1.tail) // PRINTS: myVector1.tail = Vector()
+    println("myVector1(0) = " + myVector1(0))     // PRINTS: myVector1(0) = 555
 
     val myVector2: Vector[Int] = Vector(333, 666, 999)
-    println("myVector2.head = " + myVector1.head) // PRINTS: myVector2.head = 999
+    println("myVector2.head = " + myVector2.head) // PRINTS: myVector2.head = 333
     println("myVector2.tail = " + myVector2.tail) // PRINTS: myVector2.tail = Vector(333, 666)
-    println("myVector2(1) = " + myVector2(1))     // PRINTS: myVector2(1) = 333
-    println("myVector2(2) = " + myVector2(2))     // PRINTS: myVector2(2) = 666
+    println("myVector2(0) = " + myVector2(0))     // PRINTS: myVector2(1) = 333
+    println("myVector2(1) = " + myVector2(1))     // PRINTS: myVector2(1) = 666
+    println("myVector2(2) = " + myVector2(2))     // PRINTS: myVector2(2) = 999
   }
 }
+
 ==================================================================================
 import scala.collection.immutable.Vector
 
