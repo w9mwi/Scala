@@ -11,9 +11,9 @@ In the following code sample, if the main() function were to declare more
 than one 'implicit String' val, or declare more than one 'implicit Boolean'
 val, the code wouldn't compile.  It wouldn't compile because the compiler
 can't determine which of the multiple 'implicit String' vals, or which of
-the multiple 'implicit Boolean' values, to pass as the implicit parameter.
+the multiple 'implicit Boolean' vals, to pass as the implicit parameter.
 
-In other words, there can be ONLY ONE implicit val/var of that data type
+In other words, there can be ONLY ONE implicit val/var of a given data type
 declared in a function.
 
 ==========================================================================
