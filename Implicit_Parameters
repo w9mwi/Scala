@@ -1,0 +1,46 @@
+A method can have an implicit parameter list, marked by the
+'implicit' keyword at the start of the parameter list.  If
+the parameters in that parameter list are not passed as usual,
+Scala will determine if it can obtain an implicit value of the
+correct type, and if it can, pass it automatically.
+
+A method or constructor can have ONLY ONE implicit paramater list,
+and it must be the last parameter list specified.
+
+In the following code sample, if the main() function were to declare more
+than one 'implicit String' val, or declare more than one 'implicit Boolean'
+val, the code wouldn't compile.  It wouldn't compile because the compiler
+can't determine which of the multiple 'implicit String' vals, or which of
+the multiple 'implicit Boolean' values, to pass as the implicit parameter.
+
+In other words, there can be ONLY ONE implicit val/var of that data type
+declared in a function.
+
+==========================================================================
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    implicit val str:String = "Fred" // This implicit MIGHT get used by the howdy() function.
+    howdy("Jack") // PRINTS: Howdy, Jack
+    howdy         // PRINTS: Howdy, Fred
+
+
+    val number:Int = 54220
+    implicit val test:Boolean = true  // This implicit val MIGHT get used by the printIntIfTrue()
+                                      // or printIntAndNameIfTrue() functions.
+    printIntIfTrue(number)(true)  // PRINTS: a = 54220
+    printIntIfTrue(number)(false) // PRINTS NOTHING!
+    printIntIfTrue(number)              // PRINTS: a = 54220
+  }
+
+  def howdy(implicit s: String) = println("Howdy, " + s)
+
+  def printIntIfTrue(a:Int)(implicit test:Boolean):Unit =
+  {
+    if (test) { println("a = " + a) }
+  }
+}
+
+==========================================================================
