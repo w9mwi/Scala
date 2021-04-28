@@ -32,7 +32,7 @@ object Demo
                                       // or printIntAndNameIfTrue() functions.
     printIntIfTrue(number)(true)  // PRINTS: a = 54220
     printIntIfTrue(number)(false) // PRINTS NOTHING!
-    printIntIfTrue(number)              // PRINTS: a = 54220
+    printIntIfTrue(number)        // PRINTS: a = 54220
   }
 
   def howdy(implicit s: String) = println("Howdy, " + s)
