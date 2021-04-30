@@ -82,8 +82,8 @@ object Demo
     printEmployee(false)(e) // PRINTS NOTHING!
     // The following 2 lines are commented out because they won't compile.
     // As they both require an Employee to be passed as the 2nd parameter.
-    // printEmployee(true)(p)  // PRINTS: p = Person
-    // printEmployee(false)(p) // PRINTS: p = Person
+    // printEmployee(true)(p)  // Won't compile!
+    // printEmployee(false)(p) // Won't compile!
 
     def printPerson(b:Boolean)(implicit p: Person) =
     {
