@@ -98,3 +98,54 @@ object Demo
 }
 
 ==========================================================================
+An alternative to using implicit parameters is to use default parameters,
+as shown in the code example below.  However, when you use default params,
+you MUST include empty parenthesis () when calling the function.  Whereas
+calling functions that have implicit params don't require empty parenthesis ().
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    // Demonstrate calling the add_1()() function...
+    var number:Int = add_1()()
+    println("number = " + number) // PRINTS: number = 10
+    number = add_1(1)()
+    println("number = " + number) // PRINTS: number = 8
+    number = add_1()(2)
+    println("number = " + number) // PRINTS: number = 5
+    number = add_1(4)(5)
+    println("number = " + number) // PRINTS: number = 9
+
+    // Demonstrate calling the add_2()() function...
+    number = add_2()()
+    println("number = " + number) // PRINTS: number = 22
+    number = add_2(1)()
+    println("number = " + number) // PRINTS: number = 2
+    number = add_2()(2)
+    println("number = " + number) // PRINTS: number = 13
+    number = add_2(11)(4)
+    println("number = " + number) // PRINTS: number = 15
+  }
+
+  /**
+   * This function contains 2 default parameters.  So when it's called with
+   * one or two empty params, it uses the default values specified below.
+   */
+  def add_1(a: Int = 3)(b:Int = 7) =
+  {
+    a + b
+  }
+
+  /**
+   * This function contains 2 default parameters, similar to the above
+   * add_1()() function.  However, this function demonstrates how the
+   * 2nd parameter (b) uses the first parameter (a) as a default value.
+  **/
+  def add_2(a: Int = 11)(b:Int = a) =
+  {
+    a + b
+  }
+}
+
+==========================================================================
