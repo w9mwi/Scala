@@ -53,9 +53,12 @@ object Demo
   {
     trait Animal
     class Person(name:String) extends Animal
+    {
+      override def toString() = "Person"
+    }
     class Employee(name:String) extends Person(name)
     {
-      override def toString = "Person"
+      override def toString() = "Employee"
     }
     implicit val p:Person   = new Person("Person")
     implicit val e:Employee = new Employee("Employee")
@@ -63,19 +66,19 @@ object Demo
     // NOTICE: You CAN pass an Employee to the printPerson()() function because
     //         an Employee extends Person, which means an Employee is defined
     //         to also be a Person.
-    printPerson(true)     // PRINTS: p = Person
+    printPerson(true)     // PRINTS: p = Employee
     printPerson(false)    // PRINTS NOTHING!
-    printPerson(true)(e)  // PRINTS: p = Person
-    printPerson(true)(p)  // PRINTS: p = Demo$Person$1@7a187f14
+    printPerson(true)(e)  // PRINTS: p = Employee
+    printPerson(true)(p)  // PRINTS: p = Person
     printPerson(false)(e) // PRINTS NOTHING!
     printPerson(false)(p) // PRINTS NOTHING!
 
     // NOTICE: You CAN'T pass a Person to the printEmployee()() function because a
     //         Person doesn't extend Employee, which means a Person isn't defined
     //         to be an Employee.
-    printEmployee(true)     // PRINTS: e = Person
+    printEmployee(true)     // PRINTS: e = Employee
     printEmployee(false)    // PRINTS NOTHING!
-    printEmployee(true)(e)  // PRINTS: e = Person
+    printEmployee(true)(e)  // PRINTS: e = Employee
     printEmployee(false)(e) // PRINTS NOTHING!
     // The following 2 lines are commented out because they won't compile.
     // As they both require an Employee to be passed as the 2nd parameter.
