@@ -45,7 +45,7 @@ object Demo
     for {x <- list1} { print(x) }; println // PRINTS: 123
 
     // The following commented-out for() loop will NOT compile because its 2nd paramater list
-    // contains multiple statements, i.e., a block of Scala code. When a parameter list
+    // contains multiple statements, i.e., a block of Scala code.  When a parameter list
     // contains MORE THAN ONE SCALA STATEMENT, that parameter list MUST be enclosed with
     // curly-braces {} instead of parenthesis ().
     // for (x <- list1; y <- list2; z <- list3) ( print(x); print(y); print(z + "-") )
