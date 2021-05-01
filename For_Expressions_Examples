@@ -7,12 +7,14 @@ object Demo
 {
   def main(args:Array[String])
   {
-    println(increment(1,30)) // PRINTS: List(5, 10, 15, 20, 25)
+    // Call the increment() function defined below.
+    println(increment(1, 30)) // PRINTS: List(5, 10, 15, 20, 25)
   }
 
-  def increment(from: Int, to:Int):List[Int] =
+  def increment(from:Int, to:Int):List[Int] =
   {
-    for (idx <- List.range(from,to) if (idx % 5) == 0) yield idx
+    val result:List[Int] = for (idx <- List.range(from, to) if (idx % 5) == 0) yield idx
+    result
   }
 }
 
