@@ -44,22 +44,18 @@ object Demo
     for {x <- list1} ( print(x) ); println // PRINTS: 123
     for {x <- list1} { print(x) }; println // PRINTS: 123
 
-    // The following commented-out for() loop will NOT compile because its 2nd paramater list
-    // contains multiple statements, i.e., a block of Scala code.  When a parameter list
-    // contains MORE THAN ONE SCALA STATEMENT, that parameter list MUST be enclosed with
-    // curly-braces {} instead of parenthesis ().
-    // for (x <- list1; y <- list2; z <- list3) ( print(x); print(y); print(z + "-") )
-
-    // The following for() loop REQUIRES curly braces {} because its 2nd parameter list
-    // contains more than one statement (i.e., a block of Scala code).  The following
-    // for() loop prints a total of 81 single-digit Ints ranging from 1 through 9
-    // (9 X 9 = 81).  The following for() loop prints this:
-    // 147-148-149-157-158-159-167-168-169-247-248-249-257-258-259-267-268-269-347-348-349-357-358-359-367-368-369-
-    // for (x <- list1; y <- list2; z <- list3) { print(x); print(y); print(z + "-")}; println;
-
     // To iterate through any collection (like a List), you can use a foreach() statement
     // instead of using a for() loop, as shown in the following line of code.
-    list1.foreach(print); println // PRINTS: 123
+    list1.foreach(print) // PRINTS: 123
+    println
+
+    // The following for() loop REQUIRES curly braces {} around its 2nd parameter list because
+    // it executes more than one statement (i.e., a block of Scala Code).  The following for()
+    // loop prints a total of 81 single-digit Ints ranging from 1 through 9 because
+    // 9 X 9 = 81.  The following for() loop prints this:
+    // 147-148-149-157-158-159-167-168-169-247-248-249-257-258-259-267-268-269-347-348-349-357-358-359-367-368-369-
+    for (x <- list1; y <- list2; z <- list3) { print(x); print(y); print(z + "-") }
+    println;
 
     val numbers = Map("ThreePointZero" -> 3.0, "FourPointZero"  -> 4.0, "ThreePointFive" -> 3.5)
     numbers.foreach // This foreach() loops through each element of numbers...
@@ -129,6 +125,7 @@ object Demo
 
   def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
 }
+
 ================================================================================
 
 object Demo
