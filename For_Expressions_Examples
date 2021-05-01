@@ -50,9 +50,10 @@ object Demo
     // curly-braces {} instead of parenthesis ().
     // for (x <- list1; y <- list2; z <- list3) ( print(x); print(y); print(z + "-") )
 
-    // The following for() loop REQUIRES curly braces {} cuz it executes more than one statement.
-    // The following for() loop prints a total of 81 single-digit Ints ranging from 1 through 9.
-    // (9 X 9 = 81)  The following for() loop prints this:
+    // The following for() loop REQUIRES curly braces {} because its 2nd parameter list
+    // contains more than one statement (i.e., a block of Scala code).  The following
+    // for() loop prints a total of 81 single-digit Ints ranging from 1 through 9
+    // (9 X 9 = 81).  The following for() loop prints this:
     // 147-148-149-157-158-159-167-168-169-247-248-249-257-258-259-267-268-269-347-348-349-357-358-359-367-368-369-
     // for (x <- list1; y <- list2; z <- list3) { print(x); print(y); print(z + "-")}; println;
 
