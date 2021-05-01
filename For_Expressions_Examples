@@ -44,15 +44,17 @@ object Demo
     for {x <- list1} ( print(x) ); println // PRINTS: 123
     for {x <- list1} { print(x) }; println // PRINTS: 123
 
-    // The following commented-out for() loop will NOT compile cuz when a for() loop executes
-    // more than one statement, it REQUIRES curly braces {} instead of parenthesis ().
+    // The following commented-out for() loop will NOT compile because its 2nd paramater list
+    // contains multiple statements, i.e., a block of Scala code. When a parameter list
+    // contains MORE THAN ONE SCALA STATEMENT, that parameter list MUST be enclosed with
+    // curly-braces {} instead of parenthesis ().
     // for (x <- list1; y <- list2; z <- list3) ( print(x); print(y); print(z + "-") )
 
     // The following for() loop REQUIRES curly braces {} cuz it executes more than one statement.
     // The following for() loop prints a total of 81 single-digit Ints ranging from 1 through 9.
     // (9 X 9 = 81)  The following for() loop prints this:
     // 147-148-149-157-158-159-167-168-169-247-248-249-257-258-259-267-268-269-347-348-349-357-358-359-367-368-369-
-    for (x <- list1; y <- list2; z <- list3) { print(x); print(y); print(z + "-")}; println;
+    // for (x <- list1; y <- list2; z <- list3) { print(x); print(y); print(z + "-")}; println;
 
     // To iterate through any collection (like a List), you can use a foreach() statement
     // instead of using a for() loop, as shown in the following line of code.
