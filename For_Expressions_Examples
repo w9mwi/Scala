@@ -23,6 +23,7 @@ object Demo
 The following code show many examples of how to use Scala's for() loop and
 foreach() statement, including examples that implement the "yield" keyword.
 
+import scala.collection.immutable
 object Demo
 {
   def main(args: Array[String]):Unit =
@@ -57,17 +58,23 @@ object Demo
     for (x <- list1; y <- list2; z <- list3) { print(x); print(y); print(z + "-") }
     println;
 
-    val numbers = Map("ThreePointZero" -> 3.0, "FourPointZero"  -> 4.0, "ThreePointFive" -> 3.5)
+    val numbers:Map[String, Double] = Map("ThreePointZero" -> 3.0,
+                                          "FourPointZero"  -> 4.0,
+                                          "ThreePointFive" -> 3.5)
+
     numbers.foreach // This foreach() loops through each element of numbers...
     {
-      // The following case statement prints this:
-      // key: ThreePointZero, value: 3.0
-      // key: FourPointZero, value: 4.0
-      // key: ThreePointFive, value: 3.5
+      // NOTE: The 'key' and 'value' text below can be changed to any name you want.
       case(key, value) => println(s"key: $key, value: $value")
+      // PRINTS:  key: ThreePointZero, value: 3.0
+      //          key: FourPointZero, value: 4.0
+      //          key: ThreePointFive, value: 3.5
     }
-    // The following foreach() statement prints IDENTICAL results as the above foreach() statement.
+    // The following foreach() statement prints IDENTICAL results as the ABOVE foreach() statement.
     numbers.foreach(x => println(s"key: ${x._1}, value: ${x._2}"))
+    // PRINTS:  key: ThreePointZero, value: 3.0
+    //          key: FourPointZero, value: 4.0
+    //          key: ThreePointFive, value: 3.5
 
     numbers.values.foreach(x => print(x + " ")) // PRINTS: 3.0 4.0 3.5
     println
@@ -92,7 +99,7 @@ object Demo
     // NOTE: The variable(s) used by the yield statement must be the same variable(s)
     //       the for() loop uses to obtain value(s).  In the following line of code
     //       those variables are: a, b, c
-    result1 = for { a <- list1; b <- list2; c <- list3 } yield sum(a,b,c)
+    result1 = for { a <- list1; b <- list2; c <- list3 } yield sum(a,b,c) // sum() function is defined below.
     // The following println(result1) prints this:
     // List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
     // Those Int values are THE SUM of the single-digit Int values printed above.  For example:
@@ -107,14 +114,14 @@ object Demo
 
 
     // Using a for() loop on a Map collection...
-    val nameMap = Map("firstName" -> "Joe", "lastName" -> "Blow")
-    val poop = for ((k,v) <- nameMap) yield { s"key = $k, value = $v" }
-    println(poop) // PRINTS: List(key = firstName, value = Joe, key = lastName, value = Blow)
+    val nameMap:Map[String, String] = Map("firstName" -> "Joe", "lastName" -> "Blow")
+    val myResult:immutable.Iterable[String] = for ((k,v) <- nameMap) yield { s"key = $k, value = $v" }
+    println(myResult) // PRINTS: List(key = firstName, value = Joe, key = lastName, value = Blow)
 
 
-    val nums:Seq[Int]     = Seq(1,2,3)
+    val intNumbers:Seq[Int]   = Seq(1,2,3)
     val letters:Seq[Char] = Seq('a', 'b', 'c')
-    val result2:Seq[(Int, Char)] = for { n <- nums; c <- letters } yield (n, c)
+    val result2:Seq[(Int, Char)] = for { n <- intNumbers; c <- letters } yield (n, c)
     println(result2) // PRINTS: List((1,a), (1,b), (1,c), (2,a), (2,b), (2,c), (3,a), (3,b), (3,c))
 
 
@@ -125,6 +132,7 @@ object Demo
 
   def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
 }
+
 
 ================================================================================
 
