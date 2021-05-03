@@ -18,14 +18,25 @@ Currying - If you have a function that takes multiple arguments,
 
            In Scala code the above f(x)(y)(z) expression can be written like this:
 
-           val x = 13
-           func2 = func1(y)
-           result = func2(z)
-
-
-
            func(x)       = x + 10
            func(x)(y)    = func((x + 10) - 3)
            func(x)(y)(z) = func(((x + 10) - 3)) * 4)
 
            result = func(x)(y)(z)
+
+object Demo
+{
+  def funcX(x:Double):Double = { x + 10.0D }
+  def funcY(y:Double):Double = { y - 3.0D }
+  def funcZ(z:Double):Double = { z * 4.0D }
+
+  def main(args: Array[String])
+  {
+      val result:Double = funcZ(funcY(funcX(7.0D)))
+      println("result = " + result) // PRINTS: result = 56.0
+  }
+}
+
+
+
+
