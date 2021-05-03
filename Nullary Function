@@ -1,7 +1,8 @@
 
 In Scala, you can pass a function an argument that is a function, has a name, and
-returns some type, but what it takes as an argument HAS NO TYPE.  This is called
-a Nullary Function, which is also known as a Pass-By-Value Function.
+returns some type, but what it takes as an argument (a block of Scala code)
+HAS NO TYPE.  This is called a Nullary Function, which is also known as a
+Pass-By-Name Function.
 
-To learn more about Pass-By-Value (Nullary) Functions, see the following URL:
+To learn more about Pass-By-Name (Nullary) Functions, see the following URL:
 --> https://github.com/w9mwi/Scala/blob/master/Pass_By_Name_Or_Value
