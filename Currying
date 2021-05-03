@@ -11,13 +11,14 @@ Currying - If you have a function that takes multiple arguments,
            f(x)(y)(z)
            
            The above expresion reads like this:
-           1) Call function f(z),
-           2) which returns function f(y),
-           3) which calls function f(x),
-           4) which returns a result.
+           1) Call function f(x), passing it a numeric value.
+           2) Call function f(y), passing it the numeric value returned by f(x).
+           3) Call function f(z), passing it the numeric value returned by f(y).
+           4) f(z) returns the resultant numeric value.
 
-           In pseudo code the above expression can be written like this:
-           func1 = f(z)
+           In Scala code the above f(x)(y)(z) expression can be written like this:
+
+           val x = 13
            func2 = func1(y)
            result = func2(z)
 
