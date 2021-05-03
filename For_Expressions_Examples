@@ -156,7 +156,7 @@ object Demo
     multiples(42,40) foreach
     {
       case(a,b) => print("(" + a + ", " + b + ")") // PRINTS: (1, 40)(2, 20)(4, 10)(5, 8)
-      case _    => println("NOTHING!")
+      case _    => println("NOTHING!") // This line never executes.
     }
   }
 
