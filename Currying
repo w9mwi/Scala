@@ -10,7 +10,13 @@ Currying - If you have a function that takes multiple arguments,
            From the above 3 functions, we can create this expression:
            f(x)(y)(z)
            
-           The above expresion reads like this:
+           CORRECT -- The above expresion reads like this:
+           1) Call function f(x), passing it a numeric value.
+           2) Call function f(y), passing it the numeric value returned by f(x).
+           3) Call function f(z), passing it the numeric value returned by f(y).
+           4) f(z) returns the resultant numeric value.
+           
+           WRONG -- The above expresion reads like this:
            1) Call function f(x), passing it a numeric value.
            2) Call function f(y), passing it the numeric value returned by f(x).
            3) Call function f(z), passing it the numeric value returned by f(y).
