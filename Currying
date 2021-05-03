@@ -1,2 +1,30 @@
 
-123
+Currying - If you have a function that takes multiple arguments,
+           you can translate that function into series of function
+           calls that each take a single argument.  Here is an
+           example.  Assume we have these 3 functions:
+           f(x) = x + 10
+           f(y) = y - 3
+           f(z) = z * 4
+           
+           From the above 3 functions, we can create this expression:
+           f(x)(y)(z)
+           
+           The above expresion reads like this:
+           1) Call function f(z),
+           2) which returns function f(y),
+           3) which calls function f(x),
+           4) which returns a result.
+
+           In pseudo code the above expression can be written like this:
+           func1 = f(z)
+           func2 = func1(y)
+           result = func2(z)
+
+
+
+           func(x)       = x + 10
+           func(x)(y)    = func((x + 10) - 3)
+           func(x)(y)(z) = func(((x + 10) - 3)) * 4)
+
+           result = func(x)(y)(z)
