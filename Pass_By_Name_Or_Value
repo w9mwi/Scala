@@ -63,8 +63,7 @@ object Demo
     }
 
     // When a function is passed to a function as 'Pass-By-Value', note that
-    // parenthesis are NOT USED to designate that blockOfCode is a function,
-    // as parenthesis ARE USED with 'Pass-By-Name'.
+    // parenthesis are NOT USED to designate that blockOfCode is a function.
     def passByValueFunc(blockOfCode: => Int) =
     {
       println("passByValueFunc(blockOfCode) is called.")
@@ -73,7 +72,7 @@ object Demo
 
     // When a function is passed to a function as 'Pass-By-Name', note that
     // parenthesis ARE USED to designate that passedFunc is a function without
-    // parameters, as parenthesis are NOT USED with 'Pass-By-Value'.
+    // parameters.
     def passByNameFunc(passedFunc:() => Double): Unit =
     {
       // NOTE: To execute the function that gets passed to this function,
