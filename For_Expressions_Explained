@@ -1,6 +1,7 @@
 ================================================================================
 A Scala "for expression" can contain the following 3 expressions:
-1) Generator.  Every for expression begins with a generator.  A for expression
+1) Generator - A generator is the part of a "for expression" containing the <- operator.
+               Every "for expression" begins with a generator.  A "for expression"
                can contain MULTIPLE generators.  The left side of a generator
                can also be a pattern, as shown in the example below, where
                getAnimals() is a function that rerurns a 3-element tuple, and
@@ -14,12 +15,16 @@ A Scala "for expression" can contain the following 3 expressions:
                 name does NOT start with the string "To" is dropped from the result
                 based on this if() statement.  -->  if (name startsWith "To")
 
+The following "for expression" sample code shows which parts
+are the generator, the definition, and the filter...
+
 for
 {
   person <- persons         // Generator  (Iterates over all elements contained in persons.)
   name = p.name             // Definition (Equivalent to: val name = p.name)
   if (name startsWith "To") // Filter     (The yielded result contains ONLY persons whose name begins with "To".)
 } yield x                   // The for expression's result is stored in x.
+
 
 A generator has this general form:   pattern <- expression
 A definition has this general form:  pattern = expression
@@ -64,6 +69,8 @@ implements the four (4) methods mentioned immediately above, so it will
 work with "for expressions" (which use the "yield" keyword).  This Sequence
 class will work with generic types, so it's defined below as Sequence[A],
 where A is the generic type.
+
+WARNING: THE FOLLOWING SCALA SAMPLE CODE DOESN'T COMPILE WITH SCALA 2.13.5
 
 import scala.collection.mutable.ArrayBuffer
 object Demo
