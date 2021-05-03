@@ -14,9 +14,11 @@ Currying - DEFINITION #1:
 
            DEFINITION #2:
            A function that takes multiple arguments can be translated
-           into a series of function calls on that object.
+           into a series of function calls.  Here's an example where
+           we curry the following 3-argument function into 3 separate
+           functions that each take a single argument...
            
-Demo
+object Demo
 {
   def main(args: Array[String])
   {
@@ -59,10 +61,7 @@ Demo
     }
   }
 }
-           each take a single argument.  Here's an example
-           where we curry the following 3-argument function
-           into 3 separate functions that each take a single
-           argument...
+
 
 DEFINITION OF A PARTIALLY APPLIED FUNCTION:
    A partially-applied function gets passed a function with multiple
