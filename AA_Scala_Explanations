@@ -9,7 +9,38 @@ THE UNDERSCORE (_) CHARACTER
 The underscore character (_) in Scala is used in several different ways.
 As a rule of thumb, every time the underscore character (_) is used in
 Scala, you're telling the compiler that THE DETAILS AREN'T RELEVANT,
-and the compiler will act accordingly.
+and the compiler will act accordingly.  The following show some examples
+of how the underscore char (_) is used in Scala code.
 
-=========================================================================
+=============================================================================
+EXAMPLE 1: WHEN CALLING A CURRIED FUNCTION. YOU CAN USE THE
+           UNDERSCORE (_) CHAR TO DESIGNATE THAT ONE OR MORE
+           PARAMETER LISTS ARE IGNORED.
 
+object Demo
+{
+  def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x+y+z }
+
+  def main(args: Array[String])
+  {
+    // ======================================================
+    // This section demonstrates how to call the addXYZ_Curried()()()
+    // function in one line of code, to add 3 Int values...
+    var result:Int = addXYZ_Curried(1)(2)(3) // Adds 1 + 2 + 3
+    println("result = " + result) // PRINTS: result = 6
+
+    // ======================================================
+    // This section demonstrates how to call the addXYZ_Curried()()()
+    // function using the underscore char (_) to ignore parameter lists.
+    var func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // Returns a function.
+    var func2:(Int => Int) = func1(2) // Returns a function.
+    result = func2(3) // Returns an Int value.
+    println("result = " + result) // PRINTS: result = 6
+
+    func2 = addXYZ_Curried(1)(2)_ // Returns a function.
+    result = func2(3) // Returns an Int value.
+    println("result = " + result) // PRINTS: result = 6
+  }
+}
+
+=============================================================================
