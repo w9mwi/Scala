@@ -10,17 +10,18 @@ Currying - If you have a function that takes multiple arguments,
 
 object Demo
 {
-  def funcX(x:Int):Int = { x+10 }
-  def funcY(y:Int):Int = { y-3 }
-  def funcZ(z:Int):Int = { z*4 }
-  def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x+y+z }
+  def funcX(x:Int):Int = { x + 10 }
+  def funcY(y:Int):Int = { y - 3 }
+  def funcZ(z:Int):Int = { z * 4 }
+  def addXY_Curried(x:Int):(Int => Int)       = { (y:Int) => x + y }
+  def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x + y + z }
 
   def main(args: Array[String])
   {
     // This section demonstrates the standard way of calling functions.
     // This is NOT an example of currying!
-    // NOTE:  funcZ(funcY(funcX(7))) = (((7 + 10) - 3) * 4) = 56
-    var result:Int = funcZ(funcY(funcX(7)))
+    // NOTE: funcZ(funcY(funcX(7))) = (((7 + 10) - 3) * 4) = 56
+    var result: Int = funcZ(funcY(funcX(7)))
     println("funcZ(funcY(funcX(7))) = " + result) // PRINTS: funcZ(funcY(funcX(7))) = 56
 
     // ======================================================
@@ -31,24 +32,41 @@ object Demo
 
     // ======================================================
     // This section demonstrates how to call addXYZ_Curried()()()
-    // in 3 separate lines of code to obtain result of adding
+    // in 3 separate lines of code to obtain the result of adding
     // 3 Ints (1 + 2 + 3).
     // NOTE: The underscore char (_) is used below to designate that we're
     //       calling addXYZ_Curried()()() with only ONE (1) parameter list.
     //       The 2nd and 3rd parameter lists are ignored.
-    var func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // Returns a function.
-    var func2:(Int => Int) = func1(2) // Returns a function.
+    var func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // Returns a function that returns a function.
+    var func2:(Int => Int)          = func1(2)           // Returns a function that returns an Int.
     result = func2(3) // Returns an Int value.
     println("result = " + result) // PRINTS: result = 6
 
-    // Instead of calling addXYZ_Curried()()() in 3 separate lines of code,
+    // Instead of calling addXYZ_Curried()()() in 3 separate lines of code
     // as in the above example, this section calls that curried function
     // in only 2 lines of code.  Just to demonstrate that it can be called
     // in different ways.  Again, the underscore char (_) is used below
-    // to designate that we're ignoring the 3rd parameter.
-    func2 = addXYZ_Curried(1)(2)_ // Returns a function.
+    // to designate that we're ignoring the 3rd parameter list.
+    func2 = addXYZ_Curried(1)(2)_ // Returns a function that returns an Int.
     result = func2(3) // Returns an Int value.
     println("result = " + result) // PRINTS: result = 6
+
+    // ======================================================
+    // This section demonstrates how to call the addXY_Curried() function.
+    // NOTE: The following commented-out line WON'T COMPILE because the
+    //       underscore char (_) MUST follow a function/method call.
+    //       The call to addXY_Curried(5) returns NOT a function that
+    //       returns a function, but returns a function that returns an Int.
+    // addXY_Curried(5)_ // THIS LINE WON'T COMPILE!
+
+    // Add the two numbers: 5 + 15
+    func2 = addXY_Curried(5) // Returns a function that returns an Int.
+    result = func2(15)       // Returns an Int.
+    println("result = " + result) // PRINTS: result = 20
+
+    // NOTE: The following commented-out line WON'T COMPILE because the
+    //       addXY_Curried() function does NOT take 2 parameter lists.
+    // func2(5)(15)  // WON'T COMPILE!
   }
 }
 
