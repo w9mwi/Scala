@@ -64,9 +64,12 @@ object Demo
     result = func2(15)       // Returns an Int.
     println("result = " + result) // PRINTS: result = 20
 
-    // NOTE: The following commented-out line WON'T COMPILE because the
-    //       addXY_Curried() function does NOT take 2 parameter lists.
-    // func2(5)(15)  // WON'T COMPILE!
+    // NOTE: Even though the addXY_Curried() function is defined above with only
+    //       ONE parameter list, it can be called with TWO parameter lists because
+    //       it's a curried function.  That is, addXY_Curried(5) returns
+    //       a function that takes an Int parameter, and returns an Int.
+    result = addXY_Curried(5)(20)
+    println("result = " + result) // PRINTS: result = 20
   }
 }
 
