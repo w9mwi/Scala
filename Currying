@@ -1,4 +1,8 @@
 
+Currying transforms a function that takes multiple parameters into
+a chain of functions, where each function in the chain takes a
+single parameter.
+
 Currying - If you have a function that takes multiple arguments,
            you can translate that function into series of function
            calls that each take a single argument.  The following
