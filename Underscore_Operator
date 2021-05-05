@@ -51,12 +51,12 @@ SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
 =========================================================================================
 CALLING A FUNCTION THAT ACCEPTS A VARIABLE NUMBER OF ARGUMENTS
 
-To designate that variable number of arguments can be passed to a function,
+To designate that a variable number of arguments can be passed to a function,
 the function is defined using the asterisk character (*), as shown in the
 following code sample.  When that function gets called, and you want that
-that function to opererate on ALL elements of a collection passed to it,
-you pass it the collection name followed by the colon AND underscore
-AND asterisk characters  :_*  as shown below.
+function to opererate on ALL elements of a collection passed to it, you
+pass it the collection name followed by the colon AND underscore AND
+asterisk characters  :_*  as shown below.
 
 The following code sample also uses the underscore character (_) in a
 predicate rule when the numbers.reduce() function is called.  See the
