@@ -69,13 +69,11 @@ object Demo
     var result_1:List[Int] = intList.filter(_ <= 4)
     println("result_1 = " + result_1) // Prints: result_1 = List(4, 3, 1)
 
-    // Obtain the FIRST ELEMENT of intList satisfying
-    // the (_ > 99) predicate, if one exists.
+    // Obtain the FIRST ELEMENT of intList satisfying the (_ > 99) predicate, if one exists.
     var result_2:Option[Int] = intList.find(_ > 99)
     println("result_2 = " + result_2) // Prints: result_2 = None
 
-    // Obtain the FIRST ELEMENT of intList satisfying
-    // the (_ > 6) predicate, if one exists.
+    // Obtain the FIRST ELEMENT of intList satisfying the (_ > 6) predicate, if one exists.
     result_2 = intList.find(_ > 6)
     println("result_2 = " + result_2) // Prints: result_2 = Some(7)
 
