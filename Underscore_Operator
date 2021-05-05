@@ -13,55 +13,21 @@ and the compiler will act accordingly.  The following show some examples
 of how the underscore char (_) is used in Scala code.
 
 =============================================================================
-EXAMPLE 1: WHEN CALLING A CURRIED FUNCTION. YOU CAN USE THE
-           UNDERSCORE (_) CHAR TO DESIGNATE THAT ONE OR MORE
-           PARAMETER LISTS ARE IGNORED.
+EXAMPLE 1: Currying
 
-object Demo
-{
-  def addXY_Curried(x:Int):(Int => Int)       = { (y:Int) => x + y }
-  def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x+y+z }
+           When calling a curried function, you can use the underscore
+           character (_) to desigante that one or more of the will
+           be ignored.  View the "Currying" section for examples of how
+           that works.
 
-  def main(args: Array[String])
-  {
-    // ======================================================
-    // This section demonstrates how to call the addXYZ_Curried()()()
-    // function in one line of code, to add 3 Int values...
-    var result:Int = addXYZ_Curried(1)(2)(3) // Adds 1 + 2 + 3
-    println("result = " + result) // PRINTS: result = 6
-
-    // ======================================================
-    // This section demonstrates how to call the addXYZ_Curried()()()
-    // function using the underscore char (_) to ignore parameter lists.
-    var func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // Returns a function.
-    var func2:(Int => Int) = func1(2) // Returns a function.
-    result = func2(3) // Returns an Int value.
-    println("result = " + result) // PRINTS: result = 6
-
-    func2 = addXYZ_Curried(1)(2)_ // Returns a function.
-    result = func2(3) // Returns an Int value.
-    println("result = " + result) // PRINTS: result = 6
-
-    // ======================================================
-    // This section demonstrates how to call the addXY_Curried() function.
-    // NOTE: The following commented-out line WON'T COMPILE because the
-    //       underscore char (_) MUST follow a function/method call.
-    //       The call to addXY_Curried(5) returns NOT a function that
-    //       returns a function, but returns a function that returns an Int.
-    // addXY_Curried(5)_ // THIS LINE WON'T COMPILE!
-
-    // Add the two numbers: 5 + 15
-    func2 = addXY_Curried(5) // Returns a function that returns an Int.
-    result = func2(15)       // Returns an Int.
-    println("result = " + result) // PRINTS: result = 20
-
-    // NOTE: Even though the addXY_Curried() function is defined above with only
-    //       ONE parameter list, it can be called with TWO parameter lists because
-    //       it's a curried function.  That is, addXY_Curried(5) returns
-    //       a function that takes an Int parameter, and returns an Int.
-    result = addXY_Curried(5)(20)
-    println("result = " + result) // PRINTS: result = 25
-  }
-}
+           SEE --> https://github.com/w9mwi/Scala/blob/master/Currying
 
 =============================================================================
+EXAMPLE 2: Eta Exapansions
+
+           The underscore character (_) can be used in an "Eta Expansion"
+           View the "Eta Expansion" section for examples of how that works.
+
+           SEE --> https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
+=============================================================================
+EXAMPLE 3: Pattern Matching
