@@ -14,6 +14,119 @@ Scala is somewhat similar to a "wildcard" character.  The following is
 a list of the many ways an underscore character (_) is used in Scala code.
 
 =========================================================================================
+CURRYING
+
+When calling a curried function, you can use ONE, AND ONLY ONE,
+underscore character (_) to desigante that the function's
+TRAILING PARAMETER LIST(S) will be ignored.
+
+View the "Currying" section for examples of how this works.
+
+SEE --> https://github.com/w9mwi/Scala/blob/master/Currying
+
+=========================================================================================
+ETA EXPANSIONS
+
+The underscore character (_) can be used in an "Eta Expansion".
+View the "Eta_Expansion" section for examples of how this works.
+
+SEE --> https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
+
+=========================================================================================
+PATTERN MATCHING
+
+When the Scala "match" keyword is used to perform pattern matching,
+the underscore character (_) can be used in one of the accompanying
+case statements as a wildcard.
+
+ONLY ONE case statement should use the underscore character (_),
+and it should be THE LAST case statement in the "match" list.
+Then, the case statement containing the underscore character (_)
+will execute ONLY IF none of the case statements above it execute.
+
+View the "Pattern_Matching" section for examples of how this works.
+
+SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
+
+=========================================================================================
+PREDICATE RULES
+
+Many Scala collections have the capability to get passed a predicate rule
+via a method call.  When such a method is called, you pass it a rule
+(i.e., '_ <= 12') that gets applied to all elements of the collection.
+The underscore character (_) in the predicate rule designates that
+the rule is applied to ALL ELEMENTS of the collection.  The following
+sample code demonstrates several examples of this use.  Read in-line
+comments for details.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val intList:List[Int] = List[Int](4, 6, 3, 7, 9, 1)
+
+    // Obtain all elements of intList which satisfy the (_ <= 4) predicate.
+    var result_1:List[Int] = intList.filter(_ <= 4)
+    println("result_1 = " + result_1) // Prints: result_1 = List(4, 3, 1)
+
+    // Obtain the FIRST ELEMENT of intList satisfying
+    // the (_ > 99) predicate, if one exists.
+    var result_2:Option[Int] = intList.find(_ > 99)
+    println("result_2 = " + result_2) // Prints: result_2 = None
+
+    // Obtain the FIRST ELEMENT of intList satisfying
+    // the (_ > 6) predicate, if one exists.
+    result_2 = intList.find(_ > 6)
+    println("result_2 = " + result_2) // Prints: result_2 = Some(7)
+
+    // Return a new List by applying the function (_ * 2) to all elements of intList
+    result_1 = intList.map(_ * 2)
+    println("result_1 = " + result_1) // PRINTS: result_1 = List(8, 12, 6, 14, 18, 2)
+
+    // Test if at least one element of strList satisfies this predicate:
+    // (_.compareTo("str3_qrs_things") == 0)
+    val strList:List[String] = List[String]("str1_abc_junk",
+                                            "str2_jkl_stuff",
+                                            "str3_qrs_things",
+                                            "str4_xyz_trash");
+    var result_3:Boolean = strList.exists(_.compareTo("str3_qrs_things") == 0)
+    println("result_3 = " + result_3) // result_3 = true
+  }
+}
+
+=========================================================================================
+ACCESSING A TUPLE VALUE
+
+The underscore character (_) is used when you need to access one of the values
+stored in a tuple.  In this instance, the underscore character (_) isn't
+used like a wildcard, it's just how tuple values are accessed.
+
+The following sample code shows a 4-value tuple defined as NameData.  An
+Array is then declared and initialized to hold 2 elements of the tuple
+type NameData.  The code below shows how those tuple values are accessed.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    type NameData = (String, Int, String, Double)
+    val nameData: Array[NameData] = Array(("Joe Blow", 76, "California", 987.654D),
+                                          ("Jack Ass", 99, "Rhode Island", 123.456D))
+
+    // This shows how the underscore character (_) is used to
+    // access tuple values contained in the NameData Array.
+    println(nameData(0)._1) // PRINTS: Joe Blow
+    println(nameData(0)._2) // PRINTS: 76
+    println(nameData(0)._3) // PRINTS: California
+    println(nameData(0)._4) // PRINTS: 987.654
+    println(nameData(1)._1) // PRINTS: Jack Ass
+    println(nameData(1)._2) // PRINTS: 99
+    println(nameData(1)._3) // PRINTS: Rhode Island
+    println(nameData(1)._4) // PRINTS: 123.456
+  }
+}
+
+=========================================================================================
 INITIALIZING VALUES IN A COLLECTIONS DECLARATION
 
 When initializing the contents of a collection upon its declaration
@@ -47,66 +160,5 @@ val dataValues_5:Array[Any]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2
 val dataValues_6:List[Any]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
 
 =========================================================================================
-CURRYING
-
-When calling a curried function, you can use ONE, AND ONLY ONE,
-underscore character (_) to desigante that the function's
-TRAILING PARAMETER LIST(S) will be ignored.
-
-View the "Currying" section for examples of how this works.
-
-SEE --> https://github.com/w9mwi/Scala/blob/master/Currying
-=============================================================================
-ETA EXPANSIONS
-
-The underscore character (_) can be used in an "Eta Expansion".
-View the "Eta_Expansion" section for examples of how this works.
-
-SEE --> https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
-=============================================================================
-PATTERN MATCHING
-
-When the Scala "match" keyword is used to perform pattern matching,
-the underscore character (_) can be used in one of the accompanying
-case statements as a wildcard.
-
-ONLY ONE case statement should use the underscore character (_),
-and it should be THE LAST case statement in the "match" list.
-Then, the case statement containing the underscore character (_)
-will execute ONLY IF none of the case statements above it execute.
-
-View the "Pattern_Matching" section for examples of how this works.
-
-SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
-=============================================================================
-ACCESSING A TUPLE VALUE
-
-The underscore character (_) is used when you need to access one of the values
-stored in a tuple.  In this instance, the underscore character (_) isn't
-used like a wildcard, it's just how tuple values are accessed.
-
-The following sample code shows a 4-value tuple defined as NameData.  An
-Array is then declared and initialized to hold 2 elements of the tuple
-type NameData.  The code below shows how those tuple values are accessed.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    type NameData = (String, Int, String, Double)
-    val nameData: Array[NameData] = Array(("Joe Blow", 76, "California", 987.654D),
-                                          ("Jack Ass", 99, "Rhode Island", 123.456D))
-
-    // This shows how the underscore character (_) is used to
-    // access tuple values contained in the NameData Array.
-    println(nameData(0)._1) // PRINTS: Joe Blow
-    println(nameData(0)._2) // PRINTS: 76
-    println(nameData(0)._3) // PRINTS: California
-    println(nameData(0)._4) // PRINTS: 987.654
-    println(nameData(1)._1) // PRINTS: Jack Ass
-    println(nameData(1)._2) // PRINTS: 99
-    println(nameData(1)._3) // PRINTS: Rhode Island
-    println(nameData(1)._4) // PRINTS: 123.456
-  }
-}
-=============================================================================
+=========================================================================================
+=========================================================================================
