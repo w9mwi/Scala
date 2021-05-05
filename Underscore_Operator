@@ -135,29 +135,39 @@ data type.  Using the underscore character (_) in the declaration will
 allow the collection to contain DIFFERENT DATA TYPES, instead of
 requiring a single data type for all elements of the collection.
 
-// The following 6 declarations are all valid.
-val numbers_1:Vector[_]      = Vector(1.23D, 4.56D, 7.89D)
-val numbers_2:Vector[Double] = Vector(1.23D, 4.56D, 7.89D)
+The following code sample has no functionality, other than it declares
+and initializes several Scala collections to demonstrate how the
+underscore character (_) is used in a declaration.
 
-val names_1:Array[_]      = Array("Jack", "Jill", "Joe")
-val names_2:Array[String] = Array("Jack", "Jill", "Joe")
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // The following 6 declarations are all valid.
+    val numbers_1:Vector[_]      = Vector(1.23D, 4.56D, 7.89D)
+    val numbers_2:Vector[Double] = Vector(1.23D, 4.56D, 7.89D)
 
-val isActive_1:List[_]       = List(true, false, true)
-val isActive_2:List[Boolean] = List(true, false, true)
+    val names_1:Array[_]      = Array("Jack", "Jill", "Joe")
+    val names_2:Array[String] = Array("Jack", "Jill", "Joe")
 
-// The following 3 declarations are all valid.  Notice that the
-// underscore character (_) allows the collection's elements to
-// contain different data types.
-val dataValues_1:Vector[_] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
-val dataValues_2:Array[_]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
-val dataValues_3:List[_]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+    val isActive_1:List[_]       = List(true, false, true)
+    val isActive_2:List[Boolean] = List(true, false, true)
 
-// The following 3 declarations are all valid.  This example shows that using
-// the Scala class "Any" (instead of the underscore character) also allows the
-// collection's elements to contain different data types.
-val dataValues_4:Vector[Any] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
-val dataValues_5:Array[Any]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
-val dataValues_6:List[Any]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+    // The following 3 declarations are all valid.  Notice that the
+    // underscore character (_) allows the collection's elements to
+    // contain different data types.
+    val dataValues_1:Vector[_] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+    val dataValues_2:Array[_]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+    val dataValues_3:List[_]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+
+    // The following 3 declarations are all valid.  This example shows that using
+    // the Scala class "Any" (instead of the underscore character) also allows the
+    // collection's elements to contain different data types.
+    val dataValues_4:Vector[Any] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+    val dataValues_5:Array[Any]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+    val dataValues_6:List[Any]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+  }
+}
 
 =========================================================================================
 =========================================================================================
