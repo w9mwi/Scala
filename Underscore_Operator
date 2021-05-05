@@ -206,5 +206,25 @@ object Demo
 }
 
 =========================================================================================
+USING UNDERSCORES IN A NUMBER
+
+When one or more underscore characters (_) is embedded within a number,
+those underscore characters will be ignored.  The underscore character
+could be used to designate a comma to make the number easier to read,
+as Scala doesn't allow a comma character to be embedded within a number.
+Here is some sample code showing underscore characters embeded within
+numbers.
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    var doubleNumber:Double = 7_654___321.012345
+    println("doubleNumber = " + doubleNumber) // PRINTS: doubleNumber = 7654321.012345
+
+    var intNumber:Int = 987_654_321
+    println("intNumber = " + intNumber) // PRINTS: intNumber = 987654321
+  }
+}
 =========================================================================================
 =========================================================================================
