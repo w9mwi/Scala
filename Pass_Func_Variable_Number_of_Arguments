@@ -5,6 +5,36 @@ The following code samples show how to pass a variable number of arguments to a 
 
 object Demo
 {
+  def main(args: Array[String]): Unit =
+  {
+    def add(numbers:Double *):Double      = { numbers.reduce(_ + _) }
+    def divide(numbers:Double *):Double   = { numbers.reduce(_ / _) }
+    def multiply(numbers:Double *):Double = { numbers.reduce(_ * _) }
+    def subtract(numbers:Double *):Double = { numbers.reduce(_ - _) }
+
+    val numbersList:List[Double] = List(7777.777D, 2.54D, 33.3D, 10.0D)
+
+    // NOTE: The _* in the following calls to add(), divide(), multiply(), and subtract()
+    //       transforms numbersList into 4 SEPARATE numbers of type Double so those
+    //       4 functions can handle the "variable number of arguments" they were defined to receive.
+    var result:Double = add(numbersList:_*) // Performs this calculation: 7777.777 + 2.54 + 33.3 + 10.0
+    println("result = " + result) // PRINTS: result = 7823.617
+
+    result = divide(numbersList:_*) // Performs this calculation: 7777.777 / 2.54 / 33.3 / 10.0
+    println("result = " + result) // PRINTS: result = 9.195546333735312
+
+    result = multiply(numbersList:_*) // Performs this calculation: 7777.777 * 2.54 * 33.3 * 10.0
+    println("result = " + result) // PRINTS: result = 6578599.342139998
+
+    result = subtract(numbersList:_*) // Performs this calculation: 7777.777 - 2.54 - 33.3 - 10.0
+    println("result = " + result) // PRINTS: result = 7731.937
+  }
+}
+
+============================================================================
+
+object Demo
+{
   /**
     * @param str - NOTE: When a variable number of arguments is passed to a function
     *                    as in this example, the asterisk (*) transforms the data type
