@@ -16,29 +16,27 @@ a list of the many ways an underscore character (_) is used in Scala code.
 =============================================================================
 CURRYING
 
-           When calling a curried function, you can use the underscore
-           character (_) to desigante that one or more of the trailing
-           parameter lists will be ignored.
-           View the "Currying" section for examples of how this works.
+When calling a curried function, you can use the underscore character (_)
+to desigante that one or more of the trailing parameter lists will be
+ignored.  View the "Currying" section for examples of how this works.
 
-           SEE --> https://github.com/w9mwi/Scala/blob/master/Currying
-
+SEE --> https://github.com/w9mwi/Scala/blob/master/Currying
 =============================================================================
 ETA EXPANSIONS
 
-           The underscore character (_) can be used in an "Eta Expansion".
-           View the "Eta_Expansion" section for examples of how this works.
+The underscore character (_) can be used in an "Eta Expansion".
+View the "Eta_Expansion" section for examples of how this works.
 
-           SEE --> https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
+SEE --> https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
 =============================================================================
 PATTERN MATCHING
 
-           When the Scala "match" keyword is used to perform pattern
-           matching, the underscore character (_) can be used in the
-           accompanying "case" statement as a wildcard character.  This
-           means if no other case statement executes, the case statement
-           containing the underscore character (_) will execute.
-           View the "Pattern_Matching" section for examples of how this works.
+When the Scala "match" keyword is used to perform pattern matching, the
+underscore character (_) can be used in the accompanying "case" statement
+as a wildcard character.  This means if no other case statement executes,
+the case statement containing the underscore character (_) will execute.
+View the "Pattern_Matching" section for examples of how this works.
 
-           SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
+SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
 =============================================================================
+
