@@ -79,4 +79,34 @@ View the "Pattern_Matching" section for examples of how this works.
 
 SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
 =============================================================================
+ACCESSING A TUPLE VALUE
 
+The underscore character (_) is used when you need to access one of the values
+stored in a tuple.  In this instance, the underscore character (_) isn't
+used like a wildcard, it's just how tuple values are accessed.
+
+The following sample code shows a 4-value tuple defined as NameData.  An
+Array is then declared and initialized to hold 2 elements of the tuple
+type NameData.  The code below shows how those tuple values are accessed.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    type NameData = (String, Int, String, Double)
+    val nameData: Array[NameData] = Array(("Joe Blow", 76, "California", 987.654D),
+                                          ("Jack Ass", 99, "Rhode Island", 123.456D))
+
+    // This shows how the underscore character (_) is used to
+    // access tuple values contained in the NameData Array.
+    println(nameData(0)._1) // PRINTS: Joe Blow
+    println(nameData(0)._2) // PRINTS: 76
+    println(nameData(0)._3) // PRINTS: California
+    println(nameData(0)._4) // PRINTS: 987.654
+    println(nameData(1)._1) // PRINTS: Jack Ass
+    println(nameData(1)._2) // PRINTS: 99
+    println(nameData(1)._3) // PRINTS: Rhode Island
+    println(nameData(1)._4) // PRINTS: 123.456
+  }
+}
+=============================================================================
