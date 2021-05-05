@@ -3,7 +3,7 @@ New Scala Book - Get Programming with Scala
 https://www.manning.com/books/get-programming-with-scala
 https://www.manning.com/books/get-programming-with-scala
 
-=========================================================================
+
 THE UNDERSCORE (_) CHARACTER
 
 The underscore character (_) in Scala is used in several different ways.
@@ -13,7 +13,40 @@ and the compiler will act accordingly.  The underscore character (_) in
 Scala is somewhat similar to a "wildcard" character.  The following is
 a list of the many ways an underscore character (_) is used in Scala code.
 
-=============================================================================
+=========================================================================================
+INITIALIZING VALUES IN A COLLECTIONS DECLARATION
+
+When initializing the contents of a collection upon its declaration
+you can use an underscore character (_) instead of specifying the actual
+data type.  Using the underscore character (_) in the declaration will
+allow the collection to contain DIFFERENT DATA TYPES, instead of
+requiring a single data type for all elements of the collection.
+
+// The following 6 declarations are all valid.
+val numbers_1:Vector[_]      = Vector(1.23D, 4.56D, 7.89D)
+val numbers_2:Vector[Double] = Vector(1.23D, 4.56D, 7.89D)
+
+val names_1:Array[_]      = Array("Jack", "Jill", "Joe")
+val names_2:Array[String] = Array("Jack", "Jill", "Joe")
+
+val isActive_1:List[_]       = List(true, false, true)
+val isActive_2:List[Boolean] = List(true, false, true)
+
+// The following 3 declarations are all valid.  Notice that the
+// underscore character (_) allows the collection's elements to
+// contain different data types.
+val dataValues_1:Vector[_] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+val dataValues_2:Array[_]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+val dataValues_3:List[_]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+
+// The following 3 declarations are all valid.  This example shows that
+// using the "Any" keyword, instead of the underscore character (_),
+// also allows the collection's elements to contain different data types.
+val dataValues_4:Vector[Any] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+val dataValues_5:Array[Any]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+val dataValues_6:List[Any]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
+
+=========================================================================================
 CURRYING
 
 When calling a curried function, you can use the underscore character (_)
