@@ -49,8 +49,10 @@ val dataValues_6:List[Any]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2,
 =========================================================================================
 CURRYING
 
-When calling a curried function, you can use the underscore character (_)
-to desigante that the function's trailing parameter list(s) will be ignored.
+When calling a curried function, you can use ONE, AND ONLY ONE,
+underscore character (_) to desigante that the function's
+TRAILING PARAMETER LIST(S) will be ignored.
+
 View the "Currying" section for examples of how this works.
 
 SEE --> https://github.com/w9mwi/Scala/blob/master/Currying
@@ -65,7 +67,7 @@ SEE --> https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
 PATTERN MATCHING
 
 When the Scala "match" keyword is used to perform pattern matching,
-the underscore character (_) can be used in ONE the accompanying
+the underscore character (_) can be used in one of the accompanying
 case statements as a wildcard.
 
 ONLY ONE case statement should use the underscore character (_),
