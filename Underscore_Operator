@@ -39,9 +39,9 @@ val dataValues_1:Vector[_] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2,
 val dataValues_2:Array[_]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
 val dataValues_3:List[_]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
 
-// The following 3 declarations are all valid.  This example shows that
-// using the "Any" keyword, instead of the underscore character (_),
-// also allows the collection's elements to contain different data types.
+// The following 3 declarations are all valid.  This example shows that using
+// the Scala class "Any" (instead of the underscore character) also allows the
+// collection's elements to contain different data types.
 val dataValues_4:Vector[Any] = Vector(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
 val dataValues_5:Array[Any]  = Array(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
 val dataValues_6:List[Any]   = List(1.23D, 4.56F, false, "Wisconsin", List(1, 2, 3, 4))
