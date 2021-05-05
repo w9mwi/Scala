@@ -77,7 +77,8 @@ object Demo
     val numbersList:List[Double] = List(7777.777D, 2.54D, 33.3D, 10.0D)
 
     // NOTE: The _* in the following calls to add(), divide(), multiply(), and subtract()
-    //       transforms numbersList into 4 SEPARATE numbers of type Double.
+    //       transforms numbersList into 4 SEPARATE numbers of type Double so those
+    //       4 functions can handle the "variable number of arguments" they were defined to receive.
     var result:Double = add(numbersList:_*) // Performs this calculation: 7777.777 + 2.54 + 33.3 + 10.0
     println("result = " + result) // PRINTS: result = 7823.617
 
