@@ -135,7 +135,7 @@ object Demo
 ACCESSING A TUPLE VALUE
 
 The underscore character (_) is used when you need to access one of the values
-stored in a tuple.  In this instance, the underscore character (_) isn't
+stored in a tuple.  In this instance the underscore character (_) isn't
 used like a wildcard, it's just how tuple values are accessed.
 
 The following sample code shows a 4-value tuple defined as NameData.  An
