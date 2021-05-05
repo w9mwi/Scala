@@ -220,7 +220,7 @@ object Demo
 {
   def main(args: Array[String]): Unit =
   {
-    var doubleNumber:Double = 7_654___321.012345
+    var doubleNumber:Double = 7_654___321.0123_45
     println("doubleNumber = " + doubleNumber) // PRINTS: doubleNumber = 7654321.012345
 
     var intNumber:Int = 987_654_321
