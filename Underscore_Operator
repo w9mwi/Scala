@@ -17,8 +17,8 @@ a list of the many ways an underscore character (_) is used in Scala code.
 CURRYING
 
 When calling a curried function, you can use the underscore character (_)
-to desigante that one or more of the trailing parameter lists will be
-ignored.  View the "Currying" section for examples of how this works.
+to desigante that the function's trailing parameter list(s) will be ignored.
+View the "Currying" section for examples of how this works.
 
 SEE --> https://github.com/w9mwi/Scala/blob/master/Currying
 =============================================================================
