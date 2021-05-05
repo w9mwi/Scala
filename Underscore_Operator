@@ -49,6 +49,44 @@ View the "Pattern_Matching" section for examples of how this works.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
 
 =========================================================================================
+CALLING A FUNCTION THAT ACCEPTS A VARIABLE NUMBER OF ARGUMENTS
+
+To designate that variable number of arguments can be passed to a function,
+the function is defined using the asterisk character (*), as shown in the
+following code sample.  When that function gets called, and you want that
+that function to opererate on ALL elements of a collection passed to it,
+you pass it the collection name followed by the colon AND underscore
+AND asterisk characters  :_*  as shown below.
+
+The following code sample also uses the underscore character (_)
+in a predicate rule, as described in the "PREDICATE RULES" section
+further below.
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    def add(numbers:Double *):Double      = { numbers.reduce(_ + _) }
+    def divide(numbers:Double *):Double   = { numbers.reduce(_ / _) }
+    def multiply(numbers:Double *):Double = { numbers.reduce(_ * _) }
+    def subtract(numbers:Double *):Double = { numbers.reduce(_ - _) }
+
+    val numbersList:List[Double] = List(7777.777D, 2.54D, 33.3D, 10.0D)
+    var result:Double = add(numbersList:_*) // Performs this calculation: 7777.777 + 2.54 + 33.3 + 10.0
+    println("result = " + result) // PRINTS: result = 7823.617
+
+    result = divide(numbersList:_*) // Performs this calculation: 7777.777 / 2.54 / 33.3 / 10.0
+    println("result = " + result) // PRINTS: result = 9.195546333735312
+
+    result = multiply(numbersList:_*) // Performs this calculation: 7777.777 * 2.54 * 33.3 * 10.0
+    println("result = " + result) // PRINTS: result = 6578599.342139998
+
+    result = subtract(numbersList:_*) // Performs this calculation: 7777.777 - 2.54 - 33.3 - 10.0
+    println("result = " + result) // PRINTS: result = 7731.937
+  }
+}
+
+=========================================================================================
 PREDICATE RULES
 
 Many Scala collections have the capability to get passed a predicate rule
