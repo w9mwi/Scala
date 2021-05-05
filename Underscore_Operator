@@ -9,8 +9,9 @@ THE UNDERSCORE (_) CHARACTER
 The underscore character (_) in Scala is used in several different ways.
 As a rule of thumb, every time the underscore character (_) is used in
 Scala, you're telling the compiler that THE DETAILS AREN'T RELEVANT,
-and the compiler will act accordingly.  The following show some examples
-of how the underscore char (_) is used in Scala code.
+and the compiler will act accordingly.  The underscore character (_) in
+Scala is often times similar to a "wildcard" character.  The following
+is a list of where the underscore character (_) is used in Scala code.
 
 =============================================================================
 EXAMPLE 1: Currying
