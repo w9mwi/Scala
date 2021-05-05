@@ -64,10 +64,15 @@ SEE --> https://github.com/w9mwi/Scala/blob/master/Eta_Expansion
 =============================================================================
 PATTERN MATCHING
 
-When the Scala "match" keyword is used to perform pattern matching, the
-underscore character (_) can be used in the accompanying "case" statement
-as a wildcard character.  This means if no other case statement executes,
-the case statement containing the underscore character (_) will execute.
+When the Scala "match" keyword is used to perform pattern matching,
+the underscore character (_) can be used in ONE the accompanying
+case statements as a wildcard.
+
+ONLY ONE case statement should use the underscore character (_),
+and it should be THE LAST case statement in the "match" list.
+Then, the case statement containing the underscore character (_)
+will execute ONLY IF none of the case statements above it execute.
+
 View the "Pattern_Matching" section for examples of how this works.
 
 SEE --> https://github.com/w9mwi/Scala/blob/master/Pattern_Matching
