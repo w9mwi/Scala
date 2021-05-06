@@ -2,10 +2,10 @@
 
 CURRYING
 ========
-Currying transforms a function that takes multiple parameter lists into a
+Currying transforms a function that takes MULTIPLE PARAMETER LISTS into a
 chain of functions, where each function in the chain takes a single parameter.
 
-Each set of parenthesis is a "parameter list."  Multiple parameter lists
+Each set of parenthesis represents a PARAMETER LIST.  Multiple parameter lists
 shouldn't be confused with multiple parameters.  (Multiple parameters
 are contained within a SINGLE set of parenthesis.)
 
@@ -17,7 +17,7 @@ like this:  addXYZ_Curried(1)(2)(3)
 
 A curried function can also be called without all its parameter lists,
 where an underscore character (_) must be the last character to
-designate the parameter list(s) that aren't specified, like this:
+designate the parameter list(s) that aren't specified.  FOR EXAMPLE:
 addXYZ_Curried(1)_
 addXYZ_Curried(1)(2)_
 
