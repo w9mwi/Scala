@@ -86,7 +86,7 @@ it's fully applied.
 The code sample below demonstrates all of the above examples.
 Read the in-line comments for explanations.
 
-============================================================================
+========================================================================================
 
 object Demo
 {
@@ -153,10 +153,15 @@ object Demo
   }
 }
 
-============================================================================
-The following code is another example calling a curried function.
-Every time the curried forloop()() function is called, it's called
-as a fully-applied function, never as a partially-applied function.
+========================================================================================
+The following code is an example of calling a curried function.  The curried
+forloop()() function is called as a fully-applied function (with 2 parameter lists)
+every time it executes a loop.
+
+When 'count > 0' evaluates to false in the main() function, the forloop()()
+function is called as a partially-applied function (with only 1 parameter list),
+and then terminates.
+========================================================================================
 
 object Demo
 {
@@ -187,4 +192,3 @@ object Demo
     }
   }
 }
-
