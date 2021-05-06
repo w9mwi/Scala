@@ -5,8 +5,8 @@ CURRYING
 Currying transforms a function that has MULTIPLE PARAMETER LISTS into a
 chain of functions, where each function in the chain takes a single parameter.
 
-Each set of parenthesis represents a PARAMETER LIST.  Multiple parameter lists
-shouldn't be confused with multiple parameters.  (Multiple parameters
+Each set of parenthesis represents a PARAMETER LIST.  Multiple parameter
+lists shouldn't be confused with multiple parameters.  (Multiple parameters
 are contained within a SINGLE set of parenthesis.)
 
 A curried function has this behavior:
@@ -16,12 +16,11 @@ A curried function has this behavior:
 2) The returned function takes a parameter value, and
    returns a value, or returns another function.
 
-A curried function can go further than the above behavior.
-If step 2) above returns a function (instead of a value),
-that function would take a parameter value, and return
-a value, or return another function.  This could go on,
-and on, dependent on the number of parameter lists the
-curried function takes.
+A curried function can go further than this.  If step 2) above
+returns a function (instead of a value), that function would
+take a parameter value, and return a value, or return another
+function.  This could go on, and on, dependent on the number
+of parameter lists the curried function takes.
 
 A Scala function that has MULTIPLE PARAMETER LISTS is a CURRIED FUNCTION,
 and looks like this:  addXYZ_Curried(x)(y)(z)
