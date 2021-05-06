@@ -154,75 +154,37 @@ object Demo
 }
 
 ============================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Assume we have these 3 functions:
-           f(x) = x + 10
-           f(y) = y - 3
-           f(z) = z * 4
-           
-           From the above 3 functions, we can create this expression:
-           f(x)(y)(z)
-           
-           CORRECT -- The above expresion reads like this:
-           1) Call function f(x), passing it a numeric value.
-           2) Call function f(y), passing it the numeric value returned by f(x).
-           3) Call function f(z), passing it the numeric value returned by f(y).
-           4) f(z) returns the resultant numeric value.
-           
-           WRONG -- The above expresion reads like this:
-           1) Call function f(x), passing it a numeric value.
-           2) Call function f(y), passing it the numeric value returned by f(x).
-           3) Call function f(z), passing it the numeric value returned by f(y).
-           4) f(z) returns the resultant numeric value.
-
-           In Scala code the above f(x)(y)(z) expression can be written like this:
-
-           func(x)       = x + 10
-           func(x)(y)    = func((x + 10) - 3)
-           func(x)(y)(z) = func(((x + 10) - 3)) * 4)
-
-           result = func(x)(y)(z)
+The following code is another example calling a curried function.
+Every time the curried forloop()() function is called, it's called
+as a fully-applied function, never as a partially-applied function.
 
 object Demo
 {
-  def funcX(x:Double):Double = { x + 10.0D }
-  def funcY(y:Double):Double = { y - 3.0D }
-  def funcZ(z:Double):Double = { z * 4.0D }
-
   def main(args: Array[String])
   {
-      val result:Double = funcZ(funcY(funcX(7.0D)))
-      println("result = " + result) // PRINTS: result = 56.0
+    var count = 5
+    forloop(count > 0) // 'count > 0' is passed to the 1st param. list of the forloop()() function.
+    {
+      // The code contained within these curly braces {} is passed as
+      // the 2nd param. list to the curried forloop()() function.
+      print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
+      count -= 1
+    }
+    println("\nProgram Terminated.") // PRINTS: Program Terminated.
+  }
+
+  /**
+   * This forloop()() function is a RECURSIVE CURRIED FUNCTION with 2 argument lists.
+   * BOTH its arguments are Pass-By-Value functions (aka, Nullary functions), which
+   * means they get passed A BLOCK OF SCALA CODE.
+   */
+  def forloop(rule: => Boolean)(body: => Unit):Unit =
+  {
+    if (rule)
+    {
+      body // Executes the Scala code passed to the 2nd parameter list.
+      forloop(rule)(body) // This is a RECURSIVE function call.
+    }
   }
 }
-
-
-
 
