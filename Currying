@@ -17,7 +17,7 @@ A curried function has this behavior:
 
 1) It gets passed a value and returns a function.
    AND
-2) The returned function takes a parameter value, and
+2) The returned function takes a parameter value and
    returns a value, or returns another function.
 
 A curried function can go further than this.  If step 2) above
