@@ -63,28 +63,26 @@ parameter lists!  (Shown further below.)
 What makes addXY_Curried() a curried function is that it returns
 a function that takes a parameter list.  Since addXY_Curried() is
 defined with only one parameter list, it CAN'T be called as a
-partially applied function with the underscore character (_)
-like this, as it won't compile...
+partially applied function with the underscore character (_),
+as it won't compile...
 
 addXY_Curried(5)_ // WON'T COMPILE!
 
-To call addXY_Curried() as a partially applied function, it must
-be called it like this:
+To call addXY_Curried() as a partially applied function,
+it must be called it like this:
 
 addXY_Curried(5) // WILL COMPILE!
 
 As addXY_Curried(5) returns a function, which takes a parameter list.
 
-Even though addXY_Curried() is defined with one parameter list, you can
-call it with 2 parameter lists because it's a curried function, like this:
+Even though addXY_Curried() is defined with one parameter list,
+you can call it with 2 parameter lists as a fully applied
+function call, like this...
 
 addXY_Curried(5)(2) // WILL COMPILE!
 
-addXY_Curried(5)(2) is NOT a partially applied function call,
-it's fully applied.
-
-The code sample below demonstrates all of the above examples.
-Read the in-line comments for explanations.
+The following code sample demonstrates all of the above examples
+in detail.  Read the in-line comments for explanations.
 
 ========================================================================================
 
@@ -154,7 +152,7 @@ object Demo
 }
 
 ========================================================================================
-The following code is an example of calling a curried function.  The curried
+The following code is an example of calling a recursive curried function.  The curried
 forloop()() function is called as a fully-applied function (with 2 parameter lists)
 every time it executes a loop.
 
