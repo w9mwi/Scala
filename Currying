@@ -81,6 +81,20 @@ function call, like this...
 
 addXY_Curried(5)(2) // WILL COMPILE!
 
+The addXY_Curried() function was defined above as this:
+def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
+
+The addXY_Curried() function can be redefined as follows.
+
+def addCurried_2(x:Int)(y:Int) = { x+y }
+
+addCurried_2()() also returns the Int result of x + y.
+The only difference is that addCurried_2()() can be called
+using the underscore charater (_) as shown below, while
+the addXY_Curried() function cannot.
+
+addCurried_2()_
+
 The following code sample demonstrates all of the above examples
 in detail.  Read the in-line comments for explanations.
 
