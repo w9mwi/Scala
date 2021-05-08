@@ -287,10 +287,13 @@ def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
 }
 
 TAKE NOTE: The A value in the funcXYZ return type is literally the same value
-           as the A value in the funcZ return type.
+           as the A value in the funcZ return type.  When funcXYZ is executed
+           either as a partially- or fully-applied function) funcZ is the
+           FIRST parameter list executed!
 
            The D value in the funcXYZ return type is literally the same value
-           as the D value in the funcX return type.
+           as the D value in the funcX return type.  When funcXYZ becomes
+           fully applied,, funcX is the LAST parameter list executed!
 
 ========================================================================================
 
