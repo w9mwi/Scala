@@ -162,8 +162,67 @@ object Demo
     //       a function that takes an Int parameter, and returns an Int.
     result = addXY_Curried(5)(20)
     println("result = " + result) // PRINTS: result = 25
+
+    // The addXY_Curried() function can also be called in the
+    // following two (2) ways to generate the same result.
+    func2 = addXY_Curried(5) // Call as a partially applied function.
+    println("func2.apply(20)      = " + func2.apply(20)) // Complete the partially applied function.
+    println("addXY_Curried(5)(20) = " + addXY_Curried(5)(20)) // Call as a fully applied function.
   }
 }
+
+========================================================================================
+
+Recall that a parametric function is defined to accept any valid data type that
+can work with the function.  For example, instead of defining an 3 different
+add() functions to work with the Int, Float, and Double data types, you can
+write a single add() function as a parametric function, so it'll work with all
+3 of those data types.  Here's an example:
+
+object Demo
+{
+  // The following add() function is written as a parametric function,
+  // where the parametric type A represents any numeric data type.
+  def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
+
+  def main(args:Array[String]): Unit =
+  {
+    println("add(1.23F, 4.56F) = " + add(1.23F, 4.56F)) // PRINTS: add(1.23F, 4.56F) = 5.79
+    println("add(1.23D, 4.56D) = " + add(1.23D, 4.56D)) // PRINTS: add(1.23D, 4.56S) = 5.789999999999999
+    println("add(123, 456)     = " + add(123, 456))     // PRINTS: add(123, 456)     = 579
+    println("add(123, 4.56F)   = " + add(123, 4.56F))   // PRINTS: add(123, 456)     = 127.56
+  }
+}
+
+Since the add() function defined above uses only one parametric type, you can choose
+any letter (A, B, C, X, Y, Z, etc.) to designate that parametric type.  However,
+the following curried function funcXYZ() requires multiple parametric types.  In
+this case you can still choose any letters you want to desginate the types, but
+you must choose the correct parametric type in the many locations where one is
+used.  Below the following sample code explains how the correct parametric type
+are determined.
+
+object Demo
+{
+  def funcX(x:Int):Int = { x + 10 }
+  def funcY(y:Int):Int = { y - 3 }
+  def funcZ(z:Int):Int = { z * 4 }
+  
+  def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
+  {
+    x => funcX(funcY(funcZ(x)))
+  }
+
+  def main(args:Array[String]): Unit =
+  {
+    var result:Int = funcXYZ(funcX, funcY, funcZ)(5)
+    println("result = " + result) // PRINTS: result = 27
+  }
+}
+
+
+
+========================================================================================
 
 ========================================================================================
 The following code is an example of calling a recursive curried function.  The curried
