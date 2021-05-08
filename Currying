@@ -213,8 +213,17 @@ object Demo
   def funcX(x:Int):Int = { x + 10 }
   def funcY(y:Int):Int = { y - 3 }
   def funcZ(z:Int):Int = { z * 4 }
-  
+
+  // This funcXYZ function is identical to the below funcXYZ_2 function,
+  // except it has 1 PARAMETER LIST with 3 params.
   def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
+  {
+    x => funcX(funcY(funcZ(x)))
+  }
+
+  // This funcXYZ_2 function is identical to the above funcXYZ function,
+  // except it has 3 PARAMETER LISTS.
+  def funcXYZ_2[A,B,C,D](funcX:(C=>D))(funcY:(B=>C))(funcZ:(A=>B)):(A=>D) =
   {
     x => funcX(funcY(funcZ(x)))
   }
@@ -223,8 +232,18 @@ object Demo
   {
     var result:Int = funcXYZ(funcX, funcY, funcZ)(5)
     println("result = " + result) // PRINTS: result = 27
+
+    result = funcXYZ_2(funcX)(funcY)(funcZ)(5)
+    println("result = " + result) // PRINTS: result = 27
   }
 }
+
+NOTICE: The above funcXYZ and funcXYZ_2 functions will generate identical results
+        after both those functions become FULLY APPLIED.  The ONLY way they differ
+        is that funcXYZ is defined to take 3 parameters in 1 PARAMETER LIST,
+        while funcXYZ_2 is defined to take 3 PARAMETER LISTS.
+
+
 
 In the above funcXYZ definition, the letters in the [A,B,C,D] section can
 appear in ANY ORDER you want.  For example:
