@@ -4,7 +4,8 @@ CURRYING
 ========
 Currying transforms a function that has MULTIPLE PARAMETER LISTS
 into a chain of functions, where each function in the chain takes
-take a parameter.
+take a parameter list, and returns either a value, or a function.
+ALL curried functions have AT LEAST 2 (two) parameter lists.
 
 Each set of parenthesis represents a PARAMETER LIST.  Multiple parameter
 lists shouldn't be confused with multiple parameters.  (Multiple parameters
@@ -17,81 +18,85 @@ A curried function has this behavior:
 
 1) It gets passed a value and returns a function.
    AND
-2) The returned function takes a parameter value and
-   returns a value, or returns another function.
+2) The returned function takes a parameter and returns
+   either a value, or another function.
 
 A curried function can go further than this.  If step 2) above
-returns a function (instead of a value), that function would
-take a parameter value, and return a value, or return another
-function.  This could go on, and on, dependent on the number
-of parameter lists the curried function can accept.
+returns a function (instead of a value), that function will
+take a parameter, and return a either another function,
+or a value.  This could go on, and on, dependent on the number
+of parameter lists the curried function accepts.
 
 
 FULLY APPLIED FUNCTION
 ======================
-A curried function can be called by passing values to ALL its
-parameter lists, like this:
+When a curried function is called by passing ALL its parameter lists,
+it's a FULLY APPLIED FUNCTION, like this...
 
 addXYZ_Curried(1)(2)(3)
-
-When a curried function is called with all its parameter lists,
-it's a FULLY APPLIED FUNCTION call.
 
 
 PARTIALLY APPLIED FUNCTION
 ==========================
-When a curried function is called without all its parameter lists
-it's called as a PARTIALLY APPLIED FUNCTION.
+When a curried function is called without all its parameter
+lists, it's called as a PARTIALLY APPLIED FUNCTION.
+
+When a curried function is called as a partially applied function,
+it returns another function that takes the next parameter list.
+So that returned function can then be called with a parameter list.
+
+When a curried function is called with its last parameter list,
+the curried function becomes FULLY APPLIED and returns a value.
 
 When a curried function is called as a partially applied function,
 a single underscore character (_) designates all parameter list(s)
 that aren't specified.  For example, the following 2 lines are
 partially applied function calls:
 
-addXYZ_Curried(1)_
-addXYZ_Curried(1)(2)_
+addXYZ_Curried(1)_    // A partially applied function call.
+addXYZ_Curried(1)(2)_ // A partially applied function call.
 
-It is possible to define a curried function with only a single
-parameter list, like this:
+Even though all curried functions can be called with multiple
+parameter lists, it's possible to define a curried function
+having a single parameter list in its definition, like this:
 
 def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
-Although addXY_Curried() is defined with only one parameter list,
-it's still a curried function because it can be called with two
+Notice how this addXY_Curried function returns a function that
+takes a parameter.  So even though addXY_Curried is defined
+with only one parameter list, it can still be called with two
 parameter lists!  (Shown further below.)
 
-What makes addXY_Curried() a curried function is that it returns
-a function that takes a parameter list.  Since addXY_Curried() is
-defined with only one parameter list, it CAN'T be called as a
-partially applied function with the underscore character (_),
-as it won't compile...
+addXY_Curried a curried function because it returns a function
+that takes a parameter list.  Since addXY_Curried is defined
+with only one parameter list, it WON'T COMPILE when it's called
+with the underscore character (_) as a partially applied function...
 
 addXY_Curried(5)_ // WON'T COMPILE!
 
-To call addXY_Curried() as a partially applied function,
+To call addXY_Curried as a partially applied function,
 it must be called it like this:
 
 addXY_Curried(5) // WILL COMPILE!
 
 As addXY_Curried(5) returns a function, which takes a parameter list.
 
-Even though addXY_Curried() is defined with one parameter list,
+Even though addXY_Curried is defined with one parameter list,
 you can call it with 2 parameter lists as a fully applied
-function call, like this...
+function, like this...
 
 addXY_Curried(5)(2) // WILL COMPILE!
 
-The addXY_Curried() function was defined above as this:
+The addXY_Curried function was defined above as this:
 def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
-The addXY_Curried() function can be redefined as follows.
-
+The addXY_Curried function can be redefined as follows.
 def addCurried_2(x:Int)(y:Int) = { x+y }
 
-addCurried_2()() also returns the Int result of x + y.
-The only difference is that addCurried_2()() can be called
-using the underscore charater (_) as shown below, while
-the addXY_Curried() function cannot.
+addCurried_2 also returns the Int result of x + y.  The only
+difference is that addCurried_2 can be called using the
+underscore charater (_) as shown below, while the
+addXY_Curried function cannot.
 
 addCurried_2()_
 
@@ -173,7 +178,7 @@ object Demo
 
 ========================================================================================
 
-Recall that a parametric function is defined to accept any valid data type that
+Recall that a PARAMETRIC FUNCTION is defined to accept any valid data type that
 can work with the function.  For example, instead of defining 3 different add()
 functions to work with the Int, Float, and Double data types, you can write a
 single add() function as a parametric function, so it'll work with all 3 of
@@ -194,12 +199,12 @@ object Demo
   }
 }
 
-Since the add() function defined above uses only one parametric type, you need
-only letter (A, B, C, X, Y, Z, etc.) to designate the parametric type.
+Since the add() function defined above uses ONLY ONE parametric type, you need
+only ONE letter (A, B, C, X, Y, Z, etc.) to designate the parametric type.
 
 However, the following curried function funcXYZ requires multiple parametric types
 in its definition.  In the funcXYZ function definition below, you can still choose
-any letters you want to desginate the types, but you must choose the correct parametric
+any letters you want to designate the types, but you must choose the correct parametric
 type in each of the many locations where one is used.  Keep reading below for an
 explanation of how this is determined.
 
@@ -227,13 +232,13 @@ funcXYZ[A,B,C,D]...
 funcXYZ[B,A,D,C]...
 funcXYZ[D,C,A,B]...
 The order won't affect the behavior of the code, but it's best to always
-keep them in aplphabetical order.  Following that text, the correct
-parametric type must be used wherever one is referenced.
+keep them in alphabetical order.  Following that text in the function
+definition, the correct parametric type must be used wherever one is referenced.
 
-We use parametric types in the funcXYZ definition to designate return types.
-You can choose any letters for the parametric types, but YOU SHOULD always
+The funcXYZ definition uses parametric types to designate several return types.
+You can choose any letters for the parametric types, but YOU SHOULD ALWAYS
 begin using letter A, followed by B, C, D, etc. so it's easy to follow the order.
-This part explains how those parametric return types are determined.
+This part explains how the parametric return types are determined.
 
 We begin by observing what funcXYZ returns.  We see that funcXYZ returns this...
 
@@ -244,34 +249,33 @@ That's a function, which takes a single parameter (x), and returns this line of 
 funcX(funcY(funcZ(x)))  // Where x is the param passed to funcZ
 
 When that line of code is executed, the first thing that executes is funcZ.
-Let's begin by saying funcZ takes parameter A (representing the x parameter value
-passed to funcZ), and returns the value B, like this:
+Let's begin by saying funcZ takes parameter A (representing the x parameter
+value passed to funcZ), and it returns the value B, like this:
 
-A=>B   (Used to designate funcZ return type)
+A=>B   (funcZ return type)
 
 The next thing that executes is funcY.  The parameter fed to funcY comes
-from the value returned by funcZ.  So funcY is designated like this:
+from the value returned by funcZ.  So the funcY return type is:
 
-B=>C   (Used to designate funcY return type)
+B=>C   (funcY return type)
 
 The next thing that executes is funcX.  The parameter fed to funcX comes
-from the value returned by funcY.  So funcX is designated like this:
+from the value returned by funcY.  So the funcX return type is:
 
-C=>D   (Used to designate funcX return type)
+C=>D   (funcX return type)
 
 Finally, we need to designate what funcXYZ returns.  funcXYZ gets passed the
 x parameter, which was designated above as type A, and it returns a value
 that we'll call D.
 
-A=>D   (Used to designate funcXYZ return type)
+A=>D   (funcXYZ return type)
 
-So now when we write the definition of funcXYZ as shown below,
-we know these are the correct return types...
+Now we can write the funcXYZ definition (shown below) using these return types...
 
 funcXYZ returns: A=>D
-funcZ returns:   A=>B
-funcY returns:   B=>C
-funcX returns:   C=>D
+funcZ   returns: A=>B
+funcY   returns: B=>C
+funcX   returns: C=>D
 
 Those are the return types that get plugged into our funcXYZ definition, like this:
 
