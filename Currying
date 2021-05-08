@@ -197,10 +197,10 @@ object Demo
 Since the add() function defined above uses only one parametric type, you can choose
 any letter (A, B, C, X, Y, Z, etc.) to designate that parametric type.  However,
 the following curried function funcXYZ() requires multiple parametric types.  In
-this case you can still choose any letters you want to desginate the types, but
-you must choose the correct parametric type in the many locations where one is
-used.  Below the following sample code explains how the correct parametric type
-are determined.
+the funcXYZ() function definition below, case you can still choose any letter you
+want to desginate the types, but you must choose the correct parametric type in each
+of the many locations where one is used.  Keep reading below for an explanation
+of how this is done.
 
 object Demo
 {
@@ -220,7 +220,62 @@ object Demo
   }
 }
 
+The parametric types designated in the above definition as funcXYZ[A,B,C,D]
+can appear in ANY ORDER, like this...
+funcXYZ[A,B,C,D]...
+funcXYZ[B,A,D,C]...
+funcXYZ[D,C,A,B]...
+That order won't affect the behavior of the code.  But after that,
+the correct parametric type must be used wherever one is referenced.
+This explains how to determined the correct parametric types to
+be used in the funcXYZ definition.
 
+We begin by observing what funcXYZ returns.  We see that funcXYZ returns this...
+
+x => funcX(funcY(funcZ(x)))
+
+That is a function, which takes a single parameter (x), and returns this:
+
+funcX(funcY(funcZ(x)))  // Where x is the param passed to funcZ
+
+When that line of code is executed, the first thing that executes is funcZ.
+(You can choose any letters for the parametric types, but YOU SHOULD always
+begin using letter A, followed by B, C, D, etc. so it's easy to follow the order.)
+Let's begin by designating funcZ as taking parameter A (representing the
+x parameter value passed to funcZ), and returning the value B, like this:
+
+A=>B   (Used to designate funcZ return type)
+
+The next thing that executes is funcY.  The parameter fed to funcY comes
+from the value returned by funcZ.  So funcY is designated like this:
+
+B=>C   (Used to designate funcY return type)
+
+The next thing that executes is funcX.  The parameter fed to funcX comes
+from the value returned by funcY.  So funcX is designated like this:
+
+C=>D   (Used to designate funcX return type)
+
+Finally, we need to designate what funcXYZ returns.  funcXYZ gets passed the
+x parameter, which was designated above as type A, and it returns a value
+that we'll call D.
+
+A=>D   (Used to designate funcXYZ return type)
+
+So now when we write the definition of funcXYZ as shown below, we know
+these are the correct return types...
+
+funcXYZ returns: A=>D
+funcZ returns:   A=>B
+funcY returns:   B=>C
+funcX returns:   C=>D
+
+Those are the return types that plug into the funcXYZ definition, like this:
+
+def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
+{
+  x => funcX(funcY(funcZ(x)))
+}
 
 ========================================================================================
 
