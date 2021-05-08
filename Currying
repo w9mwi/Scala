@@ -243,7 +243,8 @@ NOTICE: The above funcXYZ and funcXYZ_2 functions will generate identical result
         is that funcXYZ is defined to take 3 parameters in 1 PARAMETER LIST,
         while funcXYZ_2 is defined to take 3 PARAMETER LISTS.
 
-
+FROM THIS POINT ON, WE ARE TALKING ONLY ABOUT THE
+funcXYZ FUNCTION, AND NOT THE funcXYZ_2 FUNCTION.
 
 In the above funcXYZ definition, the letters in the [A,B,C,D] section can
 appear in ANY ORDER you want.  For example:
