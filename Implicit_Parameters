@@ -44,6 +44,28 @@ object Demo
 }
 
 ==========================================================================
+The following code sample shows another example of using
+an implicit parameter.  Here, we make the add() function
+a parametric function that takes an implicit parameter,
+so add() will work properly on many different data types.
+
+object Demo
+{
+  // The following add() function is written as a parametric function,
+  // where the parametric type A represents any numeric data type.
+  def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
+
+  def main(args:Array[String]): Unit =
+  {
+    println("add(1.23F, 4.56F) = " + add(1.23F, 4.56F)) // PRINTS: add(1.23F, 4.56F) = 5.79
+    println("add(1.23D, 4.56D) = " + add(1.23D, 4.56D)) // PRINTS: add(1.23D, 4.56S) = 5.789999999999999
+    println("add(123, 456)     = " + add(123, 456))     // PRINTS: add(123, 456)     = 579
+    println("add(123, 4.56F)   = " + add(123, 4.56F))   // PRINTS: add(123, 456)     = 127.56
+  }
+}
+
+==========================================================================
+
 The code below shows another example of using implicit parameters.
 Read in-line comments for explanations.
 
