@@ -4,8 +4,9 @@ the parameters in that parameter list are not passed as usual,
 Scala will determine if it can obtain an implicit value of the
 correct type, and if it can, pass it automatically.
 
-A method or constructor can have ONLY ONE implicit paramater list,
-and it must be the last parameter list specified.
+A method, fuction, or constructor can have ONLY ONE implicit
+paramater list, and it must be THE LAST PARAMETER LIST specified.
+Since 
 
 In the following code sample, if the main() function were to declare more
 than one 'implicit String' val, or declare more than one 'implicit Boolean'
