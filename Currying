@@ -174,10 +174,10 @@ object Demo
 ========================================================================================
 
 Recall that a parametric function is defined to accept any valid data type that
-can work with the function.  For example, instead of defining an 3 different
-add() functions to work with the Int, Float, and Double data types, you can
-write a single add() function as a parametric function, so it'll work with all
-3 of those data types.  Here's an example:
+can work with the function.  For example, instead of defining 3 different add()
+functions to work with the Int, Float, and Double data types, you can write a
+single add() function as a parametric function, so it'll work with all 3 of
+those data types.  Here's an example:
 
 object Demo
 {
@@ -194,13 +194,14 @@ object Demo
   }
 }
 
-Since the add() function defined above uses only one parametric type, you can choose
-any letter (A, B, C, X, Y, Z, etc.) to designate that parametric type.  However,
-the following curried function funcXYZ() requires multiple parametric types.  In
-the funcXYZ() function definition below, case you can still choose any letter you
-want to desginate the types, but you must choose the correct parametric type in each
-of the many locations where one is used.  Keep reading below for an explanation
-of how this is done.
+Since the add() function defined above uses only one parametric type, you need
+only letter (A, B, C, X, Y, Z, etc.) to designate the parametric type.
+
+However, the following curried function funcXYZ requires multiple parametric types
+in its definition.  In the funcXYZ function definition below, you can still choose
+any letters you want to desginate the types, but you must choose the correct parametric
+type in each of the many locations where one is used.  Keep reading below for an
+explanation of how this is determined.
 
 object Demo
 {
@@ -220,29 +221,31 @@ object Demo
   }
 }
 
-The parametric types designated in the above definition as funcXYZ[A,B,C,D]
-can appear in ANY ORDER, like this...
+In the above funcXYZ definition, the letters in the [A,B,C,D] section can
+appear in ANY ORDER you want.  For example:
 funcXYZ[A,B,C,D]...
 funcXYZ[B,A,D,C]...
 funcXYZ[D,C,A,B]...
-That order won't affect the behavior of the code.  But after that,
-the correct parametric type must be used wherever one is referenced.
-This explains how to determined the correct parametric types to
-be used in the funcXYZ definition.
+The order won't affect the behavior of the code, but it's best to always
+keep them in aplphabetical order.  Following that text, the correct
+parametric type must be used wherever one is referenced.
+
+We use parametric types in the funcXYZ definition to designate return types.
+You can choose any letters for the parametric types, but YOU SHOULD always
+begin using letter A, followed by B, C, D, etc. so it's easy to follow the order.
+This part explains how those parametric return types are determined.
 
 We begin by observing what funcXYZ returns.  We see that funcXYZ returns this...
 
 x => funcX(funcY(funcZ(x)))
 
-That is a function, which takes a single parameter (x), and returns this:
+That's a function, which takes a single parameter (x), and returns this line of code:
 
 funcX(funcY(funcZ(x)))  // Where x is the param passed to funcZ
 
 When that line of code is executed, the first thing that executes is funcZ.
-(You can choose any letters for the parametric types, but YOU SHOULD always
-begin using letter A, followed by B, C, D, etc. so it's easy to follow the order.)
-Let's begin by designating funcZ as taking parameter A (representing the
-x parameter value passed to funcZ), and returning the value B, like this:
+Let's begin by saying funcZ takes parameter A (representing the x parameter value
+passed to funcZ), and returns the value B, like this:
 
 A=>B   (Used to designate funcZ return type)
 
@@ -262,15 +265,15 @@ that we'll call D.
 
 A=>D   (Used to designate funcXYZ return type)
 
-So now when we write the definition of funcXYZ as shown below, we know
-these are the correct return types...
+So now when we write the definition of funcXYZ as shown below,
+we know these are the correct return types...
 
 funcXYZ returns: A=>D
 funcZ returns:   A=>B
 funcY returns:   B=>C
 funcX returns:   C=>D
 
-Those are the return types that plug into the funcXYZ definition, like this:
+Those are the return types that get plugged into our funcXYZ definition, like this:
 
 def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
 {
