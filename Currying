@@ -264,9 +264,11 @@ from the value returned by funcY.  So the funcX return type is:
 
 C=>D   (funcX return type)
 
-Finally, we need to designate what funcXYZ returns.  funcXYZ gets passed the
-x parameter, which was designated above as type A, and it returns a value
-that we'll call D.
+Finally, we need to designate what funcXYZ returns.  funcXYZ RETURNS a function that
+takes the parameter x.  Notice that this x parmameter is literally the same value
+that gets passed to funcZ.  Since funcZ defined that x value as type A, funcXYZ
+must also use that same A value in its return type.  Therefore, the funcXYZ
+return type is:
 
 A=>D   (funcXYZ return type)
 
@@ -277,12 +279,18 @@ funcZ   returns: A=>B
 funcY   returns: B=>C
 funcX   returns: C=>D
 
-Those are the return types that get plugged into our funcXYZ definition, like this:
+Those are the return types that get plugged into the funcXYZ definition, like this:
 
 def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
 {
   x => funcX(funcY(funcZ(x)))
 }
+
+TAKE NOTE: The A value in the funcXYZ return type is literally the same value
+           as the A value in the funcZ return type.
+
+           The D value in the funcXYZ return type is literally the same value
+           as the D value in the funcX return type.
 
 ========================================================================================
 
