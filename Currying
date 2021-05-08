@@ -264,7 +264,7 @@ from the value returned by funcY.  So the funcX return type is:
 
 C=>D   (funcX return type)
 
-Finally, we need to designate what funcXYZ returns.  funcXYZ RETURNS a function that
+Finally, we need to designate what funcXYZ returns.  funcXYZ RETURNS A FUNCTION that
 takes the parameter x.  Notice that this x parmameter is literally the same value
 that gets passed to funcZ.  Since funcZ defined that x value as type A, funcXYZ
 must also use that same A value in its return type.  Therefore, the funcXYZ
@@ -288,12 +288,12 @@ def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
 
 TAKE NOTE: The A value in the funcXYZ return type is literally the same value
            as the A value in the funcZ return type.  When funcXYZ is executed
-           either as a partially- or fully-applied function) funcZ is the
-           FIRST parameter list executed!
+           (either as a partially-applied or fully-applied function) funcZ
+           is ALWAYS the FIRST parameter list executed.
 
            The D value in the funcXYZ return type is literally the same value
            as the D value in the funcX return type.  When funcXYZ becomes
-           fully applied,, funcX is the LAST parameter list executed!
+           fully applied, funcX is ALWAYS the LAST parameter list executed.
 
 ========================================================================================
 
