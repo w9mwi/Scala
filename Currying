@@ -214,15 +214,15 @@ object Demo
   def funcY(y:Int):Int = { y - 3 }
   def funcZ(z:Int):Int = { z * 4 }
 
-  // This funcXYZ function is identical to the below funcXYZ_2 function,
-  // except it has 1 PARAMETER LIST with 3 params.
+  // funcXYZ is identical to the below funcXYZ_2 function,
+  // except funcXYZ_2 has 3 PARAMETER LISTS.
   def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
   {
     x => funcX(funcY(funcZ(x)))
   }
 
-  // This funcXYZ_2 function is identical to the above funcXYZ function,
-  // except it has 3 PARAMETER LISTS.
+  // funcXYZ_2 is identical to the above funcXYZ function,
+  // except funcXYZ has 1 PARAMETER LIST containing 3 parameters.
   def funcXYZ_2[A,B,C,D](funcX:(C=>D))(funcY:(B=>C))(funcZ:(A=>B)):(A=>D) =
   {
     x => funcX(funcY(funcZ(x)))
@@ -243,8 +243,7 @@ NOTICE: The above funcXYZ and funcXYZ_2 functions will generate identical result
         is that funcXYZ is defined to take 3 parameters in 1 PARAMETER LIST,
         while funcXYZ_2 is defined to take 3 PARAMETER LISTS.
 
-FROM THIS POINT ON, WE ARE TALKING ONLY ABOUT THE
-funcXYZ FUNCTION, AND NOT THE funcXYZ_2 FUNCTION.
+FROM THIS POINT ON, ONLY THE funcXYZ FUNCTION IS DISCUSSED, NOT THE funcXYZ_2 FUNCTION.
 
 In the above funcXYZ definition, the letters in the [A,B,C,D] section can
 appear in ANY ORDER you want.  For example:
@@ -358,6 +357,27 @@ object Demo
 }
 
 ========================================================================================
+The following code sample shows another example of defining
+and calling a curried function named funcOfGunc.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val plus5  = (x:Double) => x+5.0D
+    val square = (x:Double) => x*x
+
+    // NOTE: 54.0 = 5.0+(7.0*7.0)
+    var result:Double = funcOfGunc(plus5, square)(7.0D)
+    println("result = " + result) // PRINTS: result = 54.0
+
+    // NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
+    result = funcOfGunc(square, plus5)(7.0D)
+    println("result = " + result) // PRINTS: result = 144.0
+  }
+
+  def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
+}
 ========================================================================================
 ========================================================================================
 ========================================================================================
