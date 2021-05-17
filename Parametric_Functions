@@ -6,6 +6,11 @@ function as a parametric function, so it'll work with all 3 of those data types.
 
 The following code sample shows this by defining the add()
 function so it calls Scala's Numeric.plus() function.
+Note that the add() function is a curried function that's
+defined to accept TWO (2) parameter lists.  So the add()
+function returns a function which takes A as a Numeric
+parameter type, and returns type A.
+
 
 object Demo
 {
