@@ -49,8 +49,8 @@ object Demo
 }
 
 ====================================================================
-This is the same sample program as shown above, except
-a function is defined as implicit instead of a class.
+This is the same sample program as shown above, except we
+define a function as implicit, instead of a class.
 
 object Demo
 {
@@ -61,7 +61,9 @@ object Demo
   }
 
   // NOTE: This function definition must include the "implicit" keyword.
-  //       This function can be given any name.
+  //       This function can be given ANY NAME.  If this implicit function
+  //       isn't defined here, this code won't compile, even though this
+  //       program never calls this function.
   implicit def stupidDumbFuncName(str: String) = new EnhancedString(str)
 
   def main(args: Array[String]): Unit =
