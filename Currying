@@ -357,15 +357,49 @@ object Demo
 }
 
 ========================================================================================
-The following code sample shows another example of defining
-and calling a curried function named funcOfGunc.
+The following sample code includes this parametric curried function:
+
+def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+This part explains how funcOfGunc was defined.
+
+1)
+We will pass 2 functions to funcOfGunc in a single parameter list.  Both those
+functions will get passed a Double, and return a Double.
+
+NOTICE: Recall that a curried function always has at least TWO (2) parameter
+        lists.  The second parameter list that funcOfGunc accepts is NOT included
+        in the funcOfGunc definition because funcOfGunc returns a function that
+        accepts a single parameter.  Therefore, the return value of funcOfGunc
+        is where the second parameter list gets defined.
+
+2)
+Since the gunc function gets called FIRST, we will begin by saying gunc(x) gets
+passed a parameter of type A, and returns type B.  So gunc has this return type:
+A=>B
+
+2)
+The func function gets called AFTER gunc is called, and gets passed the
+value returned by gunc, which is type B.  So func has this return type:
+B=>C
+
+4)
+After both the func and gunc functions passed to funcOfGunc are called
+(i.e., func(gunc(x))), funcOfGunc returns its value, which is a function
+that gets passed a parameter.
+
+Therefore, funcOfGunc gets passed the same value passed to gunc (parameter
+type A), and it returns the same value returned by func (parameter type C).
+So funcOfGunc has this return type:
+A=>C
+
 
 object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    val plus5  = (x:Double) => x+5.0D
-    val square = (x:Double) => x*x
+    val plus5:(Double=>Double)  = { x:Double => x+5.0D }
+    val square:(Double=>Double) = { x:Double => x*x }
 
     // NOTE: 54.0 = 5.0+(7.0*7.0)
     var result:Double = funcOfGunc(plus5, square)(7.0D)
@@ -376,8 +410,9 @@ object Demo
     println("result = " + result) // PRINTS: result = 144.0
   }
 
-  def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
+  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 }
+
 ========================================================================================
 ========================================================================================
 ========================================================================================
