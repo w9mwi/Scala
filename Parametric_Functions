@@ -20,7 +20,7 @@ object Demo
   }
 }
 
-====================================================================================================
+========================================================================================
 
 In the sample code below, we make 4 different functions work with multiple data
 types by declaring them as parametric functions.
@@ -105,7 +105,65 @@ object Demo
   def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
 
-====================================================================================================
+========================================================================================
+
+The following sample code includes this parametric curried function:
+
+def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+This part explains how funcOfGunc was defined.
+
+1)
+We will pass 2 functions to funcOfGunc in a single parameter list.  Both those
+functions will get passed a Double, and return a Double.
+
+NOTICE: Recall that a curried function always has at least TWO (2) parameter
+        lists.  The second parameter list that funcOfGunc accepts is NOT included
+        in the funcOfGunc definition because funcOfGunc returns a function that
+        accepts a single parameter.  Therefore, the return value of funcOfGunc
+        is where the second parameter list gets defined.
+
+2)
+Since the gunc function gets called FIRST, we will begin by saying gunc(x) gets
+passed a parameter of type A, and returns type B.  So gunc has this return type:
+A=>B
+
+2)
+The func function gets called AFTER gunc is called, and gets passed the
+value returned by gunc, which is type B.  So func has this return type:
+B=>C
+
+4)
+After both the func and gunc functions passed to funcOfGunc are called
+(i.e., func(gunc(x))), funcOfGunc returns its value, which is a function
+that gets passed a parameter.
+
+Therefore, funcOfGunc gets passed the same value passed to gunc (parameter
+type A), and it returns the same value returned by func (parameter type C).
+So funcOfGunc has this return type:
+A=>C
+
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val plus5:(Double=>Double)  = { x:Double => x+5.0D }
+    val square:(Double=>Double) = { x:Double => x*x }
+
+    // NOTE: 54.0 = 5.0+(7.0*7.0)
+    var result:Double = funcOfGunc(plus5, square)(7.0D)
+    println("result = " + result) // PRINTS: result = 54.0
+
+    // NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
+    result = funcOfGunc(square, plus5)(7.0D)
+    println("result = " + result) // PRINTS: result = 144.0
+  }
+
+  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+}
+
+========================================================================================
 
 The funcXYZ function defined below is a parametric function.  It's also a curried function.
 In the funcXYZ definition, the letters in the [A,B,C,D] section can appear in ANY ORDER,
@@ -202,7 +260,7 @@ TAKE NOTE: The A value in the funcXYZ return type is literally the same value
            as the D value in the funcX return type.  When funcXYZ becomes
            fully applied, funcX is ALWAYS the LAST parameter list executed.
 
-=================================================================================
+========================================================================================
 This code sample shows how to declare and use a parametric class
 named "Sequence", as well the parametic method named "map".
 
@@ -310,7 +368,9 @@ object Demo
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(ArrayBuffer(Person(Jim,Beam)))
   }
 }
-=================================================================================
-See this parametric function...
-def map[A,B](func: (A) => B, list:Seq[A]):Seq[B] =
-...on this web page. --> https://github.com/w9mwi/Scala/blob/master/Functional_Programming_1
+
+
+========================================================================================
+========================================================================================
+========================================================================================
+========================================================================================
