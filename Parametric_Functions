@@ -3,7 +3,9 @@ A PARAMETRIC FUNCTION is defined to accept any valid data type that can work wit
 the function.  For example, instead of defining 3 different add() functions to
 work with the Int, Float, and Double data types, you can write a single add()
 function as a parametric function, so it'll work with all 3 of those data types.
-Here's an example:
+
+The following code sample shows this by defining the add()
+function so it calls Scala's Numeric.plus() function.
 
 object Demo
 {
