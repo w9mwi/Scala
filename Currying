@@ -482,6 +482,7 @@ object Demo
 }
 
 ========================================================================================
+
 The following code sample shows an example of transforming a regular function into
 a curried function by first performing an eta expansion on it by adding the underscore
 (_) character, and then calling Scala's .curried() method.
@@ -518,7 +519,7 @@ object Demo
   def add(x:Int, y:Int):Int = { x + y }
 }
 
-========================================================================
+========================================================================================
 
 The following code sample shows another example of transforming a regular
 function into a curried function by first performing an eta expansion on
@@ -576,3 +577,98 @@ object Demo
   def add_2(x:Int) = { (y:Int) => x + y }
 }
 
+
+========================================================================================
+
+The foldLeft and foldRight methods used by the Scala List class are curried functions.
+The first argument to foldLeft and foldRight is the base value to use on the first
+application.  The second argument is the function that gets applied.  Below is
+sample code that uses the List class's foldLeft and foldRight curried functions.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+
+    // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
+    //       as they get passed a value, and RETURN A FUNCTION
+    //       that gets passed a value and returns a value.
+    //       When foldLeft and foldRight are called below, they
+    //       get called with TWO PARAMETER LISTS.
+
+    // The following foldLeft function works on intList as follows:
+    // The first argument list (0) takes the base value that's used
+    // as the first operand.  The second argument list (_ - _) is the
+    // function to apply.
+    // 0−7−4−6−3−9−1 = ((((((0−7)−4)−6)−3)−9)−1) = -30
+    // NOTE: intList.foldLeft(0)(_ - _) below is the same as: intList.foldLeft(0)((x, y) => x-y)
+    println("intList.foldLeft(0)(_ - _) = " + intList.foldLeft(0)(_ - _))
+    // PRINTS: intList.foldLeft(0)(_ - _) = -30
+
+    // The following foldRight function works on intList as follows:
+    // The first argument list (0) takes the base value that's used
+    // as the first operand.  The second argument list (_ - _) is the
+    // function to apply.
+    // 0−(1−(9−(3−(6−(4−7))))) = 14
+    // NOTE: intList.foldRight(0)(_ - _) below is the same as: intList.foldRight(0)((x, y) => x-y))
+    println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
+    // PRINTS: intList.foldRight(0)(_ - _) = 14
+
+    val wordList:List[String] = List[String]("How", "many", "characters", "are", "in", "this", "wordList?")
+    // NOTE: The second parameter list for foldRight MUST have its tuple order as (word, count),
+    //       which is the reverse order used by the foldLeft function below.
+    var charCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
+    println("wordList.foldRight = " + charCount) // PRINTS: wordList.foldRight = 35
+
+    // NOTE: The second parameter list for foldLeft MUST have its tuple order as (count, word),
+    //       which is the reverse order used by the foldRight function above.
+    charCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
+    println("wordList.foldLeft = " + charCount) // PRINTS: wordList.foldLeft = 35
+
+    // NOTE: The second parameter list for foldLeft MUST BE DIFFERENT than the second
+    //       parameter list for foldRight, as shown in the following 2 lines...
+    println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
+    println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
+    // THE 2 LINES OF CODE ABOVE PRINTS:
+    // wordList.foldLeft(0)(_+_.length)    = 35
+    // wordList.foldRight(0)(_.length + _) = 35
+
+    // The following code calls foldLeft and FoldRight on a List[String]...
+    var strList:List[String] = List[String]("ABC", "DEF", "GHI", "JKL", "MNO")
+    var strResult:String = strList.foldLeft("XYZ")(myFunc)
+    println(strResult) // PRINTS: XYZ-ABC-DEF-GHI-JKL-MNO
+    strResult = strList.foldRight("XYZ")(myFunc)
+    println(strResult) // PRINTS: ABC-DEF-GHI-JKL-MNO-XYZ
+  }
+
+  def myFunc(str1:String, str2:String):String =
+  {
+    str1.concat("-").concat(str2)
+  }
+}
+
+========================================================================================
+This is another code example of currying,  Read in-line comments for details.
+
+object Demo
+{
+    def main(args:Array[String]): Unit =
+    {
+      val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+      val result = myFoldRightFunc(intList, 0)(_ - _)
+      // The following println prints: result = 14
+      // Because this is what gets evaluated: 0−(1−(9−(3−(6−(4−7)))))
+      // Where the zero (0) comes not from intList, but from
+      // the zero passed to myFoldRightFunc function call.
+      println("result = " + result) // PRINTS: result = 14
+    }
+
+    /**
+     * THIS IS A RECURSIVE FUNCTION!
+     */
+    def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
+    {
+      if (list.isEmpty) { base } else { func(list.head, myFoldRightFunc(list.tail, base)(func)) }
+    }
+}
