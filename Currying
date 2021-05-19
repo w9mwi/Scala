@@ -341,14 +341,13 @@ object Demo
   //       the wrap function's middle parameter list isn't specified, via
   //       the (_) parameter list.  Therefore, wrapWithDiv is defined as
   //       a PARTIALLY APPLIED function call to the wrap function.
-  //
-  //       When main() calls wrapWithDiv by passing it a String, the wrap
-  //       function gets called as a FULLY APPLIED function call because
-  //       it's now supplied with its previously-missing parameter list (_).
   def wrapWithDiv:(String => String) = wrap("<div>")(_)("</div>")
 
   def main(args: Array[String])
   {
+    // NOTE: When main() calls wrapWithDiv by passing it a String, the wrap
+    //       function gets called as a FULLY APPLIED function call because it's
+    //       now supplied with its previously-unspecified parameter list (_).
     println(wrapWithDiv("My_Text")) // PRINTS: <div>My_Text</div>
   }
 }
