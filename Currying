@@ -182,7 +182,11 @@ Recall that a PARAMETRIC FUNCTION is defined to accept any valid data type that
 can work with the function.  For example, instead of defining 3 different add()
 functions to work with the Int, Float, and Double data types, you can write a
 single add() function as a parametric function, so it'll work with all 3 of
-those data types.  Here's an example:
+those data types.  See the below code sample.
+
+Notice this text in the code below:  (implicit numeric:Numeric[A])
+This implicit function call was added as another parameter list to make add()
+a curried function that works with Scala's Numeric class.
 
 object Demo
 {
@@ -199,6 +203,8 @@ object Demo
   }
 }
 
+========================================================================================
+
 Since the add() function defined above uses ONLY ONE parametric type, you need
 only ONE letter (A, B, C, X, Y, Z, etc.) to designate the parametric type.
 
@@ -207,6 +213,8 @@ in its definition.  In the funcXYZ function definition below, you can still choo
 any letters you want to designate the types, but you must choose the correct parametric
 type in each of the many locations where one is used.  Keep reading below for an
 explanation of how this is determined.
+
+========================================================================================
 
 object Demo
 {
@@ -237,6 +245,8 @@ object Demo
     println("result = " + result) // PRINTS: result = 27
   }
 }
+
+========================================================================================
 
 NOTICE: The above funcXYZ and funcXYZ_2 functions will generate identical results
         after both those functions become FULLY APPLIED.  The ONLY way they differ
@@ -316,6 +326,33 @@ TAKE NOTE: The A value in the funcXYZ return type is literally the same value
 
 ========================================================================================
 
+Here is another example of currying.  Read in-line comments below for explanations.
+
+object Demo
+{
+  // NOTE: This wrap function is a curried function that takes
+  //       3 parameter lists (all 3 are Strings), and returns a String.
+  def wrap(prefix:String)(html:String)(suffix:String) =
+  {
+    prefix + html + suffix
+  }
+
+  // NOTE: This wrapWithDiv function RETURNS the above wrap function, where
+  //       the wrap function's middle parameter list isn't specified, via
+  //       the (_) parameter list.  Therefore, wrapWithDiv is defined as
+  //       a PARTIALLY APPLIED function call to the wrap function.
+  //
+  //       When main() calls wrapWithDiv by passing it a String, the wrap
+  //       function gets called as a FULLY APPLIED function call because
+  //       it's now supplied with its previously-missing parameter list (_).
+  def wrapWithDiv:(String => String) = wrap("<div>")(_)("</div>")
+
+  def main(args: Array[String])
+  {
+    println(wrapWithDiv("My_Text")) // PRINTS: <div>My_Text</div>
+  }
+}
+
 ========================================================================================
 The following code is an example of calling a recursive curried function.  The curried
 forloop()() function is called as a fully-applied function (with 2 parameter lists)
@@ -393,6 +430,7 @@ type A), and it returns the same value returned by func (parameter type C).
 So funcOfGunc has this return type:
 A=>C
 
+========================================================================================
 
 object Demo
 {
