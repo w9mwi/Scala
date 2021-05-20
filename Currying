@@ -649,26 +649,46 @@ object Demo
 }
 
 ========================================================================================
-This is another code example of currying,  Read in-line comments for details.
+
+In the code sample immediately ABOVE, the Scala functions foldRight and foldLight
+(for Scala's List class) are demonstrated.  In the sample code below, we write our
+own functions named myFoldRightFunc and myFoldLeftFunc (both curried, recursive
+functions) to demonstrate how Scala's foldRight and foldLeft work internally.
 
 object Demo
 {
-    def main(args:Array[String]): Unit =
-    {
-      val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-      val result = myFoldRightFunc(intList, 0)(_ - _)
-      // The following println prints: result = 14
-      // Because this is what gets evaluated: 0−(1−(9−(3−(6−(4−7)))))
-      // Where the zero (0) comes not from intList, but from
-      // the zero passed to myFoldRightFunc function call.
-      println("result = " + result) // PRINTS: result = 14
-    }
+  def main(args:Array[String]): Unit =
+  {
+    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
-    /**
-     * THIS IS A RECURSIVE FUNCTION!
-     */
-    def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
-    {
-      if (list.isEmpty) { base } else { func(list.head, myFoldRightFunc(list.tail, base)(func)) }
-    }
+    // The math operation that occurs by calling myFoldRightFunc is this:
+    // 0−(1−(9−(3−(6−(4−7))))) = 14
+    var intResult:Int = myFoldRightFunc(intList, 0)(_ - _)
+    println("intResult = " + intResult) // PRINTS: intResult = 14
+
+    // The math operation that occurs by calling myFoldLeftFunc is this:
+    //  0−7−4−6−3−9−1 = -30
+    intResult = myFoldLeftFunc(intList, 0)(_ - _)
+    println("intResult = " + intResult) // PRINTS: intResult = -30
+  }
+
+  /**
+   * THIS IS A CURRIED, RECURSIVE FUNCTION!
+   */
+  def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
+  {
+    if (list.isEmpty) { base } else { func(list.head, myFoldRightFunc(list.tail, base)(func)) }
+  }
+
+  /**
+   * THIS IS A CURRIED, RECURSIVE FUNCTION!
+   */
+  def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B =
+  {
+    if (list.isEmpty) { base } else { func(myFoldLeftFunc(list.tail, base)(func), list.head) }
+  }
 }
+
+========================================================================================
+========================================================================================
+========================================================================================
