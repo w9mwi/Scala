@@ -538,7 +538,7 @@ object Demo
     // the usual way....
     println("add_1(7, 3) = " + add_1(7, 3)) // PRINTS: add_1(7, 3) = 10
 
-    // Perform an "Eta Expansion" on add_1(), transforming the "def" function into a true function...
+    // Perform an "Eta Expansion" on add_1() by using the underscore (_) character...
     val addFunc:((Int, Int) => Int) = add_1 _
 
     val addFuncCurried:(Int => (Int => Int)) = addFunc.curried // Make the add_1() function a curried function.
@@ -568,18 +568,17 @@ object Demo
   }
 
   /**
-    * This add_1() function is a normal function, NOT a curried function.
-    */
+   * This add_1() function is a normal function, NOT a curried function.
+   */
   def add_1(x:Int, y:Int):Int = { x + y }
 
   /**
-    * This add_2() function is a CURRIED FUNCTION because
-    * it takes multiple arguments, and returns a function
-    * that takes a single argument.
-    */
+   * This add_2() function is a CURRIED FUNCTION because
+   * it takes multiple arguments, and returns a function
+   * that takes a single argument.
+   */
   def add_2(x:Int) = { (y:Int) => x + y }
 }
-
 
 ========================================================================================
 
