@@ -495,27 +495,30 @@ object Demo
     // (which contains one parameter list) into a curried function (which
     // contains two parameter lists) via an "Eta Expansion".  The "Eta
     // Expansion" occurs when adding the underscore character (_) after
-    // the "add" method name.  For a more detailed explanation of an
-    // "Eta Expansion", read the following web page:
-    // --> https://stackoverflow.com/questions/39445018/what-is-the-eta-expansion-in-scala
-    val addFunction        = add _  // The underscore char (_) on this line is REQUIRED.
-    val addFunctionCurried = addFunction.curried // Converts the addFunction into a curried function.
+    // the "add" method name.
+    val addFunction:((Int, Int)=>Int)        = add _  // The underscore char (_) on this line is REQUIRED.
+    val addFunctionCurried:(Int=>(Int=>Int)) = addFunction.curried // Converts the addFunction into a curried function.
 
     println(add(123, 456))                // PRINTS: 579
     println(addFunction(123, 456))        // PRINTS: 579
     println(addFunctionCurried(123)(456)) // PRINTS: 579
 
-    // The following 2 lines of code calls addFunctionCurried twice.
-    // When the first line of code calls it, it's PARTIALLY APPLIED.
-    // When the second line of code calls it, it's FULLY APPLIED.
-    val func:(Int => Int) = addFunctionCurried(123)
-    println(func(456)) // PRINTS: 579
+    // The following TWO (2) calls to addFunctionCurried show
+    // how to call addFunctionCurried in 2 separate steps.
+    // Firstly, as a partially-applied function call.  Secondly,
+    // as a fully-applied function call.
+    val func1:(Int => Int) = addFunctionCurried(123)(_) // Partially applied function call.
+    println(func1(456)) // Fully applied function call.  PRINTS: 579
+
+    val func2:(Int => Int) = addFunctionCurried(123) // Partially applied function call.
+    println(func2(456)) // Fully applied function call.  PRINTS: 579
   }
 
   /**
-    * The below add() function is a regular Scala function.  In the code
-    * above, this add() function is used to create a curried function.
-    */
+   * This add() function is a regular Scala function.  In the code
+   * above, this add() function is used to create a curried function
+   * by calling:  addFunction.curried
+   */
   def add(x:Int, y:Int):Int = { x + y }
 }
 
