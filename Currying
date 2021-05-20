@@ -583,7 +583,7 @@ object Demo
 ========================================================================================
 
 The foldLeft and foldRight methods used by the Scala List class are curried functions.
-The first argument to foldLeft and foldRight is the base value to use on the first
+The first argument to foldLeft and foldRight is the STARTING VALUE to use on the first
 application.  The second argument is the function that gets applied.  Below is
 sample code that uses the List class's foldLeft and foldRight curried functions.
 
