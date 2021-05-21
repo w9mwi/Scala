@@ -17,6 +17,15 @@ NOT a complete list of all possible uses of the underscore character (_).
 ALSO SEE:  https://www.baeldung.com/scala/underscore
 
 =========================================================================================
+IMPORT STATEMENTS
+
+In an import statement, the underscore (_) character is used as a wildcard.
+For example, the following import statement will import all members of the
+"scala.collection" package.
+
+import scala.collection._
+
+=========================================================================================
 CURRYING
 
 When calling a curried function, you can use ONE, AND ONLY ONE,
@@ -59,7 +68,8 @@ the function is defined using the asterisk character (*), as shown in the
 following code sample.  When that function gets called, and you want that
 function to opererate on ALL elements of a collection passed to it, you
 pass it the collection name followed by the colon AND underscore AND
-asterisk characters  :_*  as shown below.
+asterisk character, like this   :_*
+(As shown in the below code sample.)
 
 The following code sample also uses the underscore character (_) in a
 predicate rule when the numbers.reduce() function is called.  See the
