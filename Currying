@@ -716,8 +716,8 @@ object Demo
    *       def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B
    *
    * Therefore, this myFunc function satisfies the 2nd parameter list of myFoldRightFunc
-   * and myFoldRightFunc because myFunc gets passed 2 values as a single parameter list,
-   * and returns a value.
+   * and myFoldLeftFunc because myFunc gets passed 2 values as a single parameter list,
+   * and returns a single value.
    */
   def myFunc(str1:String, str2:String):String =
   {
