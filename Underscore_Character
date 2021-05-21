@@ -15,6 +15,7 @@ some common ways an underscore character (_) is used in Scala code.  This is
 NOT a complete list of all possible uses of the underscore character (_).
 
 ALSO SEE:  https://www.baeldung.com/scala/underscore
+           https://stackoverflow.com/questions/8000903/what-are-all-the-uses-of-an-underscore-in-scala/8001065#8001065
 
 =========================================================================================
 IMPORT STATEMENTS
