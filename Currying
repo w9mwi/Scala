@@ -582,60 +582,61 @@ object Demo
 
 ========================================================================================
 
-The foldLeft and foldRight methods used by the Scala List class are curried functions.
-The first argument to foldLeft and foldRight is the STARTING VALUE to use on the first
-application.  The second argument is the function that gets applied.  Below is
-sample code that uses the List class's foldLeft and foldRight curried functions.
+The foldLeft and foldRight functions implemented by the Scala List class are recursive
+AND curried functions.  Below is sample code showing the use of the List.foldLeft and
+List.foldRight functions.
+
+The first argument list of foldLeft and foldRight represents the STARTING VALUE used on
+the first function call of these recursive functions.  The second argument list of
+foldLeft and foldRight represents the the function that gets applied.
 
 object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
-    //       as they get passed a value, and RETURN A FUNCTION
-    //       that gets passed a value and returns a value.
-    //       When foldLeft and foldRight are called below, they
-    //       get called with TWO PARAMETER LISTS.
+    // NOTE: foldLeft and foldRight are both RECURSIVE, CURRIED FUNCTIONS.
+    //       When foldLeft and foldRight are called below, they get called
+    //       with TWO PARAMETER LISTS.
 
+    // ******************************************************************************
+    // In this section we show how to use the List.foldLeft and List.foldRight
+    // functions on the following intList, implementing the subtraction operation.
+    // Notice we demonstrate TWO (2) different ways of implementing the subtraction
+    // operation for foldLeft and foldRight that return the same result.
+    // The math operation that occurs for foldLeft is:  0−7−4−6−3−9−1 = -30
     val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-    // The following foldLeft function works on intList as follows:
-    // The first argument list (0) takes the base value that's used
-    // as the first operand.  The second argument list (_ - _) is the
-    // function to apply.  The math operation that occurs is this:
-    // 0−7−4−6−3−9−1 = -30
-    // NOTE: intList.foldLeft(0)(_ - _) below is the same as: intList.foldLeft(0)((x, y) => x-y)
     var intResult:Int = intList.foldLeft(0)(_ - _)
-    println("intList.foldLeft(0)(_ - _) = " + intResult) // PRINTS: intList.foldLeft(0)(_ - _) = -30
+    println("foldLeft A = " + intResult) // PRINTS: foldLeft A = -30
+    intResult = intList.foldLeft(0)((x, y) => x-y)
+    println("foldLeft B = " + intResult) // PRINTS: foldLeft B = -30
 
-    // The following foldRight function works on intList as follows:
-    // The first argument list (0) takes the base value that's used
-    // as the first operand.  The second argument list (_ - _) is the
-    // function to apply.  The math operation that occurs is this:
-    // 0−(1−(9−(3−(6−(4−7))))) = 14
-    // NOTE: intList.foldRight(0)(_ - _) below is the same as: intList.foldRight(0)((x, y) => x-y))
+    // The math operation that occurs for foldRight is:  0−(1−(9−(3−(6−(4−7))))) = 14
     intResult = intList.foldRight(0)(_ - _)
-    println("intList.foldRight(0)(_ - _) = " + intResult) // PRINTS: intList.foldRight(0)(_ - _) = 14
+    println("foldRight A = " + intResult) // PRINTS: foldRight A = 14
+    intResult = intList.foldRight(0)((x, y) => x-y)
+    println("foldRight B = " + intResult) // PRINTS: foldRight B = 14
 
+    // ******************************************************************************
+    // In this section we show how to count the number of characters in the following
+    // wordList, using the List.foldLeft and List.foldRight functions.  Notice we
+    // demonstrate TWO (2) different ways of obtaining this character count for
+    // foldLeft and foldRight that return the same result.
     val wordList:List[String] = List[String]("How", "many", "characters", "are", "in", "this", "wordList?")
-    // NOTE: The second parameter list for foldRight MUST have its tuple order as (word, count),
-    //       which is the reverse order used by the foldLeft function below.
-    intResult = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
-    println("wordList.foldRight = " + intResult) // PRINTS: wordList.foldRight = 35
-
-    // NOTE: The second parameter list for foldLeft MUST have its tuple order as (count, word),
-    //       which is the reverse order used by the foldRight function above.
     intResult = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
-    println("wordList.foldLeft = " + intResult) // PRINTS: wordList.foldLeft = 35
+    println("foldLeft #1 = " + intResult) // PRINTS: foldLeft #1 = 35
+    intResult = wordList.foldLeft(0)(_ + _.length)
+    println("foldLeft #2 = " + intResult) // PRINTS: foldLeft #2 = 35
 
-    // NOTE: The second parameter list for foldLeft MUST BE DIFFERENT than the second
-    //       parameter list for foldRight, as shown in the following 2 lines...
-    println("wordList.foldLeft(0)(_ + _.length) = " + wordList.foldLeft(0)(_ + _.length))   // PRINTS: wordList.foldLeft(0)(_ + _.length) = 35
-    println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _)) // PRINTS: wordList.foldRight(0)(_.length + _) = 35
+    intResult = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
+    println("foldRight #1 = " + intResult) // PRINTS: foldRight #1 = 35
+    intResult = wordList.foldRight(0)(_.length + _)
+    println("foldRight #2 = " + intResult) // PRINTS: foldRight #2 = 35
 
-
-    // The following code calls foldLeft and FoldRight on a List[String]...
+    // ******************************************************************************
+    // In this section we call the foldLeft and FoldRight functions on the
+    // following strList.
     val strList:List[String] = List[String]("ABC", "DEF", "GHI", "JKL", "MNO")
-    var strResult:String     = strList.foldLeft("START")(myFunc)
+    var strResult:String = strList.foldLeft("START")(myFunc)
     println(strResult) // PRINTS: START-ABC-DEF-GHI-JKL-MNO
 
     strResult = strList.foldRight("BEGIN")(myFunc)
