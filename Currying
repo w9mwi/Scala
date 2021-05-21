@@ -682,7 +682,7 @@ object Demo
     println("intResult = " + intResult) // PRINTS: intResult = -30
 
     // ********************************************************************************
-    // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
+    // In this section we demonstrate calling the myFoldLeftFunc and myFoldRightFunc
     // functions (defined below) on strList.
     val strList:List[String] = List[String]("ABC", "DEF", "GHI", "JKL", "MNO")
     var strResult:String = myFoldLeftFunc(strList, "START")(concat2Strings)
@@ -733,7 +733,7 @@ object Demo
    *       myFoldLeftFunc is defined above as this:
    *       def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B
    *
-   * Therefore, this concat2Strings function satisfies the 2nd parameter list of myFoldRightFunc
+   * Therefore, this concat2Strings function satisfies the 2nd parameter list of myFoldLeftFunc
    * and myFoldRightFunc because concat2Strings gets passed 2 values as a single parameter list,
    * and returns a value.
    */
