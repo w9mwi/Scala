@@ -643,6 +643,14 @@ object Demo
     println(strResult) // PRINTS: ABC-DEF-GHI-JKL-MNO-BEGIN
   }
 
+
+  /**
+   * NOTE: Scala defines List.foldLeft as this:   def foldLeft[B](z: B)(op: (B, A) => B): B
+   *       Scala defines List.foldRight as this:  def foldRight[B](z: B)(op: (A, B) => B): B
+   *
+   * Therefore, this myFunc function satisfies the 2nd parameter list of foldLeft and foldRight,
+   * because myFunc gets passed 2 values as a single parameter list, and returns a value.
+   */
   def myFunc(str1:String, str2:String):String =
   {
     str1.concat("-").concat(str2)
@@ -651,10 +659,10 @@ object Demo
 
 ========================================================================================
 
-In the code sample immediately ABOVE, the Scala functions foldRight and foldLight
-(for Scala's List class) are demonstrated.  In the sample code below, we write our
-own functions named myFoldRightFunc and myFoldLeftFunc (both curried, recursive
-functions) to demonstrate how Scala's foldRight and foldLeft work internally.
+In the code sample immediately ABOVE, the Scala functions List.foldRight and
+List.foldLight are demonstrated.  In the sample code below, we write our own
+functions named myFoldRightFunc and myFoldLeftFunc (both curried, recursive
+functions) which emulate Scala's List.foldRight and List.foldLeft functions.
 
 object Demo
 {
@@ -662,19 +670,30 @@ object Demo
   {
     val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
-    // The math operation that occurs by calling myFoldRightFunc is this:
-    // 0−(1−(9−(3−(6−(4−7))))) = 14
+    // ********************************************************************************
+    // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
+    // functions on intList.
+    // The math operation performed by myFoldRightFunc is:  0−(1−(9−(3−(6−(4−7))))) = 14
     var intResult:Int = myFoldRightFunc(intList, 0)(_ - _)
     println("intResult = " + intResult) // PRINTS: intResult = 14
 
-    // The math operation that occurs by calling myFoldLeftFunc is this:
-    //  0−7−4−6−3−9−1 = -30
+    // The math operation performed by myFoldLeftFunc is:  0−7−4−6−3−9−1 = -30
     intResult = myFoldLeftFunc(intList, 0)(_ - _)
     println("intResult = " + intResult) // PRINTS: intResult = -30
+
+    // ********************************************************************************
+    // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
+    // functions on strList.
+    val strList:List[String] = List[String]("ABC", "DEF", "GHI", "JKL", "MNO")
+    var strResult:String = myFoldLeftFunc(strList, "START")(myFunc)
+    println(strResult) // PRINTS: START-ABC-DEF-GHI-JKL-MNO
+
+    strResult = myFoldRightFunc(strList, "BEGIN")(myFunc)
+    println(strResult) // PRINTS: ABC-DEF-GHI-JKL-MNO-BEGIN
   }
 
   /**
-   * THIS IS A CURRIED, RECURSIVE FUNCTION!
+   * THIS IS A CURRIED, RECURSIVE FUNCTION.
    */
   def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
   {
@@ -682,14 +701,29 @@ object Demo
   }
 
   /**
-   * THIS IS A CURRIED, RECURSIVE FUNCTION!
+   * THIS IS A CURRIED, RECURSIVE FUNCTION.
    */
   def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B =
   {
     if (list.isEmpty) { base } else { func(myFoldLeftFunc(list.tail, base)(func), list.head) }
   }
-}
 
+  /**
+   * NOTE: myFoldRightFunc is defined above as this:
+   *       def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B
+   *
+   *       myFoldLeftFunc is defined above as this:
+   *       def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B
+   *
+   * Therefore, this myFunc function satisfies the 2nd parameter list of myFoldRightFunc
+   * and myFoldRightFunc because myFunc gets passed 2 values as a single parameter list,
+   * and returns a value.
+   */
+  def myFunc(str1:String, str2:String):String =
+  {
+    str1.concat("-").concat(str2)
+  }
+}
 ========================================================================================
 ========================================================================================
 ========================================================================================
