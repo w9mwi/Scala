@@ -672,7 +672,7 @@ object Demo
 
     // ********************************************************************************
     // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
-    // functions on intList.
+    // functions (defined below) on intList.
     // The math operation performed by myFoldRightFunc is:  0−(1−(9−(3−(6−(4−7))))) = 14
     var intResult:Int = myFoldRightFunc(intList, 0)(_ - _)
     println("intResult = " + intResult) // PRINTS: intResult = 14
@@ -683,29 +683,47 @@ object Demo
 
     // ********************************************************************************
     // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
-    // functions on strList.
+    // functions (defined below) on strList.
     val strList:List[String] = List[String]("ABC", "DEF", "GHI", "JKL", "MNO")
-    var strResult:String = myFoldLeftFunc(strList, "START")(myFunc)
+    var strResult:String = myFoldLeftFunc(strList, "START")(concat2Strings)
     println(strResult) // PRINTS: START-ABC-DEF-GHI-JKL-MNO
 
-    strResult = myFoldRightFunc(strList, "BEGIN")(myFunc)
+    strResult = myFoldRightFunc(strList, "BEGIN")(concat2Strings)
     println(strResult) // PRINTS: ABC-DEF-GHI-JKL-MNO-BEGIN
   }
 
   /**
    * THIS IS A CURRIED, RECURSIVE FUNCTION.
    */
-  def myFoldRightFunc[A,B](list:List[A], base:B)(func:(A,B)=>B):B =
+  def myFoldRightFunc[A,B](list:List[A], base:B)(concatFunc:(A,B)=>B):B =
   {
-    if (list.isEmpty) { base } else { func(list.head, myFoldRightFunc(list.tail, base)(func)) }
+    if (list.isEmpty)
+    {
+      base // Terminate recursion when list is empty.
+    }
+    else
+    {
+      // Concat list.head with the result returned by the recursive myFoldRightFunc call.
+      concatFunc(list.head,
+                 myFoldRightFunc(list.tail, base)(concatFunc))
+    }
   }
 
   /**
    * THIS IS A CURRIED, RECURSIVE FUNCTION.
    */
-  def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B =
+  def myFoldLeftFunc[A,B](list:List[A], base:B)(concatFunc:(B,A)=>B):B =
   {
-    if (list.isEmpty) { base } else { func(myFoldLeftFunc(list.tail, base)(func), list.head) }
+    if (list.isEmpty)
+    {
+      base // Terminate recursion when list is empty.
+    }
+    else
+    {
+      // Concat the result returned by the recursive myFoldLeftFunc call with list.head.
+      concatFunc(myFoldLeftFunc(list.tail, base)(concatFunc),
+                 list.head)
+    }
   }
 
   /**
@@ -715,15 +733,16 @@ object Demo
    *       myFoldLeftFunc is defined above as this:
    *       def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B
    *
-   * Therefore, this myFunc function satisfies the 2nd parameter list of myFoldRightFunc
-   * and myFoldLeftFunc because myFunc gets passed 2 values as a single parameter list,
-   * and returns a single value.
+   * Therefore, this concat2Strings function satisfies the 2nd parameter list of myFoldRightFunc
+   * and myFoldRightFunc because concat2Strings gets passed 2 values as a single parameter list,
+   * and returns a value.
    */
-  def myFunc(str1:String, str2:String):String =
+  def concat2Strings(str1:String, str2:String):String =
   {
     str1.concat("-").concat(str2)
   }
 }
+
 ========================================================================================
 ========================================================================================
 ========================================================================================
