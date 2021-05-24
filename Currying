@@ -671,7 +671,7 @@ object Demo
     val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
     // ********************************************************************************
-    // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
+    // In this section we demonstrate calling the myFoldLeftFunc and myFoldRightFunc
     // functions (defined below) on intList.
     // The math operation performed by myFoldRightFunc is:  0−(1−(9−(3−(6−(4−7))))) = 14
     var intResult:Int = myFoldRightFunc(intList, 0)(_ - _)
