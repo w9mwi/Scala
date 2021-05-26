@@ -668,21 +668,21 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+    val floatList:List[Float] = List[Float](7.7F, 4.9F, 6.6F, 3.5F, 9.2F, 1.4F)
 
     // ********************************************************************************
-    // In this section we demonstrate calling the myFoldLeftFunc and myFoldRightFunc
-    // functions (defined below) on intList.
-    // The math operation performed by myFoldRightFunc is:  0−(1−(9−(3−(6−(4−7))))) = 14
-    var intResult:Int = myFoldRightFunc(intList, 0)(_ - _)
-    println("intResult = " + intResult) // PRINTS: intResult = 14
+    // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
+    // functions (defined below) on floatList.
+    // The math operation performed by myFoldRightFunc is:  0.0-(1.4−(9.2−(3.5−(6.6−(4.9−7.7))))) = 13.7
+    var floatResult:Float = myFoldRightFunc(floatList, 0.0F)(_ - _)
+    println("floatResult = " + floatResult) // PRINTS: floatResult = 13.7
 
-    // The math operation performed by myFoldLeftFunc is:  0−7−4−6−3−9−1 = -30
-    intResult = myFoldLeftFunc(intList, 0)(_ - _)
-    println("intResult = " + intResult) // PRINTS: intResult = -30
+    // The math operation performed by myFoldLeftFunc is:  0.0−7.7−4.9−6.6−3.5−9.2−1.4 = -33.3
+    floatResult = myFoldLeftFunc(floatList, 0.0F)(_ - _)
+    println("floatResult = " + floatResult) // PRINTS: floatResult = -33.3
 
     // ********************************************************************************
-    // In this section we demonstrate calling the myFoldLeftFunc and myFoldRightFunc
+    // In this section we demonstrate calling the myFoldRightFunc and myFoldRightFunc
     // functions (defined below) on strList.
     val strList:List[String] = List[String]("ABC", "DEF", "GHI", "JKL", "MNO")
     var strResult:String = myFoldLeftFunc(strList, "START")(concat2Strings)
@@ -705,7 +705,7 @@ object Demo
     {
       // Concat list.head with the result returned by the recursive myFoldRightFunc call.
       concatFunc(list.head,
-                 myFoldRightFunc(list.tail, base)(concatFunc))
+        myFoldRightFunc(list.tail, base)(concatFunc))
     }
   }
 
@@ -722,7 +722,7 @@ object Demo
     {
       // Concat the result returned by the recursive myFoldLeftFunc call with list.head.
       concatFunc(myFoldLeftFunc(list.tail, base)(concatFunc),
-                 list.head)
+        list.head)
     }
   }
 
@@ -733,7 +733,7 @@ object Demo
    *       myFoldLeftFunc is defined above as this:
    *       def myFoldLeftFunc[A,B](list:List[A], base:B)(func:(B,A)=>B):B
    *
-   * Therefore, this concat2Strings function satisfies the 2nd parameter list of myFoldLeftFunc
+   * Therefore, this concat2Strings function satisfies the 2nd parameter list of myFoldRightFunc
    * and myFoldRightFunc because concat2Strings gets passed 2 values as a single parameter list,
    * and returns a value.
    */
