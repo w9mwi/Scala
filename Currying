@@ -67,10 +67,10 @@ takes a parameter.  So even though addXY_Curried is defined
 with only one parameter list, it can still be called with two
 parameter lists!  (Shown further below.)
 
-addXY_Curried a curried function because it returns a function
-that takes a parameter list.  Since addXY_Curried is defined
-with only one parameter list, it WON'T COMPILE when it's called
-with the underscore character (_) as a partially applied function...
+addXY_Curried is a curried function because it returns a function
+that takes a parameter list.  Since addXY_Curried is defined with
+only one parameter list, it WON'T COMPILE when it's called with
+the underscore character (_) as a partially applied function...
 
 addXY_Curried(5)_ // WON'T COMPILE!
 
