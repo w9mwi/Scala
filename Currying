@@ -660,10 +660,10 @@ object Demo
 
 ========================================================================================
 
-In the code sample immediately ABOVE, the Scala functions List.foldRight and
-List.foldLight are demonstrated.  In the sample code below, we write our own
-functions named myFoldRightFunc and myFoldLeftFunc (both curried, recursive
-functions) which emulate Scala's List.foldRight and List.foldLeft functions.
+In the code sample immediately ABOVE, the Scala API functions List.foldRight
+and List.foldLight are demonstrated.  In the sample code BELOW, we write our
+own functions named myFoldRightFunc and myFoldLeftFunc (both curried, recursive
+functions), which emulate Scala's List.foldRight and List.foldLeft functions.
 
 object Demo
 {
@@ -678,7 +678,7 @@ object Demo
     var floatResult:Float = myFoldRightFunc(floatList, 0.0F)(_ - _)
     println("floatResult = " + floatResult) // PRINTS: floatResult = 13.7
 
-    // The math operation performed by myFoldLeftFunc is:  0.0−7.7−4.9−6.6−3.5−9.2−1.4 = -33.3
+    // The math operation performed by myFoldLeftFunc is:  0.0 − 7.7 − 4.9 − 6.6 − 3.5 − 9.2 − 1.4 = -33.3
     floatResult = myFoldLeftFunc(floatList, 0.0F)(_ - _)
     println("floatResult = " + floatResult) // PRINTS: floatResult = -33.3
 
@@ -696,7 +696,7 @@ object Demo
   /**
    * THIS IS A CURRIED, RECURSIVE FUNCTION.
    */
-  def myFoldLeftFunc[A,B](list:List[A], base:B)(concatFunc:(B,A)=>B):B =
+  def myFoldLeftFunc[A,B](list:List[A], base:B)(funcOperation:(B,A)=>B):B =
   {
     if (list.isEmpty)
     {
@@ -705,14 +705,14 @@ object Demo
     else
     {
       // Concat the result returned by the recursive myFoldLeftFunc call with list.head.
-      concatFunc(myFoldLeftFunc(list.tail, base)(concatFunc),   list.head)
+      funcOperation(myFoldLeftFunc(list.tail, base)(funcOperation),   list.head)
     }
   }
 
   /**
    * THIS IS A CURRIED, RECURSIVE FUNCTION.
    */
-  def myFoldRightFunc[A,B](list:List[A], base:B)(concatFunc:(A,B)=>B):B =
+  def myFoldRightFunc[A,B](list:List[A], base:B)(funcOperation:(A,B)=>B):B =
   {
     if (list.isEmpty)
     {
@@ -721,7 +721,7 @@ object Demo
     else
     {
       // Concat list.head with the result returned by the recursive myFoldRightFunc call.
-      concatFunc(list.head,   myFoldRightFunc(list.tail, base)(concatFunc))
+      funcOperation(list.head,   myFoldRightFunc(list.tail, base)(funcOperation))
     }
   }
 
