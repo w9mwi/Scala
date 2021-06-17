@@ -199,7 +199,7 @@ object Demo
   }
 
   def sum1(a: Int):(Int => Int)       = { b => a + b }     // b is the value  5 passed from func1(5)
-  def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c } // c is the value 13 passed from func2(13)
+  def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c } // c is the value 13 passed from func1(13)
 }
 
 ========================================================================================
