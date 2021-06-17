@@ -134,7 +134,7 @@ object Demo
     // NOTE: The underscore char (_) is used below to designate that we're
     //       calling addXYZ_Curried()()() with only ONE (1) parameter list.
     //       The 2nd and 3rd parameter lists are ignored.
-    var func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // Returns a function that returns a function.
+    val func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // Returns a function that returns a function.
     var func2:(Int => Int)          = func1(2)           // Returns a function that returns an Int.
     result = func2(3) // Returns an Int value.
     println("result = " + result) // PRINTS: result = 6
