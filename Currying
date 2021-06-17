@@ -185,27 +185,22 @@ object Demo
 {
   def main(args: Array[String])
   {
-    // Immediately after sum1(2) gets called, the func1() function is partially applied.
-    // After func1(5) gets called, the func1() function is fully applied.
-    val func1:(Int => Int) = sum1(2)
+    // Immediately after sum1(2) gets called, sum1() is partially applied.
+    // After func1(5) gets called, the sum1() function is fully applied.
+    var func1:(Int => Int) = sum1(2)
     println(func1(5))       // PRINTS: 7  (NOTE: 7 = 2 + 5)
     println(func1.apply(5)) // Equivalent to the previous line of code.
 
-    // Immediately after sum2(2)(42) gets called, the func2() function is partially applied.
-    // After func2(13) gets called, the func2() function is fully applied.
-    val func2:(Int => Int) = sum2(2)(42)
-    println(func2(13))       // PRINTS: 57 (NOTE: 57 = 2 + 42 + 13)
-    println(func2.apply(13)) // Equivalent to the previous line of code.
+    // Immediately after sum2(2)(42) gets called, sum2() is partially applied.
+    // After func(13) gets called, sum2() is fully applied.
+    func1 = sum2(2)(42)
+    println(func1(13))       // PRINTS: 57 (NOTE: 57 = 2 + 42 + 13)
+    println(func1.apply(13)) // Equivalent to the previous line of code.
   }
 
-  // NOTE: When the following 2 functions ( sum1() and sum2()() ) are called, they
-  //       are only PARTIALLY APPLIED.  sum1() is not fully applied until the
-  //       func1() function gets called.  And sum2()() is not fully applied until
-  //       the func2() function gets called.
   def sum1(a: Int):(Int => Int)       = { b => a + b }     // b is the value  5 passed from func1(5)
   def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c } // c is the value 13 passed from func2(13)
 }
-
 
 ========================================================================================
 
