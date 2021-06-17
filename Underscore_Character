@@ -180,6 +180,39 @@ object Demo
   }
 }
 
+
+=========================================================================================
+UNSPECIFIED PARAMETER LIST
+
+In the following sample code, notice the wrapWithDiv() function calls
+the wrap()()() function with an underscore character in the middle
+parameter list.  
+
+object Demo
+{
+  // NOTE: This wrap function is a curried function that takes
+  //       3 parameter lists (all 3 are Strings), and returns a String.
+  def wrap(prefix:String)(html:String)(suffix:String) =
+  {
+    prefix + html + suffix
+  }
+
+  // NOTE: This wrapWithDiv function RETURNS the above wrap function, where
+  //       the wrap function's middle parameter list isn't specified, which
+  //       is designated by the the (_) parameter list.  Therefore, this
+  //       wrapWithDiv function is defined as a PARTIALLY APPLIED function
+  //       call to the wrap function.
+  def wrapWithDiv:(String => String) = wrap("<div>")(_)("</div>")
+
+  def main(args: Array[String])
+  {
+    // NOTE: When main() calls wrapWithDiv by passing it a String, the wrap
+    //       function gets called as a FULLY APPLIED function call because it's
+    //       now supplied with its previously-unspecified parameter list (_).
+    println(wrapWithDiv("My_Text")) // PRINTS: <div>My_Text</div>
+  }
+}
+
 =========================================================================================
 INITIALIZING VALUES IN A COLLECTIONS DECLARATION
 
