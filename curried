@@ -15,7 +15,7 @@ multiplying an Int value by two (2), and returning an
 Int result.
 
 The following sample code defines a function using both ways,
-where doubleIntFunc() is stored in a val, and tripleIntFunc()
+where doubleIntFunc() is stored in a val, and tripleIntFunc()c
 is defined using the 'def' keyword.
 
 ======================================================================
@@ -98,6 +98,10 @@ object Demo
     println("result = " + result) // PRINTS: result = 6
     result = func2.apply(3)
     println("result = " + result) // PRINTS: result = 6
+
+    // The following line shows that the addFunc.isInstanceOf call returns true.
+    val tom = addFunc.isInstanceOf[Function3[_, _, _, _]]
+    println("tom = " + tom) // PRINTS: tom = true
   }
 
   def add(x:Int, y:Int, z:Int):Int = x + y + z
