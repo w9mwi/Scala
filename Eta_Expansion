@@ -71,6 +71,7 @@ of the defined add() function, like this:
 val curriedAddFunc = addFunc.curried
 
 Read in-line comments in the below code for details.
+======================================================================
 
 object Demo
 {
@@ -86,8 +87,8 @@ object Demo
     println("result = " + result) // PRINTS: result = 6
 
     // Now call curriedAddFunc() as PARTIALLY APPLIED.
-    val func1:(Int => (Int => Int)) = curriedAddFunc(1) // func1 = curriedAddFunc PARTIALLY APPLIED.
-    val func2:(Int => Int)          = func1(2)          // func2 = func1 PARTIALLY APPLIED.
+    val func1:(Int => (Int => Int)) = curriedAddFunc(1) // func1  = curriedAddFunc PARTIALLY APPLIED.
+    val func2:(Int => Int)          = func1(2)          // func2  = func1 PARTIALLY APPLIED.
     result                          = func2(3)          // result = func2 FULLY APPLIED.
     println("result = " + result) // PRINTS: result = 6
 
@@ -143,7 +144,6 @@ object Demo
 
 ======================================================================
 
-======================================================================
 Another code sample of how to use an Eta Expansion is shown below.
 Read in-line comments for details.
 
