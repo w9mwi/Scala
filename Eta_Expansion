@@ -60,6 +60,49 @@ val tripleIntFunc_2:(Int => Int) = tripleIntFunc    // WILL compile!
 val tripleIntFunc_2:(Int => Int) = tripleIntFunc _  // WILL compile!
 
 ======================================================================
+In the below sample code we perform an Eta expansion on the defined
+add() function like this:
+
+val addFunc = add _
+
+Then we show how addFunc can be used to obtain a curried version
+of the defined add() function, like this:
+
+val curriedAddFunc = addFunc.curried
+
+Read in-line comments in the below code for details.
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    val addFunc = add _  // Perform an Eta expansion so addFunc contains the add() function defined below.
+    var result:Int = addFunc(1, 2, 3)
+    println("result = " + result) // PRINTS: result = 6
+
+    // Calling addFunc.curried returns a curried version of the add function defined below.
+    val curriedAddFunc = addFunc.curried
+    result = curriedAddFunc(1)(2)(3)
+    println("result = " + result) // PRINTS: result = 6
+
+    // Now call curriedAddFunc() as PARTIALLY APPLIED.
+    val func1:(Int => (Int => Int)) = curriedAddFunc(1) // func1 = curriedAddFunc PARTIALLY APPLIED.
+    val func2:(Int => Int)          = func1(2)          // func2 = func1 PARTIALLY APPLIED.
+    result                          = func2(3)          // result = func2 FULLY APPLIED.
+    println("result = " + result) // PRINTS: result = 6
+
+    // func1 and func2 are currently partially applied.
+    // Below, func1 and func2 get called so they become FULLY APPLIED.
+    result = func1.apply(2).apply(3)
+    println("result = " + result) // PRINTS: result = 6
+    result = func2.apply(3)
+    println("result = " + result) // PRINTS: result = 6
+  }
+
+  def add(x:Int, y:Int, z:Int):Int = x + y + z
+}
+
+======================================================================
 
 object Demo
 {
@@ -97,6 +140,8 @@ object Demo
 
   def tripleIntFunc(number:Int):Int = number * 3
 }
+
+======================================================================
 
 ======================================================================
 Another code sample of how to use an Eta Expansion is shown below.
