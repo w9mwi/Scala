@@ -108,6 +108,8 @@ object Demo
 }
 
 ======================================================================
+In this code sample an Eta Expansion is performed on the defined
+tripleIntFunc function.
 
 object Demo
 {
@@ -147,8 +149,7 @@ object Demo
 }
 
 ======================================================================
-
-Another code sample of how to use an Eta Expansion is shown below.
+This is another code sample of how to use an Eta Expansion.
 Read in-line comments for details.
 
 object Demo
