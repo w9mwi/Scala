@@ -26,7 +26,7 @@ equivalent.  Each function gets passed a List[Int]
 type, and returns the sum of all Ints contained in
 the List.  The sum2() and sum3() functions below
 use the "match" Scala keyword.
-=============================================================================
+
 =============================================================================
 
 object Demo
@@ -75,8 +75,8 @@ object Demo
     case head::tail => head + sum3(tail)
   }
 }
-===================================================================
-===================================================================
+
+=============================================================================
 The 3 functions defined in the sample code immediately above
 (sum1(), sum2(), and sum3()) are all recursive functions.  The
 problem with these standard recursive functions is that every time
@@ -91,8 +91,8 @@ are NOT tail-recursive because their last action is an addition
 that gets performed AFTER the recursive function call is made.
 
 Read in-line comments in the below sample code for more info.
-===================================================================
-===================================================================
+=============================================================================
+
 object Demo
 {
   def main(args: Array[String])
@@ -120,14 +120,12 @@ object Demo
   def sum(list:List[Int]):Int =
   {
     import scala.annotation.tailrec
-    @tailrec  // NOTE: The @tailrec annotation informs the compiler to enforce
-              //       tail-recursion on the function immediately below.
+    @tailrec  // @tailrec informs the compiler to enforce tail-recursion on the sumTailRecursive() function.
     def sumTailRecursive(currentSum:Int, list:List[Int]):Int =
     {
       if (list != Nil)
       {
-        // This println() exists to show that the "list" param passed to sumTailRecursive()
-        // shrinks by one element each time sumTailRecursive() is called.
+        // The following println() is used only to visualize the recursive call.
         println("(list.head, list.tail) = " + "(" + list.head + ", " + list.tail + ")")
       }
 
@@ -155,7 +153,43 @@ object Demo
   }
 }
 
-===================================================================
+=============================================================================
+The following code sample is another example of using tail recursion
+to sum a List of Int values.  Read in-line comments for details.
+
+import scala.annotation.tailrec
+object Demo
+{
+  def main(args: Array[String]): Unit = {
+    val myList = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    println("mySum = "  + mySum(myList, 0)) // PRINTS: // mySum = 55
+  }
+
+  @tailrec // @tailrec informs the compiler to enforce tail-recursion on the mySum() function.
+  def mySum(myList:List[Int], accum:Int):Int =
+  {
+    if (myList.isEmpty) { accum }
+    else
+    {
+      // The following println() is used only to visualize the recursive call.
+      println("(list.head, list.tail) = " + "(" + myList.head + ", " + myList.tail + ")")
+      mySum(myList.tail, myList.head + accum)
+    }
+    // The above println() prints this text:
+    // (list.head, list.tail) = (1, List(2, 3, 4, 5, 6, 7, 8, 9, 10))
+    // (list.head, list.tail) = (2, List(3, 4, 5, 6, 7, 8, 9, 10))
+    // (list.head, list.tail) = (3, List(4, 5, 6, 7, 8, 9, 10))
+    // (list.head, list.tail) = (4, List(5, 6, 7, 8, 9, 10))
+    // (list.head, list.tail) = (5, List(6, 7, 8, 9, 10))
+    // (list.head, list.tail) = (6, List(7, 8, 9, 10))
+    // (list.head, list.tail) = (7, List(8, 9, 10))
+    // (list.head, list.tail) = (8, List(9, 10))
+    // (list.head, list.tail) = (9, List(10))
+    // (list.head, list.tail) = (10, List())
+  }
+}
+
+=============================================================================
 
 object Demo
 {
