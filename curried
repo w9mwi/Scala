@@ -15,7 +15,7 @@ multiplying an Int value by two (2), and returning an
 Int result.
 
 The following sample code defines a function using both ways,
-where doubleIntFunc() is stored in a val, and tripleIntFunc()c
+where doubleIntFunc() is stored in a val, and tripleIntFunc()
 is defined using the 'def' keyword.
 
 ======================================================================
