@@ -93,6 +93,7 @@ that gets performed AFTER the recursive function call is made.
 Read in-line comments in the below sample code for more info.
 =============================================================================
 
+import scala.annotation.tailrec
 object Demo
 {
   def main(args: Array[String])
@@ -127,6 +128,16 @@ object Demo
       {
         // The following println() is used only to visualize the recursive call.
         println("(list.head, list.tail) = " + "(" + list.head + ", " + list.tail + ")")
+        // The above println() prints this text:
+        // (list.head, list.tail) = (1, List(2, 3, 4, 5, 6, 7, 8, 9))
+        // (list.head, list.tail) = (2, List(3, 4, 5, 6, 7, 8, 9))
+        // (list.head, list.tail) = (3, List(4, 5, 6, 7, 8, 9))
+        // (list.head, list.tail) = (4, List(5, 6, 7, 8, 9))
+        // (list.head, list.tail) = (5, List(6, 7, 8, 9))
+        // (list.head, list.tail) = (6, List(7, 8, 9))
+        // (list.head, list.tail) = (7, List(8, 9))
+        // (list.head, list.tail) = (8, List(9))
+        // (list.head, list.tail) = (9, List())
       }
 
       list match
@@ -137,19 +148,8 @@ object Demo
         case head::tail => sumTailRecursive(head + currentSum, tail) // head + currentSum is where the math happens!
       }
     }
-    sumTailRecursive(0, list) // This line of code is called ONLY ONE TIME.
 
-    // Running this program prints the following:
-    // (list.head, list.tail) = (1, List(2, 3, 4, 5, 6, 7, 8, 9))
-    // (list.head, list.tail) = (2, List(3, 4, 5, 6, 7, 8, 9))
-    // (list.head, list.tail) = (3, List(4, 5, 6, 7, 8, 9))
-    // (list.head, list.tail) = (4, List(5, 6, 7, 8, 9))
-    // (list.head, list.tail) = (5, List(6, 7, 8, 9))
-    // (list.head, list.tail) = (6, List(7, 8, 9))
-    // (list.head, list.tail) = (7, List(8, 9))
-    // (list.head, list.tail) = (8, List(9))
-    // (list.head, list.tail) = (9, List())
-    // listSum = 45
+    sumTailRecursive(0, list) // This line of code is called ONLY ONE TIME.
   }
 }
 
