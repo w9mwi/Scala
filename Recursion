@@ -107,8 +107,9 @@ object Demo
     * NOTE: The sumTailRecursive() function is defined INSIDE this sum() function.
     *       You could move the sumTailRecursive() function so it's defined OUTSIDE
     *       this sum() function without any change in behavior.  However, if
-    *       sumTailRecursive() was moved outside, it could be called directly
-    *       from main(), which would not be useful.
+    *       sumTailRecursive() was moved outside the sum() function, it could
+    *       be called directly from main(), which wouldn't be useful as main()
+    *       needs to call the sum() function.
     *
     *       When the VERY LAST ACTION of a function is a call to itself (as we
     *       see in sumTailRecursive() below), the function is tail-recursive.
@@ -154,8 +155,11 @@ object Demo
 }
 
 =============================================================================
-The following code sample is another example of using tail recursion
-to sum a List of Int values.  Read in-line comments for details.
+The following code sample is another example of using tail recursion to sum
+a List of Int values.  This is basically identical to the sample code shown
+immediately above, except that the mySum() function does NOT contain an
+embedded function like sumTailRecursive() above.  Read in-line comments for details.
+
 
 import scala.annotation.tailrec
 object Demo
