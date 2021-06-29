@@ -157,8 +157,10 @@ object Demo
     def doubleIntFunc(number:Int) = number * 2
     def tripleIntFunc(number:Int) = number * 3
 
-    // The underscore (_) chars are REQUIRED in the functions declaration
-    // below because the functions data type is NOT explicitly declared.
+    // The underscore (_) chars are REQUIRED in the declaration of the
+    // val functions because its data type is NOT explicitly declared.
+    // In the declaration further below the data type of val functions_2 
+    // is specified, so the underscore (_) chars are not required.
     val functions = Map("2x" -> doubleIntFunc _,
                         "3x" -> tripleIntFunc _)
 
@@ -169,10 +171,9 @@ object Demo
     println(result) // PRINTS: 666
 
 
-    // The following code is all identical to the above code EXCEPT
-    // that the underscore (_) chars are NOT required because the
-    // functions_2 datatype (Map[String, Int => Int]) is explicitly
-    // declared...
+    // The following code is all identical to the above code EXCEPT that
+    // the underscore (_) chars are NOT required because the data type
+    // of the val functions_2 is explicitly declared...
     val functions_2:Map[String, Int => Int] = Map("2x" -> doubleIntFunc,
                                                   "3x" -> tripleIntFunc)
 
