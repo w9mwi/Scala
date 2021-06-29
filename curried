@@ -159,29 +159,33 @@ object Demo
 
     // The underscore (_) chars are REQUIRED in the declaration of the
     // val functions because its data type is NOT explicitly declared.
-    // In the declaration further below the data type of val functions_2 
+    // In the declaration further below the data type of val functions_2
     // is specified, so the underscore (_) chars are not required.
     val functions = Map("2x" -> doubleIntFunc _,
                         "3x" -> tripleIntFunc _)
 
-    var result = functions("2x").apply(444)
-    println(result) // PRINTS: 888
+    var result:Int = functions("2x").apply(444)
+    println("1) " + result) // PRINTS: 1) 888
+    // An equivalent way of doing what's done in the 2 lines above...
+    var func:(Int => Int) = functions("2x")
+    println("2) " + func(444)) // PRINTS: 2) 888
 
     result = functions("3x").apply(222)
-    println(result) // PRINTS: 666
+    println("3) " + result) // PRINTS: 3) 666
+    // An equivalent way of doing what's done in the 2 lines above...
+    func = functions("3x")
+    println("4) " + func(222)) // PRINTS: 4) 666
 
-
-    // The following code is all identical to the above code EXCEPT that
-    // the underscore (_) chars are NOT required because the data type
-    // of the val functions_2 is explicitly declared...
+    // The following val functions_2 declaration is identical to the above
+    // val functions declaration EXCEPT the underscore (_) chars are NOT
+    // required (but could still be included) because the data type
+    // of val functions_2 is explicitly declared...
     val functions_2:Map[String, Int => Int] = Map("2x" -> doubleIntFunc,
                                                   "3x" -> tripleIntFunc)
-
-    var result_2 = functions_2("2x").apply(444)
-    println(result_2) // PRINTS: 888
-
-    result_2 = functions_2("3x").apply(222)
-    println(result_2) // PRINTS: 666
+    result = functions_2("2x").apply(444)
+    println("5) " + result) // PRINTS: 5) 888
+    result = functions_2("3x").apply(222)
+    println("6) " + result) // PRINTS: 6) 888
   }
 }
 
