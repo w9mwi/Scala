@@ -164,7 +164,8 @@ embedded function like sumTailRecursive() above.  Read in-line comments for deta
 import scala.annotation.tailrec
 object Demo
 {
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit =
+  {
     val myList = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
     println("mySum = "  + mySum(myList, 0)) // PRINTS: // mySum = 55
   }
@@ -176,20 +177,20 @@ object Demo
     else
     {
       // The following println() is used only to visualize the recursive call.
-      println("(list.head, list.tail) = " + "(" + myList.head + ", " + myList.tail + ")")
+      println("(myList.head, myList.tail) = " + "(" + myList.head + ", " + myList.tail + ")")
       mySum(myList.tail, myList.head + accum)
     }
     // The above println() prints this text:
-    // (list.head, list.tail) = (1, List(2, 3, 4, 5, 6, 7, 8, 9, 10))
-    // (list.head, list.tail) = (2, List(3, 4, 5, 6, 7, 8, 9, 10))
-    // (list.head, list.tail) = (3, List(4, 5, 6, 7, 8, 9, 10))
-    // (list.head, list.tail) = (4, List(5, 6, 7, 8, 9, 10))
-    // (list.head, list.tail) = (5, List(6, 7, 8, 9, 10))
-    // (list.head, list.tail) = (6, List(7, 8, 9, 10))
-    // (list.head, list.tail) = (7, List(8, 9, 10))
-    // (list.head, list.tail) = (8, List(9, 10))
-    // (list.head, list.tail) = (9, List(10))
-    // (list.head, list.tail) = (10, List())
+    // (myList.head, myList.tail) = (1, List(2, 3, 4, 5, 6, 7, 8, 9, 10))
+    // (myList.head, myList.tail) = (2, List(3, 4, 5, 6, 7, 8, 9, 10))
+    // (myList.head, myList.tail) = (3, List(4, 5, 6, 7, 8, 9, 10))
+    // (myList.head, myList.tail) = (4, List(5, 6, 7, 8, 9, 10))
+    // (myList.head, myList.tail) = (5, List(6, 7, 8, 9, 10))
+    // (myList.head, myList.tail) = (6, List(7, 8, 9, 10))
+    // (myList.head, myList.tail) = (7, List(8, 9, 10))
+    // (myList.head, myList.tail) = (8, List(9, 10))
+    // (myList.head, myList.tail) = (9, List(10))
+    // (myList.head, myList.tail) = (10, List())
   }
 }
 
