@@ -41,21 +41,26 @@ TAIL RECURSION - A tail-recursive function is a function whose
                  will virtually eliminate the possibility of getting
                  a StackOverflowError.
 
-                 When THE LAST ACTION a function performs is a call itself,
-                 that function is automatically tail-recursive.  In the
-                 code samples below, these 3 functions are NOT tail-recursive:
-                 sum1()
-                 sum2()
-                 sum3()
+                 When THE LAST ACTION a function performs is a call to itself,
+                 that function is automatically tail-recursive.  In the code
+                 samples below, these 3 functions are NOT tail-recursive:
+                 1) sum1()
+                 2) sum2()
+                 3) sum3()
 
                  In the code samples below, these 2 functions ARE tail-recursive:
-                 sumTailRecursive()
-                 mySum()
+                 1) sumTailRecursive()
+                 2) mySum()
 
                  You can determine if a function is or isn't tail-recursive by
-                 adding the @tailrec annotation text prior to the function.
-                 If the code successfully compiles with the  @tailrec annotation,
+                 adding the @tailrec annotation text prior to the function.  If
+                 the function successfully compiles with the @tailrec annotation,
                  it's tail-recursive.  If it doesn't compile, it's NOT tail-recursive.
+
+                 The @tailrec annotation is NOT required to make a function
+                 tail-recursive--the Scala compiler will automatically make it
+                 happen if it can be done.  The @tailrec annotation is used
+                 only for documenting the function.
 
 =============================================================================
 
