@@ -52,6 +52,11 @@ TAIL RECURSION - A tail-recursive function is a function whose
                  sumTailRecursive()
                  mySum()
 
+                 You can determine if a function is or isn't tail-recursive by
+                 adding the @tailrec annotation text prior to the function.
+                 If the code successfully compiles with the  @tailrec annotation,
+                 it's tail-recursive.  If it doesn't compile, it's NOT tail-recursive.
+
 =============================================================================
 
 object Demo
