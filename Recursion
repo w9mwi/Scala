@@ -27,6 +27,13 @@ type, and returns the sum of all Ints contained in
 the List.  The sum2() and sum3() functions below
 use the "match" Scala keyword.
 
+
+TAIL RECURSION - A tail-recursive function is a function whose
+                 VERY LAST ACTION is a call to itself.  There are
+                 two (2) programs below that show an example of
+                 tail recursion.  To view them, search for this
+                 text:  @tailrec
+
 =============================================================================
 
 object Demo
