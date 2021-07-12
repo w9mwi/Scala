@@ -188,7 +188,11 @@ object Demo
 The following code sample is another example of using tail recursion to sum
 a List of Int values.  This is basically identical to the sample code shown
 immediately above, except that the mySum() function does NOT contain an
-embedded function like sumTailRecursive() above.  Read in-line comments for details.
+embedded function like sumTailRecursive() above.
+
+The sample code immediately above does NOT require the user of the function
+to pass a zero value into it as the accumulator, where this code example does.
+Read in-line comments for details.
 
 
 import scala.annotation.tailrec
