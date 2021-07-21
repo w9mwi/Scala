@@ -210,7 +210,6 @@ object Demo
 }
 
 ====================================================================================
-
 object Demo
 {
   case class Point3D(x:Double, y:Double, z:Double)
@@ -228,11 +227,11 @@ object Demo
   }
 
   /**
-    * This function returns the distance between the two 3D points passed as params.
-    *
-    * @param point1
-    * @param point2
-    */
+   * This function returns the distance between the two 3D points passed as params.
+   *
+   * @param point1
+   * @param point2
+   */
   def distance(point1:Point3D, point2:Point3D):Double =
   {
     val dx = point1.x - point2.x
@@ -242,16 +241,17 @@ object Demo
   }
 
   /**
-    * Calculate the weighted average of a single student's assignments + tests +  quizzes.
-    */
+   * Calculate the weighted average of a single student's assignments + tests +  quizzes.
+   */
   def studentAverage(student:Student):String =
   {
     val assignmentAvg = if (student.assignments.isEmpty) 0.0
-                        else student.assignments.sum /  student.assignments.length
-    val quizAvg = if (student.quizzes.length < 2) 0.0
+    else student.assignments.sum /  student.assignments.length
+    val quizAvg = if (student.quizzes.isEmpty) 0.0
+                  else if (student.quizzes.length == 1) student.quizzes.min // There's only 1 quiz score.
                   else (student.quizzes.sum - student.quizzes.min) / (student.quizzes.length - 1) // Discard lowest quiz score
     val testAvg = if (student.tests.isEmpty) 0.0
-                  else (student.tests.sum / student.tests.length)
+    else (student.tests.sum / student.tests.length)
 
     // The following println() is used for debugging only...
     println("assignmentAvg = " + assignmentAvg + ",  quizAvg = " + quizAvg + ",  testAvg = " + testAvg)
@@ -260,6 +260,7 @@ object Demo
     (student.name +"'s weighted average = " + (0.5 * assignmentAvg + 0.3 * testAvg + 0.2 * quizAvg))
   }
 }
+
 =====================================================================
 =====================================================================
 The following code demonstrates the use of case class's copy() method.
