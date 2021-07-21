@@ -237,7 +237,7 @@ object Demo
   {
     val dx = point1.x - point2.x
     val dy = point1.y - point2.y
-    val dz = point1.z - point2.x
+    val dz = point1.z - point2.z
     math.sqrt(dx*dx + dy*dy + dz*dz)
   }
 
