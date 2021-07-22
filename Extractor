@@ -8,7 +8,8 @@ Extractors also explain the apply() method, which takes arguments
 and constructs an object.  The unapply() method reverses the
 construction procedure of the apply() method.
 
-The unapply method says: Pass me the object which was created by
+IMPORTANT:
+The unapply() method says:  Pass me the object which was created by
 applying a function to argument X, and I will return the argument X.
 
 Since the purpose of unapply() is to extract values from an object,
