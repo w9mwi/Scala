@@ -46,48 +46,47 @@ as well as how unapply() is used in pattern matching.
 ========================================================================
 object Demo
 {
-  class MyClass(val name:String)
+  class MyClass(val name:String, val id:Int)
 
   // MyClass is declared above as a regular class (not a case class).
-  // Only a case class will conatin an unapply() method by default
-  // when it's declared.
+  // Only a case class contains an unapply() method by default when
+  // it's declared.
   //
   // To obtain an unapply() method for a regular class like MyClass,
   // you must write your own unapply() method.  Where the unapply()
   // method is defined inside the MyClass's COMPANION OBJECT.  And
   // the companion object also has the name MyClass, as shown here...
-
   object MyClass // This is the COMPANION OBJECT to the MyClass class.
   {
-    def unapply(x:MyClass):Option[String] =
+    def unapply(x:MyClass):Option[MyClass] =
     {
-      println("MyClass.unapply(" + x.name + ") called."); Some(x.name) // PRINTS: MyClass.unapply(Tom) called.
+      println("1) MyClass.unapply() called.  x.name = " + x.name + ",  x.id = " + x.id)
+      Some(x) // Return the Option type because it contains the get() method.
     }
   }
 
-  // When this program executes, the MyClass.unapply() method gets
-  // called BEFORE the case statement's println() method gets called.
-  // As pattern matching occurs when the unapply() method is called.
   def main(args: Array[String]):Unit =
   {
-    val mc = new MyClass("Tom")
+    val mc = new MyClass("Tom", id = 123456)
 
     mc match
     {
-      // The following line of code invokes the MyClass.unapply() method. 
-      case MyClass(x) => println("Pattern match on MyClass(" + x + ")") // PRINTS: Pattern match on MyClass(Tom)
+      // When the following line of code executes, Scala automatically
+      // invokes the MyClass.unapply() method.
+      case MyClass(x) => println("2) x.name = " + x.name + ",  x.id = " + x.id)
       case _          => println("No pattern match.") // This line of code never executes.
     }
 
     mc match
     {
-      // The following line of code executes without calling the unapply()
+      // The following line of code does NOT call the unapply()
       // method because it matches on the entire MyClass class.
-      case x:MyClass  =>  println("MyClass = " + x.name) // PRINTS: MyClass = Tom
-      case _          => println("No pattern match.")    // This line of code never executes.
+      case x:MyClass  =>  println("3) x.name = " + x.name + ",  x.id = " + x.id)
+      case _          => println("No pattern match.") // This line of code never executes.
     }
   }
 }
+
 ========================================================================
 object Demo
 {
