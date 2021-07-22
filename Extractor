@@ -79,10 +79,10 @@ object Demo
 
     mc match
     {
-      // The following line of code does NOT call the unapply()
+      // The following line of code does NOT call the MyClass.unapply()
       // method because it matches on the entire MyClass class.
-      case x:MyClass  =>  println("3) x.name = " + x.name + ",  x.id = " + x.id)
-      case _          => println("No pattern match.") // This line of code never executes.
+      case x:MyClass => println("3) x.name = " + x.name + ",  x.id = " + x.id)
+      case _         => println("No pattern match.") // This line of code never executes.
     }
   }
 }
