@@ -1,12 +1,12 @@
 A Scala class that defines an unapply() method is called an extractor.
 
-A Scala Extractor is defined as an object that has a method
-named unapply() as one of its methods.  This unapply() method
-extracts an object and returns the attributes.  The unapply()
-method is also used in Pattern matching and Partial functions.
-Extractors also explain the apply() method, which takes arguments
-and constructs an object.  The unapply() method reverses the
-construction procedure of the apply() method.
+Scala Extractor - Defined as an object that has a method named
+unapply() as one of its methods.  This unapply() method extracts
+an object and returns the attributes.  The unapply() method is
+USED IN PATTERN MATCHING AND PARTIAL FUNCTIONS.  Extractors also
+explain the apply() method, which takes arguments and constructs
+an object.  The unapply() method reverses the construction
+procedure of the apply() method.
 
 IMPORTANT:
 The unapply() method says:  Pass me the object which was created by
