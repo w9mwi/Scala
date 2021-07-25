@@ -33,10 +33,11 @@ then place it inside that class's COMPANION OBJECT.  See the following
 sample code for an example of this.
 
 ========================================================================
-The apply() and unapply() methods defined in this code sample are the
-Demo.apply() and Demo.unapply() methods.
+The apply() and unapply() methods defined in this code sample are
+the Demo.apply() and Demo.unapply() methods.  They are NOT being
+invoked automatically by Scala, but are being called here manually.
 
-The following sample shows that Demo.unapply() method doesn't really
+This sample code shows that Demo.unapply() method doesn't really
 need to perform the opposite operation of the Demo.apply() method.
 
 object Demo
@@ -59,7 +60,6 @@ object Demo
     println("unapply(19) = " + unapply(19)) // PRINTS: unapply(19) = None
   }
 }
-
 
 ========================================================================
 The apply() and unapply() methods defined in this code sample are the
