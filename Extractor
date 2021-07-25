@@ -27,22 +27,11 @@ methods typically return an Option type.  Because the Option type
 already contains a get() method.  When the unapply() method is called
 on a pattern match, it simply "undoes" what the apply() method does.
 
-Whenever you design a regular class (not a case class) that you want
-to pattern match on, you must write your own unapply() method for
-that class's COMPANION OBJECT.  For example, if you want to pattern
-match using the following line of code within a "match" statement,
-the MyClass class must contain an unapply() method.
+Whenever you define a regular class (not a case class) that you want
+to pattern match on, you must write your own unapply() method, and
+then place it inside that class's COMPANION OBJECT.  See the following
+sample code for an example of this.
 
-case MyClass(x) => ...
-
-If you want to pattern match on an entire class, like the following
-line of code, you do NOT need to supply your own unapply() method
-in the class's COMPANION OBJECT.
-
-case x:MyClass => ...
-
-Code below show examples of the apply() and unapply() methods,
-as well as how unapply() is used in pattern matching.
 ========================================================================
 import Demo.MyClass
 
