@@ -33,6 +33,103 @@ then place it inside that class's COMPANION OBJECT.  See the following
 sample code for an example of this.
 
 ========================================================================
+The apply() and unapply() methods defined in this code sample are the
+Demo.apply() and Demo.unapply() methods.
+
+The following sample shows that Demo.unapply() method doesn't really
+need to perform the opposite operation of the Demo.apply() method.
+
+object Demo
+{
+  // Main method
+  def main(args: Array[String])
+  {
+    def apply(q:Double):Double = q * 10
+
+    def unapply(r:Int):Option[Int] =
+    {
+      if (r % 5 == 0)
+        Some(r * 5)
+      else
+        None
+    }
+
+    println("apply(20) = " + apply(20))     // PRINTS: apply(20) = 200.0
+    println("unapply(20) = " + unapply(20)) // PRINTS: unapply(20) = Some(100)
+    println("unapply(19) = " + unapply(19)) // PRINTS: unapply(19) = None
+  }
+}
+
+
+========================================================================
+The apply() and unapply() methods defined in this code sample are the
+Demo.apply() and Demo.unapply() methods.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    def apply(firstname: String, lastname: String):String =
+    {
+      firstname + "James" + lastname
+    }
+
+    def unapply(string:String):Option[(String, String)] =
+    {
+      val array:Array[String] = string.split("James")
+
+      if (array.length == 2)
+        Some(array(0), array(1))
+      else
+        None
+    }
+
+    // The following 2 println() statements print:
+    // apply("Tom", "Jones"))    = TomJamesJones
+    // unapply("JonesJamesTom")) = Some((Jones,Tom))
+    println("""apply("Tom", "Jones"))    = """ + apply("Tom", "Jones"))
+    println("""unapply("JonesJamesTom")) = """ + unapply("JonesJamesTom"))
+  }
+}
+
+========================================================================
+Extractors can be utilized in Pattern Matching.  While comparing the
+Object of an Extractor in Pattern Matching, the unapply() method is
+invoked by Scala when the "match" statement is executed.  In Scala,
+every "case class" has an unapply() method (an Extractor) by default,
+so all case classes can be used in pattern matching.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val x:Double = Demo(25) // NOTE: This line of code invokes the method:  Demo.apply(25)
+    println("2) x = " + x)  // PRINTS: 2) x = 5.0
+
+    // Perform pattern matching...
+    x match
+    {
+      // The following line of code invokes the method: Demo.unapply(5.0)
+      case Demo(y) => println("4) y = " + y)  // PRINTS: 4) y = 1.0
+      case _ => println("Can't be evaluated.")  // This line NEVER executes.
+    }
+  }
+
+  def apply(x:Double):Double =
+  {
+    println("1) apply(" + x + ") is called.   "); x / 5   // PRINTS: 1) apply(25.0) is called.
+  }
+
+  def unapply(z:Double):Option[Double] =
+  {
+    println("3) unapply(" + z + ") is called.  ") // PRINTS: unapply(5.0) is called.
+    if (z % 5 == 0)
+      Some(z / 5)
+    else None
+  }
+}
+
+========================================================================
 import Demo.MyClass
 
 object Demo
@@ -84,98 +181,6 @@ object MyClass
     Some(x) // Return the Option type because it contains the get() method.
   }
 }
-
-========================================================================
-object Demo
-{
-  def main(args: Array[String])
-  {
-    def apply(firstname: String, lastname: String):String =
-    {
-      firstname + "James" + lastname
-    }
-
-    def unapply(string:String):Option[(String, String)] =
-    {
-      val array:Array[String] = string.split("James")
-
-      if (array.length == 2)
-        Some(array(0), array(1))
-      else
-        None
-    }
-
-    // The following 2 println() statements print:
-    // apply("Tom", "Jones"))    = TomJamesJones
-    // unapply("JonesJamesTom")) = Some((Jones,Tom))
-    println("""apply("Tom", "Jones"))    = """ + apply("Tom", "Jones"))
-    println("""unapply("JonesJamesTom")) = """ + unapply("JonesJamesTom"))
-  }
-}
-========================================================================
-The following sample shows that your unapply() method doesn't really
-need to perform the opposite operation of the apply() method.
-
-object Demo
-{
-  // Main method
-  def main(args: Array[String])
-  {
-    def apply(q:Double):Double = q * 10
-
-    def unapply(r:Int):Option[Int] =
-    {
-      if (r % 5 == 0)
-        Some(r * 5)
-      else
-        None
-    }
-
-    println("apply(20) = " + apply(20))     // PRINTS: apply(20) = 200.0
-    println("unapply(20) = " + unapply(20)) // PRINTS: unapply(20) = Some(100)
-    println("unapply(19) = " + unapply(19)) // PRINTS: unapply(19) = None
-  }
-}
-========================================================================
-Extractors can be utilized in Pattern Matching.  While comparing the
-Object of an Extractor in Pattern Matching, the unapply method will
-be executed spontaneously.  The following code shows this example
-of Pattern Matching. All "case classes" in Scala already have an
-Extractor, so it can be utilized spontaneously with Pattern Matching.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // This program prints the following text to the console.
-    // apply(25.0) is called.   x = 5.0
-    // unapply(5.0) is called.  y = 1.0
-
-    val x:Double = Demo(25) // NOTE: This line of code literally calls: Demo.apply(25) so x = 5.0
-    println("x = " + x)
-
-    // Apply pattern matching here...
-    x match
-    {
-      case Demo(y) => println("y = " + y) // This line of code literally calls: Demo.unapply(5.0)
-      case _ => println("Can't be evaluated.")
-    }
-  }
-
-  def apply(x:Double):Double = { print("apply(" + x + ") is called.   "); x / 5 }
-
-  def unapply(z:Double):Option[Double] =
-  {
-    print("unapply(" + z + ") is called.  ")
-    if (z % 5 == 0)
-      Some(z / 5)
-    else None
-  }
-}
-
-========================================================================
-For more info, on this example, see:
-https://www.journaldev.com/8270/scala-extractors-apply-unapply-and-pattern-matching
 
 ========================================================================
 
