@@ -9,7 +9,7 @@ a null when it fails, your function can instead return an
 instance of the "Option" class, where either a scala.None
 object, or a scala.Some class will be returned.
  
-NOTE: Both the scala.Some" class and the scala.None object
+NOTE: Both the scala.Some class and the scala.None object
       are children of the scala.Option class.
 
 EXAMPLE:  The find() method on a sequence (i.e., Array, List, etc.)
