@@ -6,7 +6,7 @@ Option - scala.Option is a class that represents optional values.
 
 Instead of returning a value when a function succeeds, and
 a null when it fails, your function can instead return an
-instance of the "Option" class, where either a scala.None
+instance of the scala.Option class, where either a scala.None
 object, or a scala.Some class will be returned.
  
 NOTE: Both the scala.Some class and the scala.None object
@@ -14,7 +14,7 @@ NOTE: Both the scala.Some class and the scala.None object
 
 EXAMPLE:  The find() method on a sequence (i.e., Array, List, etc.)
           returns a scala.Option of type scala.None when a value
-          can't be found.
+          can't be found; otherwise, a scala.Some value is returned.
 
 NOTE: A major weakness of using Option is that it doesn't tell you
       why something failed.  If you need to know why something
