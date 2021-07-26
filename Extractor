@@ -103,7 +103,7 @@ object Demo
 {
   def main(args: Array[String])
   {
-    val x:Double = Demo(25) // NOTE: This line of code invokes the method:  Demo.apply(25)
+    val x:Double = Demo(25) // NOTE: This line of code invokes the method:  Demo.apply()
     println("2) x = " + x)  // PRINTS: 2) x = 5.0
 
     // Perform pattern matching...
@@ -117,12 +117,13 @@ object Demo
 
   def apply(x:Double):Double =
   {
-    println("1) apply(" + x + ") is called.   "); x / 5   // PRINTS: 1) apply(25.0) is called.
+    println("1) Demo.apply(" + x + ") is called.   ") // PRINTS: 1) Demo.apply(25.0) is called.
+    x / 5
   }
 
   def unapply(z:Double):Option[Double] =
   {
-    println("3) unapply(" + z + ") is called.  ") // PRINTS: una// PRINTS: 3) unapply(5.0) is called.
+    println("3) Demo.unapply(" + z + ") is called.  ") // PRINTS: 3) Demo.unapply(5.0) is called.
     if (z % 5 == 0)
       Some(z / 5)
     else None
