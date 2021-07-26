@@ -103,7 +103,7 @@ object Demo
 {
   def main(args: Array[String])
   {
-    val x:Double = Demo(25) // NOTE: This line of code invokes the method:  Demo.apply()
+    val x:Double = Demo(25.0) // NOTE: This line of code invokes the method:  Demo.apply()
     println("2) x = " + x)  // PRINTS: 2) x = 5.0
 
     // Perform pattern matching...
@@ -111,7 +111,7 @@ object Demo
     {
       // The following line of code invokes the method: Demo.unapply(5.0)
       case Demo(y) => println("4) y = " + y)  // PRINTS: 4) y = 1.0
-      case _ => println("Can't be evaluated.")  // This line NEVER executes.
+      case _ => println("4) Can't be evaluated.")
     }
   }
 
