@@ -97,7 +97,7 @@ Extractors can be utilized in Pattern Matching.  While comparing the
 Object of an Extractor in Pattern Matching, the unapply() method is
 invoked by Scala when the "match" statement is executed.  In Scala,
 every "case class" has an unapply() method (an Extractor) by default,
-so all case classes can be used in pattern matching.
+so every "case class" can be used in pattern matching.
 
 object Demo
 {
@@ -122,7 +122,7 @@ object Demo
 
   def unapply(z:Double):Option[Double] =
   {
-    println("3) unapply(" + z + ") is called.  ") // PRINTS: unapply(5.0) is called.
+    println("3) unapply(" + z + ") is called.  ") // PRINTS: una// PRINTS: 3) unapply(5.0) is called.
     if (z % 5 == 0)
       Some(z / 5)
     else None
