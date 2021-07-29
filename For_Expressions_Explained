@@ -63,7 +63,43 @@ abstract class MyCustomClass[A]
   def flatMap[B](func: A => MyCustomClass[B]): MyCustomClass[B]
   def withFilter(func: A => Boolean):          MyCustomClass[A]
 }
+
 ================================================================================
+This code shows a simple example of how to use a for expression.
+
+object Demo
+{
+  case class Person(firstName:String, lastName:String)
+
+  def main(args:Array[String]): Unit =
+  {
+    val states:List[String] = List("Alabama", "Alaska", "Wisconsin", "Wyoming")
+
+    var statesCapitalized:List[String]  = for (x <- states) yield x.toUpperCase
+    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
+
+    statesCapitalized = states.map(_.toUpperCase) // This line generates identical results to the above for expression.
+    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
+
+    // =================================================================
+
+    val people:List[Person] = List(Person("Barney", "Rubble"),
+                                   Person("Fred", "Flintstone"),
+                                   Person("Betty", "Rubble"))
+
+    val firstNamesStartingWithB:List[String] =
+      for {
+            p <- people                // This line is the GENERATOR.
+            fname = p.firstName        // This line is the DEFINITION.
+            if (fname.startsWith("B")) // This line is the FILTER.
+          } yield fname.toUpperCase
+
+    println(firstNamesStartingWithB) // PRINTS: List(BARNEY, BETTY)
+  }
+}
+
+================================================================================
+
 The code sample shown below defines a case class named Sequence, which
 implements the four (4) methods mentioned immediately above, so it will
 work with "for expressions" (which use the "yield" keyword).  This Sequence
