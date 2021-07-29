@@ -33,21 +33,25 @@ object Demo
   {
     val states:List[String] = List("Alabama", "Alaska", "Wisconsin", "Wyoming")
 
-    // The following 2 lines generate IDENTICAL RESULTS, shown by the 2 println() statements below.
-    val statesCapitalized:List[String]  = for (x <- states) yield x.toUpperCase
-    val statesCapitalized2:List[String] = states.map(_.toUpperCase)
-    println(statesCapitalized)
-    println(statesCapitalized2)
+    var statesCapitalized:List[String]  = for (x <- states) yield x.toUpperCase
+    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
+
+    statesCapitalized = states.map(_.toUpperCase) // This line generates identical results to the above for expression.
+    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
+
+    // =================================================================
 
     val people:List[Person] = List(Person("Barney", "Rubble"),
-      Person("Fred", "Flintstone"),
-      Person("Betty", "Rubble"))
-    val firstNamesStartingWithB:List[String] = for
-    {
-      p <- people                // This line is the GENERATOR.
-      fname = p.firstName        // This line is the DEFINITION.
-      if (fname.startsWith("B")) // This line is the FILTER.
-    } yield fname.toUpperCase
+                                   Person("Fred", "Flintstone"),
+                                   Person("Betty", "Rubble"))
+
+    val firstNamesStartingWithB:List[String] =
+      for {
+            p <- people                // This line is the GENERATOR.
+            fname = p.firstName        // This line is the DEFINITION.
+            if (fname.startsWith("B")) // This line is the FILTER.
+          } yield fname.toUpperCase
+
     println(firstNamesStartingWithB) // PRINTS: List(BARNEY, BETTY)
   }
 }
