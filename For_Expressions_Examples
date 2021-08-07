@@ -64,6 +64,10 @@ object Demo
       "FourPointZero"  -> 4.0,
       "ThreePointFive" -> 3.5)
 
+    numbers.foreach(println) // PRINTS: (ThreePointZero,3.0)
+                             //         (FourPointZero,4.0)
+                             //         (ThreePointFive,3.5)
+
     numbers.foreach // This foreach() loops through each element of numbers...
     {
       // NOTE: The 'key' and 'value' text below can be changed to any name you want.
@@ -98,12 +102,13 @@ object Demo
     // NOTE: The variable(s) used by the yield statement must be the same variable(s)
     //       the for() loop uses to obtain value(s).  In the following line of code
     //       those variables are: a, b, c
-    result1 = for { a <- list1; b <- list2; c <- list3 } yield sum(a,b,c) // sum() function is defined below.
-    // The following println(result1) prints this:
-    // List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
+    result1 = for { a <- list1; b <- list2; c <- list3 } yield sum(a,b,c) // sum() function is defined above.
     // Those Int values are THE SUM of the single-digit Int values printed above.  For example:
     // 147-148-149-157-158-... = 1+4+7=12, 1+4+8=13, 1+4+9=14, 1+5+7=13, 1+5+8=14,...
-    println(result1)
+    println(result1) // PRINTS: List(12, 13, 14, 13, 14, 15, 14, 15, 16, 13, 14, 15, 14, 15, 16, 15, 16, 17, 14, 15, 16, 15, 16, 17, 16, 17, 18)
+                     //         Those Int values are THE SUM of the single-digit Int values printed above.  For example:
+                     // 147-148-149-157-158-... = 1+4+7=12, 1+4+8=13, 1+4+9=14, 1+5+7=13, 1+5+8=14,...
+
 
     // The following line of code is equivalent to the for() loop immediately above.
     // In fact, when the above for() loop is executed, Scala literally converts
@@ -129,7 +134,6 @@ object Demo
     println(namesCapitalized) // PRINTS: List(Joe, Jack, Jennifer)
   }
 }
-
 
 ================================================================================
 
