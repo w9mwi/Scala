@@ -63,7 +63,7 @@ with "for expressions" (which use the "yield" keyword).  Scala-defined classes
 that work with "for expressions" (which use the "yield" keyword) also implement
 those 4 functions.
 
-If you want your class to work well with a for expression (which use the "yield" keyword),
+If you want your class to work well with a for expression (which uses the "yield" keyword),
 it should generally implement the 4 functions shown in the following MyCustomClass,
 with the corresponding function signatures.
 
