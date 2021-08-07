@@ -26,6 +26,8 @@ foreach() statement, including examples that implement the "yield" keyword.
 import scala.collection.immutable
 object Demo
 {
+  def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
+
   def main(args: Array[String]):Unit =
   {
     val range1:Range = 0 to 9
@@ -59,20 +61,20 @@ object Demo
     println;
 
     val numbers:Map[String, Double] = Map("ThreePointZero" -> 3.0,
-                                          "FourPointZero"  -> 4.0,
-                                          "ThreePointFive" -> 3.5)
+      "FourPointZero"  -> 4.0,
+      "ThreePointFive" -> 3.5)
 
     numbers.foreach // This foreach() loops through each element of numbers...
     {
       // NOTE: The 'key' and 'value' text below can be changed to any name you want.
       case(key, value) => println(s"key: $key, value: $value") // PRINTS: key: ThreePointZero, value: 3.0
-                                                                          key: FourPointZero, value: 4.0
-                                                                          key: ThreePointFive, value: 3.5
+                                                               //         key: FourPointZero, value: 4.0
+                                                               //         key: ThreePointFive, value: 3.5
     }
     // The following foreach() statement prints IDENTICAL results as the ABOVE foreach() statement.
     numbers.foreach(x => println(s"key: ${x._1}, value: ${x._2}")) // PRINTS: key: ThreePointZero, value: 3.0
-                                                                              key: FourPointZero, value: 4.0
-                                                                              key: ThreePointFive, value: 3.5
+                                                                   //         key: FourPointZero, value: 4.0
+                                                                   //         key: ThreePointFive, value: 3.5
     numbers.values.foreach(x => print(x + " ")) // PRINTS: 3.0 4.0 3.5
     println
     numbers.keys.foreach(print) // PRINTS: ThreePointZeroFourPointZeroThreePointFive
@@ -126,8 +128,6 @@ object Demo
     val namesCapitalized:Seq[String] = for (x <- names) yield x.capitalize
     println(namesCapitalized) // PRINTS: List(Joe, Jack, Jennifer)
   }
-
-  def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
 }
 
 
