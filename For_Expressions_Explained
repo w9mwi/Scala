@@ -37,8 +37,6 @@ for {
       if (p.firstName.startsWith("B")) // This line is the FILTER.
     } yield p.firstName.toUpperCase
 
-
-
 A generator has this general form:   pattern <- expression
 A definition has this general form:  pattern = expression
 A filter has this general form:      if (expression)
