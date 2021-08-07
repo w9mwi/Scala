@@ -29,8 +29,8 @@ for
 
 
 NOTE: The above for expression can be re-written as shown below.
-      This eliminates the "name = p.name" definition.  (Scala's
-      for expression DOESN'T require a definition.)
+      This eliminates the "name = p.name" definition.  (A
+      definition in a for expression is OPTIONAL--not required.)
 
 for {
       p <- people                // This line is the GENERATOR.
