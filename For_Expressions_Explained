@@ -26,6 +26,17 @@ for
 } yield x                   // The for expression's result is stored in x.
 
 
+NOTE: The above for expression can be re-written as shown below.
+      This eliminates the "name = p.name" definition.  (Scala's
+      for expression DOESN'T require a definition.)
+
+for {
+      p <- people                // This line is the GENERATOR.
+      if (p.firstName.startsWith("B")) // This line is the FILTER.
+    } yield p.firstName.toUpperCase
+
+
+
 A generator has this general form:   pattern <- expression
 A definition has this general form:  pattern = expression
 A filter has this general form:      if (expression)
