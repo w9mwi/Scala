@@ -22,7 +22,7 @@ are the generator, the definition, and the filter...
 
 for
 {
-  person <- persons         // Generator  (Iterates over all elements contained in persons.)
+  p <- people               // Generator  (Iterates over all elements contained in persons.)
   name = p.name             // Definition (Equivalent to: val name = p.name)
   if (name startsWith "To") // Filter     (The yielded result contains ONLY persons whose name begins with "To".)
 } yield x                   // The for expression's result is stored in x.
@@ -33,7 +33,7 @@ NOTE: The above for expression can be re-written as shown below.
       definition in a for expression is OPTIONAL--not required.)
 
 for {
-      p <- people                // This line is the GENERATOR.
+      p <- people                      // This line is the GENERATOR.
       if (p.firstName.startsWith("B")) // This line is the FILTER.
     } yield p.firstName.toUpperCase
 
