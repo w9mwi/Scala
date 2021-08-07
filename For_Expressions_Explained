@@ -10,6 +10,7 @@ A Scala "for expression" can contain the following 3 expressions:
                def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
 
 2) Definition.  A definition binds the pattern on the left to the value of the expression on the right.
+                A for expression DOESN'T require a definition--it's optional.
 3) Filter.      A filter drops all elements from the iteration for which the expression returns false.
                 For example, in the for expression shown immediately below, any person whose
                 name does NOT start with the string "To" is dropped from the result
