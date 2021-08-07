@@ -142,38 +142,43 @@ object Demo
   def main(args:Array[String])
   {
     // The following for() loop exists only to help understand the
-    // for() loop in the multiples() function below.  It prints every
-    // permutation from (0,0) to (0,41)
-    //                  (1,1) to (1,41)
-    //                  ...
-    //                  (40,40) to (40,41)
-    //                  (41,41)
-    // So the for() loop in the matches() function iterates through the same permutations.
-    for (a <- 0 until 42; b <- a until 42) { print(a,b) }
+    // identical for() loop contained in the multiples() function
+    // below.  View the printed results of this for() loop to
+    // see the tuple values it generates.
+    for (a <- 0 until 42; b <- a until 42)
+    {
+      print(a, b) 
+    }
     println("\n=======================")
 
-    // NOTICE:  1) The following line of code calls the foreach() function.
-    //          2) The following line of code generates results identical
-    //             to the code further below using the case statements.
-    multiples(42,40).foreach(print) // PRINTS: (1,40)(2,20)(4,10)(5,8)
+    // NOTICE: The following line of code calls the foreach() function and generates
+    //         results identical to the code further below using case statements.
+    multiples(42, 40).foreach(print) // PRINTS: (1,40)(2,20)(4,10)(5,8)
     println("\n=======================")
-    multiples(42,40) foreach
-    {
-      case(a,b) => print("(" + a + ", " + b + ")") // PRINTS: (1, 40)(2, 20)(4, 10)(5, 8)
-      case _    => println("NOTHING!") // This line never executes.
-    }
+
+    multiples(42, 40) foreach // Equivalent to:  multiples(42, 40).foreach
+      {
+        case (a, b) => print("(" + a + ", " + b + ")") // PRINTS: (1, 40)(2, 20)(4, 10)(5, 8)
+        case _ => println("NOTHING!") // This line never executes.
+      }
   }
 
   /**
-    * This function returns a tuple of numbers that when multiplied
-    * equals the value of y passed to this function.
-    */
-  def multiples(x:Int, y:Int) =
+   * This function iterates through Int tuples:  (0,0)..(x-1, x-1)
+   * Where x is an Int param passed to this function.
+   *
+   * When the two Ints contained in each tuple are multiplied together,
+   * AND that result equals the vaLue of the y parameter passed to this
+   * function, that tuple is yielded (returned) by this function as an
+   * element in the IndexedSeq data type.
+   */
+  def multiples(x:Int, y:Int):IndexedSeq[(Int, Int)] =
   {
     // NOTE: Tuple2() is a Scala API function--replacing it with (a,b) also works.
-    for (a <- 0 until x; b <- a until x if a * b == y) yield Tuple2(a,b);
+    for (a <- 0 until x;  b <- a until x  if a * b == y) yield Tuple2(a,b);
   }
 }
+
 ===================================================================================================
 object Demo
 {
