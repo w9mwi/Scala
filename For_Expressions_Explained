@@ -69,7 +69,7 @@ with the corresponding function signatures.
 
 abstract class MyCustomClass[A]
 {
-  def foreach((func: A => Unit):Unit
+  def foreach(func: A => Unit):Unit
   def map[B](func: A => B):MyCustomClass[B]
   def flatMap[B](func: A => MyCustomClass[B]):MyCustomClass[B]
   def withFilter(func: A => Boolean):MyCustomClass[A]
