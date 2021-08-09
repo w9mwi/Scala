@@ -48,9 +48,9 @@ foreach()    - Any class that defines this function can be used in a "BASIC FOR 
                does NOT use the "yield" keyword) using a single generator, or multiple generators,
                like this:  for (x <- intList) println(x)
 map()        - Any class used in a "for expression" (which uses the "yield" keyword)
-               MUST implement the map() function!  If the "for expression" (which uses
+               MUST implement the map() function.  If the "for expression" (which uses
                the "yield" keyword) contains MULTIPLE generators, that class MUST
-               implement BOTH the map() AND flatMap() functions!
+               implement BOTH the map() AND flatMap() functions.
 flatMap()    - This function enables a class to work with a "for expression" (which uses
                the "yield" keyword) that implements MULTIPLE generators.  If a "for expression"
                (which uses the "yield" keyword) contains ONLY ONE generator, the class needs
