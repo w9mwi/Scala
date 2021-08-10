@@ -117,7 +117,6 @@ work with "for expressions" (which use the "yield" keyword).  This Sequence
 class will work with generic types, so it's defined below as Sequence[A],
 where A is the generic type.
 
-WARNING: THE FOLLOWING SCALA SAMPLE CODE DOESN'T COMPILE WITH SCALA 2.13.5
 
 import scala.collection.mutable.ListBuffer
 object Demo
