@@ -302,11 +302,11 @@ object Demo
     def map[B](func: A=>B):Sequence[B] =
     {
       val listBuf:ListBuffer[B] = elems.map(func)
-      // NOTE: The _* below is the syntax used when calling a constructor, or a method,
+      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
       //       that accepts a variable number of arguments.  In this example, since
       //       the Sequence constructor is written to accept a variable number of args,
-      //       the _* syntax must be used along with the listBuf collection.
-      Sequence(listBuf.toSeq: _*)
+      //       the :_* syntax must be used along with the listBuf collection.
+      Sequence(listBuf.toSeq:_*)
     }
 
     /*********************************************************
@@ -321,11 +321,11 @@ object Demo
       {
         for (elem <- listBuf_2) { listBuf_1 += elem }
       }
-      // NOTE: The _* below is the syntax used when calling a constructor, or a method,
+      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
       //       that accepts a variable number of arguments.  In this example, since
       //       the Sequence constructor is written to accept a variable number of args,
-      //       the _* syntax must be used along with the listBuf_1 collection.
-      Sequence(listBuf_1.toSeq: _*)
+      //       the :_* syntax must be used along with the listBuf_1 collection.
+      Sequence(listBuf_1.toSeq:_*)
     }
 
     /*********************************************************
@@ -336,11 +336,11 @@ object Demo
     def withFilter(func: A => Boolean):Sequence[A] =
     {
       val listBuf:ListBuffer[A] = elems.filter(func)
-      // NOTE: The _* below is the syntax used when calling a constructor, or a method,
+      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
       //       that accepts a variable number of arguments.  In this example, since
       //       the Sequence constructor is written to accept a variable number of args,
-      //       the _* syntax must be used along with the listBuf collection.
-      Sequence(listBuf.toSeq: _*)
+      //       the :_* syntax must be used along with the listBuf collection.
+      Sequence(listBuf.toSeq:_*)
     }
   }
 
