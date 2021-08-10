@@ -81,31 +81,76 @@ abstract class CustomClass[A]
 }
 
 ===========================================================================
-import scala.collection.mutable.ArrayBuffer_*
 
-
+import scala.collection.mutable.ListBuffer
 object Demo
 {
   case class Person(firstName:String, lastName:String)
-  case class Sequence[A](initialElems: A*) // NOTE: The A* designates a variable number of args of data type A.
+  case class Sequence[A](private val initialElems: A*) // A* designates a variable number of args of type A.
   {
-    // NOTE: Every line of code within a class (i.e., this Sequence class) that is
-    //       NOT a method gets executed when the class's constructor is called.
-    //       Therefore, the following two lines of code get executed when this
-    //       Sequence class's constructor is called.  You'd think that because
-    //       elems is a val type, the second line below wouldn't compile because
-    //       it's the second time elems is being assigned a value.  But that's not
-    //       what's happening.  The first line below is only declaring that elems
-    //       is an ArrayBuffer of type A.  The only time elems actually gets
-    //       assigned a value is in the second line below.
-    private val elems = ArrayBuffer[A]()
-    elems ++= initialElems // This line of code is equivalent to this:  for { e <- initialElems } elems += e
+    private val elems:ListBuffer[A] = ListBuffer[A]()
+    elems ++= initialElems // ++= appends multiple elements to the mutable ListBuffer named elems.
+    // elems ++= initialElems  could be replaced with:  for { x <- initialElems } elems += x
 
-    def foreach(block: A => Unit):Unit = { elems.foreach(block) }
-    def map[B](func: A => B):Sequence[B] =
+    /*********************************************************
+     * NOTE: This foreach() method enables the main() function
+     *       below to implement this type of for loop on the
+     *       above-defined Sequence class:
+     *       for (x <- ints) println(x)
+     ********************************************************/
+    def foreach(block: A => Unit):Unit =
     {
-      val myMap:ArrayBuffer[B] = elems.map(func)
-      new Sequence(myMap:_*) // NOTE: :_* makes Sequence() work with a variable number of arguments.
+      elems.foreach(block)
+    }
+
+    /*********************************************************
+     * NOTE: This map() method enables the main() function
+     *       below to implement this type of for loop on
+     *       the above-defined Sequence class:
+     *       for { x <- ints } yield x*2
+     ********************************************************/
+    def map[B](func: A=>B):Sequence[B] =
+    {
+      val listBuf:ListBuffer[B] = elems.map(func)
+      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
+      //       that accepts a variable number of arguments.  In this example, since
+      //       the Sequence constructor is written to accept a variable number of args,
+      //       the :_* syntax must be used along with the listBuf collection.
+      Sequence(listBuf.toSeq:_*)
+    }
+
+    /*********************************************************
+     * NOTE: This flatMap() method enables the main() function
+     *       below to implement MULTIPLE GENERATORS within
+     *       a for loop on the above-defined Sequence class.
+     ********************************************************/
+    def flatMap[B](func: A => Sequence[B]):Sequence[B] =
+    {
+      var listBuf_1:ListBuffer[B] = ListBuffer[B]()
+      for (listBuf_2:Sequence[B] <- map(func)) // map(func) calls the above-defined map() method.
+      {
+        for (elem <- listBuf_2) { listBuf_1 += elem }
+      }
+      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
+      //       that accepts a variable number of arguments.  In this example, since
+      //       the Sequence constructor is written to accept a variable number of args,
+      //       the :_* syntax must be used along with the listBuf_1 collection.
+      Sequence(listBuf_1.toSeq:_*)
+    }
+
+    /*********************************************************
+     * NOTE: This withFilter() method enables the main()
+     *       function below to implement filters within
+     *       for loops on the above-defined Sequence class:
+     ********************************************************/
+    def withFilter(func: A => Boolean):Sequence[A] =
+    {
+      val listBuf:ListBuffer[A] = elems.filter(func)
+      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
+      //       that accepts a variable number of arguments.  In this example, since
+      //       the Sequence constructor is written to accept a variable number of args,
+      //       the :_* syntax must be used along with the listBuf collection.
+      Sequence(listBuf.toSeq:_*)
     }
   }
 
@@ -130,10 +175,9 @@ object Demo
     for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
   }
 }
+
 ===========================================================================
-===========================================================================
-// ----------------------------------------------------------
-// ----------------------------------------------------------
+
 // for() loop examples that return a "yield" value...
 // In Scala, yield is part of for() loop comprehensions.
 // For each iteration of your for loop, yield generates a value
