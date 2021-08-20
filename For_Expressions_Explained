@@ -112,10 +112,10 @@ object Demo
 ================================================================================
 
 The code sample shown below defines a case class named Sequence, which
-implements the four (4) methods mentioned immediately above, so it will
-work with "for expressions" (which use the "yield" keyword).  This Sequence
-class will work with generic types, so it's defined below as Sequence[A],
-where A is the generic type.
+implements the four (4) methods mentioned in MyCustomClass[A] above.
+Thodse 4 methods will make the Sequence case class work with "for expressions"
+(which use the "yield" keyword).  This Sequence class will work with generic
+types, so it's defined below as Sequence[A], where A is the generic type.
 
 import scala.collection.mutable.ListBuffer
 object Demo
