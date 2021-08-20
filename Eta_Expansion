@@ -212,7 +212,7 @@ object Demo
    *
    * A real function (as opposed to a method) is sometimes called
    * a NULLARY FUNCTION because its definition (as shown below)
-   * DOESN'T contain an argument/parameter.  It's definition
+   * DOESN'T contain an argument/parameter.  Its definition
    * contains only its return type (Int => Int), followed by
    * an anonymous function for the code it returns:  x => x * x
    ***************************************************************/
