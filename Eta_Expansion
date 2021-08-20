@@ -191,3 +191,48 @@ object Demo
 }
 
 ======================================================================
+
+Read in-line comments in the following code sample to see an example
+of a Nullary Function, as well as the difference between a Scala
+method and a Scala function.  A Scala method can be transformed into
+a Scala function by performing an Eta Expansion on it.
+
+object Demo
+{
+  /****************************************************************
+   * This is a METHOD named square_method.  It takes an Int
+   * parameter, and returns an Int value.
+   ***************************************************************/
+  def square_method(x:Int):Int = x * x
+
+  /****************************************************************
+   * This is a FUNCTION named square_function.  A FUNCTION does
+   * NOT take a parameter!!!  A function (as opposed to a method)
+   * is defined as a block of code that returns a value.
+   *
+   * A real function (as opposed to a method) is sometimes called
+   * a NULLARY FUNCTION because its definition (as shown below)
+   * DOESN'T contain an argument/parameter.  It's definition
+   * contains only its return type (Int => Int), followed by
+   * an anonymous function for the code it returns:  x => x * x
+   ***************************************************************/
+  def square_function:(Int => Int) = { x => x * x }
+
+  /*********************************************************
+   *
+   ********************************************************/
+  def main(args:Array[String]): Unit =
+  {
+    println("square_method(2) = " + square_method(2))     // PRINTS: square_method(2) = 4
+    println("square_function(2) = " + square_function(2)) // PRINTS: square_function(2) = 4
+
+    val method:(Int => Int) = square_method
+    println("method(2) = " + method(2)) // PRINTS: method(2) = 4
+
+    // In the code below we perform an Eta Expansion on square_method,
+    // which returns a FUNCTION (not a method) that's EQUIVALENT to
+    // square_function defined above.
+    val function:(Int => Int) = square_method _ // Performs an Eta Expansion on square_method
+    println("function(2) = " + function(2)) // PRINTS: function(2) = 4
+  }
+}
