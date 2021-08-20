@@ -10,7 +10,8 @@ To learn more about Pass-By-Value (Nullary) Functions, see the following URL:
 =====================================================================
 Read in-line comments in the following code sample to see an example
 of a Nullary Function, as well as the difference between a Scala
-method and a Scala function.
+method and a Scala function.  A Scala method can be transformed into
+a Scala function by performing an Eta Expansion on it.
 
 object Demo
 {
