@@ -24,13 +24,14 @@ object Demo
   /****************************************************************
    * This is a FUNCTION named square_function.  A FUNCTION does
    * NOT take a parameter!!!  A function (as opposed to a method)
-   * is defined as a block of code that returns a value.
+   * RETURNS A FUNCTION
    *
-   * A real function (as opposed to a method) is sometimes called
-   * a NULLARY FUNCTION because its definition (as shown below)
+   * A FUNCTION (as opposed to a method) is sometimes called a
+   * NULLARY FUNCTION because its definition (as shown below)
    * DOESN'T contain an argument/parameter.  Its definition
-   * contains only its return type (Int => Int), followed by
-   * an anonymous function for the code it returns:  x => x * x
+   * contains only its return type, which is a function (i.e.,
+   * Int => Int), and the block of code it returns (i.e.,
+   * x => x * x).
    ***************************************************************/
   def square_function:(Int => Int) = { x => x * x }
 
