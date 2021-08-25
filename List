@@ -569,10 +569,40 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
           //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
 ___ flatten - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_and_flatten()
-              The flatten() method always results in a "flattened List", which means the returned
-              result must also be a List.  When a List cannot be further flattened, the flatten()
-              method will fail to execute.  In the code sample below, notice how flatten() returns
-              a List data type that is DIFFERENT than the List data type it's executed on.
+              The following code shows the results of executing the flatten method on 5 different
+              Lists.  Notice that each time the flatten method is executed it returns a List.
+              Where the first collection contained in the original List gets removed, leaving
+              only that collection's contents in the List.
+
+              When a List can no longer be flattened, the flatten() method won't compile, or will fail to execute.
+
+              val myList_1:List[Set[Int]] = List(Set(1, 2, 3), Set(1, 2, 3))
+              println("myList_1 = " + myList_1)                  // PRINTS: myList_1 = List(Set(1, 2, 3), Set(1, 2, 3))
+              println("myList_1.flatten = " + myList_1.flatten)  // PRINTS: myList_1.flatten = List(1, 2, 3, 1, 2, 3)
+
+              val myList_2:List[List[Int]] = List(List(1, 2, 3), List(3, 2, 1))
+              println("myList_2 = " + myList_2)                  // PRINTS: myList_2 = List(List(1, 2, 3), List(3, 2, 1))
+              println("myList_2.flatten = " + myList_2.flatten)  // PRINTS: myList_2.flatten = List(1, 2, 3, 3, 2, 1)
+
+              val myList_3:List[Vector[Set[Int]]] = List(Vector(Set(1, 2, 3), Set(4, 5, 6)), Vector(Set(10, 20, 30), Set(40, 50, 60)))
+              println("myList_3 = " + myList_3)
+              // PRINTS: myList_3 = List(Vector(Set(1, 2, 3), Set(4, 5, 6)), Vector(Set(10, 20, 30), Set(40, 50, 60)))
+              println("myList_3.flatten = " + myList_3.flatten)
+              // PRINTS: myList_3.flatten = List(Set(1, 2, 3), Set(4, 5, 6), Set(10, 20, 30), Set(40, 50, 60))
+              println("myList_3.flatten = " + myList_3.flatten.flatten)
+              // PRINTS: myList_3.flatten = List(1, 2, 3, 4, 5, 6, 10, 20, 30, 40, 50, 60)
+
+              val myList_4:List[String] = List("ABC", "DEF", "GHI")
+              println("myList_4 = " + myList_4) // PRINTS: myList_4 = List(ABC, DEF, GHI)
+
+              // NOTE: When you flatten a List[String], the result is a List[Char]
+              val myList_5:List[Char] = myList_4.flatten
+              println("myList_5 = " + myList_5) // PRINTS: myList_5 = List(A, B, C, D, E, F, G, H, I)
+
+              =============================================================================================
+
+              In the code sample below, notice how flatten() returns a List data type that is
+              DIFFERENT than the List data type it's executed on.
 
               val tom1:List[List[List[String]]] = List(List(List("ABC"), List("DEF"), List("GHI")),
                                                        List(List("RST"), List("UVW"), List("XYZ")))
