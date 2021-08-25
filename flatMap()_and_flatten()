@@ -10,7 +10,7 @@ object Demo
     println("A) " + intList1) // PRINTS: A) List(3, 7)
     println("B) " + intList2) // PRINTS: B) List(3, 7)
 
-    // NOTE: The signature of the List.flatMap method is: def flatMap[B](f: (A) => GenTraversableOnce[B]): List[B]
+    // NOTE: The signature of the List.flatMap method is: def flatMap[B](f: (A) => IterableOnce[B]): List[B]
     //       For this example we can simplify that to:    def flatMap[B](f: (A) => List[B]): List[B]
     stringList = List("mucked", "up", "all", "over")
     var stringList1 = stringList.flatMap(s => s.split("ck")) // Equivalent to the next line of code.
@@ -122,7 +122,7 @@ IMPORTANT TO REMEMBER
    on a List[List[Int]], the result will be a List[Int].  But if you call flatten()
    on a List[List[List[Int]]], the result will be a List[List[Int]], which means
    that List is still NOT fully 'flattened'.  A List that is fully-flattened means
-   it's a single-level List (i.e., List[Int]), NOT a List that contains another List.
+   it's a single-level List (i.e., List[Int]), NOT a List that contains another collection.
 
 
 NOTE: When flatten() and flatMap() is called on a Seq, they return a Seq.
