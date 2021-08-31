@@ -294,7 +294,7 @@ object Demo
     // This code would fail here cuz myMap is already 'flattened'.  -->  val result_4 = myMap.flatten
 
 
-    // myRange is the same as "1 to myMap.size" in the line below.
+    // The following line is equivalent to this:  val myRange:Range = 1 to myMap.size
     val myRange:Range = Range(1, myMap.size + 1, 1)
     println("myRange = " + myRange)       // PRINTS: myRange = Range 1 until 4
     val myRangeMap:IndexedSeq[Option[String]] = myRange.map(myMap.get) // Same as myMap.get(_)
