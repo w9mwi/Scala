@@ -303,8 +303,6 @@ object Demo
     for (x <- myRangeMap){ println(x.get) /* PRINTS:                          one        two        three */ }
 
 
-    // Both flatMap() calls below return type: That
-    // Both myMap.get() calls below return type: Option[String]
     val result_1:IndexedSeq[String] = myRange.flatMap(myMap.get(_))        // Equivalent to the BELOW line.
     val result_2:IndexedSeq[String] = (1 to myMap.size).flatMap(myMap.get) // Equivalent to the ABOVE line.
     val result_3:Vector[String]     = Vector("one", "two", "three")
