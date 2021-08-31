@@ -570,9 +570,9 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
 
 ___ flatten - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_and_flatten()
               The following code shows the results of executing the flatten method on 5 different
-              Lists.  Notice that each time the flatten method is executed it returns a List.
-              Where the first collection contained in the original List gets removed, leaving
-              only that collection's contents in the List.
+              Lists.  Whenever the List.flatten method is executed it always returns a List.
+              Where the first collection contained in the original List is removed, leaving
+              only that collection's contents (elements) in the List.
 
               When a List can no longer be flattened, the flatten() method won't compile, or will fail to execute.
 
