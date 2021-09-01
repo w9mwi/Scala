@@ -270,52 +270,40 @@ object Demo
 }
 
 ===========================================================================
-The sample code in this section demonstrates: 
-
-___ the Map[Int, String] type
-___ the Option/Some/None type (obtained via the get() method)
-___ the Range and NumericRange types
-___ the Vector type
-___ the IndexedSeq[String] type
-___ the List[Int] type
-___ the List[List[Int]] type
-___ the flatMap() function
-___ the flatten() function
 
 
-import scala.collection.immutable.NumericRange
 object Demo
 {
   def main(args: Array[String]):Unit =
   {
     val myMap:Map[Int, String] = Map(1 -> "one", 2 -> "two", 3 -> "three")
     println("myMap = " + myMap) // PRINTS: myMap = Map(1 -> one, 2 -> two, 3 -> three)
-    // FYI: Calling myMap.flatten() will fail cuz myMap is already 'flattened'.
-    // This code would fail here cuz myMap is already 'flattened'.  -->  val result_4 = myMap.flatten
 
+    var myRange:Range = Range(1, myMap.size + 1, 1)
+    println("myRange = " + myRange) // PRINTS: myRange = Range 1 until 4
 
-    // The following line is equivalent to this:  val myRange:Range = 1 to myMap.size
-    val myRange:Range = Range(1, myMap.size + 1, 1)
-    println("myRange = " + myRange)       // PRINTS: myRange = Range 1 until 4
-    val myRangeMap:IndexedSeq[Option[String]] = myRange.map(myMap.get) // Same as myMap.get(_)
-    println("myRangeMap = " + myRangeMap) // PRINTS: myRangeMap = Vector(Some(one), Some(two), Some(three))
-    myRangeMap.foreach(println)           // PRINTS:                     Some(one)  Some(two)  Some(three)
-    for (x <- myRangeMap){ println(x.get) /* PRINTS:                          one        two        three */ }
+    myRange = 1 to myMap.size
+    println("myRange = " + myRange) // PRINTS:        myRange = Range 1 to 3
+                                    // Equivalent to: myRange = Range 1 until 4
 
+    // myMap.get below returns None; or the value corresponding to the key in myMap wrapped in Some().
+    var myRangeMap:IndexedSeq[Option[String]] = myRange.map(myMap.get)
+    println("myRangeMap = " + myRangeMap)                 // PRINTS: myRangeMap = Vector(Some(one), Some(two), Some(three))
+    println("myRangeMap.flatten = " + myRangeMap.flatten) // PRINTS: myRangeMap.flatten = Vector(one, two, three)
+    myRangeMap.foreach(println) // PRINTS: Some(one)
+                                //         Some(two)
+                                //         Some(three)
+    for (x <- myRangeMap) { println(x.get) }  // PRINTS: one
+                                              //         two
+                                              //         three
 
-    val result_1:IndexedSeq[String] = myRange.flatMap(myMap.get(_))        // Equivalent to the BELOW line.
-    val result_2:IndexedSeq[String] = (1 to myMap.size).flatMap(myMap.get) // Equivalent to the ABOVE line.
-    val result_3:Vector[String]     = Vector("one", "two", "three")
-    println(result_1) // PRINTS: Vector(one, two, three)
-    println(result_2) // PRINTS: Vector(one, two, three)
-    println(result_3) // PRINTS: Vector(one, two, three)
-
-    val chars:NumericRange[Char] = 'a' to 'z'
-    println(chars) // PRINTS: NumericRange a to z
+    println("myRange.flatMap(myMap.get) = " + myRange.flatMap(myMap.get))
+    // PRINTS: myRange.flatMap(myMap.get) = Vector(one, two, three)
 
     val list_1:List[Int]       = List(6, 7, 8, 9, 10)
     val list_2:List[Int]       = List(1, 2, 3, 4, 5)
     val list_3:List[List[Int]] = List(list_1, list_2)
+    // NOTE: We can't call list_3.flatMap(i=>i*i) below cuz we must first flatten, and then map.
     println(list_3.flatten.map(i=>i*i)) // PRINTS: List(36, 49, 64, 81, 100, 1, 4, 9, 16, 25)
   }
 }
