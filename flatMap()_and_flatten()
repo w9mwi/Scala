@@ -33,11 +33,8 @@ object Demo
 }
 
 ===========================================================================
-The following code sample shows how to use the flatten() method.
 
 import scala.collection.immutable.NumericRange
-import scala.collection.immutable
-
 object Demo
 {
   def main(args: Array[String]):Unit =
@@ -45,7 +42,7 @@ object Demo
     println("PART 1) ================================")
     // NOTE: This part just calls isPrime(), and has nothing to do with flatten() or flatMap().
     val number = 54321L
-    println("isPrime(" + number + ") = " + isPrime(number))
+    println("isPrime(" + number + ") = " + isPrime(number)) // PRINTS: isPrime(54321) = false
 
     println("PART 2) ================================")
     val list_1:List[Int]   = List(9, 8, 7, 6, 5)
@@ -54,29 +51,23 @@ object Demo
     val array_1:Array[List[Int]] = Array(list_1, list_2, list_3)
     for (list <- array_1) // Loops through each element of array_1
     {
-      // Prints all Int numbers in list_1, then in list_2, then in list_3.
       list.foreach(println) // PRINTS: 9 8 7 6 5 10 11 12 13 14 15 16
     }
 
-    // PART 3) below prints the IDENTICAL results as PART 2) above...
+    // This PART 3) prints the IDENTICAL results as PART 2) above...
     println("PART 3) ================================")
     val result_1:Array[Int] = array_1.flatten // result_1 = Array(9, 8, 7, 6, 5, 10, 11, 12, 13, 14, 15, 16)
     result_1.foreach(println) // PRINTS: 9 8 7 6 5 10 11 12 13 14 15 16
 
-    // PART 4) below prints the IDENTICAL results as PART 3) above...
     println("PART 4) ================================")
     val array_2:Array[Int] = Array(22, 33, 44)
     val array_3:Array[Int] = Array(55, 66, 77)
     val array_4:Array[Int] = Array(88, 99)
     val list_4:List[Array[Int]] = List(array_2, array_3, array_4)
-    for (array <- list_4) // Loops through each element of list_4
-    {
-      // Prints all Int numbers in array_2, then in array_3, then in array_4
-      array.foreach(println) // PRINTS: 9 8 7 6 5 10 11 12 13 14 15 16
-    }
+    for (array <- list_4) { array.foreach(println) } // PRINTS: 22 33 44 55 66 77 88 99
 
     println("PART 5) ================================")
-    val result_2:List[Int] = list_4.flatten // result_2 = List(22, 33, 44, 55, 66, 77, 88, 99)
+    val result_2:List[Int] = list_4.flatten
     result_2.foreach(println) // PRINTS: 22 33 44 55 66 77 88 99
 
     println("PART 6) ================================")
@@ -86,15 +77,15 @@ object Demo
   }
 
   /**
-    * Determine if a Long value is or isn't prime.
-    * @param number
-    * @return
-    */
+   * Determine if a Long value is or isn't prime.
+   * @param number
+   * @return true if number is prime; otherwise false
+   */
   def isPrime(number:Long):Boolean =
   {
-    // NOTE: NumericRange is a more generic version of the Range class,
-    //       as it's a parametric function that can work with different
-    //       data types (Int., Long, BigInt).
+    // NOTE: NumericRange is a more generic version of the Range class.
+    //       It's a parametric function that can work with different
+    //       data types (i.e., Int, Long, BigInt).
     var numericRange = NumericRange(2L, number, 1L)
 
     // Test ALL elements of numericRange.  If ALL elements of numericRange
@@ -102,6 +93,7 @@ object Demo
     numericRange.forall(number % _ != 0)
   }
 }
+
 ===================================================================================
 The following code sample shows use of the flatten(), flatMap() and map() methods.
 
