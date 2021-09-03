@@ -1,4 +1,46 @@
+IMPORTANT TO REMEMBER
+=====================
+1) As one of the examples on this page shows (search for "flatten"), it's possible for
+   the map() and flatMap() method to fail when called on a List that hasn't first been
+   'flattened' enough, in which case an error will be thrown.
+2) Once a List is in its most 'flattened' state (i.e., a List[Int]), calling the
+   flatten() method on it will throw an error.
+3) The name flatMap() is misleading because flatMap() calls the map() method FIRST,
+   and then calls the flatten() method SECOND.
+4) The flatten() method 'flattens' a List ONLY ONE LEVEL!  So if you call flatten()
+   on a List[List[Int]], the result will be a List[Int].  But if you call flatten()
+   on a List[List[List[Int]]], the result will be a List[List[Int]], which means
+   that List is still NOT fully 'flattened'.  A List that is fully-flattened means
+   it's a single-level List (i.e., List[Int]), NOT a List that contains another List
+   or collection.
+5) TO UNDERSTAND EXACTLY HOW List.flatMap UNDERSTAND THIS CODE...
+
+   object Demo
+  {
+    def main(args: Array[String]):Unit =
+    {
+      val list_1:List[Int] = List(1,2,3,4,5)
+      println("A) " + list_1)               // PRINTS: A) List(1, 2, 3, 4, 5)
+      println("B) " + list_1.map(i=>i*2))   // PRINTS: B) List(2, 4, 6, 8, 10)
+      println("C) " + list_1.flatMap(func)) // PRINTS: C) List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+
+      // This is what happens when list_1.flatMap(func)) is called:
+      // 1) flatMap first calls the map function on every element in list_1.
+      //    So the map function generates this result:
+      //    List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
+      //
+      // 2) After flatMap calls the map function, it then calls the flatten function
+      //    on the results of the map function.  So flatten transforms this...
+      //    List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
+      //    ...into this, which is the final result of calling flatMap...
+      //    List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+    }
+
+    def func(intNumber:Int):List[Int] = List(intNumber - 1, intNumber, intNumber + 1)
+}
+
 ===========================================================================
+
 object Demo
 {
   def main(args:Array[String]): Unit =
@@ -94,24 +136,8 @@ object Demo
   }
 }
 
-===================================================================================
-The following code sample shows use of the flatten(), flatMap() and map() methods.
 
-IMPORTANT TO REMEMBER
-=====================
-1) As one of the examples on this page shows (search for "flatten"), it's possible for
-   the map() and flatMap() method to fail when called on a List that hasn't first been
-   'flattened' enough, in which case an error will be thrown.
-2) Once a List is in its most 'flattened' state (i.e., a List[Int]), calling the
-   flatten() method on it will throw an error.
-3) The name flatMap() is misleading because flatMap() calls the map() method FIRST,
-   and then calls the flatten() method SECOND.
-4) The flatten() method 'flattens' a List ONLY ONE LEVEL!  So if you call flatten()
-   on a List[List[Int]], the result will be a List[Int].  But if you call flatten()
-   on a List[List[List[Int]]], the result will be a List[List[Int]], which means
-   that List is still NOT fully 'flattened'.  A List that is fully-flattened means
-   it's a single-level List (i.e., List[Int]), NOT a List that contains another collection.
-
+================================================================================
 
 NOTE: When flatten() and flatMap() is called on a Seq, they return a Seq.
       When flatten() and flatMap() is called on a List, they return a List.
@@ -161,23 +187,9 @@ object Demo
     println(result_11) // PRINTS the cosine of each number in doubleList_1 and doubleList_2.
   }
 }
+
 ================================================================================
 The following code sample shows use of the flatten(), flatMap() and map() methods.
-
-IMPORTANT TO REMEMBER
-=====================
-1) As one of the examples on this page shows (search for "flatten"), it's possible for
-   the map() and flatMap() method to fail when called on a List that hasn't first been
-   'flattened' enough, in which case an error will be thrown.
-2) Once a List is in its most 'flattened' state (i.e., a List[Int]), calling the
-   flatten() method on it will throw an error.
-3) The name flatMap() is misleading because flatMap() calls the map() method FIRST,
-   and then calls the flatten() method SECOND.
-4) The flatten() method 'flattens' a List ONLY ONE LEVEL!  So if you call flatten()
-   on a List[List[Int]], the result will be a List[Int].  But if you call flatten()
-   on a List[List[List[Int]]], the result will be a List[List[Int]], which means
-   that List is still NOT fully 'flattened'.  A List that is fully-flattened means
-   it's a single-level List (i.e., List[Int]), NOT a List that contains another List.
 
 object Demo
 {
