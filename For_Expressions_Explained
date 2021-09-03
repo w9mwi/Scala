@@ -117,12 +117,19 @@ Those 4 methods will make the Sequence case class work with "for expressions"
 (which use the "yield" keyword).  This Sequence class works with generic
 types, so it's defined below as Sequence[A], where A is the generic type.
 
+
 import scala.collection.mutable.ListBuffer
 object Demo
 {
   case class Person(firstName:String, lastName:String)
   case class Sequence[A](private val initialElems: A*) // A* designates a variable number of args of type A.
   {
+    // When this Sequence constructor is called it creates an elems
+    // instance, which represents all elements in this Sequence class.
+    // EXAMPLE:  As you can call the List constructor like this: List(1, 2, 3),
+    //           you can call the Sequence constructor like this: Sequence(1, 2, 3)
+    //           The Demo.main() method below calls this Sequence constructor,
+    //           where the number of args it gets passed is variable.
     private val elems:ListBuffer[A] = ListBuffer[A]()
     elems ++= initialElems // The ++= operator for the ListBuffer class appends multiple elements.
     // NOTE: "elems ++= initialElems" above could be replaced with:  for { x <- initialElems } elems += x
@@ -151,7 +158,8 @@ object Demo
       //       that accepts a variable number of arguments.  In this example, since
       //       the Sequence constructor is written to accept a variable number of args,
       //       the :_* syntax must be used with the listBuf collection.
-      Sequence(listBuf.toSeq:_*)
+      Sequence(listBuf.toSeq:_*) // Return a new Sequence class where map() was run
+                                 // on all elements of the previous Sequence class.
     }
 
     /*********************************************************
@@ -161,16 +169,22 @@ object Demo
      ********************************************************/
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
     {
-      var listBuf_1:ListBuffer[B] = ListBuffer[B]()
-      for (listBuf_2:Sequence[B] <- map(func)) // map(func) calls the above-defined map() method.
+      var resultListBuf:ListBuffer[B] = ListBuffer[B]()
+
+      // NOTE: In Scala the flatMap function does these two things...
+      //       1) Calls the map function on every element in the collection, returning a new collection.
+      //       2) Calls the flatten function on the result returned by map, returning that result.
+      for (listBuf:Sequence[B] <- map(func)) // First map is called.
       {
-        for (elem <- listBuf_2) { listBuf_1 += elem }
+        for (elem <- listBuf) { resultListBuf += elem }  // This for() loop "flattens" the result returned by map.
       }
+
       // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
       //       that accepts a variable number of arguments.  In this example, since
       //       the Sequence constructor is written to accept a variable number of args,
-      //       the :_* syntax must be used with the listBuf_1 collection.
-      Sequence(listBuf_1.toSeq:_*)
+      //       the :_* syntax must be used with the resultListBuf collection.
+      Sequence(resultListBuf.toSeq:_*) // Return a new Sequence class where flatMap() was
+                                       // run on all elements of the previous Sequence class.
     }
 
     /*********************************************************
@@ -185,7 +199,8 @@ object Demo
       //       that accepts a variable number of arguments.  In this example, since
       //       the Sequence constructor is written to accept a variable number of args,
       //       the :_* syntax must be used with the listBuf_1 collection.
-      Sequence(listBuf.toSeq:_*)
+      Sequence(listBuf.toSeq:_*) // Return a new Sequence class where withFilter() was
+                                 // run on all elements of the previous Sequence class.
     }
   } // END: case class Sequence[A]
 
@@ -204,10 +219,10 @@ object Demo
     // because the Sequence.flatMap() method is defined above.
     val mutualFriends:Sequence[Person] =
     for {
-      myFriend   <- myFriends   // This is a GENERATOR.
-      joesFriend <- joesFriends // This is another GENERATOR.
-      if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
-    } yield myFriend
+          myFriend   <- myFriends   // This is a GENERATOR.
+          joesFriend <- joesFriends // This is another GENERATOR.
+          if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
+        } yield myFriend
 
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(List(Person(Jim,Beam)))
     mutualFriends.foreach(println)              // PRINTS: Person(Jim,Beam)
