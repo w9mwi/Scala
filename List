@@ -547,7 +547,36 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
               The flatMap() method always returns a List data type because the result of map()
               getting executed on every member of the List means that every element of the
               List has a result.  Therefore, the result consists of multiple elements which
-              get stored in a List.  EXAMPLES of using the flatMap() method...
+              get stored in a List.
+
+              TO UNDERSTAND EXACTLY HOW List.flatMap WORKS, UNDERSTAND THIS CODE...
+
+              object Demo
+              {
+                def main(args: Array[String]):Unit =
+                {
+                  val list_1:List[Int] = List(1,2,3,4,5)
+                  println("A) " + list_1)               // PRINTS: A) List(1, 2, 3, 4, 5)
+                  println("B) " + list_1.map(i=>i*2))   // PRINTS: B) List(2, 4, 6, 8, 10)
+                  println("C) " + list_1.flatMap(func)) // PRINTS: C) List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+
+                  // This is what happens when list_1.flatMap(func)) is called:
+                  // 1) flatMap first calls the map function on every element in list_1.
+                  //    So the map function generates this result:
+                  //    List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
+                  //
+                  // 2) After flatMap calls the map function, it then calls the flatten function
+                  //    on the results of the map function.  So flatten transforms this...
+                  //    List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
+                  //    ...into this, which is the final result of calling flatMap...
+                  //    List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+                }
+
+                def func(intNumber:Int):List[Int] = List(intNumber - 1, intNumber, intNumber + 1)
+              }
+
+
+              MORE EXAMPLES of using the flatMap() method...
 
               val fish:List[String]               = List[String]("alewife", "bass", "perch", "northern", "walleye")
               val waterBirds:List[String]         = List[String]("eagle", "duck", "goose")
@@ -559,14 +588,14 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
               println("E) waterAnimals.flatten             = " + waterAnimals.flatten)
               println("F) waterAnimals.map(x => x).flatten = " + waterAnimals.map(x => x).flatten)
               println("G) waterAnimals.flatMap(x => x)     = " + waterAnimals.flatMap(x => x))
-          //  PRINTS THE FOLLOWING 7 LINES...
-          //  A) fish                             = List(alewife, bass, perch, northern, walleye)
-          //  B) waterBirds                       = List(eagle, duck, goose)
-          //  C) waterAnimals                     = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
-          //  D) waterAnimals.map(x => x)         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
-          //  E) waterAnimals.flatten             = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
-          //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
-          //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+              //  PRINTS THE FOLLOWING 7 LINES...
+              //  A) fish                             = List(alewife, bass, perch, northern, walleye)
+              //  B) waterBirds                       = List(eagle, duck, goose)
+              //  C) waterAnimals                     = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
+              //  D) waterAnimals.map(x => x)         = List(List(alewife, bass, perch, northern, walleye), List(eagle, duck, goose))
+              //  E) waterAnimals.flatten             = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+              //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
+              //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
 ___ flatten - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_and_flatten()
               The following code shows the results of executing the flatten method on 5 different
