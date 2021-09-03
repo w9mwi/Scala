@@ -20,9 +20,9 @@ IMPORTANT TO REMEMBER
      def main(args: Array[String]):Unit =
      {
        val list_1:List[Int] = List(1,2,3,4,5)
-       println("A) " + list_1)               // PRINTS: A) List(1, 2, 3, 4, 5)
-       println("B) " + list_1.map(i=>i*2))   // PRINTS: B) List(2, 4, 6, 8, 10)
-       println("C) " + list_1.flatMap(func)) // PRINTS: C) List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+       println("A) " + list_1)              // PRINTS: A) List(1, 2, 3, 4, 5)
+       println("B) " + list_1.map(i=>i*2))  // PRINTS: B) List(2, 4, 6, 8, 10)
+       println("C) " + list_1.flatMap(func) // PRINTS: C) List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
 
        // This is what happens when list_1.flatMap(func) is called:
        // 1) flatMap first calls the map function on every element in list_1.
