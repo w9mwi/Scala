@@ -556,7 +556,7 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
                   println("B) " + list_1.map(i=>i*2))   // PRINTS: B) List(2, 4, 6, 8, 10)
                   println("C) " + list_1.flatMap(func)) // PRINTS: C) List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
 
-                  // This is what happens when list_1.flatMap(func)) is called:
+                  // This is what happens when list_1.flatMap(func) is called:
                   // 1) flatMap first calls the map function on every element in list_1.
                   //    So the map function generates this result:
                   //    List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
