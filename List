@@ -542,12 +542,8 @@ ___ filter - NOTE: The difference between the filter() and map() functions are a
              result_2.foreach(println) // PRINTS: RMN Randy_Reject
 ___ filterNot - The opposite of the filter method.
 ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_and_flatten()
-              The flatMap() method called below is essentially a combination of the
-              map() method run first, followed by the flatten() method run second.
-              The flatMap() method always returns a List data type because the result of map()
-              getting executed on every member of the List means that every element of the
-              List has a result.  Therefore, the result consists of multiple elements which
-              get stored in a List.
+              The flatMap() methodis essentially a combination of the Listmap method run first,
+              followed by the List.flatten method run second.  The flatMap() method returns a List.
 
               TO UNDERSTAND EXACTLY HOW List.flatMap WORKS, UNDERSTAND THIS CODE...
 
@@ -566,10 +562,9 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
                   //    List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
                   //
                   // 2) After flatMap calls the map function, it then calls the flatten function
-                  //    on the results of the map function.  So flatten transforms this...
-                  //    List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
-                  //    ...into this, which is the final result of calling flatMap...
-                  //    List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
+                  //    on the results of the map function.  So flatten transforms...
+                  //    THIS:       List(List(0, 1, 2), List(1, 2, 3), List(2, 3, 4), List(3, 4, 5), List(4, 5, 6))
+                  //    INTO THIS:  List(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)
                 }
 
                 def func(intNumber:Int):List[Int] = List(intNumber - 1, intNumber, intNumber + 1)
