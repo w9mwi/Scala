@@ -123,7 +123,7 @@ object Demo
       //       the Sequence constructor is written to accept a variable number of args,
       //       the :_* syntax must be used with the listBuf collection.
       Sequence(listBuf.toSeq:_*) // Return a new Sequence class where map() was run
-                                 // on all elements of the previous Sequence class.
+      // on all elements of the previous Sequence class.
     }
 
     /*********************************************************
@@ -133,7 +133,7 @@ object Demo
      ********************************************************/
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
     {
-      var resultListBuf:ListBuffer[B] = ListBuffer[B]()
+      val resultListBuf:ListBuffer[B] = ListBuffer[B]()
 
       // NOTE: In Scala the flatMap function does these two things...
       //       1) Calls the map function on every element in the collection, returning a new collection.
@@ -148,7 +148,7 @@ object Demo
       //       the Sequence constructor is written to accept a variable number of args,
       //       the :_* syntax must be used with the resultListBuf collection.
       Sequence(resultListBuf.toSeq:_*) // Return a new Sequence class where flatMap() was
-                                       // run on all elements of the previous Sequence class.
+      // run on all elements of the previous Sequence class.
     }
 
     /*********************************************************
@@ -164,7 +164,7 @@ object Demo
       //       the Sequence constructor is written to accept a variable number of args,
       //       the :_* syntax must be used with the listBuf_1 collection.
       Sequence(listBuf.toSeq:_*) // Return a new Sequence class where withFilter() was
-                                 // run on all elements of the previous Sequence class.
+      // run on all elements of the previous Sequence class.
     }
   } // END: case class Sequence[A]
 
