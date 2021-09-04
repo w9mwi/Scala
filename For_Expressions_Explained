@@ -208,22 +208,22 @@ object Demo
    ********************************************************/
   def main(args:Array[String]): Unit =
   {
-    // NOTE: The Sequence class can work with different types (i.e., String, Int, Person etc.) because
-    //       it's defined as a parametric class, where the data type is determined at run time.
-    val strings:Sequence[String] = Sequence("one", "two")
-    val nums:Sequence[Int]       = Sequence(1, 2, 3, 4, 5)
-    val names:Sequence[Person]   = Sequence(Person("Joe", "Blow"), Person("Jack", "Smack"), Person("Frank", "Crank"))
+    // The following 2 lines call the above Sequence constructor by passing it a variable
+    // number of arguments.  The above Sequence constructor can be called by passing to it
+    // any data type, such as Ints.  EXAMPLE:  val seqInts = Sequence(1, 2, 3, 4)
+    val myFriends:Sequence[Person]   = Sequence(Person("Jack",   "Daniels"),  Person("Johnny", "Walker"), Person("Jim", "Beam"))
+    val joesFriends:Sequence[Person] = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
 
-    // NOTE: The following for() loops would cause compile errors if the foreach()
-    //       and map() methods weren't defined in the above Sequence class.
-    val strResult:Sequence[String]    = for (str <- strings) yield str
-    val intResult:Sequence[Int]       = for { i <- nums  }   yield i*2
-    val personResult:Sequence[Person] = for (name <- names)  yield name
+    // The following for loop works with MULTIPLE GENERATORS
+    // because the Sequence.flatMap() method is defined above.
+    val mutualFriends:Sequence[Person] =
+    for {
+          myFriend   <- myFriends   // This is a GENERATOR.
+          joesFriend <- joesFriends // This is another GENERATOR.
+          if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
+        } yield myFriend
 
-    for (str <- strResult) print(str + " ") // PRINTS: one two
-    println
-    for (int <- intResult) print(int + " ") // PRINTS: 2 4 6 8 10
-    println
-    for (name <- personResult) print(name + " ") // PRINTS: Person(Joe,Blow) Person(Jack,Smack) Person(Frank,Crank)
+    println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(List(Person(Jim,Beam)))
+    mutualFriends.foreach(println)              // PRINTS: Person(Jim,Beam)
   }
 }
