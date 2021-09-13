@@ -16,6 +16,7 @@ The following code example is an alternative to using Option/Some/None,
 as seen on this page...
 --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None_Classes
 ========================================================================
+
 object Demo
 {
   import scala.util.{Try, Success, Failure}
@@ -29,8 +30,9 @@ object Demo
   {
     strNumber match
     {
-      case Success(strNumber) => println ("number = " + strNumber)
-      case Failure(excepMsg)  => println ("Failure message = " + excepMsg)
+      // NOTE: Success and Failure are Scala-defined case classes.
+      case Success(validInt) => println ("validInt = " + strNumber)
+      case Failure(excepMsg)  => println ("FAILURE: " + excepMsg)
     }
   }
 
@@ -39,21 +41,21 @@ object Demo
     val validStringNumber:String   = "123456";
     val invalidStringNumber:String = "12345X";
     var intNumber:Try[Int] = convertStringToInt(validStringNumber)
-    printNumber(intNumber) // PRINTS: number = 123456
+    printNumber(intNumber) // PRINTS:  validInt = Success(123456)
 
     intNumber = convertStringToInt(invalidStringNumber)
-    printNumber(intNumber) // PRINTS: Failure message = java.lang.NumberFormatException: For input string: "12345X"
+    printNumber(intNumber) // PRINTS:  FAILURE: java.lang.NumberFormatException: For input string: "12345X"
 
     intNumber = for {
-                      a <- convertStringToInt(validStringNumber)
-                      b <- convertStringToInt(validStringNumber)
-                    } yield a + b
-    printNumber(intNumber) // PRINTS: number = 246912
+      a <- convertStringToInt(validStringNumber)
+      b <- convertStringToInt(validStringNumber)
+    } yield a + b
+    printNumber(intNumber) // PRINTS:  validInt = Success(246912)
 
     intNumber = for {
-                      a <- convertStringToInt("1")
-                      b <- convertStringToInt(invalidStringNumber)
-                    } yield a + b
-    printNumber(intNumber) // PRINTS: Failure message = java.lang.NumberFormatException: For input string: "12345X"
+      a <- convertStringToInt("1")
+      b <- convertStringToInt(invalidStringNumber)
+    } yield a + b // NOTE: A valid Int (1) + an invalid Int (12345X) results in a Failure...
+    printNumber(intNumber) // PRINTS:  FAILURE: java.lang.NumberFormatException: For input string: "12345X"
   }
 }
