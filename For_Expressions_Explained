@@ -146,8 +146,8 @@ object Demo
 
     /*********************************************************
      * NOTE: This map() method enables the main() function
-     *       below to implement this type of for loop on
-     *       this Sequence case class:
+     *       below to implement a for loop on this Sequence
+     *       case class, such as this example:
      *       for { x <- ints } yield x*2
      ********************************************************/
     def map[B](func: A=>B):Sequence[B] =
