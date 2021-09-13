@@ -24,7 +24,7 @@ object Demo
   /****************************************************************
    * This is a FUNCTION named square_function.  A FUNCTION does
    * NOT take a parameter!!!  A function (as opposed to a method)
-   * RETURNS A FUNCTION
+   * RETURNS A FUNCTION.
    *
    * A FUNCTION (as opposed to a method) is sometimes called a
    * NULLARY FUNCTION because its definition (as shown below)
