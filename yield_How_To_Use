@@ -16,8 +16,8 @@ make a Scala for() loop return a single value, the for() loop uses the
   Here's an example:
   for {
         p <- people                 // GENERATOR
-        fname = p.firstName         // DEFINITION - Note the a val/var keyword isn't used in a for comprehension.
-        if (fname.startsWith("B"))  // FILTER - Must have a boolean value, so an if() statement is often used.
+        fname = p.firstName         // DEFINITION - Note the val/var keyword isn't used in the definition of a for comprehension.
+        if (fname.startsWith("B"))  // FILTER     - Must have a boolean value, so an if() statement is often used.
       } yield fname.toUpperCase
 
 A for() loop can contain a FILTER, which is the if() statement within the for() loop shown above.
