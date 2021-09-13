@@ -170,7 +170,7 @@ object Demo
     {
       val resultListBuf:ListBuffer[B] = ListBuffer[B]()
 
-      // NOTE: In Scala the flatMap function does these two things...
+      // NOTE: In Scala the flatMap function calls the following 2 functions, in this order:
       //       1) Calls the map function on every element in the collection, returning a new collection.
       //       2) Calls the flatten function on the result returned by map, returning that result.
       for (listBuf:Sequence[B] <- map(func)) // First map is called.
