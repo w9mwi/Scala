@@ -63,7 +63,7 @@ object Demo
     }
 
     // NOTE: The reason the blockOfCode return type is designated as  " => Int"  below
-    //       instead of something like  "Int => Int"  is because blockOfCode is just a
+    //       (instead of something like  "Int => Int")  is because blockOfCode is just a
     //       block of code, so it accepts no param/arg, and thus the blank space before
     //       the "=>" rocket.  The reason for the Int after the "=>" rocket is because
     //       the last line of blockOfCode evaluates to an Int value.  So blockOfCode
