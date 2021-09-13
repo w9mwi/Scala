@@ -80,7 +80,7 @@ object Demo
     def passByNameFunc(passedFunc:() => Double): Unit =
     {
       // NOTE: To execute the function that gets passed to this function,
-      // you MUST call its apply() method.
+      //       you MUST call its apply() method.
       println("func(passedFunc) is called, where passedFunc.apply() = " + passedFunc.apply())
     }
 
