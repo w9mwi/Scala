@@ -135,8 +135,9 @@ object Demo
 
     /*********************************************************
      * NOTE: This foreach() method enables the main() function
-     *       below to implement this type of for loop on this
-     *       Sequence case class:
+     *       below to implement a for loop in the Sequence
+     *       case class, similar to this example, where ints
+     *       is a Sequence class:
      *       for (x <- ints) println(x)
      ********************************************************/
     def foreach(block: A => Unit):Unit =
