@@ -45,12 +45,17 @@ object Demo
     intNumber = convertStringToInt(invalidStringNumber)
     printNumber(intNumber) // PRINTS:  FAILURE: java.lang.NumberFormatException: For input string: "12345X"
 
+    // NOTE: Although convertStringToInt() returns a Try[Int] type, the
+    //       a and b contained in the following for loop are an Int type.
     intNumber = for {
       a <- convertStringToInt(validStringNumber)
       b <- convertStringToInt(validStringNumber)
     } yield a + b
     printNumber(intNumber) // PRINTS:  validInt = Success(246912)
 
+
+    // NOTE: Although convertStringToInt() returns a Try[Int] type, the
+    //       a and b contained in the following for loop are an Int type.
     intNumber = for {
       a <- convertStringToInt("1")
       b <- convertStringToInt(invalidStringNumber)
