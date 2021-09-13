@@ -1,20 +1,19 @@
-This page describes how to use the Scala types
-"Either" and "Try".  NOTE: The "Try" type is not
-that same as the "try" Scala keyword that's used
-with "catch".
+This page describes how to use the following 3 Scala classes
+together, in order to determine the reason why an exception
+occurred, when an exception is thrown.
 
-The Option/Some/None classes are similar to the
-Try/Failure/Success classes...
+1) Try
+2) Success
+3) Failure
+
+NOTE: The Scala Option class can be used in place of a Try block.
+      But when Option detects a failure, it doesn't report the
+      reason why the failure occurred.  Using a Try block will
+      reveal the type of exception thrown by Scala so you know
+      why the failure occurred.
+
 SEE ALSO --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None_Classes
 
-Just like the "Option" type will always have a subclass
-"Some " or "None", the "Either" type will always have
-a subclass of "Success" or "Failure".  Where "Failure"
-contains the reason why something failed.
-
-The following code example is an alternative to using Option/Some/None,
-as seen on this page...
---> https://github.com/w9mwi/Scala/blob/master/Option_Some_None_Classes
 ========================================================================
 
 object Demo
