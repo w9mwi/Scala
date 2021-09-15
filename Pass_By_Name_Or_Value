@@ -97,7 +97,7 @@ object Demo
 {
   /**
    * This forloop_1 function is a recursive function that has
-   * TWO (2) argument lists, which is desirnated by 2 sets of
+   * TWO (2) argument lists, which is designated by 2 sets of
    * parenthesis... ()()
    *
    * When this forloop_1 function is called, it gets passed 2 Nullary Functions.
