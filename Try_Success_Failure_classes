@@ -16,10 +16,9 @@ SEE ALSO --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None_Classes
 
 ========================================================================
 
+import scala.util.{Try, Success, Failure}
 object Demo
 {
-  import scala.util.{Try, Success, Failure}
-
   def convertStringToInt(str:String):Try[Int] =
   {
     Try(str.trim.toInt)
@@ -61,5 +60,65 @@ object Demo
       b <- convertStringToInt(invalidStringNumber)
     } yield a + b // NOTE: A valid Int (1) + an invalid Int (12345X) results in a Failure...
     printNumber(intNumber) // PRINTS:  FAILURE: java.lang.NumberFormatException: For input string: "12345X"
+  }
+}
+
+========================================================================
+
+import scala.util.{Try, Success, Failure}
+object Demo
+{
+
+  def divide: Try[Int] =
+  {
+    // ***********************************************************************
+    // In this section, set both dividend and divisor to a VALID String Int
+    // to generate a VALID result.
+    // ***********************************************************************
+    var dividend:Try[Int]= Try("12".toInt)
+    println("dividend = " + dividend) // PRINTS: dividend = Success(12)
+    var divisor:Try[Int] = Try("4".toInt)
+    println("divisor = " + divisor)   // PRINTS: divisor = Success(4)
+
+    // The next line of code is difficult to understand.  To obtain the same result
+    // it could be re-written as follows, which is slightly easier to understand.
+    // var result:Try[Int] = dividend.map(x => divisor.map(y => x / y)).flatten
+    var result:Try[Int] = dividend.flatMap(x => divisor.map(y => x / y))
+    println("result = " + result) // PRINTS: result = Success(3)
+
+    result match {
+      case Success(x) => println("result = " + dividend.get + "/" + divisor.get + " = " + x)
+      case Failure(excep) => println("You divided by zero or entered an invalid String Int.\n" +
+                                     "Exception message: " + excep.getMessage)
+    }
+
+    // ***********************************************************************
+    // In this section we set the dividend or divisor to an INVALID String Int
+    // to generate an EXCEPTION and print the error message.
+    // ***********************************************************************
+    println("================")
+    dividend = Try("25".toInt)
+    println("dividend = " + dividend) // PRINTS: dividend = Success(25)
+    divisor  = Try("five".toInt)
+    println("divisor = " + divisor)   // PRINTS: divisor = Failure(java.lang.NumberFormatException: For input string: "five")
+
+    result   = dividend.flatMap(x => divisor.map(y => x / y))
+    println("result = " + result) // PRINTS: result = Failure(java.lang.NumberFormatException: For input string: "five")
+
+    result match {
+      case Success(x) => println("result = " + dividend.get + "/" + divisor.get + " = " + x)
+           Success(x)
+      case Failure(excep) => println("You divided by zero or entered an invalid String Int.\n" +
+                                     "Exception message: " + excep.getMessage)
+          Failure(excep)
+    }
+  }
+
+  /******************************************
+   *
+   *****************************************/
+  def main(args: Array[String])
+  {
+    divide
   }
 }
