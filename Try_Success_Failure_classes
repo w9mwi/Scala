@@ -6,7 +6,7 @@ occurred, when an exception is thrown.
 2) Success
 3) Failure
 
-Instances of Try[T] are either an instance of scala.util.Success[T]
+Instances of Try[T] are either an instance of scala.util.Success[T],
 or an instance of scala.util.Failure[T].  In other words...
 scala.util.Success[T] extends Try[T]
 scala.util.Failure[T] extends Try[T]
