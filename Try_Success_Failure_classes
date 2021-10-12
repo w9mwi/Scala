@@ -1,3 +1,7 @@
+IMPORTANT:
+Instances of Try[T] are either an instance of scala.util.Success[T]
+                    or an instance of scala.util.Failure[T].
+
 This page describes how to use the following 3 Scala classes
 together, in order to determine the reason why an exception
 occurred, when an exception is thrown.
