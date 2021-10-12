@@ -7,7 +7,9 @@ occurred, when an exception is thrown.
 3) Failure
 
 Instances of Try[T] are either an instance of scala.util.Success[T]
-                    or an instance of scala.util.Failure[T].
+or an instance of scala.util.Failure[T].  In other words...
+scala.util.Success[T] extends Try[T]
+scala.util.Failure[T] extends Try[T]
 
 NOTE: The Scala Option class can be used in place of a Try block.
       But when Option detects a failure, it doesn't report the
