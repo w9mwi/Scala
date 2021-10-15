@@ -37,9 +37,8 @@ in the following 8 ways...
 
 3) The "case class" Scala type automatically inherits from the type Serializable.
 
-4) A case class CAN'T be declared without arguments/parameters.  This was
-   possible in very old versions of Scala, but not anymore.  However, you
-   CAN create a "case object" without arguments/parameters.
+4) A case class MUST contain one or more args/params in its definition.
+   However, you CAN create a "case object" without any args/params.
 
 5) A case class CAN be abstract, as the following example line of code shows.
    abstract case class Card(id:Int)
