@@ -1,3 +1,33 @@
+A Scala object is a type of class that can have NO MORE THAN ONE INSTANCE.  Therefore,
+a Scala object is known as a SINGLETON in object-oriented design terminology.
+
+An object can extend another class, but a class CAN'T extend an object.
+Objects DON'T take any parameters, but you can define the fields, methods,
+and classes within an object, as you can with regular classes.
+
+The syntax for defining an object is as follows,
+where square brackets [] contain options:
+
+object <identifier> [extends <identifier>] [{ fields, methods, and classes }]
+
+The following sample code shows how a very simple object named Hello is used.
+==============================================
+object Demo
+{
+  object Hello
+  {
+    def hey:String = "Hey, there."
+    println("This line executes when the Hello object is instantiated.")
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val myDemo = Hello // PRINTS: This line executes when the Hello object is instantiated.
+    println(Hello.hey) // PRINTS: Hey, there.
+  }
+}
+
+==============================================
 Everything in Scala is an object, including classes, traits, and functions.
 Unlike a Scala class, a Scala object can't be passed any arguments!
 This is because an object is NEVER created using the 'new' keyword, as you
@@ -63,6 +93,9 @@ BOTH the class and its companion object should be placed in the same file.
 When building a new Scala object, you may use the 'new' keyword, but it is
 optional.  Building an object always call the 'new' keyword.  If you don't
 use 'new' explicitly in your code, 'new' gets invoked via the object's
-apply() method.  In the Scala API documentation, the circled 'c' represents
-a class, the circled 'o' represents an object, and the circled 't' represents
-a trait.
+apply() method.
+
+NOTE: In the Scala API documentation...
+      1) A circled 'c' represents a class
+      2) A circled 'o' represents an object
+      3) A circled 't' represents a trait.
