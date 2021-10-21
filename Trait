@@ -134,10 +134,8 @@ object Demo
 The following sample code shows the similarities and
 differences of a Scala trait versus a Scala abstract class.
 
-
 object Demo
 {
-
   abstract class Person_Abstract_Class
   {
     val name:String
@@ -154,18 +152,17 @@ object Demo
 
   def main(args: Array[String]): Unit =
   {
-
-    val tom_1 =  new Person_Trait {
-      val name = "Tom"
-      val age = 63
+    val tom_1:Person_Trait =  new Person_Trait {
+      val name:String = "Tom"
+      val age:Int = 63
     }
-    println(tom_1)
+    println(tom_1) // PRINTS: name: Tom, age: 63
 
-    val tom_2 = new Person_Abstract_Class {
+    val tom_2:Person_Abstract_Class = new Person_Abstract_Class {
       val name = "Tom_2"
       val age = 6363
     }
-    println(tom_2)
+    println(tom_2) // PRINTS: name: Tom_2, age: 6363
    }
 }
 
