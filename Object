@@ -22,8 +22,8 @@ object Demo
 
   def main(args: Array[String]):Unit =
   {
-    val myDemo = Hello // PRINTS: This line executes when the Hello object is instantiated.
-    println(Hello.hey) // PRINTS: Hey, there.
+    val myHello:Demo.Hello.type = Hello // PRINTS: This line executes when the Hello object is instantiated.
+    println(myHello.hey)                // PRINTS: Hey, there.
   }
 }
 
