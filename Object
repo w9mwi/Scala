@@ -46,7 +46,11 @@ Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
 A companion object is an object that has the same name as the class to which
 it is a companion.  The companion object has access to private members of the
 companion class.  Likewise, the class can see private elements in the object.
-BOTH the class and its companion object should be placed in the same file.
+
+To put that in other words, companion objects and classes are considered a
+single unit in terms of access controls, so they can access each other’s
+private and protected fields and methods.  BOTH the class and its companion
+object should be placed in the same file.
 
 Everything in Scala is an object, including classes, traits, and functions.
 Unlike a Scala class, a Scala object can't be passed any arguments!
