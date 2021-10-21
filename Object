@@ -11,7 +11,7 @@ where square brackets [] contain options:
 object <identifier> [extends <identifier>] [{ fields, methods, and classes }]
 
 The following sample code shows how a very simple object named Hello is used.
-==============================================
+=============================================================================
 object Demo
 {
   object Hello
@@ -24,10 +24,14 @@ object Demo
   {
     val myHello:Demo.Hello.type = Hello // PRINTS: This line executes when the Hello object is instantiated.
     println(myHello.hey)                // PRINTS: Hey, there.
+
+    val myHello_2:Demo.Hello.type = Hello // This line DOESN'T execute the println() statement in the Hello object
+                                          // because that happens ONLY when the Hello object is instantiated,
+                                          // which occurred above.
+    println(myHello_2.hey)                // PRINTS: Hey, there.
   }
 }
-
-==============================================
+=============================================================================
 Everything in Scala is an object, including classes, traits, and functions.
 Unlike a Scala class, a Scala object can't be passed any arguments!
 This is because an object is NEVER created using the 'new' keyword, as you
