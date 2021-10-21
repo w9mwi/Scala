@@ -51,32 +51,29 @@ METHOD RESOLUTION (LINEARIZATION) - Page 466
 ============================================
 It's possible for a function having the same name and signature
 to be defined in multiple Scala classes and traits.  Assume a
-base Scala class is named Class_1, and has this definition:
+Scala base class is named Class_1, and has this definition:
 
 class Class_1 extends Class_2 with Trait_A with Trait_B with Trait_C
 
 Also assume a function named func_A is defined in some of those classes
-and traits, and all those func_A() definitions have identical signatures
+and traits, and all those func_A definitions have identical signatures
 (args and return type).  When Class_1.func_A() gets called, this is the
 order Scala searches to determine which func_A() gets invoked:
 
-1) Class_1 (the Scala base class)
-2) superclass of Class_2
-3) Class_2 (Class_2 is searched AFTER searching the superclass of Class_2.)
-4) superclass of Trait_C  (Always begin with the RIGHT-MOST trait in the "extends" list.)
-5) superclass of Trait_B
-6) superclass of Trait_A
-7) Trait_C  (Base traits are searched AFTER their superclasses are searched.)
-8) Trait_B
-9) Trait_A
+1) Class_1 (the base class) is searched for the function.
+2) The highest-to-lowest superclass of Class_2 is searched for the function.
+3) Class_2 (the extended class) is searched for the function.
+4) The highest-to-lowest superclass of Trait_C is searched for the function.
+5) The highest-to-lowest superclass of Trait_B is searched for the function.
+6) The highest-to-lowest superclass of Trait_A is searched for the function.
+7) Trait_C is searched for the function.
+8) Trait_B is searched for the function.
+9) Trait_A is searched for the function.
 
 The process of resolving which function gets invoked is called LINEARIZATION.
 THE FIRST INSTANCE OF THAT FUNCTION FOUND IS THE FUNCTION THAT GETS INVOKED.
 
-Even if there are 10 functions all having the same name and signature defined in
-traits/classes extended by a base class, the base class calls ONLY the first
-function Scala finds.  Below is sample code showing which function gets invoked
-via Scala's LINEARIZATION process.
+Below is sample code showing which function gets invoked via Scala's LINEARIZATION process.
 ==================================================================================
 
 object Demo
@@ -134,7 +131,45 @@ object Demo
 }
 
 ==================================================================================
+The following sample code shows the similarities and
+differences of a Scala trait versus a Scala abstract class.
 
+
+object Demo
+{
+
+  abstract class Person_Abstract_Class
+  {
+    val name:String
+    val age:Int
+    override def toString = s"name: $name, age: $age"
+  }
+
+  trait Person_Trait
+  {
+    def name:String // Equivalent to:  val name:String
+    def age:Int     // Equivalent to:  val age:Int
+    override def toString = s"name: $name, age: $age"
+  }
+
+  def main(args: Array[String]): Unit =
+  {
+
+    val tom_1 =  new Person_Trait {
+      val name = "Tom"
+      val age = 63
+    }
+    println(tom_1)
+
+    val tom_2 = new Person_Abstract_Class {
+      val name = "Tom_2"
+      val age = 6363
+    }
+    println(tom_2)
+   }
+}
+
+==================================================================================
 If a trait contains a member function that IS defined, that member method is concrete.
 If a trait contains a member value that IS initialized, that member value is concrete.
 If a trait contains a member function that is NOT defined, that member method is abstract.
