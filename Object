@@ -10,6 +10,12 @@ where square brackets [] contain options:
 
 object <identifier> [extends <identifier>] [{ fields, methods, and classes }]
 
+An Scala object is like a Java static type, in that its members and methods are
+independent of any class that references the object's members or methods.  If
+two different Scala classes named ClassA and ClassB both reference the same Scala
+object, they will reference the object's same members and methods.  This is because
+a Scala object is NOT instantiated as are classes--Scala objects are "static."
+
 The following sample code shows how a very simple object named Hello is used.
 =============================================================================
 object Demo
@@ -32,22 +38,20 @@ object Demo
   }
 }
 =============================================================================
+A Scala object name should have its first letter capitalized, just like a Scala class name.
+Declaring an object creates a single object in the current scope, and it contains any members
+and methods that you define within the object.
+
+Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
+A companion object is an object that has the same name as the class to which
+it is a companion.  The companion object has access to private members of the
+companion class.  Likewise, the class can see private elements in the object.
+BOTH the class and its companion object should be placed in the same file.
+
 Everything in Scala is an object, including classes, traits, and functions.
 Unlike a Scala class, a Scala object can't be passed any arguments!
 This is because an object is NEVER created using the 'new' keyword, as you
 use with a class.
-
-A Scala object is somewhat similar to a Scala class.  Just as it's convention for
-a Scala class name to have its first letter capitalized, a Scala Object name should
-also have its first letter capitalized.  Declaring an object creates a single object
-in the current scope, and it contains any members and methods that you define within
-the object.
-
-An Scala object is like a Java static type, in that its members and methods are
-independent of any class that references the object's members or methods.  If
-two different Scala classes named ClassA and ClassB both reference the same Scala
-object, they will reference the object's same members and methods.  This is because
-a Scala object is NOT instantiated as are classes--Scala objects are "static."
 
 To use a Scala object's members or methods, you precede the member or method with the
 name of the object followed by the period (.) character, the same way you reference
@@ -73,31 +77,27 @@ object Demo
     println(Demo.getMyStuff)  // PRINTS: 987.666
     Demo.myStuff = -666.666F
     println(Demo.myStuff)     // PRINTS: -666.666
+
+    // Here we call the Demo2 object...
+    val demo2 = Demo2
+    demo2.main
   }
 }
 
 object Demo2
 {
+  // From this Demo2 object we reference the Demo object, and its Demo.myStuff value...
   val myDemo = Demo
-  def main(args: Array[String]):Unit =
+  def main():Unit =
   {
     // Print the Demo.myStuff value of the above-defined Demo object,
     // from this Demo2 object.
-    println(Demo.myStuff)   // PRINTS: -123.987
-    println(myDemo.myStuff) // PRINTS: -123.987
+    println(Demo.myStuff)   // PRINTS: -666.666
+    println(myDemo.myStuff) // PRINTS: -666.666
   }
 }
 
-Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
-A companion object is an object that has the same name as the class to which
-it is a companion.  The companion object has access to private members of the
-companion class.  Likewise, the class can see private elements in the object.
-BOTH the class and its companion object should be placed in the same file.
-
-When building a new Scala object, you may use the 'new' keyword, but it is
-optional.  Building an object always call the 'new' keyword.  If you don't
-use 'new' explicitly in your code, 'new' gets invoked via the object's
-apply() method.
+=============================================================================
 
 NOTE: In the Scala API documentation...
       1) A circled 'c' represents a class
