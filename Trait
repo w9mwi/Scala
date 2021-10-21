@@ -4,6 +4,15 @@ There are three ways to create a data type in Scala...
 2) class
 3) trait
 
+QUESTION: When coding an abstract type that will be used with inheritance,
+          should a "trait" be used, or an "abstract class"?
+
+ANSWER: The rule of thumb is to use a trait because it allows the flexibility
+        of multiple inheritance.  While a trait cannot take arguments (as can
+        an abstract class), any values that you'd want to provide as arguments
+        can be put into a trait and left undefined, so the class that implements
+        the trait will have to provide those values.
+
 You might think that traits are like Java interfaces with concrete methods,
 but they can actually do much more.  Traits can declare fields and maintain
 state.  Scala traits and classes can often accomplish the same behavior.
@@ -32,7 +41,6 @@ But there are three (3) differences between a Scala class and trait...
 
    A trait CAN'T extend a class.
    A trait CAN extend zero, one, or multiple traits.
-
 
 Below are three (3) examples for declaring classes and traits,
 which extend other classes/traits.
@@ -200,15 +208,6 @@ class Cat extends Pet
    override def speak(): Unit = { println("Meow") }
    def comeToMaster(): Unit   = { println("That's not gonna happen.") }
 }
-
-QUESTION: When coding an abstract type that will be used with inheritance,
-          should a "trait" be used, or an "abstract class"?
-
-ANSWER: The rule of thumb is to use a trait because it allows the flexibility
-        of multiple inheritance.  While a trait cannot take arguments (as can
-        an abstract class), any values that you'd want to provide as arguments
-        can be put into a trait and left undefined, so the class that implements
-        the trait will have to provide those values.
 
 ==========================================================================================
 
