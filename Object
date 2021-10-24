@@ -31,9 +31,10 @@ object Demo
     val myHello:Demo.Hello.type = Hello // PRINTS: This line executes when the Hello object is instantiated.
     println(myHello.hey)                // PRINTS: Hey, there.
 
-    val myHello_2:Demo.Hello.type = Hello // This line DOESN'T execute the println() statement in the Hello object
-                                          // because that happens ONLY when the Hello object is instantiated,
-                                          // which occurred above.
+    val myHello_2:Demo.Hello.type = Hello // This line DOESN'T execute the println() statement contained
+                                          // in the Hello object because that happens ONLY ONCE, when
+                                          // the Hello object is first instantiated--in the first line
+                                          // of this main() method.
     println(myHello_2.hey)                // PRINTS: Hey, there.
   }
 }
