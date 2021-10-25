@@ -53,9 +53,9 @@ single unit in terms of access controls, so they can access each other’s
 private and protected fields and methods.  BOTH the class and its companion
 object should be placed in the same file.
 
-Below is a code sample shows how to use a class having a companion object.
-NOTE: The main() method instantiates the object DBConnection, which then
-      instantiates the class DBConnection via its apply() method.
+Below is a code sample showing how to use a class that has a companion object.
+NOTE: The first line of code in the main() method instantiates the object DBConnection,
+      which contains an apply() method that instantiates the class DBConnection.
 
 ================================================================================
 object Demo
