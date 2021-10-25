@@ -44,7 +44,7 @@ Declaring an object creates a single object in the current scope, and it contain
 and methods that you define within the object.
 
 Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
-A companion object is an object that has the same name as the class to which
+A companion object is an object that HAS THE SAME NAME as the class to which
 it is a companion.  The companion object has access to private members of the
 companion class.  Likewise, the class can see private elements in the object.
 
@@ -52,6 +52,33 @@ To put that in other words, companion objects and classes are considered a
 single unit in terms of access controls, so they can access each other’s
 private and protected fields and methods.  BOTH the class and its companion
 object should be placed in the same file.
+
+Below is a code sample shows how to use a class having a companion object.
+NOTE: The main() method instantiates the object DBConnection, which then
+      instantiates the class DBConnection via its apply() method.
+
+================================================================================
+object Demo
+{
+  object DBConnection {
+    def apply() = new DBConnection("www.bing.com")  // This apply() method is REQUIRED for the code to compile.
+    println("object DBConnection is instantiated.")
+  }
+
+  class DBConnection(url:String) {
+    println("class DBConnection is instantiated.")
+  }
+
+  def main(args: Array[String]):Unit = {
+    val conn = DBConnection() // PRINTS: object DBConnection is instantiated.
+                              //         class DBConnection is instantiated.
+
+    // The following line of code instantiates ONLY the class DBConnection;
+    // so conn2 DOESN'T reference or have access to the object DBConnection.
+    val conn2 = new DBConnection("www.poop.com") // PRINTS: class DBConnection is instantiated.
+  }
+}
+================================================================================
 
 Everything in Scala is an object, including classes, traits, and functions.
 Unlike a Scala class, a Scala object can't be passed any arguments!
