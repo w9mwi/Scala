@@ -23,12 +23,12 @@ object Demo
   object Hello
   {
     def hey:String = "Hey, there."
-    println("This line executes when the Hello object is instantiated.")
+    println("The Hello object is instantiated.")
   }
 
   def main(args: Array[String]):Unit =
   {
-    val myHello:Demo.Hello.type = Hello // PRINTS: This line executes when the Hello object is instantiated.
+    val myHello:Demo.Hello.type = Hello // PRINTS: The Hello object is instantiated.
     println(myHello.hey)                // PRINTS: Hey, there.
 
     val myHello_2:Demo.Hello.type = Hello // This line DOESN'T execute the println() statement contained
