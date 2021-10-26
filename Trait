@@ -73,6 +73,55 @@ trait Trait_E extends Trait_D with Trait_C with Trait_B with Trait_A { ... }
 
 METHOD RESOLUTION (LINEARIZATION) - Page 466
 ============================================
+When implementing multiple inheritance, a function having
+the same name and signature (args + return type) CAN'T exist
+in more than one class or trait from which you inherit.
+Below is an example.  The following code will NOT compile because
+func_A() exists in BOTH "trait A" and in "trait D".  To make
+this code compile, COMMENT OUT ONE of those two func() definitions.
+===================================================================
+object Demo
+{
+  trait Trait_A
+  {
+    println("Trait_A instantiated.")
+    def func_A() = { println("Trait_A.func_A() is called.") }
+  }
+  trait Trait_B
+  {
+    println("Trait_B instantiated.")
+    def func_B() = { println("Trait_B.func_B() is called.") }
+  }
+  trait Trait_C
+  {
+    println("Trait_C instantiated.")
+    def func_C() = { println("Trait_C.func_C() is called.") }
+  }
+  trait Trait_D
+  {
+    println("Trait_D instantiated.")
+    def func_A() = { println("Trait_D.func_A() is called.") }
+    def func_D() = { println("Trait_D.func_D() is called.") }
+  }
+  class Class_1
+  {
+    println("Class_1 instantiated.")
+  }
+  class Class_2 extends Class_1 with Trait_D  with Trait_C  with Trait_B  with Trait_A
+  {
+    println("Class_2 instantiated.")
+  }
+
+  /**********************
+   * main() function.
+   *********************/
+  def main(args: Array[String]):Unit =
+  {
+    val myClass_2:Class_2 = new Class_2()
+    myClass_2.func_A()
+  }
+}
+===================================================================
 It's possible for a function having the same name and signature
 to be defined in multiple Scala classes and traits.  Assume a
 Scala base class named Class_1 has this definition:
