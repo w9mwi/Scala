@@ -122,6 +122,64 @@ object Demo
   }
 }
 ===================================================================
+In the following code sample we see that main() calls the following
+println twice, and they each print different results.
+
+println(classA.func)
+
+Run the following code and understand why those two println statements
+print what they do.
+
+Also see -->  https://stackoverflow.com/questions/34242536/linearization-order-in-scala
+
+
+object Demo
+{
+  class Class_A {
+    def func():String = "A"
+  }
+
+  trait B extends Class_A {
+    override def func():String = "B"
+  }
+
+  trait C extends Class_A {
+    override def func():String = "C"
+  }
+
+  trait D extends Class_A {
+    override def func():String = "D"
+  }
+
+  trait B2 extends Class_A {
+    override def func():String = "B2 " + super.func()
+  }
+
+  trait C2 extends B2 {
+    override def func():String = "C2 " + super.func()
+  }
+
+  trait D2 extends Class_A {
+    override def func():String = "D2 " + super.func()
+  }
+
+  /**********************
+   * main() function.
+   *********************/
+  def main(args: Array[String]) {
+    var classA:Class_A = new Class_A with D with C with B
+    println(classA.func) // PRINTS: B
+
+    classA = new Class_A with D2 with C2 with B2
+    println(classA.func) // PRINTS: C2 B2 D2 A
+  }
+}
+
+
+
+===================================================================
+
+
 It's possible for a function having the same name and signature
 to be defined in multiple Scala classes and traits.  Assume a
 Scala base class named Class_1 has this definition:
