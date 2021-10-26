@@ -10,24 +10,21 @@ NOTE: In the Scala API documentation...
       3) A circled 'p' represents a package
       4) A circled 't' represents a trait.
 
-A trait is a kind of class that enables multiple inheritance.
-Classes, case classes, objects, and traits can all extend
-no more than one class.  But they can extend multiple traits,
-in addition to extending zero or one class.
+A class or object CAN be instantiated.
+A trait CAN'T be instantiated.
 
-A trait CAN'T be instantiated, but a class can.
+A Scala class, case class, object, or trait can all extend
+at most a single class, as well as extend multiple traits.
+So traits allow you to implement multiple inheritance.
 
 Traits look about the same as any other type of class.
-However, like objects, traits CAN'T take class parameters.
-Unlike objects, however, traits can take type parameters,
-which can help to make them reusable.
-
+However, just like objects, traits CAN'T take parameters.
 This is the syntax for defining a trait:
 
 trait <identifier> [extends <identifier>] [{ fields, methods, and classes }]
 
 QUESTION: When coding an abstract type that will be used with inheritance,
-          should a "trait" be used, or an "abstract class"?
+          should a "trait" or an "abstract class" be used?
 
 ANSWER: The rule of thumb is to use a trait because it allows the flexibility
         of multiple inheritance.  While a trait cannot take arguments (as can
