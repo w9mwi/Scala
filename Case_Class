@@ -29,9 +29,10 @@ in the following 8 ways...
       copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
                and allows you to change member values in the newly-created copy.  An example is shown below.
       equals()   - Determines if two Scala objects are equal.  Read the hashCode() description below.
-      hashCode() - The returned value is an Int.  If two Scala objects return the Int value for hashCode(),
-                   they are equal.  You can use the equals() method or '==' operator in place of hashCode.
-      toString()
+      hashCode() - The returned value is an Int.  If calling hashCode() on two Scala objects returns the
+                   same Int value, they are equal.  You can use the equals() method or the '==' operator
+                   instead of calling hashCode().
+      toString() - Renders the class’s name and fields to a String.
       unapply() - This method allows pattern matching to work on a case class.  To make pattern matching work
                   on a regular Scala class you need to create your own unapply() method in a companion object.
 
