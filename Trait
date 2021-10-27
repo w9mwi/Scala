@@ -71,8 +71,6 @@ class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
 trait Trait_E extends Trait_D with Trait_C with Trait_B with Trait_A { ... }
 
 
-METHOD RESOLUTION (LINEARIZATION) - Page 466
-============================================
 When implementing multiple inheritance, a function having
 the same name and signature (args + return type) CAN'T exist
 in more than one class or trait from which you inherit.
@@ -82,34 +80,34 @@ this code compile, COMMENT OUT ONE of those two func() definitions.
 ===================================================================
 object Demo
 {
-  trait Trait_A
+  trait trait_A
   {
-    println("Trait_A instantiated.")
-    def func_A() = { println("Trait_A.func_A() is called.") }
+    println("trait_A instantiated.")
+    def func_A() = { println("trait_A.func_A() is called.") }
   }
-  trait Trait_B
+  trait trait_B
   {
-    println("Trait_B instantiated.")
-    def func_B() = { println("Trait_B.func_B() is called.") }
+    println("trait_B instantiated.")
+    def func_B() = { println("trait_B.func_B() is called.") }
   }
-  trait Trait_C
+  trait trait_C
   {
-    println("Trait_C instantiated.")
-    def func_C() = { println("Trait_C.func_C() is called.") }
+    println("trait_C instantiated.")
+    def func_C() = { println("trait_C.func_C() is called.") }
   }
-  trait Trait_D
+  trait trait_D
   {
-    println("Trait_D instantiated.")
-    def func_A() = { println("Trait_D.func_A() is called.") }
-    def func_D() = { println("Trait_D.func_D() is called.") }
+    println("trait_D instantiated.")
+    def func_A() = { println("trait_D.func_A() is called.") }
+    def func_D() = { println("trait_D.func_D() is called.") }
   }
-  class Class_1
+  class class_1
   {
-    println("Class_1 instantiated.")
+    println("class_1 instantiated.")
   }
-  class Class_2 extends Class_1 with Trait_D  with Trait_C  with Trait_B  with Trait_A
+  class class_2 extends class_1 with trait_D  with trait_C  with trait_B  with trait_A
   {
-    println("Class_2 instantiated.")
+    println("class_2 instantiated.")
   }
 
   /**********************
@@ -117,15 +115,31 @@ object Demo
    *********************/
   def main(args: Array[String]):Unit =
   {
-    val myClass_2:Class_2 = new Class_2()
-    myClass_2.func_A()
+    val class_2:class_2 = new class_2()
+    class_2.func_A()
   }
 }
 ===================================================================
-In the following code sample we see that main() calls the following
-println twice, and they each print different results.
 
-println(classA.func)
+METHOD RESOLUTION (LINEARIZATION) - Page 466
+============================================
+Linearization is the process Scala uses to determine the
+trait method(s) that get called, and in which order they
+get called, when a trait method makes calls a superclass
+by calling the super() method.  This section explains
+the algorithm Scala uses to perform linearization.
+
+First, let's repeat these two (2) rules from above,
+which applies to Scala linearization...
+
+1) A call to super() IN A CLASS is STATICALLY BOUND, which means when
+   the super() method is invoked, the same method always gets called,
+   regardless of conditions at runtime.
+
+2) A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means
+   when the super() method is invoked, the method that gets called
+   is determined at runtime.
+
 
 Run the following code and understand why those two println statements
 print what they do.
