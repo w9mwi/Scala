@@ -39,7 +39,7 @@ But there are three (3) differences between a Scala class and trait...
 
 1) A trait CAN'T extend a class.
    A trait CAN extend any number of traits.
-   A class CAN extend zero or one class, and any number of traits.
+   A class CAN extend only one class, and any number of traits.
 
 2) A trait CAN'T contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
@@ -75,8 +75,8 @@ When implementing multiple inheritance, a function having
 the same name and signature (args + return type) CAN'T exist
 in more than one class or trait from which you inherit.
 Below is an example.  The following code will NOT compile because
-func_A() exists in BOTH "trait A" and in "trait D".  To make
-this code compile, COMMENT OUT ONE of those two func() definitions.
+func_A() exists in BOTH trait_A and in trait_D.  To make the
+below code compile, COMMENT OUT ONE of those two func_A() definitions.
 ===================================================================
 object Demo
 {
