@@ -140,11 +140,29 @@ which applies to Scala linearization...
    is determined at runtime.
 
 
-Run the following code and understand why those two println statements
-print what they do.
+Run the sample program shown further below and notice the following.
+
+When this line is executed:  var classA:class_A = new class_A with trait_D with trait_C with trait_B
+This text is printed:  class_A instantiated.
+                       trait_D instantiated.
+                       trait_C instantiated.
+                       trait_B instantiated.
+
+When this line is executed:  classA = new class_A with trait_D2 with trait_C2 with trait_B2
+This text is printed:  class_A instantiated.
+                       trait_D2 instantiated.
+                       trait_B2 instantiated.
+                       trait_C2 instantiated.
+
+The printed text that results from executing those two (2) lines of code
+reveals the order in which the classes and traits are constructed.  The
+order in which the classes and traits are constructed is ALWAYS IDENTICAL
+to the order they appear in those two (2) lines of code, from left to right.
+
+
 
 Also see -->  https://stackoverflow.com/questions/34242536/linearization-order-in-scala
-
+====================================================================
 object Demo
 {
   class class_A {
