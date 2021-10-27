@@ -71,12 +71,15 @@ class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
 trait Trait_E extends Trait_D with Trait_C with Trait_B with Trait_A { ... }
 
 
-When implementing multiple inheritance, a function having
-the same name and signature (args + return type) CAN'T exist
-in more than one class or trait from which you inherit.
-Below is an example.  The following code will NOT compile because
-func_A() exists in BOTH trait_A and in trait_D.  To make the
-below code compile, COMMENT OUT ONE of those two func_A() definitions.
+When implementing multiple inheritance, a function having the same name
+and signature (args + return type) CAN'T exist in more than one class
+or trait from which you inherit--unless the function inherits from
+another class/trait having the same function name + signature,
+and is defined using the "override" keyword.
+
+Below is an example where the traits DON'T use inheritance.  The following
+code will NOT compile because func_A() exists in BOTH trait_A and in trait_D.
+To make the below code compile, COMMENT OUT ONE of those two func_A() definitions.
 ===================================================================
 object Demo
 {
@@ -159,6 +162,9 @@ reveals the order in which the classes and traits are constructed.  The
 order in which the classes and traits are constructed is ALWAYS IDENTICAL
 to the order they appear in those two (2) lines of code, from left to right.
 
+The order in which linearization occurs (to determine which method gets called)
+always occurs in THE REVERSE ORDER in which the classes and are constructed,
+which is in the right-to-left order the classes and traits appear in a declaration.
 
 
 Also see -->  https://stackoverflow.com/questions/34242536/linearization-order-in-scala
