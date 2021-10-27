@@ -124,15 +124,16 @@ object Demo
 }
 ===================================================================
 
+
 METHOD RESOLUTION (LINEARIZATION) - Page 466
 ============================================
-Linearization is the process Scala uses to determine which trait
-method(s) get called, and in which order they're called, when
-a trait method calls a superclass via the super() method.  This
-section explains the algorithm Scala uses to perform linearization.
+Linearization is the process Scala uses to determine which class/trait
+method(s) get called, and in which order they're called, when multiple
+inheritance is implemented.  This section explains how to determine the
+algorithm Scala uses to perform linearization.
 
-First, let's repeat these two (2) rules from above,
-which applies to Scala linearization...
+First, let's repeat these two (2) rules mentioned previously above,
+which apply to Scala linearization...
 
 1) A call to super() IN A CLASS is STATICALLY BOUND, which means when
    the super() method is invoked, the same method always gets called,
@@ -141,7 +142,6 @@ which applies to Scala linearization...
 2) A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means
    when the super() method is invoked, the method that gets called
    is determined at runtime.
-
 
 Run the sample program shown further below and notice the following.
 
@@ -157,15 +157,139 @@ This text is printed:  class_A instantiated.
                        trait_B2 instantiated.
                        trait_C2 instantiated.
 
-The printed text that results from executing those two (2) lines of code
-reveals the order in which the classes and traits are constructed.  The
-order in which the classes and traits are constructed is ALWAYS IDENTICAL
-to the order they appear in those two (2) lines of code, from left to right.
+The printed text that results from executing those two lines of code
+reveals the order in which the classes and traits are constructed.
+The order in which the classes/traits are constructed is ALWAYS IDENTICAL
+to the order they appear in the declaration, from left to right.
 
-The order in which linearization occurs (to determine which method gets called)
-always occurs in THE REVERSE ORDER in which the classes and are constructed,
-which is in the right-to-left order the classes and traits appear in a declaration.
+The order in which linearization occurs (to determine which method(s) get called)
+is THE REVERSE ORDER that the classes/traits and are constructed, which is
+the right-to-left order of the classes/traits as they appear in the declaration.
 
+Because Scala's linearization algorithm is too complicated to easily explain
+verbally, its instead explained by the following 5-step process.
+
+====================================================================
+
+In the sample code below, these 2 lines exist in the main() method:
+classA = new class_A with trait_D2 with trait_C2 with trait_B2
+println(classA.func())
+
+Following the 5 steps below will show us how to determine what
+text gets printed by println(classA.func())
+
+1) LOOKING AT THE SAMPLE CODE BELOW, draw a hierarchy diagram of the
+   classes and traits referenced in this declaration:
+   classA = new class_A with trait_D2 with trait_C2 with trait_B2
+
+       class_A
+         |
+     ---------
+     |       |
+  trait_B2  trait_D2
+     |
+  trait_C2
+
+2) Specify the linearization path for each class/trait in the diagram,
+   where the letter L designates Linearization.
+
+   L(class_A) = class_A
+   L(trait_B2) = trait_B2 -> class_A
+   L(trait_C2) = trait_C2 -> trait_B2 -> class_A
+   L(trait_D2) = trait_D2 -> class_A
+
+3) Following the RIGHT-TO-LEFT order of the following declaration,
+   specify the order in which Scala will perform linearization.
+   classA = new class_A with trait_D2 with trait_C2 with trait_B2
+
+   L(trait_B2) -> L(trait_C2) -> L(trait_D2) -> L(class_A)
+
+4) Rewrite the linearization sequence obtained in step 3) by substituting
+   what we obtained in step 2) for L(trait_B), L(trait_C), etc.
+
+   (trait_B2 -> class_A) -> (trait_C2 -> trait_B2 -> class_A) -> (trait_D2 -> class_A) -> (class_A)
+
+5) Copy the linearization sequence obtained in step 4) from RIGHT TO LEFT
+   but DON'T COPY DUPLICATES.  For example, class_A is the first element we
+   copy (from right to left), so all other references to class_A are NOT copied.
+
+   FINAL LINEARIZATION RESULT:
+   trait_C2 -> trait_B2 -> trait_D2 -> class_A
+
+   From this result we can determine that println(classA.func()) prints
+   this line of text:  trait_C2 trait_B2 trait_D2 class_A
+
+====================================================================
+
+In the sample code below, these 2 lines exist in the main() method:
+classA = new class_A with trait_D2 with trait_C2 with trait_B2
+println(classA.func())
+
+Following the 5 steps below will show us how to determine what
+text gets printed by println(classA.func())
+
+1) LOOKING AT THE SAMPLE CODE BELOW, draw a hierarchy diagram of the
+   classes and traits referenced in this declaration:
+   classA = new class_A with trait_D2 with trait_C2 with trait_B2
+
+       class_A
+         |
+     ---------
+     |       |
+  trait_B2  trait_D2
+     |
+  trait_C2
+
+2) Specify the linearization path for each class/trait in the diagram,
+   where the letter L designates Linearization.
+
+   L(class_A) = class_A
+   L(trait_B2) = trait_B2 -> class_A
+   L(trait_C2) = trait_C2 -> trait_B2 -> class_A
+   L(trait_D2) = trait_D2 -> class_A
+
+3) Following the RIGHT-TO-LEFT order of the following declaration,
+   specify the order in which Scala will perform linearization.
+   classA = new class_A with trait_D2 with trait_C2 with trait_B2
+
+   L(trait_B2) -> L(trait_C2) -> L(trait_D2) -> L(class_A)
+
+4) Rewrite the linearization sequence obtained in step 3) by substituting
+   what we obtained in step 2) for L(trait_B), L(trait_C), etc.
+
+   (trait_B2 -> class_A) -> (trait_C2 -> trait_B2 -> class_A) -> (trait_D2 -> class_A) -> (class_A)
+
+5) Copy the linearization sequence obtained in step 4) from RIGHT TO LEFT
+   but DON'T COPY DUPLICATES.  For example, class_A is the first element we
+   copy (from right to left), so all other references to class_A are NOT copied.
+
+   FINAL LINEARIZATION RESULT:
+   trait_C2 -> trait_B2 -> trait_D2 -> class_A
+
+   From this result we can determine that println(classA.func()) prints
+   this line of text:  trait_C2 trait_B2 trait_D2 class_A
+
+====================================================================
+
+
+
+
+
+
+
+
+
+
+
+1) Class_1 (the base class) is searched for func_A().
+2) The highest-to-lowest superclass of Class_2 is searched for func_A().
+3) Class_2 (the extended class) is searched for func_A().
+4) The highest-to-lowest superclass of Trait_C is searched for func_A().
+5) The highest-to-lowest superclass of Trait_B is searched for func_A().
+6) The highest-to-lowest superclass of Trait_A is searched for func_A().
+7) Trait_C is searched for func_A().
+8) Trait_B is searched for func_A().
+9) Trait_A is searched for func_A().
 
 Also see -->  https://stackoverflow.com/questions/34242536/linearization-order-in-scala
 ====================================================================
