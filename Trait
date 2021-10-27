@@ -132,48 +132,55 @@ print what they do.
 
 Also see -->  https://stackoverflow.com/questions/34242536/linearization-order-in-scala
 
-
 object Demo
 {
-  class Class_A {
-    def func():String = "A"
+  class class_A {
+    println("class_A instantiated.")
+    def func():String = "class_A"
   }
 
-  trait B extends Class_A {
-    override def func():String = "B"
+  trait trait_B extends class_A {
+    println("trait_B instantiated.")
+    override def func():String = "trait_B"
   }
 
-  trait C extends Class_A {
-    override def func():String = "C"
+  trait trait_C extends class_A {
+    println("trait_C instantiated.")
+    override def func():String = "trait_C"
   }
 
-  trait D extends Class_A {
-    override def func():String = "D"
+  trait trait_D extends class_A {
+    println("trait_D instantiated.")
+    override def func():String = "trait_D"
   }
 
-  trait B2 extends Class_A {
-    override def func():String = "B2 " + super.func()
+  trait trait_B2 extends class_A {
+    println("trait_B2 instantiated.")
+    override def func():String = "trait_B2 " + super.func()
   }
 
-  trait C2 extends B2 {
-    override def func():String = "C2 " + super.func()
+  trait trait_C2 extends trait_B2 {
+    println("trait_C2 instantiated.")
+    override def func():String = "trait_C2 " + super.func()
   }
 
-  trait D2 extends Class_A {
-    override def func():String = "D2 " + super.func()
+  trait trait_D2 extends class_A {
+    println("trait_D2 instantiated.")
+    override def func():String = "trait_D2 " + super.func()
   }
 
   /**********************
    * main() function.
    *********************/
   def main(args: Array[String]) {
-    var classA:Class_A = new Class_A with D with C with B
-    println(classA.func) // PRINTS: B
-
-    classA = new Class_A with D2 with C2 with B2
-    println(classA.func) // PRINTS: C2 B2 D2 A
+    var classA:class_A = new class_A with trait_D with trait_C with trait_B
+    println(classA.func) // PRINTS: trait_B
+    println("===========================")
+    classA = new class_A with trait_D2 with trait_C2 with trait_B2
+    println(classA.func) // PRINTS: trait_C2 trait_B2 trait_D2 class_A
   }
 }
+
 
 
 
