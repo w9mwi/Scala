@@ -123,11 +123,10 @@ object Demo
 
 METHOD RESOLUTION (LINEARIZATION) - Page 466
 ============================================
-Linearization is the process Scala uses to determine the
-trait method(s) that get called, and in which order they
-get called, when a trait method makes calls a superclass
-by calling the super() method.  This section explains
-the algorithm Scala uses to perform linearization.
+Linearization is the process Scala uses to determine which trait
+method(s) get called, and in which order they're called, when
+a trait method calls a superclass via the super() method.  This
+section explains the algorithm Scala uses to perform linearization.
 
 First, let's repeat these two (2) rules from above,
 which applies to Scala linearization...
