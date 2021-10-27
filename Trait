@@ -185,12 +185,12 @@ object Demo
   /**********************
    * main() function.
    *********************/
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     var classA:class_A = new class_A with trait_D with trait_C with trait_B
-    println(classA.func) // PRINTS: trait_B
+    println(classA.func()) // PRINTS: trait_B
     println("===========================")
     classA = new class_A with trait_D2 with trait_C2 with trait_B2
-    println(classA.func) // PRINTS: trait_C2 trait_B2 trait_D2 class_A
+    println(classA.func()) // PRINTS: trait_C2 trait_B2 trait_D2 class_A
   }
 }
 
