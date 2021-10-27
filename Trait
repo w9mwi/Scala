@@ -172,7 +172,7 @@ verbally, its instead explained by the following 5-step process.
 ====================================================================
 
 In the sample code below, these 2 lines exist in the main() method:
-classA = new class_A with trait_D2 with trait_C2 with trait_B2
+var classA:class_A = new class_A with trait_D with trait_C with trait_B
 println(classA.func())
 
 Following the 5 steps below will show us how to determine what
@@ -180,44 +180,42 @@ text gets printed by println(classA.func())
 
 1) LOOKING AT THE SAMPLE CODE BELOW, draw a hierarchy diagram of the
    classes and traits referenced in this declaration:
-   classA = new class_A with trait_D2 with trait_C2 with trait_B2
+   var classA:class_A = new class_A with trait_D with trait_C with trait_B
 
        class_A
          |
-     ---------
-     |       |
-  trait_B2  trait_D2
-     |
-  trait_C2
+     -------------------
+     |        |        |
+  trait_B  trait_C  trait_D
 
 2) Specify the linearization path for each class/trait in the diagram,
    where the letter L designates Linearization.
 
    L(class_A) = class_A
-   L(trait_B2) = trait_B2 -> class_A
-   L(trait_C2) = trait_C2 -> trait_B2 -> class_A
-   L(trait_D2) = trait_D2 -> class_A
+   L(trait_B) = trait_B -> class_A
+   L(trait_C) = trait_C -> class_A
+   L(trait_D) = trait_D -> class_A
 
 3) Following the RIGHT-TO-LEFT order of the following declaration,
    specify the order in which Scala will perform linearization.
-   classA = new class_A with trait_D2 with trait_C2 with trait_B2
+   var classA:class_A = new class_A with trait_D with trait_C with trait_B
 
-   L(trait_B2) -> L(trait_C2) -> L(trait_D2) -> L(class_A)
+   L(trait_B) -> L(trait_C) -> L(trait_D) -> L(class_A)
 
 4) Rewrite the linearization sequence obtained in step 3) by substituting
-   what we obtained in step 2) for L(trait_B), L(trait_C), etc.
+   what we obtained in step 2) for L(class_A), L(trait_B), etc.
 
-   (trait_B2 -> class_A) -> (trait_C2 -> trait_B2 -> class_A) -> (trait_D2 -> class_A) -> (class_A)
+   (trait_B -> class_A) -> (trait_C -> class_A) -> (trait_D -> class_A) -> (class_A)
 
 5) Copy the linearization sequence obtained in step 4) from RIGHT TO LEFT
    but DON'T COPY DUPLICATES.  For example, class_A is the first element we
    copy (from right to left), so all other references to class_A are NOT copied.
 
    FINAL LINEARIZATION RESULT:
-   trait_C2 -> trait_B2 -> trait_D2 -> class_A
+   class_A -> trait_D -> trait_C -> trait_B
 
-   From this result we can determine that println(classA.func()) prints
-   this line of text:  trait_C2 trait_B2 trait_D2 class_A
+   From this result we can determine that println(classA.func())
+   prints this line of text:   trait_B
 
 ====================================================================
 
@@ -255,7 +253,7 @@ text gets printed by println(classA.func())
    L(trait_B2) -> L(trait_C2) -> L(trait_D2) -> L(class_A)
 
 4) Rewrite the linearization sequence obtained in step 3) by substituting
-   what we obtained in step 2) for L(trait_B), L(trait_C), etc.
+   what we obtained in step 2) for L(trait_A), L(trait_B2), etc.
 
    (trait_B2 -> class_A) -> (trait_C2 -> trait_B2 -> class_A) -> (trait_D2 -> class_A) -> (class_A)
 
@@ -266,8 +264,8 @@ text gets printed by println(classA.func())
    FINAL LINEARIZATION RESULT:
    trait_C2 -> trait_B2 -> trait_D2 -> class_A
 
-   From this result we can determine that println(classA.func()) prints
-   this line of text:  trait_C2 trait_B2 trait_D2 class_A
+   From this result we can determine that println(classA.func())
+   prints this line of text:   trait_C2 trait_B2 trait_D2 class_A
 
 ====================================================================
 
