@@ -10,18 +10,33 @@ NOTE: In the Scala API documentation...
       3) A circled 'p' represents a package
       4) A circled 't' represents a trait.
 
-A class or object CAN be instantiated.
-A trait CAN'T be instantiated.
+A Scala class, case class, object, or trait can all extend no more than
+one class, but they all can extend multiple traits.  Therefore, if you
+want to implement multiple inheritance, you must extend at least one
+Scala trait.
 
-A Scala class, case class, object, or trait can all extend
-at most a single class, as well as extend multiple traits.
-So traits allow you to implement multiple inheritance.
+REPEAT: To implement multiple inheritance requires that you extend
+        a class, an object, or a trait with at lease one trait.
 
-Traits look about the same as any other type of class.
-However, just like objects, traits CAN'T take parameters.
-This is the syntax for defining a trait:
+Traits look nearly the same as any other type of class.  However, just like
+objects, traits CAN'T take parameters.  This is the syntax for defining a trait:
 
 trait <identifier> [extends <identifier>] [{ fields, methods, and classes }]
+
+Below are three (3) examples showing how to extend traits
+within the declaration of a class or trait.
+
+// A CLASS that extends one class and multiple traits...
+class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
+
+// A CLASS that extends no class and multiple traits...
+class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
+
+// A TRAIT that extends multiple traits...
+trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
+
+NOTE: A trait CAN'T extend a class or an object.
+
 
 QUESTION: When coding an abstract type that will be used with inheritance,
           should a "trait" or an "abstract class" be used?
@@ -35,13 +50,16 @@ ANSWER: The rule of thumb is to use a trait because it allows the flexibility
 You might think that traits are like Java interfaces with concrete methods,
 but they can actually do much more.  Traits can declare fields and maintain
 state.  Scala traits and classes can often accomplish the same behavior.
-But there are three (3) differences between a Scala class and trait...
+Here are some differences between a Scala class and trait...
 
-1) A trait CAN'T extend a class.
+1) A class or object CAN be instantiated.
+   A trait CAN'T be instantiated.
+
+2) A trait CAN'T extend a class.
    A trait CAN extend any number of traits.
    A class CAN extend only one class, and any number of traits.
 
-2) A trait CAN'T contain arguments/parameters like a class can.
+3) A trait CAN'T contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
    the arguments/parameters x and y...
    class Point(x: Int, y: Int) // Will compile
@@ -50,25 +68,13 @@ But there are three (3) differences between a Scala class and trait...
    because it contains arguments/parameters...
    trait Point(x: Int, y: Int) // Won't compile
 
-3) A call to super() IN A CLASS is STATICALLY BOUND, which means when
+4) A call to super() IN A CLASS is STATICALLY BOUND, which means when
    the super() method is invoked, the same method always gets called,
    regardless of conditions at runtime.
 
    A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means
    when the super() method is invoked, the method that gets called
    is determined at runtime.
-
-Below are three (3) examples showing how to declare a class
-and a trait, which also extend other classes/traits.
-
-// A CLASS that extends one class, and multiple traits is defined like this...
-class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
-
-// A CLASS that extends no class and multiple traits is defined like this...
-class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
-
-// A TRAIT that extends multiple traits is defined like this...
-trait Trait_E extends Trait_D with Trait_C with Trait_B with Trait_A { ... }
 
 
 When implementing multiple inheritance, a function having the same name
