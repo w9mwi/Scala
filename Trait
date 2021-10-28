@@ -152,16 +152,16 @@ which apply to Scala linearization...
 Run the sample program shown further below and notice the following.
 
 When this line is executed:  var classA:class_A = new class_A with trait_D with trait_C with trait_B
-This text is printed:  class_A instantiated.
-                       trait_D instantiated.
-                       trait_C instantiated.
-                       trait_B instantiated.
+This text is printed:  class_A construted.
+                       trait_D construted.
+                       trait_C construted.
+                       trait_B construted.
 
 When this line is executed:  classA = new class_A with trait_D2 with trait_C2 with trait_B2
-This text is printed:  class_A instantiated.
-                       trait_D2 instantiated.
-                       trait_B2 instantiated.
-                       trait_C2 instantiated.
+This text is printed:  class_A construted.
+                       trait_D2 construted.
+                       trait_B2 construted.
+                       trait_C2 construted.
 
 The printed text that results from executing those two lines of code
 reveals the order in which the classes and traits are constructed.
@@ -380,36 +380,36 @@ object Demo
 {
   trait Trait_A
   {
-    println("Trait_A instantiated.")
+    println("Trait_A constructed.")
     def func_A() = { println("Trait_A.func_A() is called.") }
   }
   trait Trait_B extends Trait_A
   {
-    println("Trait_B instantiated.")
+    println("Trait_B constructed.")
     def func_B() = { println("Trait_B.func_B() is called.") }
   }
   trait Trait_C extends Trait_B
   {
-    println("Trait_C instantiated.")
+    println("Trait_C constructed.")
     def func_C() = { println("Trait_C.func_C() is called.") }
     def func_D() = { println("Trait_C.func_D() is called.") }
   }
   trait Trait_D extends Trait_C
   {
-    println("Trait_D instantiated.")
+    println("Trait_D constructed.")
   }
   class Class_1 extends Trait_D
   {
-    println("Class_1 instantiated.")
+    println("Class_1 constructed.")
   }
   class Class_2
   {
-    println("Class_2 instantiated.")
+    println("Class_2 constructed.")
     def func_A() = { println("Class_2.func_A() is called.") }
   }
   class Class_3 extends Class_2
   {
-    println("Class_3 instantiated.")
+    println("Class_3 constructed.")
   }
 
   /**********************
