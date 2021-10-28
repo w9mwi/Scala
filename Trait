@@ -10,7 +10,7 @@ NOTE: In the Scala API documentation...
       3) A circled 'p' represents a package
       4) A circled 't' represents a trait.
 
-A Scala class, case class, object, or trait can all extend no more than
+A Scala class, case class, object, or trait can extend no more than
 one class, but they all can extend multiple traits.  Therefore, if you
 want to implement multiple inheritance, you must extend at least one
 Scala trait.
@@ -91,32 +91,32 @@ object Demo
 {
   trait trait_A
   {
-    println("trait_A instantiated.")
+    println("trait_A constructed.")
     def func_A() = { println("trait_A.func_A() is called.") }
   }
   trait trait_B
   {
-    println("trait_B instantiated.")
+    println("trait_B constructed.")
     def func_B() = { println("trait_B.func_B() is called.") }
   }
   trait trait_C
   {
-    println("trait_C instantiated.")
+    println("trait_C constructed.")
     def func_C() = { println("trait_C.func_C() is called.") }
   }
   trait trait_D
   {
-    println("trait_D instantiated.")
-    def func_A() = { println("trait_D.func_A() is called.") }
+    println("trait_D constructed.")
+    // def func_A() = { println("trait_D.func_A() is called.") }
     def func_D() = { println("trait_D.func_D() is called.") }
   }
   class class_1
   {
-    println("class_1 instantiated.")
+    println("class_1 constructed.")
   }
   class class_2 extends class_1 with trait_D  with trait_C  with trait_B  with trait_A
   {
-    println("class_2 instantiated.")
+    println("class_2 constructed.")
   }
 
   /**********************
@@ -300,37 +300,37 @@ Also see -->  https://stackoverflow.com/questions/34242536/linearization-order-i
 object Demo
 {
   class class_A {
-    println("class_A instantiated.")
+    println("class_A construted.")
     def func():String = "class_A"
   }
 
   trait trait_B extends class_A {
-    println("trait_B instantiated.")
+    println("trait_B construted.")
     override def func():String = "trait_B"
   }
 
   trait trait_C extends class_A {
-    println("trait_C instantiated.")
+    println("trait_C construted.")
     override def func():String = "trait_C"
   }
 
   trait trait_D extends class_A {
-    println("trait_D instantiated.")
+    println("trait_D construted.")
     override def func():String = "trait_D"
   }
 
   trait trait_B2 extends class_A {
-    println("trait_B2 instantiated.")
+    println("trait_B2 construted.")
     override def func():String = "trait_B2 " + super.func()
   }
 
   trait trait_C2 extends trait_B2 {
-    println("trait_C2 instantiated.")
+    println("trait_C2 construted.")
     override def func():String = "trait_C2 " + super.func()
   }
 
   trait trait_D2 extends class_A {
-    println("trait_D2 instantiated.")
+    println("trait_D2 construted.")
     override def func():String = "trait_D2 " + super.func()
   }
 
@@ -345,9 +345,6 @@ object Demo
     println(classA.func()) // PRINTS: trait_C2 trait_B2 trait_D2 class_A
   }
 }
-
-
-
 
 ===================================================================
 
