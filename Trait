@@ -265,7 +265,7 @@ text gets printed by println(classA.func())
    trait_C2 -> trait_B2 -> trait_D2 -> class_A
 
    From this result we can determine that println(classA.func())
-   prints this line of text:   trait_C2 trait_B2 trait_D2 class_A
+   prints this line of text:  trait_C2 trait_B2 trait_D2 class_A
 
 ====================================================================
 
