@@ -4,19 +4,19 @@ In its main() function, there are 2 declarations made of type Person.
 However, by looking those 2 Person declarations in main(), you can't
 determine if Person is a Scala class or trait.
 
-We know Person can't be a 'case class' because it can't contain the
-"new" keyword.
+We know Person can't be a 'case class' because a case class can't
+contain the "new" keyword in its declaration.
 
-Note that the timer() function definition contains, as it's only
-arg/param a "block of code", appropriately named 'blockOfCode'.
-blockOfcode is literally a block of Scala code.  Obviously a
-block of code CAN'T take params/args, and its return type is whatever
-expression its last line translates to.  That could be of type
-Unit, Int, List, etc.
+Note that the timer() function definition contains an arg/param
+named 'blockOfCode'.  blockOfcode is literally a block of Scala code.
+Obviously a block of code CAN'T take params/args, and its return type
+is whatever expression its last line translates to.  That could be
+of type Unit, Int, List, etc.
 
 In the timer() function definition below, its argument/parameter
 is specified like this:  blockOfCode: =>A
-Notive that NOTHING appears before the => rocket symbol, which means
+
+Note that NOTHING appears before the => rocket symbol, which means
 that timer() takes no params/args, and returns a generic type A.
 
 Read the following code's in-line comments to understand the
