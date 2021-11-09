@@ -1,0 +1,13 @@
+
+
+
+
+
+
+==================================================================
+
+// THIS PROGRAM WILL RUN WITH EITHER ONE (BUT NOT BOTH)
+  // OF THE FOLLOWING 2 DECLARATIONS FOR "Person"
+  // 1) trait Person
+  // 2) abstract class Person
+  // COMMENT OUT THE "Person" DECLARATION YOU DON'T WANT USED.
