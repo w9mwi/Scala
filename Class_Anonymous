@@ -16,8 +16,10 @@ of type Unit, Int, List, etc.
 In the timer() function definition below, its argument/parameter
 is specified like this:  blockOfCode: =>A
 
-Note that NOTHING appears before the => rocket symbol, which means
-that timer() takes no params/args, and returns a generic type A.
+When NOTHING appears after the colon (:) and before the rocket symbol
+(=>) it means the function takes no params/args.  The A following
+the rocket symbol (=>) means the function returns a generic type
+named A.
 
 Read the following code's in-line comments to understand the
 above explanations.
