@@ -87,4 +87,31 @@ object Demo
 
 ==================================================================
 
+object Demo
+{
+  case class StringToInt(run: String => Int)
+
+  def main(args: Array[String]): Unit = {
+    {
+      // The StringToInt case class is defined above to take
+      // a function as its argument.  Therefore, the following
+      // line of code passes an ANONYMOUS FUNCTION to the
+      // StringToInt case class's argument.
+      val stringToInt = StringToInt { str:String => str.toInt }
+      println(stringToInt.run("-777")) // PRINTS: -777
+
+      // The following code gives us the same functionality as
+      // above, except no predefined class/trait is used.
+      // A val is declared that gets assigned an ANONYMOUS FUNCTION.
+      val stringToInt2:String=>Int =  { str:String => str.toInt }
+
+      // val stringToInt2 is invoked as function via its run() method.
+      println(stringToInt.run("1234")) // PRINTS: 1234
+    }
+  }
+}
+
+==================================================================
+
+
 
