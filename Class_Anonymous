@@ -1,13 +1,90 @@
 
+The following code shows an example of using an 'anonymous class'.
+In its main() function, there are 2 declarations made of type Person.
+However, by looking those 2 Person declarations in main(), you can't
+determine if Person is a Scala class or trait.
 
+We know Person can't be a 'case class' because it can't contain the
+"new" keyword.
 
+Note that the timer() function definition contains, as it's only
+arg/param a "block of code", appropriately named 'blockOfCode'.
+blockOfcode is literally a block of Scala code.  Obviously a
+block of code CAN'T take params/args, and its return type is whatever
+expression its last line translates to.  That could be of type
+Unit, Int, List, etc.
 
+In the timer() function definition below, its argument/parameter
+is specified like this:  blockOfCode: =>A
+Notive that NOTHING appears before the => rocket symbol, which means
+that timer() takes no params/args, and returns a generic type A.
 
+Read the following code's in-line comments to understand the
+above explanations.
 
 ==================================================================
 
-// THIS PROGRAM WILL RUN WITH EITHER ONE (BUT NOT BOTH)
+object Demo
+{
+  // *********************************************************
+  // THIS PROGRAM WILL RUN WITH EITHER ONE (BUT NOT BOTH)
   // OF THE FOLLOWING 2 DECLARATIONS FOR "Person"
   // 1) trait Person
   // 2) abstract class Person
   // COMMENT OUT THE "Person" DECLARATION YOU DON'T WANT USED.
+  //
+//  trait Person {
+//    def name:String
+//    def age:Int
+//    override def toString = s"name = $name,  age = $age"
+//  }
+
+  abstract class Person {
+    val name:String
+    val age:Int
+    override def toString = s"name = $name,  age = $age"
+  }
+
+// *********************************************************
+
+  def main(args: Array[String]): Unit = {
+    {
+      val tom:Person = new Person {
+      val name:String = "tom"
+      val age:Int = 63
+      }
+      println(tom) // PRINTS: name = tom,  age = 63
+
+      val jim:Person = new Person {
+        val name:String = "jim"
+        val age:Int = 27
+      }
+      println(jim) // PRINTS: name = jim,  age = 27
+
+
+      val (result, time) = timer{Thread.sleep(1000);  42}
+      println(s"result = $result,  time = $time")
+      // PRINTS: result = 42,  time = 1000.15366
+
+
+      // Following 2 lines are IDENTICAL to the 2 lines above.
+      // EXCEPT that timer{...} is called above,
+      //        and  timer(...) is called below.
+      val (result2, time2) = timer(Thread.sleep(1000),  42)
+      println(s"result2 = $result2,  time = $time2")
+      // PRINTS: result2 = ((),42),  time = 1001.339614
+    }
+
+    def timer[A](blockOfCode: =>A) = {
+      val startTime = System.nanoTime()
+      val result = blockOfCode
+      val stopTime = System.nanoTime()
+      val delta = stopTime - startTime
+      (result, delta/1000000D)
+    }
+  }
+}
+
+==================================================================
+
+
