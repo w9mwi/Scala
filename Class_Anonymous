@@ -91,6 +91,10 @@ object Demo
 
 object Demo
 {
+  // NOTE: The following StringToInt case class definition
+  //       contains an argument named "run", which is a function.
+  //       Therefore, to invoke the function passed to the
+  //       StringToInt case class you must call:  StringToInt.run()
   case class StringToInt(run: String => Int)
 
   def main(args: Array[String]): Unit = {
@@ -106,9 +110,7 @@ object Demo
       // above, except no predefined class/trait is used.
       // A val is declared that gets assigned an ANONYMOUS FUNCTION.
       val stringToInt2:String=>Int =  { str:String => str.toInt }
-
-      // val stringToInt2 is invoked as function via its run() method.
-      println(stringToInt.run("1234")) // PRINTS: 1234
+      println(stringToInt2("1234")) // PRINTS: 1234
     }
   }
 }
