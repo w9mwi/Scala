@@ -98,6 +98,10 @@ object Demo
   //       as is shown below.
   case class StringToInt(run: String => Int)
 
+  // This case class is defined to take 2 args of type A
+  // and return a value of type B.
+  case class Transform2ParamsTo1Param[A,B](func: (A,A) => B)
+
   def main(args: Array[String]): Unit = {
     // The StringToInt case class is defined above to take
     // a function as its argument.  Therefore, the following
@@ -108,7 +112,7 @@ object Demo
 
     // Here, we pass the function defined below (strLength)
     // to the StringToInt case class constructor.
-    val stringToInt2:StringToInt = StringToInt(strLength) // Parenthesis () can be replaced with curly braces {}
+    val stringToInt2:StringToInt = StringToInt(strLength) // () can be replaced with {}
     println(stringToInt2.run("Madison, Wisconsin")) // PRINTS: 18
 
     // The following code gives us the same functionality as
@@ -116,6 +120,12 @@ object Demo
     // A val is declared that gets assigned an ANONYMOUS FUNCTION.
     val stringToInt3:String=>Int = { str:String => str.toInt }
     println(stringToInt3("1234")) // PRINTS: 1234
+
+    // Here, we call the Transform2ParamsTo1Param case class constructor
+    // by passing it an ANONYMOUS FUNCTION.
+    val result:Transform2ParamsTo1Param[String,Int] =
+        Transform2ParamsTo1Param{ (a:String, b: String) => a.length + b.length } // {} can be replaced with ()
+    println(result.func("Madison", "Wisconsin")) // PRINTS: 16
   }
 
   def strLength(str:String):Int = {
