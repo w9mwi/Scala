@@ -107,7 +107,7 @@ object Demo
     // a function as its argument.  Therefore, the following
     // line of code passes an ANONYMOUS FUNCTION to the
     // StringToInt case class's argument.
-    val stringToInt:StringToInt = StringToInt{ str:String => str.toInt }
+    val stringToInt:StringToInt = StringToInt{ str:String => str.toInt } // {} CAN'T be replaced with ()
     println(stringToInt.run("-777")) // PRINTS: -777
 
     // Here, we pass the function defined below (strLength)
@@ -118,19 +118,26 @@ object Demo
     // The following code gives us the same functionality as
     // above, except no predefined class/trait is used.
     // A val is declared that gets assigned an ANONYMOUS FUNCTION.
-    val stringToInt3:String=>Int = { str:String => str.toInt }
+    val stringToInt3:String=>Int = { str:String => str.toInt } // {} CAN'T be replaced with ()
     println(stringToInt3("1234")) // PRINTS: 1234
 
     // Here, we call the Transform2ParamsTo1Param case class constructor
     // by passing it an ANONYMOUS FUNCTION.
-    val result:Transform2ParamsTo1Param[String,Int] =
-        Transform2ParamsTo1Param{ (a:String, b: String) => a.length + b.length } // {} can be replaced with ()
-    println(result.func("Madison", "Wisconsin")) // PRINTS: 16
+    val result1:Transform2ParamsTo1Param[String,Int] =
+    Transform2ParamsTo1Param{ (a:String, b: String) => a.length + b.length } // {} can be replaced with ()
+    println(result1.func("Madison", "Wisconsin")) // PRINTS: 16
+
+    val result2:Int = strToInt("Joe Blow"){str:String => str.length} // {} CAN'T be replaced with ()
+    println(result2) // PRINTS: 8
   }
 
   def strLength(str:String):Int = {
     str.length
   }
+
+  // This function gets passed 2 args--a String and a function.
+  // It returns the length of that String by calling that function
+  def strToInt(str:String)(func: String => Int) = func(str)
 }
 
 ==================================================================
