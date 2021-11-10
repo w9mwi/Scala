@@ -11,6 +11,7 @@ Read in-line comments for details.
 =================================================================
 
 import java.io.{BufferedReader, FileReader}
+import scala.io.Source
 import scala.util.{Failure, Success, Try, Using}
 
 object Demo
@@ -34,6 +35,12 @@ object Demo
            // end of each String contained in each Seq element.
            println(x.mkString("\n")) //  PRINTS contents of the text file.
       }
+    }
+
+    // Here's a shorter, alternative way of reading and printing the text file...
+    Using(Source.fromFile("/home/tjb/file.txt"))
+    {
+      source => for (line <- source.getLines()){println(line)} // {} can be replaced with ()
     }
   }
 }
