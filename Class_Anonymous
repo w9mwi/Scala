@@ -106,11 +106,20 @@ object Demo
     val stringToInt:StringToInt = StringToInt{ str:String => str.toInt }
     println(stringToInt.run("-777")) // PRINTS: -777
 
+    // Here, we pass the function defined below (strLength)
+    // to the StringToInt case class constructor.
+    val stringToInt2:StringToInt = StringToInt(strLength) // Parenthesis () can be replaced with curly braces {}
+    println(stringToInt2.run("Madison, Wisconsin")) // PRINTS: 18
+
     // The following code gives us the same functionality as
     // above, except no predefined class/trait is used.
     // A val is declared that gets assigned an ANONYMOUS FUNCTION.
-    val stringToInt2:String=>Int = { str:String => str.toInt }
-    println(stringToInt2("1234")) // PRINTS: 1234
+    val stringToInt3:String=>Int = { str:String => str.toInt }
+    println(stringToInt3("1234")) // PRINTS: 1234
+  }
+
+  def strLength(str:String):Int = {
+    str.length
   }
 }
 
