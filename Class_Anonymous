@@ -102,6 +102,13 @@ object Demo
   // and return a value of type B.
   case class Transform2ParamsTo1Param[A,B](func: (A,A) => B)
 
+  // This case class is defined to accept 2 arg lists.  The first arg list contains a String.
+  // The second arg list contains a function that gets passed a String and returns an Int.
+  // This case class also defines its own function named funkyFunc.
+  case class StringToInt2(str:String)(myFunc: String => Int)
+  { // {...} CAN'T be replaced with (...)
+    def funkyFunc:Int = myFunc(str)
+  }
   def main(args: Array[String]): Unit = {
     // The StringToInt case class is defined above to take
     // a function as its argument.  Therefore, the following
@@ -129,6 +136,9 @@ object Demo
 
     val result2:Int = strToInt("Joe Blow"){str:String => str.length} // {} CAN'T be replaced with ()
     println(result2) // PRINTS: 8
+
+    val result3:StringToInt2 = StringToInt2("Jane Sixpack"){str:String => str.length} // {} CAN'T be replaced with ()
+    println(result3.funkyFunc) // PRINTS: 12
   }
 
   def strLength(str:String):Int = {
