@@ -4,6 +4,13 @@ scala.util.Using is a utility for performing automatic resource management.
 It can be used to perform an operation using resources, after which it
 releases the resources in reverse order of their creation.
 
+Notice that whenever the Scala object Using is invoked it takes
+two parameter lists, like this...
+
+Using(param1){ An ANONYMOUS FUNCTION }
+...which may look something like this...
+Using(inputSourceName){ x => Code that processes x; where x is the Buffer or Seq contents of the inputSource. }
+
 Below is a sample program that implements scala.util.Using to read lines
 of text from a file, and then print that text to the screen.
 Read in-line comments for details.
