@@ -1,3 +1,39 @@
+==========================================================================
+This sample code does the following:
+1) Reads text from a file and prints that text to the screen.
+2) Reads text from a file and writess that text to another file.
+
+
+import java.io.{BufferedReader, File, FileReader, PrintWriter}
+import scala.io.{BufferedSource, Source}
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    // This section reads text from a file and prints it to the screen.
+    var inputFile:BufferedSource = Source.fromFile("/home/tjb/file.txt")
+    // Either of the following 2 lines of code can print the contents
+    // of file.txt.  But only the first line will succeed, because it will
+    // spend the inputFile iterator, so the second line won't print anything.
+    inputFile.foreach(print)        // PRINTS: The contents of file.txt
+    for (x <- inputFile) {print(x)} // PRINTS: Nothing because the above line spends the iterator.
+    inputFile.close
+
+
+    // This section reads text from a file and writes that text to an output file.
+    inputFile = Source.fromFile("/home/tjb/file.txt")
+    val writer = new PrintWriter(new File("/home/tjb/output.txt" ))
+    for (line <- inputFile.getLines())
+    {
+      writer.write(line + "\n")
+    }
+    writer.close()
+    inputFile.close()
+  }
+}
+
+==========================================================================
 
 The following example shows how to read a text file with an Iterator,
 and print the file's contents to the console.  Because reading/writing
