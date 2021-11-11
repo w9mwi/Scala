@@ -17,7 +17,7 @@ Read in-line comments for details.
 
 =================================================================
 
-import java.io.{BufferedReader, FileReader}
+import java.io.{BufferedReader, FileReader, PrintWriter}
 import scala.io.Source
 import scala.util.{Failure, Success, Try, Using}
 
@@ -34,13 +34,13 @@ object Demo
     lines match {
       case Failure(x) => { println("Try / Failure") }
       case Success(x:Seq[String]) => {
-           println(x) // Shows a List, each element storing one line of the text file.
-           println("Try / Success\nRead file and output its text to screen.");
+        println(x) // Shows a List, each element storing one line of the text file.
+        println("Try / Success\nRead file and output its text to screen.");
 
-           // The below call to x.mkString("\n") concats all strings in x (a Seq[String])
-           // into a single string.  Where a newline Char ("\n") is first appended to the
-           // end of each String contained in each Seq element.
-           println(x.mkString("\n")) //  PRINTS contents of the text file.
+        // The below call to x.mkString("\n") concats all strings in x (a Seq[String])
+        // into a single string.  Where a newline Char ("\n") is first appended to the
+        // end of each String contained in each Seq element.
+        println(x.mkString("\n")) //  PRINTS contents of the text file.
       }
     }
 
@@ -48,6 +48,12 @@ object Demo
     Using(Source.fromFile("/home/tjb/file.txt"))
     {
       source => for (line <- source.getLines()){println(line)} // {} can be replaced with ()
+    }
+
+    //
+    Using.Manager { use =>
+      val in  = use(new BufferedReader(new FileReader("/home/tjb/file.txt")))
+      val out = use(new PrintWriter("/home/tjb/output.txt"))
     }
   }
 }
