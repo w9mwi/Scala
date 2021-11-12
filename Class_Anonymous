@@ -1,17 +1,17 @@
 
-The following code sample shows an 'anonymous class'.  In its main()
-function, there are 2 declarations made of type Person.
-However, by looking those 2 Person declarations in main(),
-you can't determine if Person is a Scala class or trait.
+The following code sample shows how to declare an 'anonymous class'
+in the main() function.  In main() there are 2 declarations made
+of type Person.  However, by looking those 2 Person declarations
+in main(), you CAN'T determine if Person is a Scala class or Scala trait.
 
-We know Person can't be a 'case class' because a case class can't
+We know Person can't be a 'case class' because a case class CAN'T
 contain the "new" keyword in its declaration.
 
 Note that the timer() function definition contains an arg/param
 named 'blockOfCode'.  blockOfcode is literally a block of Scala code.
 Obviously a block of code CAN'T take params/args, but it always
-has a return type, which is whatever type its last line translates
-into.
+has a return value and type, which is whatever expression the last
+line of code translates into.
 
 In the timer() function definition below, its argument/parameter
 is specified like this:  blockOfCode: =>A
@@ -34,11 +34,11 @@ object Demo
   // 2) abstract class Person
   // COMMENT OUT THE "Person" DECLARATION YOU DON'T WANT USED.
   //
-//  trait Person {
-//    def name:String
-//    def age:Int
-//    override def toString = s"name = $name,  age = $age"
-//  }
+//    trait Person {
+//      def name:String
+//      def age:Int
+//      override def toString = s"name = $name,  age = $age"
+//    }
 
   abstract class Person {
     val name:String
@@ -46,41 +46,45 @@ object Demo
     override def toString = s"name = $name,  age = $age"
   }
 
-// *********************************************************
+  // *********************************************************
 
   def main(args: Array[String]): Unit = {
     {
       val tom:Person = new Person {
-      val name:String = "tom"
-      val age:Int = 63
+        val name:String = "tom"
+        val age:Int = 63
       }
       println(tom) // PRINTS: name = tom,  age = 63
+      // The following println reveals that Person tom is an ANONYMOUS CLASS.
+      println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
 
       val jim:Person = new Person {
         val name:String = "jim"
         val age:Int = 27
       }
       println(jim) // PRINTS: name = jim,  age = 27
+      // The following println reveals that Person jim is an ANONYMOUS CLASS.
+      println(jim.getClass.toString) // PRINTS: class Demo$$anon$2
 
 
       val (result, time) = timer{Thread.sleep(1000);  42}
-      println(s"result = $result,  time = $time")
-      // PRINTS: result = 42,  time = 1000.15366
+      println(s"result = $result,  time = $time")  // PRINTS: result = 42,  time = 1000.143424
 
 
       // Following 2 lines are IDENTICAL to the 2 lines above.
       // EXCEPT that timer{...} is called above,
       //        and  timer(...) is called below.
       val (result2, time2) = timer(Thread.sleep(1000),  42)
-      println(s"result2 = $result2,  time = $time2")
-      // PRINTS: result2 = ((),42),  time = 1001.339614
+      println(s"result2 = $result2,  time2 = $time2")  // PRINTS: result2 = ((),42),  time2 = 1000.986938
     }
 
     def timer[A](blockOfCode: =>A) = {
       val startTime = System.nanoTime()
-      val result = blockOfCode
-      val stopTime = System.nanoTime()
-      val delta = stopTime - startTime
+      // When result is assigned a value here, the code contained in blockOfCode executes first.
+      // Next, result is assigned the value of the last line executed by blockOfCode.
+      val result:A      = blockOfCode
+      val stopTime:Long = System.nanoTime()
+      val delta:Long    = stopTime - startTime
       (result, delta/1000000D)
     }
   }
