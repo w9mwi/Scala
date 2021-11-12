@@ -1,25 +1,24 @@
 
-The following code shows an example of using an 'anonymous class'.
-In its main() function, there are 2 declarations made of type Person.
-However, by looking those 2 Person declarations in main(), you can't
-determine if Person is a Scala class or trait.
+The following code sample shows an 'anonymous class'.  In its main()
+function, there are 2 declarations made of type Person.
+However, by looking those 2 Person declarations in main(),
+you can't determine if Person is a Scala class or trait.
 
 We know Person can't be a 'case class' because a case class can't
 contain the "new" keyword in its declaration.
 
 Note that the timer() function definition contains an arg/param
 named 'blockOfCode'.  blockOfcode is literally a block of Scala code.
-Obviously a block of code CAN'T take params/args, and its return type
-is whatever expression its last line translates to.  That could be
-of type Unit, Int, List, etc.
+Obviously a block of code CAN'T take params/args, but it always
+has a return type, which is whatever type its last line translates
+into.
 
 In the timer() function definition below, its argument/parameter
 is specified like this:  blockOfCode: =>A
 
 When NOTHING appears after the colon (:) and before the rocket symbol
-(=>) it means the function takes no params/args.  The A following
-the rocket symbol (=>) means the function returns a generic type
-named A.
+(=>), it means the function takes no params/args.  The A following
+the rocket symbol (=>) means the function returns a generic of type A.
 
 Read the following code's in-line comments to understand the
 above explanations.
