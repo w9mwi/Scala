@@ -1,7 +1,7 @@
 ==========================================================================
 This sample code does the following:
-1) Reads text from a file and prints that text to the screen.
-2) Reads text from a file and writess that text to another file.
+1) Reads text from a file and prints it to the screen.
+2) Reads text from a file and writes it to another file.
 
 
 import java.io.{BufferedReader, File, FileReader, PrintWriter}
