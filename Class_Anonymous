@@ -7,7 +7,14 @@ in main(), you CAN'T determine if Person is a Scala class or Scala trait.
 We know Person can't be a 'case class' because a case class CAN'T
 contain the "new" keyword in its declaration.
 
-Note that the timer() function definition contains an arg/param
+NOTE the following 2 println statement are contained in the sample
+code below.  They reveal that Person is an ANONYMOUS CLASS.
+
+println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
+println(jim.getClass.toString) // PRINTS: class Demo$$anon$2
+
+
+The timer() function definition in the sample code contains an arg/param
 named 'blockOfCode'.  blockOfcode is literally a block of Scala code.
 Obviously a block of code CAN'T take params/args, but it always
 has a return value and type, which is whatever expression the last
@@ -17,16 +24,12 @@ In the timer() function definition below, its argument/parameter
 is specified like this:  blockOfCode: =>A
 
 When NOTHING appears after the colon (:) and before the rocket symbol
-(=>), it means the function takes no params/args.  The A following
-the rocket symbol (=>) means the function returns a generic of type A.
+(=>), it means the function takes no params/args.  The A that appears
+after the rocket symbol (=>) means blockOfCode returns a generic
+of type A.
 
 Read the following code's in-line comments to understand the
-above explanations.  NOTE the following 2 println statement
-are contained in the code sample below.  They reveal that
-Person is an ANONYMOUS CLASS.
-
-println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
-println(jim.getClass.toString) // PRINTS: class Demo$$anon$2
+above explanations.
 
 
 ==================================================================
