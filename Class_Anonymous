@@ -21,7 +21,13 @@ When NOTHING appears after the colon (:) and before the rocket symbol
 the rocket symbol (=>) means the function returns a generic of type A.
 
 Read the following code's in-line comments to understand the
-above explanations.
+above explanations.  NOTE the following 2 println statement
+are contained in the code sample below.  They reveal that
+Person is an ANONYMOUS CLASS.
+
+println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
+println(jim.getClass.toString) // PRINTS: class Demo$$anon$2
+
 
 ==================================================================
 
