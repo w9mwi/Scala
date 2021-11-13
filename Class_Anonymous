@@ -109,11 +109,12 @@ object Demo
   //       contains an argument named "run", which is a function.
   //       Therefore, to invoke the function passed to this
   //       StringToInt case class you must call:  StringToInt.run()
-  //       as is shown below.
+  //       as shown below.
   case class StringToInt(run: String => Int)
 
-  // This case class is defined to take 2 args of type A
-  // and return a value of type B.
+  // This case class is defined to take 2 args of type A,
+  // transform those two values into a single value
+  // as a generic type B.
   case class Transform2ParamsTo1Param[A,B](func: (A,A) => B)
 
   // This case class is defined to accept 2 arg lists.  The first arg list contains a String.
@@ -123,6 +124,8 @@ object Demo
   { // {...} CAN'T be replaced with (...)
     def funkyFunc:Int = myFunc(str)
   }
+
+
   def main(args: Array[String]): Unit = {
     // The StringToInt case class is defined above to take
     // a function as its argument.  Therefore, the following
@@ -131,7 +134,7 @@ object Demo
     val stringToInt:StringToInt = StringToInt{ str:String => str.toInt } // {} CAN'T be replaced with ()
     println(stringToInt.run("-777")) // PRINTS: -777
 
-    // Here, we pass the function defined below (strLength)
+    // The function strLength defined below gets passed
     // to the StringToInt case class constructor.
     val stringToInt2:StringToInt = StringToInt(strLength) // () can be replaced with {}
     println(stringToInt2.run("Madison, Wisconsin")) // PRINTS: 18
