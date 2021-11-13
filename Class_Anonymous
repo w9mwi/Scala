@@ -1,4 +1,6 @@
 
+ANONYMOUS SCALA CLASSES
+=======================
 The following code sample shows how to declare an 'anonymous class'
 in the main() function.  In main() there are 2 declarations made
 of type Person.  However, by looking those 2 Person declarations
@@ -38,10 +40,10 @@ object Demo
 {
   // *********************************************************
   // THIS PROGRAM WILL RUN WITH EITHER ONE (BUT NOT BOTH)
-  // OF THE FOLLOWING 2 DECLARATIONS FOR "Person"
+  // OF THE FOLLOWING 2 DEFINITIONS FOR "Person"
   // 1) trait Person
   // 2) abstract class Person
-  // COMMENT OUT THE "Person" DECLARATION YOU DON'T WANT USED.
+  // COMMENT OUT THE "Person" DEFINITION YOU WON'T USE.
   //
 //    trait Person {
 //      def name:String
