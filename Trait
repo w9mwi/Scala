@@ -57,8 +57,8 @@ Here are some differences between a Scala class and trait...
    A trait CAN'T be instantiated.
 
 2) A trait CAN'T extend a class.
-   A trait CAN extend any number of traits.
    A class CAN extend only one class, and any number of traits.
+   A trait CAN extend no class, and any number of traits.
 
 3) A trait CAN'T contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
