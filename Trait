@@ -10,9 +10,9 @@ NOTE: In the Scala API documentation...
       3) A circled 'p' represents a package
       4) A circled 't' represents a trait.
 
-A Scala class, case class, object, can extend no more than one class,
+A Scala class, case class, or object, can extend no more than one class,
 but they all can extend multiple traits.  A trait CAN'T extend a class
-or object, but can extend multiple traits.
+or an object, but a trait can extend multiple traits.
 
 If you want to implement multiple inheritance, you must extend
 at least one Scala trait.
