@@ -112,27 +112,33 @@ VERY IMPORTANT: Linearization applies only to trait methods that
 object Demo
 {
   class Ball {
-    def roll(ball : String): Unit = println("Rolling : " + ball)
+    def roll(ball : String): Unit = println("Rolling: " + ball)
   }
 
   trait Red extends Ball {
-    override def roll(ball : String): Unit = super.roll("Red-" + ball)
+    override def roll(ball: String): Unit = super.roll("Red-" + ball)
   }
 
   trait Green extends Ball {
-    override def roll(ball : String): Unit = super.roll("Green-" + ball)
+    override def roll(ball: String): Unit = super.roll("Green-" + ball)
   }
 
   trait Shiny extends Ball {
-    override def roll(ball : String): Unit = super.roll("Shiny-" + ball)
+    override def roll(ball: String): Unit = super.roll("Shiny-" + ball)
   }
 
   def main(args: Array[String]):Unit = {
-    val ball1 = new Ball with Shiny with Red
-    ball1.roll("Ball-1") // Rolling : Shiny-Red-Ball-1
+    val ball1 = new Ball() with Shiny with Red
+    ball1.roll("Ball-1") // Rolling: Shiny-Red-Ball-1
 
     val ball2 = new Ball with Green with Shiny
-    ball2.roll("Ball-2") // Rolling : Green-Shiny-Ball-2
+    ball2.roll("Ball-2") // Rolling: Green-Shiny-Ball-2
+
+    val ball3 = new Ball with Red with Shiny
+    ball3.roll("Ball-3") // Rolling: Red-Shiny-Ball-3
+
+    val ball4 = new Ball with Shiny with Green
+    ball4.roll("Ball-4") // Rolling: Shiny-Green-Ball-4
   }
 }
 ===================================================================
