@@ -77,6 +77,76 @@ Here are some differences between a Scala class and trait...
    is determined at runtime.
 
 
+TRAIT METHOD RESOLUTION (LINEARIZATION) - Page 466
+==================================================
+Let's repeat these two (2) rules just mentioned above,
+which apply to Scala linearization...
+
+1) A call to super() IN A CLASS is STATICALLY BOUND, which means when
+   the super() method is invoked, the same method always gets called,
+   regardless of conditions at runtime.
+
+2) A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means
+   when the super() method is invoked, the method that gets called
+   is determined at runtime.
+
+Linearization is the process Scala uses to determine which trait
+method is called when a trait method calls the super() method.
+
+VERY IMPORTANT: Linearization applies only to trait methods that
+                call the super() method.  A trait can call the
+                super() method ONLY IF:
+
+                1) The trait extends another trait.
+                ...AND...
+                2) The trait method calling super() overrides the
+                   method (having identical name and signature)
+                   in the extended trait.
+                   
+                The following code shows an example of this, where
+                each of the 3 traits extends the same class (named
+                Ball).  And all 3 traits override the Ball.roll() method.
+===================================================================
+object Demo
+{
+  class Ball {
+    def roll(ball : String): Unit = println("Rolling : " + ball)
+  }
+
+  trait Red extends Ball {
+    override def roll(ball : String): Unit = super.roll("Red-" + ball)
+  }
+
+  trait Green extends Ball {
+    override def roll(ball : String): Unit = super.roll("Green-" + ball)
+  }
+
+  trait Shiny extends Ball {
+    override def roll(ball : String): Unit = super.roll("Shiny-" + ball)
+  }
+
+  def main(args: Array[String]):Unit = {
+    val ball1 = new Ball with Shiny with Red
+    ball1.roll("Ball-1") // Rolling : Shiny-Red-Ball-1
+
+    val ball2 = new Ball with Green with Shiny
+    ball2.roll("Ball-2") // Rolling : Green-Shiny-Ball-2
+  }
+}
+===================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -134,59 +204,7 @@ object Demo
 ===================================================================
 
 
-TRAIT METHOD RESOLUTION (LINEARIZATION) - Page 466
-==================================================
-Let's repeat these two (2) rules previously mentioned above,
-which apply to Scala linearization...
 
-1) A call to super() IN A CLASS is STATICALLY BOUND, which means when
-   the super() method is invoked, the same method always gets called,
-   regardless of conditions at runtime.
-
-2) A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means
-   when the super() method is invoked, the method that gets called
-   is determined at runtime.
-
-Linearization is the process Scala uses to determine which trait
-method is called when a trait method calls the super() method.
-
-VERY IMPORTANT: Linearization applies only to trait methods that
-                call the super() method.  A trait can call the
-                super() method ONLY IF:
-
-                1) The trait extends another trait.
-                ...AND...
-                2) The trait method calling super() overrides the
-                   method (having identical name and signature)
-                   in the extended trait.  Here's a code example:
-===================================================================
-object Demo
-{
-  class Ball {
-    def roll(ball : String): Unit = println("Rolling : " + ball)
-  }
-
-  trait Red extends Ball {
-    override def roll(ball : String): Unit = super.roll("Red-" + ball)
-  }
-
-  trait Green extends Ball {
-    override def roll(ball : String): Unit = super.roll("Green-" + ball)
-  }
-
-  trait Shiny extends Ball {
-    override def roll(ball : String): Unit = super.roll("Shiny-" + ball)
-  }
-
-  def main(args: Array[String]):Unit = {
-    val ball1 = new Ball with Shiny with Red
-    ball1.roll("Ball-1") // Rolling : Shiny-Red-Ball-1
-
-    val ball2 = new Ball with Green with Shiny
-    ball2.roll("Ball-2") // Rolling : Green-Shiny-Ball-2
-  }
-}
-===================================================================
 
 Run the sample program shown further below and notice the following.
 
