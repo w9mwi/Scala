@@ -10,9 +10,9 @@ NOTE: In the Scala API documentation...
       3) A circled 'p' represents a package
       4) A circled 't' represents a trait.
 
-A Scala class, case class, or object, can extend no more than one class,
-but they all can extend multiple traits.  A trait CAN'T extend a class
-or an object, but a trait can extend multiple traits.
+A Scala class, case class, or object can extend at most one class,
+but they can all extend multiple traits.  A trait CAN'T extend
+a class or an object, but a trait can extend multiple traits.
 
 If you want to implement multiple inheritance, you must extend
 at least one Scala trait.
@@ -54,6 +54,38 @@ Here are some differences between a Scala class and trait...
 
 1) A class or object CAN be instantiated.
    A trait CAN'T be instantiated.
+   
+   NOTE: A trait is always abstract by definition, like a Java interface.
+         Therefore, a trait CAN'T be instantiated.  Below is an example
+         where we use the 'new' keyword in an attempt to instantiate a trait.
+         The code compiles and successfully executes, but this code does NOT
+         instatiate a trait, even though it appears to instantiate a trait.
+         Instead, the code is instantiating an ANONYMOUS CLASS using the trait
+         Person.  An anonynous class is NOT abstract, therefore an anonymous
+         class CAN be instantiated.  Therefore, a trait can be used to
+         instantiate an anonymous class.  But you CAN'T instantiate a trait.
+
+         For more info on anonymous classes see:
+         https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
+   ======================================================================
+   object Demo
+   {
+     trait Person {
+       def name:String
+       def age:Int
+       override def toString = s"name = $name,  age = $age"
+     }
+
+     def main(args: Array[String]): Unit = {
+       val tom:Person = new Person { val name:String = "tom"
+                                     val age:Int = 17 }
+       println(tom) // PRINTS: name = tom,  age = 17
+       // The following println reveals that Person tom is an anonymous class,
+       // and NOT a trait!  Even though Person is defined above as a trait.
+       println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
+     }
+   }
+   ======================================================================
 
 2) A trait CAN'T extend a class.
    A class CAN extend only one class, and any number of traits.
@@ -99,7 +131,7 @@ VERY IMPORTANT: Linearization applies only to trait methods that
 
                 1) The trait extends another trait, or a class,
                    that shares the same method name and signature
-                   of the trait that does the extends.
+                   of the trait that does the "extends".
                 ...AND...
                 2) The trait method calling super() overrides the
                    method (having identical name and signature)
