@@ -108,6 +108,48 @@ Here are some differences between a Scala class and trait...
    when the super() method is invoked, the method that gets called
    is determined at runtime.
 
+==================================================================================
+If a trait contains a member function that IS defined, that member method is concrete.
+If a trait contains a member function that is NOT defined, that member method is abstract.
+If a trait contains a member value that IS initialized, that member value is concrete.
+If a trait contains a member value that is NOT initialized, that member value is abstract.
+
+A trait is very similar to an abstract class in many ways.  When a class extends a
+trait that has an abstract method (a method that's declared, but not defined), each
+abstract method contained in the trait must be defined in the in the class that
+extends the trait!  The following sample code shows how to use a Scala trait,
+and shows how both abstract and concrete trait methods are implemented.
+
+trait Pet
+{
+   def speak() { println("Bow-Wow") } // speak() is DEFINED, which means it's a CONCRETE method.
+   def comeToMaster(): Unit           // comeToMaster() is UNDEFINED, which means it's an ABSTRACT  method.
+}
+class Dog(name: String) extends Pet
+{
+   // Because Dog extends the trait Pet, and Pet contains an ABSTRACT method,
+   // the ABSTRACT method comeToMaster() MUST be defined in this Dog class...
+   def comeToMaster(): Unit = { println("Woo-hoo, I'm coming!") }
+}
+
+A class that extends a trait can override a trait's defined method
+by redefining the trait's method inside the class, like this:
+
+class Cat extends Pet
+{
+   // The following speak() method overrides the trait's speak() method
+   // defined in the above example...
+   override def speak(): Unit = { println("Meow") }
+   def comeToMaster(): Unit   = { println("That's not gonna happen.") }
+}
+==================================================================================
+
+
+
+
+
+
+
 
 TRAIT METHOD RESOLUTION (LINEARIZATION) - Page 466
 ==================================================
@@ -595,40 +637,7 @@ object Demo
    }
 }
 
-==================================================================================
-If a trait contains a member function that IS defined, that member method is concrete.
-If a trait contains a member value that IS initialized, that member value is concrete.
-If a trait contains a member function that is NOT defined, that member method is abstract.
-If a trait contains a member value that is NOT initialized, that member value is abstract.
 
-A trait is very similar to an abstract class in many ways.
-When a class extends a trait that has an abstract method
-(a method that's declared, but not defined), each abstract
-method contained in the trait must be defined in the
-in the class that extends the trait!!!  Here's an example:
-
-trait Pet
-{
-   def speak() { println("Bow-Wow") } // speak() is DEFINED, which means it's a CONCRETE method.
-   def comeToMaster(): Unit           // comeToMaster() is UNDEFINED, which means it's an ABSTRACT  method.
-}
-class Dog(name: String) extends Pet
-{
-   // Because Dog extends the trait Pet, and Pet contains an ABSTRACT method,
-   // the ABSTRACT method comeToMaster() MUST be defined in this Dog class...
-   def comeToMaster(): Unit = { println("Woo-hoo, I'm coming!") }
-}
-
-A class that extends a trait can override a trait's defined method
-by redefining the trait's method inside the class, like this:
-
-class Cat extends Pet
-{
-   // The following speak() method overrides the trait's speak() method
-   // defined in the above example...
-   override def speak(): Unit = { println("Meow") }
-   def comeToMaster(): Unit   = { println("That's not gonna happen.") }
-}
 
 ==========================================================================================
 
