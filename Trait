@@ -143,18 +143,55 @@ object Demo
 }
 ===================================================================
 
+The following sample code does NOT deal with trait Linearization.
+Just read the code and comments to understand it.
 
+object Demo
+{
+  trait Equal {
+    def isEqual(x: Any): Boolean
+    def isNotEqual(x: Any): Boolean = !isEqual(x)
+  }
 
+  class Point(xc: Int, yc: Int) extends Equal {
+    val x: Int = xc // This line executes ONLY when a Point class is instantiated.
+    val y: Int = yc // This line executes ONLY when a Point class is instantiated.
 
+    def isEqual(obj: Any):Boolean =
+    {
+      if (obj.isInstanceOf[Point] && obj.asInstanceOf[Point].x == xc && obj.asInstanceOf[Point].y == yc)
+      {
+        println("xc = " + xc + ",  yc = " + yc +
+                "\nobj.asInstanceOf[Point].x = " + obj.asInstanceOf[Point].x + ",  obj.asInstanceOf[Point].y = " + obj.asInstanceOf[Point].y)
+        true
+      }
+      else false
+    }
+  }
 
+  def main(args: Array[String]) {
+    val p1 = new Point(1, 2)
+    val p2 = new Point(3, 4)
+    val p3 = new Point(5, 6)
+    val p4 = new Point(1, 2)
 
+    println(p1.isEqual(p2)) // PRINTS: false
+    println("--------------------------")
+    println(p1.isEqual(p3)) // PRINTS: false
+    println("--------------------------")
+    println(p1.isEqual(p4)) // PRINTS: xc = 1,  yc = 2
+                            //         obj.asInstanceOf[Point].x = 1,  obj.asInstanceOf[Point].y = 2
+                            //         true
+    println("--------------------------")
+    println(p1.isNotEqual(p4)) // PRINTS: xc = 1,  yc = 2
+                               //         obj.asInstanceOf[Point].x = 1,  obj.asInstanceOf[Point].y = 2
+                               //         false
+    println("--------------------------")
+    println(p1.isNotEqual(1)) // PRINTS: true
+  }
+}
 
-
-
-
-
-
-
+===================================================================
 
 
 
