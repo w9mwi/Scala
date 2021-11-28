@@ -80,8 +80,11 @@ Here are some differences between a Scala class and trait...
        val tom:Person = new Person { val name:String = "tom"
                                      val age:Int = 17 }
        println(tom) // PRINTS: name = tom,  age = 17
-       // The following println reveals that Person tom is an anonymous class,
-       // and NOT a trait!  Even though Person is defined above as a trait.
+
+       // Even though Person is defined above as a trait., the following
+       // println reveals that Person tom is an anonymous class because
+       // the text 'anon' is contained in the class name.  So the above
+       // "new Person..." instantiates an anonymous class, NOT a trait.
        println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
      }
    }
@@ -116,9 +119,9 @@ If a trait contains a member value that is NOT initialized, that member value is
 
 A trait is very similar to an abstract class in many ways.  When a class extends a
 trait that has an abstract method (a method that's declared, but not defined), each
-abstract method contained in the trait must be defined in the in the class that
-extends the trait!  The following sample code shows how to use a Scala trait,
-and shows how both abstract and concrete trait methods are implemented.
+abstract method contained in the trait must be defined in the class that extends
+the trait.  The following sample code shows how to use a Scala trait, and shows how
+both abstract and concrete trait methods are implemented.
 
 object Demo
 {
