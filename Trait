@@ -190,9 +190,10 @@ VERY IMPORTANT: Linearization applies only to trait methods that
                 call the super() method.  A trait can call the
                 super() method ONLY IF:
 
-                1) The trait extends another trait, or a class,
-                   that shares the same method name and signature
-                   of the trait that does the "extends".
+                1) The trait extends another trait that contains the same method
+                   name and signature of the trait that does the "extends".
+                   (NOTE: You "extend" a trait with either the "extends" or the
+                          "with" keywords.)
                 ...AND...
                 2) The trait method calling super() overrides the
                    method (having identical name and signature)
