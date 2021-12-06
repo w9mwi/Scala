@@ -81,7 +81,7 @@ Here are some differences between a Scala class and trait...
                                      val age:Int = 17 }
        println(tom) // PRINTS: name = tom,  age = 17
 
-       // Even though Person is defined above as a trait., the following
+       // Even though Person is defined above as a trait, the following
        // println reveals that Person tom is an anonymous class because
        // the text 'anon' is contained in the class name.  So the above
        // "new Person..." instantiates an anonymous class, NOT a trait.
