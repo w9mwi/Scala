@@ -11,7 +11,7 @@ NOTE: In the Scala API documentation...
       4) A circled 't' represents a trait.
 
 A Scala class, case class, or object can extend at most one class,
-but they can all extend multiple traits.  A trait CAN'T extend
+but they can all extend multiple traits.  A trait CAN extend
 a class or an object, but a trait can extend multiple traits.
 
 If you want to implement multiple inheritance, you must extend
@@ -161,12 +161,6 @@ object Demo
 ==================================================================================
 
 
-
-
-
-
-
-
 TRAIT METHOD RESOLUTION (LINEARIZATION)
 =======================================
 Linearization is the process Scala uses to determine which trait
@@ -187,23 +181,22 @@ two rules just mentioned above.
    in a different TRAIT METHOD being called depenent on conditions at runtime.
    Scala linearization applies ONLY to methods contained in traits.
 
-VERY IMPORTANT: Linearization applies only to trait methods that
-                call the super() method.  A trait can call the
-                super() method ONLY IF:
+VERY IMPORTANT: Linearization applies only to trait methods (not class methods)
+                that call the super() method.  A trait can call the super()
+                method ONLY IF:
 
                 1) The trait extends another trait that contains the same method
                    name and signature of the trait that does the "extends".
                    (NOTE: You "extend" a trait with either the "extends" or the
                           "with" keywords.)
                 ...AND...
-                2) The trait method calling super() overrides the
-                   method (having identical name and signature)
-                   in the extended trait or class.
+                2) The trait method calling super() overrides the method (having
+                   identical name and signature) in the extended trait.
                    
-                The following code shows an example of this, where
-                each of the 3 traits extends the same class (named
-                Ball).  And all 3 traits override the Ball.roll() method.
-===================================================================
+The following code shows an example of this, where each of the 3 traits
+extends the same class (named Ball).  And all 3 traits override the
+Ball.roll() method.
+=====================================================================================
 object Demo
 {
   class Ball {
@@ -236,7 +229,10 @@ object Demo
     ball4.roll("Ball-4") // Rolling: Shiny-Green-Ball-4
   }
 }
-===================================================================
+=====================================================================================
+
+
+=====================================================================================
 
 The following sample code does NOT deal with trait Linearization.
 Just read the code and comments to understand it.
