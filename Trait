@@ -17,8 +17,9 @@ a class or an object, but a trait can extend multiple traits.
 If you want to implement multiple inheritance, you must extend
 at least one Scala trait.
 
-REPEAT: To implement multiple inheritance requires that you extend
-        a class, an object, or a trait with at least one trait.
+IMPORTANT ENOUGH TO REPEAT:
+If you want to implement multiple inheritance, you must extend
+at least one Scala trait.
 
 Traits look nearly the same as any other type of class.  However, just like
 objects, traits CAN'T take parameters.  This is the syntax for defining a trait:
