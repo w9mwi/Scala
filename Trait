@@ -155,7 +155,6 @@ object Demo
 
 ==================================================================================
 
-
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
 Trait Linearization is the process Scala uses to determine which
@@ -226,6 +225,47 @@ object Demo
 }
 =====================================================================================
 
+object Demo
+{
+  class Vehicle
+  {
+    def method:String= "Vehicle "
+  }
+
+  trait Bike extends Vehicle
+  {
+    override def method:String = "Bike -> "+ super.method
+  }
+
+  trait MuscleBike extends Vehicle
+  {
+    override def method:String = "Muscle Bike -> "+ super.method
+  }
+
+  trait Harley extends Vehicle
+  {
+    override def method:String ="Harley Davidson -> "+ super.method
+  }
+
+  class Iron1 extends Bike with MuscleBike with Harley
+  {
+    override def method:String = "Iron1 -> "+ super.method
+  }
+
+  class Iron2 extends Harley with MuscleBike with Bike
+  {
+    override def method:String = "Iron2 -> "+ super.method
+  }
+
+  def main(args: Array[String])
+  {
+    val myBike1:Iron1 = new Iron1
+    println(myBike1.method)
+
+    val myBike2:Iron2 = new Iron2
+    println(myBike2.method)
+  }
+}
 
 =====================================================================================
 
