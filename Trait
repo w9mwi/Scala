@@ -11,8 +11,8 @@ NOTE: In the Scala API documentation...
       4) A circled 't' represents a trait.
 
 A Scala class, case class, object or trait can extend at most
-one class, but they can all extend multiple traits.  A trait
-CAN'T extend a class or an object.
+one class/object, but they can all extend any number of traits.
+A trait CAN'T extend a class/object.
 
 If you want to implement multiple inheritance in a class or trait,
 that class or trait must extend at least one Scala trait.
@@ -21,12 +21,12 @@ IMPORTANT ENOUGH TO REPEAT:
 If you want to implement multiple inheritance in a class or trait,
 that class or trait must extend at least one Scala trait.
 
-Traits look nearly the same as any other type of class.  However, just like
-objects, traits CAN'T take parameters.  This is the syntax for defining a trait:
+Traits look nearly the same as a a class.  However, just like objects,
+traits CAN'T take parameters.  This is the syntax for defining a trait:
 
 trait <identifier> [extends <identifier>] [{ fields, methods, and classes }]
 
-Below are three (3) declarations that show how to extend traits.
+Below are four (4) declarations that show how to extend traits.
 
 // A CLASS that extends one class and multiple traits...
 class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
@@ -34,15 +34,18 @@ class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
 // A CLASS that extends no class and multiple traits...
 class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
 
-// A TRAIT that extends multiple traits...
+// A TRAIT that extends one class and multiple traits...
+trait Trait_A extends Class_A with Trait_B with Trait_C { ... }
+
+// A TRAIT that extends no class and multiple traits...
 trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
 
 QUESTION: When coding an abstract type that will be used with inheritance,
           should a "trait" or an "abstract class" be used?
 
 ANSWER: The rule of thumb is to use a trait because it allows the flexibility
-        of multiple inheritance.  While a trait cannot take arguments (as can
-        an abstract class), any values that you'd want to provide as arguments
+        of multiple inheritance.  While a trait can't take arguments (as can
+        an abstract class can), any values that you'd want to provide as arguments
         can be put into a trait and left undefined, so the class that implements
         the trait will have to provide those values.
 
