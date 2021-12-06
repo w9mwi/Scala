@@ -156,10 +156,10 @@ object Demo
 ==================================================================================
 
 
-TRAIT METHOD RESOLUTION (LINEARIZATION)
-=======================================
-Linearization is the process Scala uses to determine which trait
-method is called when a trait method calls the super() method.
+TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
+=============================================
+Trait Linearization is the process Scala uses to determine which
+trait method is called when a trait method calls the super() method.
 
 To help understand Scala linearization, let's repeat these
 two rules just mentioned above.
@@ -181,9 +181,9 @@ VERY IMPORTANT: Linearization applies only to trait methods (not class methods)
                 method ONLY IF:
 
                 1) The trait extends another trait that contains the same method
-                   name and signature of the trait that does the "extends".
-                   (NOTE: You "extend" a trait with either the "extends" or the
-                          "with" keywords.)
+                   name and signature of the trait that does the "extends."
+                   NOTE: You "extend" a trait with either the "extends" keyword
+                         or the "with" keyword.
                 ...AND...
                 2) The trait method calling super() overrides the method (having
                    identical name and signature) in the extended trait.
