@@ -1,4 +1,4 @@
-There are three ways to create a data type in Scala...
+There are three ways to create a data type in Scala:
 
 1) object
 2) class
