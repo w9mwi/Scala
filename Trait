@@ -63,16 +63,14 @@ Here are some important differences between a Scala class/object and a trait...
    because it contains arguments/parameters...
    trait Point(x: Int, y: Int) // Won't compile
 
-3) A call to super() IN A CLASS is STATICALLY BOUND, which means when
-   the super() method is invoked, the CLASS METHOD that gets called is
-   DETERMINED AT COMPILE-TIME.  In other words, the call to super()
-   will always result in the same CLASS METHOD being called.
+3) A call to super() IN A CLASS is STATICALLY BOUND if that method is
+   contained in a PARENT CLASS (not in a parent trait), which means the
+   PARENT CLASS METHOD that gets called is DETERMINED AT COMPILE-TIME.
 
-   A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means when
-   the super() method is invoked, the TRAIT METHOD that gets called is
-   DETERMINED AT RUNTIME.  In other words, the call to super() can
-   result in a different TRAIT METHOD being called depenent on
-   conditions at runtime.
+   If a class or trait inherits a method that EXISTS IN TWO (2) OR MORE
+   PARENT TRAITS, a call to super() is DYNAMICALLY BOUND, which means
+   the PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME
+   via the Scala trait linearization algorithm.
 
 4) A class or object CAN be instantiated.
    A trait CAN'T be instantiated.
@@ -157,35 +155,50 @@ object Demo
 
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
-Trait Linearization is the process Scala uses to determine which
-trait method is called when a trait method calls the super() method.
+Trait linearization applies to a class or a trait that inherits from multiple traits,
+and at least two of those inherited traits contain a method with IDENTICAL signatures.
+(A method's signature is defined as the method's name + argument list + return type.)
 
-To help understand Scala linearization, let's repeat these
-two rules just mentioned above.
+When one of those inherited trait methods is called FROM THE CHILD
+class/trait via the super() method, Scala uses the trait linearization
+algorithm to determine which one of those trait methods (having
+identical signatures) gets called.
 
-1) A call to super() IN A CLASS is STATICALLY BOUND, which means when
-   the super() method is invoked, the CLASS METHOD that gets called is
-   DETERMINED AT COMPILE-TIME.  In other words, the call to super()
-   will always result in the same CLASS METHOD being called.  So Scala
-   linearization does NOT apply to methods contained in classes.
 
-2) A call to super() IN A TRAIT is DYNAMICALLY BOUND, which means when
-   the super() method is invoked, the TRAIT METHOD that gets called is
-   DETERMINED AT RUNTIME.  In other words, the call to super() can result
-   in a different TRAIT METHOD being called depenent on conditions at runtime.
-   Scala linearization applies ONLY to methods contained in traits.
+EXAMPLE:  Assume trait_A and trait_B  both contain this method:
 
-VERY IMPORTANT: Linearization applies only to trait methods (not class methods)
-                that call the super() method.  A trait can call the super()
-                method ONLY IF:
+          def increment(number:Int) = { number + 1 }
 
-                1) The trait extends another trait that contains the same method
-                   name and signature of the trait that does the "extends."
-                   NOTE: You "extend" a trait with either the "extends" keyword
-                         or the "with" keyword.
-                ...AND...
-                2) The trait method calling super() overrides the method (having
-                   identical name and signature) in the extended trait.
+          Now, we declare a child class (or child trait) that inherits
+          from both trait_A and trait_B, like this:
+
+          class class_A extends trait_A with trait_B { ... }
+
+          QUESTION:
+          When class_A calls super.increment, which method will
+          be called, trait_A.increment() or trait_B.increment()?
+
+          ANSWER:
+          Scala will implement trait linearization to determine whether
+          trait_A.increment() or trait_B.increment() gets called.
+          The algorithm Scala uses to perform trait linearization
+          is described further below along with some sample code.
+
+To better understand Scala linearization, let's repeat these
+two rules mentioned further above.
+
+1) A call to super() IN A CLASS is STATICALLY BOUND if that method is
+   contained in a PARENT CLASS (not in a parent trait), which means the
+   PARENT CLASS METHOD that gets called is DETERMINED AT COMPILE-TIME.
+
+2) If a class or trait inherits a method that EXISTS IN TWO (2) OR MORE
+   PARENT TRAITS, a call to super() is DYNAMICALLY BOUND, which means
+   the PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME
+   via the Scala trait linearization algorithm.
+   
+VERY IMPORTANT: Trait linearization applies only to trait methods
+                (not class methods) called via the super() method
+                from a child class or child trait.
                    
 The following code shows an example of this, where each of the 3 traits
 extends the same class (named Ball).  And all 3 traits override the
