@@ -156,16 +156,19 @@ object Demo
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
 Trait linearization applies to a class or a trait that inherits from multiple traits,
-and at least two of those inherited traits contain a method with IDENTICAL signatures.
-(A method's signature is defined as the method's name + argument list + return type.)
+and calls a parent trait method via the super() method.  Also, the parent trait method
+called via super() must exist in TWO OR MORE of the inherited traits.
 
-When one of those inherited trait methods is called FROM THE CHILD
-class/trait via the super() method, Scala uses the trait linearization
-algorithm to determine which one of those trait methods (having
-identical signatures) gets called.
+In other words, TWO OR MORE of the inherited traits must contain a method
+with identical signatures.  Where a method's signature is defined as the
+method's name + argument list + return type.
 
+When one of these inherited trait methods (having identical signatures) is
+called FROM THE CHILD class/trait via the super() method, Scala uses the
+trait linearization algorithm to determine which one of those trait methods
+(having identical signatures) gets called.
 
-EXAMPLE:  Assume trait_A and trait_B  both contain this method:
+EXAMPLE:  Assume trait_A and trait_B both contain this method:
 
           def increment(number:Int) = { number + 1 }
 
@@ -175,8 +178,8 @@ EXAMPLE:  Assume trait_A and trait_B  both contain this method:
           class class_A extends trait_A with trait_B { ... }
 
           QUESTION:
-          When class_A calls super.increment, which method will
-          be called, trait_A.increment() or trait_B.increment()?
+          When class_A calls super.increment() will trait_A.increment()
+          or trait_B.increment() get called?
 
           ANSWER:
           Scala will implement trait linearization to determine whether
@@ -199,7 +202,7 @@ two rules mentioned further above.
 VERY IMPORTANT: Trait linearization applies only to trait methods
                 (not class methods) called via the super() method
                 from a child class or child trait.
-                   
+
 The following code shows an example of this, where each of the 3 traits
 extends the same class (named Ball).  And all 3 traits override the
 Ball.roll() method.
