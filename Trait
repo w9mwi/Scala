@@ -78,9 +78,9 @@ Some important differences between a Scala class/object and a trait are...
          The code compiles and successfully executes, but it DOESN'T instatiate
          the Person trait!!!  Instead, the code is instantiating an ANONYMOUS CLASS
          using the Person trait.  An anonynous class is NOT abstract so an anonymous
-         class CAN be instantiated.  So a trait can be used to instantiate na
+         class CAN be instantiated.  So a trait can be used to instantiate an
          anonymous class.  But you CAN'T instantiate a trait.  Read in-line comments
-         in the code sample for more details.
+         in the code sample for details.
 
          For more info on anonymous classes see:
          https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
@@ -107,10 +107,10 @@ Some important differences between a Scala class/object and a trait are...
  }
 
 ==================================================================================
-If a trait contains a member function that IS defined, that member method is concrete.
-If a trait contains a member function that is NOT defined, that member method is abstract.
-If a trait contains a member value that IS initialized, that member value is concrete.
-If a trait contains a member value that is NOT initialized, that member value is abstract.
+If a trait (or class) contains a member function that IS defined, that member method is concrete.
+If a trait (or class) contains a member function that is NOT defined, that member method is abstract.
+If a trait (or class) contains a member value that IS initialized, that member value is concrete.
+If a trait (or class) contains a member value that is NOT initialized, that member value is abstract.
 
 A trait is very similar to an abstract class in many ways.  When a class extends a
 trait that has an abstract method (a method that's declared, but not defined), each
@@ -158,15 +158,15 @@ object Demo
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
 Trait linearization applies to a class or trait that inherits from multiple traits,
-AND calls a parent trait method via super.method().  Also, the parent trait
-method called via super.method() must exist in TWO OR MORE of the inherited traits.
+AND calls a parent trait method via super.methodName().  Also, the parent trait
+method called via super.methodName() must exist in TWO OR MORE of the inherited traits.
 
 In other words, TWO OR MORE of the inherited traits must contain a method
 with identical signatures.  (NOTE: A method's signature is defined as the
 method's name + argument list + return type.)
 
 When one of these inherited trait methods (having identical signatures) is
-called FROM THE CHILD class/trait via super.method(), Scala uses the trait
+called FROM THE CHILD class/trait via super.methodName(), Scala uses the trait
 linearization algorithm to determine which one of those trait methods
 (having identical signatures) gets called.
 
@@ -193,17 +193,17 @@ EXAMPLE:  Assume trait_A and trait_B both contain this method:
 To better understand Scala linearization, let's repeat these
 two rules mentioned further above.
 
-1) A call to super.method() IN A CLASS is STATICALLY BOUND if the super.method()
+1) A call to super.methodName() IN A CLASS is STATICALLY BOUND if the super.methodName()
    is contained in a PARENT CLASS (not in a parent trait).  This means the
    PARENT CLASS METHOD that gets called is DETERMINED AT COMPILE-TIME.
 
 2) If a class/trait inherits a method that EXISTS IN TWO (2) OR MORE PARENT
-   TRAITS, a call to super.method() is DYNAMICALLY BOUND.  This means the
+   TRAITS, a call to super.methodName() is DYNAMICALLY BOUND.  This means the
    PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME via the
    Scala trait linearization algorithm.
    
 VERY IMPORTANT: Trait linearization applies only to trait methods
-                (not class methods) called via super.method()
+                (not class methods) called via super.methodName()
                 from a child class, or a child trait.
 
 The following code shows an example of this, where each of the 3 traits
