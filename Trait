@@ -10,18 +10,14 @@ NOTE: In the Scala API documentation...
       3) A circled 'p' represents a package.
       4) A circled 't' represents a trait.
 
-A Scala class, case class, object or trait can extend at most
-one class/object, but they can all extend any number of traits.
-A trait CAN'T extend a class/object.
+A Scala class, case class, object or trait can extend ONLY ONE
+class/object, but they can all extend any number of traits.
+A trait can extend ONLY ONE class/object.
 
-If you want to implement multiple inheritance in a class or trait,
-that class or trait must extend at least one Scala trait.
+If you want to implement multiple inheritance in a class/trait,
+that class/trait must extend TWO (2) or more Scala traits.
 
-IMPORTANT ENOUGH TO REPEAT:
-If you want to implement multiple inheritance in a class or trait,
-that class or trait must extend at least one Scala trait.
-
-Traits look nearly the same as a a class.  However, just like objects,
+Traits look nearly the same as a class.  However, just like objects,
 traits CAN'T take parameters.  This is the syntax for defining a trait:
 
 trait <identifier> [extends <identifier>] [{ fields, methods, and classes }]
@@ -49,10 +45,10 @@ ANSWER: The rule of thumb is to use a trait because it allows the flexibility
         can be put into a trait and left undefined, so the class that implements
         the trait will have to provide those values.
 
-Here are some important differences between a Scala class/object and a trait...
+Some important differences between a Scala class/object and a trait are...
 
-1) A class or object CAN extend any number of traits.
-   A trait CAN extend any number of traits, but only one class/object.
+1) A class/object can extend any number of traits.
+   A trait can extend ONLY ONE class/object, and any number of traits.
 
 2) A trait CAN'T contain arguments/parameters like a class can.
    For example, you can define a class like below, which contains
@@ -63,16 +59,16 @@ Here are some important differences between a Scala class/object and a trait...
    because it contains arguments/parameters...
    trait Point(x: Int, y: Int) // Won't compile
 
-3) A call to super() IN A CLASS is STATICALLY BOUND if that method is
-   contained in a PARENT CLASS (not in a parent trait), which means the
+3) A call to super.method() IN A CLASS is STATICALLY BOUND if the super.method()
+   is contained in a PARENT CLASS (not in a parent trait).  This means the
    PARENT CLASS METHOD that gets called is DETERMINED AT COMPILE-TIME.
 
-   If a class or trait inherits a method that EXISTS IN TWO (2) OR MORE
-   PARENT TRAITS, a call to super() is DYNAMICALLY BOUND, which means
-   the PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME
-   via the Scala trait linearization algorithm.
+   If a class/trait inherits a method that EXISTS IN TWO (2) OR MORE PARENT
+   TRAITS, a call to super.method() is DYNAMICALLY BOUND.  This means the
+   PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME via the
+   Scala trait linearization algorithm.
 
-4) A class or object CAN be instantiated.
+4) A class/object CAN be instantiated.
    A trait CAN'T be instantiated.
    
    NOTE: A trait is always abstract by definition.  Below is an example
@@ -153,33 +149,34 @@ object Demo
 
 ==================================================================================
 
+
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
-Trait linearization applies to a class or a trait that inherits from multiple traits,
-and calls a parent trait method via the super() method.  Also, the parent trait method
-called via super() must exist in TWO OR MORE of the inherited traits.
+Trait linearization applies to a class or trait that inherits from multiple traits,
+AND calls a parent trait method via super.method().  Also, the parent trait
+method called via super.method() must exist in TWO OR MORE of the inherited traits.
 
 In other words, TWO OR MORE of the inherited traits must contain a method
-with identical signatures.  Where a method's signature is defined as the
-method's name + argument list + return type.
+with identical signatures.  (NOTE: A method's signature is defined as the
+method's name + argument list + return type.)
 
 When one of these inherited trait methods (having identical signatures) is
-called FROM THE CHILD class/trait via the super() method, Scala uses the
-trait linearization algorithm to determine which one of those trait methods
+called FROM THE CHILD class/trait via super.method(), Scala uses the trait
+linearization algorithm to determine which one of those trait methods
 (having identical signatures) gets called.
 
 EXAMPLE:  Assume trait_A and trait_B both contain this method:
 
           def increment(number:Int) = { number + 1 }
 
-          Now, we declare a child class (or child trait) that inherits
-          from both trait_A and trait_B, like this:
+          Now, we declare a child class (or child trait) that
+          inherits from both trait_A and trait_B, like this:
 
           class class_A extends trait_A with trait_B { ... }
 
           QUESTION:
-          When class_A calls super.increment() will trait_A.increment()
-          or trait_B.increment() get called?
+          When class_A calls super.increment() will the trait_A.increment()
+          method or trait_B.increment() method get called?
 
           ANSWER:
           Scala will implement trait linearization to determine whether
@@ -187,21 +184,22 @@ EXAMPLE:  Assume trait_A and trait_B both contain this method:
           The algorithm Scala uses to perform trait linearization
           is described further below along with some sample code.
 
+
 To better understand Scala linearization, let's repeat these
 two rules mentioned further above.
 
-1) A call to super() IN A CLASS is STATICALLY BOUND if that method is
-   contained in a PARENT CLASS (not in a parent trait), which means the
+1) A call to super.method() IN A CLASS is STATICALLY BOUND if the super.method()
+   is contained in a PARENT CLASS (not in a parent trait).  This means the
    PARENT CLASS METHOD that gets called is DETERMINED AT COMPILE-TIME.
 
-2) If a class or trait inherits a method that EXISTS IN TWO (2) OR MORE
-   PARENT TRAITS, a call to super() is DYNAMICALLY BOUND, which means
-   the PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME
-   via the Scala trait linearization algorithm.
+2) If a class/trait inherits a method that EXISTS IN TWO (2) OR MORE PARENT
+   TRAITS, a call to super.method() is DYNAMICALLY BOUND.  This means the
+   PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME via the
+   Scala trait linearization algorithm.
    
 VERY IMPORTANT: Trait linearization applies only to trait methods
-                (not class methods) called via the super() method
-                from a child class or child trait.
+                (not class methods) called via super.method()
+                from a child class, or a child trait.
 
 The following code shows an example of this, where each of the 3 traits
 extends the same class (named Ball).  And all 3 traits override the
