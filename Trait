@@ -39,7 +39,7 @@ trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
 QUESTION: When coding an abstract type that will be used with inheritance,
           should a "trait" or an "abstract class" be used?
 
-ANSWER: The rule of thumb is to use a trait because it allows the flexibility
+ANSWER: The rule of thumb is to use a trait because traits allows the flexibility
         of multiple inheritance.  While a trait can't take arguments (as can
         an abstract class can), any values that you'd want to provide as arguments
         can be put into a trait and left undefined, so the class that implements
