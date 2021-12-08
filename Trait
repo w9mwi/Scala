@@ -78,8 +78,9 @@ Some important differences between a Scala class/object and a trait are...
          The code compiles and successfully executes, but it DOESN'T instatiate
          the Person trait!!!  Instead, the code is instantiating an ANONYMOUS CLASS
          using the Person trait.  An anonynous class is NOT abstract so an anonymous
-         class CAN be instantiated.  Therefore, a trait can be used to instantiate
-         an anonymous class.  But you CAN'T instantiate a trait.
+         class CAN be instantiated.  So a trait can be used to instantiate na
+         anonymous class.  But you CAN'T instantiate a trait.  Read in-line comments
+         in the code sample for more details.
 
          For more info on anonymous classes see:
          https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
