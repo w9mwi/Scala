@@ -162,6 +162,25 @@ object Demo
 
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
+Trait linearization is the algorithm used by Scala to determine which trait
+method should get called when the multiple inheritance "diamond problem"
+is encountered.  The "diamond problem" can be resolved ONLY by using Scala
+traits.  The multiple inheritance "diamond problem" is described as follows.
+
+                         Class_A
+                         |     |
+                     -----     -----
+                     |             |
+                  Trait_A       Trait_B
+                     |             |
+                     ---------------
+                           |
+                        Trait_C
+
+
+
+
+
 Trait linearization applies to a class or trait that inherits from multiple traits,
 AND calls a parent trait method via super.methodName().  Also, the parent trait
 method called via super.methodName() must exist in TWO OR MORE of the inherited traits.
