@@ -122,8 +122,11 @@ object Demo
 {
   trait Pet
   {
-    def speak:Unit = { println("I speak the universal Pet language.") } // A concrete method because it's defined here.
-    def comeToMaster:Unit  // An abstract method because it's NOT defined here.
+    // comeToMaster is an ABSTRACT method because it's just declared, but not defined.
+    // speak is a CONCRETE method because it's defined.
+    def comeToMaster:Unit
+    def speak:Unit = { println("I speak the universal Pet language.") }
+    
   }
 
   class Dog extends Pet
