@@ -71,13 +71,14 @@ Some important differences between a Scala class/object and a trait are...
 4) A class/object CAN be instantiated.
    A trait CAN'T be instantiated.
    
-   NOTE: A trait is always abstract by definition.  Below is an example
-         where we use the 'new' keyword in an attempt to instantiate a trait.
-         The code compiles and successfully executes, but the code does NOT
-         instatiate a trait!!!  Even though it appears to instantiate a trait.
-         Instead, the code is instantiating an ANONYMOUS CLASS using the trait
-         Person.  An anonynous class is NOT abstract so an anonymous class
-         CAN be instantiated.  Therefore, a trait can be used to instantiate
+   NOTE: A trait is always abstract by definition, which means a trait CAN'T be
+         instantiated.  The code below defines Person as a trait.  The main()
+         function then APPEARS to instantiate a trait by calling:  new Person...
+
+         The code compiles and successfully executes, but it DOESN'T instatiate
+         the Person trait!!!  Instead, the code is instantiating an ANONYMOUS CLASS
+         using the Person trait.  An anonynous class is NOT abstract so an anonymous
+         class CAN be instantiated.  Therefore, a trait can be used to instantiate
          an anonymous class.  But you CAN'T instantiate a trait.
 
          For more info on anonymous classes see:
