@@ -163,20 +163,58 @@ object Demo
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
 Trait linearization is the algorithm used by Scala to determine which trait
-method should get called when the multiple inheritance "diamond problem"
-is encountered.  The "diamond problem" can be resolved ONLY by using Scala
-traits.  The multiple inheritance "diamond problem" is described as follows.
+method should get called when the multiple inheritance "diamond problem" is
+encountered.  The "diamond problem" can be resolved ONLY by using Scala
+traits, as is demonstrated in this example.
 
                          Class_A
-                         |     |
-                     -----     -----
+                            |
+                     ---------------
                      |             |
                   Trait_A       Trait_B
                      |             |
                      ---------------
                            |
-                        Trait_C
+                        Class_B
 
+The above inheritance diagram is represented by the following Scala code,
+which will successfully execute.
+========================================================================================
+object Demo
+{
+  class Class_A                  {          def test():String= "Class_A.test() called." }
+  trait Trait_A extends Class_A  { override def test():String= "Trait_A.test() called." }
+  trait Trait_B extends Class_A  { override def test():String= "Trait_B.test() called." }
+  class Class_B extends Trait_A with Trait_B { def junkMethod():Unit = {  } }
+
+  def main(args: Array[String])
+  {
+    val classB:Class_B = new Class_B
+    println(classB.test()) // PRINTS: Trait_B.test() called.
+  }
+}
+========================================================================================
+Notice Class_B above DOESN'T define the test() method.  The 'override' keyword
+is REQUIRED on Trait_A.test() and Trait_B.test() so they override the inherited
+Class_A.test() method.  This code resovles the multiple inheritance "diamond problem."
+
+QUESTION:
+Since Class_B inherits from both Trait_A and Trait_B, will classB.test() invoke the
+Trait_A.test() method or the Trait_A.test() method?
+
+ANSWER:
+The Trait_B.test() method will be invoked.
+
+
+
+
+
+
+The multiple inheritance "diamond problem" is an ambiguity that arises when...
+
+1) Class_A, Trait_A, and Trait_B all contain a method with an identical name and signature.
+   In this example.
+the two traits (Trait_B and Trait_C) inherit from A, and class D inherits from both B and C. If there is a method in A that B and C have overridden, and D does not override it, then which version of the method does D inherit: that of B, or that of C?
 
 
 
