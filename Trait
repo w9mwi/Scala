@@ -161,13 +161,46 @@ object Demo
 
 ==================================================================================
 
+The following code sample shows class_B inheriting
+from TWO (2) traits; Trait_A and Trait_B.
+
+object Demo
+{
+  trait Trait_A
+  {
+    println("Trait_A in-line code executes.")
+    def trait_A_method():Unit = println("trait_A_method() called.")
+  }
+  trait Trait_B
+  {
+    println("Trait_B in-line code executes.")
+    def trait_B_method():Unit = println("trait_B_method() called.")
+  }
+  class Class_B extends Trait_A with Trait_B
+  {
+    println("Class_B in-line code executes.")
+    def class_B_method():Unit = println("class_B_method() called.")
+  }
+
+  def main(args: Array[String])
+  {
+    val classB:Class_B = new Class_B // PRINTS the following text:
+                                     // Trait_A in-line code executes.
+                                     // Trait_B in-line code executes.
+                                     // Class_B in-line code executes.
+    classB.trait_A_method() // PRINTS: trait_A_method() called.
+    classB.trait_B_method() // PRINTS: trait_B_method() called.
+    classB.class_B_method() // PRINTS: class_B_method() called.
+  }
+}
+==================================================================================
 
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
 Trait linearization is the algorithm used by Scala to determine which trait
 method should get called when the multiple inheritance "diamond problem" is
-encountered.  The "diamond problem" can be resolved ONLY by using Scala
-traits, as is demonstrated in this example.
+encountered.  The "diamond problem" can be properly resolved ONLY by using
+Scala traits, as is demonstrated in this example.
 
                          Class_A
                             |
@@ -179,8 +212,10 @@ traits, as is demonstrated in this example.
                            |
                         Class_B
 
-The above inheritance diagram is represented by the following Scala code,
-which will successfully execute.
+The above inheritance diagram represents the multiple "diamond problem."
+The following sode shows how the multiple inheritance "diamond problem"
+(as represented by the above inheritance diagram) is resolved.
+
 ========================================================================================
 object Demo
 {
