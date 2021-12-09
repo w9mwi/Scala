@@ -198,14 +198,66 @@ object Demo
     classB.class_B_method() // PRINTS: class_B_method() called.
   }
 }
+
 ==================================================================================
+In this example Trait_A and Trait_B extend (inherit from) Class_A.
+Because Trait_A, Trait_B, and Class_A all contain an identical method
+named test(), the method definition for test() MUST include the
+'override' keyword in Trait_A and in Trait_B for the code to compile.
+
+Notice that when this line of code executes in main()...
+val classB:Class_B = new Class_B
+...the in-line code contained in all classes and all traits gets executed.
+
+Notice that when this line of code executes in main()...
+classB.test()
+...ONLY the Trait_B.test() method gets called.
+
+If you change this line...
+FROM:  class Class_B extends Trait_A with Trait_B
+TO:    class Class_B extends Trait_B with Trait_A
+...ONLY the Trait_A.test() gets called.
+
+object Demo
+{
+  class Class_A
+  {
+    println("Class_A in-line code executes.")
+    def test():Unit = println("Class_A.test() called.")
+  }
+  trait Trait_A extends Class_A
+  {
+    println("Trait_A in-line code executes.")
+    override def test():Unit = println("Trait_A.test() called.")
+  }
+  trait Trait_B extends Class_A
+  {
+    println("Trait_B in-line code executes.")
+    override def test():Unit = println("Trait_B.test() called.")
+  }
+  class Class_B extends Trait_A with Trait_B
+  {
+    println("Class_B in-line code executes.")
+  }
+
+  def main(args: Array[String])
+  {
+    val classB:Class_B = new Class_B // PRINTS the following text:
+                                     // Class_A in-line code executes.
+                                     // Trait_A in-line code executes.
+                                     // Trait_B in-line code executes.
+                                     // Class_B in-line code executes.
+    classB.test() // PRINTS: Trait_B.test() called.
+  }
+}
+==================================================================================
+
 
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
 Trait linearization is the algorithm used by Scala to determine which trait
 method should get called when the multiple inheritance "diamond problem" is
-encountered.  The "diamond problem" can be properly resolved ONLY by using
-Scala traits, as is demonstrated in the code below.
+encountered.
 
                          Class_A
                             |
@@ -217,27 +269,33 @@ Scala traits, as is demonstrated in the code below.
                             |
                          Class_B
 
-The above inheritance diagram represents the code sample below, which
-shows how the multiple inheritance "diamond problem" is resolved.
+The above inheritance diagram represents the inheritance "diamond problem."
+Assume ONLY Class_A contains a method named test(), which 
+For the code to compile, the method definition for test() in both Trait_A
+and Trait_B MUST contain the 'override' keyword to designate those
+methods override the test() method inherited from Class_A.
 
-========================================================================================
-object Demo
-{
-  class Class_A                  {          def test():String= "Class_A.test() called." }
-  trait Trait_A extends Class_A  { override def test():String= "Trait_A.test() called." }
-  trait Trait_B extends Class_A  { override def test():String= "Trait_B.test() called." }
-  class Class_B extends Trait_A with Trait_B { def junkMethod():Unit = {  } }
+If Class_B calls the test() method, which
 
-  def main(args: Array[String])
-  {
-    val classB:Class_B = new Class_B
-    println(classB.test()) // PRINTS: Trait_B.test() called.
-  }
-}
-========================================================================================
-Notice Class_B above DOESN'T define the test() method.  The 'override' keyword
-is REQUIRED on Trait_A.test() and Trait_B.test() so they override the inherited
-Class_A.test() method.  This code resovles the multiple inheritance "diamond problem."
+can be properly resolved ONLY by using
+Scala traits, as is demonstrated in the executable sample code below.
+
+The above inheritance diagram represents the following Scala declarations:
+
+class Class_A                  {          def test():String= "Class_A.test() called." }
+trait Trait_A extends Class_A  { override def test():String= "Trait_A.test() called." }
+trait Trait_B extends Class_A  { override def test():String= "Trait_B.test() called." }
+class Class_B extends Trait_A with Trait_B {  } // Empty class.
+
+When the main() program
+
+Notice that Class_B above DOESN'T define the test() method.  The 'override' keyword
+is REQUIRED in the Trait_A.test() and Trait_B.test() definitions so they'll override
+the inherited Class_A.test() method.
+
+You might expesct 
+
+
 
 QUESTION:
 Since Class_B inherits from both Trait_A and Trait_B, will classB.test() invoke the
@@ -247,9 +305,32 @@ ANSWER:
 The Trait_B.test() method will be invoked.
 
 
+========================================================================================
+object Demo
+{
+  class Class_A
+  {
+    println("Class_A in-line code executes.")
+    def test(color:String):Unit = println(s"Class_A.test() called.  color = $color")
+  }
+  trait Trait_A extends Class_A
+  {
+    println("Trait_A in-line code executes.")
+    override def test(color:String):Unit = super.test("GREEN")
+  }
+  trait Trait_B extends Class_A
+  {
+    println("Trait_B in-line code executes.")
+    override def test(color:String):Unit = super.test("BLUE")
+  }
 
-
-
+  def main(args: Array[String])
+  {
+    val classA:Class_A = new Class_A with Trait_A
+    classA.test("POOP")
+  }
+}
+========================================================================================
 
 The multiple inheritance "diamond problem" is an ambiguity that arises when...
 
