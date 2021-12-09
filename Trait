@@ -161,8 +161,8 @@ object Demo
 
 ==================================================================================
 
-The following code sample shows class_B inheriting
-from TWO (2) traits; Trait_A and Trait_B.
+The following code sample shows how a class (Class_B) can inherit from
+one class (Class_A) and from multiple traits (Trait_A and Trait_B).
 
 object Demo
 {
@@ -176,7 +176,12 @@ object Demo
     println("Trait_B in-line code executes.")
     def trait_B_method():Unit = println("trait_B_method() called.")
   }
-  class Class_B extends Trait_A with Trait_B
+  class Class_A
+  {
+    println("Class_A in-line code executes.")
+    def class_A_method():Unit = println("trait_A_method() called.")
+  }
+  class Class_B extends class_A with Trait_A with Trait_B
   {
     println("Class_B in-line code executes.")
     def class_B_method():Unit = println("class_B_method() called.")
@@ -200,7 +205,7 @@ TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 Trait linearization is the algorithm used by Scala to determine which trait
 method should get called when the multiple inheritance "diamond problem" is
 encountered.  The "diamond problem" can be properly resolved ONLY by using
-Scala traits, as is demonstrated in this example.
+Scala traits, as is demonstrated in the code below.
 
                          Class_A
                             |
@@ -209,12 +214,11 @@ Scala traits, as is demonstrated in this example.
                   Trait_A       Trait_B
                      |             |
                      ---------------
-                           |
-                        Class_B
+                            |
+                         Class_B
 
-The above inheritance diagram represents the multiple "diamond problem."
-The following sode shows how the multiple inheritance "diamond problem"
-(as represented by the above inheritance diagram) is resolved.
+The above inheritance diagram represents the code sample below, which
+shows how the multiple inheritance "diamond problem" is resolved.
 
 ========================================================================================
 object Demo
