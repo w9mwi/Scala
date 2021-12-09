@@ -39,10 +39,11 @@ trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
 QUESTION: When coding an abstract type that WILL BE USED WITH INHERITANCE,
           should a "trait" or an "abstract class" be used?
 
-ANSWER: The rule of thumb is to use a trait because traits allows the flexibility
-        of multiple inheritance.  While a trait can't take arguments (as can
-        an abstract class can), any values that you'd want to provide as arguments
-        can be put into a trait and left undefined, so the class that implements
+ANSWER: The rule of thumb is to use a trait because traits are capable of
+        always functioning properly when multiple inheritance is implemented.
+        While a trait can't take arguments (as can an abstract class can),
+        any vals/vars that you'd generally provide as arguments can be put
+        into a trait and left undefined, so the class that implements
         the trait will have to provide those values.
 
 Some important differences between a Scala class/object and a trait are:
