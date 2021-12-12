@@ -1062,4 +1062,3 @@ class Rectangle(val topLeft: Point, val bottomRight: Point) extends Rectangular
 For more info on Scala Traits SEE P.463 of book, or the following web pages:
 https://www.artima.com/pins1ed/traits.html
 http://docs.scala-lang.org/tour/traits.html
-
