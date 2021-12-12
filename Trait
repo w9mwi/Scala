@@ -161,43 +161,35 @@ object Demo
 
 ==================================================================================
 
-The following code sample shows how a class (Class_B) can inherit from
-one class (Class_A) and from multiple traits (Trait_A and Trait_B).
-
 object Demo
 {
-  trait Trait_A
-  {
-    println("Trait_A in-line code executes.")
-    def trait_A_method():Unit = println("trait_A_method() called.")
-  }
-  trait Trait_B
-  {
-    println("Trait_B in-line code executes.")
-    def trait_B_method():Unit = println("trait_B_method() called.")
-  }
   class Class_A
   {
     println("Class_A in-line code executes.")
-    def class_A_method():Unit = println("trait_A_method() called.")
+    def test1(color:String):Unit = println(s"Class_A.test1() called.  color = $color")
+    def test2(color:String):Unit = println(s"Class_A.test2() called.  color = $color")
   }
-  class Class_B extends class_A with Trait_A with Trait_B
+  trait Trait_A extends Class_A
   {
-    println("Class_B in-line code executes.")
-    def class_B_method():Unit = println("class_B_method() called.")
+    println("Trait_A in-line code executes.")
+    override def test1(color:String):Unit = super.test1("GREEN")
+  }
+  trait Trait_B extends Class_A
+  {
+    println("Trait_B in-line code executes.")
+    override def test1(color:String):Unit = super.test1("BLUE")
   }
 
   def main(args: Array[String])
   {
-    val classB:Class_B = new Class_B // PRINTS the following text:
-                                     // Trait_A in-line code executes.
-                                     // Trait_B in-line code executes.
-                                     // Class_B in-line code executes.
-    classB.trait_A_method() // PRINTS: trait_A_method() called.
-    classB.trait_B_method() // PRINTS: trait_B_method() called.
-    classB.class_B_method() // PRINTS: class_B_method() called.
+    val classA:Class_A = new Class_A with Trait_B with Trait_A // PRINTS: Class_A in-line code executes.
+                                                               //         Trait_B in-line code executes.
+                                                               //         Trait_A in-line code executes.
+    classA.test1("YELLOW") // PRINTS: Class_A.test1() called.  color = BLUE
+    classA.test2("ORANGE") // PRINTS: Class_A.test2() called.  color = ORANGE
   }
 }
+
 
 ==================================================================================
 In this example Trait_A and Trait_B extend (inherit from) Class_A.
