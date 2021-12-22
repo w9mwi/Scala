@@ -240,10 +240,16 @@ object Demo
 
 ==================================================================================
 
-The following sample code contains these two lines:
+Notice the following sample code contains a method named test1() in Class_A,
+Trait_A, and Trait_B, all having identical signatures.  The test1() methods
+in Trait_A and Trait_B both override the Class_A.test1() method, and also
+call super.test1(), which is the Class_A.test1() method.
+
 
 classA.test1("YELLOW") // PRINTS: Class_A.test1() called.  color = BLUE
 classA.test2("ORANGE") // PRINTS: Class_A.test2() called.  color = ORANGE
+
+
 
 The reason classA.test1("YELLOW") prints the color BLUE instead of the color
 YELLOW is because the first test1() method found is Trait_B.test1(), and
