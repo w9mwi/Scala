@@ -249,8 +249,6 @@ call super.test1(), which is the Class_A.test1() method.
 classA.test1("YELLOW") // PRINTS: Class_A.test1() called.  color = BLUE
 classA.test2("ORANGE") // PRINTS: Class_A.test2() called.  color = ORANGE
 
-
-
 The reason classA.test1("YELLOW") prints the color BLUE instead of the color
 YELLOW is because the first test1() method found is Trait_B.test1(), and
 Trait_B.test1() calls Class_A.test1() with the color BLUE hard-coded.
@@ -286,6 +284,54 @@ object Demo
 
 
 ==================================================================================
+
+This code sample shows an example of MULTIPLE INHERITANCE.
+Both TraitB and TraitC extend (inherit from) TraitA.
+Therefore, even though BOTH TraitA.name AND TraitB.name
+call TraitA.name via a call to super.name, only the
+call to super.name in Trait_B is invoked.  So TraitA.name
+gets called ONLY from TraitB.name and NOT from TraitA.name.
+
+object Demo
+{
+  trait TraitA {
+    def name = println("TraitA.name called.")
+  }
+
+  trait TraitB extends TraitA {
+    override def name = {
+      println("TraitB.name called.")
+      super.name
+    }
+  }
+
+  trait TraitC extends TraitA {
+    override def name = {
+      println("TraitC.name called.")
+      super.name
+    }
+  }
+
+  def main(args: Array[String])
+  {
+    class GrandChild extends TraitB with TraitC
+    val grandChild_1:GrandChild = new GrandChild
+    grandChild_1.name // PRINTS: TraitC.name called.
+                      //         TraitB.name called.
+                      //         TraitA.name called.
+
+    println("\n====================================\n")
+    // Same thing as above, except when an object is instantiated,
+    // the 'new' keyword isn't used.
+    object grandChild_2 extends TraitB with TraitC
+    grandChild_2.name // PRINTS: TraitC.name called.
+                      //         TraitB.name called.
+                      //         TraitA.name called.
+  }
+}
+
+==================================================================================
+
 
 
 
