@@ -175,13 +175,12 @@ in each class/trait is executed in this order:
 2) Trait_A in-line code executes.
 3) Trait_B in-line code executes.
 4) Class_B in-line code executes.
-5) NOTICE: Both Trait_A and Trait_B extend Class_A, but they DON'T invoke
-           Class_A in-line code.  Class_A in-line code executes only once.
-           It's important to understand this behavior.  To sum up...
+5) NOTICE: Both Trait_A and Trait_B extend Class_A, but Trait_A and Trait_B
+           DON'T invoke Class_A in-line code.  Class_A in-line code executes
+           only once.  It's important to understand this behavior.  To sum up...
 
-FIRST: In-line code in all EXTENDED class/traits is executed upon class
-       instantiation, in the left-to-right order they appear in the class
-       definition.
+FIRST: In-line code in all EXTENDED class/traits is executed upon class instantiation,
+       BEFORE in-line code is executed in the base class.
 NEXT:  In-line code in the instantiated class (Class_B) is executed LAST.
 ALSO:  Any class/trait is capable of EXTENDING another class/trait, which
        can affect class/trait method behavior, but WON'T affect the
@@ -202,7 +201,7 @@ extended class/trait.  The method search follows this order...
    from the highest-to-lowest superclass.
 3) Third, in an extended trait (if one exists).  Trait methods
    are found by searching for them in RIGHT-TO-LEFT order of
-   how they appear in the declaration, and then from the
+   how traits appear in the declaration, and then from the
    highest-to-lowest superclass.
 
 
