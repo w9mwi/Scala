@@ -240,6 +240,15 @@ object Demo
 
 ==================================================================================
 
+The following sample code contains these two lines:
+
+classA.test1("YELLOW") // PRINTS: Class_A.test1() called.  color = BLUE
+classA.test2("ORANGE") // PRINTS: Class_A.test2() called.  color = ORANGE
+
+The reason classA.test1("YELLOW") prints the color BLUE instead of the color
+YELLOW is because the first test1() method found is Trait_B.test1(), and
+Trait_B.test1() calls Class_A.test1() with the color BLUE hard-coded.
+
 object Demo
 {
   class Class_A
