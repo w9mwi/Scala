@@ -160,6 +160,87 @@ object Demo
 }
 
 ==================================================================================
+When a class extends another class/trait, the in-line code contained in each
+class/trait gets executed upon instantiation of the class.  The sample code
+shown below reveals the execution order of that in-line code.
+
+class Class_B extends Class_A with Trait_A with Trait_B
+val classB:Class_B = new Class_B
+
+When that code executes, the in-line code contained
+in each class/trait is executed in this order:
+
+1) Class_A in-line code executes.
+2) Trait_A in-line code executes.
+3) Trait_B in-line code executes.
+4) Class_B in-line code executes.
+5) NOTICE: Both Trait_A and Trait_B extend Class_A, but they DON'T invoke
+           Class_A in-line code.  Class_A in-line code executes only once.
+           It's important to understand this behavior.  To sum up...
+
+FIRST: In-line code in all EXTENDED class/traits is executed upon class
+       instantiation, in the left-to-right order they appear in the class
+       definition.
+NEXT:  In-line code in the instantiated class (Class_B) is executed LAST.
+ALSO:  Any class/trait is capable of extending another class/trait.
+       This can affect the behavior of class/trait method behavior, but
+       it does NOT affect the behavior of class/trait in-line code.
+
+
+In this example Trait_A and Trait_B extend (inherit from) Class_A.
+Because Trait_A, Trait_B, and Class_A all contain an identical method
+named test(), the method definition for test() MUST include the
+'override' keyword in Trait_A and in Trait_B for the code to compile.
+
+Notice that when this line of code executes in main()...
+val classB:Class_B = new Class_B
+...the in-line code contained in all classes and all traits gets executed.
+
+Notice that when this line of code executes in main()...
+classB.test()
+...ONLY the Trait_B.test() method gets called.
+
+If you change this line...
+FROM:  class Class_B extends Trait_A with Trait_B
+TO:    class Class_B extends Trait_B with Trait_A
+...ONLY the Trait_A.test() gets called.
+
+object Demo
+{
+  class Class_A
+  {
+    println("Class_A in-line code executes.")
+    def test():Unit = println("Class_A.test() called.")
+  }
+
+  trait Trait_A extends Class_A
+  {
+    println("Trait_A in-line code executes.")
+    override def test():Unit = println("Trait_A.test() called.")
+  }
+  trait Trait_B extends Class_A
+  {
+    println("Trait_B in-line code executes.")
+    override def test():Unit = println("Trait_B.test() called.")
+  }
+  class Class_B extends Class_A with Trait_A with Trait_B
+  {
+    println("Class_B in-line code executes.")
+  }
+
+  def main(args: Array[String])
+  {
+    val classB:Class_B = new Class_B // PRINTS the following text:
+                                     // Class_A in-line code executes.
+                                     // Trait_A in-line code executes.
+                                     // Trait_B in-line code executes.
+                                     // Class_B in-line code executes.
+    classB.test() // PRINTS: Trait_B.test() called.
+  }
+}
+==================================================================================
+
+
 
 object Demo
 {
@@ -192,57 +273,7 @@ object Demo
 
 
 ==================================================================================
-In this example Trait_A and Trait_B extend (inherit from) Class_A.
-Because Trait_A, Trait_B, and Class_A all contain an identical method
-named test(), the method definition for test() MUST include the
-'override' keyword in Trait_A and in Trait_B for the code to compile.
 
-Notice that when this line of code executes in main()...
-val classB:Class_B = new Class_B
-...the in-line code contained in all classes and all traits gets executed.
-
-Notice that when this line of code executes in main()...
-classB.test()
-...ONLY the Trait_B.test() method gets called.
-
-If you change this line...
-FROM:  class Class_B extends Trait_A with Trait_B
-TO:    class Class_B extends Trait_B with Trait_A
-...ONLY the Trait_A.test() gets called.
-
-object Demo
-{
-  class Class_A
-  {
-    println("Class_A in-line code executes.")
-    def test():Unit = println("Class_A.test() called.")
-  }
-  trait Trait_A extends Class_A
-  {
-    println("Trait_A in-line code executes.")
-    override def test():Unit = println("Trait_A.test() called.")
-  }
-  trait Trait_B extends Class_A
-  {
-    println("Trait_B in-line code executes.")
-    override def test():Unit = println("Trait_B.test() called.")
-  }
-  class Class_B extends Trait_A with Trait_B
-  {
-    println("Class_B in-line code executes.")
-  }
-
-  def main(args: Array[String])
-  {
-    val classB:Class_B = new Class_B // PRINTS the following text:
-                                     // Class_A in-line code executes.
-                                     // Trait_A in-line code executes.
-                                     // Trait_B in-line code executes.
-                                     // Class_B in-line code executes.
-    classB.test() // PRINTS: Trait_B.test() called.
-  }
-}
-==================================================================================
 
 
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
