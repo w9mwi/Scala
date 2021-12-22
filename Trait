@@ -181,7 +181,7 @@ in each class/trait is executed in this order:
 
 FIRST: In-line code in all EXTENDED class/traits is executed upon class instantiation,
        BEFORE in-line code is executed in the base class.
-NEXT:  In-line code in the instantiated class (Class_B) is executed LAST.
+NEXT:  In-line code in the instantiated base class (Class_B) is executed LAST.
 ALSO:  Any class/trait is capable of EXTENDING another class/trait, which
        can affect class/trait method behavior, but WON'T affect the
        behavior of class/trait in-line code.
@@ -192,9 +192,9 @@ Class_A.test() method.  The last line of code in main() is this line:
 
 classB.test()
 
-That line of code calls the Trait_B.test() method because Scala
-implements the following rules when searching for a method in an
-extended class/trait.  The method search follows this order...
+That line of code calls the Trait_B.test() method (instead of Trait_A.test())
+because Scala implements the following rules when searching for a method in
+an extended class/trait.  The method search follows this order...
 
 1) First, in the instantiated class.
 2) Second, in the class's extended class (if one exists),
@@ -203,7 +203,6 @@ extended class/trait.  The method search follows this order...
    are found by searching for them in RIGHT-TO-LEFT order of
    how traits appear in the declaration, and then from the
    highest-to-lowest superclass.
-
 
 object Demo
 {
