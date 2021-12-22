@@ -114,10 +114,10 @@ Some important differences between a Scala class/object and a trait are:
  }
 
 ==================================================================================
-If a trait (or class) contains a member function that IS defined, that member method is concrete.
-If a trait (or class) contains a member function that is NOT defined, that member method is abstract.
-If a trait (or class) contains a member value that IS initialized, that member value is concrete.
-If a trait (or class) contains a member value that is NOT initialized, that member value is abstract.
+If a trait/class contains a member function that     IS defined, that member method is concrete.
+If a trait/class contains a member function that  ISN'T defined, that member method is abstract.
+If a trait/class contains a member value that    IS initialized, that member value is concrete.
+If a trait/class contains a member value that ISN'T initialized, that member value is abstract.
 
 A trait is very similar to an abstract class in many ways.  When a class extends a
 trait that has an abstract method (a method that's declared, but not defined), each
