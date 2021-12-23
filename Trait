@@ -279,7 +279,7 @@ object Demo
   }
 }
 
-==================================================================================
+===================================================================================================
 
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
@@ -287,12 +287,11 @@ TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 MULTIPLE INHERITANCE occurs whenever 2 or more child classes/traits
 inherit from a single class/trait.
 
-When multiple inheritance occurs, and each child class/trait calls super,
-Scala's trait linearization algorithm determines which trait methods gets
-called, and in which order.
+When multiple inheritance occurs, and each child class/trait calls super to invoke
+a method in the parent class, Scala's trait linearization algorithm determines
+which trait methods gets called, and in which order.
 
-Here's an example.  The following inheritance diagram represents the sample code
-shown below.
+The following inheritance diagram represents the sample code shown below.
 
                        -----------
                        | Class_A |
@@ -326,11 +325,11 @@ Use the following declaration (obtained from the sample code below), then substi
 each class/trait with linearization paths we just obtained above...
 
 USING THIS DECLARATION: val myClass = new Class_A with Trait_D with Trait_C with Trait_B
-WE OBTAIN THIS PATH:    (Class_A) -> (Trait_D -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_B -> Class_A)
+OBTAIN THIS PATH:       (Class_A) -> (Trait_D -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_B -> Class_A)
 
 
 STEP 3)
-Reverse the order of the linearization path just obtained above to this:
+Reverse the order of the linearization path just obtained.  Like this:
 (Trait_B -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_D -> Class_A) -> Class_A
 
 
@@ -401,25 +400,8 @@ object Demo
 
 ===================================================================================================
 
-
-==================================================================================
-
-This code sample shows an example of MULTIPLE INHERITANCE.
-Both TraitB and TraitC extend (inherit from) TraitA.  Even
-though BOTH TraitB.name AND TraitC.name call super.name
-(which then calls TraitA.name), only the call to super.name
-in Trait_B is invoked.  The call to super.name in TraitC
-is NOT invoked.
-
-When super is called from all children that inherit from of a single class/trait
-(multiple inheritance), super will be called from ONLY ONE of those child
-classes/traits.  The algorithm Scala uses to determine which child class/trait
-calls super is known as Trait Linearization.
-
-In the code sample below we have this declaration, represented by the below
-inheritance diagram:
-
-class GrandChild extends TraitB with TraitC
+The code sample below shows another example of multiple inheritance,
+for which we determine the trait linearization path.
 
 
                          Trait_A
@@ -431,10 +413,50 @@ class GrandChild extends TraitB with TraitC
                      ---------------
                             |
                         Grandchild
+                        
+
+STEP 1)
+Define the linearization path for each trait/class shown in the above inheritance diagram.
+
+L(Trait_A)    = (Trait_A)
+L(Trait_B)    = (Trait_B -> Trait_A)
+L(Trait_C)    = (Trait_C -> Trait_A)
+L(GrandChild) = L(Trait_B) --> L(Trait_C)
+
+STEP 2)
+Use the following declaration (obtained from the sample code below), then substitute
+each class/trait with linearization paths we just obtained above...
+
+USING THIS DECLARATION: class GrandChild extends TraitB with TraitC
+                        val grandChild_1:GrandChild = new GrandChild
+OBTAIN THIS PATH:       (Trait_B -> Trait_A) --> (Trait_C -> Trait_A)
 
 
+STEP 3)
+Reverse the order of the linearization path just obtained.  Like this:
+(Trait_C -> Trait_A) --> (Trait_B -> Trait_A)
+ 
+ 
+STEP 4)
+Simplify the linearization path obtained in STEP 3) by removing all duplicate path names.
+BEGIN WITH THE RIGHT-MOST ELEMENT (Trait_A).  Keep the right-most element, and remove all
+other duplicate references appearing to its left.  So we keep the right-most Trait_A,
+and remove all other Trait_A references to its left, resulting in this:
 
+(Trait_C) --> (Trait_B) --Trait_A
 
+The linearization algorithm is done when there are no more
+duplicate elements in the linearization path.  Remove the
+parenthesis to obtain the final result:
+
+FINAL LINEARIZATION PATH:  Trait_C -> Trait_B -> Trait_A
+
+From this result we can determine that the println(myClass.info) statement
+in the below code sample will print this:
+
+TraitC.name called.
+TraitB.name called.
+TraitA.name called.
 
 
 object Demo
@@ -478,7 +500,7 @@ inherit from a single trait.
 
 
 
-
+===================================================================================================
 
 
 
