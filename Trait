@@ -279,11 +279,130 @@ object Demo
   }
 }
 
-
 ==================================================================================
 
+TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
+=============================================
+
 MULTIPLE INHERITANCE occurs whenever 2 or more child classes/traits
-inherit from a single trait.
+inherit from a single class/trait.
+
+When multiple inheritance occurs, and each child class/trait calls super,
+Scala's trait linearization algorithm determines which trait methods gets
+called, and in which order.
+
+Here's an example.  The following inheritance diagram represents the sample code
+shown below.
+
+                       -----------
+                       | Class_A |
+                       -----------
+                            |
+                     ----------------
+                     |              |
+                -----------    -----------
+                | Trait_B |    | Trait_D |
+                -----------    -----------
+                     |
+                -----------
+                | Trait_C |
+                -----------
+
+To determine what gets printed when the sample code below calls println(myClass.info),
+we need to determine the trait linerarization algorithm Scala uses.  Follow this
+4-STEP process to obtain the results of trait linearization.
+
+STEP 1)
+Define the linearization path for each trait/class shown in the above inheritance diagram.
+
+L(Class_A) = (Class_A)
+L(Trait_B) = (Trait_B -> Class_A)
+L(Trait_C) = (Trait_C -> Trait_B -> Class_A)
+L(Trait_D) = (Trait_D -> Class_A)
+
+
+STEP 2)
+Use the following declaration (obtained from the sample code below), then substitute
+each class/trait with linearization paths we just obtained above...
+
+USING THIS DECLARATION: val myClass = new Class_A with Trait_D with Trait_C with Trait_B
+WE OBTAIN THIS PATH:    (Class_A) -> (Trait_D -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_B -> Class_A)
+
+
+STEP 3)
+Reverse the order of the linearization path just obtained above to this:
+(Trait_B -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_D -> Class_A) -> Class_A
+
+
+STEP 4)
+Simplify the linearization path obtained in STEP 3) by removing all duplicate path names.
+BEGIN WITH THE RIGHT-MOST ELEMENT (Class_A).  Keep the right-most element, and remove all
+other duplicate references appearing to its left.  So we keep the right-most Class_A,
+and remove all other Class_A references to its left, resulting in this:
+
+(Trait_B) -> (Trait_C -> Trait_B) -> (Trait_D) -> Class_A
+
+Repeat STEP 4) beginning with next right-most element (Trait_D), and remove
+all Trait_D duplicates to its left.  No Trait_D duplicates exist, so the
+linearization path remains unchanged:
+
+(Trait_B) -> (Trait_C -> Trait_B) -> (Trait_D) -> Class_A
+
+Repeat STEP 4) beginning with next right-most element (Trait_B), and remove
+all Trait_B duplicates to its left, which results in this:
+
+(Trait_C -> Trait_B) -> (Trait_D) -> Class_A
+
+The linearization algorithm is done when there are no more
+duplicate elements in the linearization path.  Remove the
+parenthesis to obtain the final result:
+
+FINAL LINEARIZATION PATH:  Trait_C -> Trait_B -> Trait_D -> Class_A
+
+From this result we can determine that the println(myClass.info) statement
+in the below code sample will print this:
+
+Trait_C.info() called.
+Trait_B.info() called.
+Trait_D.info() called.
+Class_A.info() called.
+
+Notice how the order of the trait/class names printed follows
+the order of the trait linearization path obtained
+
+
+object Demo
+{
+  class Class_A {
+    def info() = "Class_A.info() called."
+  }
+
+  trait Trait_B extends Class_A {
+    override def info() = "Trait_B.info() called.\n" + super.info()
+  }
+
+  trait Trait_C extends Trait_B {
+    override def info() = "Trait_C.info() called.\n" + super.info()
+  }
+
+  trait Trait_D extends Class_A {
+    override def info() = "Trait_D.info() called.\n" + super.info()
+  }
+
+  def main(args: Array[String])
+  {
+    val myClass = new Class_A with Trait_D with Trait_C with Trait_B
+    println(myClass.info) // PRINTS: Trait_C.info() called.
+                          //         Trait_B.info() called.
+                          //         Trait_D.info() called.
+                          //         Class_A.info() called.
+  }
+}
+
+===================================================================================================
+
+
+==================================================================================
 
 This code sample shows an example of MULTIPLE INHERITANCE.
 Both TraitB and TraitC extend (inherit from) TraitA.  Even
@@ -292,9 +411,30 @@ though BOTH TraitB.name AND TraitC.name call super.name
 in Trait_B is invoked.  The call to super.name in TraitC
 is NOT invoked.
 
-The algorithm Scala uses to determine which child trait performs
-the call to super is known as Trait Linearization, which is
-explained further below.
+When super is called from all children that inherit from of a single class/trait
+(multiple inheritance), super will be called from ONLY ONE of those child
+classes/traits.  The algorithm Scala uses to determine which child class/trait
+calls super is known as Trait Linearization.
+
+In the code sample below we have this declaration, represented by the below
+inheritance diagram:
+
+class GrandChild extends TraitB with TraitC
+
+
+                         Trait_A
+                            |
+                     ---------------
+                     |             |
+                  Trait_B       Trait_C
+                     |             |
+                     ---------------
+                            |
+                        Grandchild
+
+
+
+
 
 
 object Demo
@@ -314,7 +454,8 @@ object Demo
     override def name = {
       println("TraitC.name called.")
       super.name
-    }
+    }MULTIPLE INHERITANCE occurs whenever 2 or more child classes/traits
+inherit from a single trait.
   }
 
   def main(args: Array[String])
@@ -335,61 +476,33 @@ object Demo
   }
 }
 
-==================================================================================
 
 
 
 
-TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
-=============================================
-Trait linearization is the algorithm used by Scala to determine which trait
-method should get called when the multiple inheritance "diamond problem" is
-encountered.
 
-                         Class_A
-                            |
-                     ---------------
-                     |             |
-                  Trait_A       Trait_B
-                     |             |
-                     ---------------
-                            |
-                         Class_B
 
-The above inheritance diagram represents the inheritance "diamond problem."
-Assume ONLY Class_A contains a method named test(), which 
-For the code to compile, the method definition for test() in both Trait_A
-and Trait_B MUST contain the 'override' keyword to designate those
-methods override the test() method inherited from Class_A.
 
-If Class_B calls the test() method, which
 
-can be properly resolved ONLY by using
-Scala traits, as is demonstrated in the executable sample code below.
 
-The above inheritance diagram represents the following Scala declarations:
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Class_A                  {          def test():String= "Class_A.test() called." }
 trait Trait_A extends Class_A  { override def test():String= "Trait_A.test() called." }
 trait Trait_B extends Class_A  { override def test():String= "Trait_B.test() called." }
 class Class_B extends Trait_A with Trait_B {  } // Empty class.
-
-When the main() program
-
-Notice that Class_B above DOESN'T define the test() method.  The 'override' keyword
-is REQUIRED in the Trait_A.test() and Trait_B.test() definitions so they'll override
-the inherited Class_A.test() method.
-
-You might expesct 
-
-
-
-QUESTION:
-Since Class_B inherits from both Trait_A and Trait_B, will classB.test() invoke the
-Trait_A.test() method or the Trait_A.test() method?
-
-ANSWER:
-The Trait_B.test() method will be invoked.
 
 
 ========================================================================================
