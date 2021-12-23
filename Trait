@@ -293,6 +293,15 @@ which trait methods gets called, and in which order.
 
 The following inheritance diagram represents the sample code shown below.
 
+
+
+To determine what gets printed when the sample code below calls println(myClass.info),
+we need to determine the trait linerarization algorithm Scala uses.  Follow this
+5-STEP process to obtain the results of trait linearization.
+
+STEP 1)
+Draw the inheritance diagram of the class/traits contained in the sample code's declaration.
+
                        -----------
                        | Class_A |
                        -----------
@@ -307,11 +316,8 @@ The following inheritance diagram represents the sample code shown below.
                 | Trait_C |
                 -----------
 
-To determine what gets printed when the sample code below calls println(myClass.info),
-we need to determine the trait linerarization algorithm Scala uses.  Follow this
-4-STEP process to obtain the results of trait linearization.
 
-STEP 1)
+STEP 2)
 Define the linearization path for each trait/class shown in the above inheritance diagram.
 
 L(Class_A) = (Class_A)
@@ -320,20 +326,18 @@ L(Trait_C) = (Trait_C -> Trait_B -> Class_A)
 L(Trait_D) = (Trait_D -> Class_A)
 
 
-STEP 2)
-Use the following declaration (obtained from the sample code below), then substitute
-each class/trait with linearization paths we just obtained above...
-
-USING THIS DECLARATION: val myClass = new Class_A with Trait_D with Trait_C with Trait_B
-OBTAIN THIS PATH:       (Class_A) -> (Trait_D -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_B -> Class_A)
-
-
 STEP 3)
+USE THIS DECLARATION FROM THE CODE:  val myClass = new Class_A with Trait_D with Trait_C with Trait_B
+Substutute values obtained in STEP 2) to obtain the linearization path.
+OBTAIN LINEARIZATION PATH:                             (Class_A) -> (Trait_D -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_B -> Class_A)
+
+
+STEP 4)
 Reverse the order of the linearization path just obtained.  Like this:
 (Trait_B -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_D -> Class_A) -> Class_A
 
 
-STEP 4)
+STEP 5)
 Simplify the linearization path obtained in STEP 3) by removing all duplicate path names.
 BEGIN WITH THE RIGHT-MOST ELEMENT (Class_A).  Keep the right-most element, and remove all
 other duplicate references appearing to its left.  So we keep the right-most Class_A,
@@ -365,10 +369,6 @@ Trait_C.info() called.
 Trait_B.info() called.
 Trait_D.info() called.
 Class_A.info() called.
-
-Notice how the order of the trait/class names printed follows
-the order of the trait linearization path obtained
-
 
 object Demo
 {
@@ -404,6 +404,9 @@ The code sample below shows another example of multiple inheritance,
 for which we determine the trait linearization path.
 
 
+STEP 1)
+Draw the inheritance diagram of the class/traits contained in the sample code's declaration.
+
                          Trait_A
                             |
                      ---------------
@@ -413,9 +416,10 @@ for which we determine the trait linearization path.
                      ---------------
                             |
                         Grandchild
-                        
 
-STEP 1)
+
+
+STEP 2)
 Define the linearization path for each trait/class shown in the above inheritance diagram.
 
 L(Trait_A)    = (Trait_A)
@@ -423,27 +427,24 @@ L(Trait_B)    = (Trait_B -> Trait_A)
 L(Trait_C)    = (Trait_C -> Trait_A)
 L(GrandChild) = L(Trait_B) --> L(Trait_C)
 
-STEP 2)
-Use the following declaration (obtained from the sample code below), then substitute
-each class/trait with linearization paths we just obtained above...
-
-USING THIS DECLARATION: class GrandChild extends TraitB with TraitC
-                        val grandChild_1:GrandChild = new GrandChild
-OBTAIN THIS PATH:       (Trait_B -> Trait_A) --> (Trait_C -> Trait_A)
-
-
 STEP 3)
-Reverse the order of the linearization path just obtained.  Like this:
-(Trait_C -> Trait_A) --> (Trait_B -> Trait_A)
- 
- 
+USE THIS DECLARATION FROM THE CODE:  class GrandChild extends TraitB with TraitC
+                                     val grandChild_1:GrandChild = new GrandChild
+Substutute values obtained in STEP 2) to obtain the linearization path.
+OBTAIN LINEARIZATION PATH:  (Trait_B -> Trait_A) -> (Trait_C -> Trait_A)
+
 STEP 4)
-Simplify the linearization path obtained in STEP 3) by removing all duplicate path names.
+Reverse the order of the linearization path just obtained.  Like this:
+(Trait_C -> Trait_A) -> (Trait_B -> Trait_A)
+ 
+ 
+STEP 5)
+Simplify the linearization path obtained in STEP 4) by removing all duplicate path names.
 BEGIN WITH THE RIGHT-MOST ELEMENT (Trait_A).  Keep the right-most element, and remove all
 other duplicate references appearing to its left.  So we keep the right-most Trait_A,
 and remove all other Trait_A references to its left, resulting in this:
 
-(Trait_C) --> (Trait_B) --Trait_A
+(Trait_C) -> (Trait_B) -> Trait_A
 
 The linearization algorithm is done when there are no more
 duplicate elements in the linearization path.  Remove the
@@ -451,8 +452,8 @@ parenthesis to obtain the final result:
 
 FINAL LINEARIZATION PATH:  Trait_C -> Trait_B -> Trait_A
 
-From this result we can determine that the println(myClass.info) statement
-in the below code sample will print this:
+From this result we can determine that the grandChild_1.name
+statement in the below code sample will print this:
 
 TraitC.name called.
 TraitB.name called.
@@ -497,8 +498,6 @@ inherit from a single trait.
                       //         TraitA.name called.
   }
 }
-
-
 
 ===================================================================================================
 
