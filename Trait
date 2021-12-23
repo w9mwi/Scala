@@ -172,6 +172,7 @@ in each class/trait is executed in this order:
 2) Trait_A in-line code executes.
 3) Trait_B in-line code executes.
 4) Class_B in-line code executes.
+
 5) NOTICE: Both Trait_A and Trait_B extend Class_A, but Trait_A and Trait_B
            DON'T invoke Class_A in-line code.  Class_A in-line code executes
            only once.  It's important to understand this behavior.  To sum up...
@@ -183,8 +184,8 @@ ALSO:  Any class/trait is capable of EXTENDING another class/trait, which
        can affect class/trait method behavior, but WON'T affect the
        behavior of class/trait in-line code.
 
-Notice that Trait_A and Trait_B both extend Class_A in the following code
-sample, and both those traits contain a test() method that overrides the
+In the following code sample notice that Trait_A and Trait_B both extend
+Class_A, and both those traits contain a test() method that overrides the
 Class_A.test() method.  The last line of code in main() is this line:
 
 classB.test()
