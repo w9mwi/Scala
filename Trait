@@ -312,11 +312,16 @@ Draw the inheritance diagram of the class/traits contained in the sample code's 
                 -----------    -----------
                 | Trait_B |    | Trait_D |
                 -----------    -----------
-                     |
-                -----------
-                | Trait_C |
-                -----------
-
+                     |              |
+                -----------         |
+                | Trait_C |         |
+                -----------         |
+                     |              |
+                     ----------------
+                            |
+                      ------------
+                      |  myClass |
+                      ------------
 
 STEP 2)
 Define the linearization path for each trait/class shown in the above inheritance diagram.
@@ -325,18 +330,16 @@ L(Class_A) = (Class_A)
 L(Trait_B) = (Trait_B -> Class_A)
 L(Trait_C) = (Trait_C -> Trait_B -> Class_A)
 L(Trait_D) = (Trait_D -> Class_A)
-
+L(myClass) = Trait_C -> Trait_D
 
 STEP 3)
 USE THIS DECLARATION FROM THE CODE:  val myClass = new Class_A with Trait_D with Trait_C with Trait_B
-Substutute values obtained in STEP 2) to obtain the linearization path.
-OBTAIN LINEARIZATION PATH:                             (Class_A) -> (Trait_D -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_B -> Class_A)
-
+Substitute values obtained in STEP 2) to obtain the linearization path.
+OBTAIN LINEARIZATION PATH:  (Class_A) -> (Trait_D -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_B -> Class_A)
 
 STEP 4)
 Reverse the order of the linearization path just obtained.  Like this:
-(Trait_B -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_D -> Class_A) -> Class_A
-
+(Trait_B -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_D -> Class_A) -> (Class_A)
 
 STEP 5)
 Simplify the linearization path obtained in STEP 3) by removing all duplicate path names.
@@ -344,18 +347,18 @@ BEGIN WITH THE RIGHT-MOST ELEMENT (Class_A).  Keep the right-most element, and r
 other duplicate references appearing to its left.  So we keep the right-most Class_A,
 and remove all other Class_A references to its left, resulting in this:
 
-(Trait_B) -> (Trait_C -> Trait_B) -> (Trait_D) -> Class_A
+(Trait_B) -> (Trait_C -> Trait_B) -> (Trait_D) -> (Class_A)
 
 Repeat STEP 4) beginning with next right-most element (Trait_D), and remove
 all Trait_D duplicates to its left.  No Trait_D duplicates exist, so the
 linearization path remains unchanged:
 
-(Trait_B) -> (Trait_C -> Trait_B) -> (Trait_D) -> Class_A
+(Trait_B) -> (Trait_C -> Trait_B) -> (Trait_D) -> (Class_A)
 
 Repeat STEP 4) beginning with next right-most element (Trait_B), and remove
 all Trait_B duplicates to its left, which results in this:
 
-(Trait_C -> Trait_B) -> (Trait_D) -> Class_A
+(Trait_C -> Trait_B) -> (Trait_D) -> (Class_A)
 
 The linearization algorithm is done when there are no more
 duplicate elements in the linearization path.  Remove the
@@ -408,16 +411,21 @@ for which we determine the trait linearization path.
 STEP 1)
 Draw the inheritance diagram of the class/traits contained in the sample code's declaration.
 
-                         Trait_A
+                        -----------
+                        | Trait_A |
+                        -----------
                             |
                      ---------------
                      |             |
-                  Trait_B       Trait_C
-                     |             |
-                     ---------------
-                            |
-                        Grandchild
-
+               -----------     -----------
+               | Trait_B |     | Trait_C |
+               -----------     -----------
+                    |              |
+                    ----------------
+                           |
+                     --------------
+                     | Grandchild |
+                     --------------
 
 
 STEP 2)
@@ -431,7 +439,7 @@ L(GrandChild) = L(Trait_B) --> L(Trait_C)
 STEP 3)
 USE THIS DECLARATION FROM THE CODE:  class GrandChild extends TraitB with TraitC
                                      val grandChild_1:GrandChild = new GrandChild
-Substutute values obtained in STEP 2) to obtain the linearization path.
+Substitute values obtained in STEP 2) to obtain the linearization path.
 OBTAIN LINEARIZATION PATH:  (Trait_B -> Trait_A) -> (Trait_C -> Trait_A)
 
 STEP 4)
