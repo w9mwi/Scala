@@ -481,8 +481,7 @@ object Demo
     override def name = {
       println("TraitC.name called.")
       super.name
-    }MULTIPLE INHERITANCE occurs whenever 2 or more child classes/traits
-inherit from a single trait.
+    }
   }
 
   def main(args: Array[String])
@@ -505,32 +504,8 @@ inherit from a single trait.
 
 ===================================================================================================
 
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Class_A                  {          def test():String= "Class_A.test() called." }
-trait Trait_A extends Class_A  { override def test():String= "Trait_A.test() called." }
-trait Trait_B extends Class_A  { override def test():String= "Trait_B.test() called." }
-class Class_B extends Trait_A with Trait_B {  } // Empty class.
-
-
-========================================================================================
 object Demo
 {
   class Class_A
@@ -551,10 +526,12 @@ object Demo
 
   def main(args: Array[String])
   {
-    val classA:Class_A = new Class_A with Trait_A
+    val classA:Class_A = new Class_A with Trait_A with Trait_B
     classA.test("POOP")
   }
 }
+
+
 ========================================================================================
 
 The multiple inheritance "diamond problem" is an ambiguity that arises when...
