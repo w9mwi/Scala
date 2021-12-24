@@ -429,7 +429,6 @@ Define the linearization path for each trait/class shown in the above inheritanc
 L(Trait_A)    = (Trait_A)
 L(Trait_B)    = (Trait_B -> Trait_A)
 L(Trait_C)    = (Trait_C -> Trait_A)
-L(GrandChild) = L(Trait_B) --> L(Trait_C)
 
 STEP 3)
 USE THIS DECLARATION FROM THE CODE:  class GrandChild extends TraitB with TraitC
@@ -504,7 +503,11 @@ object Demo
 
 ===================================================================================================
 
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+
+===================================================================================================
 
 object Demo
 {
@@ -516,86 +519,28 @@ object Demo
   trait Trait_A extends Class_A
   {
     println("Trait_A in-line code executes.")
-    override def test(color:String):Unit = super.test("GREEN")
+    override def test(color:String):Unit = { super.test("GREEN") ; println("T_A " + color)}
   }
   trait Trait_B extends Class_A
   {
     println("Trait_B in-line code executes.")
-    override def test(color:String):Unit = super.test("BLUE")
+    override def test(color:String):Unit = { super.test("BLUE"); println("T_B " + color)}
   }
 
   def main(args: Array[String])
   {
-    val classA:Class_A = new Class_A with Trait_A with Trait_B
-    classA.test("POOP")
+    val classA:Class_A = new Class_A with Trait_A with Trait_B // PRINTS: Class_A in-line code executes.
+                                                               //         Trait_A in-line code executes.
+                                                               //         Trait_B in-line code executes.
+
+    classA.test("SILVER") // PRINTS: Class_A.test() called.  color = GREEN
+                          //         T_A BLUE
+                          //         T_B SILVER
   }
 }
 
-
 ========================================================================================
 
-The multiple inheritance "diamond problem" is an ambiguity that arises when...
-
-1) Class_A, Trait_A, and Trait_B all contain a method with an identical name and signature.
-   In this example.
-the two traits (Trait_B and Trait_C) inherit from A, and class D inherits from both B and C. If there is a method in A that B and C have overridden, and D does not override it, then which version of the method does D inherit: that of B, or that of C?
-
-
-
-
-Trait linearization applies to a class or trait that inherits from multiple traits,
-AND calls a parent trait method via super.methodName().  Also, the parent trait
-method called via super.methodName() must exist in TWO OR MORE of the inherited traits.
-
-In other words, TWO OR MORE of the inherited traits must contain a method
-with identical signatures.  (NOTE: A method's signature is defined as the
-method's name + argument list + return type.)
-
-When one of these inherited trait methods (having identical signatures) is
-called FROM THE CHILD class/trait via super.methodName(), Scala uses the trait
-linearization algorithm to determine which one of those trait methods
-(having identical signatures) gets called.
-
-EXAMPLE:  Assume trait_A and trait_B both contain this method:
-
-          def increment(number:Int) = { number + 1 }
-
-          Now, we declare a child class (or child trait) that
-          inherits from both trait_A and trait_B, like this:
-
-          class class_A extends trait_A with trait_B { ... }
-
-          QUESTION:
-          When class_A calls super.increment() will the trait_A.increment()
-          method or trait_B.increment() method get called?
-
-          ANSWER:
-          Scala will implement trait linearization to determine whether
-          trait_A.increment() or trait_B.increment() gets called.
-          The algorithm Scala uses to perform trait linearization
-          is described further below along with some sample code.
-
-
-To better understand Scala linearization, let's repeat these
-two rules mentioned further above.
-
-1) A call to super.methodName() IN A CLASS is STATICALLY BOUND if the super.methodName()
-   is contained in a PARENT CLASS (not in a parent trait).  This means the
-   PARENT CLASS METHOD that gets called is DETERMINED AT COMPILE-TIME.
-
-2) If a class/trait inherits a method that EXISTS IN TWO (2) OR MORE PARENT
-   TRAITS, a call to super.methodName() is DYNAMICALLY BOUND.  This means the
-   PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME via the
-   Scala trait linearization algorithm.
-   
-VERY IMPORTANT: Trait linearization applies only to trait methods
-                (not class methods) called via super.methodName()
-                from a child class, or a child trait.
-
-The following code shows an example of this, where each of the 3 traits
-extends the same class (named Ball).  And all 3 traits override the
-Ball.roll() method.
-=====================================================================================
 object Demo
 {
   class Ball {
@@ -724,18 +669,6 @@ object Demo
 
 ===================================================================
 
-
-
-When implementing multiple inheritance, a function having the same name
-and signature (args + return type) CAN'T exist in more than one class
-or trait from which you inherit--unless the function inherits from
-another class/trait having the same function name + signature,
-and is defined using the "override" keyword.
-
-Below is an example where the traits DON'T use inheritance.  The following
-code will NOT compile because func_A() exists in BOTH trait_A and in trait_D.
-To make the below code compile, COMMENT OUT ONE of those two func_A() definitions.
-===================================================================
 object Demo
 {
   trait trait_A
@@ -777,154 +710,9 @@ object Demo
     class_2.func_A()
   }
 }
-===================================================================
-
-
-
-
-Run the sample program shown further below and notice the following.
-
-When this line is executed:  var classA:class_A = new class_A with trait_D with trait_C with trait_B
-This text is printed:  class_A construted.
-                       trait_D construted.
-                       trait_C construted.
-                       trait_B construted.
-
-When this line is executed:  classA = new class_A with trait_D2 with trait_C2 with trait_B2
-This text is printed:  class_A construted.
-                       trait_D2 construted.
-                       trait_B2 construted.
-                       trait_C2 construted.
-
-The printed text that results from executing those two lines of code
-reveals the order in which the classes and traits are constructed.
-The order in which the classes/traits are constructed is ALWAYS IDENTICAL
-to the order they appear in the declaration, from left to right.
-
-The order in which linearization occurs (to determine which method(s) get called)
-is THE REVERSE ORDER that the classes/traits and are constructed, which is
-the right-to-left order of the classes/traits as they appear in the declaration.
-
-Because Scala's linearization algorithm is too complicated to easily explain
-verbally, its instead explained by the following 5-step process.
 
 ====================================================================
 
-In the sample code below, these 2 lines exist in the main() method:
-var classA:class_A = new class_A with trait_D with trait_C with trait_B
-println(classA.func())
-
-Following the 5 steps below will show us how to determine what
-text gets printed by println(classA.func())
-
-1) LOOKING AT THE SAMPLE CODE BELOW, draw a hierarchy diagram of the
-   classes and traits referenced in this declaration:
-   var classA:class_A = new class_A with trait_D with trait_C with trait_B
-
-       class_A
-         |
-     -------------------
-     |        |        |
-  trait_B  trait_C  trait_D
-
-2) Specify the linearization path for each class/trait in the diagram,
-   where the letter L designates Linearization.
-
-   L(class_A) = class_A
-   L(trait_B) = trait_B -> class_A
-   L(trait_C) = trait_C -> class_A
-   L(trait_D) = trait_D -> class_A
-
-3) Following the RIGHT-TO-LEFT order of the following declaration,
-   specify the order in which Scala will perform linearization.
-   var classA:class_A = new class_A with trait_D with trait_C with trait_B
-
-   L(trait_B) -> L(trait_C) -> L(trait_D) -> L(class_A)
-
-4) Rewrite the linearization sequence obtained in step 3) by substituting
-   what we obtained in step 2) for L(class_A), L(trait_B), etc.
-
-   (trait_B -> class_A) -> (trait_C -> class_A) -> (trait_D -> class_A) -> (class_A)
-
-5) Copy the linearization sequence obtained in step 4) from RIGHT TO LEFT
-   but DON'T COPY DUPLICATES.  For example, class_A is the first element we
-   copy (from right to left), so all other references to class_A are NOT copied.
-
-   FINAL LINEARIZATION RESULT:
-   class_A -> trait_D -> trait_C -> trait_B
-
-   From this result we can determine that println(classA.func())
-   prints this line of text:   trait_B
-
-====================================================================
-
-In the sample code below, these 2 lines exist in the main() method:
-classA = new class_A with trait_D2 with trait_C2 with trait_B2
-println(classA.func())
-
-Following the 5 steps below will show us how to determine what
-text gets printed by println(classA.func())
-
-1) LOOKING AT THE SAMPLE CODE BELOW, draw a hierarchy diagram of the
-   classes and traits referenced in this declaration:
-   classA = new class_A with trait_D2 with trait_C2 with trait_B2
-
-       class_A
-         |
-     ---------
-     |       |
-  trait_B2  trait_D2
-     |
-  trait_C2
-
-2) Specify the linearization path for each class/trait in the diagram,
-   where the letter L designates Linearization.
-
-   L(class_A) = class_A
-   L(trait_B2) = trait_B2 -> class_A
-   L(trait_C2) = trait_C2 -> trait_B2 -> class_A
-   L(trait_D2) = trait_D2 -> class_A
-
-3) Following the RIGHT-TO-LEFT order of the following declaration,
-   specify the order in which Scala will perform linearization.
-   classA = new class_A with trait_D2 with trait_C2 with trait_B2
-
-   L(trait_B2) -> L(trait_C2) -> L(trait_D2) -> L(class_A)
-
-4) Rewrite the linearization sequence obtained in step 3) by substituting
-   what we obtained in step 2) for L(trait_A), L(trait_B2), etc.
-
-   (trait_B2 -> class_A) -> (trait_C2 -> trait_B2 -> class_A) -> (trait_D2 -> class_A) -> (class_A)
-
-5) Copy the linearization sequence obtained in step 4) from RIGHT TO LEFT
-   but DON'T COPY DUPLICATES.  For example, class_A is the first element we
-   copy (from right to left), so all other references to class_A are NOT copied.
-
-   FINAL LINEARIZATION RESULT:
-   trait_C2 -> trait_B2 -> trait_D2 -> class_A
-
-   From this result we can determine that println(classA.func())
-   prints this line of text:  trait_C2 trait_B2 trait_D2 class_A
-
-====================================================================
-
-
-
-
-
-
-1) Class_1 (the base class) is searched for func_A().
-2) The highest-to-lowest superclass of Class_2 is searched for func_A().
-3) Class_2 (the extended class) is searched for func_A().
-4) The highest-to-lowest superclass of Trait_C is searched for func_A().
-5) The highest-to-lowest superclass of Trait_B is searched for func_A().
-6) The highest-to-lowest superclass of Trait_A is searched for func_A().
-7) Trait_C is searched for func_A().
-8) Trait_B is searched for func_A().
-9) Trait_A is searched for func_A().
-
-Also see -->  https://stackoverflow.com/questions/34242536/linearization-order-in-scala
-====================================================================
 object Demo
 {
   class class_A {
@@ -974,34 +762,6 @@ object Demo
   }
 }
 
-===================================================================
-
-
-It's possible for a function having the same name and signature
-to be defined in multiple Scala classes and traits.  Assume a
-Scala base class named Class_1 has this definition:
-
-class Class_1 extends Class_2 with Trait_A with Trait_B with Trait_C
-
-Also assume a function named func_A() is defined in many of those classes
-and traits, and all those func_A definitions have identical signatures
-(args and return type).  When Class_1.func_A() gets called, this is the
-order Scala searches to determine which func_A() gets invoked:
-
-1) Class_1 (the base class) is searched for func_A().
-2) The highest-to-lowest superclass of Class_2 is searched for func_A().
-3) Class_2 (the extended class) is searched for func_A().
-4) The highest-to-lowest superclass of Trait_C is searched for func_A().
-5) The highest-to-lowest superclass of Trait_B is searched for func_A().
-6) The highest-to-lowest superclass of Trait_A is searched for func_A().
-7) Trait_C is searched for func_A().
-8) Trait_B is searched for func_A().
-9) Trait_A is searched for func_A().
-
-THE FIRST INSTANCE OF func_A() FOUND IS THE FUNCTION THAT GETS INVOKED.
-This process of resolving which function gets invoked is called LINEARIZATION.
-
-Below is sample code showing which function gets invoked via Scala's LINEARIZATION process.
 ==================================================================================
 
 object Demo
@@ -1093,8 +853,6 @@ object Demo
     println(tom_2) // PRINTS: name: Tom_2, age: 6363
    }
 }
-
-
 
 ==========================================================================================
 
