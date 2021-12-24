@@ -292,10 +292,6 @@ When multiple inheritance occurs, and each child class/trait calls super to invo
 a method in the parent class, Scala's trait linearization algorithm determines
 which trait methods gets called, and in which order.
 
-The following inheritance diagram represents the sample code shown below.
-
-
-
 To determine what gets printed when the sample code below calls println(myClass.info),
 we need to determine the trait linerarization algorithm Scala uses.  Follow this
 5-STEP process to obtain the results of trait linearization.
@@ -330,7 +326,6 @@ L(Class_A) = (Class_A)
 L(Trait_B) = (Trait_B -> Class_A)
 L(Trait_C) = (Trait_C -> Trait_B -> Class_A)
 L(Trait_D) = (Trait_D -> Class_A)
-L(myClass) = Trait_C -> Trait_D
 
 STEP 3)
 USE THIS DECLARATION FROM THE CODE:  val myClass = new Class_A with Trait_D with Trait_C with Trait_B
@@ -342,7 +337,7 @@ Reverse the order of the linearization path just obtained.  Like this:
 (Trait_B -> Class_A) -> (Trait_C -> Trait_B -> Class_A) -> (Trait_D -> Class_A) -> (Class_A)
 
 STEP 5)
-Simplify the linearization path obtained in STEP 3) by removing all duplicate path names.
+Simplify the linearization path obtained in STEP 4) by removing all duplicate path names.
 BEGIN WITH THE RIGHT-MOST ELEMENT (Class_A).  Keep the right-most element, and remove all
 other duplicate references appearing to its left.  So we keep the right-most Class_A,
 and remove all other Class_A references to its left, resulting in this:
