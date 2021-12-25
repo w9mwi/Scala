@@ -525,12 +525,13 @@ Trait_B -> Trait_A -> Class_A
 When Class_A.test("SILVER") is called in the following code sample,
 this is what happens...
 
-1) Trait_B.test("SILVER") gets called, which calls Trait_A.test("SILVER") via the call to super.test("SILVER"),
-   and prints this text:  Trait_B.test(SILVER) called.
-2) Trait_A.test("SILVER") gets called, which calls Class_A.test("SILVER") via the call to super.test("SILVER"),
-   and prints this text:  Trait_A.test(SILVER) called.
-3) Class_A.test("SILVER") gets called,
-   and prints this text:  Class_A.test(SILVER) called.
+1) Trait_B.test("SILVER") gets called, which prints this text:  Trait_B.test(SILVER) called.
+   And then calls Trait_A.test("SILVER") via the call to super.test(color).
+
+2) Trait_A.test("SILVER") gets called, which prints this text:  Trait_A.test(SILVER) called.
+   And then calls Class_A.test("SILVER") via the call to super.test(color).
+   
+3) Class_A.test("SILVER") gets called, which prints this text:  Class_A.test(SILVER) called.
 
 
 object Demo
