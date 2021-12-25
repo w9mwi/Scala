@@ -517,7 +517,7 @@ BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
 
 ===================================================================================================
 
-Using the Scala Trait Lineraization Algorithm described above,
+Using the Scala Trait Linearization Algorithm described above,
 the following sample code has this trait linearization path:
 
 Trait_B -> Trait_A -> Class_A
@@ -526,10 +526,10 @@ When Class_A.test("SILVER") is called in the following code sample,
 this is what happens...
 
 1) Trait_B.test("SILVER") gets called, which prints this text:  Trait_B.test(SILVER) called.
-   And then calls Trait_A.test("SILVER") via the call to super.test(color).
+   Then super.test(color) calls Trait_A.test("SILVER").
 
 2) Trait_A.test("SILVER") gets called, which prints this text:  Trait_A.test(SILVER) called.
-   And then calls Class_A.test("SILVER") via the call to super.test(color).
+   Then super.test(color) calls Class_A.test("SILVER").
    
 3) Class_A.test("SILVER") gets called, which prints this text:  Class_A.test(SILVER) called.
 
