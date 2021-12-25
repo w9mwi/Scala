@@ -521,20 +521,17 @@ Using the Scala Trait Lineraization Algorithm described above,
 the following sample code has this trait linearization path:
 
 Trait_B -> Trait_A -> Class_A
-
-When Class_A.test() is called in the following code sample,
+When Class_A.test("SILVER") is called in the following code sample,
 this is what happens...
 
 1) Trait_B.test("GREEN") gets called, which calls super.test("GREEN")
 2) Trait_A.test("BLUE") gets called, which calls super.test("BLUE")
-3) Class_A.test("SILVER) gets called, which prints this text:
+3) Class_A.test gets called, which prints this text:
 
    ClassA.test() called.  color = BLUE
 
    The reason "color = BLUE" is printed (instead of "color = SILVER") is because
    BLUE is the value remaining from the Trait_A.test("BLUE")
-   
-   
 
 
 object Demo
@@ -542,17 +539,17 @@ object Demo
   class Class_A
   {
     println("Class_A in-line code executes.")
-    def test(color:String):Unit = println("Class_A.test() called.  color = "$color")
+    def test(color:String):Unit = println(s"Class_A.test() called.  color = $color")
   }
   trait Trait_A extends Class_A
   {
     println("Trait_A in-line code executes.")
-    override def test(color:String):Unit = { println("Trait_A.test() called."); super.test(color = "BLUE") }
+    override def test(color:String):Unit = { println(s"Trait_A.test($color) called."); super.test(color) }
   }
   trait Trait_B extends Class_A
   {
     println("Trait_B in-line code executes.")
-    override def test(color:String):Unit = { println("Trait_B.test() called."); super.test(color = "GREEN") }
+    override def test(color:String):Unit = { println(s"Trait_B.test($color) called."); super.test(color) }
   }
 
   def main(args: Array[String])
@@ -562,12 +559,11 @@ object Demo
                                                                //         Trait_B in-line code executes.
 
     classA.test("SILVER") // PRINTS: Trait_B.test() called.
-                          //         Trait_A.test() called.
-                          //         Class_A.test() called.  color = BLUE
+                          //          Trait_A.test() called.
+                          //          Class_A.test() called.  color = BLUE
+
   }
 }
-
-
 
 ========================================================================================
 
