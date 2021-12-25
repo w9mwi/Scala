@@ -15,7 +15,8 @@ class/object, but they can all extend any number of traits.
 A trait can extend ONLY ONE class/object.
 
 Traits look nearly the same as a class.  However, just like objects,
-traits CAN'T take parameters.  This is the syntax for defining a trait:
+traits CAN'T take parameters.  (NOTE: In Scala 3 Traits CAN take
+parameters.)  This is the syntax for defining a trait:
 
 trait <identifier> [extends <identifier>] [{ fields, methods, and classes }]
 
@@ -47,13 +48,14 @@ Some important differences between a Scala class/object and a trait are:
 
 1) Traits allow multiple inheritance to always function properly because Scala's
    trait linearization algorithm always resolves the ambiguity of which method
-   should get called when multiple inheritance encounters the "diamond problem."
+   should get called when multiple inheritance encounters "the diamond problem."
    Trait lineraization and the "diamond problem" is explained further below.
 
 2) A class/object can extend any number of traits.
    A trait can extend ONLY ONE class/object, and any number of traits.
 
 3) A trait CAN'T contain arguments/parameters like a class can.
+   (NOTE: In Scala 3 Traits can take args/params.)
    For example, you can define a class like below, which contains
    the arguments/parameters x and y...
    class Point(x: Int, y: Int) // Will compile
@@ -285,16 +287,30 @@ object Demo
 TRAIT LINEARIZATION (TRAIT METHOD RESOLUTION)
 =============================================
 
-MULTIPLE INHERITANCE occurs whenever 2 or more child classes/traits
-inherit from a single class/trait.
+When the following THREE (3) conditions occurs, Scala uses its Trait Linearization
+algorithm to determine which traits get called, and in which order.
 
-When multiple inheritance occurs, and each child class/trait calls super to invoke
-a method in the parent class, Scala's trait linearization algorithm determines
-which trait methods gets called, and in which order.
+1) Two or more traits inherit from a single class/trait. (Multiple inheritance!)
 
-To determine what gets printed when the sample code below calls println(myClass.info),
-we need to determine the trait linerarization algorithm Scala uses.  Follow this
-5-STEP process to obtain the results of trait linearization.
+2) These child traits override a method contained in the parent class/trait.
+
+3) These overridden methods (contained in the child traits) also invoke a call
+   to the the parent's overridden method via the 'super' keyword.
+
+EXAMPLE: Look at the inheritance diagram immediately below.  Class_A, Trait_B,
+         Trait_C, and Trait_D all contain a method named info().  Trait_B and
+         Trait_D inherit from Class_A.  Trait_C inherits from Trait_B.
+         
+         Both Trait_B.info() and Trait_D.info() methods override Class_A.info(),
+         and they both call super.info().  But ONLY ONE of those two methods
+         will actually invoke super.info(), which means the Class_A parent
+         class will invoke Class_A.info() ONLY ONE TIME.
+
+         To determine which trait methods get called, and in which order they
+         get called, is determined by Scala's Trait Linearization algorithm.
+         
+Follow this 5-STEP process to obtain the results of performing trait linearization
+on the sample code shown below.
 
 STEP 1)
 Draw the inheritance diagram of the class/traits contained in the sample code's declaration.
