@@ -426,34 +426,39 @@ in each class/trait is executed in this order:
 3) Trait_B in-line code executes.
 4) Class_B in-line code executes.
 
-5) NOTICE: Both Trait_A and Trait_B extend Class_A, but Trait_A and Trait_B
-           DON'T invoke Class_A in-line code.  Class_A in-line code executes
-           only once.  It's important to understand this behavior.  To sum up...
+Notice that this sample code performs multiple inheritance, and
+Trait_A and Trait_B inherit from Class_A, but this sample code
+does NOT contain a call to 'super'.  So when class_B.test()
+is called below, it prints ONLY this line:  Trait_B.test() called.
 
-FIRST: In-line code in all EXTENDED class/traits is executed upon class instantiation,
-       BEFORE in-line code is executed in the base class.
-NEXT:  In-line code in the instantiated base class (Class_B) is executed LAST.
-ALSO:  Any class/trait is capable of EXTENDING another class/trait, which
-       can affect class/trait method behavior, but WON'T affect the
-       behavior of class/trait in-line code.
+Here is how Scala's Trait Linearization algorithm determines
+that ONLY 
 
-In the following code sample notice that Trait_A and Trait_B both extend
-Class_A, and both those traits contain a test() method that overrides the
-Class_A.test() method.  The last line of code in main() is this line:
+1) From the code, wee see that Class_B inherits from the following classes/traits.
 
-classB.test()
+   Class_B extends Class_A with Trait_A with Trait_B
 
-That line of code calls the Trait_B.test() method (instead of Trait_A.test())
-because Scala implements the following rules when searching for a method in
-an extended class/trait.  The method search follows this order...
+2) Write the linearization path order of this declaration.
 
-1) First, in the instantiated class.
-2) Second, in the class's extended class (if one exists),
-   from the highest-to-lowest superclass.
-3) Third, in an extended trait (if one exists).  Trait methods
-   are found by searching for them in RIGHT-TO-LEFT order of
-   how traits appear in the declaration, and then from the
-   highest-to-lowest superclass.
+   L(Class_A = Class_A
+   L(Trait_A) = (Trait_A -> Class_A)
+   L(Trait_B) = (Trait_B -> Class_A)
+   
+   Class_A -> (Trait_A -> Class_A) -> (Trait_B -> Class_A)
+
+3) Reverse the order, and remove parenthesis.
+
+  (Trait_B -> Class_A) -> (Trait_A -> Class_A) -> Class_A
+   Trait_B -> Class_A  ->  Trait_A -> Class_A  -> Class_A
+
+4) Remove duplicates.
+
+   FINAL LINEARIZATION PATH: Trait_B -> Trait_A -> Class_A
+
+5) Because none of the test() methods call super.test() the
+   only test() method that executes is THE FIRST ONE FOUND
+   IN THE LINEARIZATION PATH, which is the Trait_B.test() method.
+   So the call to classB.test(), prints:  Trait_B.test() called.
 
 object Demo
 {
