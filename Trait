@@ -396,21 +396,6 @@ object Demo
 
 ===================================================================================================
 
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
-
-
-===================================================================================================
-
 When a class extends another class/trait, the in-line code contained in each
 class/trait gets executed upon instantiation of the base class.  The sample
 code shown below reveals the execution order of this in-line code.
@@ -440,7 +425,7 @@ that ONLY
 
 2) Write the linearization path order of this declaration.
 
-   L(Class_A = Class_A
+   L(Class_A) = Class_A
    L(Trait_A) = (Trait_A -> Class_A)
    L(Trait_B) = (Trait_B -> Class_A)
    
@@ -451,7 +436,11 @@ that ONLY
   (Trait_B -> Class_A) -> (Trait_A -> Class_A) -> Class_A
    Trait_B -> Class_A  ->  Trait_A -> Class_A  -> Class_A
 
-4) Remove duplicates.
+4) Simplify the linearization path obtained in STEP 3) by removing
+   all duplicate path names.  BEGIN WITH THE RIGHT-MOST ELEMENT (Class_A).
+   Keep the right-most element, and remove all other duplicate references
+   appearing to its left.  So we keep the right-most Class_A, and remove
+   all other Class_A references to its left, resulting in this:
 
    FINAL LINEARIZATION PATH: Trait_B -> Trait_A -> Class_A
 
@@ -497,8 +486,8 @@ object Demo
 
 The following sample code is identical to the program immediately above,
 except that Trait_A and Trait_B both invoke a call to super.test().
-In the code sample above, Class_A, Trait_A, and Trait_B contain a
-method named test(). So the only test() method that gets called
+In the code sample above, Class_A, Trait_A, and Trait_B all contain
+a method named test(). So the only test() method that gets called
 (in the code above) is the first one found in the Trait Linearization
 path, which is a call to classB.test()
 
@@ -509,7 +498,7 @@ FINAL LINEARIZATION PATH: Trait_B -> Trait_A -> Class_A
 
 But the behavior of the code below is different because it calls super.test()
 in both Trait_A and Trait_B.  So when classB.test() is called in the below code,
-it calls these 3 test() methods in the following order:
+it calls these 3 methods in the following order:
 
 1)  Trait_B.test()
 2)  Trait_A.test()
@@ -559,18 +548,35 @@ object Demo
 
 ===================================================================================================
 
-Notice the following sample code contains a method named test1() in Class_A,
-Trait_A, and Trait_B, all having identical signatures.  The test1() methods
-in Trait_A and Trait_B both override the Class_A.test1() method, and also
-call super.test1(), which is the Class_A.test1() method.
+The code below contains this declaration, from which
+we'll determine the Trait Linearization path.
 
+val classA:Class_A = new Class_A with Trait_B with Trait_A
 
-classA.test1("YELLOW") // PRINTS: Class_A.test1() called.  color = BLUE
-classA.test2("ORANGE") // PRINTS: Class_A.test2() called.  color = ORANGE
+L(Class_A) -> Class_A
+L(Trait_A) -> (Trait_A -> Class_A)
+L(Trait_B) -> (Trait_B -> Class_A)
+
+Write the linearization path order of this declaration.
+
+Class_A -> (Trait_A -> Class_A) -> (Trait_B -> Class_A)
+
+Reverse the order, and remove parenthesis.
+
+Trait_B -> Class_A -> Trait_A -> Class_A -> Class_A
+
+Simplify the linearization path obtained in STEP 3) by removing
+all duplicate path names.  BEGIN WITH THE RIGHT-MOST ELEMENT (Class_A).
+Keep the right-most element, and remove all other duplicate references
+appearing to its left.  So we keep the right-most Class_A, and remove
+all other Class_A references to its left, resulting in this:
+
+FINAL LINEARIZATION PATH: Trait_B -> Trait_A -> Class_A
 
 The reason classA.test1("YELLOW") prints the color BLUE instead of the color
 YELLOW is because the first test1() method found is Trait_B.test1(), and
-Trait_B.test1() calls Class_A.test1() with the color BLUE hard-coded.
+Trait_B.test1() calls Class_A.test1() via super.test1("BLUE" with the
+color BLUE hard-coded.
 
 object Demo
 {
@@ -603,54 +609,19 @@ object Demo
 
 ===================================================================================================
 
-Using the Scala Trait Linearization Algorithm described above,
-the following sample code has this trait linearization path:
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
 
-Trait_B -> Trait_A -> Class_A
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
 
-When Class_A.test("SILVER") is called in the following code sample,
-this is what happens...
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
+BELOW ARE SEVERAL MORE SAMPLE PROGRAMS USING TRAITS.
 
-1) Trait_B.test("SILVER") gets called, which prints this text:  Trait_B.test(SILVER) called.
-   Then super.test(color) calls Trait_A.test("SILVER").
-
-2) Trait_A.test("SILVER") gets called, which prints this text:  Trait_A.test(SILVER) called.
-   Then super.test(color) calls Class_A.test("SILVER").
-   
-3) Class_A.test("SILVER") gets called, which prints this text:  Class_A.test(SILVER) called.
-
-
-object Demo
-{
-  class Class_A
-  {
-    println("Class_A in-line code executes.")
-    def test(color:String):Unit = println(s"Class_A.test($color) called.")
-  }
-  trait Trait_A extends Class_A
-  {
-    println("Trait_A in-line code executes.")
-    override def test(color:String):Unit = { println(s"Trait_A.test($color) called."); super.test(color) }
-  }
-  trait Trait_B extends Class_A
-  {
-    println("Trait_B in-line code executes.")
-    override def test(color:String):Unit = { println(s"Trait_B.test($color) called."); super.test(color) }
-  }
-
-  def main(args: Array[String])
-  {
-    val classA:Class_A = new Class_A with Trait_A with Trait_B // PRINTS: Class_A in-line code executes.
-                                                               //         Trait_A in-line code executes.
-                                                               //         Trait_B in-line code executes.
-
-    classA.test("SILVER") // PRINTS: Trait_B.test(SILVER) called.
-                          //         Trait_A.test(SILVER) called.
-                          //         Class_A.test(SILVER) called.
-  }
-}
-
-========================================================================================
+===================================================================================================
 
 object Demo
 {
