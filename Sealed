@@ -1,7 +1,7 @@
-The Scala keyword 'sealed' can be prepended to a class/object/trait
-declaration.
+The Scala keyword 'sealed' can be prepended to the declaration
+of a class/object/trait.
 
 When a class/object/trait is declared 'sealed' all of its child
 classes/objects/traits MUST BE DECLARED WITHIN THE SAME FILE.
-Doing that makes the set of subclasses finite, which allows
+Doing so makes the set of subclasses finite, which allows
 certain compiler checks.
