@@ -528,6 +528,7 @@ object Demo
     val classB:Class_B = new Class_B // PRINTS:  Class_A in-line code executes.
                                      //          Trait_A in-line code executes.
                                      //          Trait_B in-line code executes.
+                                     //          Class_B in-line code executes.
     classB.test() // PRINTS:  Trait_B.test() called.
                   //          Trait_A.test() called.
                   //          Class_A.test() called.
