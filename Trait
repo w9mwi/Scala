@@ -485,12 +485,52 @@ object Demo
 
   def main(args: Array[String])
   {
-    val classB:Class_B = new Class_B // PRINTS the following text:
-                                     // Class_A in-line code executes.
-                                     // Trait_A in-line code executes.
-                                     // Trait_B in-line code executes.
-                                     // Class_B in-line code executes.
+    val classB:Class_B = new Class_B // PRINTS:  Class_A in-line code executes.
+                                     //          Trait_A in-line code executes.
+                                     //          Trait_B in-line code executes.
+                                     //          Class_B in-line code executes.
     classB.test() // PRINTS: Trait_B.test() called.
+                  //         Trait_A.test() called.
+                  //         Class_A.test() called.
+  }
+}
+
+===================================================================================================
+
+The following sample code is identical to the program immediately above
+except that Trait_A and Trait_B both invoke a call to super.test()
+
+object Demo
+{
+  class Class_A
+  {
+    println("Class_A in-line code executes.")
+    def test():Unit = println("Class_A.test() called.")
+  }
+
+  trait Trait_A extends Class_A
+  {
+    println("Trait_A in-line code executes.")
+    override def test():Unit = { println("Trait_A.test() called."); super.test() }
+  }
+  trait Trait_B extends Class_A
+  {
+    println("Trait_B in-line code executes.")
+    override def test():Unit = { println("Trait_B.test() called."); super.test() }
+  }
+  class Class_B extends Class_A with Trait_A with Trait_B
+  {
+    println("Class_B in-line code executes.")
+  }
+
+  def main(args: Array[String])
+  {
+    val classB:Class_B = new Class_B // PRINTS:  Class_A in-line code executes.
+                                     //          Trait_A in-line code executes.
+                                     //          Trait_B in-line code executes.
+    classB.test() // PRINTS:  Trait_B.test() called.
+                  //          Trait_A.test() called.
+                  //          Class_A.test() called.
   }
 }
 
