@@ -458,7 +458,7 @@ that ONLY
 5) Because none of the test() methods call super.test() the
    only test() method that executes is THE FIRST ONE FOUND
    IN THE LINEARIZATION PATH, which is the Trait_B.test() method.
-   So the call to classB.test(), prints:  Trait_B.test() called.
+   So the call to classB.test() prints:  Trait_B.test() called.
 
 object Demo
 {
@@ -495,8 +495,32 @@ object Demo
 
 ===================================================================================================
 
-The following sample code is identical to the program immediately above
-except that Trait_A and Trait_B both invoke a call to super.test()
+The following sample code is identical to the program immediately above,
+except that Trait_A and Trait_B both invoke a call to super.test().
+In the code sample above, Class_A, Trait_A, and Trait_B contain a
+method named test(). So the only test() method that gets called
+(in the code above) is the first one found in the Trait Linearization
+path, which is a call to classB.test()
+
+The Trait Linearization path for the code below is identical
+to the above sample program.
+
+FINAL LINEARIZATION PATH: Trait_B -> Trait_A -> Class_A
+
+But the behavior of the code below is different because it calls super.test()
+in both Trait_A and Trait_B.  So when classB.test() is called in the below code,
+it calls these 3 test() methods in the following order:
+
+1)  Trait_B.test()
+2)  Trait_A.test()
+3)  Class_A.test()
+
+Notice that both Trait_A.test() and Trait_B.test() get called in the below code,
+and they both call Class_A.test() via a call to super.test().  But Class_A.test()
+gets called ONLY ONCE, via the call to super.test() in Trait_A.  Trait_B does NOT
+invoke super.test().  This follows Scala's Trait Linearization algorithm, where
+ONLY ONE of the calls to super.methodName() gets invoked from a child class--the
+last call to super.methodName() found in the linearization path.
 
 object Demo
 {
