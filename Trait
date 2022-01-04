@@ -68,11 +68,13 @@ Some important differences between a Scala class/object and a trait are:
    super.methodName() is contained in a PARENT CLASS (not in a parent
    trait).  This means the PARENT CLASS METHOD that gets called is
    DETERMINED AT COMPILE-TIME.
+   (STATICALLY BOUND OCCURS AT COMPILE TIME.)
 
    If a class/trait inherits a method that EXISTS IN TWO (2) OR MORE PARENT
    TRAITS, a call to super.methodName() is DYNAMICALLY BOUND.  This means
    the PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME via
    the Scala trait linearization algorithm.
+   (DYNAMICALLY BOUND OCCURS AT RUN TIME.)
 
 5) A class/object CAN be instantiated.
    A trait CAN'T be instantiated.
