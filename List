@@ -542,8 +542,8 @@ ___ filter - NOTE: The difference between the filter() and map() functions are a
              result_2.foreach(println) // PRINTS: RMN Randy_Reject
 ___ filterNot - The opposite of the filter method.
 ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_and_flatten()
-              The flatMap() methodis essentially a combination of the Listmap method run first,
-              followed by the List.flatten method run second.  The flatMap() method returns a List.
+              The flatMap() method is essentially a combination of the List.map method() run first,
+              followed by the List.flatten() method run second.  The flatMap() method returns a List.
 
               TO UNDERSTAND EXACTLY HOW List.flatMap WORKS, UNDERSTAND THIS CODE...
 
