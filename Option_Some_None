@@ -36,6 +36,18 @@ IMPORTANT: All five (5) for() expressions in the code below do NOT
            execute in a repetitive loop.  These for() expressions
            execute only one iteration, and then return the result.
 
+           Any class that implements both the map() and flatMap()
+           functions can be used inside a for() expression in the
+           same way that the Option class is used below.  All Scala
+           collection classes contain both the map() and flatMap()
+           functions., like the Seq class shown in this example:
+
+           val xs:Seq[Int] = Seq(1, 2, 3)
+           val xy:Seq[Int] = Seq(100, 200, 300)
+           val result:Seq[Int] = for { x <- xs; y <- xy } yield x+y
+           println("result = " + result) // PRINTS: result = List(101, 201, 301, 102, 202, 302, 103, 203, 303)
+
+
 object Demo
 {
   def main(args: Array[String])
