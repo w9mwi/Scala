@@ -25,8 +25,80 @@ NOTE: A major weakness of using Option is that it doesn't tell you
       Option/Some/None classes...
       SEE --> https://github.com/w9mwi/Scala/edit/master/Try_Success_Failure_classes
 
+======================================================================
 
-=============================================================
+The following code sample shows how a for() expression can be used to
+add Int values, with the result wrapped in an Option type.  The Option
+class contains the map() and flatMap() methods, which enables the
+Option type to work inside for() expressions.
+
+IMPORTANT: All five (5) for() expressions in the code below do NOT
+           execute in a repetitive loop.  These for() expressions
+           execute only one iteration, and then return the result.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // ******************************************************************
+    // The result obtained in this section is IDENTICAL to the result
+    // obtained by the two for() expressions immediately below.  Instead
+    // of obtaining the result via this convoluted (difficult to
+    // understand) call to flatMap(), and then map(), it's preferable
+    // to use a for() expression to obtain the result, as is shown
+    // in the two for() expressions immediately below.
+
+    val x:Option[Int] = Some(-111)
+    val y:Option[Int] = Some(432)
+    var result:Option[Int] = x.flatMap(a => y.map(b => a + b))
+    println("result = " + result) // PRINTS: result = Some(321)
+    // ******************************************************************
+
+    // The result obtained by the following for() loop
+    // is IDENTICAL to the result obtained above.
+    result = for(a <- x; b <- y) yield a+b
+    println("result = " + result) // PRINTS: result = Some(321)
+
+    // The result obtained by the following for() loop
+    // is IDENTICAL to the two results obtained above.
+    result = for(a <- makeInt("-111"); b <- makeInt("432")) yield a+b
+    println("result = " + result) // PRINTS: result = Some(321)
+
+    // The result obtained by the following for() loop is 'None'
+    // because the below call to makeInt("BLOWS_UP") returns 'None'
+    // instead of a valid Int value.
+    result = for(a <- makeInt("-111"); b <- makeInt("BLOWS_UP")) yield a+b
+    println("result = " + result) // PRINTS: result = None
+
+
+    // Study the following 2 for() loops to understand their behavior.
+    // Notice how the a and b values in both for() loops below are
+    // of type Int, and NOT an Option type of Some or None.
+    for(a <- Some(2); b <- Some(3)) {println(s"a = $a, b = $b")} // PRINTS: a = 2, b = 3
+
+    result = for(a <- Some(2); b <- Some(3)) yield a+b
+    println("result = " + result) // PRINTS: result = Some(5)
+  }
+
+  /**
+   * Pass this function a String that can be converted to a valid Int value.
+   * If the String successfully converts to an Int, return an Option[Int] type;
+   * otherwise, return a None type.
+   * @param str
+   * @return  Option[Int] or None
+   */
+  def makeInt(str:String):Option[Int] = {
+    try {
+      Some(str.trim.toInt)
+    }
+    catch {
+      case _: Exception => None
+    }
+  }
+}
+
+======================================================================
+
 The following code sample shows how to determine if an Option class
 is a Some object (a valid value) or a None object (an invalid value).
 
@@ -57,7 +129,7 @@ object Demo
   }
 }
 
-=============================================================
+======================================================================
 
 By having your function return a "Some" object (for a valid value),
 or a "None" object (for an invalid value), means the user of the
@@ -336,75 +408,4 @@ object Demo
 
 ======================================================================
 
-The following code sample shows how a for() expression can be used to
-add Int values, with the result wrapped in an Option type.  The Option
-class contains the map() and flatMap() methods, which enables the
-Option type to work inside for() expressions.
-
-IMPORTANT: All five (5) for() expressions in the code below do not
-           execute in a repetitive loop.  These for() expressions
-           execute only one iteration, and then return the result.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // ******************************************************************
-    // The result obtained in this section is IDENTICAL to the result
-    // obtained by the two for() expressions immediately below.  Instead
-    // of obtaining the result via this convoluted (difficult to
-    // understand) call to flatMap(), and then map(), it's preferable
-    // to use a for() expression to obtain the result, as is shown
-    // in the two for() expressions immediately below.
-
-    val x:Option[Int] = Some(-111)
-    val y:Option[Int] = Some(432)
-    var result:Option[Int] = x.flatMap(a => y.map(b => a + b))
-    println("result = " + result) // PRINTS: result = Some(321)
-    // ******************************************************************
-
-    // The result obtained by the following for() loop
-    // is IDENTICAL to the result obtained above.
-    result = for(a <- x; b <- y) yield a+b
-    println("result = " + result) // PRINTS: result = Some(321)
-
-    // The result obtained by the following for() loop
-    // is IDENTICAL to the two results obtained above.
-    result = for(a <- makeInt("-111"); b <- makeInt("432")) yield a+b
-    println("result = " + result) // PRINTS: result = Some(321)
-
-    // The result obtained by the following for() loop is 'None'
-    // because the below call to makeInt("BLOWS_UP") returns 'None'
-    // instead of a valid Int value.
-    result = for(a <- makeInt("-111"); b <- makeInt("BLOWS_UP")) yield a+b
-    println("result = " + result) // PRINTS: result = None
-
-
-    // Study the following 2 for() loops to understand their behavior.
-    // Notice how the a and b values in both for() loops below are
-    // of type Int, and NOT an Option type of Some or None.
-    for(a <- Some(2); b <- Some(3)) {println(s"a = $a, b = $b")} // PRINTS: a = 2, b = 3
-
-    result = for(a <- Some(2); b <- Some(3)) yield a+b
-    println("result = " + result) // PRINTS: result = Some(5)
-  }
-
-  /**
-   * Pass this function a String that can be converted to a valid Int value.
-   * If the String successfully converts to an Int, return an Option[Int] type;
-   * otherwise, return a None type.
-   * @param str
-   * @return  Option[Int] or None
-   */
-  def makeInt(str:String):Option[Int] = {
-    try {
-      Some(str.trim.toInt)
-    }
-    catch {
-      case _: Exception => None
-    }
-  }
-}
-
-======================================================================
 
