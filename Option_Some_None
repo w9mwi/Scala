@@ -349,13 +349,19 @@ object Demo
 {
   def main(args: Array[String])
   {
-    // The result obtained by the following code is
-    // IDENTICAL to the result obtained by the TWO
-    // for() loops immediately below.
+    // ******************************************************************
+    // The result obtained in this section is IDENTICAL to the result
+    // obtained by the two for() expressions immediately below.  Instead
+    // of obtaining the result via this convoluted (difficult to
+    // understand) call to flatMap(), and then map(), it's preferable
+    // to use a for() expression to obtain the result, as is shown
+    // in the two for() expressions immediately below.
+
     val x:Option[Int] = Some(-111)
     val y:Option[Int] = Some(432)
     var result:Option[Int] = x.flatMap(a => y.map(b => a + b))
     println("result = " + result) // PRINTS: result = Some(321)
+    // ******************************************************************
 
     // The result obtained by the following for() loop
     // is IDENTICAL to the result obtained above.
