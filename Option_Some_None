@@ -341,6 +341,10 @@ add Int values, with the result wrapped in an Option type.  The Option
 class contains the map() and flatMap() methods, which enables the
 Option type to work inside for() expressions.
 
+IMPORTANT: All five (5) for expressions in the code below do not
+           execute in a repetative loop.  These for() expressions
+           execute only one iteration and then return the result.
+
 object Demo
 {
   def main(args: Array[String])
