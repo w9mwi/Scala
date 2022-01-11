@@ -5,7 +5,7 @@ Option - scala.Option is a class that represents optional values.
          2) scala.None  (A Scala object)
 
 Instead of returning a value when a function succeeds, and
-a null when it fails, your function can instead return an
+a null when it fails, a function can instead return an
 instance of the scala.Option class, where either a scala.None
 object, or a scala.Some class will be returned.
  
@@ -35,6 +35,9 @@ object Demo
   def main(args:Array[String]): Unit =
   {
     val intList:List[Int]  = List[Int](7, 4, 6, 3, 9, 1)
+    
+    // NOTE: The find() function returns THE FIRST ELEMENT of
+    //       the sequence satisfying a predicate, if one exists.
 
     // Find the first value in intList that is < 5, which is 4...
     var result:Option[Int] = intList.find(_ < 5)
@@ -330,4 +333,64 @@ object Demo
     catch { case excep: Exception => None }
   }
 }
+
 ======================================================================
+
+The following code sample shows how a for() loop can be used to
+add Int values, with the result wrapped in an Option type.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // The result obtained by the following code is
+    // IDENTICAL to the result obtained by the TWO
+    // for() loops immediately below.
+    val x:Option[Int] = Some(-111)
+    val y:Option[Int] = Some(432)
+    var result:Option[Int] = x.flatMap(a => y.map(b => a + b))
+    println("result = " + result) // PRINTS: result = Some(321)
+
+    // The result obtained by the following for() loop
+    // is IDENTICAL to the result obtained above.
+    result = for(a <- x; b <- y) yield a+b
+    println("result = " + result) // PRINTS: result = Some(321)
+
+    // The result obtained by the following for() loop
+    // is IDENTICAL to the two results obtained above.
+    result = for(a <- makeInt("-111"); b <- makeInt("432")) yield a+b
+    println("result = " + result) // PRINTS: result = Some(321)
+
+    // The result obtained by the following for() loop is 'None'
+    // because the below call to makeInt("BLOWS_UP") returns 'None'
+    // instead of a valid Int value.
+    result = for(a <- makeInt("-111"); b <- makeInt("BLOWS_UP")) yield a+b
+    println("result = " + result) // PRINTS: result = None
+
+
+    // Study the following 2 for() loops to understand their behavior.
+    for(a <- Some(2); b <- Some(3)) {println(s"a = $a, b = $b")} // PRINTS: a = 2, b = 3
+
+    result = for(a <- Some(2); b <- Some(3)) yield a+b
+    println("result = " + result) // PRINTS: result = Some(5)
+  }
+
+  /**
+   * Pass this function a String that can be converted to a valid Int value.
+   * If the String successfully converts to an Int, return an Option[Int] type;
+   * otherwise, return a None type.
+   * @param str
+   * @return  Option[Int] or None
+   */
+  def makeInt(str:String):Option[Int] = {
+    try {
+      Some(str.trim.toInt)
+    }
+    catch {
+      case _: Exception => None
+    }
+  }
+}
+
+======================================================================
+
