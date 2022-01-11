@@ -40,7 +40,7 @@ IMPORTANT: All five (5) for() expressions in the code below do NOT
            functions can be used inside a for() expression in the
            same way that the Option class is used below.  All Scala
            collection classes contain both the map() and flatMap()
-           functions., like the Seq class shown in this example:
+           functions. like the Seq class shown in this example:
 
            val xs:Seq[Int] = Seq(1, 2, 3)
            val xy:Seq[Int] = Seq(100, 200, 300)
