@@ -369,6 +369,8 @@ object Demo
 
 
     // Study the following 2 for() loops to understand their behavior.
+    // Notice how the a and b values in both for() loops below are
+    // of type Int, and NOT an Option type of Some or None.
     for(a <- Some(2); b <- Some(3)) {println(s"a = $a, b = $b")} // PRINTS: a = 2, b = 3
 
     result = for(a <- Some(2); b <- Some(3)) yield a+b
