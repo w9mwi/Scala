@@ -1,4 +1,4 @@
-Monad - A monad "type" is not defined in Scala.  Any
+Monad - A monad type is not defined in Scala.  Any
         Scala class that implements BOTH the map()
         and flatMap() functions is considered to be
         a monad.  This is NOT a perfect, exact definition
