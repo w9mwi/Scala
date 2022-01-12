@@ -22,8 +22,8 @@ a null when it fails, a function can instead return an
 instance of the scala.Option class, where either a scala.None
 object, or a scala.Some class will be returned.
  
-NOTE: Both the scala.Some class and the scala.None object
-      are children of the scala.Option class.
+Both the scala.Some class and the scala.None object are
+children of the scala.Option class.
 
 EXAMPLE:  The find() method on a sequence (i.e., Array, List, Seq, etc.)
           RETURNS THE FIRST ELEMENT of the sequence that satisfies the
@@ -36,14 +36,19 @@ EXAMPLE:  The find() method on a sequence (i.e., Array, List, Seq, etc.)
           result = intList.find(_>10)
           println(result) // PRINTS: None
 
-NOTE: A major weakness of using Option is that it doesn't tell you
-      why something failed.  If you need to know why something
-      failed, you can use "Try" or "Either".  (Reference the Scala
-      API for detailes.)
+REMEMBER: If you want a Scala class to work inside a for expression
+          that implements multiple generators ('<-' is the
+          generator symbol), that class MUST implement BOTH
+          the map() and flatMap() functions.
 
-      The Try/Failure/Success classes are similar to the
-      Option/Some/None classes...
-      SEE --> https://github.com/w9mwi/Scala/edit/master/Try_Success_Failure_classes
+A major weakness of using Option is that it doesn't tell you
+why something failed.  If you need to know why something
+failed, you can use "Try" or "Either".  (Reference the Scala
+API for detailes.)
+
+The Try/Failure/Success classes are similar to the
+Option/Some/None classes...
+SEE --> https://github.com/w9mwi/Scala/edit/master/Try_Success_Failure_classes
 
 ======================================================================
 
