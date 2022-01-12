@@ -26,8 +26,8 @@ EXAMPLE:  The find() method on a sequence (i.e., Array, List, Seq, etc.)
 
 NOTE: A major weakness of using Option is that it doesn't tell you
       why something failed.  If you need to know why something
-      failed, you can use "Try" or "Either".  (Reference the
-      Scala API for detailes.)
+      failed, you can use "Try" or "Either".  (Reference the Scala
+      API for detailes.)
 
       The Try/Failure/Success classes are similar to the
       Option/Some/None classes...
