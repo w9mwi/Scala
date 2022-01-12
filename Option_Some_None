@@ -5,6 +5,18 @@ Option - scala.Option is both a Scala class and a Scala companion object,
          1) scala.Some  (A Scala class)
          2) scala.None  (A Scala object)
 
+        Scala's Option is NOT a collection like List, Array, etc.
+        When you instantiate an Option class with multiple values
+        (as shown here), a tuple is returned, NOT a collection.
+
+        type quadTuple = (Double, Int, String, Char)
+        val myOption:Option[quadTuple] = Option(-1.23, 765, "abc", 'A')
+        println(s"myOption = ${myOption.get}") // PRINTS: myOption = (-1.23,765,abc,A)
+
+        val (q, r, s, t)  = myOption.get
+        println(q, r, s, t) // PRINTS: (-1.23,765,abc,A)
+
+
 Instead of returning a value when a function succeeds, and
 a null when it fails, a function can instead return an
 instance of the scala.Option class, where either a scala.None
