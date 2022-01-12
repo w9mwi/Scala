@@ -74,25 +74,25 @@ object Demo
     println("result = " + result) // PRINTS: result = Some(321)
     // ******************************************************************
 
-    // The result obtained by the following for() loop
+    // The result obtained by the following for() expression
     // is IDENTICAL to the result obtained above.
     result = for(a <- x; b <- y) yield a+b
     println("result = " + result) // PRINTS: result = Some(321)
 
-    // The result obtained by the following for() loop
+    // The result obtained by the following for() expression
     // is IDENTICAL to the two results obtained above.
     result = for(a <- makeInt("-111"); b <- makeInt("432")) yield a+b
     println("result = " + result) // PRINTS: result = Some(321)
 
-    // The result obtained by the following for() loop is 'None'
+    // The result obtained by the following for() expression is 'None'
     // because the below call to makeInt("BLOWS_UP") returns 'None'
     // instead of a valid Int value.
     result = for(a <- makeInt("-111"); b <- makeInt("BLOWS_UP")) yield a+b
     println("result = " + result) // PRINTS: result = None
 
 
-    // Study the following 2 for() loops to understand their behavior.
-    // Notice how the a and b values in both for() loops below are
+    // Study the following 2 for() expressions to understand their behavior.
+    // Notice how the a and b values in both for() expressions below are
     // of type Int, and NOT an Option type of Some or None.
     for(a <- Some(2); b <- Some(3)) {println(s"a = $a, b = $b")} // PRINTS: a = 2, b = 3
 
