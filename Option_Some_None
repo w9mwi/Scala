@@ -1,5 +1,6 @@
-Option - scala.Option is a class that represents optional values.
-         Instances of scala.Option are one of the following:
+Option - scala.Option is both a Scala class and a Scala companion object,
+         which represent optional values. Instances of scala.Option are
+         one of the following:
 
          1) scala.Some  (A Scala class)
          2) scala.None  (A Scala object)
