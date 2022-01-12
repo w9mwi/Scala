@@ -13,9 +13,16 @@ object, or a scala.Some class will be returned.
 NOTE: Both the scala.Some class and the scala.None object
       are children of the scala.Option class.
 
-EXAMPLE:  The find() method on a sequence (i.e., Array, List, etc.)
-          returns a scala.Option of type scala.None when a value
-          can't be found; otherwise, a scala.Some value is returned.
+EXAMPLE:  The find() method on a sequence (i.e., Array, List, Seq, etc.)
+          RETURNS THE FIRST ELEMENT of the sequence that satisfies the
+          predicate as a 'Some' value.  If no element in the sequence
+          satisfies the predicate, find() returns the 'None' value.
+
+          val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
+          var result:Option[Int] = intList.find(_<4)
+          println(result) // Prints: Some(3)
+          result = intList.find(_>10)
+          println(result) // PRINTS: None
 
 NOTE: A major weakness of using Option is that it doesn't tell you
       why something failed.  If you need to know why something
