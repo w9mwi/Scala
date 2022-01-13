@@ -4,8 +4,11 @@ Monad - A monad type is not defined in Scala.  Any Scala class
         perfect definition of a monad, but it's close enough.
 
         When a Scala class implements BOTH the map() and flatMap()
-        functions, that class will function properly with generators
-        (the '<-' operator) inside a for() expression.
+        functions, that class will function properly with "generators"
+        (the '<-' operator), "definitions" and "filters" inside a
+        for() expression.  To understand Scala generators, definitions
+        and filters read this link:
+        --> https://github.com/w9mwi/Scala/blob/master/For_Expressions_Explained
 
         Some examples of Scala classes that are monads are:
         Array, List, Map, Option, Seq
