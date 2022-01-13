@@ -3,7 +3,11 @@ Monad - A monad type is not defined in Scala.  Any Scala class
         is considered to be a monad.  This is NOT an exact or
         perfect definition of a monad, but it's close enough.
 
-        Some eexamples of Scala classes that are monads are:
+        When a Scala class implements BOTH the map() and flatMap()
+        functions, that class will function properly with generators
+        (the '<-' operator) inside a for() expression.
+
+        Some examples of Scala classes that are monads are:
         Array, List, Map, Option, Seq
 
         A monad does NOT need to be a collection class.
