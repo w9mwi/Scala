@@ -1,5 +1,6 @@
-================================================================================
+
 A Scala "for expression" can contain the following 3 expressions:
+
 1) Generator - A generator is the part of a "for expression" containing the <- operator.
                Every "for expression" begins with a generator.  A "for expression"
                can contain MULTIPLE generators.  The left side of a generator
