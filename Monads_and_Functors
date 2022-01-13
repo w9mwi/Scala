@@ -17,6 +17,9 @@ Monad - A monad type is not defined in Scala.  Any Scala class
         The Scala Option class is NOT a collection class,
         but it's considered to be a monad.
 
+        For important information about the Scala Option class read:
+        --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None
+
 
 object Demo
 {
