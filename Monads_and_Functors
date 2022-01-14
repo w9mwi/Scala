@@ -64,6 +64,8 @@ object Demo
     //       it adds parenthesis around what's printed.  For example...
     println("A", "B") // PRINTS: (A,B)
     println("A")      // PRINTS: A
+    // This explains why some results printed below contain one set parenthesis
+    // surrounded by another set of parenthesis...  (())
 
     // *************************************************************************
     // This section of code shows another example of how a Scala
