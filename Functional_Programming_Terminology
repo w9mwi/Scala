@@ -79,6 +79,18 @@ Monad - A monad type is not defined in Scala.  Any Scala class
         and filters read this link:
         --> https://github.com/w9mwi/Scala/blob/master/For_Expressions_Explained
 
+        The primary purpose of making a class a monad is to allow
+        that class to be used inside a for() expression.  A class
+        is considered to be a monad if the class implements the
+        following:
+
+        1) The map() method.
+        2) The flatMap() method.
+        3) A "lift" function that "lifts" another
+           data type into the monad.
+           
+        
+
         Some examples of Scala classes that are monads are:
         Array, List, Map, Option, Seq
 
