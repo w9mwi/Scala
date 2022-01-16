@@ -1,3 +1,23 @@
+Pure Function - A pure function's output (returned result) depends ONLY on the content of
+                its input parameters (which aren't modified) and the function's algorithm.
+                A pure function doesn't read or modify any values from the "outside world."
+                Some examples of the "outside world" are:
+
+                * A global value (a constant) or global variable
+                * Getting the date/time
+                * Generating a random number
+                * File I/O
+                * Database I/O
+                * Web service I/O
+                * Writes to the video screen  (The println function is an example.)
+
+                Also, any function that has no input parameters (i.e., the readLine function),
+                or returns nothing (returns type Unit), is NOT a pure function.
+
+                If there is no data dependency between two pure functions,
+                then the order in which they get called doesn't matter, or
+                they could be run simultaneously (in parallel).  Therefore,
+                pure functions are "thread safe."
 
 Combinator - The idea of being able to combine functions
              together like a UNIX command pipeline:
@@ -31,10 +51,11 @@ Expression-Oriented Programming (EOP) - Pure functional programming code is a su
 
                                         In EOP (and in FP), code that returns a result (evaluates to a result) is an expression.
 
-
-Functor - Things that can be mapped over.  For example, an Array and a List
-          both contain elements.  For each of those elements a function can
-          be called that returns a value.  A List is a functor:
+Functor - "Things that can be mapped over."  In other words, a Scala
+          class that implements the map() function is a "fuctor."
+          Examples of Some eunctors are the Array, Future, List, and
+          Option classes.  For each of those elements the map() function
+          can be called that returns a value.  A List is a functor:
 
           val myList:List[Int] = List(1, 2, 3, 4)
           println(myList.map(_ * 4)) // PRINTS: List(4, 8, 12, 16)
@@ -46,24 +67,91 @@ Higher-Order Function - A function that can be passed a function as
 
 Lambda - Another word for an anonymous function.
 
+Monad - A monad type is not defined in Scala.  Any Scala class
+        that implements BOTH the map() and flatMap() functions
+        is considered to be a monad.  This is NOT an exact or
+        perfect definition of a monad, but it's close enough.
 
-Pure Function - A pure function's output (returned result) depends ONLY on the content of
-                its input parameters (which aren't modified) and the function's algorithm.
-                A pure function doesn't read or modify any values from the "outside world."
-                Some examples of the "outside world" are:
+        When a Scala class implements BOTH the map() and flatMap()
+        functions, that class will function properly with "generators"
+        (the '<-' operator), "definitions" and "filters" inside a
+        for() expression.  To understand Scala generators, definitions
+        and filters read this link:
+        --> https://github.com/w9mwi/Scala/blob/master/For_Expressions_Explained
 
-                * A global value (a constant) or global variable
-                * Getting the date/time
-                * Generating a random number
-                * File I/O
-                * Database I/O
-                * Web service I/O
-                * Writes to the video screen  (The println function is an example.)
+        Some examples of Scala classes that are monads are:
+        Array, List, Map, Option, Seq
 
-                Also, any function that has no input parameters (i.e., the readLine function),
-                or returns nothing (returns type Unit), is NOT a pure function.
+        A monad does NOT need to be a collection class.
+        The Scala Option class is NOT a collection class,
+        but it's considered to be a monad.
 
-                If there is no data dependency between two pure functions,
-                then the order in which they get called doesn't matter, or
-                they could be run simultaneously (in parallel).  Therefore,
-                pure functions are "thread safe."
+        For important information about the Scala Option class read:
+        --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None
+
+        For more details regarding Scala monads read:
+        --> https://blog.redelastic.com/a-guide-to-scala-collections-exploring-monads-in-scala-collections-ef810ef3aec3
+
+====================================================================================
+
+Read in-line comments in the following sample code to understand
+how Scala converts for() expressions into a series of flatMap()
+and map() calls to generate the for() expression's final result.
+
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    val list1:List[Int] = List(1,2)
+    val list2:List[Int] = List(3,4)
+    val list3:List[Int] = List(5,6)
+
+    // Notice how the following for() expression generates a result1 value
+    // identical to the result1 value generated immediately below.
+    // These two results are identical because when Scala executes the
+    // following for() expression, Scala literally interprets the for()
+    // expression as series of calls to the flatMap() and map() functions.
+    var result1:List[Int] = for ( a <- list1; b <- list2; c <- list3 ) yield sum(a,b,c)
+    println(result1) // PRINTS: List(9, 10, 10, 11, 10, 11, 11, 12)
+
+    result1 = list1.flatMap(a => list2.flatMap(b => list3.map(c => sum(a,b,c))))
+    println(result1) // PRINTS: List(9, 10, 10, 11, 10, 11, 11, 12)
+
+    // Both result1 values obtained ABOVE were generated by performing
+    // the following math via the sum() function:
+    // 1+3+5=9, 1+3+6=10, 1+4+5=10, 1+4+6=11, 2+3+5=10, 2+3+6=11, 2+4+5=11, 2+4+6=12
+    //
+    // The following for() expression reveals the 3 digits that get added together
+    // to obtain each of the 8 Int elements in the above result1 List.
+    for (a <- list1; b <- list2; c <- list3) {print(a); print(b); print(c); print("-")}
+    // PRINTS:  135-136-145-146-235-236-245-246-
+
+    println
+
+    // NOTE: When println contains multiple values (delimited by comma(s)),
+    //       it adds parenthesis around what's printed.  For example...
+    println("A", "B") // PRINTS: (A,B)
+    println("A")      // PRINTS: A
+    // This explains why some results printed BELOW contain one set parenthesis
+    // surrounded by another set of parenthesis...  (())
+
+    // *************************************************************************
+    // This section of code shows another example of how a Scala
+    // for() expression generates the same result as a series of
+    // calls to flatMap() and map() further below.
+    type StringTuple = (String, String)
+    val some1:Some[String]     = Some("Hello")
+    val some2:Some[String]     = Some("World")
+    val option1:Option[StringTuple] = for (a <- some1; b <- some2) yield(a, b)
+    println(option1)         // PRINTS: Some((Hello,World))
+    option1.foreach(println) // PRINTS: (Hello,World)
+
+    val option2:Option[String] = some1.flatMap(a => some2.map(b => a + " " + b))
+    println(option2)                  // PRINTS: Some(Hello World)
+    option2.foreach(println)          // PRINTS: Hello World
+    for (x <- option1) { println(x) } // PRINTS: (Hello,World)
+    // *************************************************************************
+  }
+
+  def sum(a:Int, b:Int, c:Int):Int = { a + b + c }
+}
