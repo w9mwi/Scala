@@ -52,17 +52,17 @@ Expression-Oriented Programming (EOP) - Pure functional programming code is a su
                                         In EOP (and in FP), code that returns a result (evaluates to a result) is an expression.
 
 Functor - "Things that can be mapped over."  In other words, a Scala
-          class that implements the map() function is a "fuctor."
-          Examples of Some eunctors are the Array, Future, List, and
-          Option classes.  For each of those elements the map() function
-          can be called that returns a value.  A List is a functor:
+          class that implements the map() function is a "functor."
+          Examples of some functors are the Array, Future, List, and
+          Option classes.  For each of those classes the map() function
+          can be called that returns a value.  A List is a functor...
 
           val myList:List[Int] = List(1, 2, 3, 4)
           println(myList.map(_ * 4)) // PRINTS: List(4, 8, 12, 16)
 
 
-Higher-Order Function - A function that can be passed a function as
-                        a parameter, and/or can return a function.
+Higher-Order Function - A function that receives a function as a
+                        a param/arg, and/or returns a function.
 
 
 Lambda - Another word for an anonymous function.
