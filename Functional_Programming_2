@@ -20,12 +20,13 @@ object Demo
   def main(args: Array[String]) =
   {
     val tom:List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-    // The following 3 println statements print identical results.
+
+    // The following 3 statements obtain identical results.
     println("sum_1() = " + sum_1(tom)) // PRINTS: sum_1() = 55
     println("sum_2() = " + sum_2(tom)) // PRINTS: sum_2() = 55
     println("tom.sum = " + tom.sum)    // PRINTS: tom.sum = 55
 
-    // The following 2 println statements print identical results.
+    // The following 2 statements obtain identical results.
     println("tom.map(x => x*2) = " + tom.map(x => x*2)) // PRINTS: tom.map(x => x*2) = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
     println("tom.map(_*2)      = " + tom.map(_*2))      // PRINTS: tom.map(_*2)      = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
   }
