@@ -155,6 +155,8 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
+    // The following "plus5" and "square" vals are defined as functions
+    // that take a parameter of type Double, and return a type Double.
     val plus5:(Double=>Double)  = { x:Double => x+5.0D }
     val square:(Double=>Double) = { x:Double => x*x }
 
