@@ -15,7 +15,7 @@ parameter type, and returns type A.
 object Demo
 {
   // The following add() function is written as a parametric function,
-  // where the parametric type A represents any numeric data type.
+  // where the parametric type A represents any Numeric data type.
   def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
 
   def main(args:Array[String]): Unit =
