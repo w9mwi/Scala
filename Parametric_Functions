@@ -110,9 +110,15 @@ object Demo
 
 ========================================================================================
 
-The following sample code includes this CURRIED PARAMETRIC FUNCTION:
+The following sample code includes this CURRIED, PARAMETRIC FUNCTION:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+Recall that a curried function gets called by passing it at least two (2)
+separate argument lists.  The code below confirms that funcOfGunc is called
+by passing it two (2) argument lists, which means funcOfGunc is a curried
+function.  However, notice that funcOfGunc is defined with only one argument
+list; yet, it gets called by passing it two (2) argument lists!!!
 
 The following 4 steps describe how we determined the above funcOfGunc signature.
 
