@@ -110,15 +110,15 @@ object Demo
 
 ========================================================================================
 
-The following sample code includes this parametric curried function:
+The following sample code includes this CURRIED PARAMETRIC FUNCTION:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
-This part explains how funcOfGunc was defined.
+The following 4 steps describe how we determined the above funcOfGunc signature.
 
 1)
 We will pass 2 functions to funcOfGunc in a single parameter list.  Both those
-functions will get passed a Double, and return a Double.
+functions get passed a Double, and return a Double.
 
 NOTICE: Recall that a curried function always has at least TWO (2) parameter
         lists.  The second parameter list that funcOfGunc accepts is NOT included
