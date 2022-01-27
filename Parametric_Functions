@@ -57,11 +57,6 @@ object Demo
   }
 
   /**
-   * NOTE: The first line of this function can be written either of these 2 ways,
-   *       and the resulting behavior will be identical:
-   *
-   *       1) def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
-   *       2) def ourFold[B,A](list:List[A], base:B)(func:(A,B) => B):B =
    *
    * This is a RECURSIVE, CURRIED FUNCTION.  The List passed to this function can
    * be of any data type that works with the '+' operator, such as Int, Float, String,
@@ -78,21 +73,24 @@ object Demo
    *               of type A, and a value of type B.
    * @return - A value of type A.
    */
-  def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
+  def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
   {
-    // This ourFold() function returns the type A because...
-    // The below if() statement returns the param named base, which is of type A.
-    // The below else() statement returns the param named func, which returns the type A.
-    // Therefore, this ourFold() function must be defined above in its signature
-    // as returning the type A.
+    // NOTE: The first line of this ourFold() function can be written either
+    //       of these 3 ways, and the returned result will be identical:
+    //
+    //     1) def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
+    //     2) def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
+    //     3) def ourFold[B,A](list:List[A], base:B)(func:(A,B) => B):B =
 
     // NOTE: Every time this ourFold() function gets called recursively below,
-    //       the contents of the func param remain UNCHANGED because the func param
-    //       keeps getting passed the same value it was originally called with.
+    //       the contents of these two (2) arguments remain UNCHANGED:
+    //       1) base
+    //       2) func
     //       Every time this ourFold() function gets called recursively below,
-    //       the list param becomes one (1) element smaller, until the if()
-    //       statement executes, which terminates the recursion.
-    if   (list.isEmpty) base
+    //       the list param becomes one (1) element smaller (because list.tail
+    //       gets passed to the list argument), until the if() statement
+    //       executes, which terminates the recursion.
+    if (list.isEmpty) base
     else func(list.head, ourFold(list.tail, base)(func))
   }
 
