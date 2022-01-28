@@ -110,48 +110,69 @@ object Demo
 
 ========================================================================================
 
-The following sample code includes this CURRIED, PARAMETRIC FUNCTION:
+The sample code shown below includes this CURRIED, PARAMETRIC FUNCTION:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
 Recall that a curried function gets called by passing it at least two (2)
-separate argument lists.  The code below confirms that funcOfGunc is called
+separate argument lists.  The code below shows that funcOfGunc is called
 by passing it two (2) argument lists, which means funcOfGunc is a curried
 function.  However, notice that funcOfGunc is defined with only one argument
 list; yet, it gets called by passing it two (2) argument lists!!!
 
-The following 4 steps describe how we determined the above funcOfGunc signature.
+QUESTION:  Since only one argument list appears in the definition of the
+           funcOfGunc function, why must funcOfGunc get called by passing
+           it two (2) argument lists?
+ANSWER:    Notice that funcOfGunc RETURNS THIS FUNCTION:  x=>func(gunc(x))
+           That returned function must get passed the single argument x.
+           When funcOfGunc is called, you must pass to it:
+           1) The func and gunc functions as two arguments contained
+              in funcOfGunc's single argument list.
+           2) A second argument list that contains only the value x.  Although
+              the funcOfGunc definition DOESN'T have a second argument list,
+              funcOfGunc MUST get called by passing it the value x within a
+              second argument list.
 
-1)
-We will pass 2 functions to funcOfGunc in a single parameter list.  Both those
-functions get passed a Double, and return a Double.
+IMPORTANT: Although a curried function gets called by passing it more than
+           one argument list, a curried function DOESN'T always require
+           multiple argument lists in its definition, as this example shows...
 
-NOTICE: Recall that a curried function always has at least TWO (2) parameter
-        lists.  The second parameter list that funcOfGunc accepts is NOT included
-        in the funcOfGunc definition because funcOfGunc returns a function that
-        accepts a single parameter.  Therefore, the return value of funcOfGunc
-        is where the second parameter list gets defined.
+           // This funcOfGunc function is defined with only ONE argument
+           // list, it MUST get called by passing it TWO argument lists.
+           def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
-2)
-Since the gunc function gets called FIRST, we will begin by saying gunc(x) gets
-passed a parameter of type A, and returns type B.  So gunc has this return type:
-A=>B
+The following 4 steps describe how to determine the parametric types (i.e., A, B, C)
+used for the argument types, and the return types, in the funcOfGunc definition.
 
-2)
-The func function gets called AFTER gunc is called, and gets passed the
-value returned by gunc, which is type B.  So func has this return type:
-B=>C
+1) When funcOfGunc is called, the FIRST function it executes is gunc.
+   So we'll begin by defining the parametric argument type, and the
+   parametric return type, for the gunc function.  The gunc function
+   is passed a single argument value, and returns a result value.
+   Let's choose the first two letters of the alphabet so gunc gets
+   passed type A, and returns type B, which translate to this signature:
+   gunc:(A=>B)
 
-4)
-After both the func and gunc functions passed to funcOfGunc are called
-(i.e., func(gunc(x))), funcOfGunc returns its value, which is a function
-that gets passed a parameter.
+2) When funcOfGunc is called, the SECOND function it executes is func.  So we
+   must define the parametric argument type, and the parametric return type,
+   for the func function.  The func function gets passed the type returned
+   by the gunc function, which is type B.  The type returned by func we'll
+   designate as C (the next letter in the alphabet).  So gunc gets passed
+   type B, and returns type C, which translates to this signature:
+   func:(B=>C)
 
-Therefore, funcOfGunc gets passed the same value passed to gunc (parameter
-type A), and it returns the same value returned by func (parameter type C).
-So funcOfGunc has this return type:
-A=>C
+3) When funcOfGunc is called, it returns the type returned by func, which
+   is type C.  The only thing left to determine is the parametric argument
+   type that gets passed to the funcOfGunc function, which is the same type
+   passed to the gunc function, type A.  So this is the funcOfGunc signature:
+   funcOfGunc:(A=>C)
 
+4) From all the information obtained in Steps 1-3 above we can determine
+   the definition of the funcOfGunc function, which is this:
+
+   def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+The above text explains the funcOfGunc function that is implemented
+in the sample code shown below.
 
 object Demo
 {
