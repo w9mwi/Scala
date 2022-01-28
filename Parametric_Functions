@@ -137,8 +137,8 @@ IMPORTANT: Although a curried function gets called by passing it more than
            one argument list, a curried function DOESN'T always require
            multiple argument lists in its definition, as this example shows...
 
-           // This funcOfGunc function is defined with only ONE argument
-           // list, it MUST get called by passing it TWO argument lists.
+           // This funcOfGunc function is defined with only ONE argument list,
+           // but it MUST get called by passing it TWO argument lists.
            def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
 The following 4 steps describe how to determine the parametric types (i.e., A, B, C)
@@ -171,8 +171,9 @@ used for the argument types, and the return types, in the funcOfGunc definition.
 
    def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
-The above text explains the funcOfGunc function that is implemented
-in the sample code shown below.
+The above text explains the funcOfGunc function implemented in the
+sample code shown below.  Make certain to understand the above
+explanations before attempting to understand the sample code below.
 
 object Demo
 {
