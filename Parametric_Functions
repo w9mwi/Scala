@@ -193,106 +193,8 @@ object Demo
 }
 
 ========================================================================================
-
-The funcXYZ function defined below is a parametric function.  It's also a curried function.
-In the funcXYZ definition, the letters in the [A,B,C,D] section can appear in ANY ORDER,
-for example:
-funcXYZ[A,B,C,D]...
-funcXYZ[B,A,D,C]...
-funcXYZ[D,C,A,B]...
-The order won't affect the behavior of the code, but it's best to always
-keep them in alphabetical order.  Following that text in the function
-definition, the correct parametric type must be used wherever one
-is referenced.  Read the explanation below to determine how these
-parametric types are determined for the funcXYZ function.
-
-object Demo
-{
-  def funcX(x:Int):Int = { x + 10 }
-  def funcY(y:Int):Int = { y - 3 }
-  def funcZ(z:Int):Int = { z * 4 }
-
-  // funcXYZ is identical to the below funcXYZ_2 function,
-  // except funcXYZ_2 has 3 PARAMETER LISTS.
-  def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
-  {
-    x => funcX(funcY(funcZ(x)))
-  }
-
-  def main(args:Array[String]): Unit =
-  {
-    var result:Int = funcXYZ(funcX, funcY, funcZ)(5)
-    println("result = " + result) // PRINTS: result = 27
-
-    result = funcXYZ_2(funcX)(funcY)(funcZ)(5)
-    println("result = " + result) // PRINTS: result = 27
-  }
-}
-
-The funcXYZ definition uses parametric types to designate several return types.
-You can choose any letters for the parametric types, but YOU SHOULD ALWAYS
-begin using letter A, followed by B, C, D, etc. so it's easy to follow the order.
-This part explains how the parametric return types are determined.
-
-We begin by observing what funcXYZ returns.  We see that funcXYZ returns this...
-
-x => funcX(funcY(funcZ(x)))
-
-That's a function, which takes a single parameter (x), and returns this line of code:
-
-funcX(funcY(funcZ(x)))  // Where x is the param passed to funcZ
-
-When that line of code is executed, the first thing that executes is funcZ.
-Let's begin by saying funcZ takes parameter A (representing the x parameter
-value passed to funcZ), and it returns the value B, like this:
-
-A=>B   (funcZ return type)
-
-The next thing that executes is funcY.  The parameter fed to funcY comes
-from the value returned by funcZ.  So the funcY return type is:
-
-B=>C   (funcY return type)
-
-The next thing that executes is funcX.  The parameter fed to funcX comes
-from the value returned by funcY.  So the funcX return type is:
-
-C=>D   (funcX return type)
-
-Finally, we need to designate what funcXYZ returns.  funcXYZ RETURNS A FUNCTION that
-takes the parameter x.  Notice that this x parmameter is literally the same value
-that gets passed to funcZ.  Since funcZ defined that x value as type A, funcXYZ
-must also use that same A value in its return type.  Therefore, the funcXYZ
-return type is:
-
-A=>D   (funcXYZ return type)
-
-Now we can write the funcXYZ definition (shown below) using these return types...
-
-funcXYZ returns: A=>D
-funcZ   returns: A=>B
-funcY   returns: B=>C
-funcX   returns: C=>D
-
-Those are the return types that get plugged into the funcXYZ definition, like this:
-
-def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
-{
-  x => funcX(funcY(funcZ(x)))
-}
-
-TAKE NOTE: The A value in the funcXYZ return type is literally the same value
-           as the A value in the funcZ return type.  When funcXYZ is executed
-           (either as a partially-applied or fully-applied function) funcZ
-           is ALWAYS the FIRST parameter list executed.
-
-           The D value in the funcXYZ return type is literally the same value
-           as the D value in the funcX return type.  When funcXYZ becomes
-           fully applied, funcX is ALWAYS the LAST parameter list executed.
-
-========================================================================================
 This code sample shows how to declare and use a parametric class
 named "Sequence", as well the parametic method named "map".
-
 
 import scala.collection.mutable.ListBuffer
 object Demo
@@ -300,9 +202,18 @@ object Demo
   case class Person(firstName:String, lastName:String)
   case class Sequence[A](private val initialElems: A*) // A* designates a variable number of args of type A.
   {
+    // The following 2 lines of code get executed every time the this Sequence class is instantiated.
     private val elems:ListBuffer[A] = ListBuffer[A]()
     elems ++= initialElems // The ++= operator for the ListBuffer class appends multiple elements.
     // NOTE: "elems ++= initialElems" above could be replaced with:  for { x <- initialElems } elems += x
+
+    // When you create your own class (or case class), you must define the following
+    // 4 methods inside your class to make the class work with for() expressions.
+    // That's what the remaining code inside this Sequence class accomplishes.
+    // 1) foreach()
+    // 2) map()
+    // 3) flatMap()
+    // 4) withFilter()
 
     /*********************************************************
      * NOTE: This foreach() method enables the main() function
@@ -366,9 +277,7 @@ object Demo
     }
   } // END: case class Sequence[A]
 
-  /*********************************************************
-   *
-   ********************************************************/
+
   def main(args:Array[String]): Unit =
   {
     // NOTE: The Sequence class can work with different types (i.e., String, Int, Person etc.) because
@@ -414,6 +323,4 @@ object Demo
 }
 
 ========================================================================================
-========================================================================================
-========================================================================================
-========================================================================================
+
