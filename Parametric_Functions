@@ -11,7 +11,6 @@ defined to accept TWO (2) parameter lists.  So the add()
 function returns a function which takes A as a Numeric
 parameter type, and returns type A.
 
-
 object Demo
 {
   // The following add() function is written as a parametric function,
@@ -57,25 +56,22 @@ object Demo
   }
 
   /**
-   *
    * This is a RECURSIVE, CURRIED FUNCTION.  The List passed to this function can
-   * be of any data type that works with the '+' operator, such as Int, Float, String,
-   * etc.  The data type must work with the '+' operator because both times this
-   * ourFold() function gets called (by the main() function) the 'func' parameter
-   * passed to it uses the '+' operator.
-   *
-   * Since both operands used by the '+' operator must be of the same data type,
-   * data type A and data type B MUST BE OF THE SAME DATA TYPE.
+   * be of any data type that works with the '+' operator such as Int, Float, String,
+   * etc.  The data type must work with the '+' operator because when this ourFold()
+   * function gets called (by the main() function) the 'func' parameter passed to
+   * it uses the '+' operator.  Therefore, both operands used by the '+' operator
+   * must be of the same data type.
    *
    * @param list - A Scala List of type A, where A is a parameterized type.
-   * @param base - A value of type B, where B is a parameterized type.
-   * @param func - A function defined by the programmer that gets passed a value
-   *               of type A, and a value of type B.
+   * @param base - A value of type A, where A is a parameterized type.
+   * @param func - A function defined by the programmer that gets passed
+   *               a value of type A, and a value of type A.
    * @return - A value of type A.
    */
   def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
   {
-    // NOTE: The first line of this ourFold() function can be written either
+    // NOTE: The "def ourFold..." line immediately above can be written either
     //       of these 3 ways, and the returned result will be identical:
     //       1) def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
     //       2) def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
@@ -115,10 +111,10 @@ The sample code shown below includes this CURRIED, PARAMETRIC FUNCTION:
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
 Recall that a curried function gets called by passing it at least two (2)
-separate argument lists.  The code below shows that funcOfGunc is called
-by passing it two (2) argument lists, which means funcOfGunc is a curried
-function.  However, notice that funcOfGunc is defined with only one argument
-list; yet, it gets called by passing it two (2) argument lists!!!
+separate argument lists.  The main() function below shows that funcOfGunc gets
+passed two (2) argument lists when it's called, which means funcOfGunc is a
+curried function.  However, notice that funcOfGunc is defined with only one
+argument list; yet, it gets called by passing it two (2) argument lists!!!
 
 QUESTION:  Since only one argument list appears in the definition of the
            funcOfGunc function, why must funcOfGunc get called by passing
@@ -129,7 +125,7 @@ ANSWER:    Notice that funcOfGunc RETURNS THIS FUNCTION:  x=>func(gunc(x))
            1) The func and gunc functions as two arguments contained
               in funcOfGunc's single argument list.
            2) A second argument list that contains only the value x.  Although
-              the funcOfGunc definition DOESN'T have a second argument list,
+              the funcOfGunc definition DOESN'T show a second argument list,
               funcOfGunc MUST get called by passing it the value x within a
               second argument list.
 
