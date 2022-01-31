@@ -1,0 +1,54 @@
+
+The following sample program shows how to write the bind() function,
+which is used to bind the results of these 3 functions into a single
+final result...
+
+1) doubleFunc()
+2) tripleFunc()
+3) quadFunc()
+
+
+object Demo
+{
+  type IntStringTuple = (Int, String)
+
+  def bind(func:(Int=>IntStringTuple), tuple:IntStringTuple):IntStringTuple =
+  {
+    // println("bind() called.")
+    val (intResult, strResult):IntStringTuple = func(tuple._1)
+    (intResult, tuple._2 + strResult) // PRINTS:
+  }
+
+  def doubleFunc(a:Int):IntStringTuple =
+  {
+    // println("doubleFunc() called.")
+    val intResult:Int = a * 2
+    (intResult, s"\ndoubleFunc result = $intResult")  // PRINTS: doubleFunc = 200
+  }
+
+  def tripleFunc(a:Int):IntStringTuple =
+  {
+    // println("tripleFunc() called.")
+    val intResult:Int = a * 3
+    (intResult, s"\ntripleFunc result = $intResult") // PRINTS: tripleFunc = 600
+  }
+
+  def quadFunc(a:Int):IntStringTuple =
+  {
+    // println("quadFunc() called.")
+    val intResult:Int = a * 4
+    (intResult, s"\nquadFunc = $intResult") // PRINTS: quadFunc = 2400
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val doubleResult:IntStringTuple = doubleFunc(100)
+    val tripleResult:IntStringTuple = bind(tripleFunc, doubleResult)
+    val quadResult:IntStringTuple   = bind(quadFunc,   tripleResult)
+    println(s"quadResult._1 =  ${quadResult._1}, quadResult._2 =  ${quadResult._2}")
+    // PRINTS: quadResult._1 =  2400, quadResult._2 =
+  }
+}
+
+==================================================================================
+
