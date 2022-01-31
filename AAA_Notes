@@ -52,3 +52,49 @@ object Demo
 
 ==================================================================================
 
+The following code sample defines and instantiates a class named IntWrapper.
+The IntWrapper class does nothing more than wrap an Int value inside the
+IntWrapper class, and then enables IntWrapper to work with a for() expression
+by defining the Intwrapper.flatMap() and IntWrapper.map() functions.
+
+object Demo
+{
+  class IntWrapper[Int](intValue:Int)
+  {
+    override def toString = intValue.toString
+
+    def flatMap(func:Int=>IntWrapper[Int]):IntWrapper[Int] =
+    {
+      println("flatMap() called.")
+      func(intValue)
+    }
+
+    def map(func:Int=>Int):IntWrapper[Int] =
+    {
+      println("map() called.")
+      val myInt:Int = func(intValue)
+      new IntWrapper(myInt)
+    }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    val intWrap:IntWrapper[Int] = new IntWrapper(123)
+    println(intWrap) // PRINTS: 123
+
+    // The the following code shows that the for() expression can
+    // be written using using parenthesis (), or using braces {}...
+    var resultIntWrapper:IntWrapper[Int] = for (x <- new IntWrapper(1);
+                                                y <- new IntWrapper(2);
+                                                z <- new IntWrapper(3)) yield x+y+z
+    println(resultIntWrapper) // PRINTS: 6
+
+    resultIntWrapper = for {x <- new IntWrapper(1)
+                            y <- new IntWrapper(2)
+                            z <- new IntWrapper(3)} yield x+y+z
+    println(resultIntWrapper) // PRINTS: 6
+  }
+}
+
+==================================================================================
+
