@@ -64,10 +64,10 @@ the Wrapper class to work within a for() expression.
 object Demo
 {
   /**
-  *   The ONLY purpose this Wrapper companion object (and its apply() method)
-  *   serves is to allow a Wrapper class to be instantiated without using the
-  *   'new' keyword.
-  */
+   *   The ONLY purpose this Wrapper companion object (and its apply() method)
+   *   serves is to allow the Wrapper class to be instantiated without using
+   *   the 'new' keyword.
+   */
   object Wrapper
   {
     def apply[A](value:A) = new Wrapper(value) // The 'new' keyword is REQUIRED here.
@@ -86,15 +86,15 @@ object Demo
     def map[B](func:A=>B):Wrapper[B] =
     {
       println("map() called.")
-      val myInt = func(value)
-      Wrapper(myInt)
+      val myValue:B = func(value)
+      Wrapper(myValue)
     }
   }
 
   def main(args: Array[String]):Unit =
   {
-    val intWrap:Wrapper[Int] = Wrapper(123)
-    println(intWrap) // PRINTS: 123
+    val wrap:Wrapper[Int]= Wrapper(123)
+    println(wrap) // PRINTS: 123
 
     // The the following code shows that the for() expression can
     // be written using using parenthesis (), or using braces {}...
