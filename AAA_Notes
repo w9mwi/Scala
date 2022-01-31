@@ -63,6 +63,16 @@ the Wrapper class to work within a for() expression.
 
 object Demo
 {
+  /**
+  *   The ONLY purpose this Wrapper companion object (and its apply() method)
+  *   serves is to allow a Wrapper class to be instantiated without using the
+  *   'new' keyword.
+  */
+  object Wrapper
+  {
+    def apply[A](value:A) = new Wrapper(value) // The 'new' keyword is REQUIRED here.
+  }
+
   class Wrapper[A](value:A)
   {
     override def toString = value.toString
@@ -77,25 +87,25 @@ object Demo
     {
       println("map() called.")
       val myInt = func(value)
-      new Wrapper(myInt)
+      Wrapper(myInt)
     }
   }
 
   def main(args: Array[String]):Unit =
   {
-    val intWrap:Wrapper[Int] = new Wrapper(123)
+    val intWrap:Wrapper[Int] = Wrapper(123)
     println(intWrap) // PRINTS: 123
 
     // The the following code shows that the for() expression can
     // be written using using parenthesis (), or using braces {}...
-    var resultWrapper:Wrapper[Int] = for (x <- new Wrapper(1);
-                                          y <- new Wrapper(2);
-                                          z <- new Wrapper(3)) yield x+y+z
+    var resultWrapper:Wrapper[Int] = for (x <- Wrapper(1);
+                                          y <- Wrapper(2);
+                                          z <- Wrapper(3)) yield x+y+z
     println(resultWrapper) // PRINTS: 6
 
-    resultWrapper = for {x <- new Wrapper(1)
-                         y <- new Wrapper(2)
-                         z <- new Wrapper(3)} yield x+y+z
+    resultWrapper = for {x <- Wrapper(1)
+                         y <- Wrapper(2)
+                         z <- Wrapper(3)} yield x+y+z
     println(resultWrapper) // PRINTS: 6
   }
 }
