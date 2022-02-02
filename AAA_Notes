@@ -61,8 +61,8 @@ the Wrapper class to work within a for() expression.
 1) wrapper.flatMap()
 2) Wrapper.map()
 
-A for expression will work with ANYTHING that returns a data type that implements
-both the map() and flatMap() functions--it doesn't have to be a class.
+A for expression will work with ANY DATA TYPE that implements both
+the map() and flatMap() functions--it doesn't have to be a class.
 
 object Demo
 {
