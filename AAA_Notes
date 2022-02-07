@@ -119,6 +119,11 @@ The following code sample is a modified implementation of the sample
 code shown immediately above.  Where the "class Wrapper" defined in
 the code above is changed to "case class Debuggable" in the code below.
 
+Notice that the for() expression in the above code sample contains the text:
+yield x+y+z"
+while the for() expression in the code below contains the text:
+yield z
+
 object Demo
 {
   case class Debuggable(value:Int, message:String)
