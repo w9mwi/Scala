@@ -99,7 +99,7 @@ object Demo
     val wrap:Wrapper[Int]= Wrapper(123)
     println(wrap) // PRINTS: 123
 
-    // The the following code shows that the for() expression
+    // The following code shows that the for() expression
     // can be written using parenthesis (), or using braces {}...
     var resultWrapper:Wrapper[Int] = for (x <- Wrapper(1);
                                           y <- Wrapper(2);
@@ -115,3 +115,70 @@ object Demo
 
 ==================================================================================
 
+The following code sample is a modified implementation of the sample
+code shown immediately above.  Where the "class Wrapper" defined in
+the code above is changed to "case class Debuggable" in the code below.
+
+object Demo
+{
+  case class Debuggable(value:Int, message:String)
+  {
+    def flatMap(func:Int=>Debuggable):Debuggable =
+    {
+      // println("flatMap() called.")
+      val newValue:Debuggable = func(value)
+      // NOTE: newValue.message contains the most-recent message.
+      Debuggable(newValue.value, message + "\n" + newValue.message)
+    }
+
+    def map[B](func:Int=>Int):Debuggable =
+    {
+      // println("map() called.")
+      val newValue:Int = func(value)
+      Debuggable(newValue, message)
+    }
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    def doubleFunc(a:Int):Debuggable =
+    {
+      val intResult:Int = a * 2
+      val message = s"doubleFunc: $a * 2 = $intResult"
+      Debuggable(intResult, message)
+    }
+
+    def tripleFunc(a:Int):Debuggable =
+    {
+      val intResult:Int = a * 3
+      val message = s"tripleFunc: $a * 3 = $intResult"
+      Debuggable(intResult, message)
+    }
+
+    def quadFunc(a:Int):Debuggable =
+    {
+      val intResult:Int = a * 4
+      val message = s"quadFunc: $a * 4 = $intResult"
+      Debuggable(intResult, message)
+    }
+
+    // The following code shows that the for() expression
+    // can be written using parenthesis (), or using braces {}.
+    var finalResult:Debuggable = for (x <- doubleFunc(100);
+                                      y <- tripleFunc(x);
+                                      z <- quadFunc(y)) yield z
+    println(s"finalResult.value   = ${finalResult.value}")
+    println(s"finalResult.message = ${finalResult.message}\n")
+    // PRINTS: finalResult.value   = 2400
+    //         finalResult.message = doubleFunc: 100 * 2 = 200
+    //                               tripleFunc: 200 * 3 = 600
+    //                               quadFunc:   600 * 4 = 2400
+
+    finalResult = for {x <- doubleFunc(100)
+                       y <- tripleFunc(x)
+                       z <- quadFunc(y)} yield z
+    println(s"finalResult.value   = ${finalResult.value}")
+    println(s"finalResult.message = ${finalResult.message}")
+    // PRINTS: Identical text to the text printed above.
+  }
+}
