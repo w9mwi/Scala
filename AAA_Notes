@@ -99,8 +99,8 @@ object Demo
     val wrap:Wrapper[Int]= Wrapper(123)
     println(wrap) // PRINTS: 123
 
-    // The the following code shows that the for() expression can
-    // be written using using parenthesis (), or using braces {}...
+    // The the following code shows that the for() expression
+    // can be written using parenthesis (), or using braces {}...
     var resultWrapper:Wrapper[Int] = for (x <- Wrapper(1);
                                           y <- Wrapper(2);
                                           z <- Wrapper(3)) yield x+y+z
