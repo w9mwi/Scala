@@ -58,7 +58,7 @@ The Wrapper class does nothing more than wrap a single data value
 class also implements the following two (2) functions, which enables
 the Wrapper class to work within a for() expression.
 
-1) wrapper.flatMap()
+1) Wrapper.flatMap()
 2) Wrapper.map()
 
 A for expression will work with ANY DATA TYPE that implements both
