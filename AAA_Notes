@@ -116,13 +116,22 @@ object Demo
 ==================================================================================
 
 The following code sample is a modified implementation of the sample
-code shown immediately above.  Where the "class Wrapper" defined in
-the code above is changed to "case class Debuggable" in the code below.
+code shown immediately ABOVE.  Where the "class Wrapper" defined in
+the code ABOVE is changed to "case class Debuggable" in the code BELOW.
 
-Notice that the for() expression in the above code sample contains the text:
-yield x+y+z"
-while the for() expression in the code below contains the text:
+Notice that the for() expression in the ABOVE code sample contains this text:
+yield x+y+z
+While the for() expression in the code BELOW contains the text:
 yield z
+
+The reason the ABOVE for() expression contains "yield x+y+z" is because the
+x, y, and z values are calculated independent of one another, so they must
+be added within the "yield" statement to generate the correct result.
+
+The BELOW for() expression contains only "yield z" because the x result
+is passed to tripleFunc(x), which returns a result into the y value.
+The y value is then passed to quadFunc(y), which returns the final
+result into the z value.
 
 object Demo
 {
