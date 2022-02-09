@@ -133,6 +133,26 @@ is passed to tripleFunc(x), which returns a result into the y value.
 The y value is then passed to quadFunc(y), which returns the final
 result into the z value.
 
+NOTE: Both of the for() expressions in the below sample code are
+      translated into the following for() expression by the
+      Scala compiler.  Notice that the flatMap() method gets
+      called twice, and then the map() method is called last.
+
+      finalResult = doubleFunc(100)
+            .flatMap((x: Int) =>
+              tripleFunc(x)
+                .flatMap((y: Int) =>
+                  quadFunc(y)
+                    .map((z: Int) => z)
+          )
+      )
+
+      To view the above translated for() expression, place focus
+      on the first "for" expression in the below code.  Right-click
+      mouse button, then select from the menu "Desugar Scala Code..."
+      and run the program.
+
+
 object Demo
 {
   case class Debuggable(value:Int, message:String)
