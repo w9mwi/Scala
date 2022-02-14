@@ -147,11 +147,10 @@ NOTE: Both of the for() expressions in the below sample code are
           )
       )
 
-      To view the above translated for() expression, place focus
-      on the first "for" expression in the below code.  Right-click
+      To view the above translated for() expression in IntelliJ, place
+      focus on the first "for" expression in the below code.  Right-click
       mouse button, then select from the menu "Desugar Scala Code..."
       and run the program.
-
 
 object Demo
 {
@@ -178,14 +177,14 @@ object Demo
     def doubleFunc(a:Int):Debuggable =
     {
       val intResult:Int = a * 2
-      val message = s"doubleFunc: $a * 2 = $intResult"
+      val message:String = s"doubleFunc: $a * 2 = $intResult"
       Debuggable(intResult, message)
     }
 
     def tripleFunc(a:Int):Debuggable =
     {
       val intResult:Int = a * 3
-      val message = s"tripleFunc: $a * 3 = $intResult"
+      val message:String = s"tripleFunc: $a * 3 = $intResult"
       Debuggable(intResult, message)
     }
 
@@ -196,7 +195,7 @@ object Demo
       Debuggable(intResult, message)
     }
 
-    // The following code shows that the for() expression
+    // The following 2 for() expressions show that a for() expression
     // can be written using parenthesis (), or using braces {}.
     var finalResult:Debuggable = for (x <- doubleFunc(100);
                                       y <- tripleFunc(x);
@@ -213,6 +212,6 @@ object Demo
                        z <- quadFunc(y)} yield z
     println(s"finalResult.value   = ${finalResult.value}")
     println(s"finalResult.message = ${finalResult.message}")
-    // PRINTS: Identical text to the text printed above.
+    // PRINTS: IDENTICAL TEXT to the text printed above.
   }
 }
