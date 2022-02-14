@@ -6,6 +6,7 @@ Scala provides three (3) constructs for creating user-defined types:
 
 Scala also has the following type of classes, which are more esoteric,
 not so common, and documented here: https://github.com/w9mwi/Scala
+On this page we won't be concerned with these class types.
 * Anonymous class
 * Generic class
 * Implicit class
