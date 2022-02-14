@@ -133,10 +133,12 @@ is passed to tripleFunc(x), which returns a result into the y value.
 The y value is then passed to quadFunc(y), which returns the final
 result into the z value.
 
-NOTE: Both of the for() expressions in the below sample code are
+NOTE: Both for() expressions in the below sample code are
       translated into the following for() expression by the
-      Scala compiler.  Notice that the flatMap() method gets
-      called twice, and then the map() method is called last.
+      Scala compiler.  To view this code in IntelliJ, place
+      focus on the first "for" expression in the below code,
+      right-click  mouse button, then select from the menu
+      "Desugar Scala Code..." and run the program.
 
       finalResult = doubleFunc(100)
             .flatMap((x: Int) =>
@@ -147,10 +149,15 @@ NOTE: Both of the for() expressions in the below sample code are
           )
       )
 
-      To view the above translated for() expression in IntelliJ, place
-      focus on the first "for" expression in the below code.  Right-click
-      mouse button, then select from the menu "Desugar Scala Code..."
-      and run the program.
+      If a for() expression contains only one generator (<-),
+      flatMap() is NOT called, ONLY map() is called.  When a
+      for() expression contains MULTIPLE GENERATORS, as in
+      the code sample below, flatMap() and map() are called
+      in this order...
+
+      1) flatMap() is called on the first generator:  x <- doubleFunc(100)
+      2) flatMap() is called on second generator:     y <- tripleFunc(x)
+      3) map() is called ONLY on the last generator:  z <- quadFunc(y)
 
 object Demo
 {
