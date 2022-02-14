@@ -1,4 +1,3 @@
-
 The following sample program shows how to write the bind() function,
 which is used to bind the results of these 3 functions into a single
 final result...
