@@ -4,6 +4,13 @@ Scala provides three (3) constructs for creating user-defined types:
 2) object (Scala has two kinds of object: "case object" and "object")
 3) class  (Scala has two kinds of class:  "case class" and "class")
 
+Scala also has the following type of classes, which are more esoteric,
+not so common, and documented here: https://github.com/w9mwi/Scala
+* Anonymous class
+* Generic class
+* Implicit class
+* Inner class
+
 A regular Scala class is capable of doing anything a "case class" can do.
 But implementing a regular Scala class may require you to write lots
 of additional code that a case class contains by default.  A Scala
