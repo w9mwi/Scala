@@ -190,7 +190,7 @@ object Demo
   def quadFunc(a:Int):Debuggable =
   {
     val intResult:Int = a * 4
-    val message = s"quadFunc: $a * 4 = $intResult"
+    val message:String = s"quadFunc: $a * 4 = $intResult"
     Debuggable(intResult, message)
   }
 
