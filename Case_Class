@@ -1,14 +1,14 @@
 
 Scala provides three (3) constructs for creating user-defined types:
-1) a trait   (Scala has two kinds of trait:  "sealed trait" and "trait")
-2) an object (Scala has two kinds of object: "case object" and "object")
-3) a class   (Scala has two kinds of class:  "case class" and "class")
+1) trait  (Scala has two kinds of trait:  "sealed trait" and "trait")
+2) object (Scala has two kinds of object: "case object" and "object")
+3) class  (Scala has two kinds of class:  "case class" and "class")
 
 A regular Scala class is capable of doing anything a "case class" can do.
 But implementing a regular Scala class may require you to write lots
-of additional code that a case class makes available by default.
-A Scala "case class" is different from the regular Scala "class"
-in the following 8 ways...
+of additional code that a case class contains by default.  A Scala
+"case class" is different from regular Scala "class" in the following
+8 ways...
 
 1) THIS IS LIKELY THE SINGLE BIGGEST ADVANTAGE OF USING A CASE CLASS...
    All data passed to a case class as arguments are automatically
@@ -51,7 +51,7 @@ in the following 8 ways...
    abstract class Card(id:Int)
    case class DebitCard(id:Int, name:String, number:Int) extends Card(id)
 
-7) A case class CAN extend a Trait, like the following example shows:
+7) A case class can extend a Trait, like the following example shows:
 
    trait Event
    case class ComplexEvent() extends Event
