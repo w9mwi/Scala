@@ -172,29 +172,30 @@ object Demo
     }
   }
 
+
+  def doubleFunc(a:Int):Debuggable =
+  {
+    val intResult:Int = a * 2
+    val message:String = s"doubleFunc: $a * 2 = $intResult"
+    Debuggable(intResult, message)
+  }
+
+  def tripleFunc(a:Int):Debuggable =
+  {
+    val intResult:Int = a * 3
+    val message:String = s"tripleFunc: $a * 3 = $intResult"
+    Debuggable(intResult, message)
+  }
+
+  def quadFunc(a:Int):Debuggable =
+  {
+    val intResult:Int = a * 4
+    val message = s"quadFunc: $a * 4 = $intResult"
+    Debuggable(intResult, message)
+  }
+
   def main(args: Array[String]):Unit =
   {
-    def doubleFunc(a:Int):Debuggable =
-    {
-      val intResult:Int = a * 2
-      val message:String = s"doubleFunc: $a * 2 = $intResult"
-      Debuggable(intResult, message)
-    }
-
-    def tripleFunc(a:Int):Debuggable =
-    {
-      val intResult:Int = a * 3
-      val message:String = s"tripleFunc: $a * 3 = $intResult"
-      Debuggable(intResult, message)
-    }
-
-    def quadFunc(a:Int):Debuggable =
-    {
-      val intResult:Int = a * 4
-      val message = s"quadFunc: $a * 4 = $intResult"
-      Debuggable(intResult, message)
-    }
-
     // The following 2 for() expressions show that a for() expression
     // can be written using parenthesis (), or using braces {}.
     var finalResult:Debuggable = for (x <- doubleFunc(100);
