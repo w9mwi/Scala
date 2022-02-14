@@ -1,3 +1,16 @@
+Scala provides three (3) constructs for creating user-defined types:
+1) trait  (Scala has two kinds of trait:  "sealed trait" and "trait")
+2) object (Scala has two kinds of object: "case object" and "object")
+3) class  (Scala has two kinds of class:  "case class" and "class")
+
+Scala also has the following type of classes, which are more esoteric,
+not so common, and documented here: https://github.com/w9mwi/Scala
+On this page we won't be concerned with these class types.
+* Anonymous class
+* Generic class
+* Implicit class
+* Inner class
+
 Below are some examples of how to use standard Scala classes (not case classes).
 
 ===============================================================================
