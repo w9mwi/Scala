@@ -88,9 +88,7 @@ Monad - A monad type is not defined in Scala.  Any Scala class
         2) The flatMap() method.
         3) A "lift" function that "lifts" another
            data type into the monad.
-           
         
-
         Some examples of Scala classes that are monads are:
         Array, List, Map, Option, Seq
 
