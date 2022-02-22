@@ -14,21 +14,28 @@ Pure Function - A pure function's output (returned result) depends ONLY on the c
                 Also, any function that has no input parameters (i.e., the readLine function),
                 or returns nothing (returns type Unit), is NOT a pure function.
 
-                If there is no data dependency between two pure functions,
-                then the order in which they get called doesn't matter, or
-                they could be run simultaneously (in parallel).  Therefore,
-                pure functions are "thread safe."
+                If there is no data dependency between two pure functions, then the order
+                in which they get called doesn't matter, or they could be run simultaneously
+                (in parallel).  Therefore, pure functions are "thread safe."
 
-Combinator - The idea of being able to combine functions
-             together like a UNIX command pipeline:
+Combinator - The idea of being able to combine functions together like a UNIX command pipeline:
              $ ps aux grep root wc -l
 
-             In Scala functions can be combined by chaining multiple different
+             In Scala, PURE FUNCTIONS can be combined by chaining multiple different
              function calls together in a single line of code, like this:
              val result = doThis(a).thenDoThis(b).finallyDoThis(c)
 
-             This is also called "Functional Composition", which
-             is defined further below.
+             This is also called "Functional Composition", which is defined below.
+
+Functional Composition - The process of combining two or more functions to produce a new function.
+                         In other words, feeding the output of one function into the input parameter
+                         of another function, as is done with the chaining of functions.
+
+                         Functional composition works ONLY with PURE FUCTIONS.  In Scala,
+                         the goal is to make every function you write a pure function,
+                         so those functions can be used in functional composition.  This
+                         is not always possible because functions that deal with I/O
+                         are NOT pure fuctions.
 
 
 Expression-Oriented Programming (EOP) - Pure functional programming code is a superset of EOP.
@@ -107,31 +114,6 @@ Monad - A monad type is not defined in Scala.  Any Scala class
 
         For more details regarding Scala monads read:
         --> https://blog.redelastic.com/a-guide-to-scala-collections-exploring-monads-in-scala-collections-ef810ef3aec3
-
-Functional Composition - The process of combining two or more functions to produce a new function.
-                         Composing functions together like snapping together a series of pipes
-                         for the data to flow through.  In other words, feeding the output of one
-                         function into the input of another function, as is done with the chaining
-                         of functions.  Read in-line comments of this sample code to understand.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    val myString:String = "This is my Xtring."
-    println(s"myString = $myString") // PRINTS: myString = This is my Xtring.
-
-    var result:String = myString.replace('X', 'S')
-    println(s"result   = $result") // PRINTS: result   = This is my String.
-    result = result.toUpperCase
-    println(s"result   = $result") // PRINTS: result   = THIS IS MY STRING.
-
-    // The following line implements FUNCTION COMPOSITION (aka, function chaining)
-    // by passing the return value of replace() to the toUpperCase() function.
-    result = myString.replace('X', 'S').toUpperCase
-    println(s"result   = $result") // PRINTS: result   = THIS IS MY STRING.
-  }
-}
 
 ====================================================================================
 
