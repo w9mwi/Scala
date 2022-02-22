@@ -23,13 +23,13 @@ Combinator - The idea of being able to combine functions
              together like a UNIX command pipeline:
              $ ps aux grep root wc -l
 
-             In Scala functions can be combined by chaining multiple
-             different function calls together, like this:
+             In Scala functions can be combined by chaining multiple different
+             function calls together in a single line of code, like this:
              val result = doThis(a).thenDoThis(b).finallyDoThis(c)
 
              This is also called "Functional Composition", which
              is defined further below.
-             
+
 
 Expression-Oriented Programming (EOP) - Pure functional programming code is a superset of EOP.
                                         Therefore, pure functional programming is also EOP.
@@ -37,13 +37,13 @@ Expression-Oriented Programming (EOP) - Pure functional programming code is a su
                                         An "expression" (as defined by EOP) is code that returns
                                         a result (evaluates to a result).  A "statement" doesn't
                                         evaluate to a result because a statement doesn't return
-                                        a value.  The println() below is a statement (not an
+                                        a value.  The println() below is a statement (NOT an
                                         expression) because it doesn't return a result.
 
                                         println("Print some text to the screen.") // This line of code is a STATEMENT.
 
-                                        The following code evaluates to 3 separate expressions (not statements)
-                                        because that code evaluates to 3 separate results.
+                                        The following 3 lines of code each evaluates to an EXPRESSION (not a statement)
+                                        because each of these 3 lines evaluate to a RESULT.
 
                                         val taxPayment = calculateTax(incomeData)
                                         val getMaxValue = if (a > b) a else b;
@@ -53,7 +53,8 @@ Expression-Oriented Programming (EOP) - Pure functional programming code is a su
                                            case 1 | 3 | 5 | 7 | 9 => false
                                         }
 
-                                        In EOP (and in FP), code that returns a result (evaluates to a result) is an expression.
+                                        In EOP (and in FP), code that returns a result
+                                        (or evaluates to a result) is an expression.
 
 Functor - "Things that can be mapped over."  In other words, a Scala
           class that implements the map() function is a "functor."
