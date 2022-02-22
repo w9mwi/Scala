@@ -23,9 +23,13 @@ Combinator - The idea of being able to combine functions
              together like a UNIX command pipeline:
              $ ps aux grep root wc -l
 
-             In Scala, functions can be combined by chaining them like in
-             this example.  This is also called "functional composition."
-             val result = doThis(a).thenThis(b)andFinallyThis(c)
+             In Scala functions can be combined by chaining multiple
+             different function calls together, like this:
+             val result = doThis(a).thenDoThis(b).finallyDoThis(c)
+
+             This is also called "Functional Composition", which
+             is defined further below.
+             
 
 Expression-Oriented Programming (EOP) - Pure functional programming code is a superset of EOP.
                                         Therefore, pure functional programming is also EOP.
@@ -103,11 +107,11 @@ Monad - A monad type is not defined in Scala.  Any Scala class
         For more details regarding Scala monads read:
         --> https://blog.redelastic.com/a-guide-to-scala-collections-exploring-monads-in-scala-collections-ef810ef3aec3
 
-Function Composition - The process of combining two or more functions to produce a new function.
-                       Composing functions together like snapping together a series of pipes
-                       for the data to flow through.  In other words, feeding the output of one
-                       function into the input of another function, as is done with the chaining
-                       of functions.  Read in-line comments of this sample code to understand.
+Functional Composition - The process of combining two or more functions to produce a new function.
+                         Composing functions together like snapping together a series of pipes
+                         for the data to flow through.  In other words, feeding the output of one
+                         function into the input of another function, as is done with the chaining
+                         of functions.  Read in-line comments of this sample code to understand.
 
 object Demo
 {
