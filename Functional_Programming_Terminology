@@ -22,8 +22,8 @@ Combinator - The idea of being able to combine functions together like a UNIX co
              $ ps aux grep root wc -l
 
              In Scala, PURE FUNCTIONS can be combined by chaining multiple different
-             function calls together in a single line of code, like this:
-             val result = doThis(a).thenDoThis(b).finallyDoThis(c)
+             function calls together into a single line of code, like this:
+             val result = firstDoThis(a).thenDoThis(b).finallyDoThis(c)
 
              This is also called "Functional Composition", which is defined below.
 
