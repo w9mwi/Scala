@@ -102,6 +102,31 @@ Monad - A monad type is not defined in Scala.  Any Scala class
         For more details regarding Scala monads read:
         --> https://blog.redelastic.com/a-guide-to-scala-collections-exploring-monads-in-scala-collections-ef810ef3aec3
 
+Function Composition - The process of combining two or more functions to produce a new function.
+                       Composing functions together like snapping together a series of pipes
+                       for the data to flow through.  In other words, feeding the output of one
+                       function into the input of another function, as is done with the chaining
+                       of functions.  Read in-line comments of this sample code to understand.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val myString:String = "This is my Xtring."
+    println(s"myString = $myString") // PRINTS: myString = This is my Xtring.
+
+    var result:String = myString.replace('X', 'S')
+    println(s"result   = $result") // PRINTS: result   = This is my String.
+    result = result.toUpperCase
+    println(s"result   = $result") // PRINTS: result   = THIS IS MY STRING.
+
+    // The following line implements FUNCTION COMPOSITION (aka, function chaining)
+    // by passing the return value of replace() to the toUpperCase() function.
+    result = myString.replace('X', 'S').toUpperCase
+    println(s"result   = $result") // PRINTS: result   = THIS IS MY STRING.
+  }
+}
+
 ====================================================================================
 
 Read in-line comments in the following sample code to understand
