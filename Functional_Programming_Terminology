@@ -21,9 +21,13 @@ Pure Function - A pure function's output (returned result) depends ONLY on the c
 Combinator - The idea of being able to combine functions together like a UNIX command pipeline:
              $ ps aux grep root wc -l
 
-             In Scala, PURE FUNCTIONS can be combined by chaining multiple different
-             function calls together into a single line of code, like this:
-             val result = firstDoThis(a).thenDoThis(b).finallyDoThis(c)
+             In Scala, PURE FUNCTIONS can be combined by chaining multiple
+             different function calls together into a single line of code,
+             as shown on Line 2) below.
+ 
+             1) val myString:String = "This is my Xtring."
+             2) val result:String   = myString.replace('X', 'S').toUpperCase
+             3) println(s"result = $result") // PRINTS: result = THIS IS MY STRING.
 
              This is also called "Functional Composition", which is defined below.
 
