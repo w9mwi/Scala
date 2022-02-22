@@ -102,16 +102,14 @@ Monad - A monad type is not defined in Scala.  Any Scala class
 
         1) The map() method.
         2) The flatMap() method.
-        3) A "lift" function that "lifts" another
-           data type into the monad.
+        3) A "lift" function that "lifts" another data type into the monad.
         
         Some examples of Scala classes that are monads are:
         Array, List, Map, Option, Seq
 
-        A monad does NOT need to be a collection class.
-        The Scala Option class is NOT a collection class,
-        but Option is considered to be a monad because it
-        implements BOTH the flatMap() and map() methods.
+        A monad does NOT need to be a collection class.  The Scala Option class
+        is NOT a collection class, but Option is considered to be a monad because
+        it implements BOTH the flatMap() and map() methods.
 
         For important information about the Scala Option class read:
         --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None
