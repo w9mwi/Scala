@@ -1,5 +1,5 @@
 Scala provides three (3) constructs for creating user-defined types:
-1) trait  (Scala has two kinds of trait:  "sealed trait" and "trait")
+1) trait
 2) object (Scala has two kinds of object: "case object" and "object")
 3) class  (Scala has two kinds of class:  "case class" and "class")
 
