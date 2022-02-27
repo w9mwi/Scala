@@ -28,11 +28,11 @@ object Demo
 ==========================================================================
 The following is a list of some common methods used by the Buffer type...
 
-___ +=(elem: A):Buffer[A]  - Append an element to the buffer and return the same buffer.
-___ +=:(elem: A):Buffer[A] - Prepend an element to the buffer and return the same buffer.
+___ +=(elem: A):Buffer[A]                 - Append an element to the buffer and return the same buffer.
+___ +=:(elem: A):Buffer[A]                - Prepend an element to the buffer and return the same buffer.
 ___ ++=(xs:TraversableOnce[A]):Buffer[A]  - Append the elements in xs to the buffer and return the same buffer.
 ___ ++=:(xs:TraversableOnce[A]):Buffer[A] - Prepend the elements in xs to the buffer and return the same buffer.
-___ -=(elem:A):Buffer[A]                 - Remove the element from the buffer and return the same buffer.
+___ -=(elem:A):Buffer[A]                  - Remove the element from the buffer and return the same buffer.
 ___ --=(xs:TraversableOnce[A]):Buffer[A] - Remove all the elements in xs from the buffer and return the same buffer.
 
 ___ append(elem:A):Unit                   - Append the element to the buffer.
