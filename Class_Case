@@ -34,6 +34,8 @@ of additional code that a case class contains by default.  A Scala
    available BY DEFAULT, so you do NOT create them...
 
       apply() - This method allows you to create a case class instance WITHOUT using the "new" keyword.
+                In a regular class, if you want the option of not using the "new" keyword, you need to
+                define your own apply() method, which should be contained inside a COMPANION OBJECT.
       copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
                and allows you to change member values in the newly-created copy.  An example is shown below.
       equals()   - Determines if two Scala objects are equal.  Read the hashCode() description below.
@@ -41,8 +43,9 @@ of additional code that a case class contains by default.  A Scala
                    same Int value, they are equal.  You can use the equals() method or the '==' operator
                    instead of calling hashCode().
       toString() - Renders the class’s name and fields to a String.
-      unapply() - This method allows pattern matching to work on a case class.  To make pattern matching work
-                  on a regular Scala class you need to create your own unapply() method in a companion object.
+      unapply() - This method allows pattern matching to work on a case class.  To make
+                  pattern matching work on a regular Scala class you need to create your
+                  own unapply() method, which should be contained inside a COMPANION OBJECT.
 
 3) The "case class" Scala type automatically inherits from the type Serializable.
 
