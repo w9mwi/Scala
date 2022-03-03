@@ -36,8 +36,11 @@ of additional code that a case class contains by default.  A Scala
       apply() - This method allows you to create a case class instance WITHOUT using the "new" keyword.
                 In a regular class, if you want the option of not using the "new" keyword, you must
                 define your own apply() method, which should be contained inside a COMPANION OBJECT.
-                The following sample code shows how this is done.
-                =================================================
+                The following sample code shows how this is done.  When the Scala compiler runs
+                the following code...
+                IT TRANSFORMS THIS:  tom = Person("Tom")
+                INTO THIS:           tom = Person.apply("Tom")
+                ==============================================
                 object Demo
                 {
                   class Person { var name:String = _ }
@@ -51,11 +54,11 @@ of additional code that a case class contains by default.  A Scala
 
                   def main(args: Array[String])
                   {
-                    val tom = Person("Tom")
+                    val tom = Person("Tom") // EQUIVALENT TO:  tom = Person.apply("Tom")
                     val array = Array(Person("Jim"), Person("Jack"))
                   }
                 }
-                =================================================
+                ==============================================
       copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
                and allows you to change member values in the newly-created copy.  An example is shown below.
       equals()   - Determines if two Scala objects are equal.  Read the hashCode() description below.
