@@ -69,6 +69,7 @@ of additional code that a case class contains by default.  A Scala
       unapply() - This method allows pattern matching to work on a case class.  To make
                   pattern matching work on a regular Scala class, you must define your
                   own unapply() method, which should be contained inside a COMPANION OBJECT.
+                  This is very similar to the apply() method discussed above.
 
 3) The "case class" Scala type automatically inherits from the type Serializable.
 
