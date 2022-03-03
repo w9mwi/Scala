@@ -6,7 +6,9 @@ these 3 criteria:
 2) Returns a data type.
 3) Takes as an argument that HAS NO DATA TYPE because
    the argument IS A BLOCK OF SCALA CODE (multiple
-   lines of code).
+   lines of code).  NOTE: The last line of code
+   executed by this block of code determines the
+   data type returned by the function.
 
 This is called a Nullary Function, which is also known
 as a Pass-By-Value Function.
