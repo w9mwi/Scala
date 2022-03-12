@@ -11,18 +11,19 @@ object Demo
    ********************************************/
   def main(args: Array[String])
   {
+    println("\n================================================")
     println("PRINT ALL ENVIRONMENT VALUES:")
     var envVars = System.getenv().asScala
     for ((k,v) <- envVars) { println(s"key = $k\nvalue = $v\n") }
-    println("=====================================")
+    println("================================================")
 
-    println("PRINT ALL SYSTEM PROPERTIES:")
+    println("PRINT ALL SYSTEM PROPERTIES:\n")
     var sysProps = System.getProperties().asScala
     for ((k,v) <- sysProps) { println(s"key = $k\nvalue = $v\n") }
-    println("=====================================")
+    println("================================================")
 
     // Obtain a single environment value...
-    println("\n\nUSER = " + envVars.get("USER")) // PRINTS: USER = Some(tjb)
+    println("\nUSER = " + envVars.get("USER")) // PRINTS: USER = Some(tjb)
 
     // Obtain a single system property...
     println("java.version = " + sysProps.get("java.version")) // PRINTS: java.version = Some(11.0.13)
