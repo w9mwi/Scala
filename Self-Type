@@ -12,15 +12,22 @@ object Demo
     def getTailColor:Color = tailColor
   }
 
+  abstract class AnimalWithTail_2 extends Animal
+  {
+    def function:Unit = println("AnimalWithTail_2.function called.")
+  }
+
   trait DogTailServices
   {
     // NOTE: The following line of code (this: AnimalWithTail =>)
     //       designates a Scala "self-type".  In this example, the
     //       "this" keyword designates the trait DogTailServices.
-    //       The following line of code designates that the trait
-    //       DogTailServices can be used ONLY by classes that
-    //       extend the AnimalWithTail class.
-    this: AnimalWithTail =>  // A self-type declaration MUST be the first line of code inside a trait declaration.
+    //       So the following line of code designates that the trait
+    //       DogTailServices can be inherited ONLY by the
+    //       AnimalWithTail class.
+    this: AnimalWithTail =>  // When a self-type declaration is used, it MUST be
+                             // THE FIRST LINE OF CODE inside a trait declaration.
+
     def curlTail:Unit  = println("Curling Tail!")
     def lowerTail:Unit = println("Lowering Tail!")
     def raiseTail:Unit = println("Raising Tail!")
@@ -32,10 +39,11 @@ object Demo
     // NOTE: The following line of code (this: AnimalWithTail =>)
     //       designates a Scala "self-type".  In this example, the
     //       "this" keyword designates the trait DogMouthServices.
-    //       The following line of code designates that the trait
-    //       DogMouthServices can be used ONLY by classes that
-    //       extend the AnimalWithTail class.
-    this: AnimalWithTail =>  // A self-type declaration MUST be the first line of code inside a trait declaration.
+    //       So the following line of code designates that the trait
+    //       DogMouthServices can be inherited ONLY by the
+    //       AnimalWithTail class.
+    this: AnimalWithTail =>  // When a self-type declaration is used, it MUST be
+                             // THE FIRST LINE OF CODE inside a trait declaration.
 
     def bark:Unit = println("Bow-Wow!")
     def lick:Unit = println("Lick Me!")
@@ -59,6 +67,23 @@ object Demo
     IrishSetter.raiseTail             // PRINTS: Raising Tail!
     IrishSetter.wagTail               // PRINTS: Wagging Tail!
     println(IrishSetter.getTailColor) // PRINTS: java.awt.Color[r=255,g=0,b=0]
+
+    // If you uncomment the following 2 commented-out lines THEY WON'T COMPILE
+    // because the DogMouthServices and DogTailServices traits are defined to
+    // be used ONLY when the AnimalWithTail class inherits them.
+    // object myAnimal_1 extends AnimalWithTail_2 with DogMouthServices
+    // object myAnimal_2 extends AnimalWithTail_2 with DogTailServices
+
+    // Unlike the 2 commented-out lines above, the following 2 lines of code
+    // will compile and execute successfully because AnimalWithTail_2 DOESN'T
+    // inherit from the DogMouthServices or DogTailServices traits.
+    object myAnimal_3 extends AnimalWithTail_2
+    myAnimal_3.function // PRINTS: AnimalWithTail_2.function called.
+
+    // The following 2 lines DO COMPILE because the DogMouthServices and DogTailServices
+    // traits are defined to be inherited by the AnimalWithTail class.
+    object myAnimal_4 extends AnimalWithTail(Color.YELLOW) with DogMouthServices
+    object myAnimal_5 extends AnimalWithTail(Color.BLUE)   with DogTailServices
   }
 }
 
