@@ -1,1 +1,84 @@
 
+object Demo
+{
+  sealed trait Topping
+  case object Cheese extends Topping
+  case object Pepperoni extends Topping
+  case object Sausage extends Topping
+  case object Mushrooms extends Topping
+  case object Onions extends Topping
+
+  sealed trait CrustSize
+  case object SmallCrustSize extends CrustSize
+  case object MediumCrustSize extends CrustSize
+  case object LargeCrustSize extends CrustSize
+
+  sealed trait CrustType
+  case object RegularCrustType extends CrustType
+  case object ThinCrustType extends CrustType
+  case object ThickCrustType extends CrustType
+
+  case class Address (street1: String,
+                      street2: Option[String],
+                      city: String,
+                      state: String,
+                      zipCode: String)
+  {
+    override def toString = s"Address($street1, $street2, $city, $state, $zipCode)"
+  }
+
+  case class Pizza(crustSize: CrustSize,
+                   crustType: CrustType,
+                   toppings:  Toppings)
+  {
+    override def toString = s"Pizza($crustSize, $crustType, $toppings)"
+  }
+
+  case class Customer(name:String, phone:String, address:Address)
+  {
+    override def toString = s"Customer($name, $phone, $address)"
+  }
+
+  case class Order(customer:Customer, order:List[Pizza])
+  {
+    override def toString = s"Customer = $customer\nOrder    = $order)"
+  }
+
+  class Toppings(toppings:String *)
+  {
+    println("toppings = " + toppings.toList)
+    // def apply:List[String] = List(toppings:_*)
+    def apply:List[String] = { println("XXXXX"); toppings.toList }
+    //    override def toString = s"Toppings= $toppings"
+
+  }
+
+//  def printStrings( args:String* ) = {
+//    var i : Int = 0;
+//
+//    for( arg <- args ){
+//      println("Arg value[" + i + "] = " + arg );
+//      i = i + 1;
+//    }
+//  }
+
+  /********************************************
+   * main() function
+   ********************************************/
+  def main(args: Array[String])
+  {
+    val address:Address = Address("1717 Philippen St.", None, "Manitowoc", "Wisconsin", "54220")
+    val customer:Customer = Customer("Joe Blow", "920-682-1882", address)
+    println(customer.toString + "\n")
+
+    val myPizza_1:Pizza = Pizza(LargeCrustSize, RegularCrustType, Toppings("Pepperoni", "Cheese"))
+    println(myPizza_1.toString + "\n")
+
+    val myPizza_2:Pizza = Pizza(SmallCrustSize, ThickCrustType, Toppings("Sausage", "Mushrooms", "Onions"))
+    println(myPizza_2.toString+ "\n")
+
+    val myOrder = Order(customer, List(myPizza_1, myPizza_2))
+    println(myOrder.toString)
+
+  }
+}
