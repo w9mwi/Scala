@@ -1,5 +1,73 @@
 
-The following code samples show how to pass a variable number of arguments to a function.
+The following code samples show how to pass a variable number
+of arguments to a function.  Read in-line comments in the
+following examples for details.
+
+============================================================================
+
+object Demo
+{
+  /**
+   * The '*' character in this function's argument list designates that
+   * a variable number of arguments can be passed to this function.
+   * In this example these arguments are designated as Strings.
+   */
+  def convertMultipleStringsToOneString(names:String *):String =
+  {
+    // The following line of code transforms multiple String arguments
+    // passed to this function into a single String delimited by commas.
+    // EXAMPLE: If these 4 Strings are passed to this function:
+    //          "ABC"   "DEF"   "GHI"   "JKL"
+    //          This single String will be returned: "ABC,DEF,GHI,JKL"
+    names.mkString(",")
+  }
+
+  def convertCommaDelimitedStringToList(str:String):List[String] =
+  {
+    // The following line of code transforms the comma-delimited String passed
+    // to this function (i.e., "ABC,DEF,GHI,JKL") into an Array[String].
+    // Where each element in the Array[String] corresponds one of the
+    // substrings delimited by the commas.
+    val strArray:Array[String] = str.split(",")
+    strArray.toList // Converts the Array[String] to a List[String]
+  }
+
+  /********************************************
+   * main() function
+   ********************************************/
+  def main(args: Array[String])
+  {
+    val cityString:String     = "Madison,Manitowoc,Milwaukee"
+    val cityList:List[String] = List(cityString)
+
+    // The '_*' characters in the following line of code performs "Type Ascription"
+    // on the cityList arg.  Type Ascription is basically an up-cast performed
+    // at compile time for the sake of the type checker.  The most often used case
+    // of Type Ascription is invoking a varargs method with a single Seq parameter.
+    //
+    // So in this example cityList (which is a Scala 'Seq' type) is up-cast to
+    // multiple Strings, where each String is obtained from each String element
+    // in cityList.
+    var str:String = convertMultipleStringsToOneString(cityList: _*)
+    println(str) // PRINTS: Madison,Manitowoc,Milwaukee
+
+    val list:List[String] = convertCommaDelimitedStringToList(cityString)
+    println(list) // PRINTS: List(Madison, Manitowoc, Milwaukee)
+
+    // NOTE: Above we passed a List[String] to the convertMultipleStringsToOneString()
+    //       function.  But that function also works by passing it an Array[String],
+    //       a Vector[String], etc. as shown below.
+    val array:Array[String] = Array("123", "456", "789")
+    str = convertMultipleStringsToOneString(array: _*)
+    println(str) // PRINTS: 123,456,789
+
+    val vector:Vector[String] = Vector("RST", "UVW", "XYZ")
+    str = convertMultipleStringsToOneString(vector: _*)
+    println(str) // PRINTS: RST,UVW,XYZ
+  }
+}
+
+============================================================================
 
 ============================================================================
 
