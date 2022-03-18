@@ -1,5 +1,23 @@
 object Demo
 {
+  object ListUtils
+  {
+    def dropFirstMatch[A](ls: Seq[A], value: A): Seq[A] = {
+      val index = ls.indexOf(value) //index is -1 if there is no match
+      if (index < 0) {
+        ls
+      } else if (index == 0) {
+        ls.tail
+      } else {
+        // splitAt keeps the matching element in the second group
+        val (a, b) = ls.splitAt(index)
+        a ++ b.tail
+      }
+    }
+  }
+    // **************************************************************
+
+  type Money = BigDecimal
   sealed trait Topping
   case object Cheese    extends Topping
   case object Pepperoni extends Topping
@@ -43,6 +61,55 @@ object Demo
     override def toString = s"Order($customer, $order)"
   }
 
+  trait PizzaServiceInterface
+  {
+    def addTopping(p:Pizza, t:Topping):Pizza
+    def removeTopping(p:Pizza, t:Topping):Pizza
+    def removeAllToppings(p:Pizza):Pizza
+    def updateCrustSize(p:Pizza, cs:CrustSize):Pizza
+    def updateCrustType(p:Pizza, ct:CrustType):Pizza
+    def calculatePizzaPrice(p:Pizza,
+                            toppingsPrices:Map[Topping, Money],
+                            crustTypePrices:Map[Topping, Money]):Money
+  }
+
+  trait PizzaService extends PizzaServiceInterface
+  {
+    def addTopping(p:Pizza, t:Topping):Pizza =
+    {
+      val newToppings = p.toppings :+ t
+      p.copy(toppings = newToppings) // NOTE: The copy() method is available to all case classes.
+    }
+
+    def removeTopping(p:Pizza, t:Topping):Pizza =
+    {
+      val newToppings = ListUtils.dropFirstMatch(p.toppings, t)
+      p.copy(toppings = newToppings) // NOTE: The copy() method is available to all case classes.
+    }
+    def removeAllToppings(p:Pizza):Pizza =
+    {
+      val newToppings = Seq[Topping]()
+      p.copy(toppings = newToppings) // NOTE: The copy() method is available to all case classes.
+    }
+    def updateCrustSize(p:Pizza, cs:CrustSize):Pizza =
+    {
+      p.copy(crustSize = cs) // NOTE: The copy() method is available to all case classes.
+    }
+    def updateCrustType(p:Pizza, ct:CrustType):Pizza =
+    {
+      p.copy(crustType = ct) // NOTE: The copy() method is available to all case classes.
+    }
+    def calculatePizzaPrice(p:Pizza,
+                            toppingsPrices:Map[Topping, Money],
+                            crustTypePrices:Map[Topping, Money]):Money =
+    {
+      val base:BigDecimal = BigDecimal(10)
+      val numToppings:Int = p.toppings.size
+      val price:Money     = base + 1.00 * numToppings
+      price
+    }
+  }
+
   /********************************************
    * main() function
    ********************************************/
@@ -52,13 +119,13 @@ object Demo
     val customer:Customer = Customer("Joe Blow", "920-682-1882", address)
     println(s"customer = $customer\n")
 
-    val myPizza_1:Pizza = Pizza(LargeCrustSize, RegularCrustType, Seq(Pepperoni, Cheese))
-    println(s"myPizza_1 = $myPizza_1")
+    var pizza_1:Pizza = Pizza(LargeCrustSize, RegularCrustType, Seq(Pepperoni, Cheese))
+    println(s"pizza_1 = $pizza_1")
 
-    val myPizza_2:Pizza = Pizza(SmallCrustSize, ThickCrustType, Seq(Sausage, Mushrooms, Onions))
-    println(s"myPizza_2 = $myPizza_2\n")
+    var pizza_2:Pizza = Pizza(SmallCrustSize, ThickCrustType, Seq(Sausage, Mushrooms, Onions))
+    println(s"pizza_2 = $pizza_2\n")
 
-    val myOrder = Order(customer, List(myPizza_1, myPizza_2))
-    println(s"myOrder = $myOrder\n")
+    var order = Order(customer, Seq(pizza_1, pizza_2))
+    println(s"order = $order\n")
   }
 }
