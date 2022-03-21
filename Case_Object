@@ -2,13 +2,24 @@
 A regular Scala object is created using the “object” keyword.
 By default, it’s a singleton object.
 
-A Scala Case Object is created using the “case object” keywords.
-By default, it’s also a singleton object.
+A Scala "case object" is declared by using the “case object”
+keywords.  By default, a "case object" is also a singleton object.
+A "case object" CAN'T contain an argument list.  Whereas a Scala
+"case class" MUST contain an argument list.  Here are 4 differences
+between a Scala "case class" and a "case object"...
 
-By Default, a Case Object contains the toString() and hashCode() methods,
+1) A "case object" is a singleton object, which means there can be
+   ONLY ONE INSTANCE of it.  You CAN'T create multiple instances
+   of a "case object" as you can with a "case class".
+2) A "case object" CAN'T contain an argument list.
+3) A "case class" MUST contain an argument list.
+4) If you desire a "case class" to be used without an
+   argument list, you MUST use a "case object" instead.
+
+By Default, a "case object" contains the toString() and hashCode() methods,
 while a regular object does not contain those methods.
 
-By Default, a Case Object IS Serializable, but a regular object is NOT.
+By Default, a "case object" IS Serializable, but a regular object is NOT.
 The following code shows that a regular Scala object is NOT Serializable,
 and a case object IS Serializable.
 
@@ -18,9 +29,6 @@ case object CaseObject
 RegularObject.isInstanceOf[Serializable] // Returns false.
 CaseObject.isInstanceOf[Serializable]    // Returns true.
 
-A "case class" can't be created without arguments/parameters.  However,
-you CAN create a "case object" without arguments/parameters.
-
-A case object CAN extrend a trait, as the following example shows.
+A case object CAN extend a trait, as the following example shows.
 trait Event
 case object SimpleEvent extends Event
