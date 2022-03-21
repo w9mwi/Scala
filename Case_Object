@@ -19,13 +19,12 @@ between a Scala "case class" and a "case object"...
 By Default, a "case object" contains the toString() and hashCode() methods,
 while a regular object does not contain those methods.
 
-By Default, a "case object" IS Serializable, but a regular object is NOT.
+By default, a "case object" IS Serializable, but a regular object is NOT.
 The following code shows that a regular Scala object is NOT Serializable,
-and a case object IS Serializable.
+and a "case object" IS Serializable.
 
 object RegularObject
 case object CaseObject
-
 RegularObject.isInstanceOf[Serializable] // Returns false.
 CaseObject.isInstanceOf[Serializable]    // Returns true.
 
