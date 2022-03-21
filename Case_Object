@@ -3,18 +3,16 @@ A regular Scala object is created using the “object” keyword.
 By default, it’s a singleton object.
 
 A Scala "case object" is declared by using the “case object”
-keywords.  By default, a "case object" is also a singleton object.
-A "case object" CAN'T contain an argument list.  Whereas a Scala
-"case class" MUST contain an argument list.  Here are 4 differences
-between a Scala "case class" and a "case object"...
+keywords.  The following list reveals the differences between
+a Scala "case class" and a "case object"...
 
 1) A "case object" is a singleton object, which means there can be
    ONLY ONE INSTANCE of it.  You CAN'T create multiple instances
    of a "case object" as you can with a "case class".
 2) A "case object" CAN'T contain an argument list.
 3) A "case class" MUST contain an argument list.
-4) If you desire a "case class" to be used without an
-   argument list, you MUST use a "case object" instead.
+4) If you desire a "case class" to be used without
+   an argument list, use a "case object" instead.
 
 By Default, a "case object" contains the toString() and hashCode() methods,
 while a regular object does not contain those methods.
