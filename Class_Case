@@ -72,9 +72,9 @@ of additional code that a case class contains by default.  A Scala
 
                  case class Pizza(toppings:Seq[Topping])
                  {
-                   override def toString = s"Pizza($crustSize, $crustType, $toppings)"
-                   def addTopping(t:Topping):Pizza = { this.copy(toppings = this.toppings :+ t) }
-                   def removeTopping(t:Topping):Pizza = { this.copy(toppings = ListUtils.dropFirstMatch(toppings, t)) }
+                   override def toString = s"Pizza($toppings)"
+                   def addTopping(t:Topping):Pizza =      { this.copy(toppings = this.toppings :+ t) }
+                   def removeTopping(t:Topping):Pizza =   { this.copy(toppings = ListUtils.dropFirstMatch(toppings, t)) }
                    def removeAllToppings(p:Pizza):Pizza = { this.copy(toppings = Seq[Topping]()) } // NOTE: Seq[Topping]() = Nil
                  }
                }
