@@ -46,15 +46,12 @@ of additional code that a case class contains by default.  A Scala
                   class Person { var name:String = _ }
                   object Person // This is the COMPANION OBJECT.
                   {
-                    def apply(name:String):Person =
-                    {
-                      var p = new Person();  p.name = name;  p
-                    }
+                    def apply(name:String):Person = { var p = new Person();  p.name = name;  p }
                   }
 
                   def main(args: Array[String])
                   {
-                    val tom = Person("Tom") // EQUIVALENT TO:  tom = Person.apply("Tom")
+                    val tom   = Person("Tom") // EQUIVALENT TO:  tom = Person.apply("Tom")
                     val array = Array(Person("Jim"), Person("Jack"))
                   }
                 }
