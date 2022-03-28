@@ -60,7 +60,26 @@ of additional code that a case class contains by default.  A Scala
                 }
                 ==============================================
       copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
-               and allows you to change member values in the newly-created copy.  An example is shown below.
+               and allows you to change member values in the newly-created copy.
+
+               object Demo
+               {
+                 sealed trait Topping
+                 case object Cheese    extends Topping
+                 case object Pepperoni extends Topping
+                 case object Sausage   extends Topping
+                 case object Mushrooms extends Topping
+
+                 case class Pizza(toppings:Seq[Topping])
+                 {
+                   override def toString = s"Pizza($crustSize, $crustType, $toppings)"
+                   def addTopping(t:Topping):Pizza = { this.copy(toppings = this.toppings :+ t) }
+                   def removeTopping(t:Topping):Pizza = { this.copy(toppings = ListUtils.dropFirstMatch(toppings, t)) }
+                   def removeAllToppings(p:Pizza):Pizza = { this.copy(toppings = Seq[Topping]()) } // NOTE: Seq[Topping]() = Nil
+                 }
+               }
+
+
       equals()   - Determines if two Scala objects are equal.  Read the hashCode() description below.
       hashCode() - The returned value is an Int.  If calling hashCode() on two Scala objects returns the
                    same Int value, they are equal.  You can use the equals() method or the '==' operator
