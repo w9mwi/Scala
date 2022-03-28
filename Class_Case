@@ -57,7 +57,15 @@ of additional code that a case class contains by default.  A Scala
                 }
                 ==============================================
       copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
-               and allows you to change member values in the newly-created copy.
+               and allows you to change member values in the newly-created copy.  Here's an example...
+               
+               We create a case class named Pizza that takes two constructor arguments of type CrustSize
+               and type Seq[Topping].  After we create this Pizza, we want the capability to add and
+               remove toppings.  To accomplish this we use the case class copy() method.  Recall that
+               any type of val (like the Pizza class below) CAN'T be changed.  It may appear that the
+               copy() method used below could be used to change the only the toppings on the existing
+               Pizza, but that DOESN'T work.  We do use the copy() method to aid in changing the toppings,
+               but we must create a new Pizza class to include the changed toppings.
 
                object Demo
                {
@@ -67,13 +75,20 @@ of additional code that a case class contains by default.  A Scala
                  case object Sausage   extends Topping
                  case object Mushrooms extends Topping
 
-                 case class Pizza(toppings:Seq[Topping])
+                 sealed trait CrustSize
+                 case object MediumCrustSize extends CrustSize
+                 case object LargeCrustSize  extends CrustSize
+
+                 case class Pizza(crustSize:CrustSize,  toppings:Seq[Topping])
                  {
                    override def toString = s"Pizza($toppings)"
                    def addTopping(t:Topping):Pizza =      { this.copy(toppings = this.toppings :+ t) }
                    def removeTopping(t:Topping):Pizza =   { this.copy(toppings = ListUtils.dropFirstMatch(toppings, t)) }
                    def removeAllToppings(p:Pizza):Pizza = { this.copy(toppings = Seq[Topping]()) } // NOTE: Seq[Topping]() = Nil
                  }
+
+                 val pizza_1:Pizza = Pizza(LargeCrustSize, Seq(Pepperoni, Cheese))
+                 println(s"pizza_1 = $pizza_1")
                }
 
 
