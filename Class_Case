@@ -25,10 +25,12 @@ of additional code that a case class contains by default.  A Scala
    Where defining/declaring a regular class generally requires
    multiple lines of code.
    
-   NOTE: Both case classes and regular classes can be defined so
-         their member values are "var" (mutable) or "val" (immutable).
-         When the "val" or "var" is NOT specified, member values
-         are "public val" by default.
+   Both case classes and regular classes can be defined so their member
+   values are "var" (mutable) or "val" (immutable).  When the "val" or
+   "var" is NOT specified, member values are "public val" by default.
+
+   To understand the difference between a "case class" and a "case object",
+   read this link:  https://github.com/w9mwi/Scala/blob/master/Case_Object
 
 2) When you create a case class the following 6 methods become
    available BY DEFAULT, so you do NOT create them...
