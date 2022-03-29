@@ -60,15 +60,33 @@ of additional code that a case class contains by default.  A Scala
                and allows you to change member values in the newly-created copy.  Here's an example...
                
                We create a case class named Pizza that takes two constructor arguments of type CrustSize
-               and type Seq[Topping].  After we create this Pizza, we want the capability to add and
-               remove toppings.  To accomplish this we use the case class copy() method.  Recall that
-               any type of val (like the Pizza class below) CAN'T be changed.  It may appear that the
-               copy() method used below could be used to change the only the toppings on the existing
-               Pizza, but that DOESN'T work.  We do use the copy() method to aid in changing the toppings,
-               but we must create a new Pizza class to include the changed toppings.
+               and Seq[Topping].  After we create this Pizza, we want the capability to add and remove
+               toppings.  To accomplish this we use the case class copy() method.  Recall that any type
+               of val (like the Pizza class below) CAN'T be changed.  It may appear that the copy() method
+               used below could be used to change the only the toppings on the existing Pizza, but that
+               DOESN'T work.  We do use the copy() method to aid in changing the existing toppings, but
+               we must create a new Pizza class which will contain the changed toppings.
 
                object Demo
                {
+                 object ListUtils
+                 {
+                   def dropFirstMatch[A](seq:Seq[A], value:A): Seq[A] =
+                   {
+                     val index:Int = seq.indexOf(value)
+                     if (index < 0) { seq }  // index = -1 if there is no match.
+                     else if (index == 0) { seq.tail }
+                     else
+                     {
+                        // splitAt() splits a Seq into a prefix and suffix.
+                        // The prefix contains Seq elements 0 through index.
+                        // The suffix contains the remaining Seq, beginning
+                        // with element index+1, which is the matching element.
+                        val (a:Seq[A], b:Seq[A]) = seq.splitAt(index)
+                        a ++ b.tail // The returned Seq drops the head of Seq b.
+                     }
+                   }
+                 }
                  sealed trait Topping
                  case object Cheese    extends Topping
                  case object Pepperoni extends Topping
@@ -82,14 +100,21 @@ of additional code that a case class contains by default.  A Scala
                  case class Pizza(crustSize:CrustSize,  toppings:Seq[Topping])
                  {
                    override def toString = s"Pizza($toppings)"
-                   def addTopping(t:Topping):Pizza =      { this.copy(toppings = this.toppings :+ t) }
-                   def removeTopping(t:Topping):Pizza =   { this.copy(toppings = ListUtils.dropFirstMatch(toppings, t)) }
+                   def addTopping(t:Topping):Pizza      = { this.copy(toppings = this.toppings :+ t) }
+                   def removeTopping(t:Topping):Pizza   = { this.copy(toppings = ListUtils.dropFirstMatch(toppings, t)) }
                    def removeAllToppings(p:Pizza):Pizza = { this.copy(toppings = Seq[Topping]()) } // NOTE: Seq[Topping]() = Nil
                  }
 
-                 val pizza_1:Pizza = Pizza(LargeCrustSize, Seq(Pepperoni, Cheese))
-                 println(s"pizza_1 = $pizza_1")
+                 def main(args: Array[String])
+                 {
+                   val pizza_1:Pizza = Pizza(LargeCrustSize, Seq(Pepperoni, Cheese))
+                   println(s"pizza_1 = $pizza_1")
+
+                   var pizzaUpdated = pizza_1.addTopping(Olives)
+                   println(s"pizzaUpdated = $pizzaUpdated")
+                 }
                }
+               ==============================================
 
 
       equals()   - Determines if two Scala objects are equal.  Read the hashCode() description below.
