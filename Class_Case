@@ -56,16 +56,17 @@ of additional code that a case class contains by default.  A Scala
                   }
                 }
       ====================================================================================
-      copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
-               and allows you to change member values in the newly-created copy.  Here's an example...
+      copy() - Creates a new "case class" instance that is a copy of the existing case class.
+               If you pass this copy() method any arguments, those arguments specify the names
+               of case class member values that you want changed in the copied instance.  Calling
+               this copy() method on a case class does NOT make any changes to the existing
+               case class.  Only the newly-created case class may contain changes to the member
+               values.  Here's an example...
                
                We create a case class named Pizza that takes two constructor arguments of type CrustSize
                and Seq[Topping].  After we create this Pizza, we want the capability to add and remove
-               toppings.  To accomplish this we use the case class copy() method.  Recall that any type
-               of val (like the Pizza class below) CAN'T be changed.  It may appear that the copy() method
-               used below could be used to change the only the toppings on the existing Pizza, but that
-               DOESN'T work.  We do use the copy() method to aid in changing the existing toppings, but
-               we must create a new Pizza class which will contain the changed toppings.
+               Pizza toppings.  But the change in Pizza toppings does NOT occur in the existing case class,
+               a new case class instance is created via copy() that contains the changed Pizza toppings.
 
                object Demo
                {
