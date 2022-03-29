@@ -55,7 +55,7 @@ of additional code that a case class contains by default.  A Scala
                     val array = Array(Person("Jim"), Person("Jack"))
                   }
                 }
-                ==============================================
+      ====================================================================================
       copy() - Allows you to generate a new "case class" instance that is a copy of the existing one,
                and allows you to change member values in the newly-created copy.  Here's an example...
                
@@ -69,54 +69,61 @@ of additional code that a case class contains by default.  A Scala
 
                object Demo
                {
-                 object ListUtils
-                 {
-                   def dropFirstMatch[A](seq:Seq[A], value:A): Seq[A] =
-                   {
-                     val index:Int = seq.indexOf(value)
-                     if (index < 0) { seq }  // index = -1 if there is no match.
-                     else if (index == 0) { seq.tail }
-                     else
-                     {
-                        // splitAt() splits a Seq into a prefix and suffix.
-                        // The prefix contains Seq elements 0 through index.
-                        // The suffix contains the remaining Seq, beginning
-                        // with element index+1, which is the matching element.
-                        val (a:Seq[A], b:Seq[A]) = seq.splitAt(index)
-                        a ++ b.tail // The returned Seq drops the head of Seq b.
-                     }
-                   }
-                 }
                  sealed trait Topping
                  case object Cheese    extends Topping
                  case object Pepperoni extends Topping
                  case object Sausage   extends Topping
                  case object Mushrooms extends Topping
-
                  sealed trait CrustSize
                  case object MediumCrustSize extends CrustSize
                  case object LargeCrustSize  extends CrustSize
-
-                 case class Pizza(crustSize:CrustSize,  toppings:Seq[Topping])
+                 case class Pizza(crustSize:CrustSize, toppings:Seq[Topping])
                  {
-                   override def toString = s"Pizza($toppings)"
-                   def addTopping(t:Topping):Pizza      = { this.copy(toppings = this.toppings :+ t) }
-                   def removeTopping(t:Topping):Pizza   = { this.copy(toppings = ListUtils.dropFirstMatch(toppings, t)) }
-                   def removeAllToppings(p:Pizza):Pizza = { this.copy(toppings = Seq[Topping]()) } // NOTE: Seq[Topping]() = Nil
+                   override def toString:String         = { s"Pizza($crustSize, $toppings)" }
+                   def addTopping(t:Topping):Pizza      = { copy(toppings = toppings :+ t) }
+                   def removeTopping(t:Topping):Pizza   = { copy(toppings = dropFirstMatch(toppings, t)) }
+                   def removeAllToppings(p:Pizza):Pizza = { copy(toppings = Seq[Topping]()) } // NOTE: Seq[Topping]() = Nil
                  }
 
                  def main(args: Array[String])
                  {
+                   // Create a new Pizza...
                    val pizza_1:Pizza = Pizza(LargeCrustSize, Seq(Pepperoni, Cheese))
                    println(s"pizza_1 = $pizza_1")
+                   // PRINTS: pizza_1 = LargeCrustSize, List(Pepperoni, Cheese)
 
-                   var pizzaUpdated = pizza_1.addTopping(Olives)
+                   // Obtain a Pizza identical to pizza_1 with an additional Sausage topping...
+                   var pizzaUpdated:Pizza = pizza_1.addTopping(Sausage)
                    println(s"pizzaUpdated = $pizzaUpdated")
+                   // PRINTS: pizzaUpdated = LargeCrustSize, List(Pepperoni, Cheese, Sausage)
+
+                   // Obtain a Pizza identical to pizzaUpdated with the Cheese topping removed...
+                   pizzaUpdated = pizzaUpdated.removeTopping(Cheese)
+                   println(s"pizzaUpdated = $pizzaUpdated")
+                   // PRINTS: pizzaUpdated = LargeCrustSize, List(Pepperoni, Sausage)
+                 }
+
+                 /**
+                 * Pass this method a Seq[A] and a value A.  The Seq[A] passed
+                 * to this method will be returned, with the value A removed.
+                 */
+                 def dropFirstMatch[A](seq:Seq[A], value:A):Seq[A] =
+                 {
+                   val index:Int = seq.indexOf(value)
+                   if (index < 0) { seq } // index = -1 if there is no match.
+                   else if (index == 0) { seq.tail }
+                   else
+                   {
+                     // splitAt() splits a Seq into a prefix and suffix.
+                     // The prefix contains Seq elements 0 through index.
+                     // The suffix contains the remaining Seq, beginning
+                     // with element index+1, which is the matching element.
+                     val (a: Seq[A], b: Seq[A]) = seq.splitAt(index)
+                     a ++ b.tail // The returned Seq drops the head of the b Seq.
+                   }
                  }
                }
-               ==============================================
-
-
+      ====================================================================================
       equals()   - Determines if two Scala objects are equal.  Read the hashCode() description below.
       hashCode() - The returned value is an Int.  If calling hashCode() on two Scala objects returns the
                    same Int value, they are equal.  You can use the equals() method or the '==' operator
