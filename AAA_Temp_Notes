@@ -1,24 +1,46 @@
+import scala.::
+
 object Demo
 {
   object ListUtils
   {
-    def dropFirstMatch[A](ls: Seq[A], value: A): Seq[A] =
+    def dropFirstMatch[A](seq:Seq[A], value:A): Seq[A] =
     {
-      val index = ls.indexOf(value)
-      if (index < 0) { ls }  // index = -1 if there is no match.
-      else if (index == 0) { ls.tail }
-      else { val (a, b) = ls.splitAt(index); // splitAt keeps the matching element in the second group.
-             a ++ b.tail }
+      val index:Int = seq.indexOf(value)
+      if (index < 0) { seq }  // index = -1 if there is no match.
+      else if (index == 0) { seq.tail }
+      else
+      {
+        // splitAt() splits a Seq into a prefix and suffix.
+        // The prefix contains Seq elements 0 through index.
+        // The suffix contains the remaining Seq, beginning
+        // with element index+1, which is the matching element.
+        val (a:Seq[A], b:Seq[A]) = seq.splitAt(index)
+        a ++ b.tail // The returned Seq drops the head of Seq b.
+      }
     }
   }
 
   type Money = BigDecimal
+  object Price
+  {
+    val pizzaBase:Money         = BigDecimal(10.00)
+    val pizzaTopping:Money      = BigDecimal(1.00)
+    val pizzaRegularCrust:Money = BigDecimal(0.00)
+    val pizzaThinCrust:Money    = BigDecimal(1.00)
+    val pizzaThickCrust:Money   = BigDecimal(1.00)
+    val pizzaSmallCrust:Money   = BigDecimal(0.00)
+    val pizzaMediumCrust:Money  = BigDecimal(1.00)
+    val pizzaLargeCrust:Money   = BigDecimal(2.00)
+  }
+
   sealed trait Topping
   case object Cheese    extends Topping
   case object Pepperoni extends Topping
   case object Sausage   extends Topping
   case object Mushrooms extends Topping
   case object Onions    extends Topping
+  case object Olives    extends Topping
 
   sealed trait CrustSize
   case object SmallCrustSize  extends CrustSize
@@ -44,6 +66,34 @@ object Demo
                    toppings:  Seq[Topping])
   {
     override def toString = s"Pizza($crustSize, $crustType, $toppings)"
+    def addTopping(t:Topping):Pizza =
+    {
+      this.copy(toppings = this.toppings :+ t)
+    }
+    def removeTopping(t:Topping):Pizza =
+    {
+      this.copy(toppings = ListUtils.dropFirstMatch(toppings, t))
+    }
+    def removeAllToppings(p:Pizza):Pizza =
+    {
+      this.copy(toppings = Seq[Topping]()) // NOTE: Seq[Topping]() = Nil
+    }
+    def updateCrustSize(p:Pizza, cs:CrustSize):Pizza =
+    {
+      this.copy(crustSize = cs)
+    }
+    def updateCrustType(p:Pizza, ct:CrustType):Pizza =
+    {
+      this.copy(crustType = ct)
+    }
+    def getPrice(toppingsPrices:Map[Topping, Money],
+                 crustSizePrices:Map[CrustSize, Money],
+                 crustTypePrices:Map[CrustType, Money]):Money =
+    {
+      val numToppings:Int = this.toppings.size
+      val price:Money     = Price.pizzaBase + (Price.pizzaTopping * numToppings)
+      price
+    }
   }
 
   case class Customer(name:String, phone:String, address:Address)
@@ -56,58 +106,6 @@ object Demo
     override def toString = s"Order($customer, $pizzas)"
   }
 
-  trait PizzaServiceInterface
-  {
-    def addTopping(p:Pizza, t:Topping):Pizza
-    def removeTopping(p:Pizza, t:Topping):Pizza
-    def removeAllToppings(p:Pizza):Pizza
-    def updateCrustSize(p:Pizza, cs:CrustSize):Pizza
-    def updateCrustType(p:Pizza, ct:CrustType):Pizza
-    def calculatePizzaPrice(p:Pizza,
-                            toppingsPrices:Map[Topping, Money],
-                            crustSizePrices:Map[CrustSize, Money],
-                            crustTypePrices:Map[CrustType, Money]):Money
-  }
-
-  trait PizzaService extends PizzaServiceInterface
-  {
-    def addTopping(p:Pizza, t:Topping):Pizza =
-    {
-      val newToppings = p.toppings :+ t
-      p.copy(toppings = newToppings) // NOTE: The copy() method is available to all case classes.
-    }
-
-    def removeTopping(p:Pizza, t:Topping):Pizza =
-    {
-      val newToppings = ListUtils.dropFirstMatch(p.toppings, t)
-      p.copy(toppings = newToppings) // NOTE: The copy() method is available to all case classes.
-    }
-    def removeAllToppings(p:Pizza):Pizza =
-    {
-      val newToppings = Seq[Topping]()
-      p.copy(toppings = newToppings) // NOTE: The copy() method is available to all case classes.
-    }
-    def updateCrustSize(p:Pizza, cs:CrustSize):Pizza =
-    {
-      p.copy(crustSize = cs) // NOTE: The copy() method is available to all case classes.
-    }
-    def updateCrustType(p:Pizza, ct:CrustType):Pizza =
-    {
-      p.copy(crustType = ct) // NOTE: The copy() method is available to all case classes.
-    }
-
-    def calculatePizzaPrice(p:Pizza,
-                            toppingsPrices:Map[Topping, Money],
-                            crustSizePrices:Map[CrustSize, Money],
-                            crustTypePrices:Map[CrustType, Money]):Money =
-    {
-      val base:BigDecimal = BigDecimal(10)
-      val numToppings:Int = p.toppings.size
-      val price:Money     = base + 1.00 * numToppings
-      price
-    }
-  } // END: trait PizzaService extends PizzaServiceInterface
-
   trait PizzaDaoInterface // NOTE: Dao = Data Access Object
   {
     def getToppingPrices():Map[Topping, Money]
@@ -119,74 +117,104 @@ object Demo
   {
     def getToppingPrices(): Map[Topping, Money] =
     {
-      Map(Cheese    -> BigDecimal(1),
-          Pepperoni -> BigDecimal(1),
-          Sausage   -> BigDecimal(1),
-          Mushrooms -> BigDecimal(1))
+      Map(Cheese    -> Price.pizzaTopping,
+          Pepperoni -> Price.pizzaTopping,
+          Sausage   -> Price.pizzaTopping,
+          Mushrooms -> Price.pizzaTopping)
     }
 
     def getCrustSizePrices(): Map[CrustSize, Money] =
     {
-      Map(SmallCrustSize  -> BigDecimal(0),
-          MediumCrustSize -> BigDecimal(1),
-          LargeCrustSize  -> BigDecimal(2))
+      Map(SmallCrustSize  -> Price.pizzaSmallCrust,
+          MediumCrustSize -> Price.pizzaMediumCrust,
+          LargeCrustSize  -> Price.pizzaLargeCrust)
     }
 
     def getCrustTypePrices(): Map[CrustType, Money] =
     {
-      Map(RegularCrustType -> BigDecimal(0),
-          ThickCrustType   -> BigDecimal(1),
-          ThinCrustType    -> BigDecimal(1))
-    }
-  } // END: object MockPizzaDao extends PizzaDaoInterface
-
-  trait OrderServiceInterface
-  {
-    protected def database:PizzaDaoInterface
-    def calculateOrderPrice(o:Order):Money
-  }
-
-  trait AbstractOrderService extends OrderServiceInterface
-  {
-    object PizzaService extends PizzaService
-    import PizzaService.calculatePizzaPrice
-    private lazy val toppingPricesMap   = database.getToppingPrices()
-    private lazy val crustSizePricesMap = database.getCrustSizePrices()
-    private lazy val crustTypePricesMap = database.getCrustTypePrices()
-    def calculateOrderPrice(o:Order):Money = calculateOrderPriceInternal(o,
-                                                                         toppingPricesMap,
-                                                                         crustSizePricesMap,
-                                                                         crustTypePricesMap)
-    private def calculateOrderPriceInternal(o:Order,
-                                            toppingPrices:Map[Topping, Money],
-                                            crustSizePrices:Map[CrustSize, Money],
-                                            crustTypePrices:Map[CrustType, Money]):Money =
-    {
-      val pizzaPrices:Seq[Money] = for { pizza <- o.pizzas }
-                                   yield { calculatePizzaPrice(pizza,
-                                                               toppingPrices,
-                                                               crustSizePrices,
-                                                               crustTypePrices) }
-      pizzaPrices.sum
+      Map(RegularCrustType -> Price.pizzaRegularCrust,
+          ThickCrustType   -> Price.pizzaThickCrust,
+          ThinCrustType    -> Price.pizzaThinCrust)
     }
   }
+
+//  object MockDbOrderService extends AbstractOrderService
+//  {
+//    val database = MockPizzaDao
+//  }
+
+//  trait OrderServiceInterface
+//  {
+//    protected def database:PizzaDaoInterface
+//    def calculateOrderPrice(o:Order):Money
+//  }
+
+//  trait AbstractOrderService extends OrderServiceInterface
+//  {
+//    object PizzaService extends PizzaService
+//    import PizzaService.calculatePizzaPrice
+//    private lazy val toppingPricesMap   = database.getToppingPrices()
+//    private lazy val crustSizePricesMap = database.getCrustSizePrices()
+//    private lazy val crustTypePricesMap = database.getCrustTypePrices()
+//    def calculateOrderPrice(o:Order):Money = calculateOrderPriceInternal(o,
+//      toppingPricesMap,
+//      crustSizePricesMap,
+//      crustTypePricesMap)
+//    private def calculateOrderPriceInternal(o:Order,
+//                                            toppingPrices:Map[Topping, Money],
+//                                            crustSizePrices:Map[CrustSize, Money],
+//                                            crustTypePrices:Map[CrustType, Money]):Money =
+//    {
+//      val pizzaPrices:Seq[Money] = for (pizza <- o.pizzas)
+//        yield { calculatePizzaPrice(pizza,
+//          toppingPrices,
+//          crustSizePrices,
+//          crustTypePrices) }
+//      pizzaPrices.sum
+//    }
+//  }
 
   /********************************************
    * main() function
    ********************************************/
   def main(args: Array[String])
   {
+    val toppingsPrices:Map[Topping, Money]    = MockPizzaDao.getToppingPrices()
+    val crustSizePrices:Map[CrustSize, Money] = MockPizzaDao.getCrustSizePrices()
+    val crustTypePrices:Map[CrustType, Money] = MockPizzaDao.getCrustTypePrices()
+
     val address:Address = Address("1717 Philippen St.", None, "Manitowoc", "Wisconsin", "54220")
     val customer:Customer = Customer("Joe Blow", "920-682-1882", address)
     println(s"customer = $customer\n")
 
-    var pizza_1:Pizza = Pizza(LargeCrustSize, RegularCrustType, Seq(Pepperoni, Cheese))
+    val pizza_1:Pizza = Pizza(LargeCrustSize, RegularCrustType, Seq(Pepperoni, Cheese))
     println(s"pizza_1 = $pizza_1")
 
-    var pizza_2:Pizza = Pizza(SmallCrustSize, ThickCrustType, Seq(Sausage, Mushrooms, Onions))
+//    var price:Money = Price.pizzaTopping
+//    val toppingsPrice = for (top <- pizza_1.toppings)
+//    {
+//      println(s"price = $price")
+//      price = (price + toppingsPrices.get(top).get)
+//    }
+//    println(s"price = $price")
+
+//    def getPrice(toppingsPrices:Map[Topping, Money],
+//                 crustSizePrices:Map[CrustSize, Money],
+//                 crustTypePrices:Map[CrustType, Money]):Money =
+//     var pizzaPrice = pizza_1.getPrice(pizza_1.toppings, pizza_1.crustSize, pizza_1.crustType)
+
+    val pizza_2:Pizza = Pizza(SmallCrustSize, ThickCrustType, Seq(Sausage, Mushrooms, Onions))
     println(s"pizza_2 = $pizza_2\n")
 
-    var order = Order(Seq(pizza_1, pizza_2), customer)
+    // ********************
+    var pizzaUpdated = pizza_2.addTopping(Olives)
+    println(s"pizzaUpdated = $pizzaUpdated")
+
+    pizzaUpdated = pizzaUpdated.removeTopping(Olives)
+    println(s"pizzaUpdated = $pizzaUpdated")
+    // ********************
+
+    val order = Order(Seq(pizza_1, pizza_2), customer)
     println(s"order = $order\n")
   }
 }
