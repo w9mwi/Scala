@@ -86,7 +86,7 @@ Lambda - Another word for an anonymous function.
 Monad - A monad type is not defined in Scala.  Any Scala class
         that implements BOTH the map() and flatMap() functions
         is considered to be a monad.  This is NOT an exact or
-        perfect definition of a monad, but it's close enough.
+        precise definition of a monad, but it's close enough.
 
         When a Scala class implements BOTH the map() and flatMap()
         functions, that class will function properly with "generators"
@@ -109,7 +109,8 @@ Monad - A monad type is not defined in Scala.  Any Scala class
 
         A monad does NOT need to be a collection class.  The Scala Option class
         is NOT a collection class, but Option is considered to be a monad because
-        it implements BOTH the flatMap() and map() methods.
+        Option implements BOTH the flatMap() and map() methods, and therefore it
+        can be used in a for() expression.
 
         For important information about the Scala Option class read:
         --> https://github.com/w9mwi/Scala/blob/master/Option_Some_None
