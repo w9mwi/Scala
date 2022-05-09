@@ -7,15 +7,15 @@ already exists in Scala.
 In the following example, we create a var named 'state'
 of type String.  Now, when you type the text 'state.' in
 your IDE, and then press "Ctrl + space bar", the 'increment'
-and 'decrement' function names you defined will appear in the
-IDE's dropdown menu, so you can select them.  This shows
+and 'decrement' functions THAT YOU DEFINED will appear in
+the IDE's dropdown menu, so you can select them.  This shows
 the functions you defined are now avaliable for the Scala
 String type.
 
-For this to work, your implicit class must have a single
-parameter (that matches the type of an existing Scala type),
-and your new function name(s) must be different than existing
-function names that already exist for that type.
+For this to work, your implicit class must have a single parameter
+(that matches the type of an existing Scala type), and your new
+function name(s) must be different than function names that already
+exist for that type.
 
 NOTICE: The two (2) sample programs below have identical behavior.
         The first sample shows the 'implicit' keyword being used
