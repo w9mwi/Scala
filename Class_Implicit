@@ -38,6 +38,7 @@ NOTICE: The two (2) sample programs below have identical behavior.
         'implicit' keyword being used ONLY on a function definition.
 
 ====================================================================
+
 This is the same sample program as shown further below, except
 a class is defined as implicit instead of a function.
 
@@ -65,10 +66,11 @@ object Demo
 }
 
 ====================================================================
+
 This is the same sample program as shown above, except we define
 an implicit function, instead of an implicit class.  Since the
 implicit function defined below returns an EnhancedString class,
-we are literally doing the same thing as the above sample code.
+an implicit class is what's actually being defined.
 
 object Demo
 {
@@ -102,5 +104,59 @@ object Demo
     println(state) // PRINTS: Wisconsin
     state = state.decrement
     println(state) // PRINTS: Vhrbnmrhm
+  }
+}
+
+===============================================================
+
+The following code sample is similar to the examples above.
+Read in-line comments for explanations.
+
+object Demo
+{
+  sealed trait Animal
+  final case class Bird(name:String) extends Animal
+  final case class Cat(name:String)  extends Animal
+  final case class Dog(name:String)  extends Animal
+
+  // The [A] represents any type of defined Animal.
+  // In this program it would be Bird, Cat, or Dog.
+  trait BehavesLikeHuman[A]
+  {
+    // This method is undefined here.  It must be defined
+    // in the code that declares a BehavesLikeHuman type.
+    def speak(animalType:A):Unit
+  }
+
+  /****************************
+   * main()
+   ***************************/
+  def main(args: Array[String]): Unit =
+  {
+    // Here is where the BehavesLikeHuman.speak() method gets defined for a Dog type.
+    // NOTE: This code works with or without the 'implicit' keyword preceding the 'val' keyword.
+    implicit val dogBehavesLikeHuman:BehavesLikeHuman[Dog] = new BehavesLikeHuman[Dog]
+    {
+      def speak(dog:Dog):Unit =
+      {
+        println(s"I am a dog, and my name is ${dog.name}.")
+      }
+    }
+
+    // Here is where the BehavesLikeHuman.speak() method gets defined for a Cat type.
+    // NOTE: This code works with or without the 'implicit' keyword preceding the 'val' keyword.
+    val catBehavesLikeHuman:BehavesLikeHuman[Cat] = new BehavesLikeHuman[Cat]
+    {
+      def speak(cat:Cat):Unit =
+      {
+        println(s"I am a cat, and my name is ${cat.name}.")
+      }
+    }
+
+    val myDog:Dog = Dog("Stoner")
+    dogBehavesLikeHuman.speak(myDog) // PRINTS: I am a dog, and my name is Stoner.
+
+    val myCat:Cat = Cat("Drunkie")
+    catBehavesLikeHuman.speak(myCat) // PRINTS: I am a cat, and my name is Drunkie.
   }
 }
