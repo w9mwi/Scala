@@ -1,6 +1,6 @@
 NOTE:  "implicit" is a Scala keyword.  The "implicit" keyword
-       can be used to define an implicit class, object, or
-       function, such as...
+       can be used in conjunction with a class, an object, or
+       a function, like this...
        
        1) implicit class
        2) implicit object
