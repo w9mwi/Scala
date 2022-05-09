@@ -1,14 +1,15 @@
 NOTE:  "implicit" is a Scala keyword.  The "implicit" keyword
-       can be used in conjunction with a class, an object, or
-       a function, like this...
+       can be used in conjunction with a class, an object,
+       a trait, or a function, like this...
        
        1) implicit class  someClass(str: String){ ... }
        2) implicit object someObject(str: String){ ... }
        3) implicit def    someFunction(str: String){ ... }
+       4) implicit trait  someTrait{ ... }
 
        If the "implicit" keyword is used in a function definition,
-       the function MUST return a class or an object, which then
-       makes the returned object or class implicit.
+       the function MUST return a class an object, or a trait, which
+       then makes the returned object, class or trait implicit.
 
 The following code sample shows how to use implicit class.
 Using an implicit class, you can add new functions to an
