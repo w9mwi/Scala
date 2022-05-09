@@ -37,8 +37,9 @@ a class is defined as implicit instead of a function.
 object Demo
 {
   // Define the EnhancedString class as an implicit class...
-  implicit class EnhancedString(val str: String)
+  implicit class EnhancedString(str: String)
   {
+    // increment or decrement every Char in the String by one.
     def decrement:String = { str.map(ch => (ch - 1).toChar) }
     def increment:String = { str.map(ch => (ch + 1).toChar) }
   }
@@ -62,19 +63,22 @@ define an implicit function, instead of an implicit class.
 
 object Demo
 {
-  class EnhancedString(val str: String)
+  class EnhancedString(str: String)
   {
+    // increment or decrement every Char in the String by one.
     def decrement:String = { str.map(ch => (ch - 1).toChar) }
     def increment:String = { str.map(ch => (ch + 1).toChar) }
   }
 
-  // NOTE: This function definition must include the "implicit" keyword.
-  //       This function can be given ANY NAME, except for function names
+  // NOTE: This function returns the EnhancedString class, and its
+  //       definition must include the "implicit" keyword.  This
+  //       function can be given ANY NAME, except for function names
   //       that already exist on the String class (i.e., compare, split,
   //       toInt, etc.).  If this implicit function isn't defined,
   //       this program won't compile, even though this code never
-  //       calls this function directly by name.
-  implicit def stupidDumbFuncName(str: String) = new EnhancedString(str)
+  //       explicitly calls this function directly by name.  This
+  //       function gets called implicitly.
+  implicit def stupidDumbFuncName(str: String):EnhancedString = new EnhancedString(str)
 
   def main(args: Array[String]): Unit =
   {
