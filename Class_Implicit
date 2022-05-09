@@ -69,9 +69,11 @@ object Demo
   }
 
   // NOTE: This function definition must include the "implicit" keyword.
-  //       This function can be given ANY NAME.  If this implicit function
-  //       isn't defined here, this code won't compile, even though this
-  //       program never calls this function.
+  //       This function can be given ANY NAME, except for function names
+  //       that already exist on the String class (i.e., compare, split,
+  //       toInt, etc.).  If this implicit function isn't defined,
+  //       this program won't compile, even though this code never
+  //       calls this function directly by name.
   implicit def stupidDumbFuncName(str: String) = new EnhancedString(str)
 
   def main(args: Array[String]): Unit =
