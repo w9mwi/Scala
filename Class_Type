@@ -1,10 +1,10 @@
-A Scala "type vlass" is not a pre-defined Scala class like "class" or "case class."
-A Scala "type class" enables you to add new behaviour to existing classes,
-without modifying those classes.
+A Scala "type class" is not a pre-defined Scala class like "class"
+or "case class."  A Scala "type class" enables you to add new
+behavior to existing classes (String, Int, List, etc.) without
+modifying the existing class.
 
 In many languages, to add a behaviour to a class would require you to
 extend the class with an interface, and then implement methods against
 this interface.  However, doing that doesn't scale, especially when
 you have older libraries because you would have to make them depend
 on a new interface, and have to re-build everything.
-
