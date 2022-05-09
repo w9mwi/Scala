@@ -1,6 +1,6 @@
 NOTE:  "implicit" is a Scala keyword.  The "implicit" keyword
        can be used in conjunction with a class, an object,
-       a trait, or a function, like this...
+       a function, or a trait, like this...
        
        1) implicit class  someClass(str: String){ ... }
        2) implicit object someObject(str: String){ ... }
@@ -10,6 +10,8 @@ NOTE:  "implicit" is a Scala keyword.  The "implicit" keyword
        If the "implicit" keyword is used in a function definition,
        the function MUST return a class an object, or a trait, which
        then makes the returned object, class or trait implicit.
+       The "implicit" keyword can also be used on a val/var if
+       the val/var represents a class, an object, or a trait.
 
 The following code sample shows how to use implicit class.
 Using an implicit class, you can add new functions to an
