@@ -58,7 +58,7 @@ object Demo
 
 ====================================================================
 This is the same sample program as shown above, except we
-define a function as implicit, instead of a class.
+define an implicit function, instead of an implicit class.
 
 object Demo
 {
