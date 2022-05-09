@@ -6,6 +6,9 @@ NOTE:  "implicit" is a Scala keyword.  The "implicit" keyword
        2) implicit object someObject(str: String){ ... }
        3) implicit def    someFunction(str: String){ ... }
 
+       If the "implicit" keyword is used in a function definition,
+       the function MUST return a class or an object.
+
 The following code sample shows how to use implicit class.
 Using an implicit class, you can add new functions to an
 existing Scala class.  In this example we add the decrement()
@@ -58,8 +61,10 @@ object Demo
 }
 
 ====================================================================
-This is the same sample program as shown above, except we
-define an implicit function, instead of an implicit class.
+This is the same sample program as shown above, except we define
+an implicit function, instead of an implicit class.  Since the
+implicit function defined below returns an EnhancedString class,
+we are literally doing the same thing as the above sample code.
 
 object Demo
 {
@@ -78,7 +83,10 @@ object Demo
   //       this program won't compile, even though this code never
   //       explicitly calls this function directly by name.  This
   //       function gets called implicitly.
-  implicit def stupidDumbFuncName(str: String):EnhancedString = new EnhancedString(str)
+  implicit def stupidDumbFuncName(str: String):EnhancedString =
+  {
+    new EnhancedString(str)
+  }
 
   def main(args: Array[String]): Unit =
   {
