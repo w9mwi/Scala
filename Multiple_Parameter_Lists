@@ -1,27 +1,51 @@
-Functions in Scala can have not only multiple parameters, but
-multiple parameter lists/groups.  For example, the myWhileLoop()()
-function below contains two separate parameter groups.  Even though
-the code below appears very short and simple, it's quite difficult
-to really understand all its syntax.  For example, why do the 1st
-and 2nd parameter groups of the myWhileLoop()() function have this
-syntax...
+Functions in Scala can contain multiple parameters within a single
+parameter list, as virtually all languages do.  But functions in
+Scala can also contain MULTIPLE PARAMETER LISTS.  For example, the
+myWhileLoop()() function from the code sample below contains two
+separate parameter lists, like this...
 
-1st parameter group: (testCondition: => Boolean)
-2nd parameter group: (codeBlock: => Unit)
+def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
 
-It's easy to understand the "=> Boolean" (returns a Boolean) and
-the "=> Unit" (returns nothing) syntax, but undertanding the
-"testCondition:" and "codeBlock:" syntax isn't so easy--as you'd
-expect some text to exist between the colon (:) and the rocket
-(=>) symbols, OR for the colon (:) symbol to not exist at all.
+   1st parameter list: (testCondition: => Boolean)
+   2nd parameter list: (codeBlock: => Unit)
+
+Obviously, the "=> Boolean" designates a function that returns a Boolean.
+And the "=> Unit" designates a function that returns nothing.  But the
+following question arises...
+
+QUESTION: Why is there no data type specified between the
+          colon (:) and the rocket (=>) as you may expect?...
+          (testCondition: => Boolean)
+          (codeBlock: => Unit)
+
+ANSWER:  Because both those parameters do NOT get passed a value (i.e., Int,
+         String, etc.), they get passed Scala code.  In the sample code below
+         we see the testCondition parameter gets passed a SINGLE LINE of
+         Scala code (idx < 5).  (idx < 5) does NOT represent any data type,
+         which is why the testCondition parameter is missing a data type
+         designation between the colon (:) and rocket (=>) symbol.  The
+         return type of the testCondition parameter is Boolean because
+         when a SINGLE LINE of code is passed to a function parameter,
+         its return type is whatever type that expression returns.
+         
+         We see the codeBlock parameter gets passed a block of Scala code.
+         That block of Scala code does NOT represent any data type, which
+         is why the testCondition parameter is missing a data type designation
+         between the colon (:) and rocket (=>) symbol.  The return type of
+         the blockOfCode parameter is Unit because when MULTIPLE LINES
+         of code are passed to a function parameter its return type is always
+         of type Unit.  Because MULTIPLE LINES of Scala code can NEVER
+         evaluate to data type, as a single line of code (idx < 5) can.
 
 object Demo
 {
   def main(args: Array[String])
   {
     var idx:Int = 0
-    myWhileLoop(idx < 5)
-    {
+    myWhileLoop(idx < 5) // The "idx < 5" expression gets passed to the testCondition
+    {                    // parameter of the myWhileLoop()() function.
+      // The following 2 lines of code get passed to the codeBlock
+      // parameter of the myWhileLoop()() function.
       print("idx = " + idx + ", ") // PRINTS: idx = 0, idx = 1, idx = 2, idx = 3, idx = 4,
       idx += 1
     }
@@ -29,14 +53,11 @@ object Demo
 
   def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit =
   {
-    // NOTE: The below syntax...      while(testCondition){codeBlock}
-    //       can be replaced with...  while(testCondition)(codeBlock)
-    //       or replaced with...      while(testCondition) codeBlock
-    //       ...and it functions the same.
-    //
-    //       (testCondition) below represents this code: (idx < 5)
-    //       {codeBlock}     below represents this code: { print("idx = " + idx + ", ");  idx += 1 }
-    while(testCondition){codeBlock}
+    // NOTE: The following line of code can be written using any of these 3 variations:
+    //       1) while(testCondition)(codeBlock)
+    //       2) while(testCondition){codeBlock}
+    //       3) while(testCondition) codeBlock
+    while(testCondition)(codeBlock)
   }
 }
 ============================================================
