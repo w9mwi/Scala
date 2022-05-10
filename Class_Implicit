@@ -1,14 +1,13 @@
-NOTE:  Also see the section titled: Implicit_Parameters
+NOTE:  This section ignores "implicit" parameters.  For details about
+       implicit parameters, see the section titled:  Implicit_Parameters
 
-       "implicit" is a Scala keyword.  Ignoring "implicit"
-       parameters in this section, the "implicit" keyword
+       "implicit" is a Scala keyword.   the "implicit" keyword
        can be used in conjunction with a class, an object,
-       a function, or a trait, like this...
+       or a function, like this...
 
        1) implicit class  someClass(str: String){ ... }
        2) implicit object someObject(str: String){ ... }
        3) implicit def    someFunction(str: String){ ... }
-       4) implicit trait  someTrait{ ... }
 
        If the "implicit" keyword is used in a function definition,
        the function MUST return a class, an object, or a trait, which
