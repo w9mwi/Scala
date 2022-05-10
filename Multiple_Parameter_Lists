@@ -18,23 +18,26 @@ QUESTION: Why is there no data type specified between the
           (testCondition: => Boolean)
           (codeBlock: => Unit)
 
-ANSWER:  Because both those parameters do NOT get passed a value (i.e., Int,
-         String, etc.), they get passed Scala code.  In the sample code below
-         we see the testCondition parameter gets passed a SINGLE LINE of
-         Scala code (idx < 5).  (idx < 5) does NOT represent any data type,
-         which is why the testCondition parameter is missing a data type
-         designation between the colon (:) and rocket (=>) symbol.  The
-         return type of the testCondition parameter is Boolean because
-         when a SINGLE LINE of code is passed to a function parameter,
-         its return type is whatever type that expression returns.  In
-         this example (idx < 5) evaluates to Boolean.
+ANSWER:  Because both those parameters do NOT get passed a value (an Int,
+         String, etc.), they get passed Scala code.  Lines of Scala code
+         don't represent a data type, so no data type is specified for
+         those function parameters.
+
+         In the sample code below we see the testCondition parameter gets
+         passed a SINGLE LINE of Scala code (idx < 5).  (idx < 5) doesn't
+         represent any data type, which is why the testCondition parameter
+         is missing a data type designation between the colon (:) and
+         rocket (=>) symbol.  The return type of the testCondition parameter
+         is Boolean because when a SINGLE LINE of code is passed to a
+         function parameter, its return type is whatever type that expression
+         returns.  In this example (idx < 5) returns a Boolean.
          
          We see the codeBlock parameter gets passed a block of Scala code.
-         That block of Scala code does NOT represent any data type, which
+         That block of Scala code doesn't represent any data type, which
          is why the testCondition parameter is missing a data type designation
          between the colon (:) and rocket (=>) symbol.  The return type of
-         the blockOfCode parameter is Unit because when MULTIPLE LINES
-         of code are passed to a function parameter its return type is always
+         the blockOfCode parameter is Unit because when MULTIPLE LINES of
+         code are passed to a function parameter its return type is always
          type Unit.  Because MULTIPLE LINES of Scala code can NEVER evaluate
          to data type, as a single line of code (idx < 5) can.
 
