@@ -1,4 +1,5 @@
-NOTE:  "implicit" is a Scala keyword.  The "implicit" keyword
+NOTE:  Also see the section titled: Implicit_Parameters
+       "implicit" is a Scala keyword.  The "implicit" keyword
        can be used in conjunction with a class, an object,
        a function, or a trait, like this...
        
