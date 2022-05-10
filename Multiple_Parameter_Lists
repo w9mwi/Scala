@@ -70,27 +70,24 @@ object Demo
     val age:Int = 19
     val numberOfAccidents:Int = 0
 
-    ifBothTrue(age > 18)(numberOfAccidents == 0)
-    {
-      println("You get to purchase our overpriced insurance!")
-    }
+    ifBothTrue(age > 18)(numberOfAccidents == 0) { println("You get to purchase our overpriced insurance!") }
 
-    // YIKES, this also works!...
-    ifBothTrue(age > 18)(numberOfAccidents == 0)( println("You get to purchase our overpriced insurance!") )
+    // Instead of using braces to surrond the second parameter, we can use parenthesis instead...
+    ifBothTrue(age > 18)(numberOfAccidents == 0) ( println("You get to purchase our overpriced insurance!") )
   }
 
   def ifBothTrue(test1: => Boolean)(test2: => Boolean)(codeBlock: => Unit):Unit =
   {
-    // NOTE: The below syntax...      (test1 && test2){codeBlock}
-    //       can be replaced with...  (test1 && test2)(codeBlock)
-    //       or replaced with this... (test1 && test2) codeBlock
-    //       ...and it functions the same.
+    // NOTE: The following line of code can be written using any of these 3 variations:
+    //       1) (test1 && test2){codeBlock}
+    //       2) (test1 && test2)(codeBlock)
+    //       3) (test1 && test2) codeBlock
     if (test1 && test2){codeBlock}
   }
 }
 ============================================================
-This code example demonstrates how a function (with multiple
-parameter lists) can use an implicit parameter.  If a function
+This code example demonstrates how a function with multiple
+parameter lists can use an implicit parameter.  If a function
 gets called numerous times, you may want to use an implicit
 parameter so you don't have to keep passing that same parameter
 to the function, over and over again.
@@ -107,15 +104,16 @@ object Demo
     printIntIfTrue(456)(true)  // PRINTS: 456 because the second param is true
 
     // Because the printIntIfTrue()() function below takes an implicit parameter
-    // of type Boolean, and because an implicit Boolean val/var exists before
-    // printIntIfTrue() gets called, the printIntIfTrue()() will execute when
-    // calling it WITHOUT a second parameter!  NOTE: If multiple implicit Boolean
-    // vals/vars exist before printIntIfTrue()() gets called without a second
-    // parameter, a runtime error occurs.  Multiple implicit vals/vars can
-    // exist (without causing an error) as long as they are of different types,
-    // as shown below.
+    // of type Boolean, and because an implicit Boolean val/var is declared before
+    // printIntIfTrue() gets called, printIntIfTrue()() will execute when calling
+    // it WITHOUT a second parameter!
+    //
+    // NOTE: If multiple implicit Boolean vals/vars exist before printIntIfTrue()()
+    // gets called without a second parameter, a runtime error occurs.  Multiple
+    // implicit vals/vars can exist (without causing an error) as long as they
+    // are of different types, as shown below.
+    implicit val string_1:String   = "BEER"  // Because printIntIfTrue()() has no String param, this implicit declaration has no effect.
     implicit val boolean_1:Boolean = true
-    implicit val string_1:String   = "BEER"
     printIntIfTrue(420) // PRINTS: 420 because the boolean_1 val is true
   }
 
@@ -124,4 +122,3 @@ object Demo
     if (b) { println(a) }
   }
 }
-
