@@ -14,27 +14,27 @@ def addXY_Curried(x)(y)     = { x + y }
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
 
 Currying transforms a function that has MULTIPLE PARAMETER LISTS
-into a chain of functions, where each function in the chain takes
-the contents of a single parameter list, and returns either a value,
-or another function.  
+into a chain of functions, where each function in the chain gets
+passed a single parameter list, and returns either a function
+(that gets passed a parameter list) or the final value.
 
-A Scala curried function has these three (3) behaviors:
+A Scala curried function has these three (3) criteria:
 
 1) It contains two (2) or more parameter lists.
 2) Calling it with fewer than all its parameter lists
-   returns a function that takes a parameter.  (A
-   partially-applied function is returned.)
+   returns a function that takes a parameter, which means
+   means the function is partially applied.
 3) When a curried function is called with the last
    parameter in its parameter list, it returns a value,
    not a function.  This makes the curried function
    fully applied.  A curried function could have
-   2, 3, 4, 5, or more parameter lists.
+   2, 3, 4, 5, or even more parameter lists.
 
 
 FULLY-APPLIED FUNCTION
 ======================
 When a curried function is called by passing ALL its parameter lists,
-it's a FULLY-APPLIED function, like this...
+it becomes a FULLY-APPLIED function, like this...
 
 addXYZ_Curried(1)(2)(3) // Fully-applied function.
 
@@ -46,14 +46,15 @@ PARTIALLY-APPLIED FUNCTION
 ==========================
 When a curried function gets called with fewer than all its parameter
 lists, it's a PARTIALLY-APPLIED function.  This means the PARTIALLY-
-APPLIED function returns a function (that takes a parameter), which
-can be called.  When a PARTIALLY-APPLIED FUNCTION is called with its
-final parameter list, it becomes FULLY-APPLIED, and returns a value.
+APPLIED function returns a function that takes a parameter list.
+When a PARTIALLY-APPLIED FUNCTION is called with its final parameter
+list, it becomes FULLY-APPLIED, and returns a value.
 
 When a curried function is called as a partially applied function,
 a single underscore character (_) designates all parameter list(s)
 that aren't specified.  For example, the following 2 lines are
-partially applied function calls:
+partially applied function calls because the function calls don't
+include all 3 parameter lists:
 
 addXYZ_Curried(1)_    // A partially applied function call.
 addXYZ_Curried(1)(2)_ // A partially applied function call.
