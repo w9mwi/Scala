@@ -1,52 +1,54 @@
-
-
 CURRYING
 ========
+All Scala functions that have multiple parameter lists are
+curried functions.  Each set of parenthesis defined in a
+function represents a parameter list.  For example...
+
+// This standard function contains only one parameter list, with
+// 3 arguments x, y, and z.  So this is NOT a curried function.
+def addXYZ(x:Int, y:Int, z:Int):Int =  x + y + z
+
+// The following 2 functions contain multiple parameter lists,
+// which means these 2 functions are curried functions.
+def addXY_Curried(x)(y)     = { x + y }
+def addXYZ_Curried(x)(y)(z) = { x + y + z }
+
 Currying transforms a function that has MULTIPLE PARAMETER LISTS
 into a chain of functions, where each function in the chain takes
-take a parameter list, and returns either a value, or a function.
-ALL curried functions have AT LEAST 2 (two) parameter lists.
+the contents of a single parameter list, and returns either a value,
+or another function.  
 
-Each set of parenthesis represents a PARAMETER LIST.  Multiple parameter
-lists shouldn't be confused with multiple parameters.  (Multiple parameters
-are contained within a SINGLE set of parenthesis.)
+A Scala curried function has these three (3) behaviors:
 
-A Scala function that has MULTIPLE PARAMETER LISTS is a CURRIED FUNCTION,
-and looks like this:  addXYZ_Curried(x)(y)(z)
-
-A curried function has this behavior:
-
-1) It gets passed a value and returns a function.
-   AND
-2) The returned function takes a parameter and returns
-   either a value, or another function.
-
-A curried function can go further than this.  If step 2) above
-returns a function (instead of a value), that function will
-take a parameter, and return a either another function,
-or a value.  This could go on, and on, dependent on the number
-of parameter lists the curried function accepts.
+1) It contains two (2) or more parameter lists.
+2) Calling it with fewer than all its parameter lists
+   returns a function that takes a parameter.  (A
+   partially-applied function is returned.)
+3) When a curried function is called with the last
+   parameter in its parameter list, it returns a value,
+   not a function.  This makes the curried function
+   fully applied.  A curried function could have
+   2, 3, 4, 5, or more parameter lists.
 
 
-FULLY APPLIED FUNCTION
+FULLY-APPLIED FUNCTION
 ======================
 When a curried function is called by passing ALL its parameter lists,
-it's a FULLY APPLIED FUNCTION, like this...
+it's a FULLY-APPLIED function, like this...
 
-addXYZ_Curried(1)(2)(3)
+addXYZ_Curried(1)(2)(3) // Fully-applied function.
 
+A function can also become fully-applied by calling it as a
+PARTIALLY-APPLIED function, until all its parameter lists
+are supplied, and its final value gets returned.
 
-PARTIALLY APPLIED FUNCTION
+PARTIALLY-APPLIED FUNCTION
 ==========================
-When a curried function is called without all its parameter
-lists, it's called as a PARTIALLY APPLIED FUNCTION.
-
-When a curried function is called as a partially applied function,
-it returns another function that takes the next parameter list.
-So that returned function can then be called with a parameter list.
-
-When a curried function is called with its last parameter list,
-the curried function becomes FULLY APPLIED and returns a value.
+When a curried function gets called with fewer than all its parameter
+lists, it's a PARTIALLY-APPLIED function.  This means the PARTIALLY-
+APPLIED function returns a function (that takes a parameter), which
+can be called.  When a PARTIALLY-APPLIED FUNCTION is called with its
+final parameter list, it becomes FULLY-APPLIED, and returns a value.
 
 When a curried function is called as a partially applied function,
 a single underscore character (_) designates all parameter list(s)
@@ -56,9 +58,75 @@ partially applied function calls:
 addXYZ_Curried(1)_    // A partially applied function call.
 addXYZ_Curried(1)(2)_ // A partially applied function call.
 
+Curried functions can also be called as partially-applied functions
+exactly as above, but without the underscore (_) char.  So the
+underscore (_) char is OPTIONAL (not required), like this...
+
+addXYZ_Curried(1)    // A partially applied function call.
+addXYZ_Curried(1)(2) // A partially applied function call.
+
+The following sample code shows multiple examples of curried functions
+that get called as PARTIALLY-APPLIED and FULLY-APPLIED functions.
+========================================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // The following function is curried because its definition contains multiple parameter lists.
+    def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x + y + z }
+
+    // *******************************************************************
+    // addXYZ_Curried is called here as a FULLY-APPLIED FUNCTION because
+    // all its parameter lists are supplied in a single function call.
+    var result:Int = addXYZ_Curried(1)(2)(3) // Adds 1 + 2 + 3
+    println("1) result = " + result) // PRINTS: 1) result = 6
+
+    // *******************************************************************
+    // addXYZ_Curried is called here as a PARTIALLY-APPLIED FUNCTION because
+    // it first gets called with FEWER than all its parameter lists.
+    // NOTE: When a curried function gets called with an underscore (_) char,
+    //       it gets called as a PARTIALLY-APPLIED FUNCTION.  The underscore
+    //       (_) char designates all parameter lists NOT SUPPLIED when the
+    //       curried function gets called.
+    var func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // PARTIALLY-APPLIED function call returns a function.
+    var func2:(Int => Int) = func1(2) // func1() returns a function.
+    result = func2(3) // func2() returns an Int.
+    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
+    println("2) result = " + result) // PRINTS: 2) result = 6
+
+    // *******************************************************************
+    // addXYZ_Curried is called here as a PARTIALLY-APPLIED FUNCTION because
+    // it first gets called with FEWER than all its parameter lists.
+    func2 = addXYZ_Curried(1)(2)_ // PARTIALLY-APPLIED function call returns a function.
+    result = func2(3) // func2() returns an Int.
+    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
+    println("3) result = " + result) // PRINTS: 3) result = 6
+
+    // *******************************************************************
+    // NOTE: The underscore (_) char is NOT REQUIRED to call a curried
+    //       function as a PARTIALLY-APPLIED function--it is OPTIONAL.
+    //       ABOVE we called these 2 functions using the underscore (_):
+    //       addXYZ_Curried(1)_
+    //       addXYZ_Curried(1)(2)_
+    //       BELOW we call those same 2 functions WITHOUT the underscore (_).
+    func1 = addXYZ_Curried(1) // PARTIALLY-APPLIED function call returns a function.
+    func2 = func1(2) // Returns a function.
+    result = func2(3) // Returns an Int.
+    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
+    println("4) result = " + result) // PRINTS: 4) result = 6
+
+    func2 = addXYZ_Curried(1)(2) // PARTIALLY-APPLIED function call.
+    result = func2(3) // Returns an Int.
+    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
+    println("5) result = " + result) // PRINTS: 5) result = 6
+  }
+}
+========================================================================================
+
+
 Even though all curried functions can be called with multiple
 parameter lists, it's possible to define a curried function
-having a single parameter list in its definition, like this:
+that has only one parameter list in its definition, like this:
 
 def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
