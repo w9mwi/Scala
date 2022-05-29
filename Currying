@@ -122,6 +122,13 @@ object Demo
     result = func2(3) // Returns an Int.
     // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
     println("5) result = " + result) // PRINTS: 5) result = 6
+
+    // *******************************************************************
+    // Here's a final example of going from partially applied to fully applied.
+    func1 = addXYZ_Curried(1)_ // The underscore (_) char is optional.
+    func2 = func1.apply(2)     // func1.apply(2) = func1(2)
+    result = func2.apply(3)    // func2.apply(3) = func2(3)
+    println("6) result = " + result) // PRINTS: 6) result = 6
   }
 }
 ========================================================================================
@@ -809,5 +816,19 @@ object Demo
 }
 
 ========================================================================================
+
+Once you understand all the code and all the explanations above,
+let's take another look at the curried function we used above...
+
+def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x + y + z }
+
+Assume you have code that calls this function in the following
+manner, let's examine its behavior.
+
+addXYZ_Curried(1)  // This returns this FUNCTION: (1 + (y + z))
+addXYZ_Curried(2)  // This returns this FUNCTION: (1 + 2 + z) = (3 + z)
+addXYZ_Curried(3)  // This returns this VALUE:    1 + 2 + 3 = 6
+
+
 ========================================================================================
 ========================================================================================
