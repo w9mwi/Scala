@@ -21,14 +21,16 @@ passed a single parameter list, and returns either a function
 A Scala curried function has these three (3) criteria:
 
 1) It contains two (2) or more parameter lists.
+
 2) Calling it with fewer than all its parameter lists
-   returns a function that takes a parameter, which means
+   returns a function that takes a parameter, which
    means the function is partially applied.
-3) When a curried function is called with the last
-   parameter in its parameter list, it returns a value,
-   not a function.  This makes the curried function
-   fully applied.  A curried function could have
-   2, 3, 4, 5, or even more parameter lists.
+
+3) When a curried function is called with the last of its
+   multiple parameter lists, it returns a final value, not
+   a function.  This makes the curried function fully applied.
+   A curried function could have 2, 3, 4, 5, or even more
+   parameter lists.
 
 
 FULLY-APPLIED FUNCTION
@@ -48,7 +50,7 @@ When a curried function gets called with fewer than all its parameter
 lists, it's a PARTIALLY-APPLIED function.  This means the PARTIALLY-
 APPLIED function returns a function that takes a parameter list.
 When a PARTIALLY-APPLIED FUNCTION is called with its final parameter
-list, it becomes FULLY-APPLIED, and returns a value.
+list, it becomes FULLY-APPLIED, and returns a final value.
 
 When a curried function is called as a partially applied function,
 a single underscore character (_) designates all parameter list(s)
