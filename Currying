@@ -139,7 +139,7 @@ DEFINING CURRIED FUNCTIONS THAT CONTAIN ONLY ONE PARAMTER LIST
 Above we said that all Scala functions defined with multiple parmater lists
 are curried functions, which is correct.  But the following is also true...
 
-A curried function that contains only on parameter list can be
+A curried function that contains only one parameter list can be
 defined as a curried function, like this...
 
 def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
