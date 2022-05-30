@@ -133,128 +133,71 @@ object Demo
 }
 ========================================================================================
 
+DEFINING CURRIED FUNCTIONS THAT CONTAIN ONLY ONE PARAMTER LIST
+==============================================================
 
-Even though all curried functions can be called with multiple
-parameter lists, it's possible to define a curried function
-that has only one parameter list in its definition, like this:
+Above we said that all Scala functions defined with multiple parmater lists
+are curried functions, which is correct.  But the following is also true...
+
+A curried function that contains only on parameter list can be
+defined as a curried function, like this...
 
 def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
 Notice how this addXY_Curried function returns a function that
-takes a parameter.  So even though addXY_Curried is defined
-with only one parameter list, it can still be called with two
-parameter lists!  (Shown further below.)
+takes a parameter.  Even though addXY_Curried is defined with
+only one parameter list, it can still be called with two (2)
+parameter lists.  See the following code sample to understand
+the behavior of these 2 equivalent curried functions...
 
-addXY_Curried is a curried function because it returns a function
-that takes a parameter list.  Since addXY_Curried is defined with
-only one parameter list, it WON'T COMPILE when it's called with
-the underscore character (_) as a partially applied function...
-
-addXY_Curried(5)_ // WON'T COMPILE!
-
-To call addXY_Curried as a partially applied function,
-it must be called it like this:
-
-addXY_Curried(5) // WILL COMPILE!
-
-As addXY_Curried(5) returns a function, which takes a parameter list.
-
-Even though addXY_Curried is defined with one parameter list,
-you can call it with 2 parameter lists as a fully applied
-function, like this...
-
-addXY_Curried(5)(2) // WILL COMPILE!
-
-The addXY_Curried function was defined above as this:
-def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
-
-The addXY_Curried function can be redefined as follows.
-def addCurried_2(x:Int)(y:Int) = { x+y }
-
-addCurried_2 also returns the Int result of x + y.  The only
-difference is that addCurried_2 can be called using the
-underscore charater (_) as shown below, while the
-addXY_Curried function cannot.
-
-addCurried_2()_
-
-The following code sample demonstrates all of the above examples
-in detail.  Read the in-line comments for explanations.
-
-========================================================================================
+1) def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
+2) def addCurried_2(x:Int)(y:Int) = { x+y }
 
 object Demo
 {
-  def funcX(x:Int):Int = { x + 10 }
-  def funcY(y:Int):Int = { y - 3 }
-  def funcZ(z:Int):Int = { z * 4 }
-  def addXY_Curried(x:Int):(Int => Int)       = { (y:Int) => x + y }
-  def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x + y + z }
-
   def main(args: Array[String])
   {
-    // This section demonstrates the standard way of calling functions.
-    // This is NOT an example of currying!
-    // NOTE: funcZ(funcY(funcX(7))) = (((7 + 10) - 3) * 4) = 56
-    var result: Int = funcZ(funcY(funcX(7)))
-    println("funcZ(funcY(funcX(7))) = " + result) // PRINTS: funcZ(funcY(funcX(7))) = 56
+    // The following function is curried because its definition contains multiple parameter lists.
+    def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
-    // ======================================================
-    // This section demonstrates how to call the addXYZ_Curried()()()
-    // function in one line of code, to add 3 Int values...
-    result = addXYZ_Curried(1)(2)(3) // Adds 1 + 2 + 3
-    println("result = " + result) // PRINTS: result = 6
+    // *******************************************************************
+    // The following COMMENTED-OUT line won't compile because
+    // addXY_Curried is defined above with ONLY ONE parameter list.
+    // Therefore, it CAN'T be called with an underscore (_) char
+    // replacing a second parameter list that doesn't exist.
 
-    // ======================================================
-    // This section demonstrates how to call addXYZ_Curried()()()
-    // in 3 separate lines of code to obtain the result of adding
-    // 3 Ints (1 + 2 + 3).
-    // NOTE: The underscore char (_) is used below to designate that we're
-    //       calling addXYZ_Curried()()() with only ONE (1) parameter list.
-    //       The 2nd and 3rd parameter lists are ignored.
-    val func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // Returns a function that returns a function.
-    var func2:(Int => Int)          = func1(2)           // Returns a function that returns an Int.
-    result = func2(3) // Returns an Int value.
-    println("result = " + result) // PRINTS: result = 6
+    // WON'T compile -->   addXY_Curried(5)_
 
-    // Instead of calling addXYZ_Curried()()() in 3 separate lines of code
-    // as in the above example, this section calls that curried function
-    // in only 2 lines of code.  Just to demonstrate that it can be called
-    // in different ways.  Again, the underscore char (_) is used below
-    // to designate that we're ignoring the 3rd parameter list.
-    func2 = addXYZ_Curried(1)(2)_ // Returns a function that returns an Int.
-    result = func2(3) // Returns an Int value.
-    println("result = " + result) // PRINTS: result = 6
+    // *******************************************************************
+    // The below code samples show several ways of calling addXY_Curried
+    // function, and the equivalent addCurried_2 function.
+    // *******************************************************************
+    var result:Int = addXY_Curried(5)(2) // 5 + 2 = 7
+    println("1) result = " + result) // PRINTS: 1) result = 7
 
-    // ======================================================
-    // This section demonstrates how to call the addXY_Curried() function.
-    // NOTE: The following commented-out line WON'T COMPILE because the
-    //       underscore char (_) MUST follow a function/method call.
-    //       The call to addXY_Curried(5) returns NOT a function that
-    //       returns a function, but returns a function that returns an Int.
-    // addXY_Curried(5)_ // THIS LINE WON'T COMPILE!
+    // Here we obtain the result identical to above, in a different way.
+    var func1:(Int => Int) = addXY_Curried(5)
+    result = func1(2) // 5 + 2 = 7
+    println("2) result = " + result) // PRINTS: 2) result = 7
 
-    // Add the two numbers: 5 + 15
-    func2 = addXY_Curried(5) // Returns a function that returns an Int.
-    result = func2(15)       // Returns an Int.
-    println("result = " + result) // PRINTS: result = 20
+    // The addCurried_2 function defined below is an alternative way of
+    // writing the above addXY_Curried function to obtain identical behavior.
+    def addCurried_2(x:Int)(y:Int) = { x+y }
 
-    // NOTE: Even though the addXY_Curried() function is defined above with only
-    //       ONE parameter list, it can be called with TWO parameter lists because
-    //       it's a curried function.  That is, addXY_Curried(5) returns
-    //       a function that takes an Int parameter, and returns an Int.
-    result = addXY_Curried(5)(20)
-    println("result = " + result) // PRINTS: result = 25
-
-    // The addXY_Curried() function can also be called in the
-    // following two (2) ways to generate the same result.
-    func2 = addXY_Curried(5) // Call as a partially applied function.
-    println("func2.apply(20)      = " + func2.apply(20)) // Complete the partially applied function.
-    println("addXY_Curried(5)(20) = " + addXY_Curried(5)(20)) // Call as a fully applied function.
+    func1 = addCurried_2(5)_ // Underscore (_) char here is optional.
+    result = func1(2) // 5 + 2 = 7
+    println("3) result = " + result) // PRINTS: 3) result = 7
   }
 }
 
 ========================================================================================
+
+
+
+
+
+
+
 This simple demonstration of currying shows how to use the apply() method as an
 alternative way of calling a curried function.,  Read in-line comments below
 for details.
