@@ -20,11 +20,14 @@ passed a single parameter list, and returns either a function
 
 A Scala curried function has these three (3) criteria:
 
-1) It contains two (2) or more parameter lists.
+1) It USUALLY (not always) a curried contains multiple
+   parameter lists.  Further below we explain how a
+   function defined with only one parameter list can
+   be a curried function.
 
-2) Calling it with fewer than all its parameter lists
-   returns a function that takes a parameter, which
-   means the function is partially applied.
+2) Calling a curried with fewer than all its parameter lists
+   returns a function that takes a parameter, which means
+   the function is partially applied.
 
 3) When a curried function is called with the last of its
    multiple parameter lists, it returns a final value, not
