@@ -20,10 +20,10 @@ passed a single parameter list, and returns either a function
 
 A Scala curried function has these three (3) criteria:
 
-1) It USUALLY (not always) a curried contains multiple
-   parameter lists.  Further below we explain how a
-   function defined with only one parameter list can
-   be a curried function.
+1) A curried function USUALLY (not always) contains multiple
+   parameter lists in its definition.  Further below we explain
+   how a function defined with only one parameter list can be
+   a curried function.
 
 2) Calling a curried with fewer than all its parameter lists
    returns a function that takes a parameter, which means
