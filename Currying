@@ -4,10 +4,6 @@ All Scala functions that have multiple parameter lists are
 curried functions.  Each set of parenthesis defined in a
 function represents a parameter list.  For example...
 
-// This standard function contains only one parameter list, with
-// 3 arguments x, y, and z.  So this is NOT a curried function.
-def addXYZ(x:Int, y:Int, z:Int):Int =  x + y + z
-
 // The following 2 functions contain multiple parameter lists,
 // which means these 2 functions are curried functions.
 def addXY_Curried(x)(y)     = { x + y }
@@ -25,15 +21,15 @@ A Scala curried function has these three (3) criteria:
    how a function defined with only one parameter list can be
    a curried function.
 
-2) Calling a curried function with fewer than all its parameter
-   lists returns a function that takes a parameter, which means
-   the function is partially applied.
+2) Calling a curried function with FEWER than all its parameter
+   lists is a PARTIALLY-APPLIED FUNCTION because it RETURNS A
+   FUNCTION instead of a final value.  The function returned
+   also takes a parameter list.
 
 3) When a curried function is called with the last of its
    multiple parameter lists, it returns a final value, not
-   a function.  This makes the curried function fully applied.
-   A curried function could have 2, 3, 4, 5, or even more
-   parameter lists.
+   a function.  This makes the curried function a FULLY-APPLIED
+   FUNCTION.
 
 
 FULLY-APPLIED FUNCTION
@@ -44,19 +40,19 @@ it becomes a FULLY-APPLIED function, like this...
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
 addXYZ_Curried(1)(2)(3) // A curried function call that's FULLY APPLIED.
 
-A function can also become fully-applied by calling it as a
-PARTIALLY-APPLIED function, until all its parameter lists
-are supplied, and its final value gets returned.
 
 PARTIALLY-APPLIED FUNCTION
 ==========================
 When a curried function gets called with fewer than all its parameter
-lists, it's a PARTIALLY-APPLIED function.  This means the PARTIALLY-
-APPLIED function returns a function that takes a parameter list.
-When a PARTIALLY-APPLIED FUNCTION is called with its final parameter
-list, it becomes FULLY-APPLIED, and returns a final value.
+lists, it's a PARTIALLY-APPLIED function.  A PARTIALLY-APPLIED function
+returns a function that takes a parameter list.  When a PARTIALLY-APPLIED
+FUNCTION is called with its final parameter list, it becomes FULLY-APPLIED,
+and returns a final value.
 
-When a curried function is called as a partially applied function,
+Read the next section below titled "DEFINING CURRIED FUNCTIONS THAT
+CONTAIN ONLY ONE PARAMTER LIST" to understand that topic.
+
+When a curried function is called as a partially applied function
 a single underscore character (_) designates all parameter list(s)
 that aren't specified.  For example, the following 2 lines are
 partially applied function calls because the function calls don't
