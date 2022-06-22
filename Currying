@@ -146,11 +146,11 @@ defined as a curried function, like this...
 
 def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
-Even though this addXY_Curried() function is defined with only
-one parameter list, it's a curried function because it returns
-a function that takes a parameter list.  Therefore, addXY_Curried()
-can be called with two (2) parameter lists as demonstrated in the
-sample code below.
+Even though this addXY_Curried() function is defined with only one
+parameter list, it's a curried function because it returns a
+function that takes a parameter list.  Therefore, addXY_Curried()
+is not fully applied until it gets called with two (2) parameter
+lists, as is demonstrated in the sample code below.
 
 The sample code below defines the following two functions.
 
@@ -160,7 +160,7 @@ The sample code below defines the following two functions.
 Both these functions have identical behavior, with this one exception:
 
 WON'T COMPILE:  addXY_Curried(5)_  // Calling it as addXY_Curried(5) will compile.
-WILL COMPILE:   addCurried_2(5)_   // Can be called as addCurried_2(5)_ or as addCurried_2(5)
+WILL COMPILE:   addCurried_2(5)_   // Can be called as addCurried_2(5)_ or addCurried_2(5)
 
 object Demo
 {
