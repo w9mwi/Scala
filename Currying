@@ -1,18 +1,21 @@
 CURRYING
 ========
+In Scala, any function that returns a function, AND the returned
+function accepts a parameter list, is a curried function.
+
 All Scala functions that have multiple parameter lists are
 curried functions.  Each set of parenthesis defined in a
-function represents a parameter list.  For example...
+function represents a parameter list.  For example, the
+following 2 functions contain multiple parameter lists,
+which means these 2 functions are curried functions.
 
-// The following 2 functions contain multiple parameter lists,
-// which means these 2 functions are curried functions.
 def addXY_Curried(x)(y)     = { x + y }
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
 
 Currying transforms a function that has MULTIPLE PARAMETER LISTS
 into a chain of functions, where each function in the chain gets
 passed a single parameter list, and returns either a function
-(that gets passed a parameter list) or the final value.
+(that gets passed a parameter list), or a final value.
 
 A Scala curried function has these three (3) criteria:
 
@@ -23,7 +26,7 @@ A Scala curried function has these three (3) criteria:
 
 2) Calling a curried function with FEWER than all its parameter
    lists is a PARTIALLY-APPLIED FUNCTION because it RETURNS A
-   FUNCTION instead of a final value.  The function returned
+   FUNCTION instead of a final value.  The returned function
    also takes a parameter list.
 
 3) When a curried function is called with the last of its
@@ -38,7 +41,7 @@ When a curried function is called by passing ALL its parameter lists,
 it becomes a FULLY-APPLIED function, like this...
 
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
-addXYZ_Curried(1)(2)(3) // A curried function call that's FULLY APPLIED.
+addXYZ_Curried(1)(2)(3) // This curried function call is FULLY APPLIED.
 
 
 PARTIALLY-APPLIED FUNCTION
@@ -49,8 +52,9 @@ returns a function that takes a parameter list.  When a PARTIALLY-APPLIED
 FUNCTION is called with its final parameter list, it becomes FULLY-APPLIED,
 and returns a final value.
 
-Read the next section below titled "DEFINING CURRIED FUNCTIONS THAT
-CONTAIN ONLY ONE PARAMTER LIST" to understand that topic.
+To see how a curried function containing only one parameter list is
+defined, read the section below titled "DEFINING A CURRIED FUNCTION
+HAVING ONLY ONE PARAMETER LIST".
 
 When a curried function is called as a partially applied function
 a single underscore character (_) designates all parameter list(s)
@@ -135,8 +139,8 @@ object Demo
 }
 ========================================================================================
 
-DEFINING CURRIED FUNCTIONS THAT CONTAIN ONLY ONE PARAMTER LIST
-==============================================================
+DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
+==========================================================
 
 Above we said that all Scala functions defined with multiple parmater lists
 are curried functions, which is correct.  But the following is also true...
@@ -146,18 +150,22 @@ defined as a curried function, like this...
 
 def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
-IMPORTANT: Any function that returns a function taking
-           a parameter list is a curried function.  Like
-           the addXY_Curried function defined above.
+Even though this addXY_Curried() function is defined with only
+one parameter list, it's a curried function because it returns
+a function that takes a parameter list.  Therefore, addXY_Curried()
+can be called with two (2) parameter lists as demonstrated in the
+sample code below.
 
-Notice how this addXY_Curried function returns a function that
-takes a parameter list.  Even though addXY_Curried is defined
-with only one parameter list, it can still be called with two
-(2) parameter lists.  See the following code sample to understand
-the behavior of these 2 equivalent curried functions...
+The sample code below defines the following two functions.
 
 1) def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
-2) def addCurried_2(x:Int)(y:Int) = { x+y }
+2) def addCurried_2(x:Int)(y:Int)        = { x + y }
+
+Both these functions have identical behavior, with this one exception:
+
+WON'T COMPILE:  addXY_Curried(5)_  // Calling it as addXY_Curried(5) will compile.
+WILL COMPILE:   addCurried_2(5)_   // Can be called as addCurried_2(5)_ or addCurried_2(5)
+
 
 object Demo
 {
@@ -188,7 +196,7 @@ object Demo
 
     // The addCurried_2 function defined below is an alternative way of
     // writing the above addXY_Curried function to obtain identical behavior.
-    def addCurried_2(x:Int)(y:Int) = { x+y }
+    def addCurried_2(x:Int)(y:Int) = { x + y }
 
     func1 = addCurried_2(5)_ // Underscore (_) char here is optional.
     result = func1(2) // 5 + 2 = 7
