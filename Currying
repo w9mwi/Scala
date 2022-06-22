@@ -132,6 +132,7 @@ object Demo
     println("6) result = " + result) // PRINTS: 6) result = 6
   }
 }
+
 ========================================================================================
 
 DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
@@ -161,13 +162,12 @@ Both these functions have identical behavior, with this one exception:
 WON'T COMPILE:  addXY_Curried(5)_  // Calling it as addXY_Curried(5) will compile.
 WILL COMPILE:   addCurried_2(5)_   // Can be called as addCurried_2(5)_ or as addCurried_2(5)
 
-
 object Demo
 {
   def main(args: Array[String])
   {
     // The following function is curried because its definition contains multiple parameter lists.
-    def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
+    def addXY_(_)Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
 
     // *******************************************************************
     // The following COMMENTED-OUT line won't compile because
@@ -193,7 +193,7 @@ object Demo
     // writing the above addXY_Curried function to obtain identical behavior.
     def addCurried_2(x:Int)(y:Int) = { x + y }
 
-    func1 = addCurried_2(5)_ // Underscore (_) char here is optional.
+    func1 = addCurried_2(5)_ // The underscore char (_) here is optional.
     result = func1(2) // 5 + 2 = 7
     println("3) result = " + result) // PRINTS: 3) result = 7
   }
@@ -201,38 +201,38 @@ object Demo
 
 ========================================================================================
 
-
-
-
-
-
-
-This simple demonstration of currying shows how to use the apply() method as an
-alternative way of calling a curried function.,  Read in-line comments below
-for details.
+Here's an example where we have two functions that both return a function
+that takes an Int as a parameter.  This means that both these functions
+must get called with one more parameter than appears in their definition
+to become fully applied.
 
 object Demo
 {
   def main(args: Array[String])
   {
-    // Immediately after sum1(2) gets called, sum1() is partially applied.
-    // After func1(5) gets called, the sum1() function is fully applied.
-    var func1:(Int => Int) = sum1(2)
-    println(func1(5))       // PRINTS: 7  (NOTE: 7 = 2 + 5)
-    println(func1.apply(5)) // Equivalent to the previous line of code.
+    // NOTE: Both of the following 2 functions return a function
+    //       that takes an Int as a parameter.  Therefore...
+    //       1) The sum1() function must get called with TWO (2)
+    //          parameter lists until it's fully applied.
+    //       2) The sum2()() function must get called with THREE (3)
+    //          parameter lists until it's fully applied.
+    def sum1(a: Int):(Int => Int)       = { b => a + b }
+    def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c }
 
-    // Immediately after sum2(2)(42) gets called, sum2() is partially applied.
-    // After func(13) gets called, sum2() is fully applied.
-    func1 = sum2(2)(42)
-    println(func1(13))       // PRINTS: 57 (NOTE: 57 = 2 + 42 + 13)
-    println(func1.apply(13)) // Equivalent to the previous line of code.
+    var func:(Int => Int) = sum1(123) // sum1() is partially applied.
+    var result:Int = func(321)        // sum1() is fully applied.
+    println(s"1) result = $result") // PRINTS: 1) result = 444
+
+    func = sum2(5)(10) // sum2()() is partially applied.
+    result = func(20)  // sum2()() is fully applied.
+    println(s"2) result = $result") // PRINTS: 2) result = 35
   }
-
-  def sum1(a: Int):(Int => Int)       = { b => a + b }     // b is the value  5 passed from func1(5)
-  def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c } // c is the value 13 passed from func1(13)
 }
 
 ========================================================================================
+
+
+
 
 Recall that a PARAMETRIC FUNCTION is defined to accept any valid data type that
 can work with the function.  For example, instead of defining 3 different add()
