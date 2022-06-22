@@ -1,9 +1,9 @@
 CURRYING
 ========
-In Scala, any function that returns a function, AND the returned
-function accepts a parameter list, is a curried function.
+In Scala, any function that returns a function that
+also accepts a parameter list is a curried function.
 
-All Scala functions that have multiple parameter lists are
+All Scala functions defined with multiple parameter lists are
 curried functions.  Each set of parenthesis defined in a
 function represents a parameter list.  For example, the
 following 2 functions contain multiple parameter lists,
@@ -13,23 +13,18 @@ def addXY_Curried(x)(y)     = { x + y }
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
 
 Currying transforms a function that has MULTIPLE PARAMETER LISTS
-into a chain of functions, where each function in the chain gets
+into a chain of functions.  Where each function in the chain gets
 passed a single parameter list, and returns either a function
-(that gets passed a parameter list), or a final value.
+(that also accepts a parameter list), or a final value.
 
-A Scala curried function has these three (3) criteria:
+A Scala curried function has these two (2) criteria:
 
-1) A curried function USUALLY (not always) contains multiple
-   parameter lists in its definition.  Further below we explain
-   how a function defined with only one parameter list can be
-   a curried function.
-
-2) Calling a curried function with FEWER than all its parameter
+1) Calling a curried function with FEWER than all its parameter
    lists is a PARTIALLY-APPLIED FUNCTION because it RETURNS A
    FUNCTION instead of a final value.  The returned function
    also takes a parameter list.
 
-3) When a curried function is called with the last of its
+2) When a curried function is called with the last of its
    multiple parameter lists, it returns a final value, not
    a function.  This makes the curried function a FULLY-APPLIED
    FUNCTION.
@@ -41,7 +36,7 @@ When a curried function is called by passing ALL its parameter lists,
 it becomes a FULLY-APPLIED function, like this...
 
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
-addXYZ_Curried(1)(2)(3) // This curried function call is FULLY APPLIED.
+addXYZ_Curried(1)(2)(3) // This function call is a FULLY APPLIED curried function.
 
 
 PARTIALLY-APPLIED FUNCTION
@@ -164,7 +159,7 @@ The sample code below defines the following two functions.
 Both these functions have identical behavior, with this one exception:
 
 WON'T COMPILE:  addXY_Curried(5)_  // Calling it as addXY_Curried(5) will compile.
-WILL COMPILE:   addCurried_2(5)_   // Can be called as addCurried_2(5)_ or addCurried_2(5)
+WILL COMPILE:   addCurried_2(5)_   // Can be called as addCurried_2(5)_ or as addCurried_2(5)
 
 
 object Demo
