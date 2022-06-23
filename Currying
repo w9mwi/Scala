@@ -232,19 +232,17 @@ object Demo
 
 ========================================================================================
 
-The add()() function in the following sample code is defined as BOTH...
+There is an exception when a function defined with multiple parameter
+lists is NOT a curried function!...
 
-1) A parametric function, where the parametric type A
-   represents any numeric data type (i.e. Byte, Int, Float, etc.)
-
-2) A curried function where the first parameter list contains
-   two arguments of type A, and the second parameter list
-   contains a single implicit argument of type Numeric[A].
-
-Because the add()() function is defined with two parameter lists,
-it is a curried function.  Because its second parameter is defined
-using the implicit keyword, the second parameter DOESN'T need to
-be specified when calling the add()() function.
+In the sample code below the add()() function contains two parameter lists,
+but it's NOT a curried function because the second parameter list is defined
+to contain an implicit argument.  An implicit argument means that when the
+function is called without supplying that argument, Scala supplies that
+argument automatically, and the function returns a final value.  Recall that
+when a curried function is called with fewer than all its parameter lists,
+it returns a function that takes a parameter list--not a final value.  Therefore,
+the add()() function in the following sample code is NOT a curried function.
 
 object Demo
 {
