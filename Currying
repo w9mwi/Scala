@@ -246,6 +246,9 @@ the add()() function in the following sample code is NOT a curried function.
 
 object Demo
 {
+  // This add()() function allows two numbers of different types to be added.
+  // The returned type will be "upcast" to the highest of the two types.
+  // For example, adding a Byte to a Double requires the result to be a Double.
   def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
 
   def main(args:Array[String]): Unit =
@@ -254,7 +257,7 @@ object Demo
     val myInt:Int       = 456
     val myLong:Long     = 999999999L
     val myFloat:Float   = 876.543F
-    val myDouble:Double = 1234567.890123
+    val myDouble:Double = 1234567.890123D
 
     println("add(myByte, myInt)     = " + add(myByte, myInt))     // PRINTS: add(myByte, myInt)     = 579
     println("add(myInt, myLong)     = " + add(myInt, myLong))     // PRINTS: add(myInt, myLong)     = 1000000455
