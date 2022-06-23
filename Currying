@@ -4,10 +4,12 @@ In Scala, any function that returns a function that
 also accepts a parameter list is a curried function.
 
 All Scala functions defined with multiple parameter lists are
-curried functions.  Each set of parenthesis defined in a
-function represents a parameter list.  For example, the
-following 2 functions contain multiple parameter lists,
-which means these 2 functions are curried functions.
+curried functions--EXCEPT when one of the parameter lists
+includes an implicit argument, as is explained further below.
+Each set of parenthesis defined in a function represents a
+parameter list.  For example, the following 2 functions
+contain multiple parameter lists, which means these 2 functions
+are curried functions.
 
 def addXY_Curried(x)(y)     = { x + y }
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
@@ -116,7 +118,8 @@ object Demo
     func1 = addXYZ_Curried(1) // PARTIALLY-APPLIED function call returns a function.
     func2 = func1(2) // Returns a function.
     result = func2(3) // Returns an Int.
-    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
+    // Finally, we obtained the same rEXCEPT when one of the parameter lists
+includes an implicit argument as is explained further below.esult as calling: addXYZ_Curried(1)(2)(3)
     println("4) result = " + result) // PRINTS: 4) result = 6
 
     func2 = addXYZ_Curried(1)(2) // PARTIALLY-APPLIED function call.
@@ -139,7 +142,9 @@ DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
 ==========================================================
 
 Above we said that all Scala functions defined with multiple parmater lists
-are curried functions, which is correct.  But the following is also true...
+are curried functions--EXCEPT when one of the parameter lists includes an
+implicit argument, as is explained further below..  But the following
+is also true...
 
 A curried function that contains only one parameter list
 can be defined as a curried function, like this...
