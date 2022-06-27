@@ -142,7 +142,7 @@ DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
 
 Above we said that all Scala functions defined with multiple parmater lists
 are curried functions--EXCEPT when one of the parameter lists includes an
-implicit argument, as is explained further below..  But the following
+implicit argument, as is explained further below.  But the following
 is also true...
 
 A curried function that contains only one parameter list
