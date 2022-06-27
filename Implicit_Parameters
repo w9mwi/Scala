@@ -56,24 +56,33 @@ will determine if it can obtain an implicit value of the
 correct type, and if it can, pass it automatically.
 
 In the following example, the implicit parameter is never
-designated, so Scala passes that parameter for us, making
+designated so Scala passes that parameter for us, making
 the add() function work as we want with all Numeric types.
-
 
 object Demo
 {
-  // The following add() function is written as a parametric function,
-  // where the parametric type A represents any numeric data type.
+  // This add()() function allows two numbers of different types to be added.
+  // The returned type will be "upcast" to the highest of the two types.
+  // For example, adding a Byte to a Double requires the result to be a Double.
   def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
 
   def main(args:Array[String]): Unit =
   {
-    println("add(1.23F, 4.56F) = " + add(1.23F, 4.56F)) // PRINTS: add(1.23F, 4.56F) = 5.79
-    println("add(1.23D, 4.56D) = " + add(1.23D, 4.56D)) // PRINTS: add(1.23D, 4.56S) = 5.789999999999999
-    println("add(123, 456)     = " + add(123, 456))     // PRINTS: add(123, 456)     = 579
-    println("add(123, 4.56F)   = " + add(123, 4.56F))   // PRINTS: add(123, 456)     = 127.56
+    val myByte:Byte     = 123
+    val myInt:Int       = 456
+    val myLong:Long     = 999999999L
+    val myFloat:Float   = 876.543F
+    val myDouble:Double = 1234567.890123D
+
+    println("add(myByte, myInt)     = " + add(myByte, myInt))     // PRINTS: add(myByte, myInt)     = 579
+    println("add(myInt, myLong)     = " + add(myInt, myLong))     // PRINTS: add(myInt, myLong)     = 1000000455
+    println("add(myLong, myFloat)   = " + add(myLong, myFloat))   // PRINTS: add(myLong, myFloat)   = 1.0000009E9
+    println("add(myFloat, myDouble) = " + add(myFloat, myDouble)) // PRINTS: add(myFloat, myDouble) = 1235444.433152785
+    println("add(myByte, myDouble)  = " + add(myByte, myDouble))  // PRINTS: add(myByte, myDouble)  = 1234690.890123
+    println("add(myInt, myFloat)    = " + add(myInt, myFloat))    // PRINTS: add(myInt, myFloat)    = 1332.543
   }
 }
+
 
 ==========================================================================
 
