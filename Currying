@@ -299,7 +299,7 @@ object Demo
   }
 
   // funcXYZ_2 is identical to the above funcXYZ function,
-  // except funcXYZ has 1 PARAMETER LIST containing 3 parameters.
+  // except funcXYZ has 1 PARAMETER LIST containing 3 arguments.
   def funcXYZ_2[A,B,C,D](funcX:(C=>D))(funcY:(B=>C))(funcZ:(A=>B)):(A=>D) =
   {
     x => funcX(funcY(funcZ(x)))
