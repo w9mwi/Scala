@@ -96,12 +96,6 @@ object Demo
     else func(list.head, ourFold(list.tail, base)(func))
   }
 
-  // The 'T' character in the myFunction() definition below represents a DATA TYPE.
-  // The 't' character in the myFunction() definition below represents a DATA VALUE.
-  // myFunction does nothing but return the same value (and data type) it was passed.
-  // Since myFunction uses a parametric type, it will work with ALL data types.
-  def myFunction[T](t:T):T = t
-
   // The below makeTuple() function takes two parameters (one of type A, one of type B),
   // and returns a tuple of type (A, B).
   def makeTuple[A,B](a:A, b:B):(A, B) = (a, b)
