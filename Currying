@@ -14,10 +14,9 @@ are curried functions.
 def addXY_Curried(x)(y)     = { x + y }
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
 
-Currying transforms a function that has MULTIPLE PARAMETER LISTS
-into a chain of functions.  Where each function in the chain gets
-passed a single parameter list, and returns either a function
-(that also accepts a parameter list), or a final value.
+Currying transforms a function into a chain of functions.  Where each
+function in the chain gets passed a single parameter list, and returns
+either a function (that also accepts a parameter list), or a final value.
 
 A Scala curried function has these two (2) criteria:
 
@@ -49,9 +48,10 @@ returns a function that takes a parameter list.  When a PARTIALLY-APPLIED
 FUNCTION is called with its final parameter list, it becomes FULLY-APPLIED,
 and returns a final value.
 
-To see how a curried function containing only one parameter list is
-defined, read the section below titled "DEFINING A CURRIED FUNCTION
-HAVING ONLY ONE PARAMETER LIST".
+It's possible to define a curried function that contains only one parameter
+list in its definition.  To see an example of how a curried function containing
+only one parameter list is defined, read the section below titled:
+"DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST".
 
 When a curried function is called as a partially applied function
 a single underscore character (_) designates all parameter list(s)
@@ -64,8 +64,8 @@ addXYZ_Curried(1)_    // A partially applied function call.
 addXYZ_Curried(1)(2)_ // A partially applied function call.
 
 Curried functions can also be called as partially-applied functions
-without the underscore (_) char shown above.  So the underscore
-(_) char is OPTIONAL (not required), like this...
+without the underscore char (_) shown above.  So the underscore
+char (_) is OPTIONAL (not required), like this...
 
 def addXYZ_Curried(x)(y)(z) = { x + y + z }
 addXYZ_Curried(1)    // A partially applied function call.
@@ -109,22 +109,21 @@ object Demo
     println("3) result = " + result) // PRINTS: 3) result = 6
 
     // *******************************************************************
-    // NOTE: The underscore (_) char is NOT REQUIRED to call a curried
+    // NOTE: The underscore char (_) is NOT REQUIRED to call a curried
     //       function as a PARTIALLY-APPLIED function--it is OPTIONAL.
-    //       ABOVE we called these 2 functions using the underscore (_):
+    //       ABOVE we called these 2 functions using the underscore (_)
+    //       like this:
     //       addXYZ_Curried(1)_
     //       addXYZ_Curried(1)(2)_
-    //       BELOW we call those same 2 functions WITHOUT the underscore (_).
+
+    //       BELOW we call those same 2 functions WITHOUT the underscore (_) char.
     func1 = addXYZ_Curried(1) // PARTIALLY-APPLIED function call returns a function.
     func2 = func1(2) // Returns a function.
     result = func2(3) // Returns an Int.
-    // Finally, we obtained the same rEXCEPT when one of the parameter lists
-includes an implicit argument as is explained further below.esult as calling: addXYZ_Curried(1)(2)(3)
     println("4) result = " + result) // PRINTS: 4) result = 6
 
     func2 = addXYZ_Curried(1)(2) // PARTIALLY-APPLIED function call.
     result = func2(3) // Returns an Int.
-    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
     println("5) result = " + result) // PRINTS: 5) result = 6
 
     // *******************************************************************
