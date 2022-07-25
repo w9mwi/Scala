@@ -33,7 +33,7 @@ object Demo
 ===========================================================================
 The following sample program demonstrates how to do the following:
 
-1) Obtain the Scala version being used.
+1) How to obtain the Scala version being used.
 2) How to execute Linux commands from a Scala program.
 
 import sys.process._
