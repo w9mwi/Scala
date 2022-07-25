@@ -52,11 +52,21 @@ object Demo
     // this text, which represents a LINUX command:  ls -la /home/tjb/Tom
     // Using the chmod LINUX command, you must set the script.sh file
     // to be an executable.
-    val command:Seq[String] = Seq("/home/tjb/Tom/script.sh") // script.sh contains the LINUX command(s).
+    var command:Seq[String] = Seq("/home/tjb/Tom/script.sh") // script.sh contains the LINUX command(s).
     val osName = sys.props("os.name").toLowerCase // Obtain the name of the Operating System being used.
     if (osName contains "linux")
     {
-      command.!! // Execute the LINUX command(s) entered in the script.sh file.
+      // NOTE: When command.!  OR  command.!!  are executed below, THE FIRST
+      //       LINE OF TEXT OUTPUT is text similar to this:  total 1660
+
+      // Calling command.! executes the LINUX command(s) in the script.sh file,
+      // sending its output to the terminal.
+      command!
+
+      // Calling command.!! executes the LINUX command(s) in the script.sh file,
+      // returning its result as a String.
+      var str:String = command.!!
+      println("\n" + str)
     }
     else
     {
