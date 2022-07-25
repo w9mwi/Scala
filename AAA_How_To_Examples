@@ -59,7 +59,7 @@ object Demo
       // NOTE: When these two commands are executed (in the code below)...
       //       command.!
       //       command.!!
-      //       THE FIRST LINE OF TEXT OUTPUT they output is text similar to this:  total 1660
+      //       THE FIRST LINE OF TEXT THEY OUTPUT is text similar to this:  total 1660
 
       // Calling command.! executes the LINUX command(s) in the script.sh file,
       // sending its output to the terminal.
