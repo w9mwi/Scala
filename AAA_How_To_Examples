@@ -38,6 +38,7 @@ The following sample program demonstrates how to do the following:
    by executing those Linux commands calling via a Linux script file.
 3) How to launch a Linux application (i.e., "gedit") via a Linux script file.
 
+
 import sys.process._
 import scala.util.Properties._
 
@@ -60,11 +61,6 @@ object Demo
     val osName = sys.props("os.name").toLowerCase // Obtain the name of the Operating System being used.
     if (osName contains "linux")
     {
-      // NOTE: When these two commands are executed (in the code below)...
-      //       command.!
-      //       command.!!
-      //       THE FIRST LINE OF TEXT THEY OUTPUT is text similar to this:  total 1660
-
       // Calling command.! executes the LINUX command(s) in the script.sh file,
       // sending its output to the terminal.
       command!
@@ -80,5 +76,4 @@ object Demo
     }
   }
 }
-
 ===========================================================================
