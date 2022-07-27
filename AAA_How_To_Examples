@@ -34,7 +34,9 @@ object Demo
 The following sample program demonstrates how to do the following:
 
 1) How to obtain the Scala version being used.
-2) How to execute Linux commands from a Scala program.
+2) How to execute Linux commands (i.e., "ls -la") from a Scala program
+   by executing those Linux commands calling via a Linux script file.
+3) How to launch a Linux application (i.e., "gedit") via a Linux script file.
 
 import sys.process._
 import scala.util.Properties._
@@ -52,6 +54,8 @@ object Demo
     // this text, which represents a LINUX command:  ls -la /home/tjb/Tom
     // Using the chmod LINUX command, you must set the script.sh file
     // to be an executable.
+    // NOTE: To launch a Linux application via a Scala program you
+    //       also place the launch command in the script.sh file.
     var command:Seq[String] = Seq("/home/tjb/Tom/script.sh") // script.sh contains the LINUX command(s).
     val osName = sys.props("os.name").toLowerCase // Obtain the name of the Operating System being used.
     if (osName contains "linux")
