@@ -34,11 +34,9 @@ object Demo
 The following sample program demonstrates how to do the following:
 
 1) How to obtain the Scala version being used.
-2) How to execute Linux commands (i.e., "ls -la") from a Scala program
-   by executing those Linux commands calling via a Linux script file.
-3) How to launch a Linux application (i.e., "gedit") via a Linux script file.
+2) How to execute a Linux sdript file from a Scala program.
 
-
+import scala.sys.SystemProperties
 import sys.process._
 import scala.util.Properties._
 
@@ -50,30 +48,50 @@ object Demo
     println(versionNumberString) // PRINTS: 2.12.14
     println(versionString)       // PRINTS: version 2.12.14
 
-    // Here we demonstrate how to run a LINUX command in a Scala program.
-    // In this example a file named script.sh is created, which contains
-    // this text, which represents a LINUX command:  ls -la /home/tjb/Tom
-    // Using the chmod LINUX command, you must set the script.sh file
-    // to be an executable.
-    // NOTE: To launch a Linux application via a Scala program you
-    //       also place the launch command in the script.sh file.
+    // Here we demonstrate how to run a LINUX script file from a Scala program.
+    // A Linux script file  can be used to run any Linux command(s) (i.e. "ls -la")
+    // and/or launch a program (i.e., gedit).  In this example we create a file
+    // named script.sh and then execute it.
     var command:Seq[String] = Seq("/home/tjb/Tom/script.sh") // script.sh contains the LINUX command(s).
     val osName = sys.props("os.name").toLowerCase // Obtain the name of the Operating System being used.
     if (osName contains "linux")
     {
-      // Calling command.! executes the LINUX command(s) in the script.sh file,
-      // sending its output to the terminal.
-      command!
+      // Calling command.! executes the Linux script.sh file, and sends its output to the terminal.
+      // That line is commented out here because we DON'T want to do that in this program.
+      // command!
 
-      // Calling command.!! executes the LINUX command(s) in the script.sh file,
-      // returning its result as a String.
-      var str:String = command.!!
-      println("\n" + str)
+      // Calling command.!! executes the Linux the script.sh file, returning its result as a String.
+      val str:String = command.!!
+
+      val filenames:Array[String] = getFilenames(str)
+      filenames.foreach(println)
+      val tmpDir = getTempDirectory()
+      println("tmpDir = " + tmpDir)
     }
     else
     {
       println("FAIL - Operating system is not Linux.")
     }
   }
+
+  def getFilenames(str:String):Array[String] =
+  {
+    // str contains all text returned by the "ls -la" Linux command.
+    // Store each line of that text into an Array[String]
+    var array:Array[String] = str.split('\n')
+
+    array = array.drop(3)  // The first 3 elements of array DON'T designate a filename, so drop them.
+    array = array.filter(_.startsWith("-"))  // Filter out all filenames that AREN'T regular files.
+    array
+  }
+
+  def getTempDirectory():String =
+  {
+    val sysProps:SystemProperties = new SystemProperties()
+    val tempDir:Option[String] = sysProps.get("java.io.tmpdir")
+    if (tempDir == None) "" else tempDir.get.toString
+  }
 }
+
+
 ===========================================================================
