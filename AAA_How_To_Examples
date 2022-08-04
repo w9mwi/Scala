@@ -73,11 +73,12 @@ object Demo
     pw.flush()
     pw.close()
 
-    // Execute the linux script file.
+    // Generate the "command" that'll execute the linux script file.
     var command:Seq[String] = Seq(scriptFilename)
 
+    // Execute the linux script file...
     // NOTE: Calling command.! executes the Linux script.sh file, sending its output to the terminal.
-    //       The following line is commented out because we DON'T want to do that in this program.
+    //       The following line is commented out because we DON'T want that behavior in this program.
     // command!
 
     // Calling command.!! executes the Linux script.sh file, returning its output to a String.
