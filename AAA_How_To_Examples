@@ -34,8 +34,9 @@ object Demo
 The following sample program demonstrates how to do the following:
 
 1) How to obtain the Scala version being used.
-2) How to execute a Linux sdript file from a Scala program.
+2) How to execute a Linux script file from a Scala program.
 
+import java.io.{File, PrintWriter}
 import scala.sys.SystemProperties
 import sys.process._
 import scala.util.Properties._
@@ -48,30 +49,41 @@ object Demo
     println(versionNumberString) // PRINTS: 2.12.14
     println(versionString)       // PRINTS: version 2.12.14
 
-    // Here we demonstrate how to run a LINUX script file from a Scala program.
-    // A Linux script file  can be used to run any Linux command(s) (i.e. "ls -la")
-    // and/or launch a program (i.e., gedit).  In this example we create a file
-    // named script.sh and then execute it.
-    var command:Seq[String] = Seq("/home/tjb/Tom/script.sh") // script.sh contains the LINUX command(s).
-    val osName = sys.props("os.name").toLowerCase // Obtain the name of the Operating System being used.
-    if (osName contains "linux")
-    {
-      // Calling command.! executes the Linux script.sh file, and sends its output to the terminal.
-      // That line is commented out here because we DON'T want to do that in this program.
-      // command!
-
-      // Calling command.!! executes the Linux the script.sh file, returning its result as a String.
-      val str:String = command.!!
-
-      val filenames:Array[String] = getFilenames(str)
-      filenames.foreach(println)
-      val tmpDir = getTempDirectory()
-      println("tmpDir = " + tmpDir)
-    }
-    else
+    val osName:String = sys.props("os.name").toLowerCase
+    if (false == osName.contains("linux"))
     {
       println("FAIL - Operating system is not Linux.")
+      return
     }
+    val tempDir = getTempDirectory()
+    if (tempDir == None)
+    {
+      println("FAIL - Temporary directory not found.")
+      return
+    }
+
+    // Create a linux script file in the temporary directory.
+    val scriptFilename:String = tempDir + "/" + "script.sh"
+    val scriptFile = new File(scriptFilename)
+
+    // Write linux command(s) to the script file.
+    val pw = new PrintWriter(scriptFile)
+    pw.print("ls -la /home/tjb\n")
+    scriptFile.setExecutable(true) // Sets the file's Linux user permission to executable.
+    pw.flush()
+    pw.close()
+
+    // Execute the linux script file.
+    var command:Seq[String] = Seq(scriptFilename)
+
+    // NOTE: Calling command.! executes the Linux script.sh file, sending its output to the terminal.
+    //       The following line is commented out because we DON'T want to do that in this program.
+    // command!
+
+    // Calling command.!! executes the Linux script.sh file, returning its output to a String.
+    val result:String = command.!!
+    println(result)
+    scriptFile.delete // Delete the linux script file.
   }
 
   def getFilenames(str:String):Array[String] =
@@ -92,6 +104,5 @@ object Demo
     if (tempDir == None) "" else tempDir.get.toString
   }
 }
-
 
 ===========================================================================
