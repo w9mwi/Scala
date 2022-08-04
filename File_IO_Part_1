@@ -35,18 +35,18 @@ object Demo
 
 ==========================================================================
 
-The following example shows how to read a text file with an Iterator,
+The following example shows how to read a text file using an Iterator,
 and print the file's contents to the console.  Because reading/writing
 files is very slow, you'll want to do all reading/writing in a single
-swoop.  This is why an Iterator gets "spent", because it's designed
-for efficiency.  If an Iterator was designed to be reusable, iterating
-through a file would be less efficient.  And, as was just stated,
-there is no good reason to iterate through a file more than once.
+swoop.  An Iterator gets "spent", because it's designed for efficiency.
+If an Iterator was designed to be reusable, iterating through a file
+would be less efficient.  There is usually no good reason to iterate
+through a file more than once, so using an Iterator is feasible.
 
 Just as the Array and List types are parametric (you can have
 List[String], List[Char], Array[Double], Array[Any], etc.),
-so are Iterators.  Source and BuferedSource are specifically
-Iterator[Char].
+Iterators also accept parametric types.  Source and BuferedSource
+are specifically Iterator[Char].
 
 import java.io.FileNotFoundException
 import scala.io.{BufferedSource, Source}
