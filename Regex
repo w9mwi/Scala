@@ -61,7 +61,7 @@ Boundaries — \b and \B
 \b represents an anchor like a caret (it’s the same as $ and ^ )
 matching position where one side is a word character (like \w)
 and the other side is not a word character (e.g. this string
-beginning may contain or a space character)
+beginning may contain a space character)
 
 
 Look-ahead and Look-behind — (?=) and (?<=)
