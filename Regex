@@ -1,5 +1,3 @@
-TABLE OF SCALA REGULAR EXPRESSION FORMATS
-=========================================
 
 The below table was copied from:
 https://blog.knoldus.com/how-to-use-regular-expression-in-scala
@@ -7,23 +5,25 @@ https://blog.knoldus.com/how-to-use-regular-expression-in-scala
 Also see this table for Scala regular expressions:
 https://www.geeksforgeeks.org/regular-expressions-in-scala/?ref=gcse
 
+TABLE OF SCALA REGULAR EXPRESSION FORMATS
+=========================================
 
 Anchors — ^ and $
 
-^a        matches any string that starts with a 
-b$        matches a string that ends with b
+^a      matches any string that starts with a 
+b$      matches a string that ends with b
 ^a b$   exact string match (starts and ends with a b)
 
 
 Quantifiers — * + ? and {}
 
-abc*    matches a string that has ab followed by zero or more c
-abc+    matches a string that has ab followed by one or more c
-abc?    matches a string that has ab followed by zero or one c
-abc{2}  matches a string that has ab followed by 2 c
-abc{2,} matches a string that has ab followed by 2 or more c
-a(bc)*  matches a string that has a followed by zero or more copies of the sequence bc
-a(bc)*  matches a string that has a followed by zero or more copies of the sequence bc
+abc*       matches a string that has ab followed by zero or more c
+abc+       matches a string that has ab followed by one or more c
+abc?       matches a string that has ab followed by zero or one c
+abc{2}     matches a string that has ab followed by 2 c
+abc{2,}    matches a string that has ab followed by 2 or more c
+a(bc)*     matches a string that has a followed by zero or more copies of the sequence bc
+a(bc)*     matches a string that has a followed by zero or more copies of the sequence bc
 a(bc){2,5} matches a string that has a followed by 2 up to 5 copies of the sequence bc
 
 
@@ -72,7 +72,6 @@ d(?=r)   matches a d only if is followed by r, but r will not be part of the ove
 =========================================================
 
 The following sample program demonstrates how to use Regex in Scala.
-
 
 import scala.util.matching.Regex
 
