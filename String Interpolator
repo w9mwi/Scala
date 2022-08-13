@@ -37,6 +37,8 @@ object Demo
 
     case class Person(name:String, age:Int) // First we define the Person class.
 
+    // NOTE: For more info about implicit classes see this web page:
+    //       https://github.com/w9mwi/Scala/blob/master/Class_Implicit
     implicit class PersonInterpolator(sc:StringContext)
     {
       // NOTE: args represents a variable number of arguments embedded in the string,
