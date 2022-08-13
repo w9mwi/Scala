@@ -1,0 +1,28 @@
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    // The following string interpolator (designated by "s") is common,
+    // and is used like this...
+    val pi = math.Pi
+    val sInterpolator:String = s"The value of PI = $pi"
+    println(sInterpolator) // PRINTS: The value of PI = 3.141592653589793
+
+    // A lesser-known string interpolator (designated by "raw") is used
+    // as follows.  Notice that "\n" usually designates a newline character,
+    // but when "\n" appears with the "raw" string interpolator interprets
+    // it not as a newline char, but as literal "\" and "n" chars.
+    val rawInterpolator:String = raw"The value of PI = $pi\n"
+    println(rawInterpolator) // PRINTS: The value of PI = 3.141592653589793\n
+
+    // Another lesser-known string interpolator (designated by "f") is
+    // used as follows.  The 10 designates the value will be 10 chars long.
+    // If the value is less than 10 chars long, it'll be padded with leading
+    // space (" ") chars.  The .3 designates a precision of 3 digits past the
+    // decimal point.
+    // NOTE:  See the following web page to learn about the related printf() function.
+    //        https://github.com/w9mwi/Scala/blob/65311adf36a9e99e39deadafc408cad0674fde41/printf_How_To_Use
+    val fInterpolator:String = f"The approx. value of PI = $pi%10.3f"
+    println(fInterpolator) // PRINTS: The approx. value of PI =      3.142
+  }
+}
