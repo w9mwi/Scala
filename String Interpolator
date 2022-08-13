@@ -8,10 +8,10 @@ object Demo
     val sInterpolator:String = s"The value of PI = $pi"
     println(sInterpolator) // PRINTS: The value of PI = 3.141592653589793
 
-    // A lesser-known string interpolator (designated by "raw") is used
-    // as follows.  Notice that "\n" usually designates a newline character,
-    // but when "\n" appears with the "raw" string interpolator interprets
-    // it not as a newline char, but as literal "\" and "n" chars.
+    // A lesser-known string interpolator (designated by "raw") is used as
+    // follows.  Notice when "\n" is embedded within a String it usually
+    // designates a newline character.  However, the "raw" string interpolator
+    // interprets "\n" not as a newline char, but as literal "\" and "n" chars.
     val rawInterpolator:String = raw"The value of PI = $pi\n"
     println(rawInterpolator) // PRINTS: The value of PI = 3.141592653589793\n
 
