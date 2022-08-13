@@ -14,6 +14,17 @@ A Scala class, case class, object or trait can extend ONLY ONE
 class/object, but they can all extend any number of traits.
 A trait can extend ONLY ONE class/object.
 
+sealed trait - When a Scala trait definition is preceded with the Scala keyword "sealed"
+               it means no other Scala file can extend that trait.  In other words,
+               a sealed trait can only be extended by the file that contains the
+               sealed trait definition.  Example:
+               
+               sealed trait Weather
+               case object Sunny  extends Weather
+               case object Windy  extends Weather
+               case object Rainy  extends Weather
+               case object Cloudy extends Weather
+
 Traits look nearly the same as a class.  However, just like objects,
 traits CAN'T take parameters.  (NOTE: In Scala 3, traits CAN take
 parameters.)  This is the syntax for defining a trait:
