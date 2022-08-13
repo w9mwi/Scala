@@ -1,3 +1,8 @@
+The following code demonstrates how to use the string interpolators
+defined in the Scala language ("s", "raw", and "f").  This code also
+defines a CUSTOM string interpolator that's named "person".
+
+
 object Demo
 {
   def main(args: Array[String]): Unit =
@@ -24,5 +29,42 @@ object Demo
     //        https://github.com/w9mwi/Scala/blob/65311adf36a9e99e39deadafc408cad0674fde41/printf_How_To_Use
     val fInterpolator:String = f"The approx. value of PI = $pi%10.3f"
     println(fInterpolator) // PRINTS: The approx. value of PI =      3.142
+
+    // *************************************************************************
+    // *************************************************************************
+    // Below we code a CUSTOM string interpolator, which will create a new
+    // Person class via a line of code similar to this:  person"Tom,64"
+
+    case class Person(name:String, age:Int) // First we define the Person class.
+
+    implicit class PersonInterpolator(sc:StringContext)
+    {
+      // NOTE: args represents a variable number of arguments embedded in the string,
+      //       which are always preceded by the '$' character.  See the above examples.
+      def person(args:Any*):Person =
+      {
+        // NOTE: val parts below represents the parts of the string BETWEEN the args.
+        //       Calling sc.parts() is NOT required to make this program work.  It's done
+        //       here only to show that a StringContext contains string(s) known as "parts".
+        val parts:Seq[String] = sc.parts
+
+        // The following call to sc.s() concats all the "parts"
+        // with all the "args" in the correct order.
+        val totalString:String = sc.s(args:_*)
+        val tokens:Array[String] = totalString.split(",")
+        Person(tokens(0), tokens(1).toInt)
+      }
+    }
+
+    // The following line of code generates a new Person class using
+    // the implicit class PersonInterpolator defined above.
+    val tom:Person = person"Tom,64"  // Calls the above PersonInterpolator.person() method.
+    println(tom) // PRINTS: Person(Tom,64)
+
+    // We can also generate a new Person class in this manner...
+    val name:String = "Joe"
+    val age:Int = 17
+    val joe:Person = person"$name,$age"  // Calls the above PersonInterpolator.person() method.
+    println(joe) // PRINTS: Person(Joe,17)
   }
 }
