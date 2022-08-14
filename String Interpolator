@@ -58,8 +58,6 @@ object Demo
       }
     }
 
-    // The following line of code generates a new Person class using
-    // the implicit class PersonInterpolator defined above.
     val tom:Person = person"Tom,64"  // Calls the above PersonInterpolator.person() method.
     println(tom) // PRINTS: Person(Tom,64)
 
