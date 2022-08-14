@@ -11,8 +11,8 @@ parameter list.  For example, the following 2 functions
 contain multiple parameter lists, which means these 2 functions
 are curried functions.
 
-def addXY_Curried(x)(y)     = { x + y }
-def addXYZ_Curried(x)(y)(z) = { x + y + z }
+def addXY_Curried(x:Int)(y:Int) = { x + y }
+def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
 
 Currying transforms a function into a chain of functions.  Where each
 function in the chain gets passed a single parameter list, and returns
@@ -36,7 +36,7 @@ FULLY-APPLIED FUNCTION
 When a curried function is called by passing ALL its parameter lists,
 it becomes a FULLY-APPLIED function, like this...
 
-def addXYZ_Curried(x)(y)(z) = { x + y + z }
+def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
 addXYZ_Curried(1)(2)(3) // This function call is a FULLY APPLIED curried function.
 
 
@@ -55,83 +55,38 @@ only one parameter list is defined, read the section below titled:
 
 When a curried function is called as a partially applied function
 a single underscore character (_) designates all parameter list(s)
-that aren't specified.  For example, the following 2 lines are
-partially applied function calls because the function calls don't
-include all 3 parameter lists:
-
-def addXYZ_Curried(x)(y)(z) = { x + y + z }
-addXYZ_Curried(1)_    // A partially applied function call.
-addXYZ_Curried(1)(2)_ // A partially applied function call.
-
-Curried functions can also be called as partially-applied functions
-without the underscore char (_) shown above.  So the underscore
-char (_) is OPTIONAL (not required), like this...
-
-def addXYZ_Curried(x)(y)(z) = { x + y + z }
-addXYZ_Curried(1)    // A partially applied function call.
-addXYZ_Curried(1)(2) // A partially applied function call.
+that aren't specified.
 
 The following sample code shows multiple examples of curried functions
 that get called as PARTIALLY-APPLIED and FULLY-APPLIED functions.
 ========================================================================================
+
 object Demo
 {
   def main(args: Array[String])
   {
-    // The following function is curried because its definition contains multiple parameter lists.
-    def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x + y + z }
+    def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
 
-    // *******************************************************************
-    // addXYZ_Curried is called here as a FULLY-APPLIED FUNCTION because
-    // all its parameter lists are supplied in a single function call.
-    var result:Int = addXYZ_Curried(1)(2)(3) // Adds 1 + 2 + 3
-    println("1) result = " + result) // PRINTS: 1) result = 6
+    // Here we call addXYZ_Curried()()() as a fully-applied function
+    // by passing it all 3 of its parameter lists at once...
+    var result = addXYZ_Curried(1)(2)(3)
+    println(s"1) result = $result") // PRINTS: 1) result = 6
 
-    // *******************************************************************
-    // addXYZ_Curried is called here as a PARTIALLY-APPLIED FUNCTION because
-    // it first gets called with FEWER than all its parameter lists.
-    // NOTE: When a curried function gets called with an underscore (_) char,
-    //       it gets called as a PARTIALLY-APPLIED FUNCTION.  The underscore
-    //       (_) char designates all parameter lists NOT SUPPLIED when the
-    //       curried function gets called.
-    var func1:(Int => (Int => Int)) = addXYZ_Curried(1)_ // PARTIALLY-APPLIED function call returns a function.
-    var func2:(Int => Int) = func1(2) // func1() returns a function.
-    result = func2(3) // func2() returns an Int.
-    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
-    println("2) result = " + result) // PRINTS: 2) result = 6
+    // Here we call addXYZ_Curried()()() 3 separate times, passing it
+    // one parameter list each time it's called.  The first two times
+    // it's called the function is partially applied.  The third time
+    // it's called the function is fully applied.
+    var func1:Int =>(Int => Int) = addXYZ_Curried(1)_  // The underscore char (_) is optional.
+    var func2:Int => Int = func1(2) // An underscore char after func1(2) WON'T COMPILE!
+    result = func2(3) // Fully applied.
+    println(s"2) result = $result") // PRINTS: 2) result = 6
 
-    // *******************************************************************
-    // addXYZ_Curried is called here as a PARTIALLY-APPLIED FUNCTION because
-    // it first gets called with FEWER than all its parameter lists.
-    func2 = addXYZ_Curried(1)(2)_ // PARTIALLY-APPLIED function call returns a function.
-    result = func2(3) // func2() returns an Int.
-    // Finally, we obtained the same result as calling: addXYZ_Curried(1)(2)(3)
-    println("3) result = " + result) // PRINTS: 3) result = 6
-
-    // *******************************************************************
-    // NOTE: The underscore char (_) is NOT REQUIRED to call a curried
-    //       function as a PARTIALLY-APPLIED function--it is OPTIONAL.
-    //       ABOVE we called these 2 functions using the underscore (_)
-    //       like this:
-    //       addXYZ_Curried(1)_
-    //       addXYZ_Curried(1)(2)_
-
-    //       BELOW we call those same 2 functions WITHOUT the underscore (_) char.
-    func1 = addXYZ_Curried(1) // PARTIALLY-APPLIED function call returns a function.
-    func2 = func1(2) // Returns a function.
-    result = func2(3) // Returns an Int.
-    println("4) result = " + result) // PRINTS: 4) result = 6
-
-    func2 = addXYZ_Curried(1)(2) // PARTIALLY-APPLIED function call.
-    result = func2(3) // Returns an Int.
-    println("5) result = " + result) // PRINTS: 5) result = 6
-
-    // *******************************************************************
-    // Here's a final example of going from partially applied to fully applied.
-    func1 = addXYZ_Curried(1)_ // The underscore (_) char is optional.
-    func2 = func1.apply(2)     // func1.apply(2) = func1(2)
-    result = func2.apply(3)    // func2.apply(3) = func2(3)
-    println("6) result = " + result) // PRINTS: 6) result = 6
+    // Here we call addXYZ_Curried()()() 2 separate times, passing it
+    // two parameter lists the first time it's called.  The third time
+    // it's called the function is fully applied.
+    func2 = addXYZ_Curried(1)(2)_ // The underscore char (_) is optional.
+    result = func2(3)
+    println(s"3) result = $result") // PRINTS: 3) result = 6
   }
 }
 
