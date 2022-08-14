@@ -1,7 +1,7 @@
 CURRYING
 ========
-In Scala, any function that returns a function that
-also accepts a parameter list is a curried function.
+In Scala, any function that returns a function which
+accepts a parameter list is a curried function.
 
 All Scala functions defined with multiple parameter lists are
 curried functions--EXCEPT when one of the parameter lists
@@ -140,31 +140,33 @@ object Demo
 DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
 ==========================================================
 
-Above we said that all Scala functions defined with multiple parmater lists
+Above we stated that all Scala functions defined with multiple parmater lists
 are curried functions--EXCEPT when one of the parameter lists includes an
-implicit argument, as is explained further below.  But the following
+implicit argument, as is explained further below.  However, the following
 is also true...
 
-A curried function that contains only one parameter list
-can be defined as a curried function, like this...
+A function that contains only one parameter list can be a curried function
+if it's defined like this...
 
-def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
+def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
 
-Even though this addXY_Curried() function is defined with only one
+Even though this addXY_Curried_1() function is defined with only one
 parameter list, it's a curried function because it returns a
-function that takes a parameter list.  Therefore, addXY_Curried()
+function that takes a parameter list.  Therefore, addXY_Curried_1()
 is not fully applied until it gets called with two (2) parameter
 lists, as is demonstrated in the sample code below.
 
 The sample code below defines the following two functions.
 
-1) def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
-2) def addCurried_2(x:Int)(y:Int)        = { x + y }
+1) def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
+2) def addXY_Curried_2(x:Int)(y:Int)       = { x + y }
 
 Both these functions have identical behavior, with this one exception:
 
-WON'T COMPILE:  addXY_Curried(5)_  // Calling it as addXY_Curried(5) will compile.
-WILL COMPILE:   addCurried_2(5)_   // Can be called as addCurried_2(5)_ or addCurried_2(5)
+This line of code WON'T compile:  addXY_Curried_1(5)_
+This line of code WILL compile:   addXY_Curried_2(5)_
+
+FYI, this line of code WILL also compile:  addXY_Curried_2(5)
 
 object Demo
 {
@@ -172,37 +174,38 @@ object Demo
   {
     // The following function is curried because its
     // definition contains multiple parameter lists.
-    def addXY_Curried(x:Int):(Int => Int) = { (y:Int) => x + y }
+    def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
 
     // ********************************************************************
-    // The following COMMENTED-OUT line won't compile because addXY_Curried
+    // The following COMMENTED-OUT line won't compile because addXY_Curried_1
     // is defined above with ONLY ONE parameter list.  Therefore, it CAN'T
-    // be called with an underscore char (_) replacing the second parameter
-    // list that second parameter doesn't exist in the definition.
-
-    // WON'T compile -->   addXY_Curried(5)_
+    // be called with an underscore char (_) replacing the remaining parameter
+    // list(s), as the definition contains only one parameter list.
+    //
+    // WON'T compile:  addXY_Curried_1(5)_
 
     // *******************************************************************
-    // The below code samples show several ways of calling addXY_Curried
-    // function, and the equivalent addCurried_2 function.
+    // The below code samples show several ways of calling addXY_Curried_1
+    // function, and the equivalent addXY_Curried_2 function.
     // *******************************************************************
-    var result:Int = addXY_Curried(5)(2) // 5 + 2 = 7
+    var result:Int = addXY_Curried_1(5)(2) // 5 + 2 = 7
     println("1) result = " + result) // PRINTS: 1) result = 7
 
     // Here we obtain the result identical to above, in a different way.
-    var func1:(Int => Int) = addXY_Curried(5)
-    result = func1(2) // 5 + 2 = 7
+    var func:(Int => Int) = addXY_Curried_1(5)
+    result = func(2) // 5 + 2 = 7
     println("2) result = " + result) // PRINTS: 2) result = 7
 
-    // The addCurried_2 function defined below is an alternative way of
-    // writing the above addXY_Curried function to obtain identical behavior.
-    def addCurried_2(x:Int)(y:Int) = { x + y }
+    // The addXY_Curried_2 function defined below is an alternative way of
+    // writing the above addXY_Curried_1 function to obtain identical behavior.
+    def addXY_Curried_2(x:Int)(y:Int) = { x + y }
 
-    func1 = addCurried_2(5)_ // The underscore char (_) here is optional.
-    result = func1(2) // 5 + 2 = 7
+    func = addXY_Curried_2(5)_ // The underscore char (_) here is optional.
+    result = func(2) // 5 + 2 = 7
     println("3) result = " + result) // PRINTS: 3) result = 7
   }
 }
+
 
 ========================================================================================
 
