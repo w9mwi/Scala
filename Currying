@@ -42,10 +42,11 @@ addXYZ_Curried(1)(2)(3) // This function call is a FULLY APPLIED curried functio
 
 PARTIALLY-APPLIED FUNCTION
 ==========================
+A PARTIALLY-APPLIED function returns a function that takes a parameter list.
+
 When a curried function gets called with fewer than all its parameter
-lists, it's a PARTIALLY-APPLIED function.  A PARTIALLY-APPLIED function
-returns a function that takes a parameter list.  When a PARTIALLY-APPLIED
-FUNCTION is called with its final parameter list, it becomes FULLY-APPLIED,
+lists, it's a PARTIALLY-APPLIED function. When a PARTIALLY-APPLIED
+FUNCTION is called with all of its parameter list, it becomes FULLY-APPLIED,
 and returns a final value.
 
 It's possible to define a curried function that contains only one parameter
