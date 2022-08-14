@@ -51,7 +51,7 @@ and returns a final value.
 It's possible to define a curried function that contains only one parameter
 list in its definition.  To see an example of how a curried function containing
 only one parameter list is defined, read the section below titled:
-"DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST".
+"DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST"
 
 When a curried function is called as a partially applied function
 a single underscore character (_) designates all parameter list(s)
