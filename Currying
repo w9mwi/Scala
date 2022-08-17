@@ -69,25 +69,25 @@ object Demo
   {
     def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
 
-    // Here we call addXYZ_Curried()()() as a fully-applied function
-    // by passing it all 3 of its parameter lists at once...
-    var result = addXYZ_Curried(1)(2)(3)
+    // Here we call addXYZ_Curried()()() by passing it all 3 of its
+    // parameter lists at once, thus making it a fully-applied function.
+    var result = addXYZ_Curried(1)(2)(3) // The function is fully applied.
     println(s"1) result = $result") // PRINTS: 1) result = 6
 
     // Here we call addXYZ_Curried()()() 3 separate times, passing it
     // one parameter list each time it's called.  The first two times
     // it's called the function is partially applied.  The third time
-    // it's called the function is fully applied.
+    // it's called the function becomes fully applied.
     var func1:Int =>(Int => Int) = addXYZ_Curried(1)_  // The underscore char (_) is optional.
     var func2:Int => Int = func1(2) // An underscore char after func1(2) WON'T COMPILE!
-    result = func2(3) // Fully applied.
+    result = func2(3) // The function is fully applied.
     println(s"2) result = $result") // PRINTS: 2) result = 6
 
-    // Here we call addXYZ_Curried()()() 2 separate times, passing it
-    // two parameter lists the first time it's called.  The third time
-    // it's called the function is fully applied.
+    // Here we call addXYZ_Curried()()() 2 separate times The first time it's
+    // called we pass it two parameter lists, so it's partially applied.
+    // The third (and last time) it's called, function becomes fully applied.
     func2 = addXYZ_Curried(1)(2)_ // The underscore char (_) is optional.
-    result = func2(3)
+    result = func2(3) // The function is now fully applied.
     println(s"3) result = $result") // PRINTS: 3) result = 6
   }
 }
