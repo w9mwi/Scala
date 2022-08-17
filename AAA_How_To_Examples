@@ -61,9 +61,10 @@ object Demo
       println("FAIL - Temporary directory not found.")
       return
     }
+    println("====================================")
 
     // Create a linux script file in the temporary directory.
-    val scriptFilename:String = tempDir + "/" + "script.sh"
+    val scriptFilename:String = tempDir + "/" + "linuxScriptTester.sh"
     val scriptFile = new File(scriptFilename)
 
     // Write linux command(s) to the script file.
@@ -77,25 +78,31 @@ object Demo
     var command:Seq[String] = Seq(scriptFilename)
 
     // Execute the linux script file...
-    // NOTE: Calling command.! executes the Linux script.sh file, sending its output to the terminal.
+    // NOTE: Calling command.! executes the linuxScriptTester.sh file, sending its output to the terminal.
     //       The following line is commented out because we DON'T want that behavior in this program.
     // command!
-
-    // Calling command.!! executes the Linux script.sh file, returning its output to a String.
-    val result:String = command.!!
-    println(result)
+    //
+    // Calling command.!! executes the Linux linuxScriptTester.sh file, and returns the result as a String.
+    val filesInfo:String = command.!!
     scriptFile.delete // Delete the linux script file.
+
+    // Obtain the filenames from the "ls -la" command in the linuxScriptTester.sh file.
+    val fileNames:Array[String] = getFilenames(filesInfo)
+    println(fileNames.mkString)
   }
 
-  def getFilenames(str:String):Array[String] =
+  def getFilenames(filesInfo:String):Array[String] =
   {
-    // str contains all text returned by the "ls -la" Linux command.
-    // Store each line of that text into an Array[String]
-    var array:Array[String] = str.split('\n')
-
-    array = array.drop(3)  // The first 3 elements of array DON'T designate a filename, so drop them.
-    array = array.filter(_.startsWith("-"))  // Filter out all filenames that AREN'T regular files.
-    array
+    var tempArray:Array[String] = filesInfo.split("\n")
+    // The first 3 lines returned by "ls -la" aren't filenames, so drop them.
+    tempArray = tempArray.drop(3)
+    // Obtain only regular file names, not directories, etc.
+    tempArray = tempArray.filter(x => x.startsWith("-"))
+    // Strip leading chars off the strings, leaving only the filenames.
+    tempArray = for ( x <- tempArray) yield x.substring(44) + "\n"
+    // Remove the invisible files, which have filenames beginning with the period "." char.
+    tempArray = tempArray.filter(x => !x.startsWith("."))
+    tempArray
   }
 
   def getTempDirectory():String =
