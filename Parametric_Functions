@@ -11,9 +11,17 @@ with the Numeric.plus() method.
 
 object Demo
 {
-  // This add()() function allows two numbers of different types to be added.
-  // The returned type will be "upcast" to the highest of the two types.
-  // For example, adding a Byte to a Double requires the result to be a Double.
+  // The following add()() function is defined with two (2) parameter lists,
+  // which usually means it's a curried function.  However, because its
+  // second  parameter list contains an implicit argument, it's NOT a
+  // curried function.  The Scala compiler automatically invokes the
+  // implicit parameter when the add()() function is called with only
+  // one of its two parameter lists.
+  //
+  // This code shows how to define an add function so it will work with
+  // different data types (Byte, Int, Long, Float, Double).  The returned
+  // data type will be "upcast" to the highest of the two data types passed
+  // to the function.
   def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
 
   def main(args:Array[String]): Unit =
