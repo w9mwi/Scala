@@ -1,8 +1,8 @@
 CURRYING
 ========
 In Scala, a curried function is defined as:
-Any function that returns a function which accepts
-a single parameter list.
+Any function that returns a function, where the
+returned function accepts a single parameter list.
 
 All Scala functions defined with multiple parameter lists are
 curried functions--EXCEPT when one of the parameter lists
@@ -96,7 +96,7 @@ def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
 
 Even though this addXY_Curried_1() function is defined with only one
 parameter list, it's a curried function because it returns a
-function that takes a parameter list.  Therefore, addXY_Curried_1()
+function that takes a single parameter list.  Therefore, addXY_Curried_1()
 is not fully applied until it gets called with two (2) parameter
 lists, as is demonstrated in the sample code below.
 
@@ -105,12 +105,17 @@ The sample code below defines the following two functions.
 1) def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
 2) def addXY_Curried_2(x:Int)(y:Int)       = { x + y }
 
-Both these functions have identical behavior, with this one exception:
+Both these functions have IDENTICAL BEHAVIOR, with this one exception:
 
 This line of code WON'T compile:  addXY_Curried_1(5)_
 This line of code WILL compile:   addXY_Curried_2(5)_
 
-FYI, this line of code WILL also compile:  addXY_Curried_2(5)
+addXY_Curried_1(5)_ won't compile because the definition
+of addXY_Curried_1() contains only one parameter list.
+
+addXY_Curried_2(5)_ will compile because the definition
+of addXY_Curried_2()() contains two parameter lists.
+
 
 object Demo
 {
@@ -150,6 +155,52 @@ object Demo
   }
 }
 
+========================================================================================
+
+When a function definition contains multiple parameter lists, that function
+is generally a curried function, but not always!  There is an exception...
+
+When a function definition contains multiple parameter lists, and one
+of those parameter lists contains an implicit argument, that function
+is NOT a curried function.
+
+In the sample code below the add()() function contains two parameter lists,
+but it's NOT a curried function because the second parameter list contains
+an implicit argument.  An implicit argument means that when the function is
+called without supplying that argument, Scala supplies that argument automatically,
+and the function returns a final value.
+
+object Demo
+{
+  // The following add()() function is defined with two (2) parameter lists,
+  // which usually means it's a curried function.  However, because its
+  // second  parameter list contains an implicit argument, it's NOT a
+  // curried function.  The Scala compiler automatically invokes the
+  // implicit parameter when the add()() function is called with only
+  // one of its two parameter lists.
+  //
+  // This code shows how to define an add function so it will work with
+  // different data types (Byte, Int, Long, Float, Double).  The returned
+  // data type will be "upcast" to the highest of the two data types passed
+  // to the function.
+  def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
+
+  def main(args:Array[String]): Unit =
+  {
+    val myByte:Byte     = 123
+    val myInt:Int       = 456
+    val myLong:Long     = 999999999L
+    val myFloat:Float   = 876.543F
+    val myDouble:Double = 1234567.890123D
+
+    println("add(myByte, myInt)     = " + add(myByte, myInt))     // PRINTS: add(myByte, myInt)     = 579
+    println("add(myInt, myLong)     = " + add(myInt, myLong))     // PRINTS: add(myInt, myLong)     = 1000000455
+    println("add(myLong, myFloat)   = " + add(myLong, myFloat))   // PRINTS: add(myLong, myFloat)   = 1.0000009E9
+    println("add(myFloat, myDouble) = " + add(myFloat, myDouble)) // PRINTS: add(myFloat, myDouble) = 1235444.433152785
+    println("add(myByte, myDouble)  = " + add(myByte, myDouble))  // PRINTS: add(myByte, myDouble)  = 1234690.890123
+    println("add(myInt, myFloat)    = " + add(myInt, myFloat))    // PRINTS: add(myInt, myFloat)    = 1332.543
+  }
+}
 
 ========================================================================================
 
@@ -178,44 +229,6 @@ object Demo
     func = sum2(5)(10) // sum2()() is partially applied.
     result = func(20)  // sum2()() is fully applied.
     println(s"2) result = $result") // PRINTS: 2) result = 35
-  }
-}
-
-========================================================================================
-
-There is an exception when a function defined with multiple parameter
-lists is NOT a curried function!...
-
-In the sample code below the add()() function contains two parameter lists,
-but it's NOT a curried function because the second parameter list is defined
-to contain an implicit argument.  An implicit argument means that when the
-function is called without supplying that argument, Scala supplies that
-argument automatically, and the function returns a final value.  Recall that
-when a curried function is called with fewer than all its parameter lists,
-it returns a function that takes a parameter list--not a final value.  Therefore,
-the add()() function in the following sample code is NOT a curried function.
-
-object Demo
-{
-  // This add()() function allows two numbers of different types to be added.
-  // The returned type will be "upcast" to the highest of the two types.
-  // For example, adding a Byte to a Double requires the result to be a Double.
-  def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
-
-  def main(args:Array[String]): Unit =
-  {
-    val myByte:Byte     = 123
-    val myInt:Int       = 456
-    val myLong:Long     = 999999999L
-    val myFloat:Float   = 876.543F
-    val myDouble:Double = 1234567.890123D
-
-    println("add(myByte, myInt)     = " + add(myByte, myInt))     // PRINTS: add(myByte, myInt)     = 579
-    println("add(myInt, myLong)     = " + add(myInt, myLong))     // PRINTS: add(myInt, myLong)     = 1000000455
-    println("add(myLong, myFloat)   = " + add(myLong, myFloat))   // PRINTS: add(myLong, myFloat)   = 1.0000009E9
-    println("add(myFloat, myDouble) = " + add(myFloat, myDouble)) // PRINTS: add(myFloat, myDouble) = 1235444.433152785
-    println("add(myByte, myDouble)  = " + add(myByte, myDouble))  // PRINTS: add(myByte, myDouble)  = 1234690.890123
-    println("add(myInt, myFloat)    = " + add(myInt, myFloat))    // PRINTS: add(myInt, myFloat)    = 1332.543
   }
 }
 
