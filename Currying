@@ -1,7 +1,8 @@
 CURRYING
 ========
-In Scala, any function that returns a function which
-accepts a parameter list is a curried function.
+In Scala, a curried function is defined as:
+Any function that returns a function which accepts
+a single parameter list.
 
 All Scala functions defined with multiple parameter lists are
 curried functions--EXCEPT when one of the parameter lists
@@ -16,51 +17,37 @@ def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
 
 Currying transforms a function into a chain of functions.  Where each
 function in the chain gets passed a single parameter list, and returns
-either a function (that also accepts a parameter list), or a final value.
+a function that accepts a single parameter list.  When a curried function
+is finally called with its last (of multiple) parameter lists, the
+curried function becomes fully applied, and returns NOT a function,
+but a final value.
 
-A Scala curried function has these two (2) criteria:
+Whenever a Scala curried function is called, the function is either
+partially applied, or fully applied.  Here are the definitions:
 
-1) Calling a curried function with FEWER than all its parameter
-   lists is a PARTIALLY-APPLIED FUNCTION because it RETURNS A
-   FUNCTION instead of a final value.  The returned function
-   also takes a parameter list.
+1) PARTIALLY APPLIED - Calling a curried function with fewer than
+   all its parameter lists means that function is partially applied,
+   because it returns a function which accepts a single parameter list.
 
-2) When a curried function is called with the last of its
-   multiple parameter lists, it returns a final value, not
-   a function.  This makes the curried function a FULLY-APPLIED
-   FUNCTION.
+   When a curried function is called as a partially applied function
+   an OPTIONAL underscore character (_) at the end of its parameter
+   list(s) designates all parameter list(s) that aren't specified.
 
+   It's possible to define a curried function that contains only
+   one parameter list in its fuction definition.  To see an example
+   of how a curried function containing only one parameter list in
+   its definition is defined, read the section further below titled:
+   "DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST"
 
-FULLY-APPLIED FUNCTION
-======================
-When a curried function is called by passing ALL its parameter lists,
-it becomes a FULLY-APPLIED function, like this...
+2) FULLY APPLIED - When a curried function is called with the last
+   of its multiple parameter lists, it returns a final value, not
+   a function.  This makes the curried function fully applied.
 
-def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
-addXYZ_Curried(1)(2)(3) // This function call is a FULLY APPLIED curried function.
+The following code sample shows how to call a curried function
+as fully applied and partially applied.  It also shows how to
+call a partially applied function with the OPTIONAL underscore
+character (_) at the end of the parameter list(s).
 
-
-PARTIALLY-APPLIED FUNCTION
-==========================
-A PARTIALLY-APPLIED function is a function that returns a function
-which takes a single parameter list.
-
-When a curried function gets called with fewer than all its parameter
-lists, it's a PARTIALLY-APPLIED function.  When a PARTIALLY-APPLIED
-FUNCTION is called with all of its parameter list, it becomes
-FULLY-APPLIED and returns a final value.
-
-It's possible to define a curried function that contains only one parameter
-list in its definition.  To see an example of how a curried function containing
-only one parameter list is defined, read the section below titled:
-"DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST"
-
-When a curried function is called as a partially applied function
-a single underscore character (_) designates all parameter list(s)
-that aren't specified.
-
-The following sample code shows multiple examples of curried functions
-that get called as PARTIALLY-APPLIED and FULLY-APPLIED functions.
 ========================================================================================
 
 object Demo
@@ -83,7 +70,7 @@ object Demo
     result = func2(3) // The function is fully applied.
     println(s"2) result = $result") // PRINTS: 2) result = 6
 
-    // Here we call addXYZ_Curried()()() 2 separate times The first time it's
+    // Here we call addXYZ_Curried()()() 2 separate times.  he first time it's
     // called we pass it two parameter lists, so it's partially applied.
     // The third (and last time) it's called, function becomes fully applied.
     func2 = addXYZ_Curried(1)(2)_ // The underscore char (_) is optional.
