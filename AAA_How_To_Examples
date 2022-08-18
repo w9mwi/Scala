@@ -99,7 +99,7 @@ object Demo
     // Obtain only regular file names, not directories, etc.
     tempArray = tempArray.filter(x => x.startsWith("-"))
     // Strip leading chars off the strings, leaving only the filenames.
-    tempArray = for ( x <- tempArray) yield x.substring(44) + "\n"
+    tempArray = for (x <- tempArray) yield x.substring(44) + "\n"
     // Remove the invisible files, which have filenames beginning with the period "." char.
     tempArray = tempArray.filter(x => !x.startsWith("."))
     tempArray
