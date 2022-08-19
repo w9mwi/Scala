@@ -74,7 +74,7 @@ object Demo
     printNumberAsRanking(25)   // PRINTS:  25 = 25th
     printNumberAsRanking(99)   // PRINTS:  99 = 99th
     printNumberAsRanking(100)  // PRINTS: 100 = 100th
-    printNumberAsRanking(101)  // PRINTS: 101 = 101th
+    printNumberAsRanking(101)  // PRINTS: 101 = 101st
     printNumberAsRanking(102)  // PRINTS: 102 = 102nd
     printNumberAsRanking(103)  // PRINTS: 103 = 103rd
     printNumberAsRanking(104)  // PRINTS: 104 = 104th
