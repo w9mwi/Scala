@@ -1,10 +1,13 @@
 
 
+
 object Demo
 {
+  case class Person(name:String, age:Int)
+
   def main(args: Array[String]): Unit =
   {
-    // *****************************************************
+    // ***************************************************************
     // Call the listMatcher() function with the List[Int] data type...
     var list:List[Int] = Nil
     listMatcher(list) // PRINTS: 1) intList = Nil = List()
@@ -26,8 +29,8 @@ object Demo
     listMatcher(list) // PRINTS: 6) head = 44,  tail = List()
     println("================================")
 
-    // *****************************************************
-    // Call the anyMatcher() function with the "Any" data type...
+    // **********************************************************
+    // Call the anyMatcher() function with the Any data type...
     var anyValue:Any = BigInt("98765432101234567890")
     anyMatcher(anyValue) // PRINTS: 1) anyValue = 98765432101234567890
     anyValue = List()
@@ -36,8 +39,45 @@ object Demo
     anyMatcher(anyValue) // PRINTS: 3) anyValue = Array()
     anyValue = Vector(List(1,2,3), Array('X', 'Y', 'Z'), 777)
     anyMatcher(anyValue) // PRINTS: 4) anyValue = Vector(List(1, 2, 3), [C@23a5fd2, 777)
+    anyValue = Person("Jack", 13)
+    anyMatcher(anyValue) // PRINTS: 5) Jack is 13 years old.
     anyValue = Array("ABC", "DEF", "UVW", "XYZ")
-    anyMatcher(anyValue) // PRINTS: 5) anyValue is unknown
+    anyMatcher(anyValue) // PRINTS: 6) anyValue doesn't match one of the coded data types.
+    println("================================")
+
+    // *******************************************
+    printNumberAsRanking(0)    // PRINTS: 0 = 0th
+    printNumberAsRanking(1)    // PRINTS:  1 = 1st
+    printNumberAsRanking(2)    // PRINTS:  2 = 2nd
+    printNumberAsRanking(3)    // PRINTS:  3 = 3th
+    printNumberAsRanking(4)    // PRINTS:  4 = 4th
+    printNumberAsRanking(5)    // PRINTS:  5 = 5th
+    printNumberAsRanking(6)    // PRINTS:  6 = 6th
+    printNumberAsRanking(7)    // PRINTS:  7 = 7th
+    printNumberAsRanking(8)    // PRINTS:  8 = 8th
+    printNumberAsRanking(9)    // PRINTS:  9 = 9th
+    printNumberAsRanking(10)   // PRINTS: 10 = 10th
+    printNumberAsRanking(11)   // PRINTS: 11 = 11th
+    printNumberAsRanking(12)   // PRINTS: 12 = 12th
+    printNumberAsRanking(13)   // PRINTS: 13 = 13th
+    printNumberAsRanking(14)   // PRINTS: 14 = 14th
+    printNumberAsRanking(15)   // PRINTS: 15 = 15th
+    printNumberAsRanking(16)   // PRINTS: 16 = 16th
+    printNumberAsRanking(17)   // PRINTS: 17 = 17th
+    printNumberAsRanking(18)   // PRINTS: 18 = 18th
+    printNumberAsRanking(19)   // PRINTS: 19 = 19th
+    printNumberAsRanking(20)   // PRINTS: 20 = 20th
+    printNumberAsRanking(21)   // PRINTS: 21 = 21st
+    printNumberAsRanking(22)   // PRINTS: 22 = 22nd
+    printNumberAsRanking(23)   // PRINTS: 23 = 23rd
+    printNumberAsRanking(24)   // PRINTS: 24 = 24th
+    printNumberAsRanking(25)   // PRINTS: 25 = 25th
+    printNumberAsRanking(99)   // PRINTS: 99 = 99th
+    printNumberAsRanking(100)  // PRINTS: 100 = 100th
+    printNumberAsRanking(101)  // PRINTS: 101 = 101th
+    printNumberAsRanking(102)  // PRINTS: 102 = 102nd
+    printNumberAsRanking(103)  // PRINTS: 103 = 103rd
+    printNumberAsRanking(104)  // PRINTS: 104 = 104th
   }
 
   def listMatcher(intList:List[Int]):Unit = {
@@ -57,15 +97,29 @@ object Demo
 
   def anyMatcher(anyValue:Any):Unit = {
     anyValue match {
-      case _:BigInt => println(s"1) anyValue = $anyValue")
-      case Nil      => println("2) anyValue = Nil = List()")
-      case Array()  => println("3) anyValue = Array()")
+      case _: BigInt => println(s"1) anyValue = $anyValue")
+      case Nil => println("2) anyValue = Nil = List()")
+      case Array() => println("3) anyValue = Array()")
       case Vector(List(_, 2, 3), _, 777) => println(s"4) anyValue = $anyValue")
-      case _       => println("5) anyValue is unknown")
+      case Person(n, a) => println(s"5) $n is $a years old.")
+      case _ => println("6) anyValue doesn't match one of the coded data types.")
+    }
+  }
+
+  def printNumberAsRanking(number:Int):Unit = {
+    println(s"$number = ${numberRankMatcher(number)}")
+  }
+
+  def numberRankMatcher(number:Int):String = {
+    number match {
+      case x if ((x % 10 == 0) || (x > 9 && x < 15)) => (number + "th")
+      case x if (x % 10 == 1) => (number + "st")
+      case x if (x % 10 == 2) => (number + "nd")
+      case x if (x % 10 == 3) => (number + "rd")
+      case _ => (number + "th")
     }
   }
 }
-
 
 
 ========================================================================================
