@@ -1,4 +1,7 @@
 
+The following sample programs demonstrate many variations on
+how to use Scala's "match" keyword with a case statement to
+perform pattern matching.  Read in-line comments for details.
 
 
 object Demo
@@ -167,6 +170,8 @@ object Demo
 
 ==================================================================================
 
+THE FOLLOWING PROGRAM IS OLD JUNK THAT WILLPROBABLY BE DELETED LATER.
+
 object Demo
 {
   trait Computer
@@ -217,6 +222,8 @@ object Demo
 }
 
 ==================================================================================
+
+THE FOLLOWING PROGRAM IS OLD JUNK THAT WILLPROBABLY BE DELETED LATER.
 
 It's possible to perfom pattern matching without using the "match" keyword,
 by using a single case statement, as shown in the following code...
