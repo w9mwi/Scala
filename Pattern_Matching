@@ -121,72 +121,46 @@ object Demo
   }
 }
 
-
-========================================================================================
-========================================================================================
-========================================================================================
-========================================================================================
-
 ==================================================================================
 
 object Demo
 {
-  // By default, a case class's parameters are val types (when you don't specify
-  // a val/var type), so they can NOT be changed.  The following CaseClassDemo
-  // class has its params declared as var types, so they CAN be changed--even
-  // if the instance of CaseClassDemo is declared a val.
-  case class CaseClassDemo(var str:String, var integer:Int, var float:Float)
-
-  // NOTE: The Email, SMS, VoiceRecording, and TrashNotify case classes declarations
-  //       below all extend the Notification class, which is an abstract class.
-  //       Therefore, these 4 case classes can be treated as a Notification class.
+  // NOTICE: The Email, SMS, VoiceRecording, and MorseCodeNotify case classes declarations
+  //         below all extend the Notification class, which is an abstract class.
+  //         Therefore, these 4 case classes can be treated as a Notification class.
   abstract class Notification
   case class Email(sender:String, title:String, body:String) extends Notification
-  case class SMS(caller:String, message:String) extends Notification
+  case class SMS(caller:String, message:String)              extends Notification
   case class VoiceRecording(contactName:String, link:String) extends Notification
-  case class TrashNotify() extends Notification
+  case class MorseCodeNotify()                               extends Notification
 
   def main(args: Array[String])
   {
-    val myClass1 = CaseClassDemo("Tom", 321, 56.789F)
-    println("myClass1.str = "        + myClass1.str +
-            ",  myClass1.integer = " + myClass1.integer +
-            ",  myClass1.float = "   + myClass1.float)
+    // We now demonstrate how to pattern match on the 4 case classes defined above.
+    // Because all 4 of those case classes extend the Notification abstract class,
+    // we can pass these classes as an argument to the showNotification() method
+    // below, as type Notification.
+    val emailNotify:Email               = Email("Sender Bender", "Titletown, USA", "Hi.  See you later.")
+    val smsNotify:SMS                   = SMS("12345", "Are you there?")
+    val voiceNotify:VoiceRecording      = VoiceRecording("Tom", "www.420.com")
+    val morseCodeNotify:MorseCodeNotify = MorseCodeNotify()
 
-    // NOTE: Even though myClass1 is a val type, notice that we can alter its member
-    //       values here cuz the parameters of CaseClassDemo are declared as var.
-    myClass1.str     = "Jim"
-    myClass1.integer = 666
-    myClass1.float   = 345.67F
-    println("myClass1.str = "        + myClass1.str +
-            ",  myClass1.integer = " + myClass1.integer +
-            ",  myClass1.float = "   + myClass1.float)
+    println
 
-    // We now show how case classes are used for pattern matching.  The following
-    // 4 classes were all defined (above) as subclasses of the Notification class.
-    // Therefore, all 4 of these classes can be considered a Notification class,
-    // and therefore can be used to match on the Notification class in the
-    // showNotification function below.
-    val someEmail:Email = Email("Sender Bender", "Titletown, USA", "Hi.  See you later.")
-    val someSms:SMS = SMS("12345", "Are you there?")
-    val someVoiceRecording:VoiceRecording = VoiceRecording("Tom", "www.420.com")
-    val someTrash:TrashNotify = TrashNotify()
-
-    println()
-    println(showNotification(someTrash))
-    println(showNotification(someVoiceRecording))
-    println(showNotification(someEmail))
-    println(showNotification(someSms))
+    println(showNotification(morseCodeNotify))
+    println(showNotification(voiceNotify))
+    println(showNotification(emailNotify))
+    println(showNotification(smsNotify))
   }
 
   def showNotification(notification:Notification):String =
   {
     notification match
     {
-      case Email(email, title, _) => s"You have an email from $email with title: $title"
-      case SMS(number, message) =>  s"You have an SMS from $number! Message: $message"
-      case VoiceRecording(name, link) =>  s"You received a Voice Recording from $name!  To hear it, click: $link"
-      case _ => s"This is some other type of Notification message--trash it!"
+      case Email(email, title, _)     => s"You have an email from $email with title: $title"
+      case SMS(number, message)       =>  s"You have an SMS from $number! Message: $message"
+      case VoiceRecording(name, link) =>  s"You received a Voice Recording from $name!  To hear it, click on: $link"
+      case _                          => "This is an unknown Notification message."
     }
   }
 }
