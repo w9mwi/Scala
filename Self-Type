@@ -1,6 +1,11 @@
-Scala contains systax that designates a "self type."
-Read in-line comments in the following sample code
-to understand this concept.
+A Scala trait can define itself as a "self type".  When a Scala trait defines
+itself as a "self type", it means it can be inherited ONLY by the class name
+designated in the self type declaration.  When a Scala trait is defined as a
+self type, the following criteria is met.
+
+
+=====================================
+
 
 import java.awt.Color
 
