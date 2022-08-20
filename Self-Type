@@ -38,7 +38,7 @@ ANSWER:   The following code sample and comments describe the difference.
 
           // The following line WON'T COMPILE because Cat doesn't inherit from Person.
           // (Diet requires that Cat must be a Person.)
-          trait Cat extends Diet
+          trait Cat extends Diet // WON'T COMPILE!
 
 ===================================================================
 
