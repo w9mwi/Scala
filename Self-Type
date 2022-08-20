@@ -1,12 +1,12 @@
 A Scala trait can define itself as a "self type".  When a Scala trait defines
-itself as a "self type", it means it can be inherited ONLY by the class name
-designated in the self type declaration.
+itself as a "self type", it means it can be inherited ONLY by the class/trait/object
+name designated in the self type declaration.
 
 When a Scala trait is defined as a self type, the following 3) criteria are met.
 
 1) The first line of code inside the trait must be the self type declaration.
 2) The self type declaration USUALLY begins with the text "this:" or "self:",
-   followed by the class name, a space char., ending with the rocket symbol "=>".
+   followed by the trait/class name, a space char., ending with the rocket symbol "=>".
    NOTE: A self type declaration DOESN'T need to begin with "this:" or "self:".
          It can begin with any text you want followed by the colon (:) character,
          such as "blue:", "wet:", "joe:", etc.  However, it's recommended that
@@ -15,29 +15,35 @@ When a Scala trait is defined as a self type, the following 3) criteria are met.
    that can inherit from the trait.
 
 QUESTION: What's the fundamental difference between inheritance and a self type?
-ANSWER:   The comments in the following trait declarations describe the diference
+ANSWER:   The following code sample and comments describe the difference.
 
           trait Animal
-          trait Dog extends Animal // This means a Dog IS an Animal.
+          trait Dog extends Animal // This is INHERITANCE, which means a Dog IS an Animal.
+
           trait Person
           trait Diet {
-            self:Person => // This means a Diet REQUIRES a Person.
+            this:Person => // This is a SELF TYPE, which means a Diet REQUIRES a Person.
+                           // In other words, ONLY a Person can inherit from Diet.
           }
+
+          // The following 3 lines WILL COMPILE, even though they may not make logical sense.
+          trait  JetAircraft extends Dog
+          class  Automobile  extends Dog
+          object Hamburger   extends Dog
+
+          // The following 2 lines WILL COMPILE because both Boy and Girl inherit from Person.
+          // (Diet requires that Boy and Girl must be a Person.)
+          trait Boy  extends Person with Diet
+          trait Girl extends Diet   with Person
+
+          // The following line WON'T COMPILE because Cat doesn't inherit from Person.
+          // (Diet requires that Cat must be a Person.)
+          trait Cat extends Diet
 
 ===================================================================
 
-
-   abstract class Engine extends EngineSound
-
-   trait EngineSound
-   {
-     this: Engine => // The self type declaration.  Must always be the first line.
-   }
-
-
-
-=====================================
-
+The following code sample uses traits that have self-type declarations.
+Read in-line comments for details.
 
 import java.awt.Color
 
@@ -123,5 +129,4 @@ object Demo
   }
 }
 
-================================================================================
 ================================================================================
