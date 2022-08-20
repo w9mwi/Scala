@@ -10,13 +10,21 @@ When a Scala trait is defined as a self type, the following 3) criteria are met.
    NOTE: A self type declaration DOESN'T need to begin with "this:" or "self:".
          It can begin with any text you want followed by the colon (:) character,
          such as "blue:", "wet:", "joe:", etc.  However, it's recommended that
-         you always use "this:" or "self:".
+         you always use "this:" or "self:"
 3) The class referenced in the self type declaration specifies the ONLY class
    that can inherit from the trait.
 
+QUESTION: What's the fundamental difference between inheritance and a self type?
+ANSWER:   The comments in the following trait declarations describe the diference
 
+          trait Animal
+          trait Dog extends Animal // This means a Dog IS an Animal.
+          trait Person
+          trait Diet {
+            self:Person => // This means a Diet REQUIRES a Person.
+          }
 
-
+===================================================================
 
 
    abstract class Engine extends EngineSound
