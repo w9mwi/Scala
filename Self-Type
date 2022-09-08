@@ -2,15 +2,16 @@ A Scala trait can define itself as a "self type".  When a Scala trait defines
 itself as a "self type", it means it can be inherited ONLY by the class/trait/object
 name designated in the self type declaration.
 
-When a Scala trait is defined as a self type, the following 3) criteria are met.
+When a Scala trait is defined as a self type, the following 3 criteria are met.
 
-1) The first line of code inside the trait must be the self type declaration.
+1) The FIRST LINE OF CODE inside the trait MUST be the self type declaration.
 2) The self type declaration USUALLY begins with the text "this:" or "self:",
-   followed by the trait/class name, a space char., ending with the rocket symbol "=>".
-   NOTE: A self type declaration DOESN'T need to begin with "this:" or "self:".
+   followed by the trait/class name, a space char., and ends with the rocket
+   symbol "=>".
+   NOTE: A self type declaration DOESN'T need to begin with the text "this:" or "self:".
          It can begin with any text you want followed by the colon (:) character,
          such as "blue:", "wet:", "joe:", etc.  However, it's recommended that
-         you always use "this:" or "self:"
+         you use "this:" or "self:"
 3) The class/trait/object referenced in the self type declaration specifies
    the ONLY class/trait/object that can inherit from the trait.
 
