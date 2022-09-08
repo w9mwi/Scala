@@ -30,7 +30,7 @@ ANSWER:   The following code sample describes the difference.
                            // In other words, ONLY a Person can inherit from Diet.
           }
 
-          // The following 3 lines WILL COMPILE, even though they may not make logical sense.
+          // The following 3 lines WILL COMPILE, even though they don't make logical sense.
           trait  JetAircraft extends Dog
           class  Automobile  extends Dog
           object Hamburger   extends Dog
@@ -41,12 +41,12 @@ ANSWER:   The following code sample describes the difference.
           trait Girl extends Diet   with Person
 
           // The following line WON'T COMPILE because Cat doesn't inherit from Person.
-          // (Diet requires that Cat must be a Person.)
+          // (Diet requires that Cat must be a Person type.)
           trait Cat extends Diet // WON'T COMPILE!
 
 ================================================================================
 
-The following code sample uses traits that have self-type declarations.
+The following code sample uses traits with self-type declarations.
 Read in-line comments for details.
 
 import java.awt.Color
