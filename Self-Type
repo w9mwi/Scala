@@ -5,13 +5,13 @@ name designated in the self type declaration.
 When a Scala trait is defined as a self type, the following 3 criteria are met.
 
 1) The FIRST LINE OF CODE inside the trait MUST be the self type declaration.
-2) The self type declaration USUALLY begins with the text "this:" or "self:",
-   followed by the trait/class name, a space char., and ends with the rocket
-   symbol "=>".
+2) The self type declaration USUALLY begins with the text "this:" or "self:".
+   It MUST then be followed by the trait/class name AND a whitespace char.,
+   AND MUST END with the rocket symbol "=>".
    NOTE: A self type declaration DOESN'T need to begin with the text "this:" or "self:".
-         It can begin with any text you want followed by the colon (:) character,
+         It can begin with your choice of text followed by the colon (:) character,
          such as "blue:", "wet:", "joe:", etc.  However, it's recommended that
-         you use "this:" or "self:"
+         you do use "this:" or "self:"
 3) The class/trait/object referenced in the self type declaration specifies
    the ONLY class/trait/object that can inherit from the trait.
 
