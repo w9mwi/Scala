@@ -4,8 +4,10 @@ There are three ways to create a data type in Scala:
 2) class
 3) trait
 
-NOTE: A Scala class should be a "thing", such as Person, Car, Aircraft, Animal.
-      A Scala trait should be a "behavior", such as talk, ride, fly, scratch.
+NOTE: Use a Scala trait to represent a "behavior",
+      such as talk, ride, fly, walk, etc.
+      Use a Scala class to represent a "thing" or an "object",
+      such as Person, Automobile, Aircraft, Animal, etc.
 
 NOTE: In the Scala API documentation...
       1) A circled 'c' represents a class.
