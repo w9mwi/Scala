@@ -96,11 +96,13 @@ object Demo
     var tempArray:Array[String] = filesInfo.split("\n")
     // The first 3 lines returned by "ls -la" aren't filenames, so drop them.
     tempArray = tempArray.drop(3)
-    // Obtain only regular file names, not directories, etc.
+    // The first char of every file returned by "ls -la" designates the file type.
+    // If that first char is a "-" it designates a regular file (not a directory, etc.)
+    // So obtain only regular file file names.
     tempArray = tempArray.filter(x => x.startsWith("-"))
-    // Strip leading chars off the strings, leaving only the filenames.
-    tempArray = for (x <- tempArray) yield ((x.substring(43)) + "\n")
-    // Remove the invisible files, which have filenames beginning with the period "." char.
+    // Strip all leading chars for each file, leaving only the filenames.
+    tempArray = for (x <- tempArray) yield ((x.substring(44)) + "\n")
+    // Remove all invisible files, which have filenames beginning with the period "." char.
     tempArray = tempArray.filter(x => !x.startsWith("."))
     tempArray
   }
@@ -112,5 +114,4 @@ object Demo
     if (tempDir == None) "" else tempDir.get.toString
   }
 }
-
 ===========================================================================
