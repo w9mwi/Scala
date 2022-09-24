@@ -98,9 +98,9 @@ object Demo
     tempArray = tempArray.drop(3)
     // The first char of every file returned by "ls -la" designates the file type.
     // If that first char is a "-" it designates a regular file (not a directory, etc.)
-    // So obtain only regular file file names.
+    // Obtain only regular file names.
     tempArray = tempArray.filter(x => x.startsWith("-"))
-    // Strip all leading chars for each file, leaving only the filenames.
+    // Strip all leading chars of each file returned by "ls -la", leaving only the filenames.
     tempArray = for (x <- tempArray) yield ((x.substring(44)) + "\n")
     // Remove all invisible files, which have filenames beginning with the period "." char.
     tempArray = tempArray.filter(x => !x.startsWith("."))
