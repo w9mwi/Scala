@@ -2,11 +2,6 @@
 NOTE: The Scala Vector class is the recommended “go to” class for
       IMMUTABLE, INDEXED SEQUENTIAL collections.
 
-NOTE: The Scala ArrayBuffer class is the recommended “go to” class for
-      MUTABLE, INDEXED SEQUENTIAL collections.  ArrayBuffer is an indexed,
-      sequential collection.  Use ListBuffer if you prefer a linear,
-      sequential collection that is MUTABLE.
-
 Difference Between Array and ArrayBuffer
 ========================================
 The size of a Scala Array is fixed.  Once an Array is declared, its size CAN'T be changed.
