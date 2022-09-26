@@ -9,8 +9,9 @@ NOTE: The Scala ArrayBuffer class is the recommended “go to” class for
 
 Difference Between Array and ArrayBuffer
 ========================================
-A Scala Array is a fixed-size array.  Once an Array is created, its size cannot be changed.
-A Scala ArrayBuffer is variable in size--its size can increase or decrease dynamically.
+The size of a Scala Array is fixed.  Once an Array is declared, its size CAN'T be changed.
+The size of a Scala ArrayBuffer is variable.  Once an ArrayBuffer is declared, its size
+CAN can be increased or decreased dynamically by adding or deleting elements.
 
 Regarding ArrayBuffer Performance
 =================================
