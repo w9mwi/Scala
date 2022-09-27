@@ -128,32 +128,30 @@ object Demo
       val strBuild = StringBuilder.newBuilder // Declare a StringBuilder to construct a new string.
       //
       // The following trav.foreach{} function loops through each char in the str2 traversable,
-      // where x designates the current char.  This block of code ensures that one or more
-      // consecutive '_' chars in str2 is transformed into only one '_' char in strBuild.
+      // where x references the current char.  This block of code ensures that multiple consecutive
+      // '_' chars in str2 are transformed into a single '_' char in strBuild.
       trav.foreach {
         x => val myChar = x.toChar
-             if (myChar != '_')
-               strBuild.append(myChar)
-             else if (myChar == '_'  &&  prevChar != '_')
-               strBuild.append(myChar)
-             prevChar = myChar
+        if (myChar != '_'  ||  (myChar == '_'  &&  prevChar != '_'))
+          strBuild.append(myChar)
+        prevChar = myChar
       }
-      result += strBuild.toString() // Add strBuild to the ArrayBuffer result.
+      result += strBuild.toString() // Add strBuild to the ArrayBuffer[String] result.
 
-// *******************************************************
-//      prevChar = '_'
-//      var finalStr:String = "";
-//      for (tempChar <- str2)
-//      {
-//        // The following if statement ensures that one or more consecutive '_' chars
-//        // in str2 will always be transformed into only one consecutive '_' char.
-//        if (false == (tempChar == '_' && prevChar == '_'))
-//        {
-//          finalStr += tempChar
-//          prevChar = tempChar
-//        }
-//      }
-//      print("finalStr = " + finalStr)
+      // *******************************************************
+      //      prevChar = '_'
+      //      var finalStr:String = "";
+      //      for (tempChar <- str2)
+      //      {
+      //        // The following if statement ensures that one or more consecutive '_' chars
+      //        // in str2 will always be transformed into only one consecutive '_' char.
+      //        if (false == (tempChar == '_' && prevChar == '_'))
+      //        {
+      //          finalStr += tempChar
+      //          prevChar = tempChar
+      //        }
+      //      }
+      //      print("finalStr = " + finalStr)
     }
     result
   }
