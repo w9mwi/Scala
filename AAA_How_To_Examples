@@ -122,13 +122,9 @@ object Demo
       var finalStr:String = "";
       for (tempChar <- str2)
       {
-        // The following if/else statement ensures that one or more consecutive '_' chars
+        // The following if statement ensures that one or more consecutive '_' chars
         // in str2 will always be transformed into only one consecutive '_' char.
-        if (tempChar == '_' && prevChar == '_')
-        {
-          // Do nothing here.
-        }
-        else
+        if (false == (tempChar == '_' && prevChar == '_'))
         {
           finalStr += tempChar
           prevChar = tempChar
