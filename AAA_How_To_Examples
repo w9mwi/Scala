@@ -37,6 +37,7 @@ The following sample program demonstrates how to do the following:
 2) How to execute a Linux script file from a Scala program.
 
 import java.io.{File, PrintWriter}
+import scala.collection.mutable.ArrayBuffer
 import scala.sys.{SystemProperties, exit}
 import sys.process._
 import scala.util.Properties._
@@ -88,10 +89,10 @@ object Demo
 
     // Obtain the filenames from the "ls -la" command in the linuxScriptTester.sh file.
     val fileNames:Array[String] = getFilenames(filesInfo)
-    println(fileNames.mkString)
-
-    println("===========================")
-    changeFilenames(fileNames)
+    print(fileNames.mkString)
+    println("====================================")
+    val x = changeFilenames(fileNames)
+    x.foreach(print)
   }
 
   def getFilenames(filesInfo:String):Array[String] =
@@ -110,28 +111,51 @@ object Demo
     tempArray
   }
 
-  def changeFilenames(filenameArray:Array[String]): Unit =
+  def changeFilenames(filenameArray:Array[String]): ArrayBuffer[String] =
   {
-    val result:Array[String] = new Array(filenameArray.size)
+    // The following ArrayBuffer declaration is empty.  It gets
+    // filled further below and is returned by this method.
+    val result:ArrayBuffer[String] = ArrayBuffer()
 
     for (filename <- filenameArray)
     {
       val str1:String = filename.replace(" ", "_")
       val str2:String = str1.replace("\t", "_")
-      var prevChar:Char = '_'
-      var finalStr:String = "";
-      for (tempChar <- str2)
-      {
-        // The following if statement ensures that one or more consecutive '_' chars
-        // in str2 will always be transformed into only one consecutive '_' char.
-        if (false == (tempChar == '_' && prevChar == '_'))
-        {
-          finalStr += tempChar
-          prevChar = tempChar
-        }
+
+      // *******************************************************
+      var prevChar:Char = 'X' // MUST initialize to any char that's NOT an underscore (_) char.
+      val trav:Traversable[Char] = str2.toTraversable // Obtain a traversable for the str2 String.
+      val strBuild = StringBuilder.newBuilder // Declare a StringBuilder to construct a new string.
+      //
+      // The following trav.foreach{} function loops through each char in the str2 traversable,
+      // where x designates the current char.  This block of code ensures that one or more
+      // consecutive '_' chars in str2 is transformed into only one '_' char in strBuild.
+      trav.foreach {
+        x => val myChar = x.toChar
+             if (myChar != '_')
+               strBuild.append(myChar)
+             else if (myChar == '_'  &&  prevChar != '_')
+               strBuild.append(myChar)
+             prevChar = myChar
       }
-      print("finalStr = " + finalStr)
+      result += strBuild.toString() // Add strBuild to the ArrayBuffer result.
+
+// *******************************************************
+//      prevChar = '_'
+//      var finalStr:String = "";
+//      for (tempChar <- str2)
+//      {
+//        // The following if statement ensures that one or more consecutive '_' chars
+//        // in str2 will always be transformed into only one consecutive '_' char.
+//        if (false == (tempChar == '_' && prevChar == '_'))
+//        {
+//          finalStr += tempChar
+//          prevChar = tempChar
+//        }
+//      }
+//      print("finalStr = " + finalStr)
     }
+    result
   }
 
   def getTempDirectory():String =
