@@ -88,14 +88,14 @@ object Demo
     scriptFile.delete // Delete the linux script file.
 
     // Obtain the filenames from the "ls -la" command in the linuxScriptTester.sh file.
-    val fileNames:Array[String] = getFilenames(filesInfo)
+    val fileNames:Array[String] = getMp3WavFilenames(filesInfo)
     print(fileNames.mkString)
     println("====================================")
-    val x = changeFilenames(fileNames)
+    val x = transformFilenames(fileNames)
     x.foreach(print)
   }
 
-  def getFilenames(filesInfo:String):Array[String] =
+  def getMp3WavFilenames(filesInfo:String):Array[String] =
   {
     var tempArray:Array[String] = filesInfo.split("\n")
     // The first 3 lines returned by "ls -la" aren't filenames, so drop them.
@@ -108,28 +108,41 @@ object Demo
     tempArray = for (x <- tempArray) yield ((x.substring(44)) + "\n")
     // Remove all invisible files, which have filenames beginning with the period "." char.
     tempArray = tempArray.filter(x => !x.startsWith("."))
+    // Obtain ONLY filenames ending with ".mp3" or ".wav".
+    tempArray = tempArray.filter(x => (x.toLowerCase.endsWith(".mp3\n") || x.toLowerCase.endsWith(".wav\n")))
     tempArray
   }
 
-  def changeFilenames(filenameArray:Array[String]): ArrayBuffer[String] =
+  /**
+   * This function gets passed an Array[String] of filenames, and then does the following:
+   *
+   * 1) Replaces every space (" ") and tab ("\t") character in each filename with
+   *    an underscore ("_") character.
+   * 2) After the above is done, all consecutive underscore chars ("_") are removed
+   *    from all filenames so a filename NEVER contains two or more consecutive
+   *    underscore characters ("_").
+   * 3) The transformed filenames are returned in an ArrayBuffer[String].
+   */
+  def transformFilenames(filenameArray:Array[String]): ArrayBuffer[String] =
   {
     // The following ArrayBuffer declaration is empty.  It gets
-    // filled further below and is returned by this method.
+    // populated further below and is returned by this method.
     val result:ArrayBuffer[String] = ArrayBuffer()
 
     for (filename <- filenameArray)
     {
-      val str1:String = filename.replace(" ", "_")
-      val str2:String = str1.replace("\t", "_")
+      // REPLACE all space (" ") and tab ("\t") chars
+      // in the filename with underscore ("_") chars.
+      val str1:String = filename.replace(" ", "_").replace("\t", "_")
 
       // *******************************************************
       var prevChar:Char = 'X' // MUST initialize to any char that's NOT an underscore (_) char.
-      val trav:Traversable[Char] = str2.toTraversable // Obtain a traversable for the str2 String.
+      val trav:Traversable[Char] = str1.toTraversable // Obtain a traversable for the str2 String.
       val strBuild = StringBuilder.newBuilder // Declare a StringBuilder to construct a new string.
       //
       // The following trav.foreach{} function loops through each char in the str2 traversable,
-      // where x references the current char.  This block of code ensures that multiple consecutive
-      // '_' chars in str2 are transformed into a single '_' char in strBuild.
+      // where x references the current char.  This block of code ensures that more than one
+      // consecutive '_' chars in str2 are transformed into a single '_' char in strBuild.
       trav.foreach {
         x => val myChar = x.toChar
         if (myChar != '_'  ||  (myChar == '_'  &&  prevChar != '_'))
@@ -137,25 +150,13 @@ object Demo
         prevChar = myChar
       }
       result += strBuild.toString() // Add strBuild to the ArrayBuffer[String] result.
-
-      // *******************************************************
-      //      prevChar = '_'
-      //      var finalStr:String = "";
-      //      for (tempChar <- str2)
-      //      {
-      //        // The following if statement ensures that one or more consecutive '_' chars
-      //        // in str2 will always be transformed into only one consecutive '_' char.
-      //        if (false == (tempChar == '_' && prevChar == '_'))
-      //        {
-      //          finalStr += tempChar
-      //          prevChar = tempChar
-      //        }
-      //      }
-      //      print("finalStr = " + finalStr)
     }
     result
   }
 
+  /**
+   * Obtains and returns the Linux temporary directory path as a String.
+   */
   def getTempDirectory():String =
   {
     val sysProps:SystemProperties = new SystemProperties()
