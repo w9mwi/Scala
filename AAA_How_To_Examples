@@ -144,13 +144,13 @@ object Demo
     // Declare an empty ArrayBuffer, which gets populated
     // further below, and is returned by this method.
     val result:ArrayBuffer[StringTuple] = ArrayBuffer()
+    val ZERO:Int = 0
 
     for (origFilename <- filenameArray)
     {
       // Replace whitespace chars in the filename with underscore ('_') chars.
       val str:String = origFilename.replace(" ", "_").replace("\t", "_")
-
-      var prevChar:Char = 0.toChar // MUST initialize to a char that CAN'T exist in a valid filename.
+      var prevChar:Char = ZERO.toChar // MUST initialize to a char that CAN'T exist in a valid filename.
       val trav:Traversable[Char] = str.toTraversable // Obtain a traversable for the str String.
       val strBuild = StringBuilder.newBuilder // Declare a StringBuilder to construct a new string.
 
@@ -162,7 +162,7 @@ object Demo
         //    char is '_', setting it to uppercase will have no effect, and won't matter.
         // 2) All chars preceded with the '_' char will be set to uppercase.
         // 3) All remaining chars will be set to lowercase.
-        x => val myChar = if (prevChar == 0 || (prevChar == '_' && x.toChar != '_'))
+        x => val myChar = if (prevChar == ZERO || (prevChar == '_' && x.toChar != '_'))
                             x.toChar.toUpper
                           else
                             x.toChar.toLower
