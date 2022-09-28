@@ -92,7 +92,7 @@ object Demo
     print(fileNames.mkString)
     println("====================================")
     val x = transformFilenames(fileNames)
-    x.foreach(print)
+    x.foreach(println)
   }
 
   def getMp3WavFilenames(filesInfo:String):Array[String] =
@@ -114,37 +114,41 @@ object Demo
   }
 
   /**
-   * This function gets passed an Array[String] of filenames, and then does the following:
-   *
-   * 1) Replaces every space (" ") and tab ("\t") character in each filename with
-   *    an underscore ("_") character.
-   * 2) After the above is done, all consecutive underscore chars ("_") are removed
-   *    from all filenames so a filename NEVER contains two or more consecutive
-   *    underscore characters ("_").
-   * 3) The transformed filenames are returned in an ArrayBuffer[String].
+   * Read in-line comments for details.
    */
   def transformFilenames(filenameArray:Array[String]): ArrayBuffer[String] =
   {
-    // The following ArrayBuffer declaration is empty.  It gets
-    // populated further below and is returned by this method.
+    // Declare an empty ArrayBuffer, which gets populated
+    // further below, and is returned by this method.
     val result:ArrayBuffer[String] = ArrayBuffer()
 
     for (filename <- filenameArray)
     {
-      // REPLACE all space (" ") and tab ("\t") chars
-      // in the filename with underscore ("_") chars.
-      val str1:String = filename.replace(" ", "_").replace("\t", "_")
+      // REPLACE certain chars in the filename.
+      val str:String = filename.replace(" ", "_")
+                               .replace("\t", "_")
+                               .replace("\n", "")
 
-      // *******************************************************
-      var prevChar:Char = 'X' // MUST initialize to any char that's NOT an underscore (_) char.
-      val trav:Traversable[Char] = str1.toTraversable // Obtain a traversable for the str2 String.
+      var prevChar:Char = 0.toChar // MUST initialize to a char that CAN'T exist in a valid filename.
+      val trav:Traversable[Char] = str.toTraversable // Obtain a traversable for the str String.
       val strBuild = StringBuilder.newBuilder // Declare a StringBuilder to construct a new string.
-      //
-      // The following trav.foreach{} function loops through each char in the str2 traversable,
-      // where x references the current char.  This block of code ensures that more than one
-      // consecutive '_' chars in str2 are transformed into a single '_' char in strBuild.
+
+      // The following trav.foreach{} function loops through each char in the str traversable,
+      // where x references the current char.
       trav.foreach {
-        x => val myChar = x.toChar
+        // Change the filename's chars to uppercase or lowercase based on this criteria:
+        // 1) The first char of the filename will be set to uppercase.  If the filename's first
+        //    char is '_', setting it to uppercase will have no effect, and won't matter.
+        // 2) All chars preceded with the '_' char will be set to uppercase.
+        // 3) All remaining chars will be set to lowercase.
+        x => val myChar = if (prevChar == 0 || (prevChar == '_' && x.toChar != '_'))
+                            x.toChar.toUpper
+                          else
+                            x.toChar.toLower
+
+        // The following if() statement will transform multiple consecutive '_' chars
+        // into a single '_' char.  Ensuring that the filename will never contain more
+        // more than one consecutive '_' char.
         if (myChar != '_'  ||  (myChar == '_'  &&  prevChar != '_'))
           strBuild.append(myChar)
         prevChar = myChar
