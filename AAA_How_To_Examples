@@ -54,48 +54,21 @@ object Demo
     println(versionNumberString) // PRINTS: 2.12.14
     println(versionString)       // PRINTS: version 2.12.14
 
-    val osName:String = sys.props("os.name").toLowerCase
-    if (false == osName.contains("linux"))
-    {
-      println("FAIL - Operating system is not Linux.")
-      return
-    }
-    val tempDir:String = getTempDirectory()
-    if (tempDir == None)
-    {
-      println("FAIL - Temporary directory not found.")
-      return
-    }
     println("====================================")
 
-    // Create a linux script file in the temporary directory.
-    val scriptFilename:String = tempDir + "/" + "linuxScriptTester.sh"
-    val scriptFile:File = new File(scriptFilename)
+    // This section of code creates and executes a Linux script file,
+    // which contains the "ls -la" command.  Certain filenames returned
+    // by that script file are then used to rename files.
     val dirPath:String = "/home/tjb/junkDir/"
-
-    // Write linux command(s) to the script file.
-    val pw:PrintWriter = new PrintWriter(scriptFile)
-    pw.print("ls -la " + dirPath + "\n")
-    scriptFile.setExecutable(true) // Sets the file's Linux user permission to executable.
-    pw.flush()
-    pw.close()
-
-    // Generate the "command" that'll execute the linux script file.
-    var command:Seq[String] = Seq(scriptFilename)
-
-    // Execute the linux script file...
-    // NOTE: Calling command.! executes the linuxScriptTester.sh file, sending its output to the terminal.
-    //       The following line is commented out because we DON'T want that behavior in this program.
-    // command!
-    //
-    // Calling command.!! executes the Linux linuxScriptTester.sh file, and returns the result as a String.
-    val filesInfo:String = command.!!
-    scriptFile.delete // Delete the linux script file.
-
-    // Obtain the filenames from the "ls -la" command in the linuxScriptTester.sh file.
-    val fileNames:Array[String] = getMp3WavFilenames(filesInfo)
-    val origAndNewFilenames:ArrayBuffer[StringTuple] = transformFilenames(fileNames)
-    renameFiles(dirPath, origAndNewFilenames)
+    // Obtain filenames via the "ls -la" command in the linuxScriptTester.sh file.
+    val linuxFilesTextList:Option[String] = executeLinuxScriptFile(dirPath)
+    if (linuxFilesTextList != None)
+    {
+      // If this code executes, the executeLinuxScriptFile() function returned successfully.
+      val fileNames:Array[String] = getMp3WavFilenames(linuxFilesTextList.get)
+      val origAndNewFilenames:ArrayBuffer[StringTuple] = transformFilenames(fileNames)
+      renameFiles(dirPath, origAndNewFilenames)
+    }
   }
 
   /**
@@ -104,7 +77,7 @@ object Demo
   def getMp3WavFilenames(filesInfo:String):Array[String] =
   {
     // Each element of varArray will contain each row of text returned by the "ls -la" command.
-    var varArray:Array[String] = filesInfo.split("\n")
+    var varArray:Array[String] = filesInfo.toString.split("\n")
     val filenameIndex:Int = getFilenameIndex(varArray)
 
     // *****************************************************************************
@@ -162,9 +135,9 @@ object Demo
         // 2) All chars preceded with the '_' char will be set to uppercase.
         // 3) All remaining chars will be set to lowercase.
         x => val myChar = if (prevChar == ZERO || (prevChar == '_' && x.toChar != '_'))
-                            x.toChar.toUpper
-                          else
-                            x.toChar.toLower
+          x.toChar.toUpper
+        else
+          x.toChar.toLower
           // The following if() statement will transform multiple consecutive '_' chars
           // into a single '_' char.  Ensuring that the filename will never contain more
           // more than one consecutive '_' char.
@@ -180,11 +153,11 @@ object Demo
   /**
    * Obtains and returns the Linux temporary directory path as a String.
    */
-  def getTempDirectory():String =
+  def getTempDirectory():Option[String] =
   {
     val sysProps:SystemProperties = new SystemProperties()
     val tempDir:Option[String] = sysProps.get("java.io.tmpdir")
-    if (tempDir == None) "" else tempDir.get.toString
+    return(tempDir)
   }
 
   /**
@@ -197,12 +170,13 @@ object Demo
   {
     for (x <- origAndNewFilenames)
     {
-      // The following println() is for DEBUGGING.
+      // The following println() is used for DEBUGGING.
       println(s"BEFORE=${x._1}\nAFTER =${x._2}\n")
+
       // NOTE: Both the Files and Path classes are Java classes.
       val path:Path = Files.move(Paths.get(dirPath + x._1),  // x._1 is the original filename.
-                                 Paths.get(dirPath + x._2),  // x._2 is the new filename.
-                                 StandardCopyOption.REPLACE_EXISTING)
+                      Paths.get(dirPath + x._2),  // x._2 is the new filename.
+                      StandardCopyOption.REPLACE_EXISTING)
     }
   }
 
@@ -226,6 +200,60 @@ object Demo
   def getFilenameIndex(filenames:Array[String]):Int =
   {
     filenames(1).indexOf(".")
+  }
+
+  /**
+   * This function creates a Linux script file in the Linux temporary directory.
+   * That Linux script file contains the Linux "ls -la" command for the Linux
+   * directory path that is passed to this function as an argument.  The script
+   * file is then executed and deleted.  Its result is returned as a text String
+   * in type Option[String].
+   *
+   * @param dirPath - The directory in which the "ls -la" Linux command is run.
+   * @return - An Option[String] containing the result of the "ls -la" command.
+   *           None will be returned if there's a failure.
+   */
+  def executeLinuxScriptFile(dirPath:String):Option[String] =
+  {
+    val osName:String = sys.props("os.name").toLowerCase
+    if (false == osName.contains("linux"))
+    {
+      println("FAIL - The operating system is not Linux.")
+      return(None)
+    }
+
+    val tempDir:Option[String] = getTempDirectory()
+    if (tempDir == None)
+    {
+      println("FAIL - The operating system's temporary directory not found.")
+      return(None)
+    }
+
+    // Create a Linux script file in the temporary directory.
+    val scriptFilename: String = tempDir.get + "/" + "linuxScriptTester.sh"
+    val scriptFile: File = new File(scriptFilename)
+
+    // Write linux command(s) to the Linux script file.
+    val pw:PrintWriter = new PrintWriter(scriptFile)
+    pw.print("ls -la " + dirPath + "\n")
+    scriptFile.setExecutable(true) // Sets the file's Linux user permission to executable.
+    pw.flush()
+    pw.close()
+
+    // Generate the "command" that'll execute the linux script file.
+    val command:Seq[String] = Seq(scriptFilename)
+
+    // Execute the linux script file...
+    // NOTE: Calling command.! executes the linuxScriptTester.sh file, but
+    //       directs its output to the terminal.  The following line of
+    //       code is commented out because we DON'T want that behavior.
+    // command.!
+    //
+    // Calling command.!! executes the Linux linuxScriptTester.sh
+    // file, and returns the result as a String.
+    val result:String = command.!!
+    scriptFile.delete // Delete the Linux script file.
+    return(Option(result))
   }
 }
 ===========================================================================
