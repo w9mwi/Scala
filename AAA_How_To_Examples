@@ -60,7 +60,7 @@ object Demo
       println("FAIL - Operating system is not Linux.")
       return
     }
-    val tempDir = getTempDirectory()
+    val tempDir:String = getTempDirectory()
     if (tempDir == None)
     {
       println("FAIL - Temporary directory not found.")
@@ -74,7 +74,7 @@ object Demo
     val dirPath:String = "/home/tjb/junkDir/"
 
     // Write linux command(s) to the script file.
-    val pw = new PrintWriter(scriptFile)
+    val pw:PrintWriter = new PrintWriter(scriptFile)
     pw.print("ls -la " + dirPath + "\n")
     scriptFile.setExecutable(true) // Sets the file's Linux user permission to executable.
     pw.flush()
@@ -95,20 +95,6 @@ object Demo
     // Obtain the filenames from the "ls -la" command in the linuxScriptTester.sh file.
     val fileNames:Array[String] = getMp3WavFilenames(filesInfo)
     val origAndNewFilenames:ArrayBuffer[StringTuple] = transformFilenames(fileNames)
-
-    // *******************************************************************
-    // This section used ONLY for debugging.
-//    for (x <- fileNames)
-//    {
-//      println(x)
-//    }
-//    println("====================================")
-//    for (x <- origAndNewFilenames)
-//    {
-//      println(s"origFilename = ${x._1},  transformedFilename = ${x._2}")
-//    }
-    // *******************************************************************
-
     renameFiles(dirPath, origAndNewFilenames)
   }
 
@@ -117,14 +103,14 @@ object Demo
    */
   def getMp3WavFilenames(filesInfo:String):Array[String] =
   {
-    // Each element of varArray will contain a row of text returned by the "ls -la" command.
+    // Each element of varArray will contain each row of text returned by the "ls -la" command.
     var varArray:Array[String] = filesInfo.split("\n")
     val filenameIndex:Int = getFilenameIndex(varArray)
 
     // *****************************************************************************
     // NOTE: This block of commented-out code could replace all the below code in
-    //       this function! But that's drinking from the firehose, so the current
-    //       code will stand for now.
+    //       this function!  But that's like drinking from a firehose, so the
+    //       current code will stand for now.
     //  (for (x <- filesInfo.split("\n").drop(3).filter(x => x.startsWith("-")))
     //  yield (if (x.indexOf("'") > -1) x.substring(filenameIndex - 1) else x.substring(filenameIndex)))
     //  .filter(x => !x.startsWith("."))
@@ -160,11 +146,11 @@ object Demo
     for (origFilename <- filenameArray)
     {
       var prevChar:Char = ZERO.toChar // MUST initialize to a char that CAN'T exist in a valid filename.
-      // Replace whitespace chars in the filename with underscore ('_') chars.
+      // Replace whitespace chars in the filename with underscore ('_') chars...
       val str:String = origFilename.replace(" ", "_").replace("\t", "_")
       // Obtain a traversable for str, which allows it to be traversed without using a var.
       val trav:Traversable[Char] = str.toTraversable
-      // Declare a StringBuilder, which is mutable, allowing a new String to be built in onw swoop.
+      // Declare a StringBuilder, which is mutable, allowing a new String to be built in one swoop.
       val strBuild = StringBuilder.newBuilder
 
       // The following trav.foreach{} function loops through each char in the str traversable,
@@ -211,7 +197,8 @@ object Demo
   {
     for (x <- origAndNewFilenames)
     {
-      println(s"ZZZZZZZ = ${x._1}  -  ${x._2}")
+      // The following println() is for DEBUGGING.
+      println(s"BEFORE=${x._1}\nAFTER =${x._2}\n")
       // NOTE: Both the Files and Path classes are Java classes.
       val path:Path = Files.move(Paths.get(dirPath + x._1),  // x._1 is the original filename.
                                  Paths.get(dirPath + x._2),  // x._2 is the new filename.
