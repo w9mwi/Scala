@@ -76,16 +76,14 @@ object Demo
 
 The following sample program demonstrates how to do the following:
 
-1) How to obtain the Scala version being used.
-2) How to execute a Linux script file from a Scala program.
-
+1) How to execute a Linux script file from a Scala program.
+2) Fow to read and write files in Scala.
 
 import java.io.{File, PrintWriter}
 import java.nio.file.{Files, Path, Paths, StandardCopyOption}
 import scala.collection.mutable.ArrayBuffer
 import scala.sys.{SystemProperties}
 import sys.process._
-import scala.util.Properties._
 
 object Demo
 {
@@ -93,12 +91,6 @@ object Demo
 
   def main(args: Array[String]): Unit =
   {
-    // The following 2 lines of code print the Scala version being used:
-    println(versionNumberString) // PRINTS: 2.12.14
-    println(versionString)       // PRINTS: version 2.12.14
-
-    println("====================================")
-
     // This section of code creates and executes a Linux script file,
     // which contains the "ls -la" command.  Certain filenames returned
     // by that script file are then used to rename files.
@@ -218,8 +210,8 @@ object Demo
 
       // NOTE: Both the Files and Path classes are Java classes.
       val path:Path = Files.move(Paths.get(dirPath + x._1),  // x._1 is the original filename.
-                      Paths.get(dirPath + x._2),  // x._2 is the new filename.
-                      StandardCopyOption.REPLACE_EXISTING)
+        Paths.get(dirPath + x._2),  // x._2 is the new filename.
+        StandardCopyOption.REPLACE_EXISTING)
     }
   }
 
