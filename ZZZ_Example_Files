@@ -86,10 +86,11 @@ object Demo
 
 =========================================================================
 
-The following sample program demonstrates how to do the following:
+The following sample program demonstrates the following:
 
-1) How to execute a Linux script file from a Scala program.
-2) Fow to read and write files in Scala.
+1) How to read and write files in Scala.
+2) How to rename/move files in Scala.
+3) How to execute a Linux script file in Scala.
 
 import java.io.{File, PrintWriter}
 import java.nio.file.{Files, Path, Paths, StandardCopyOption}
