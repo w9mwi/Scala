@@ -1,0 +1,77 @@
+=========================================================================
+import java.io.File
+import java.util.Scanner
+import scala.io.Source
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    println("Program running!")
+
+    println("1) Read a text file using the Java API.")
+    println("===========================================")
+    readTextFileViaJavaAPI()
+
+    println("2) Read a text file using the Scala API.")
+    println("===========================================")
+    readTextFileViaScalaAPI()
+
+    println("3) Open and read a text file in one function call.")
+    println("===========================================")
+    val myTextFile:Iterator[String] = openAndReadTextFile("/home/tjb/junkDir/junkText.txt")
+    myTextFile.foreach(println)
+  }
+
+  /**
+   * This function uses the Java API to read a text file.  The entire
+   * file gets loaded into memory before the text is read, which
+   * makes it time efficient, but memory inefficient.
+   */
+  def readTextFileViaJavaAPI():Unit =
+  {
+    val filepath: String = "/home/tjb/junkDir/junkText.txt"
+    val file: File = new File(filepath)
+    val scanner: Scanner = new Scanner(file)
+    while(scanner.hasNextLine)
+    {
+      val lineOfText:String = scanner.nextLine()
+      println(lineOfText)
+    }
+  }
+
+  /**
+   * This function uses the Scala API to read a text file.  Only one
+   * line of text at a time is read from the file, which makes it
+   * memory efficient, but time inefficient.  Since the Scala API
+   * is used, Scala methods like map(), flatMap(), filter(),
+   * drop(), etc. can be called on the val fileContents.
+   */
+  def readTextFileViaScalaAPI(): Unit =
+  {
+    val filepath: String = "/home/tjb/junkDir/junkText.txt"
+    val file: File = new File(filepath)
+    val fileContents:Iterator[String] = Source.fromFile(file).getLines()
+    fileContents.foreach(println)
+  }
+
+  /**
+   * Calling this function allows a text file to be opened and read with
+   * only one line of code.  The returned value also allows Scala methods
+   * like map(), flatMap(), filter(), drop(), etc. to be called on it.
+   */
+  def openAndReadTextFile(filepath:String):Iterator[String] =
+  {
+    // First, declare the openFile() function, and an implicit class named RichFile.
+    def openFile(filepath: String) = new File(filepath)
+    implicit class RichFile(file: File)
+    {
+      def read(): Iterator[String] = Source.fromFile(file).getLines()
+    }
+    openFile(filepath).read()
+  }
+}
+
+=========================================================================
+
+=========================================================================
