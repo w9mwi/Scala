@@ -1,10 +1,11 @@
 The following Scala keywords and classes are explained below:
 
-1) null    - A Scala keyword.
-2) Nill    -
-3) None    - 
-4) Nothing - 
-5) Unit    -
+1) null    - Not to be confused with Null.  null is a Scala keyword.
+2) Null    - Not to be confused with null.  Null is a Scala class.
+3) Nill    -
+4) None    - 
+5) Nothing - 
+6) Unit    -
 ==============================================================
 1) null - A Scala keyword.
    The Scala keyword null represents an absent (non-existent) value.
@@ -28,10 +29,12 @@ The following Scala keywords and classes are explained below:
      }
    }
 ==============================================================
-2) Nill
+2) Null
 ==============================================================
-3) None
+3) Nill
 ==============================================================
-4) Nothing
+4) None
+==============================================================
+5) Nothing
 ==============================================================
 5) Unit
