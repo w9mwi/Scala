@@ -1,7 +1,15 @@
 Here we explain the the following Scala keywords:
 
-1) Nill
-2) Null
+1) null
+   The Scala keyword null represents an absent (non-existent) value.
+   SAMPLE CODE:
+
+   val nullString:String = null
+   println(s"nullString = $nullString") // PRINTS: nullString = null
+
+
+2) Nill
+
 3) None
 4) Nothing
 5) Unit
