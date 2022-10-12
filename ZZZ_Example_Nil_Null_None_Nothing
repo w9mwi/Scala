@@ -1,7 +1,7 @@
 The following Scala keywords and classes are explained below:
 
-1) null    - Not to be confused with Null.  null is a Scala keyword.
-2) Null    - Not to be confused with null.  Null is a Scala class.
+1) null    - null is different than Null.  null is a Scala keyword.
+2) Null    - Null is different than null.  Null is a Scala class.
 3) Nil     - Nil is a Scala Object that represents an empty List.
 4) None    - None (and its complement Some) is a Scala class.
              Both None and Some classes extend the Option class.
