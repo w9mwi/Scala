@@ -5,9 +5,9 @@ The following Scala keywords and classes are explained below:
 3) Nil     - Nil is a Scala Object that represents an empty List.
 4) None    - None (and its complement Some) is a Scala class.
              Both None and Some classes extend the Option class.
-5) Nothing - 
-6) Unit    - Unit is defined as a Scala class, and as a Scala
+5) Unit    - Unit is defined as a Scala class, and as a Scala
              companion object.
+6) Nothing - Nothing is a Scala class.
 ==============================================================
 1) null - A Scala keyword.
    The Scala keyword null represents an absent (non-existent) value.
@@ -119,9 +119,7 @@ The following Scala keywords and classes are explained below:
             }
           }
 ==============================================================
-5) Nothing - 
-==============================================================
-6) Unit - Unit is defined as a Scala class, and as a Scala
+5) Unit - Unit is defined as a Scala class, and as a Scala
           companion object.  Unit is analogous to the type
           "void" in other languages, such as the C language.
           So Unit designates a "void type."  Scala methods
@@ -161,3 +159,16 @@ The following Scala keywords and classes are explained below:
             }
           }
 ==============================================================
+6) Nothing - Nothing is a Scala class that extends the Any
+             class.  Nothing designated NO VALUE, period!
+             Nothing is NOT null.
+             Nothing is NOT Null.
+             Nothing is NOT Nil.
+             Nothing is NOT None.
+             Nothing is NOT Unit.
+
+             Nothing is a type that has no fields, no methods,
+             can't be instantiated, can't be extended, and
+             HAS NO VALUE.  Nothing is ONLY Nothing, and
+             nothing else!  The only expressions that can
+             return the Scala class Nothing are exceptions.
