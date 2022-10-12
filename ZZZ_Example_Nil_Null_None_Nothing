@@ -3,7 +3,8 @@ The following Scala keywords and classes are explained below:
 1) null    - Not to be confused with Null.  null is a Scala keyword.
 2) Null    - Not to be confused with null.  Null is a Scala class.
 3) Nil     - Nil is a Scala Object that represents an empty List.
-4) None    - 
+4) None    - None (and its complement Some) is a Scala class.
+             Both None and Some classes extend the Option class.
 5) Nothing - 
 6) Unit    -
 ==============================================================
@@ -79,8 +80,44 @@ The following Scala keywords and classes are explained below:
            }
          }
 ==============================================================
-4) None
+4) None - None is a Scala class.  None has a complement class
+          named Some.  Both Some and None classes are subtypes
+          of the Scala Option class.  The None class does
+          contain fields and values.  Assume you want to obtain
+          an Int value from a function.  If that function
+          returns a valid Int, it should return it as a Some
+          value, which is wrapped inside the Option class.
+          If that function can't obtain an Int value, it should
+          return a None value (instead of a null), which is
+          also wrapped inside the Option class.  Therefore,
+          this function will always return a value of type
+          Option, whether it returns a valid Int value or not.
+          SAMPLE CODE:
+
+          object Demo
+          {
+            def main(args: Array[String]): Unit =
+            {
+              val absentInteger:Option[Int]   = None
+              val existentInteger:Option[Int] = Some(54321)
+
+              if (absentInteger.isEmpty)
+                println("absentInteger is empty.") // PRINTS: absentInteger is empty.
+
+              if (absentInteger == None)
+                println("absentInteger == None") // PRINTS: absentInteger == None
+
+              if (existentInteger.nonEmpty)
+              {
+                println("existentInteger is nonEmpty.") // PRINTS: existentInteger is nonEmpty.
+                println(s"existentInteger = ${existentInteger.get}") // PRINTS: existentInteger = 54321
+              }
+
+              if (existentInteger == Some(54321))
+                println("existentInteger == Some(54321)") // PRINTS: existentInteger == Some(54321)
+            }
+          }
 ==============================================================
 5) Nothing
 ==============================================================
-5) Unit
+6) Unit
