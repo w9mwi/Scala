@@ -6,7 +6,8 @@ The following Scala keywords and classes are explained below:
 4) None    - None (and its complement Some) is a Scala class.
              Both None and Some classes extend the Option class.
 5) Unit    - Unit is defined as a Scala class, and as a Scala
-             companion object.
+             companion object.  Unit represents a "void" type,
+             which is no type at all.
 6) Nothing - Nothing is a Scala class.
 ==============================================================
 1) null - A Scala keyword.
