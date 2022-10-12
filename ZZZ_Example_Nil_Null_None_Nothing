@@ -33,7 +33,10 @@ The following Scala keywords and classes are explained below:
           The Scala class Null contains no values, no methods,
           can't be extended, and can't be instantiated.  The
           only possible type that a Null class can reference
-          is the value null.  SAMPLE CODE:
+          is the value null.  The Scala Null class extends
+          the Scala AnyRef class.  Therefore, all Scala classes
+          that extend AnyRef can be assigned a Null reference,
+          which can only have a value of null.  SAMPLE CODE:
 
           object Demo
           {
@@ -42,6 +45,14 @@ The following Scala keywords and classes are explained below:
               val theNullReference:Null = null
               // The following line prints:  theNullReference = null
               println(s"theNullReference = $theNullReference")
+
+              class Person(name:String)
+              val noList:List[Int] = theNullReference
+              val noPerson:Person  = theNullReference
+              val noString:String  = theNullReference
+              // The following line prints:
+              // noList = null,  noPerson = null,  noString = null
+              println(s"noList = $noList,  noPerson = $noPerson,  noString = $noString")
             }
           }
 ==============================================================
