@@ -2,7 +2,7 @@ The following Scala keywords and classes are explained below:
 
 1) null    - Not to be confused with Null.  null is a Scala keyword.
 2) Null    - Not to be confused with null.  Null is a Scala class.
-3) Nill    -
+3) Nil     - Nil is a Scala Object that represents an empty List.
 4) None    - 
 5) Nothing - 
 6) Unit    -
@@ -56,7 +56,28 @@ The following Scala keywords and classes are explained below:
             }
           }
 ==============================================================
-3) Nill
+3) Nil - Nil is a Scala Object that represents an empty List.
+         Unlike the Scala class Null (which contains no
+         values and no methods), the Nil object does contain
+         methods so Nil is a proper value.  SAMPLE CODE:
+
+         object Demo
+         {
+           def main(args: Array[String]): Unit =
+           {
+             val emptyList_1:List[Int] = List()
+             val emptyList_2:List[Int] = Nil
+             // The following line prints: emptyList_1 = List(),  emptyList_2 = List()
+             println(s"emptyList_1 = $emptyList_1,  emptyList_2 = $emptyList_2")
+
+             if (emptyList_1 == emptyList_2)
+               println("emptyList_1 == emptyList_2") // PRINTS: emptyList_1 == emptyList_2
+
+             // The following line prints:
+             // emptyList_1.length = 0,  emptyList_2.length = 0
+             println(s"emptyList_1.length = ${emptyList_1.length},  emptyList_2.length = ${emptyList_2.length}")
+           }
+         }
 ==============================================================
 4) None
 ==============================================================
