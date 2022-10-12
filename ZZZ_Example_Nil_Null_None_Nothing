@@ -10,7 +10,7 @@ The following Scala keywords and classes are explained below:
              which is no type at all.
 6) Nothing - Nothing is a Scala class.
 ==============================================================
-1) null - A Scala keyword.
+1) null - A Scala keyword.  null is different than Null.
    The Scala keyword null represents an absent (non-existent) value.
    Scala uses the null keyword so it's compatible with Java code.
    You should refrain from using null in Scala code and instead use
@@ -32,7 +32,7 @@ The following Scala keywords and classes are explained below:
      }
    }
 ==============================================================
-2) Null - A Scala class.
+2) Null - A Scala class.  Null is different than null.
           The Scala class Null contains no values, no methods,
           can't be extended, and can't be instantiated.  The
           only possible type that a Null class can reference
