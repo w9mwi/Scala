@@ -6,7 +6,8 @@ The following Scala keywords and classes are explained below:
 4) None    - None (and its complement Some) is a Scala class.
              Both None and Some classes extend the Option class.
 5) Nothing - 
-6) Unit    -
+6) Unit    - Unit is defined as a Scala class, and as a Scala
+             companion object.
 ==============================================================
 1) null - A Scala keyword.
    The Scala keyword null represents an absent (non-existent) value.
@@ -118,6 +119,45 @@ The following Scala keywords and classes are explained below:
             }
           }
 ==============================================================
-5) Nothing
+5) Nothing - 
 ==============================================================
-6) Unit
+6) Unit - Unit is defined as a Scala class, and as a Scala
+          companion object.  Unit is analogous to the type
+          "void" in other languages, such as the C language.
+          So Unit designates a "void type."  Scala methods
+          and functions that return nothing are defined to
+          return the type Unit.  SAMPLE CODE:
+
+          object Demo
+          {
+            def main(args: Array[String]): Unit =
+            {
+              val myUnit_1:Unit = Unit
+              val myUnit_2:Unit = ()
+
+              if (myUnit_1 == ())
+                println(s"myUnit_1 = $myUnit_1") // PRINTS: myUnit_1 = ()
+
+              if (myUnit_1 == Unit)
+                println(s"myUnit_1 = $myUnit_1") // THIS println() DOESN'T EXECUTE, SO NOTHING IS PRINTED!
+
+              if (myUnit_2 == ())
+                println(s"myUnit_2 = $myUnit_2") // PRINTS: myUnit_2 = ()
+
+              if (myUnit_2 == Unit)
+                println(s"myUnit_2 = $myUnit_2") // THIS println() DOESN'T EXECUTE, SO NOTHING IS PRINTED!
+
+              println(s"myUnit_1 = $myUnit_1") // PRINTS: myUnit_1 = ()
+              println(s"myUnit_2 = $myUnit_2") // PRINTS: myUnit_2 = ()
+
+              // The following function call prints:
+              // This function returns nothing, so it returns the type Unit.
+              functionReturnsUnit()
+            }
+
+            def functionReturnsUnit():Unit =
+            {
+              println("This function returns nothing, so it returns the type Unit.")
+            }
+          }
+==============================================================
