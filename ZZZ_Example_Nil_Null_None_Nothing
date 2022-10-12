@@ -29,7 +29,21 @@ The following Scala keywords and classes are explained below:
      }
    }
 ==============================================================
-2) Null
+2) Null - A Scala class.
+          The Scala class Null contains no values, no methods,
+          can't be extended, and can't be instantiated.  The
+          only possible type that a Null class can reference
+          is the value null.  SAMPLE CODE:
+
+          object Demo
+          {
+            def main(args: Array[String]): Unit =
+            {
+              val theNullReference:Null = null
+              // The following line prints:  theNullReference = null
+              println(s"theNullReference = $theNullReference")
+            }
+          }
 ==============================================================
 3) Nill
 ==============================================================
