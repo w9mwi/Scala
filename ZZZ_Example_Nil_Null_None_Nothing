@@ -1,15 +1,34 @@
-Here we explain the the following Scala keywords:
+The following Scala keywords and classes are explained below:
 
-1) null
+1) null    - A Scala keyword.
+2) Nill    -
+3) None    - 
+4) Nothing - 
+5) Unit    -
+==============================================================
+1) null - A Scala keyword.
    The Scala keyword null represents an absent (non-existent) value.
    SAMPLE CODE:
-
-   val nullString:String = null
-   println(s"nullString = $nullString") // PRINTS: nullString = null
-
-
+   
+   object Demo
+   {
+     def main(args: Array[String]): Unit =
+     {
+       class Person(name:String)
+       var nullClass:Person  = new Person("Joe Blow")
+       nullClass = null
+       val nullObject:Object = null
+       val nullString:String = null
+       // The following line prints:
+       // nullClass = null,  nullObject = null,  nullString = null
+       println(s"nullClass = $nullClass,  nullObject = $nullObject,  nullString = $nullString")
+     }
+   }
+==============================================================
 2) Nill
-
+==============================================================
 3) None
+==============================================================
 4) Nothing
+==============================================================
 5) Unit
