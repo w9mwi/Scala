@@ -3,12 +3,22 @@ The following Scala keywords and classes are explained below:
 1) null    - null is different than Null.  null is a Scala keyword.
 2) Null    - Null is different than null.  Null is a Scala class.
 3) Nil     - Nil is a Scala Object that represents an empty List.
-4) None    - None (and its complement Some) is a Scala class.
+4) None    - None, and its complement Some, are both Scala classes.
              Both None and Some classes extend the Option class.
 5) Unit    - Unit is defined as a Scala class, and as a Scala
              companion object.  Unit represents a "void" type,
              which is no type at all.
 6) Nothing - Nothing is a Scala class.
+
+SIDE NOTE (from the Scala Nothing class API documentation):
+The Scala library defines a value scala.collection.immutable.Nil
+of type List[Nothing].  Because lists are covariant in Scala,'
+this makes scala.collection.immutable.Nil an instance of List[T],
+for any element of type T.
+
+
+
+
 ==============================================================
 1) null - A Scala keyword.  null is different than Null.
    The Scala keyword null represents an absent (non-existent) value.
