@@ -184,5 +184,13 @@ for any element of type T.
              nothing else!  The only expressions that can
              return the Scala class Nothing are exceptions.
 
+             Note the following:
+             A) Both the scala.AnyVal and scala.AnyRef classes extend scala.Any
+             B) scala.Nothing extends both scala.AnyVal and scala.AnyRef
+             C) Therefore, scala.Nothing can be assigned to any scala.AnyVal
+                class, or to any scala.AnyRef classes.  In other words, the
+                scala.Nothing type can be assinged to anything!!!  SMILE :)
+                
+
 SEE THIS VIDEO FOR MORE INFO:
 https://youtu.be/0_-jRrdg9Dw?t=650
