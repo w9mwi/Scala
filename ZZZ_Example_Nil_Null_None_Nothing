@@ -12,12 +12,9 @@ The following Scala keywords and classes are explained below:
 
 SIDE NOTE (from the Scala Nothing class API documentation):
 The Scala library defines a value scala.collection.immutable.Nil
-of type List[Nothing].  Because lists are covariant in Scala,'
+of type List[Nothing].  Because lists are covariant in Scala,
 this makes scala.collection.immutable.Nil an instance of List[T],
 for any element of type T.
-
-
-
 
 ==============================================================
 1) null - A Scala keyword.  null is different than Null.
