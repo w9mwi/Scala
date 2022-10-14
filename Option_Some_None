@@ -11,7 +11,26 @@ Option type will always contain either a single value, or no
 value.  If an Option contains a single value, that value is
 wrapped in the Some class.  If an Option contains no value,
 that value is represented as the None object.  Both the Some
-class and the None object extend the Option class.
+class and the None object extend the Option class.  The
+following sample code demonstrates that Option(54321) and
+Some(54321) are EQUIVALENT expressions.
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    val number_1 = Option(54321)
+    val number_2 = Some(54321)
+    if (number_1 == number_2)
+      println("number_1 == number_2") // PRINTS: number_1 == number_2
+
+    number_2 match
+    {
+      case number_1 => println("number_2 == number_1") // PRINTS: number_2 == number_1
+      case _        => println("number_2 != number_1") // THIS LINE DOES NOT EXECUTE/PRINT.
+    }
+  }
+}
 
 An Option type can hold a tuple type, as shown in the following
 example.  When an Option holds a tuple type, it may appear to
