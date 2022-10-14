@@ -17,7 +17,8 @@ An Option type can hold a tuple type, as shown in the following
 example.  When an Option holds a tuple type, it may appear to
 hold more than one element (more than one value).  But keep in
 mind that a tuple is really a single data type that holds multiple
-values.
+values.  So that Option type is still holding only one value,
+which is a tuple type.
 
 object Demo
 {
