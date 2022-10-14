@@ -5,41 +5,79 @@ Option - scala.Option is both a Scala class and a Scala companion object,
          1) scala.Some  (A Scala class)
          2) scala.None  (A Scala object)
 
-        Scala's Option is NOT a collection like List, Array, etc.
-        When you instantiate an Option class with multiple values
-        (as shown here), a tuple is returned, NOT a collection.
+The Scala Option class can be thought of as a Scala List that
+contains either one element, or no elements.  Therefore, an
+Option type will always contain either a single value, or no
+value.  If an Option contains a single value, that value is
+wrapped in the Some class.  If an Option contains no value,
+that value is represented as the None object.  Both the Some
+class and the None object extend the Option class.
 
-        type quadTuple = (Double, Int, String, Char)
-        val myOption:Option[quadTuple] = Option(-1.23, 765, "abc", 'A')
-        println(s"myOption = ${myOption.get}") // PRINTS: myOption = (-1.23,765,abc,A)
+An Option type can hold a tuple type, as shown in the following
+example.  When an Option holds a tuple type, it may appear to
+hold more than one element (more than one value).  But keep in
+mind that a tuple is really a single data type that holds multiple
+values.
 
-        val (q, r, s, t)  = myOption.get
-        println(q, r, s, t) // PRINTS: (-1.23,765,abc,A)
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    type quadTuple = (Double, Int, String, Char)
+    var myOption:Option[quadTuple] = Option(-1.23, 765, "abc", 'A')
+    println(s"myOption = $myOption")           // PRINTS: myOption = Some((-1.23,765,abc,A))
+    println(s"myOption.get = ${myOption.get}") // PRINTS: myOption.get = (-1.23,765,abc,A)
+    myOption = None
+    println(s"myOption = $myOption") // PRINTS: myOption = None
+  }
+}
 
-
-Instead of returning a value when a function succeeds, and
-a null when it fails, a function can instead return an
-instance of the scala.Option class, where either a scala.None
-object, or a scala.Some class will be returned.
+Instead of returning a valid value when a function succeeds, and a null
+when it fails (as is done in many languages), a Scala function should
+return an instance of the scala.Option class so either a scala.None
+object, or a scala.Some class will be always be returned.
  
-Both the scala.Some class and the scala.None object are
-children of the scala.Option class.
-
 EXAMPLE:  The find() method on a sequence (i.e., Array, List, Seq, etc.)
           RETURNS THE FIRST ELEMENT of the sequence that satisfies the
           predicate as a 'Some' value.  If no element in the sequence
-          satisfies the predicate, find() returns the 'None' value.
+          satisfies the predicate, find() returns will return the
+          'None' value as shown in the code below.
 
-          val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
-          var result:Option[Int] = intList.find(_<4)
-          println(result) // Prints: Some(3)
-          result = intList.find(_>10)
-          println(result) // PRINTS: None
+          object Demo
+          {
+            def main(args: Array[String]): Unit =
+            {
+              val intList: List[Int]  = List[Int](7, 4, 6, 3, 9, 1)
+              var result: Option[Int] = intList.find(_ < 4)
+              println(result) // Prints: Some(3)
+              result = intList.find(_ > 10)
+            println(result) // PRINTS: None
+            }
+          }
 
-REMEMBER: If you want a Scala class to work inside a for expression
-          that implements multiple generators ('<-' is the
-          generator symbol), that class MUST implement BOTH
-          the map() and flatMap() functions.
+Because the Scala Option class implements both the the map() and
+flatMap() functions, the Option class will work inside Scala for
+expressions that use multiple generators.  (Recall the Scala
+generator symbol is: <-)  EXAMPLE:
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    val combinedLists =
+      for
+      {
+        num <- List(1,2,3)
+        char <- List('a','b')
+      } yield s"$num-$char"
+    combinedLists.foreach(println) // PRINTS: 1-a
+                                   //         1-b
+                                   //         2-a
+                                   //         2-b
+                                   //         3-a
+                                   //         3-b
+  }
+}
 
 A major weakness of using Option is that it doesn't tell you
 why something failed.  If you need to know why something
