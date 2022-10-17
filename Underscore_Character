@@ -11,8 +11,8 @@ As a rule of thumb, every time the underscore character (_) is used in
 Scala, you're telling the compiler that THE DETAILS ARE IRRELEVANT, and
 the compiler will act accordingly.  The underscore character (_) in Scala
 is sometimes used like a "wildcard" character.  The following is a list of
-some common ways an underscore character (_) is used in Scala code.  This is
-NOT a complete list of all possible uses of the underscore character (_).
+some common ways an underscore character (_) is used in Scala code.  This
+is NOT a complete list of all possible uses of the underscore character (_).
 
 ALSO SEE:  https://www.baeldung.com/scala/underscore
            https://stackoverflow.com/questions/8000903/what-are-all-the-uses-of-an-underscore-in-scala/8001065#8001065
