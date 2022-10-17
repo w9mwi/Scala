@@ -78,6 +78,10 @@ object Demo
     //       AnimalWithTail class.
     this: AnimalWithTail =>  // When a self-type declaration is used, it MUST be
                              // THE FIRST LINE OF CODE inside a trait declaration.
+                             // Instead of using this self-type declaration:
+                             // this: AnimalWithTail =>
+                             // You could instead use this self-type declaration:
+                             // _: AnimalWithTail =>
 
     def curlTail:Unit  = println("Curling Tail!")
     def lowerTail:Unit = println("Lowering Tail!")
