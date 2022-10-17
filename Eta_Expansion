@@ -79,7 +79,7 @@ object Demo
 
   /**
    * Pass this function a variable number of String arguments.
-   * A single string is returned with all words args separated
+   * A single string is returned with all word args separated
    * by a space character, and a period char appended to the end.
    */
   def makeSentence(word:String*):String = word.toSeq.mkString(" ") + "."
