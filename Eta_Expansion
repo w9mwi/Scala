@@ -60,6 +60,32 @@ val tripleIntFunc_2:(Int => Int) = tripleIntFunc    // WILL compile!
 val tripleIntFunc_2:(Int => Int) = tripleIntFunc _  // WILL compile!
 
 ======================================================================
+To pass a List[String] data type to a function that accepts a VARIABLE
+NUMBER of String arguments, use an Eta Expansion.  Read in-line
+comments for details.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var result:String = makeSentence("Today", "is", "another", "day")
+    println(s"1) result = $result") // PRINTS: 1) result = Today is another day.
+
+    val listOfWords:List[String] = List("Tomorrow", "is", "a", "different", "day")
+    val myStringFunc:(Seq[String] => String) = makeSentence _  // The underscore represents an Eta Expansion.
+    result = myStringFunc(listOfWords)
+    println(s"2) result = $result") // PRINTS: 2) result = Tomorrow is a different day.
+  }
+
+  /**
+   * Pass this function a variable number of String arguments.
+   * A single string is returned with all words args separated
+   * by a space character, and a period char appended to the end.
+   */
+  def makeSentence(word:String*):String = word.toSeq.mkString(" ") + "."
+}
+
+======================================================================
 In the below sample code we perform an Eta expansion on the defined
 add() function like this:
 
