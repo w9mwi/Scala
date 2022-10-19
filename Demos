@@ -1,38 +1,62 @@
-======================================================================================
-======================================================================================
 ANNUAL PERCENTAGE GROWTH RATE
 =============================
+
+import scala.collection.mutable.ArrayBuffer
+
 object Demo
 {
   def main(args: Array[String])
   {
-    val yearRange:Range = 1 to 200
+    val yearRange:Range               = 1 to 150
+    val annualPercentGrowthRate:Float = 2.0F
 
-    println("ANNUAL GROWTH RATE = 2.0%")
-    println("YEAR - UNITS CONSUMED - ANNUAL INCREASE OF UNITS CONSUMED")
-    calculate(0.02F, yearRange)
+    println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
 
-    print("\nANNUAL GROWTH RATE = 3.0%\n")
-    println("YEAR - UNITS CONSUMED - ANNUAL INCREASE OF UNITS CONSUMED")
-    calculate(0.03F, yearRange)
+    // Calculate the number of units consumed for each year
+    // in the yearRange, at the annualPercentGrowthRate...
+    val result:ArrayBuffer[(Float, Int)] = calculate(annualPercentGrowthRate * 0.01F, yearRange)
+
+    // Print the ArrayBuffer contents stored in the result val...
+    result.foreach(x => printResult(x._1, x._2, annualPercentGrowthRate))
   }
 
-  def calculate(annualRate:Float, yearRange:Range):Unit =
+  /**
+   * Build an ArrayBuffer that will contain the same number of elements
+   * in the yearRange argument passed to this function.  Return a tuple
+   * of type (Float, Int).  Where the Float type represents the numerical
+   * result (units consumed), and the Int type represents the year.
+   */
+  def calculate(annualRate:Float, yearRange:Range):ArrayBuffer[(Float, Int)] =
   {
-    println("0    - 1.00")
-    var previousTotal:Float = 1.0F
-    var total:Float = 1.0F
+    val result:ArrayBuffer[Float] = new ArrayBuffer()
+
+    // For each element in the yearRange add an element to the ArrayBuffer.
     for (idx <- yearRange)
     {
-      total += total * annualRate
-      if (idx < 10)
-        printf("%d   - %5.2f           - %5.2f\n", idx, total, total - previousTotal)
-      else if (idx < 100)
-        printf("%d  - %5.2f           - %5.2f\n",  idx, total, total - previousTotal)
-      else if (idx < 1000)
-        printf("%d - %5.2f           - %5.2f\n",   idx, total, total - previousTotal)
-      previousTotal = total
+      if (result.size == 0)
+        result += 1.0F  // Add the first element to the ArrayBuffer.
+      else {
+        // Add all remaining elements to the ArrayBuffer.
+        val total: Float = (result(result.size - 1) * annualRate) + result(result.size - 1)
+        result += total
+      }
     }
+    result.zipWithIndex
+  }
+
+  /**
+   *
+   */
+  def printResult(result:Float, index:Int, annualPercentGrowthRate:Float):Unit =
+  {
+    if (index < 9)
+      printf("%d     - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate )
+    else if (index < 99)
+      printf("%d    - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate)
+    else if (index < 999)
+      printf("%d   - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate)
+    else
+      printf("%d  - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate)
   }
 }
 
