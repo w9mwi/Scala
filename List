@@ -677,7 +677,12 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // Both the foldLeft and foldRight functions are called with two
                     // parameter lists.  The first parameter list contains the base
                     // value used as the first operand.  The second parameter list
-                    // contains the binary operator function to apply.
+                    // contains the binary operator function to apply on each element
+                    // in the List.  THIS IS IMPORTANT TO REMEMBER!  THAT IS, BOTH
+                    // foldLeft AND foldRight FUNCTIONS ARE BINARY OPERATIONS THAT
+                    // GET APPLIED TO EVERY ELEMENT IN THE LIST.  WHERE THE RESULT
+                    // OF ONE BINARY OPERATION IS APPLIED TO THE NEXT ELEMENT OF
+                    // THE LIST, UNTIL THE LAST ELEMENT OF THE LIST IS APPLIED.
 
                     // The following foldLeft example calculates this result:
                     // ((((((0−7)−4)−6)−3)−9)−1) = -30
