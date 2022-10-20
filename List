@@ -673,7 +673,6 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                 {
                   def main(args: Array[String]): Unit =
                   {
-                    val intList:List[Int] = List(7, 4, 6, 3, 9, 1)
                     // Both the foldLeft and foldRight functions are called with two
                     // parameter lists.  The first parameter list contains the base
                     // value used as the first operand.  The second parameter list
@@ -682,8 +681,12 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // AND foldRight FUNCTIONS ARE BINARY OPERATIONS THAT GET APPLIED
                     // TO EVERY ELEMENT IN THE LIST.  WHERE THE RESULT OF EVERY BINARY
                     // OPERATION IS APPLIED TO THE NEXT ELEMENT OF THE LIST, UNTIL THAT
-                    // BINARY OPERATION IS APPLIED TO THE LAST ELEMENT OF THE LIST.
+                    // BINARY OPERATION IS APPLIED ALL LAST ELEMENTS IN THE LIST.
 
+                    val intList:List[Int] = List(7, 4, 6, 3, 9, 1)
+                    // *****************************************************************************
+                    // THIS SECTION CALLS: foldLeft()
+                    //
                     // The following foldLeft example calculates this result:
                     // ((((((0−7)−4)−6)−3)−9)−1) = -30
                     // To arrive at that correct result, use this mental algorithm:
@@ -695,8 +698,18 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // 3) For foldLeft, add parenthesis to every binary operation from
                     //    left to right to attain the result:  ((((((0−7)−4)−6)−3)−9)−1) = -30
                     var result = intList.foldLeft(0)(_ - _)
-                    println("result = " + intList.foldLeft(0)(_ - _)) // PRINTS: result = -30
+                    println("result #1 = " + result) // PRINTS: result #1 = -30
 
+                    // IMPORTANT!...
+                    // The following call to foldLeft is functionally equivalent to
+                    // the above call to foldLeft!  The in-line lambda function must
+                    // return (param_1 - param _2) to obtain the correct result.
+                    result = intList.foldLeft(0)((param_1:Int, param_2:Int) => param_1 - param_2)
+                    println("result #2 = " + result) // PRINTS: result #2 = -30
+
+                    // *****************************************************************************
+                    // THIS SECTION CALLS: foldRight()
+                    //
                     // The following foldRight example calculates this result:
                     // 0−(1−(9−(3−(6−(4−7))))) = 14
                     // To arrive at that correct result, use this mental algorithm:
@@ -708,9 +721,17 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // 3) For foldRight, add parenthesis to every binary operation from
                     //    right to left to attain the result:  0−(1−(9−(3−(6−(4−7))))) = 14
                     result = intList.foldRight(0)(_ - _)
-                    println("result = " + intList.foldRight(0)(_ - _)) // PRINTS: result = 14
+                    println("result #3 = " + intList.foldRight(0)(_ - _)) // PRINTS: result #3 = 14
+
+                    // IMPORTANT!...
+                    // The following call to foldRight is functionally equivalent to
+                    // the above call to foldRight!  The in-line lambda function must
+                    // return (param_1 - param _2) to obtain the correct result.
+                    result = intList.foldRight(0)((param_1:Int, param_2:Int) => param_1 - param_2)
+                    println("result #4 = " + result) // PRINTS: result #4 = 14
                   }
                 }
+
 
                 // ********************************************************************
 
