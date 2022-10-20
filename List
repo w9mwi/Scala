@@ -662,11 +662,12 @@ ___ flatten - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
               // a List[Char] data type can NOT be further "flattened".
               // tom4.flatten
 
-___ foldLeft - See the foldRight example below.
-___ foldRight - Both foldLeft and foldRight are both curried functions.
+___ foldLeft  - See the foldRight example below.
+___ foldRight - foldRight and foldLeft are both curried functions.
                 A curried function is a function that returns a function
                 having a single parameter list.  Note that a single
-                parameter list can contain multiple arguments.  EXAMPLE:
+                parameter list can contain multiple arguments, but not
+                in this example...
 
                 object Demo
                 {
@@ -690,26 +691,35 @@ ___ foldRight - Both foldLeft and foldRight are both curried functions.
                   }
                 }
 
-                For more info. regarding foldLeft and foldRight, see "CURRYING EXAMPLE 3" and "CURRYING EXAMPLE 4"
-                at this URL: https://github.com/w9mwi/Scala/blob/master/Currying_2
-
                 // ********************************************************************
-                val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
 
-                // NOTE: The second parameter list for foldRight has its tuple order as (word, count),
-                //       which is the reverse order used by the foldLeft function below.
-                var wordCount:Int = wordList.foldRight(0)((word:String, count:Int) => count + word.length)
-                println("wordCount.foldRight = " + wordCount)
+                object Demo
+                {
+                  def main(args: Array[String]): Unit =
+                  {
+                    val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
 
-                // NOTE: The second parameter list for foldLeft has its tuple order as (count, word),
-                //       which is the reverse order used by the foldRight function above.
-                wordCount = wordList.foldLeft(0)((count:Int, word:String) => count + word.length)
-                println("wordCount.foldLeft = " + wordCount)
+                    // NOTE: The function passed to the second parameter list for foldRight below
+                    //       contains (word, count) as its arguments, which is the reverse order
+                    //       used by the foldLeft function called further below.
+                    var wordCount: Int = wordList.foldRight(0)((word: String, count: Int) => count + word.length)
+                    println("wordCount #1 = " + wordCount) // PRINTS: wordCount #1 = 26
 
-                // The following calls to foldRight and foldLeft perform identically
-                // to the foldRight and foldLeft calls immediately above.
-                println("wordList.foldRight(0)(_.length + _) = " + wordList.foldRight(0)(_.length + _))
-                println("wordList.foldLeft(0)(_+_.length)    = " + wordList.foldLeft(0)(_+_.length))
+                    // NOTE: The function passed to the second parameter list for foldLeft below
+                    //       contains (count, word) as its arguments, which is the reverse order
+                    //       used by the foldRight function called above.
+                    wordCount = wordList.foldLeft(0)((count: Int, word: String) => count + word.length)
+                    println("wordCount #2 = " + wordCount) // PRINTS: wordCount #2 = 26
+
+                    // The following calls to foldRight and foldLeft perform identically
+                    // to the foldRight and foldLeft calls immediately above.
+                    wordCount = wordList.foldRight(0)(_.length + _)
+                    println("wordCount #3 = " + wordCount) // PRINTS: wordCount #3 = 26
+                    wordCount = wordList.foldLeft(0)(_ + _.length)
+                    println("wordCount #4 = " + wordCount) // PRINTS: wordCount #4 = 26
+                  }
+                }
+
 ___ forall - The forall method returns true if ALL elements in the collection meet the condition.
              The exists method returns true if at least one element in the collection meets the condition.
              EXAMPLE:
