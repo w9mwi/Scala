@@ -3,6 +3,8 @@ CURRYING
 In Scala, a curried function is defined as:
 Any function that returns a function, where the
 returned function accepts a single parameter list.
+Note that a single parameter list can contain one
+argument or multiple arguments.
 
 All Scala functions defined with multiple parameter lists are
 curried functions--EXCEPT when one of the parameter lists
