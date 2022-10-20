@@ -663,35 +663,36 @@ ___ flatten - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
               // tom4.flatten
 
 ___ foldLeft - See the foldRight example below.
-___ foldRight - Both foldLeft and foldRight are CURRIED FUNCTIONS.  A CURRIED FUNCTION is a function that...
-                1) Takes one set of arguments
-                   ...AND...
-                2) RETURNS A FUNCTION that takes another set of arguments.
+___ foldRight - Both foldLeft and foldRight are both curried functions.
+                A curried function is a function that returns a function
+                having a single parameter list.  Note that a single
+                parameter list can contain multiple arguments.  EXAMPLE:
+
+                object Demo
+                {
+                  def main(args: Array[String]): Unit =
+                  {
+                    val intList:List[Int] = List(7, 4, 6, 3, 9, 1)
+                    // Both the foldLeft and foldRight functions are called with two
+                    // parameter lists.  The first parameter list contains the base
+                    // value used as the first operand.  The second parameter list
+                    // contains the binary operator function to apply.
+
+                    // The following foldLeft example calculates this result:
+                    // 0−7−4−6−3−9−1 = ((((((0−7)−4)−6)−3)−9)−1) = -30
+                    var result = intList.foldLeft(0)(_ - _)
+                    println("result = " + intList.foldLeft(0)(_ - _)) // PRINTS: result = -30
+
+                    // The following foldRight example calculates this result:
+                    // 0−(1−(9−(3−(6−(4−7))))) = 14
+                    result = intList.foldRight(0)(_ - _)
+                    println("result = " + intList.foldRight(0)(_ - _)) // PRINTS: result = 14
+                  }
+                }
 
                 For more info. regarding foldLeft and foldRight, see "CURRYING EXAMPLE 3" and "CURRYING EXAMPLE 4"
                 at this URL: https://github.com/w9mwi/Scala/blob/master/Currying_2
-                EXAMPLE:
-                val intList:List[Int] = List[Int](7, 4, 6, 3, 9, 1)
 
-                // NOTE: foldLeft and foldRight are both CURRIED FUNCTIONS,
-                //       as they get passed a value, and they return a function
-                //       that gets passed a value and returns a value.  When
-                //       foldLeft and foldRight are called below, they get
-                //       called with TWO PARAMETER LISTS.
-
-                // The following foldLeft function works on intList as follows:
-                // The first argument list (0) takes the base value that's used
-                // as the first operand.  The second argument list (_ - _) is the
-                // function to apply.
-                // 0−7−4−6−3−9−1 = ((((((0−7)−4)−6)−3)−9)−1) = -30
-                println("intList.foldLeft(0)(_ - _) = " + intList.foldLeft(0)(_ - _))
-
-                // The following foldRight function works on intList as follows:
-                // The first argument list (0) takes the base value that's used
-                // as the first operand.  The second argument list (_ - _) is the
-                // function to apply.
-                // 0−(1−(9−(3−(6−(4−7))))) = 14
-                println("intList.foldRight(0)(_ - _) = " + intList.foldRight(0)(_ - _))
                 // ********************************************************************
                 val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
 
