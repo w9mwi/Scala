@@ -724,23 +724,23 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // every element in the List.  Beginning with the value passed to the
                     // first parameter list, and then on every element in the List.
 
-                    // The function passed to the second parameter list for foldRight below
-                    // contains (word, count) as its arguments, which is the reverse order
-                    // used by the foldLeft function called further below.
-                    var wordCount: Int = wordList.foldRight(0)((word: String, count: Int) => count + word.length)
-                    println("wordCount #1 = " + wordCount) // PRINTS: wordCount #1 = 26
-
                     // The function passed to the second parameter list for foldLeft below
                     // contains (count, word) as its arguments, which is the reverse order
                     // used by the foldRight function called above.
-                    wordCount = wordList.foldLeft(0)((count: Int, word: String) => count + word.length)
+                    var wordCount:Int = wordList.foldLeft(0)((count: Int, word: String) => count + word.length)
+                    println("wordCount #1 = " + wordCount) // PRINTS: wordCount #1 = 26
+
+                    // The function passed to the second parameter list for foldRight below
+                    // contains (word, count) as its arguments, which is the reverse order
+                    // used by the foldLeft function called further below.
+                    wordCount = wordList.foldRight(0)((word: String, count: Int) => count + word.length)
                     println("wordCount #2 = " + wordCount) // PRINTS: wordCount #2 = 26
 
                     // The following calls to foldRight and foldLeft perform identically
                     // to the foldRight and foldLeft calls immediately above.
-                    wordCount = wordList.foldRight(0)(_.length + _)
-                    println("wordCount #3 = " + wordCount) // PRINTS: wordCount #3 = 26
                     wordCount = wordList.foldLeft(0)(_ + _.length)
+                    println("wordCount #3 = " + wordCount) // PRINTS: wordCount #3 = 26
+                    wordCount = wordList.foldRight(0)(_.length + _)
                     println("wordCount #4 = " + wordCount) // PRINTS: wordCount #4 = 26
                   }
                 }
