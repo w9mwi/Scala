@@ -697,7 +697,7 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                 {
                   def main(args: Array[String]): Unit =
                   {
-                    val wordList:List[String] = List[String]("How", "many", "characters", "do", "we", "have?")
+                    val wordList:List[String] = List("How", "many", "characters", "do", "we", "have?")
 
                     // NOTE: The function passed to the second parameter list for foldRight below
                     //       contains (word, count) as its arguments, which is the reverse order
