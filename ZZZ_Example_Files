@@ -155,41 +155,44 @@ object Demo
   }
 
   /**
-   * Read in-line comments for details.
+   * Each filename passed to this function in an Array will get returned
+   * in an ArrayBuffer.  Where the filename returned may, or may not,
+   * be changed.  Read in-line comments below to understand the criteria
+   * used to change a filename.
    */
   def transformFilenames(filenameArray:Array[String]): ArrayBuffer[StringTuple] =
   {
-    // Declare an empty ArrayBuffer, which gets populated
-    // further below, and is returned by this method.
-    val result:ArrayBuffer[StringTuple] = ArrayBuffer()
-    val ZERO:Int = 0
+    val result:ArrayBuffer[StringTuple] = ArrayBuffer() // Fill and return this ArrayBuffer below.
+    val ZERO:Char = 0 // Initialize to a char that CAN'T appear in a filename.
 
     for (origFilename <- filenameArray)
     {
-      var prevChar:Char = ZERO.toChar // MUST initialize to a char that CAN'T exist in a valid filename.
       // Replace whitespace chars in the filename with underscore ('_') chars...
       val str:String = origFilename.replace(" ", "_").replace("\t", "_")
-      // Obtain a traversable for str, which allows it to be traversed without using a var.
-      // Declare a StringBuilder, which is mutable, allowing a new String to be built in one swoop.
+      // Declare a StringBuilder (which is mutable) that we use to build a new String.
       val strBuild = StringBuilder.newBuilder
-      // The following str.foreach{} function loops through each char in the str String,
-      // where x references the current char.
-      str.foreach {
+      val strWithIndex = str.zipWithIndex
+      strWithIndex.foreach // Loop through the strWithIndex collection.
+      {
+        // As we loop, obtain the current and previous chars from the strWithIndex collection.
+        x => val currentChar:Char = x._1
+        val previousChar:Char = if (x._2 == 0) ZERO // This is the first char in the collection, so set the previousChar val to an invalid char.
+                                else strWithIndex(x._2-1)._1
+
         // Change the filename's chars to uppercase or lowercase based on this criteria:
         // 1) The first char of the filename is always set to uppercase.  If the filename's
-        //    first char is '_', setting it to uppercase will have no effect, and won't matter.
+        //    first char is '_', setting it to uppercase won't matter.
         // 2) All chars preceded with the '_' char will be set to uppercase.
         // 3) All remaining chars will be set to lowercase.
-        x => val myChar = if (prevChar == ZERO || (prevChar == '_' && x.toChar != '_'))
-                            x.toChar.toUpper
-                          else
-                            x.toChar.toLower
-        // The following if() statement will transform multiple consecutive '_' chars
-        // into a single '_' char.  Ensuring that the filename will never contain more
+        val myChar:Char =  if (previousChar == ZERO || (previousChar == '_' && currentChar != '_'))
+                             currentChar.toUpper
+                           else
+                             currentChar.toLower
+        // The following if() statement transforms multiple consecutive '_' chars
+        // into a single '_' char.  Ensuring that the filename will never contain
         // more than one consecutive '_' char.
-        if (myChar != '_'  ||  (myChar == '_'  &&  prevChar != '_'))
+        if (myChar != '_'  ||  (myChar == '_'  &&  previousChar != '_'))
           strBuild.append(myChar)
-        prevChar = myChar
       }
       result += new StringTuple(origFilename, strBuild.toString())
     }
