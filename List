@@ -681,7 +681,7 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // AND foldRight FUNCTIONS ARE BINARY OPERATIONS THAT GET APPLIED
                     // TO EVERY ELEMENT IN THE LIST.  WHERE THE RESULT OF EVERY BINARY
                     // OPERATION IS APPLIED TO THE NEXT ELEMENT OF THE LIST, UNTIL THAT
-                    // BINARY OPERATION IS APPLIED ALL LAST ELEMENTS IN THE LIST.
+                    // BINARY OPERATION IS APPLIED ALL ELEMENTS IN THE LIST.
 
                     val intList:List[Int] = List(7, 4, 6, 3, 9, 1)
                     // *****************************************************************************
@@ -704,6 +704,8 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // The following call to foldLeft is functionally equivalent to
                     // the above call to foldLeft!  The in-line lambda function must
                     // return (param_1 - param _2) to obtain the correct result.
+                    // The reason why foldLeft gets passed 2 arguments (param_1 and param_2)
+                    // is because foldLeft performs an operation on those 2 values.
                     result = intList.foldLeft(0)((param_1:Int, param_2:Int) => param_1 - param_2)
                     println("result #2 = " + result) // PRINTS: result #2 = -30
 
@@ -727,6 +729,8 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // The following call to foldRight is functionally equivalent to
                     // the above call to foldRight!  The in-line lambda function must
                     // return (param_1 - param _2) to obtain the correct result.
+                    // The reason why foldRight gets passed 2 arguments (param_1 and param_2)
+                    // is because foldRight performs an operation on those 2 values.
                     result = intList.foldRight(0)((param_1:Int, param_2:Int) => param_1 - param_2)
                     println("result #4 = " + result) // PRINTS: result #4 = 14
                   }
