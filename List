@@ -725,7 +725,7 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // 3) For foldRight, add parenthesis to every binary operation from
                     //    right to left to attain the result:  0−(1−(9−(3−(6−(4−7))))) = 14
                     result = intList.foldRight(0)(_ - _)
-                    println("result #3 = " + intList.foldRight(0)(_ - _)) // PRINTS: result #3 = 14
+                    println("result #3 = " + result) // PRINTS: result #3 = 14
 
                     // IMPORTANT!...
                     // The following call to foldRight is functionally equivalent to
