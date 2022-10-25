@@ -708,8 +708,8 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // is because foldLeft performs an operation on those 2 values.
                     result = intList.foldLeft(0)((param_1:Int, param_2:Int) => param_1 - param_2)
                     println("result #2 = " + result) // PRINTS: result #2 = -30
-                    NOTE: If you change the above "param_1 - param_2" to "param_2 - param_1",
-                          the returned result is the same as the below call to foldRight.
+                    // NOTE: If you change the above "param_1 - param_2" to "param_2 - param_1",
+                    //       the returned result is the same as the below call to foldRight.
 
                     // *****************************************************************************
                     // THIS SECTION CALLS: foldRight()
@@ -735,8 +735,8 @@ ___ foldRight - foldRight and foldLeft are both curried functions.
                     // is because foldRight performs an operation on those 2 values.
                     result = intList.foldRight(0)((param_1:Int, param_2:Int) => param_1 - param_2)
                     println("result #4 = " + result) // PRINTS: result #4 = 14
-                    NOTE: If you change the above "param_1 - param_2" to "param_2 - param_1",
-                          the returned result is the same as the above call to foldLeft.
+                    // NOTE: If you change the above "param_1 - param_2" to "param_2 - param_1",
+                    //       the returned result is the same as the above call to foldLeft.
                   }
                 }
 
