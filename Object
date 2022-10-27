@@ -18,6 +18,71 @@ a Scala object is NOT instantiated like a Scala class.  A Scala object is
 instantiated only one time--the first time it's referenced.
 
 =============================================================================
+COMPANION OBJECT - When a single file contains both a class definition and an
+                   object definition having IDENTICAL NAMES, the object is
+                   know as a COMPANION OBJECT to that class.  Read in-line
+                   comments in the sample code below for details.
+
+object Demo
+{
+  // NOTE: The following Adult class definition DOESN'T have a
+  //       companion object because there is no corresponding
+  //       Adult object definition in this file.
+  class Adult(name: String, age: Int)
+  {
+    def greeting(): String = s"My name is $name, I am $age years old."
+    // The following 2 commented-out lines WON'T COMPILE because the
+    // 2 fields they try to obtain from the Kid object are NOT public.
+    // val adultStatus   = Kid.IS_ADULT
+    // val collegeStatus = Kid.IS_COLLEGE_GRADUATE
+
+    // The following line WILL COMPILE because the field
+    // it obtains from the Kid object is public.
+    val youngStatus = Kid.IS_YOUNG
+  }
+
+  // The following Kid class is a COMPANION CLASS to the Kid object defined below.
+  class Kid(name:String, age:Int)
+  {
+    def greeting():String = s"My name is $name, I am $age years old."
+
+    // The following 3 lines do compile because ALL fields, classes,
+    // and methods in a class's COMPANION OBJECT are accessible from
+    // that class.  The Kid object defined below is this Kid class's
+    // companion object.
+    val adultStatus   = Kid.IS_ADULT
+    val collegeStatus = Kid.IS_COLLEGE_GRADUATE
+    val youngStatus   = Kid.IS_YOUNG
+  }
+
+  // The following Kid object is a COMPANION OBJECT to the Kid class defined above.
+  object Kid
+  {
+    protected val IS_ADULT:Boolean = false
+    private   val IS_COLLEGE_GRADUATE:Boolean = false
+    val IS_YOUNG:Boolean = true
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    // The following 2 commented-out lines WON'T COMPILE because the
+    // 2 fields they try to obtain from the Kid object are NOT public.
+    // val adultStatus   = Kid.IS_ADULT
+    // val collegeStatus = Kid.IS_COLLEGE_GRADUATE
+
+    // The following line WILL COMPILE because the field
+    // it obtains from the Kid object is public.
+    val adultStatus = Kid.IS_YOUNG
+
+    val kidClass:Kid = new Kid("Jane Train", 13)
+    println(kidClass.greeting() + s"\nadultStatus = $adultStatus")
+  }
+}
+
+=============================================================================
+OBJECT TYPES - Read in-line comments in the sample code below to understand
+               the difference between an object type and a class type.
+
 object Demo
 {
   class Kid(name:String, age:Int)
@@ -34,10 +99,11 @@ object Demo
   {
      val kidClass:Kid = new Kid("Jane Train", 13)
 
+     // IMPORTANT: A Kid class's type is:  Kid
+     //            A Kid object's type is: Kid.type
+
      // The following commented-out line won't compile because we're
      // trying to assign a Kid object to a val that's a Kid class.
-     // A Kid class's type is:  Kid
-     // A Kid object's type is: Kid.type.
      // val kidObject:Kid = Kid  // WON'T COMPILE!
 
      // The following line of code WILL COMPILE.
@@ -75,6 +141,7 @@ object Demo
     println(s"Hello.greeting   = ${Hello.greeting},  Hello.number   = ${Hello.number}")
   }
 }
+
 =============================================================================
 A Scala object name should have its first letter capitalized, just like a Scala
 class name.  Declaring an object creates a single object in the current scope,
