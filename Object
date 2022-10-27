@@ -14,7 +14,8 @@ A Scala object is like a Java static type, in that its members and methods are
 independent of any class that references the object's members or methods.  If
 two different Scala classes named ClassA and ClassB both reference the same Scala
 object, they will reference the object's same members and methods.  This is because
-a Scala object is NOT instantiated as are classes.  Scala objects are "static."
+a Scala object is NOT instantiated like a Scala class.  A Scala object is
+instantiated only one time--the first time it's referenced.
 
 The following sample code shows how a very simple object named Hello is used.
 =============================================================================
@@ -34,8 +35,8 @@ object Demo
     // When hello_2 gets assigned, the println in the Hello object DOESN'T execute.
     // This behavior occurs because a Scala object is "instantiated" only once,
     // the first time its referenced.  hello_1 will literally reference the same
-    // fields (vals, vars), methods, and classes as hello_2 because an object is a
-    // singleton.
+    // fields (vals, vars), methods, and classes as hello_2 because an object is
+    // a singleton.
     val hello_1:Demo.Hello.type = Hello // PRINTS: The Hello object is instantiated.
     val hello_2:Demo.Hello.type = Hello // PRINTS NOTHING!
 
@@ -48,19 +49,19 @@ object Demo
   }
 }
 =============================================================================
-A Scala object name should have its first letter capitalized, just like a Scala class name.
-Declaring an object creates a single object in the current scope, and it contains any members
-and methods that you define within the object.
+A Scala object name should have its first letter capitalized, just like a Scala
+class name.  Declaring an object creates a single object in the current scope,
+and it contains any members and methods that you define within the object.
 
 Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
 A companion object is an object that HAS THE SAME NAME as the class to which
 it is a companion.  The companion object has access to private members of the
-companion class.  Likewise, the class can see private elements in the object.
+companion class.  Likewise, the class can access private members in the object.
 
-To put that in other words, companion objects and classes are considered a
-single unit in terms of access controls, so they can access each other’s
-private and protected fields and methods.  BOTH the class and its companion
-object should be placed in the same file.
+In other words, companion objects and classes are considered a single unit in
+terms of access controls, so they can access each other’s private and protected
+fields and methods.  BOTH the class and its companion object should be placed
+in the same file.
 
 Below is a code sample showing how to use a class (named DBConnection) that has
 a companion object (named DBConnection).
@@ -71,24 +72,25 @@ NOTE: The first line of code in the main() method instantiates the object DBConn
 object Demo
 {
   object DBConnection {
-    def apply() = new DBConnection("www.bing.com")  // This apply() method is REQUIRED for the code to compile.
-    println("object DBConnection is instantiated.")
+    // This following apply() method is REQUIRED for this code to compile.
+    def apply() = new DBConnection("www.bing.com")
+    println("The object DBConnection is instantiated.")
   }
-
   class DBConnection(url:String) {
-    println("class DBConnection is instantiated.")
+    println("The class DBConnection is instantiated.")
   }
 
-  def main(args: Array[String]):Unit = {
-    val conn = DBConnection() // PRINTS: object DBConnection is instantiated.
-                              //         class DBConnection is instantiated.
-
-    // The following line of code instantiates ONLY the class DBConnection;
-    // so conn2 DOESN'T reference or have access to the object DBConnection.
-    val conn2 = new DBConnection("www.poop.com") // PRINTS: class DBConnection is instantiated.
+  def main(args: Array[String]):Unit =
+  {
+    // The following line of code instantiates the object DBConnection.
+    // And when the object DBConnection instantiates, its code then
+    // instantiates the class DBConnection.
+    val conn = DBConnection() // PRINTS: The object DBConnection is instantiated.
+                              //         The class DBConnection is instantiated.
+    // The following line of code instantiates ONLY the class DBConnection.
+    val conn2 = new DBConnection("www.poop.com") // PRINTS: The class DBConnection is instantiated.
   }
-}
-================================================================================
+}================================================================================
 
 Everything in Scala is an object, including classes, traits, and functions.
 Unlike a Scala class, a Scala object can't be passed any arguments!
