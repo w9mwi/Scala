@@ -17,7 +17,34 @@ object, they will reference the object's same members and methods.  This is beca
 a Scala object is NOT instantiated like a Scala class.  A Scala object is
 instantiated only one time--the first time it's referenced.
 
-The following sample code shows how a very simple object named Hello is used.
+=============================================================================
+object Demo
+{
+  class Kid(name:String, age:Int)
+  {
+    def greeting():String = s"My name is $name, I am $age years old."
+  }
+  object Kid
+  {
+    val IS_ADULT:Boolean    = false
+    val IS_COLLEGE_GRADUATE = false
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+     val kidClass:Kid = new Kid("Jane Train", 13)
+
+     // The following commented-out line won't compile because we're
+     // trying to assign a Kid object to a val that's a Kid class.
+     // A Kid class's type is:  Kid
+     // A Kid object's type is: Kid.type.
+     // val kidObject:Kid = Kid  // WON'T COMPILE!
+
+     // The following line of code WILL COMPILE.
+     val kidObject:Kid.type = Kid
+  }
+}
+
 =============================================================================
 object Demo
 {
