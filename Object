@@ -72,10 +72,12 @@ object Demo
 
     // The following line WILL COMPILE because the field
     // it obtains from the Kid object is public.
-    val adultStatus = Kid.IS_YOUNG
+    val youthStatus = Kid.IS_YOUNG
 
     val kidClass:Kid = new Kid("Jane Train", 13)
-    println(kidClass.greeting() + s"\nadultStatus = $adultStatus")
+    println(kidClass.greeting() + s"\nyouthStatus = $youthStatus")
+    // PRINTS: My name is Jane Train, I am 13 years old.
+    //         youthStatus = true
   }
 }
 
