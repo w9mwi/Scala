@@ -674,8 +674,9 @@ ___ fold      - See foldRight code sample below.  fold is very similar to foldLe
                 binary operation to be performed on the List elements is addition or multiplication
                 (operations that are associative), the fold function can be called.  If the
                 operation to be performed is non-associative (i.e., subtraction or division),
-                then DON'T use the fold function.  FYI, if the operation is associative, fold
-                generates the same result as foldLeft.
+                then DON'T use the fold function--use foldLeft or foldRight instead.  FYI,
+                if the operation is associative, fold generates the same result as foldLeft
+                and foldRight.
 
 ___ foldLeft  - See foldRight code sample below.
 ___ foldRight - foldRight and foldLeft are both curried functions.
