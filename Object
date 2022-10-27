@@ -10,11 +10,11 @@ where square brackets [] contain options:
 
 object <identifier> [extends <identifier>] [{ fields, methods, and classes }]
 
-An Scala object is like a Java static type, in that its members and methods are
+A Scala object is like a Java static type, in that its members and methods are
 independent of any class that references the object's members or methods.  If
 two different Scala classes named ClassA and ClassB both reference the same Scala
 object, they will reference the object's same members and methods.  This is because
-a Scala object is NOT instantiated as are classes--Scala objects are "static."
+a Scala object is NOT instantiated as are classes.  Scala objects are "static."
 
 The following sample code shows how a very simple object named Hello is used.
 =============================================================================
@@ -22,20 +22,29 @@ object Demo
 {
   object Hello
   {
-    def hey:String = "Hey, there."
+    val number:Int = 123
+    def greeting:String = "HOWDY!"
     println("The Hello object is instantiated.")
   }
 
   def main(args: Array[String]):Unit =
   {
-    val myHello:Demo.Hello.type = Hello // PRINTS: The Hello object is instantiated.
-    println(myHello.hey)                // PRINTS: Hey, there.
+    // NOTICE:
+    // When hello_1 gets assigned, the println in the Hello object DOES execute.
+    // When hello_2 gets assigned, the println in the Hello object DOESN'T execute.
+    // This behavior occurs because a Scala object is "instantiated" only once,
+    // the first time its referenced.  hello_1 will literally reference the same
+    // fields (vals, vars), methods, and classes as hello_2 because an object is a
+    // singleton.
+    val hello_1:Demo.Hello.type = Hello // PRINTS: The Hello object is instantiated.
+    val hello_2:Demo.Hello.type = Hello // PRINTS NOTHING!
 
-    val myHello_2:Demo.Hello.type = Hello // This line DOESN'T execute the println() statement contained
-                                          // in the Hello object because that happens ONLY ONCE, when
-                                          // the Hello object is first instantiated--in the first line
-                                          // of this main() method.
-    println(myHello_2.hey)                // PRINTS: Hey, there.
+    // It makes no sense to declare vals that reference an object because you
+    // can reference an object directly.  The following 3 lines of code reference
+    // the same fields in the Hello object.
+    println(s"hello_1.greeting = ${hello_1.greeting},  hello_1.number = ${hello_1.number}")
+    println(s"hello_2.greeting = ${hello_2.greeting},  hello_2.number = ${hello_2.number}")
+    println(s"Hello.greeting   = ${Hello.greeting},  Hello.number   = ${Hello.number}")
   }
 }
 =============================================================================
