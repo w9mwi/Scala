@@ -1,7 +1,12 @@
 A Scala object is a type of class that can have NO MORE THAN ONE INSTANCE.  Therefore,
 a Scala object is known as a SINGLETON in object-oriented design terminology.
 
-An object can extend another class, but a class CAN'T extend an object.
+Everything in Scala is an object, including classes, traits, and functions.
+Unlike a Scala class, a Scala object can't be passed any arguments.  This
+is because an object is NEVER created using the 'new' keyword, as you
+use with a class.
+
+An object CAN extend another class, but a class CAN'T extend an object.
 Objects DON'T take any parameters, but you can define fields (vals or vars),
 methods, and classes within an object, as you can with regular classes.
 
@@ -16,6 +21,38 @@ two different Scala classes named ClassA and ClassB both reference the same Scal
 object, they will reference the object's same members and methods.  This is because
 a Scala object is NOT instantiated like a Scala class.  A Scala object is
 instantiated only one time--the first time it's referenced.
+
+=============================================================================
+OBJECT TYPES - Read in-line comments in the sample code below to understand
+               the difference between an object type and a class type.
+
+object Demo
+{
+  class Kid(name:String, age:Int)
+  {
+    def greeting():String = s"My name is $name, I am $age years old."
+  }
+  object Kid
+  {
+    val IS_ADULT:Boolean            = false
+    val IS_COLLEGE_GRADUATE:Boolean = false
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+     val kidClass:Kid = new Kid("Jane Train", 13)
+
+     // IMPORTANT: A Kid class's type is:  Kid
+     //            A Kid object's type is: Kid.type
+
+     // The following commented-out line won't compile because we're
+     // trying to assign a Kid object to a val that's a Kid class.
+     // val kidObject:Kid = Kid  // WON'T COMPILE!
+
+     // The following line of code WILL COMPILE.
+     val kidObject:Kid.type = Kid
+  }
+}
 
 =============================================================================
 COMPANION OBJECT - When a single file contains both a class definition and an
@@ -82,89 +119,6 @@ object Demo
 }
 
 =============================================================================
-OBJECT TYPES - Read in-line comments in the sample code below to understand
-               the difference between an object type and a class type.
-
-object Demo
-{
-  class Kid(name:String, age:Int)
-  {
-    def greeting():String = s"My name is $name, I am $age years old."
-  }
-  object Kid
-  {
-    val IS_ADULT:Boolean    = false
-    val IS_COLLEGE_GRADUATE = false
-  }
-
-  def main(args: Array[String]):Unit =
-  {
-     val kidClass:Kid = new Kid("Jane Train", 13)
-
-     // IMPORTANT: A Kid class's type is:  Kid
-     //            A Kid object's type is: Kid.type
-
-     // The following commented-out line won't compile because we're
-     // trying to assign a Kid object to a val that's a Kid class.
-     // val kidObject:Kid = Kid  // WON'T COMPILE!
-
-     // The following line of code WILL COMPILE.
-     val kidObject:Kid.type = Kid
-  }
-}
-
-=============================================================================
-object Demo
-{
-  object Hello
-  {
-    val number:Int = 123
-    def greeting:String = "HOWDY!"
-    println("The Hello object is instantiated.")
-  }
-
-  def main(args: Array[String]):Unit =
-  {
-    // NOTICE:
-    // When hello_1 gets assigned, the println in the Hello object DOES execute.
-    // When hello_2 gets assigned, the println in the Hello object DOESN'T execute.
-    // This behavior occurs because a Scala object is "instantiated" only once,
-    // the first time its referenced.  hello_1 will literally reference the same
-    // fields (vals, vars), methods, and classes as hello_2 because an object is
-    // a singleton.
-    val hello_1:Demo.Hello.type = Hello // PRINTS: The Hello object is instantiated.
-    val hello_2:Demo.Hello.type = Hello // PRINTS NOTHING!
-
-    // It makes no sense to declare vals that reference an object because you
-    // can reference an object directly.  The following 3 lines of code reference
-    // the same fields in the Hello object.
-    println(s"hello_1.greeting = ${hello_1.greeting},  hello_1.number = ${hello_1.number}")
-    println(s"hello_2.greeting = ${hello_2.greeting},  hello_2.number = ${hello_2.number}")
-    println(s"Hello.greeting   = ${Hello.greeting},  Hello.number   = ${Hello.number}")
-  }
-}
-
-=============================================================================
-A Scala object name should have its first letter capitalized, just like a Scala
-class name.  Declaring an object creates a single object in the current scope,
-and it contains any members and methods that you define within the object.
-
-Scala objects are most commonly used as COMPANION OBLECTS to a Scala class.
-A companion object is an object that HAS THE SAME NAME as the class to which
-it is a companion.  The companion object has access to private members of the
-companion class.  Likewise, the class can access private members in the object.
-
-In other words, companion objects and classes are considered a single unit in
-terms of access controls, so they can access each other’s private and protected
-fields and methods.  BOTH the class and its companion object should be placed
-in the same file.
-
-Below is a code sample showing how to use a class (named DBConnection) that has
-a companion object (named DBConnection).
-NOTE: The first line of code in the main() method instantiates the object DBConnection,
-      which contains an apply() method that instantiates the class DBConnection.
-
-================================================================================
 object Demo
 {
   object DBConnection {
@@ -186,60 +140,6 @@ object Demo
     // The following line of code instantiates ONLY the class DBConnection.
     val conn2 = new DBConnection("www.poop.com") // PRINTS: The class DBConnection is instantiated.
   }
-}================================================================================
-
-Everything in Scala is an object, including classes, traits, and functions.
-Unlike a Scala class, a Scala object can't be passed any arguments!
-This is because an object is NEVER created using the 'new' keyword, as you
-use with a class.
-
-To use a Scala object's members or methods, you precede the member or method with the
-name of the object followed by the period (.) character, the same way you reference
-class members and methods.
-
-A top-level object declaration defines an entry point to a Scala application if it
-contains a method defined with this name and signature: main(Array[String])
-Here's an example...
-
-object Demo
-{
-  var myStuff:Float = -123.987F
-
-  def getMyStuff():Float = Demo.myStuff
-  def setMyStuff(value:Float):Unit = { Demo.myStuff = value }
-
-  def main(args: Array[String]):Unit =
-  {
-    println(Demo.myStuff)     // PRINTS: -123.987
-    println(Demo.getMyStuff)  // PRINTS: -123.987
-    setMyStuff(987.666F)
-    println(Demo.myStuff)     // PRINTS: 987.666
-    println(Demo.getMyStuff)  // PRINTS: 987.666
-    Demo.myStuff = -666.666F
-    println(Demo.myStuff)     // PRINTS: -666.666
-
-    // Here we call the Demo2 object...
-    val demo2 = Demo2
-    demo2.main
-  }
 }
 
-object Demo2
-{
-  // From this Demo2 object we reference the Demo object, and its Demo.myStuff value...
-  val myDemo = Demo
-  def main():Unit =
-  {
-    // Print the Demo.myStuff value of the above-defined Demo object,
-    // from this Demo2 object.
-    println(Demo.myStuff)   // PRINTS: -666.666
-    println(myDemo.myStuff) // PRINTS: -666.666
-  }
-}
-
-=============================================================================
-
-NOTE: In the Scala API documentation...
-      1) A circled 'c' represents a class
-      2) A circled 'o' represents an object
-      3) A circled 't' represents a trait.
+================================================================================
