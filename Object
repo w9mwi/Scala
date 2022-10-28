@@ -40,17 +40,22 @@ object Demo
 
   def main(args: Array[String]):Unit =
   {
-     val kidClass:Kid = new Kid("Jane Train", 13)
+    val kidClass:Kid = new Kid("Jane Train", 13)
+    println(s"${kidClass.greeting}") // PRINTS: My name is Jane Train, I am 13 years old.
 
-     // IMPORTANT: A Kid class's type is:  Kid
-     //            A Kid object's type is: Kid.type
+    // IMPORTANT: A Kid class has the type:  Kid
+    //            A Kid object has the type: Kid.type
+    //
+    // If you uncomment the following commented-out line, it WON'T COMPILE!
+    // It won't compile because kid_1 is defined as type Kid, which
+    // is the type of the Kid CLASS.  And we're trying to assign Kid
+    // (which is the OBJECT Kid) to a CLASS of type Kid.
+    // val kid_1:Kid = Kid
 
-     // The following commented-out line won't compile because we're
-     // trying to assign a Kid object to a val that's a Kid class.
-     // val kidObject:Kid = Kid  // WON'T COMPILE!
-
-     // The following line of code WILL COMPILE.
-     val kidObject:Kid.type = Kid
+    // The following line of code WILL COMPILE because kid_2 is defined
+    // as type Kid.type.  Kid.type is the type of a Kid OBJECT.  Therefore,
+    // Kid (which is a Kid OBJECT) can be assigned to kid_2.
+    val kid_2:Kid.type = Kid
   }
 }
 
