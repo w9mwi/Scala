@@ -10,16 +10,16 @@ The following Scala keywords and classes are explained below:
              which is no type at all.
 6) Nothing - Nothing is a Scala class.
 
-SIDE NOTE (from the Scala Nothing class API documentation):
-The Scala library defines a value scala.collection.immutable.Nil
-of type List[Nothing].  Because lists are covariant in Scala,
-this makes scala.collection.immutable.Nil an instance of List[T],
-for any element of type T.
-
 ==============================================================
 1) null - A Scala keyword.  null is different than Null.
    The Scala keyword null represents an absent (non-existent) value.
    Scala uses the null keyword so it's compatible with Java code.
+
+   An example of where null values appear in Scala is when you
+   declare an UN-initialized Scala Array that's NOT a number
+   or Boolean data type.  When you do that, all elements of the
+   UN-initialized Array will have the default value of null.
+
    You should refrain from using null in Scala code and instead use
    the Scala Option class, which always returns non-null values of
    type Some or type None.  SAMPLE CODE:
@@ -168,26 +168,42 @@ for any element of type T.
           }
 ==============================================================
 6) Nothing - Nothing is a Scala class that extends the Any
-             class.  Nothing designated NO VALUE, period!
+             class.  Nothing designates NO VALUE, period!
              Nothing is NOT null.
              Nothing is NOT Null.
              Nothing is NOT Nil.
              Nothing is NOT None.
              Nothing is NOT Unit.
 
-             Nothing is a type that has no fields, no methods,
-             can't be instantiated, can't be extended, and
-             HAS NO VALUE.  Nothing is ONLY Nothing, and
-             nothing else!  The only expressions that can
-             return the Scala class Nothing are exceptions.
+             THE FOLLOWING TEXT IS FROM THE SCALA API DOCUMENTATION
+             FOR THE CLASS Nothing.
+
+             Nothing is a type that has no fields, no methods, can't be
+             instantiated, can't be extended, and HAS NO VALUE.  Nothing
+             is ONLY Nothing, and nothing else!  The only expressions
+             that can return the Scala class Nothing are exceptions.
 
              Note the following:
-             A) Both the scala.AnyVal and scala.AnyRef classes extend scala.Any
-             B) scala.Nothing extends both scala.AnyVal and scala.AnyRef
+             A) BOTH the scala.AnyVal and scala.AnyRef classes extend scala.Any
+             B) scala.Nothing extends BOTH scala.AnyVal and scala.AnyRef
              C) Therefore, scala.Nothing can be assigned to any scala.AnyVal
                 class, or to any scala.AnyRef classes.  In other words, the
                 scala.Nothing type can be assinged to anything!!!  SMILE :)
-                
 
+             The following text comes from the Scala API documentation
+             for the Nothing class:
+
+             Nothing is (together with scala.Null) at the bottom of Scala's type
+             hierarchy.  Nothing is a subtype of every other type (including
+             scala.Null); there exist no instances of this type.  Although type
+             Nothing is uninhabited, it is nevertheless useful in several ways.
+             For instance, the Scala library defines a value scala.collection.immutable.Nil
+             of type List[Nothing].  Because lists are covariant in Scala, this makes
+             scala.collection.immutable.Nil an instance of List[T], for any element of type T.
+
+             Another usage for Nothing is the return type for methods which never
+             return normally.  One example is method error in scala.sys, which
+             always throws an exception.
+   
 SEE THIS VIDEO FOR MORE INFO:
 https://youtu.be/0_-jRrdg9Dw?t=650
