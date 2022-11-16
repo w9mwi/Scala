@@ -10,44 +10,69 @@ A Scala ArrayBuffer is variable in size--its size can increase or decrease dynam
 
 In Scala, Arrays are SEQUENCES, which means data is stored
 in elements that can be accessed via a sequential Integer
-index.  The following line of code creates an Array of
-3 integers that's initialized to the values of 1, 2 and 3.
+index.  Even when an Array is declared as a "val" you can
+the contents of all its elements!  So unlike most Scala
+collections, an Array CAN'T be declared as immutable!
 
-val myArray:Array[Int] = Array[Int](1, 2, 3)
+Read in-line comments in the following sample program to
+understand some Array fundamentals.
 
-The square brackets '[]' in the above code indicates that the
-Array is a parameterized type.  (NOTE: ALL COLLECTION TYPES IN
-SCALA ARE PARAMETERIZED TYPES.)  In the above example, this
-parameterized type is declared to be of type Int.  The above
-line of code can also be written as shown below (without the
-[Int]), as the compiler will be able to determine the type
-will be Int.
+=======================================================================
+object Demo
+{
+  def main(args: Array[String]):Unit =
+  {
+    // An UN-initialized Array REQUIRES the "new" keyword in its declaration,
+    // as in EXAMPLE 1), EXAMPLE 2) and EXAMPLE 3) below.  When an Array is
+    // initialized upon its declaration, the declaration CAN'T use the "new"
+    // keyword, as shown in EXAMPLE 4) below.
 
-val myArray = Array(1, 2, 3)
+    // EXAMPLE 1)
+    // An UN-initialized Array that contains a number type (i.e., Int, Float, Double)
+    // will have default values of ZERO for each element, as in this example...
+    val array_1:Array[Int] = new Array[Int](3) // REQUIRES "new" keyword.
+    println(s"array_1(0) = ${array_1(0)}, array_1(1) = ${array_1(1)}, array_1(2) = ${array_1(2)}")
+    // PRINTS: array_1(0) = 0, array_1(1) = 0, array_1(2) = 0
 
-The following example declares an Array containing un-initialized
-elements, and the elements are initialized after the declaration.
-When an Array is declared but not initialized, all its elements
-have a default value of zero (for numbers), and null for non-numeric
-data types.  NOTE: FOR ALL NUMERIC TYPES, THE DEFAULT VALUE IS
-ZERO.  FOR THE BOOLEAN TYPE, THE DEFAULT VALUE IS FALSE.  FOR ALL
-NON-NUMERIC TYPES, THE DEFAULT VALUE IS NULL.
+    // EXAMPLE 2)
+    // An UN-initialized Array that contains a Boolean type will have
+    // default values of false for each element, as in this example...
+    val array_2:Array[Boolean] = new Array[Boolean](3) // REQUIRES "new" keyword.
+    println(s"array_2(0) = ${array_2(0)}, array_2(1) = ${array_2(1)}, array_2(2) = ${array_2(2)}")
+    // PRINTS: array_2(0) = false, array_2(1) = false, array_2(2) = false
 
-val myArray:Array[Int] = new Array[Int](3);
+    // EXAMPLE 3)
+    // An UN-initialized Array that contains a data type that is NOT a number and NOT a
+    // Boolean will have default values of null for each element, as in this example...
+    val array_3: Array[String] = new Array[String](3) // REQUIRES "new" keyword.
+    println(s"array_3(0) = ${array_3(0)}, array_3(1) = ${array_3(1)}, array_3(2) = ${array_3(2)}")
+    // PRINTS: array_2(0) = false, array_2(1) = false, array_2(2) = false
 
-myArray(0) = 9
-myArray(1) = 8
-myArray(2) = 7
-println(myArray(0) + myArray(1) + myArray(2)) // Prints the value 24.
+    // EXAMPLE 4)
+    // An Array that is initialized upon its declared CAN'T contain
+    // the "new" keyword in its declaration, as in this example.
+    // array_3(0) = null, array_3(1) = null, array_3(2) = null
+    val array_4:Array[Int] = Array[Int](111, 222, 333) // The "new" keyword CAN'T be used here.
+    println(s"array_4(0) = ${array_4(0)}, array_4(1) = ${array_4(1)}, array_4(2) = ${array_4(2)}")
+    // PRINTS: array_4(0) = 111, array_4(1) = 222, array_4(2) = 333
 
-Even though the above myArray is declared as a val, we can change the
-values contained in each Array element.  An Array in Scala is MUTABLE,
-which means an Array's elements values can always be altered, even if
-its a val.  The val indicates that myArray cannot be altered to point
-to a different Array.  For example, you can't do the following:
+    // EXAMPLE 5)
+    // Notice that unlike most Scala collections, an Array CAN'T be
+    // declared as immutable.  Even when an Array is declared as a
+    // "val" it is ALWAYS MUTABLE.  As shown here...
+    array_4(0) = 777
+    array_4(1) = 888
+    array_4(2) = 999
+    println(s"array_4(0) = ${array_4(0)}, array_4(1) = ${array_4(1)}, array_4(2) = ${array_4(2)}")
+    // PRINTS: array_4(0) = 777, array_4(1) = 888, array_4(2) = 999
+  }
+}
 
-val myArray:Array[Int] = new Array[Int](3);
-myArray = new Array[Int](3);  // NOT allowed because myArray is a val.
+=======================================================================
+
+
+
+
 
 The following code shows two examples of how to program a multi-dimensional Array.
 ==================================================================================
