@@ -14,9 +14,8 @@ index.  Even when an Array is declared as a "val" you can
 always change the contents of all its elements.  Unlike most
 Scala collections, an Array CAN'T be declared as immutable!
 
-Read in-line comments in the following sample program to
-understand some Array fundamentals.
-
+Read in-line comments in the following sample program
+to understand some Array fundamentals.
 =======================================================================
 object Demo
 {
@@ -42,11 +41,11 @@ object Demo
     // PRINTS: array_2(0) = false, array_2(1) = false, array_2(2) = false
 
     // EXAMPLE 3)
-    // An UN-initialized Array that contains a data type that is NOT a number and NOT a
+    // An UN-initialized Array that contains a data type that is NOT a number or a
     // Boolean will have default values of null for each element, as in this example...
     val array_3: Array[String] = new Array[String](3) // REQUIRES "new" keyword.
     println(s"array_3(0) = ${array_3(0)}, array_3(1) = ${array_3(1)}, array_3(2) = ${array_3(2)}")
-    // PRINTS: array_2(0) = false, array_2(1) = false, array_2(2) = false
+    // PRINTS: array_3(0) = null, array_3(1) = null, array_3(2) = null
 
     // EXAMPLE 4)
     // An Array that is initialized upon its declared CAN'T contain
@@ -57,9 +56,9 @@ object Demo
     // PRINTS: array_4(0) = 111, array_4(1) = 222, array_4(2) = 333
 
     // EXAMPLE 5)
-    // Notice that unlike most Scala collections, an Array CAN'T be
-    // declared as immutable.  Even when an Array is declared as a
-    // "val" it is ALWAYS MUTABLE.  As shown here...
+    // Unlike most Scala collections, an Array CAN'T be declared
+    // as immutable.  Even when an Array is declared as a "val"
+    // all of its elements are MUTABLE.  As shown here...
     array_4(0) = 777
     array_4(1) = 888
     array_4(2) = 999
