@@ -19,6 +19,10 @@ The following Scala keywords and classes are explained below:
    declare an UN-initialized Scala Array that's NOT a number
    or Boolean data type.  When you do that, all elements of the
    UN-initialized Array will have the default value of null.
+   NOTE: All elements of an UN-initialized number Array (i.e.,
+         Int, Float, Double) will be set to the default value ZERO.
+         All elements of an UN-initialized Boolean Array will be
+         set to the default value false.
 
    You should refrain from using null in Scala code and instead use
    the Scala Option class, which always returns non-null values of
