@@ -48,9 +48,8 @@ object Demo
     // PRINTS: array_3(0) = null, array_3(1) = null, array_3(2) = null
 
     // EXAMPLE 4)
-    // An Array that is initialized upon its declared CAN'T contain
+    // An Array that is initialized upon its declaration CAN'T contain
     // the "new" keyword in its declaration, as in this example.
-    // array_3(0) = null, array_3(1) = null, array_3(2) = null
     val array_4:Array[Int] = Array[Int](111, 222, 333) // The "new" keyword CAN'T be used here.
     println(s"array_4(0) = ${array_4(0)}, array_4(1) = ${array_4(1)}, array_4(2) = ${array_4(2)}")
     // PRINTS: array_4(0) = 111, array_4(1) = 222, array_4(2) = 333
