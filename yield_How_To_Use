@@ -11,8 +11,8 @@ make a Scala for() loop return a single value, the for() loop uses the
   
   1) Generator(s)  - Every for comprehension begins with a generator.  Multiple generators are possible.
   2) Definition(s) - A definition binds the pattern on the left with the expression on the right.
-  3) Filter(s)     - A filter MUST return a Boolean value.  Only when the filter evaluates to true
-                     does the for() expression return a result.
+  3) Filter(s)     - A filter MUST evaluate to a Boolean value.  Only when the filter evaluates
+                     to true will the for() expression return a result.
 
   Here's an example:
   for {
