@@ -6,22 +6,21 @@ make a Scala for() loop return a single value, the for() loop uses the
 "yield" keyword.
 
 ===========================================================================
-  A Scala "for comprehension" (aka "the for() loop") can contain the
+  A Scala "for comprehension" (aka "the for() expression") can contain the
   following 3 expressions...
   
-  1) Generators - Every for comprehension begins with a generator.  Multiple generators are possible.
-  2) Definitions - A definition binds the pattern on the left with the expression on the right.
-  3) Filters
-  
+  1) Generator(s)  - Every for comprehension begins with a generator.  Multiple generators are possible.
+  2) Definition(s) - A definition binds the pattern on the left with the expression on the right.
+  3) Filter(s)     - A filter MUST return a Boolean value.  Only when the filter evaluates to true
+                     does the for() expression return a result.
+
   Here's an example:
   for {
         p <- people                 // GENERATOR
         fname = p.firstName         // DEFINITION - Note the val/var keyword isn't used in the definition of a for comprehension.
-        if (fname.startsWith("B"))  // FILTER     - Must have a boolean value, so an if() statement is often used.
+        if (fname.startsWith("B"))  // FILTER     - Must be a Boolean expression, so an if() statement is often used.
       } yield fname.toUpperCase
 
-A for() loop can contain a FILTER, which is the if() statement within the for() loop shown above.
-The for() loop will return only values for which the if() statement is true.
 Below is a Scala code example...
 ===========================================================================
 
