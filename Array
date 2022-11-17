@@ -67,49 +67,46 @@ object Demo
 }
 
 =======================================================================
+MULTI-DIMENSIONAL ARRAYS - Read in-line comments in the following code
+                           sample to understand the fundamentals of
+                           multi-dimensional arrays.
 
-
-
-
-
-The following code shows two examples of how to program a multi-dimensional Array.
-==================================================================================
 object Demo
 {
   def main(args: Array[String])
   {
-    // CREATE, INITIALIZE, AND DISPLAY A 2X2 MULTI-DIMENSIONAL ARRAY...
-    val matrix:Array[Array[Int]] = Array.ofDim[Int](2,2)
+    val dim1Size:Int = 4
+    val dim2Size:Int = 3
+    // Declare an UN-initialized 2X2 Array.
+    val matrix2X2:Array[Array[Int]] = Array.ofDim[Int](dim1Size, dim2Size)
 
-    // Initialize every element in the the 2-dimensional Array...
-    matrix(0)(0) = 3
-    matrix(0)(1) = 2
-    matrix(1)(0) = 1
-    matrix(1)(1) = 0
-
-    // Print the content of every element in the 2-dimensional
-    // Array, in a visual-friendly format...
-    for (idx <- matrix.indices)
-    {
-      for (jdx <- matrix(idx).indices) { print(" " + matrix(idx)(jdx)) }
-      println()
-    }
-    println()
-
-    // CREATE, INITIALIZE, AND DISPLAY A 3X5 MULTI-DIMENSIONAL ARRAY...
-    val myMatrix:Array[Array[Int]] = Array.ofDim[Int](3,5)
-
-    // Initialize every element in the the 2-dimensional Array...
-    for (idx <- myMatrix.indices)
-    {
-      for (jdx <- myMatrix(idx).indices) { myMatrix(idx)(jdx) = jdx }
+    // The following 2 nested for loops initialize the 2X2 Array.  The first
+    // element of this 2X2 Array will contain the number 0.  Every element
+    // after that will contain the number of the previous element incremented
+    // by 1.  So if the Array is 4X3 elements, it will contains the integers
+    // 0 through 11.
+    for (idx <- matrix2X2.indices) {
+      for (jdx <- matrix2X2(idx).indices) {
+        matrix2X2(idx)(jdx) = if (idx == 0)       { idx + jdx }
+                              else if (jdx == 0)  { matrix2X2(idx-1)(dim2Size-1) + 1 }
+                              else                { matrix2X2(idx)(jdx-1) + 1 }
+      }
     }
 
-    // Print the content of every element in the 2-dimensional
-    // Array, in a visual-friendly format...
-    for (idx <- myMatrix.indices)
+    // The following code prints the contents of all matrix2X2 elements like this:
+    // elem = 0, elem = 1, elem = 2, elem = 3, elem = 4, elem = 5, elem = 6, elem = 7, elem = 8, elem = 9, elem = 10, elem = 11,
+    matrix2X2.foreach { for (elem <- _) { print(s"elem = $elem, ") } }
+
+    println("\n=============")
+
+    // The following code prints the contents of all matrix2X2 elements like this:
+    // 0 1 2
+    // 3 4 5
+    // 6 7 8
+    // 9 10 11
+    for (idx <- matrix2X2.indices)
     {
-      for (jdx <- myMatrix(idx).indices) { print(" " + myMatrix(idx)(jdx)) }
+      for (jdx <- matrix2X2(idx).indices) { print(" " + matrix2X2(idx)(jdx)) }
       println()
     }
   }
