@@ -77,14 +77,14 @@ object Demo
   {
     val dim1Size:Int = 4
     val dim2Size:Int = 3
-    // Declare an UN-initialized 2X2 Array.
+    // Declare an UN-initialized 2-dimensional Array.
     val matrix2X2:Array[Array[Int]] = Array.ofDim[Int](dim1Size, dim2Size)
 
-    // The following 2 nested for loops initialize the 2X2 Array.  The first
-    // element of this 2X2 Array will contain the number 0.  Every element
-    // after that will contain the number of the previous element incremented
-    // by 1.  So if the Array is 4X3 elements, it will contains the integers
-    // 0 through 11.
+    // The following 2 nested for loops initializes the matrix2X2 Array.
+    // The first element of matrix2X2 Array will contain the number 0.  Every
+    // element after that will contain the number of the previous element
+    // incremented by 1.  So if the Array is 4X3 elements, it will contains
+    // the integers 0 through 11.
     for (idx <- matrix2X2.indices) {
       for (jdx <- matrix2X2(idx).indices) {
         matrix2X2(idx)(jdx) = if (idx == 0)       { idx + jdx }
