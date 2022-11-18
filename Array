@@ -134,60 +134,39 @@ object Demo {
 }
 
 ================================================================================
-// This section of code performs some basic Array manipulation.
-// Read the in-line comments below for details.
+When using Scala Arrays (or other Scala collections), it's possible for a single
+Array to contain different data types (i.e., Int, Float, String, List, etc.)
+in each of its elements by declaring an Array with the "Any" parameter type
+as shown below.
 
 object Demo
 {
   def main(args: Array[String])
   {
-    // NOTE: You CAN alter the contents of a Scala Array.
-    //       But if the Array is declared a "val", you
-    //       CAN'T point it to another Array.
-    val tjb:Array[Int] = Array(1,2,3)
-
-    // The following TWO (2) lines of code print exactly the same results.
-    for (idx <- tjb.indices) { println(tjb(idx)) }
-    tjb.foreach(println)
-
-    changeArray(tjb)  // This function will change the values contained in the tjb Array passed to it.
-    tjb.foreach(println) // Verify that the values in the tjb Array have changed.
-  }
-
-  /** The changeArray() function below returns the type Unit (nothing),
-   *  but changes the values contained in the Array passed to it.
-   *  You CAN alter the values stored in an Array, even when the Array
-   *  itself is of type "val".  But when an Array is declared a "val",
-   *  you CAN'T point that Array to another Array. */
-  def changeArray(arr:Array[Int]): Unit =
-  {
-    arr(0) = 123
-    arr(1) = 456
-    arr(2) = 789
-  }
-}
-
-================================================================================
-When using Scala Arrays, it's possible for a single Array to contain different
-data types (i.e., Int, Float, String, List, etc.) in each of its elements by
-declaring an Array with the "Any" parameter type as shown below.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    val list:List[Char] = List('1', '2', '3', '4')
+    val list:List[Char]    = List('1', '2', '3', '4')
     val array_1:Array[Int] = Array(12, 34, 56, 78)
     val array_2:Array[Any] = Array("one two three four", 12, 12.34F, 12.34D, list)
 
-    // Print the contents of both array_1 and array_2...
+    // Print the contents of array_1...
     array_1.foreach(println)
+    // PRINTS: 12
+    //         34
+    //         56
+    //         78
+    println("==================")
+    // Print the contents of array_2...
     array_2.foreach(println)
+    // PRINTS: one two three four
+    //         12
+    //         12.34
+    //         12.34
+    //         List(1, 2, 3, 4)
   }
 }
 
 ================================================================================
-Page 140 - Using a recursive function to tabluate the contents of an Array.
+The following code sample demonstrates how to use a recursive function
+to obtain the result of multiplying the contents of an Array[Int].
 
 object Demo
 {
@@ -205,24 +184,21 @@ object Demo
   }
 
   /**
-    * This RECURSIVE function loops through every element of the Array passed
-    * to it, BEGINNING at the Array index value passed to this function.
-    * Each time this function calls itself, it performs an operation on the
-    * Array(index) and Array(index+1) elements.  This function terminates
-    * when the index passed to it equals the length of the Array passed to it.
-    */
+   * This RECURSIVE function loops through the elements of the Array passed
+   * to it, BEGINNING at the Array index value passed to this function.
+   * Each time this function calls itself, it performs an operation on the
+   * Array(index) and Array(index+1) elements.  This function terminates
+   * when the index passed to it equals the length of the Array passed to it.
+   */
   def operateOnArray(arr:Array[Int], index:Int, func:(Int, Int) => Int):Int =
   {
     if (index < arr.length-1)
-    {
       func(arr(index), operateOnArray(arr, index+1, func))
-    }
     else
-    {
       arr(arr.length-1)
-    }
   }
 }
+
 ===========================================================================
 Pages 167-168 - How to FILL AND TABULATE Arrays and Lists.
 See the "Scala/Pass_By_Name" section to understand details
