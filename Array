@@ -66,6 +66,64 @@ object Demo
   }
 }
 
+================================================================================
+HOW TO INITIALIZE ARRAYS (AND LISTS) UPON THEIR DECLARATION.
+
+Instead of declaring an Array or a List first, and then initializing
+it with values, it's possible to fill an Array or List with values
+at the same time its declared.  Read in-line comments in the below
+code sample for details.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var intArray:Array[Int] = Array.fill(10)(4)
+    println(s"1) intArray.size = ${intArray.size}") // PRINTS: 1) intArray.size = 10
+    intArray.foreach(print) // Prints the contents of intArray: 4444444444
+    println("\n===================")
+    intArray.foreach{print(_)} // Equivalent to the above line: intArray.foreach(print)
+    println("\n===================")
+
+    // Initialize a new List having 6 elements, where each element contains the string "XYZ".
+    val stringList:List[String] = List.fill(6)("XYZ")
+    stringList.foreach(print)  // Prints the contents of stringList: XYZXYZXYZXYZXYZXYZ
+    println("\n===================")
+
+    var idx = 1
+    // The following line of code initializes a new List with 5 elements.
+    // NOTE: idx MUST be declared as a var.  The value of each element in
+    //       intList will be the value of idx.  But the idx value first
+    //       changes by 2X its previous value before it gets assigned to
+    //       each element in intList.
+    var intList:List[Int] = List.fill(5){idx*=2; idx} // NOTE: The second argument is a code block
+                                                      //       (which returns the value idx) so it
+                                                      //        MUST be contained in curly braces.
+    intList.foreach(println)  // Prints these 5 elements of intList:  2, 4, 8, 16, 32
+    println("===================")
+    intList = 1::intList // Prepend a 1 to intList
+    intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
+    println("===================")
+    intList = List.tabulate(10)(i => i*i) // The value of each element will be its index SQUARED.
+    intList.foreach(println)  // Prints these 10 elements of intList: 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
+    println("===================")
+
+    // Create a 6-element Array, where each element in the Array is initialized with
+    // the value: (3*x*x + 5x - 7)   The value x designates the current index of the Array.
+    // So for the first element of the array, x = 0.  For the second element, x = 1.  Etc.
+    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // NOTE: Uses (), equivalent to the line below.
+    println(s"2) intArray.size = ${intArray.size}") // PRINTS: 2) intArray.size = 6
+    intArray.foreach(println) // Prints these 6 elements of intArray: -7, 1, 15, 35, 61, 93
+    println("===================")
+
+    // NOTE: The last value printed below will ALWAYS be ONE LESS than the maximum value in
+    //       the range.  So in this instance, the last value printed is eleven (11)...
+    intArray = Array.range(0, 12)
+    println(s"3) intArray.size = ${intArray.size}") // PRINTS: 3) intArray.size = 12
+    intArray.foreach(println) // PRINTS: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+  }
+}
+
 =======================================================================
 MULTI-DIMENSIONAL ARRAYS - Read in-line comments in the following code
                            sample to understand the fundamentals of
@@ -134,96 +192,9 @@ object Demo {
 }
 
 ================================================================================
-When using Scala Arrays (or other Scala collections), it's possible for a single
-Array to contain different data types (i.e., Int, Float, String, List, etc.)
-in each of its elements by declaring an Array with the "Any" parameter type
-as shown below.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    val list:List[Char]    = List('1', '2', '3', '4')
-    val array_1:Array[Int] = Array(12, 34, 56, 78)
-    val array_2:Array[Any] = Array("one two three four", 12, 12.34F, 12.34D, list)
-
-    // Print the contents of array_1...
-    array_1.foreach(println)
-    // PRINTS: 12
-    //         34
-    //         56
-    //         78
-    println("==================")
-    // Print the contents of array_2...
-    array_2.foreach(println)
-    // PRINTS: one two three four
-    //         12
-    //         12.34
-    //         12.34
-    //         List(1, 2, 3, 4)
-  }
-}
-
-================================================================================
-HOW TO INITIALIZE ARRAYS AND LISTS UPON THEIR DECLARATION.
-Instead of declaring an Array or a List first, and then initializing
-it with values, it's possible to fill an Array or List with values
-at the same time its declared.  Read in-line comments in the below
-code sample for details.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    var intArray:Array[Int] = Array.fill(10)(4)
-    println(s"1) intArray.size = ${intArray.size}") // PRINTS: 1) intArray.size = 10
-    intArray.foreach(print) // Prints the contents of intArray: 4444444444
-    println("\n===================")
-    intArray.foreach{print(_)} // Equivalent to the above line: intArray.foreach(print)
-    println("\n===================")
-
-    // Initialize a new List having 6 elements, where each element contains the string "XYZ".
-    val stringList:List[String] = List.fill(6)("XYZ")
-    stringList.foreach(print)  // Prints the contents of stringList: XYZXYZXYZXYZXYZXYZ
-    println("\n===================")
-
-    var idx = 1
-    // The following line of code initializes a new List with 5 elements.
-    // NOTE: idx MUST be declared as a var.  The value of each element in
-    //       intList will be the value of idx.  But the idx value first
-    //       changes by 2X its previous value before it gets assigned to
-    //       each element in intList.
-    var intList:List[Int] = List.fill(5){idx*=2; idx} // NOTE: The second argument is a code block
-                                                      //       (which returns the value idx) so it
-                                                      //        MUST be contained in curly braces.
-    intList.foreach(println)  // Prints these 5 elements of intList:  2, 4, 8, 16, 32
-    println("===================")
-    intList = 1::intList // Prepend a 1 to intList
-    intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
-    println("===================")
-    intList = List.tabulate(10)(i => i*i) // The value of each element will be its index SQUARED.
-    intList.foreach(println)  // Prints these 10 elements of intList: 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
-    println("===================")
-
-    // Create a 6-element Array, where each element in the Array is initialized with
-    // the value: (3*x*x + 5x - 7)   The value x designates the current index of the Array.
-    // So for the first element of the array, x = 0.  For the second element, x = 1.  Etc.
-    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // NOTE: Uses (), equivalent to the line below.
-    println(s"2) intArray.size = ${intArray.size}") // PRINTS: 2) intArray.size = 6
-    intArray.foreach(println) // Prints these 6 elements of intArray: -7, 1, 15, 35, 61, 93
-    println("===================")
-
-    // NOTE: The last value printed below will ALWAYS be ONE LESS than the maximum value in
-    //       the range.  So in this instance, the last value printed is eleven (11)...
-    intArray = Array.range(0, 12)
-    println(s"3) intArray.size = ${intArray.size}") // PRINTS: 3) intArray.size = 12
-    intArray.foreach(println) // PRINTS: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-  }
-}
-
-================================================================================
-The following code sample demonstrates how to use a recursive function
-to obtain the result of multiplying the contents of an Array[Int].
+RECURSION - The following code sample demonstrates how to use a recursive
+            function to obtain the result of multiplying the contents of
+            an Array[Int].
 
 object Demo
 {
@@ -253,6 +224,38 @@ object Demo
       func(arr(index), operateOnArray(arr, index+1, func))
     else
       arr(arr.length-1)
+  }
+}
+
+================================================================================
+
+When using Scala Arrays (or other Scala collections), it's possible for a single
+Array to contain different data types (i.e., Int, Float, String, List, etc.)
+in each of its elements by declaring an Array with the "Any" parameter type
+as shown below.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val list:List[Char]    = List('1', '2', '3', '4')
+    val array_1:Array[Int] = Array(12, 34, 56, 78)
+    val array_2:Array[Any] = Array("one two three four", 12, 12.34F, 12.34D, list)
+
+    // Print the contents of array_1...
+    array_1.foreach(println)
+    // PRINTS: 12
+    //         34
+    //         56
+    //         78
+    println("==================")
+    // Print the contents of array_2...
+    array_2.foreach(println)
+    // PRINTS: one two three four
+    //         12
+    //         12.34
+    //         12.34
+    //         List(1, 2, 3, 4)
   }
 }
 
