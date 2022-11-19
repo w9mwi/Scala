@@ -201,8 +201,10 @@ object Demo
 {
   def main(args: Array[String])
   {
-    // Change the following two values to set the minimum and maximum
-    // number of elements contained in the RANDOMLY-GENERATED Arrays.
+    // This program creates RANDOMLY-GENERATED Arrays that contain
+    // a RANDOMLY-GENERATED number of Array elements.  To set the
+    // minimum and maximum number of elements contained in these
+    // RANDOMLY-GENERATED Arrays, change the following two values.
     val minNoOfElems:Int = 2
     val maxNoOfElems:Int = 5
     if (minNoOfElems < 2)
