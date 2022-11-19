@@ -14,7 +14,7 @@ index.  Even when an Array is declared as a "val" you can
 always change the contents of all its elements.  Unlike most
 Scala collections, an Array CAN'T be declared as immutable!
 
-Read in-line comments in the following sample program
+Read in-line comments in the following sample programs
 to understand some Array fundamentals.
 =======================================================================
 object Demo
