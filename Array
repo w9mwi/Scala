@@ -201,12 +201,11 @@ object Demo
 {
   def main(args: Array[String])
   {
-    // This program creates RANDOMLY-GENERATED Arrays that contain
-    // a RANDOMLY-GENERATED number of Array elements.  To set the
-    // minimum and maximum number of elements contained in these
-    // RANDOMLY-GENERATED Arrays, change the following two values.
-    val minNoOfElems:Int = 2
-    val maxNoOfElems:Int = 5
+    // This program creates Arrays having a RANDOM NUMBER of Array elements.
+    // To set the minimum and maximum number of elements contained in those
+    // Arrays, change the following two values.
+    val minNoOfElems:Int = 3
+    val maxNoOfElems:Int = 6
     if (minNoOfElems < 2)
     {
       println(s"ERROR: minNoOfElems ($minNoOfElems) can't be less than 2.")
@@ -218,27 +217,29 @@ object Demo
       return;
     }
 
-    // The following line of code declares array2D to be a 100-element Array of
-    // type Array[Array[Double]].  (Therefore, array2D is a 2-dimensional Array.)
-    // EACH ELEMENT of the 100-element array2D will contain:
-    // * An Array having a RANDOM NUMBER of elements, ranging in size from
-    //   minNoOfElems to maxNoOfElems.  Each element in that Array will
-    //   contain a RANDOM NUMBER from zero to one, of type Double.
-    //
     // HOW THE FOLLOWING LINE OF CODE WORKS:
-    // 1) Array.fill(100) creates a 100-element Array
-    // 2) For each of the 100 elements, the block of code between the braces {} gets executed.
-    // 3) This chunk of code between the braces {}...
-    //    Array.fill(util.Random.nextInt(maxNoOfElems)+minNoOfElems)
-    //    creates another Array with a random number of elements from minNoOfElems to maxNoOfElems.
-    // 4) This chunk of code between the braces {}...
-    //    (math.random)
-    //    generates a random number (of type Double) for each element in the Array.
-    // 5) The block of code between the braces {} executes for each of the
-    //    100 elements until they're all populated.
-    // YES, the "maxNoOfElems-1" in the following line gives the correct result.
+    // 1) Array.fill(100) creates a 100-element Array that will hold
+    //    an Array of type Array[Double].
+    // 2) When EACH of those 100 Array elements is created, the block
+    //    of code between the braces {} executes.
+    // 3) Read comments below for further details.
     val array2D:Array[Array[Double]] =
-         Array.fill(100){Array.fill(util.Random.nextInt(maxNoOfElems-1)+minNoOfElems)(math.random)}
+        Array.fill(100) {
+          // THIS BLOCK OF CODE EXECUTES ONCE FOR EACH OF THE 100 ARRAY ELEMENTS CREATED.
+          //
+          // randNumOfElems is the number of elements the Array[Double] will contain.
+          val randNumOfElems:Int = util.Random.nextInt(maxNoOfElems+1)
+
+          // Create an Array[Double] with the appropriate number of elements,
+          // and populate each element with a RANDOM NUMBER (of type Double)
+          // from 0.0 to < 1.0.  NOTE: If randNumOfElems < minNoOfElems,
+          // minNoOfElems becomes the size of the Array[Double].
+          if (randNumOfElems < minNoOfElems)
+            Array.fill(minNoOfElems)(math.random)
+          else
+            Array.fill(randNumOfElems)(math.random)
+    }
+
     var count:Int = 0;
 
     // Loop through every element in array2D and print its contents...
