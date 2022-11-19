@@ -69,10 +69,11 @@ object Demo
 ================================================================================
 HOW TO INITIALIZE ARRAYS (AND LISTS) UPON THEIR DECLARATION.
 
-Instead of declaring an Array or a List first, and then initializing
-it with values, it's possible to fill an Array or List with values
-at the same time its declared.  Read in-line comments in the below
-code sample for details.
+Instead of declaring an Array or a List in one line of code,
+and then initializing its values in other code later, it's
+possible to fill an Array or List with values in one line
+of code upon its declaratoion.  Read in-line comments
+in the below code sample for details.
 
 object Demo
 {
