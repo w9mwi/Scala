@@ -193,6 +193,63 @@ object Demo {
 }
 
 ================================================================================
+MULTI-DIMENSIONAL ARRAYS - Read in-line comments in the following code sample.
+                           This code shows how to populate a 100-element
+                           2-dimensional Array with Array[Double] arrays that
+                           have a RANDOM NUMBER of elements.  And where each
+                           number in the Array[Double] is populated with a
+                           RANDOM NUMBER.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val minNoOfElements = 2
+    val maxNoOfElements = 5
+    if (minNoOfElements < 2)
+    {
+      println(s"ERROR: minNoOfElements ($minNoOfElements) can't be less than 2.")
+      return;
+    }
+    if (maxNoOfElements < minNoOfElements)
+    {
+      println(s"ERROR: maxNoOfElements ($maxNoOfElements) can't be less than minNoOfElements ($minNoOfElements).")
+      return;
+    }
+
+    // The following line of code declares array2D to be a 100-element Array of
+    // type Array[Array[Double]].  (Therefore, array2D is a 2-dimensional Array.)
+    // Each element of the 100-element array2D will contain:
+    // * An Array having a RANDOM NUMBER of elements, ranging in size from
+    //   minNoOfElements to maxNoOfElements.  Those child Array elements
+    //   will contain a RANDOM NUMBER from zero to one, of type Double.
+    val array2D:Array[Array[Double]] =
+        Array.fill(100){Array.fill(util.Random.nextInt(maxNoOfElements)+minNoOfElements)(math.random)}
+    var count:Int = 0;
+
+    // Loop through every element in array2D and print its contents...
+    for (idx <- array2D.indices) {
+      for (jdx <- array2D(idx).indices)  {
+        count += 1
+        println("array2D(" + idx + ")(" + jdx + ") = " + array2D(idx)(jdx) + " (Element #" + count + ")")
+      }
+    }
+
+    println("===========================================")
+    println("Loop through every element in array2D that contains a 3-element Array.")
+    println("Then, calculate and print the average of those 3 numbers for each element.")
+    var result:Array[Double] = for (Array(d1, d2, d3) <- array2D) yield (d1 + d2 + d3) / 3
+    result.foreach(println)
+
+    println("===========================================")
+    println("Loop through every element in array2D that contains a 4-element Array.")
+    println("Then, calculate and print the average of those 4 numbers for each element.")
+    result = for (Array(d1, d2, d3, d4) <- array2D) yield (d1 + d2 + d3 + d4) / 4
+    result.foreach(println)
+  }
+}
+
+================================================================================
 RECURSION - The following code sample demonstrates how to use a recursive
             function to obtain the result of multiplying the contents of
             an Array[Int].
@@ -261,43 +318,3 @@ object Demo
 }
 
 ==================================================================
-
-Page 190
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // Create a 2-dimensional Array, where the top-level Array contains 100 elements.
-    // Each of those 100 Array elements is then populated with a "child" Array having
-    // a random number of elements from 3 to 9 (indices of 0 to 8).  Each element
-    // of the "child" Array stores a random number.
-    val twoD:Array[Array[Double]] = Array.fill(100) { Array.fill(util.Random.nextInt(7)+3)(math.random) }
-    var count:Int = 0;
-
-    // Loop through every element in the twoD Array, and print its contents...
-    for (idx <- twoD.indices)
-    {
-      for (jdx <- twoD(idx).indices)
-      {
-        count += 1
-        println(count + ") twoD(" + idx + ")(" + jdx + ") = " + twoD(idx)(jdx))
-      }
-    }
-    println()
-    println("Loop through every element in the twoD Array that contains a 3-element Array.")
-    println("Then, calculate and print the average of those 3 numbers for each element.")
-    var result:Array[Double] = for (Array(d1, d2, d3) <- twoD) yield (d1 + d2 + d3) / 3
-    result.foreach(println)
-
-    println()
-    println("Loop through every element in the twoD Array that contains a 4-element Array.")
-    println("Then, calculate and print the average of those 4 numbers for each element.")
-    result = for (Array(d1, d2, d3, d4) <- twoD) yield (d1 + d2 + d3 + d4) / 4
-    result.foreach(println)
-  }
-}
-
-=============================================================
-ATTENTION:
-For sample code of methods that work on both Arrays and Lists,
-SEE: https://github.com/w9mwi/Scala/blob/master/Lists
