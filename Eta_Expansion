@@ -4,15 +4,15 @@ In Scala you can define a function in 2 different ways:
    which is the most common way functions are defined.
 
 2) A function can also be defined upon the declaration of
-   a val or var.  Typically, a val or var stores a value
-   of some data type (i.e., Int, String, List, etc.).  But
-   a val or var can also store a function.
+   a val/var.  Typically, a val/var stores a value of some
+   some data type (i.e., Int, String, List, etc.).  But a
+   val/var can also store a function.
 
 The compiled code of a function defined as a val/var is
 different than the compiled code of a function defined
 using the 'def' keyword, even when both of those functions
 are defined to perform the identical operation, such as
-multiplying an Int value by two (2), and returning an Int result.
+multiplying an Int value by 2 and returning an Int result.
 
 
 object Demo
