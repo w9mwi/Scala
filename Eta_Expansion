@@ -67,12 +67,29 @@ object Demo
 }
 
 ======================================================================
+The following code sample demonstrates shows how to pass the
+makeSentence() function a variable number of Strings (words),
+and return a String that forms a sentence from those words.
+In other words, the makeSentence() function is coded to accept
+a variable number of String arguments, aka varargs.
 
+NOTICE: Although makeString() can accept a variable number of
+        Strings, it's defined with only one argument named
+        "word".  The asterisk (*) char in its argument list
+        is what designates that it accepts a variable number
+        of arguments.
 
-======================================================================
-To pass a List[String] data type to a function that accepts a VARIABLE
-NUMBER of String arguments, use an Eta Expansion.  Read in-line
-comments for details.
+First, makeSentence() is called by passing it several Strings.
+It then returns a sentence as a single String.  That's the easy demo.
+
+Next, instead of passing makeSentence() multiple Strings, we want
+makeSentence work by passing it a Scala List containing words of
+the to-be constructed sentence.  In other words, we want to call
+makeSentence() not by passing it some variable of Strings, but
+by passing it the data type: List[String]
+
+The following code sample shows how to use an Eta Expansion on the
+makeSentence() function to make it work with a with a List[String].
 
 object Demo
 {
@@ -81,8 +98,16 @@ object Demo
     var result:String = makeSentence("Today", "is", "another", "day")
     println(s"1) result = $result") // PRINTS: 1) result = Today is another day.
 
+    // ******************************************************************************
+    val myStringFunc = makeSentence _  // The underscore designates an Eta Expansion.
+    // The above 'val myStringFunc' line of code could be replaced with the following
+    // commented-out line of code, as it is equivalent.  The difference in the
+    // following commented-out line of code is that the underscore char (_)
+    // is removed, and the data type of myStringFunc is specified.
+    // val myStringFunc:(Seq[String] => String) = makeSentence
+    // ******************************************************************************
+
     val listOfWords:List[String] = List("Tomorrow", "is", "a", "different", "day")
-    val myStringFunc:(Seq[String] => String) = makeSentence _  // The underscore represents an Eta Expansion.
     result = myStringFunc(listOfWords)
     println(s"2) result = $result") // PRINTS: 2) result = Tomorrow is a different day.
   }
@@ -94,6 +119,7 @@ object Demo
    */
   def makeSentence(word:String*):String = word.toSeq.mkString(" ") + "."
 }
+
 
 ======================================================================
 In the below sample code we perform an Eta expansion on the defined
