@@ -5,8 +5,8 @@ In Scala you can define a function in 2 different ways:
 
 2) A function can also be defined upon the declaration of
    a val/var.  Typically, a val/var stores a value of some
-   some data type (i.e., Int, String, List, etc.).  But a
-   val/var can also store a function.
+   data type (i.e., Int, String, List, etc.).  But a val/var
+   can also store a function.
 
 The compiled code of a function defined as a val/var is
 different than the compiled code of a function defined
@@ -29,20 +29,20 @@ object Demo
     result = doubleInt_2(44)
     println(s"result = $result") // PRINTS: result = 88
 
-    // NOTICE:  If you assign doubleInt_1 function to a val/var the code WON'T COMPILE...
-    //          var func = doubleInt_1  // WON'T COMPILE!
-    //          But if you assign doubleInt_2 to a val/var the code will compile...
+    // NOTE:  If you assign doubleInt_1 function to a val/var the code WON'T COMPILE...
+    //        var func = doubleInt_1  // WON'T COMPILE!
+    //        But if you assign doubleInt_2 to a val/var the code will compile...
     var func = doubleInt_2
     result = func(11)
     println(s"result = $result") // PRINTS: result = 22
 
     // If you want to assign doubleInt_1 to the "var func" declared above,
-    // you must perform an Eta Expansion on it by adding the underscore
+    // you must perform an Eta Expansion on it by adding an underscore
     // character (_) to the line of code, like this...
     func = doubleInt_1 _  // Equivalent to the line below.
     func = doubleInt_1(_) // Equivalent to the line above.
 
-    // You can now invoke the doubleInt_1 function via the func var, like this...
+    // You can now invoke the doubleInt_1 function via the func var...
     result = func(15)
     println(s"result = $result") // PRINTS: result = 30
   }
