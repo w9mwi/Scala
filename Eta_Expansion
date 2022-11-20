@@ -1,35 +1,38 @@
 In Scala you can define a function in 2 different ways:
 
-1) A function can be defined as a val (or a var), so the val/var
-   actually stores a function instead of storing a typical data
-   value like an Int, String, List, etc.
-
-2) A function can be defined by using the 'def' keyword,
+1) A function can be defined by using the 'def' keyword,
    which is the most common way functions are defined.
+
+2) A function can also be defined upon the declaration of
+   a val or var.  Typically, a val or var stores a value
+   of some data type (i.e., Int, String, List, etc.).  But
+   a val or var can also store a function.
 
 The compiled code of a function defined as a val/var is
 different than the compiled code of a function defined
 using the 'def' keyword, even when both of those functions
 are defined to perform the identical operation, such as
-multiplying an Int value by two (2), and returning an
-Int result.
+multiplying an Int value by two (2), and returning an Int result.
 
-The following sample code defines a function using both ways,
-where doubleIntFunc() is stored in a val, and tripleIntFunc()
-is defined using the 'def' keyword.
-
-======================================================================
 
 object Demo
 {
-  def main(args: Array[String]): Unit = {
-    val doubleIntFunc:(Int => Int) = (number:Int) => number * 2
+  def main(args: Array[String])
+  {
+    // The doubleInt_1 function is defined using the "def" keyword...
+    def doubleInt_1(number:Int):Int = number * 2
+    // The doubleInt_2 function is defined as a val...
+    val doubleInt_2:(Int => Int) = (number:Int) => number * 2
 
-    println(doubleIntFunc(222)) // PRINTS: 444
-    println(tripleIntFunc(222)) // PRINTS: 666
+    // doubleInt_1() and doubleInt_2() are called in the same manner...
+    var result:Int = doubleInt_1(33)
+    println(s"result = $result") // PRINTS: result = 66
+    result = doubleInt_2(44)
+    println(s"result = $result") // PRINTS: result = 88
   }
-  def tripleIntFunc(number:Int):Int = number * 3
 }
+
+
 
 ======================================================================
 In the above example, if we want to assign the defined tripleIntFunc()
