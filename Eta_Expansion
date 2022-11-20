@@ -74,10 +74,18 @@ In other words, the makeSentence() function is coded to accept
 a variable number of String arguments, aka varargs.
 
 NOTICE: Although makeString() can accept a variable number of
-        Strings, it's defined with only one argument named
-        "word".  The asterisk (*) char in its argument list
-        is what designates that it accepts a variable number
-        of arguments.
+        String arguments, it's definition contains only one
+        argument named "word".  The asterisk (*) char in its
+        argument list is what designates that it accepts a
+        variable number of arguments.  Although makeSentence
+        is defined like this...
+        
+        def makeSentence(word:String*):String = word.toSeq.mkString(" ") + "."
+
+        ...hovering over "word" and pressing the 'Alt' plus '='
+        keys, intelliJ reveals the argument "word" is really of
+        type Seq[String].  So evidently, Scala transforms the
+        argument 'String *' into type Seq[String].
 
 First, makeSentence() is called by passing it several Strings.
 It then returns a sentence as a single String.  That's the easy demo.
