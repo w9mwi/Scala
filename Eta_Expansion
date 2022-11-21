@@ -70,7 +70,7 @@ object Demo
 HOW TO PASS A VARIABLE NUMBER OF ARGUMENTS (VARARGS) TO A FUNCTION
 
 It's important review this topic so you can better understand the
-following section.
+following more complex Eta Expansion example.
 
 Study the makeSentence() function defined in the sample code below.
 If you want a function to accept a variable number of arguments,
