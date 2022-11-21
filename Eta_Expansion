@@ -69,13 +69,13 @@ object Demo
 ======================================================================
 HOW TO PASS A VARIABLE NUMBER OF ARGUMENTS (VARARGS) TO A FUNCTION
 
-It's important review this topic so you can better understand the
-following more complex Eta Expansion example.
+It's important review this topic so you can better understand
+the more complex Eta Expansion example that follows.
 
 Study the makeSentence() function defined in the sample code below.
 If you want a function to accept a variable number of arguments,
-you must include an asterisk (*) character after the argument.
-Keep reading below...
+you must include an asterisk (*) character after the argument,
+as is done in the makeSentence() function below.  Keep reading...
 
 object Demo
 {
@@ -92,12 +92,14 @@ IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT
 When you pass one or more strings to makeSentence(), Scala transforms all
 those strings into a single collection of type Seq[String], and assigns
 that collection to the makeSentence() argument named "word".  That may
-seem confusing because the makeSentence() function defines the argument
-"word" as type "String*", but its real Scala data type is Seq[String].
+seem confusing because when you write the makeSentence() function, you
+define the argument "word" to be of type "String*", so it can accept
+multiple string arguments.  However, its real data type is Seq[String].
 
 Notice that makeSentence() returns word.mkString().  mkString()
 is the function that transforms all string elements contained
-in "word" into a single string that gets returned.
+in the argument "word" into a single string, which then gets
+returned by makeSentence().
 
 =================================================================
 
