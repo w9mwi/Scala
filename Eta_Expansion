@@ -67,25 +67,39 @@ object Demo
 }
 
 ======================================================================
-The following code sample demonstrates shows how to pass the
-makeSentence() function a variable number of Strings (words),
-and return a String that forms a sentence from those words.
-In other words, the makeSentence() function is coded to accept
-a variable number of String arguments, aka varargs.
+HOW TO PASS A VARIABLE NUMBER OF ARGUMENTS (VARARGS) TO A FUNCTION
 
-NOTICE: Although makeString() can accept a variable number of
-        String arguments, it's definition contains only one
-        argument named "word".  The asterisk (*) char in its
-        argument list is what designates that it accepts a
-        variable number of arguments.  Although makeSentence
-        is defined like this...
-        
-        def makeSentence(word:String*):String = word.toSeq.mkString(" ") + "."
+It's important review this topic so you can better understand the
+following section.
 
-        ...hovering over "word" and pressing the 'Alt' plus '='
-        keys, intelliJ reveals the argument "word" is really of
-        type Seq[String].  So evidently, Scala transforms the
-        argument 'String *' into type Seq[String].
+Study the makeSentence() function defined in the sample code below.
+If you want a function to accept a variable number of arguments,
+you must include an asterisk (*) character after the argument.
+Keep reading below...
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    def makeSentence(word:String*):String = word.mkString(" ") + "."
+
+    val result = makeSentence("Use", "these", "words", "to", "construct", "a", "sentence")
+    println(s"result = $result") // PRINTS: result = Use these words to construct a sentence.
+  }
+}
+
+IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT - IMPORTANT
+When you pass one or more strings to makeSentence(), Scala transforms all
+those strings into a single collection of type Seq[String], and assigns
+that collection to the makeSentence() argument named "word".  That may
+seem confusing because the makeSentence() function defines the argument
+"word" as type "String*", but its real Scala data type is Seq[String].
+
+Notice that makeSentence() returns word.mkString().  mkString()
+is the function that transforms all string elements contained
+in "word" into a single string that gets returned.
+
+=================================================================
 
 First, makeSentence() is called by passing it several Strings.
 It then returns a sentence as a single String.  That's the easy demo.
