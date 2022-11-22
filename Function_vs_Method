@@ -94,21 +94,26 @@ object Demo
     // type "String".  Therefore, this makeSentence method MUST get passed one or
     // more String arguments when it's called.  That part is easy to understand.
     //
-    // When you inspect the data type of the argument named "words" you'll
-    // discover its data type is Seq[String].  That's confusing because
-    // the below text specifies the data type as "String*".  When Scala
-    // sees an asterisk (*) after the data type String, Scala translates
-    // that into a data type of Seq[String], which now makes sense.
+    // When you inspect the argument named "words" in the makeSentence definition,
+    // you'll discover its data type is Seq[String].  That's confusing because the
+    // "words" argument is defined to have data type of String*.  When Scala sees
+    // an asterisk (*) after the data type String, Scala translates that into a
+    // data type of Seq[String], which makes sense because String* is NOT a
+    // valid data type.
     //
     // Although Scala assigns a data type of Seq[String] to the "words" argument in
     // makeSentence, you CAN'T pass makeSentence an argument of type Seq[String].
-    // Because the "words" argument in the makeSentence definition is declared of
-    // data type "String*", you are forced to pass ONLY string arguments to
-    // makeSentence.  In the next sample program (below this one) we'll transform
-    // makeSentence from a method into a FUNCTION via an ETA EXPANSION.  Then
-    // makeSentence will accept a single Seq[String] argument instead of a
-    // variable number of string arguments.  So we'll be able to call makeSentence
-    // by passing it a List[String] instead of multiple string arguments.
+    // WHY NOT?...  Because the "words" argument in the makeSentence definition
+    // is declared of data type String*, which forces makeSentence to accept ONLY
+    // string arguments.  ONLY AFTER those string arguments are passed to
+    // makeSentence does Scala build the single "words" argument (from the strings)
+    // and give it a data type of Seq[String].
+    //
+    // In the next sample program (below this one) we'll transform makeSentence
+    // from a method into a FUNCTION via an ETA EXPANSION.  Then makeSentence
+    // will accept a single Seq[String] argument instead of a variable number
+    // of string arguments.  So we'll be able to call makeSentence by passing
+    // it a single List[String] instead of multiple string arguments.
     //
     // Since "words" is of type Seq[String], we must call words.mkString
     // to convert that Seq[String] data type into a single string, which
