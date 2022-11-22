@@ -81,3 +81,42 @@ object Demo
     println("poop = " + poop)
   }
 }
+
+========================================================================================
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // When a method's definition contains an asterisk (*) in its argument list,
+    // it designates that it can be called with a variable number of arguments.
+    // In the below makeSentence method, the asterisk (*) is preceded with the data
+    // type "String".  Therefore, this makeSentence method MUST get passed one or
+    // more String arguments when it's called.  That part is easy to understand.
+    //
+    // When you inspect the data type of the argument named "words" you'll
+    // discover its data type is Seq[String].  That's confusing because
+    // the below text specifies the data type as "String*".  When Scala
+    // sees an asterisk (*) after the data type String, Scala translates
+    // that into a data type of Seq[String], which now makes sense.
+    //
+    // Since "words" is of type Seq[String], we must call words.mkString
+    // to convert that Seq[String] data type into a single string.
+    def makeSentence(words:String*):String = words.mkString(" ") + "."
+
+    // Call makeSentence() to test it...
+    var strResult = makeSentence("Make", "these", "words", "into", "a", "single", "sentence")
+    println(s"strResult 1) = $strResult")
+    // PRINTS:  strResult 1) = Make these words into a single sentence.
+
+    // Next, perform an ETA EXPANSION on makeSentence.  This will transform
+    // makeSentence into a function that takes a single Seq[String] as an
+    // argument, and returns a string.  NOTE: A List[String] data type
+    // also works because its a child of the Seq[String] data type.
+    val listOfWords:List[String] = List("Tomorrow", "is", "a", "different", "day")
+    val etaExpand:(Seq[String]=>String) = makeSentence
+    strResult = etaExpand(listOfWords)
+    println(s"strResult 2) = $strResult")
+    // PRINTS: strResult 2) = Tomorrow is a different day.
+  }
+}
