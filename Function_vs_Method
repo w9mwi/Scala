@@ -136,3 +136,15 @@ object Demo
     // PRINTS: strResult 2) = Tomorrow is a different day.
   }
 }
+
+========================================================================================
+
+    val f: (Any) => String = {
+      case i: Int => "Int"
+      case d: Double => "Double"
+      case s: String => "String"
+      case _ => "Other"
+    }
+    println(f("123.456D"))
+
+========================================================================================
