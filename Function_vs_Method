@@ -33,8 +33,8 @@ object Demo
   {
     // ********************************************************************
     // When the "def" keyword is used, a method (not a function) is created.
-    // Therefore, squareMethod1 is a METHOD, not a function.
-    def squareMethod1(number:Int):Int = number*number
+    // Therefore, squareMethod is a METHOD, not a function.
+    def squareMethod(number:Int):Int = number*number
     val numberList:List[Int] = List(1, 2, 3, 4, 5)
 
     // Many Scala methods REQUIRE A FUNCTION to be passed as an argument.
@@ -47,7 +47,7 @@ object Demo
     // the method into a function.  The following call to the List.map()
     // method demonstrates this because it gets passed a method even
     // though it expects a function.
-    var listResult:List[Int] = numberList.map(squareMethod1)
+    var listResult:List[Int] = numberList.map(squareMethod)
     println(s"listResult 1) = $listResult") // PRINTS: listResult 1) = List(1, 4, 9, 16, 25)
     // ********************************************************************
 
@@ -64,12 +64,12 @@ object Demo
     //
     // 3) Transform a Scala method into a function via an ETA EXPANSION.
     //    The following 3 lines of code all perform an ETA EXPANSION on
-    //    squareMethod1, which transforms it into a function.  It makes
+    //    squareMethod, which transforms it into a function.  It makes
     //    no difference which syntax (shown in the 3 lines below) you
     //    choose to use.
-    val squareFunction2A:(Int=>Int) = squareMethod1
-    val squareFunction2B            = squareMethod1 _
-    val squareFunction2C            = squareMethod1(_)
+    val squareFunction2A:(Int=>Int) = squareMethod
+    val squareFunction2B            = squareMethod _
+    val squareFunction2C            = squareMethod(_)
     var intResult:Int = squareFunction2A(7)
     println(s"intResult 1) = $intResult") // PRINTS: intResult 1) = 49
     intResult = squareFunction2B(8)
@@ -77,11 +77,6 @@ object Demo
     intResult = squareFunction2C(9)
     println(s"intResult 3) = $intResult") // PRINTS: intResult 3) = 81
     // ********************************************************************
-
-    // The following testMethod requires a function as its second argument.
-    def testMethod(x:Int, function:Int=>Int) = function(x)
-    val poop = testMethod(99, squareMethod1)
-    println("poop = " + poop)
   }
 }
 
