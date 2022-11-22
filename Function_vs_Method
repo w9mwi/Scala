@@ -13,8 +13,8 @@ Method - A Scala method is bound to a class/object/trait.  In other
 Function - A Scala function is NOT bound to a class/object/trait.
            You CAN'T create a Scala function using the "def" keyword,
            because using the "def" keyword makes it a method.  The
-           code sample below shows examples of how to write both
-           Scala methods and Scala functions.
+           code sample below shows examples of how to write both Scala
+           methods and Scala functions.
 
 IMPORTANT: To distinguish a Scala function from a Scala method, LOOK AT ITS SIGNATURE!
 
