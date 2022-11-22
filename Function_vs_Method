@@ -22,7 +22,7 @@ IMPORTANT: To distinguish a Scala function from a Scala method, LOOK AT ITS SIGN
            (Int):Int  -  The method takes an Int argument, and returns an Int value.
 
            A Scala function's signature will ALWAYS include the rocket symbol (=>),
-           and will similar to this:
+           and will look similar to this:
            Int=>Int  -  The function takes an Int argument, and returns an Int value.
 
 ========================================================================================
