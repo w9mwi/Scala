@@ -1,0 +1,82 @@
+The words "method" and "function" are often used interchangeably.
+However, in Scala there are important differences between a method
+and a function.
+
+Method - A Scala method is bound to a class, object, or trait.  In other
+         words, a method IS A MEMBER of a class, an object, or or a trait.
+         A Scala method is ALWAYS written using the "def" keyword.
+         A Scala method can be transformed into a Scala function by
+         performing an ETA EXPANSION on the method.  The code sample
+         below performs an ETA EXPANSION on some methods, so you can
+         see how this is done.
+
+Function - You CAN'T write a Scala function using the "def" keyword,
+           because using the "def" keyword makes it a method.  The
+           code sample below shows examples of how to write both
+           Scala methods and Scala functions.
+
+IMPORTANT: To distinguish a Scala function from a Scala method, LOOK AT ITS SIGNATURE!
+
+           A Scala method's signature will look similar to this:
+           (Int):Int  -  The method takes an Int argument, and returns an Int value.
+
+           A Scala function's signature will ALWAYS include the rocket symbol (=>),
+           and will similar to this:
+           Int=>Int  -  The function requires an Int argument, and returns an Int value.
+
+========================================================================================
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // ********************************************************************
+    // When the "def" keyword is used, a method (not a function) is created.
+    // Therefore, squareMethod1 is a METHOD, not a function.
+    def squareMethod1(number:Int):Int = number*number
+    val numberList:List[Int] = List(1, 2, 3, 4, 5)
+
+    // Many Scala methods REQUIRE A FUNCTION to be passed as an argument.
+    // (The List.map method called below is defined to accept a function
+    // as its argument, NOT a method.)  However, if a method has the same
+    // functionality as the required argument, you can pass a method
+    // (instead of a function) and it WILL WORK.  As Scala AUTOMATICALLY
+    // CONVERTS methods into functions when an argument requires a function.
+    // The following call to the List.map() method demonstrates this.
+    var listResult:List[Int] = numberList.map(squareMethod1)
+    println(s"listResult 1) = $listResult") // PRINTS: listResult 1) = List(1, 4, 9, 16, 25)
+    // ********************************************************************
+
+    // ********************************************************************
+    // THERE ARE THREE (3) WAYS TO WRITE A FUNCTION:
+    // 1) Upon declaring a val/var, assign a function to it.
+    val squareFunction:(Int=>Int) = { (number:Int) => number*number }
+    listResult = numberList.map(squareFunction)
+    println(s"listResult 2) = $listResult") // PRINTS: listResult 2) = List(1, 4, 9, 16, 25)
+    //
+    // 2) Pass an anonymous function (i.e., x=>x*x) as the argument to a method.
+    listResult = numberList.map(x=>x*x)
+    println(s"listResult 3) = $listResult") // PRINTS: listResult 3) = List(1, 4, 9, 16, 25)
+    //
+    // 3) Transform a Scala method into a function via an ETA EXPANSION.
+    //    The following 3 lines of code all perform an ETA EXPANSION on
+    //    squareMethod1, which transforms it into a function.  It makes
+    //    no difference which syntax (shown in the 3 lines below) you
+    //    choose to use.
+    val squareFunction2A:(Int=>Int) = squareMethod1
+    val squareFunction2B            = squareMethod1 _
+    val squareFunction2C            = squareMethod1(_)
+    var intResult:Int = squareFunction2A(7)
+    println(s"intResult 1) = $intResult") // PRINTS: intResult 1) = 49
+    intResult = squareFunction2B(8)
+    println(s"intResult 2) = $intResult") // PRINTS: intResult 2) = 64
+    intResult = squareFunction2C(9)
+    println(s"intResult 3) = $intResult") // PRINTS: intResult 3) = 81
+    // ********************************************************************
+
+    // The following testMethod requires a function as its second argument.
+    def testMethod(x:Int, function:Int=>Int) = function(x)
+    val poop = testMethod(99, squareMethod1)
+    println("poop = " + poop)
+  }
+}
