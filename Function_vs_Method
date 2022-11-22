@@ -16,6 +16,12 @@ Function - A Scala function is NOT bound to a class/object/trait.
            code sample below shows examples of how to write both Scala
            methods and Scala functions.
 
+A Scala method (created with the "def" keyword) can be written to accept
+parameterized (generic) arguments, like this:
+// Works by passing an argument of type Double, Float, Int, String, etc...
+def firstChar[A](a: A) = { a.toString.charAt(0) }
+A Scala function CAN'T be written to accept parameterized (generic) arguments.
+
 IMPORTANT: To distinguish a Scala function from a Scala method, LOOK AT ITS SIGNATURE!
 
            A Scala method's signature will look similar to this:
