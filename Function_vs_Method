@@ -88,6 +88,7 @@ object Demo
 {
   def main(args: Array[String])
   {
+    // THE FOLLOWING TEXT IS ALL ABOUT THE makeSentence() METHOD IMMEDIATELY BELOW.
     // When a method's definition contains an asterisk (*) in its argument list,
     // it designates that it can be called with a variable number of arguments.
     // In the below makeSentence method, the asterisk (*) is preceded with the data
