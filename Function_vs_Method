@@ -104,11 +104,11 @@ object Demo
     //
     // Although Scala assigns a data type of Seq[String] to the "words" argument in
     // makeSentence, you CAN'T pass makeSentence an argument of type Seq[String].
-    // WHY NOT?...  Because the "words" argument in the makeSentence definition
-    // is declared of data type String*, which forces makeSentence to accept ONLY
-    // string arguments.  ONLY AFTER those string arguments are passed to
-    // makeSentence does Scala build the single "words" argument (from the strings)
-    // and give it a data type of Seq[String].
+    // WHY NOT?...  Because when an argument is defined with an asterisk (*) char,
+    // Scala forces the method to accept ONLY arguments of the data type preceding
+    // the asterisk (*) char--in this example the data type is String.  ONLY AFTER
+    // string arguments are passed to makeSentence does Scala build the "words"
+    // argument (from the strings) and assign it the data type Seq[String].
     //
     // In the next sample program (below this one) we'll transform makeSentence
     // from a method into a FUNCTION via an ETA EXPANSION.  Then makeSentence
