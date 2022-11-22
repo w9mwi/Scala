@@ -2,15 +2,16 @@ The words "method" and "function" are often used interchangeably.
 However, in Scala there are important differences between a method
 and a function.
 
-Method - A Scala method is bound to a class, object, or trait.  In other
-         words, a method IS A MEMBER of a class, an object, or or a trait.
-         A Scala method is ALWAYS written using the "def" keyword.
+Method - A Scala method is bound to a class/object/trait.  In other
+         words, a method IS A MEMBER of a class/object/trait.
+         A Scala method is ALWAYS created using the "def" keyword.
          A Scala method can be transformed into a Scala function by
          performing an ETA EXPANSION on the method.  The code sample
          below performs an ETA EXPANSION on some methods, so you can
          see how this is done.
 
-Function - You CAN'T write a Scala function using the "def" keyword,
+Function - A Scala function is NOT bound to a class/object/trait.
+           You CAN'T create a Scala function using the "def" keyword,
            because using the "def" keyword makes it a method.  The
            code sample below shows examples of how to write both
            Scala methods and Scala functions.
@@ -22,7 +23,7 @@ IMPORTANT: To distinguish a Scala function from a Scala method, LOOK AT ITS SIGN
 
            A Scala function's signature will ALWAYS include the rocket symbol (=>),
            and will similar to this:
-           Int=>Int  -  The function requires an Int argument, and returns an Int value.
+           Int=>Int  -  The function takes an Int argument, and returns an Int value.
 
 ========================================================================================
 
