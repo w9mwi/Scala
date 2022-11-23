@@ -148,6 +148,25 @@ object Demo
 }
 
 ========================================================================================
+PARTIAL FUNCTION - A partial function in Scala is a function that returns values for
+                   only a specific set of values  Therefore, a partial function allows
+                   only certain values to be processed by the code.
+                   EXAMPLE: If data passed to a partial function expects a result,
+                            but generating that result would require a division by
+                            zero, a partial function would NOT return a result for
+                            that set of data passed.
+
+Implementing partial functions in Scala requires these two methods:
+1) apply()
+2) isDefinedAt() - This method returns a Boolean true if the partial function
+                   will return a valid result for the data passed to it.
+                   Otherwise, it returns false.
+
+The apply() method is used to show the application of a function.
+
+The isDefinedAt() method is used to check if the values are in the range of function or not.
+
+========================================================================================
 
 OBSCURE WAYS FUNCTIONS CAN BE USED 
 Read in-line comments if the following code sample.
