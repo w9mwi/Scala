@@ -161,10 +161,24 @@ Implementing partial functions in Scala requires these two methods:
 2) isDefinedAt() - This method returns a Boolean true if the partial function
                    will return a valid result for the data passed to it.
                    Otherwise, it returns false.
+========================================================================================
 
-The apply() method is used to show the application of a function.
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val divide = new PartialFunction[Int, Int]
+    {
+      def apply(number:Int):Int           = { 124 / number }
+      def isDefinedAt(number:Int):Boolean = { number != 0 }
+    }
+    var result:Int = divide(12)
+    println(s"result 1) = $result")
+    result = divide(0)
+    println(s"result 2) = $result")
+  }
+}
 
-The isDefinedAt() method is used to check if the values are in the range of function or not.
 
 ========================================================================================
 
