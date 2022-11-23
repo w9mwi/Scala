@@ -174,7 +174,7 @@ object Demo
 
     // The List.collect method accepts a PARTIAL FUNCTION as an argument.
     // A PARTIAL FUNCTION executes for some values, but not all values.
-    // The block of code passed to List.collect bwlow is a PARTIAL FUNCTION,
+    // The block of code passed to List.collect below is a PARTIAL FUNCTION,
     // as it returns a value ONLY for intList elements NOT equal to zero.
     var intList:List[Int] = List(0,1,2,4)
     intList = intList.collect{ case i: Int if i != 0 => 42 / i }
