@@ -161,6 +161,11 @@ Implementing partial functions in Scala requires these two methods:
 2) isDefinedAt() - This method returns a Boolean true if the partial function
                    will return a valid result for the data passed to it.
                    Otherwise, it returns false.
+                   
+SEE:
+https://www.geeksforgeeks.org/partial-functions-in-scala/
+https://www.includehelp.com/scala/partial-functions.aspx#:~:text=Scala%20partial%20functions%20A%20partial%20function%20is%20a,are%20allowed%20in%20the%20processing%20of%20the%20code.
+
 ========================================================================================
 
 object Demo
