@@ -143,22 +143,60 @@ object Demo
 }
 
 ========================================================================================
+OBSCURE WAYS FUNCTIONS CAN BE USED - Read in-line comments if the following code sample.
 
-OBSCURE WAYS FUNCTIONS CAN BE USED
-==================================
 
-    val f: (Any) => String = {
-      case i: Int => "Int"
-      case d: Double => "Double"
-      case s: String => "String"
-      case _ => "Other"
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // Here we declare a function that gets passed the "Any" Scala data type, and
+    // returns a String.  NOTICE: func() contains only case statements!  It's
+    // possible to implement case statements within a function without using
+    // the "match" keyword!
+    val func:(Any=>String) =
+    {
+      case d:Double => "Double"
+      case f:Float  => "Float"
+      case i:Int    => "Int"
+      case s:String => "String"
+      case _        => "Other"
     }
-    println(f("123.456D"))
-    
-    List(0,1,2) collect { case i: Int if i != 0 => 42 / i }
-    
-    List(0,1,2) map { case i: Int if i != 0 => 42 / i }
-    
-    
+    println(func('X'))       // PRINTS: Other
+    println(func(123.456D))  // PRINTS: Double
+    println(func(-98.76F))   // PRINTS: Float
+    println(func(12345))     // PRINTS: Int
+    println(func("Jupiter")) // PRINTS: String
+
+    // The List.collect method accepts a PARTIAL FUNCTION as an argument.
+    // A PARTIAL FUNCTION executes for some values, but not all values.
+    // The block of code passed to List.collect bwlow is a PARTIAL FUNCTION,
+    // as it returns a value ONLY for intList elements NOT equal to zero.
+    var intList:List[Int] = List(0,1,2,4)
+    intList = intList.collect{ case i: Int if i != 0 => 42 / i }
+    println(s"intList = $intList") // PRINTS: intList = List(42, 21, 10)
+
+    // In this section List.collect is called with the same PARTIAL FUNCTION
+    // as above.  However, because all elements in intList are zero,
+    // List.collect returns List(), which is an EMPTY List..
+    intList = List(0,0,0,0)
+    intList = intList.collect{ case i: Int if i != 0 => 42 / i }
+    println(s"intList = $intList") // PRINTS: intList = List()
+
+    // In this section the List.map method is called, which accepts a regular
+    // function, NOT a partial function.  However, List.map can still accept
+    // a case statement as its function.  But the below case statement ALWAYS
+    // returns a value, which means it's NOT a partial function.
+    var strList:List[String] = List("Jupiter", "Uranus", "Neptune")
+    var result:List[Boolean] = strList.map{ case s: String => s.length > 6 }
+    println(s"result = $result") // PRINTS: result = List(true, false, true)
+
+    // The following function passed to List.map is a more common way of
+    // calling List.map, and it returns the identical result as the
+    // case statement function above.
+    result = strList.map(_.length > 6)
+    println(s"result = $result") // PRINTS: result = List(true, false, true)
+  }
+}
 
 ========================================================================================
