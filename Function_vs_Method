@@ -144,6 +144,9 @@ object Demo
 
 ========================================================================================
 
+OBSCURE WAYS FUNCTIONS CAN BE USED
+==================================
+
     val f: (Any) => String = {
       case i: Int => "Int"
       case d: Double => "Double"
@@ -151,5 +154,11 @@ object Demo
       case _ => "Other"
     }
     println(f("123.456D"))
+    
+    List(0,1,2) collect { case i: Int if i != 0 => 42 / i }
+    
+    List(0,1,2) map { case i: Int if i != 0 => 42 / i }
+    
+    
 
 ========================================================================================
