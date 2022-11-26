@@ -206,6 +206,9 @@ object Demo
   val Case2:PartialFunction[Int, String] =
   { case y if (y % 2) == 0 => "even" }
 
+  // NOTE: orElse is a method defined in the PartialFunction trait that's
+  //       used as an operator on two PartialFunctions.  The following line
+  //       of code could also be written like this:  Case1.orElse(Case2)
   val evenOrOdd:PartialFunction[Int, String] = Case1 orElse Case2
 
   def main(args: Array[String])
