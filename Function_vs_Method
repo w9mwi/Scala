@@ -164,7 +164,8 @@ to define these two methods:
 
 object Demo
 {
-  // When a Scala PartialFunction is declared, you must assign it to a val/var, like this.
+  // The [Int, Int] below means you pass the PartialFunction
+  // an Int argument, and it returns an Int.
   val dividePF = new PartialFunction[Int, Int]
                  {
                    def apply(number:Int):Int = { 124 / number }
@@ -200,6 +201,8 @@ PARTIAL FUNCTION - Another example.
 
 object Demo
 {
+  // The [Int, String] below means you pass the PartialFunction
+  // an Int argument, and it returns a String.
   val Case1:PartialFunction[Int, String] =
   { case x if (x % 3) != 0 => "odd" }
 
