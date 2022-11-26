@@ -195,6 +195,31 @@ object Demo
   }
 }
 
+========================================================================================
+PARTIAL FUNCTION - Another example.
+
+object Demo
+{
+  val Case1:PartialFunction[Int, String] =
+  { case x if (x % 3) != 0 => "odd" }
+
+  val Case2:PartialFunction[Int, String] =
+  { case y if (y % 2) == 0 => "even" }
+
+  val evenOrOdd:PartialFunction[Int, String] = Case1 orElse Case2
+
+  def main(args: Array[String])
+  {
+    var x:Int = 324
+    var result:String = evenOrOdd(x).toString + "."
+    println(s"The number $x is $result") // PRINTS: The number 324 is even.
+
+    x = 325
+    result = evenOrOdd(x).toString + "."
+    println(s"The number $x is $result") // PRINTS: The number 324 is odd.
+  }
+}
+
 SEE ALSO:
 https://www.geeksforgeeks.org/partial-functions-in-scala/
 https://www.includehelp.com/scala/partial-functions.aspx#:~:text=Scala%20partial%20functions%20A%20partial%20function%20is%20a,are%20allowed%20in%20the%20processing%20of%20the%20code.
