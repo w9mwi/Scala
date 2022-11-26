@@ -148,24 +148,56 @@ object Demo
 }
 
 ========================================================================================
-PARTIAL FUNCTION - A partial function in Scala is a function that returns values for
-                   only a specific set of values  Therefore, a partial function allows
-                   only certain values to be processed by the code.
-                   EXAMPLE: If data passed to a partial function expects a result,
-                            but generating that result would require a division by
-                            zero, a partial function would NOT return a result for
-                            that set of data passed.
+PARTIAL FUNCTION - A Scala partial function is a function that returns values for
+                   only a specific set of values passed to it.  A partial function
+                   DOESN'T return anything when it's passed an invalid value.
 
-Implementing partial functions in Scala requires these two methods:
-1) apply()
-2) isDefinedAt() - This method returns a Boolean true if the partial function
-                   will return a valid result for the data passed to it.
-                   Otherwise, it returns false.
-                   
-SEE:
+                   EXAMPLE: If a partial function performs mathematical division on
+                            a number passed to it, NO RESULT WILL BE RETURNED when
+                            that number is zero; because dividing by zero is invalid.
+
+Implementing a partial function in Scala requires the programmer
+to define these two methods:
+1) apply()       - Automatically called when you pass the function an argument.
+2) isDefinedAt() - This method returns a Boolean true for all valid values passed
+                   to it.  It returns false for invalid values passed to it.
+
+object Demo
+{
+  // When a Scala PartialFunction is declared, you must assign it to a val/var, like this.
+  val dividePF = new PartialFunction[Int, Int]
+                 {
+                   def apply(number:Int):Int = { 124 / number }
+                   // The isDefined() method defines the valid/invalid values.
+                   // In this example all Int values are valid except zero.
+                   def isDefinedAt(number:Int):Boolean = { number != 0 }
+                 }
+
+  def main(args: Array[String])
+  {
+    // It's possible to call a partial function directly, like this...
+    var intValue:Int = dividePF(6)   // Calls the PartialFunction.apply() method.
+    println(s"intValue = $intValue") // PRINTS: intValue = 20
+
+    // However, it make sense no sense to call a partial function directly
+    // because if you pass it an undefined value, it won't return anything.
+    // The following 2 lines of commented-out code will compile, but they'll
+    // throw an ArithmeticException because dividePF(0) doesn't return anything.
+    // dividePF(0)
+    // intValue = dividePF(0)
+
+    // The Scala API contains some methods that accept a partial function
+    // as an argument.  That is where partial functions should be used.
+    // List.collect is a Scala API method that accepts a partial function.
+    var intList:List[Int] = List(0,1,2,4)
+    intList = intList.collect{ dividePF }
+    println(s"intList = $intList") // PRINTS: intList = List(124, 62, 31)
+  }
+}
+
+SEE ALSO:
 https://www.geeksforgeeks.org/partial-functions-in-scala/
 https://www.includehelp.com/scala/partial-functions.aspx#:~:text=Scala%20partial%20functions%20A%20partial%20function%20is%20a,are%20allowed%20in%20the%20processing%20of%20the%20code.
-
 ========================================================================================
 
 object Demo
