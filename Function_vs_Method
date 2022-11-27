@@ -149,13 +149,15 @@ object Demo
 }
 
 ========================================================================================
-PARTIAL FUNCTION - A Scala partial function is a function that returns values for
-                   only a specific set of values passed to it.  A partial function
-                   DOESN'T return anything when it's passed an invalid value.
+PARTIAL FUNCTIONS - PART 1 of 3
 
-                   EXAMPLE: If a partial function performs mathematical division on
-                            a number passed to it, NO RESULT WILL BE RETURNED when
-                            that number is zero; because dividing by zero is invalid.
+A Scala partial function is a function that returns values for
+only a specific set of values passed to it.  A partial function
+DOESN'T return anything when it's passed an invalid value.
+
+EXAMPLE: If a partial function performs mathematical division on
+         a number passed to it, NO RESULT WILL BE RETURNED when
+         that number is zero; because dividing by zero is invalid.
 
 Implementing a partial function in Scala requires the programmer
 to define these two methods:
@@ -198,7 +200,7 @@ object Demo
 }
 
 ========================================================================================
-PARTIAL FUNCTION - Another example.
+PARTIAL FUNCTIONS - PART 2 OF 3
 
 object Demo
 {
@@ -228,7 +230,7 @@ object Demo
 }
 
 ========================================================================================
-PARTIAL FUNCTION - Another example.
+PARTIAL FUNCTIONS - PART 3 OF 3
 
 object Demo
 {
