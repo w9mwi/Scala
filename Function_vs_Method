@@ -236,10 +236,40 @@ object Demo
 {
   def main(args: Array[String])
   {
-    val operation1:PartialFunction[Int, Int] = { case x if (x%4) != 0=> x*42 }
-    val operation2=(x: Int)=> x/3
+    // NOTE: operation1 is a PartialFunction; operation2 is a regular function.
+    val operation1:PartialFunction[Int, Int] = { case x if (x%4 != 0) => x*42 }
+    val operation2:(Int=>Int)                = (x: Int) => x/3
+    // NOTE: andThen is a method defined in the PartialFunction trait.
+    //       andThen is used as an operator.  The following line of code
+    //       could also be written like this:  operation1.andThen(operation1)
     val op = operation1 andThen operation2
-    println("Initial value is 34\t and the value after operations is " + op(34))
+    // *****************************************************************
+    var intValue = 34
+    // When op(intValue) is called is called below, these operations occur...
+    // operation1:  x%4 = ((34/4) = 8) is NOT zero, so (34*42) = 1428
+    // andThen
+    // operation2:  x/3 = 1428/3 = 476
+    println(s"Initial value = $intValue.\nValue after operations = " + op(intValue))
+    // PRINTS:
+    // Initial value = 34.
+    // Value after operations = 476
+    // *****************************************************************
+    // *****************************************************************
+    intValue = 40
+    // When op(intValue) is called below, these operations occur...
+    // operation1:  x%4 = ((40/4) = 0) IS zero, so NOTHING IS RETURNED by operation1.
+    //              So operation2 is NOT invoked.  NOTHING IS RETURNED, period!
+    //              Therefore, the following commented-out line will throw a
+    //              MatchError exception if it's not commented out.
+    // op(intValue)
+    // *****************************************************************
+    // *****************************************************************
+    // When intList.collect(op) is called below, nothing is returned
+    // for elements 8, 12, 40, 44.  Only elements 45 and 77 result
+    // in returned values.
+    var intList:List[Int] = List (8, 12, 40, 44, 45, 77)
+    intList = intList.collect(op)
+    println(s"intList = $intList") // PRINTS: intList = List(630, 1078)
   }
 }
 
