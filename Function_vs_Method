@@ -226,6 +226,20 @@ object Demo
   }
 }
 
+========================================================================================
+PARTIAL FUNCTION - Another example.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val operation1:PartialFunction[Int, Int] = { case x if (x%4) != 0=> x*42 }
+    val operation2=(x: Int)=> x/3
+    val op = operation1 andThen operation2
+    println("Initial value is 34\t and the value after operations is " + op(34))
+  }
+}
+
 SEE ALSO:
 https://www.geeksforgeeks.org/partial-functions-in-scala/
 https://www.includehelp.com/scala/partial-functions.aspx#:~:text=Scala%20partial%20functions%20A%20partial%20function%20is%20a,are%20allowed%20in%20the%20processing%20of%20the%20code.
