@@ -51,11 +51,12 @@ object Demo
     //          function as its argument, NOT a method.  But in the code
     //          below we pass a method to List.map and it works because
     //          Scala automatically converts the method into a function.
-    // In most cases you can pass an argument to a method when it expects
-    // a function, and it'll work because Scala automatically converts the
-    // method into a function.  The following call to the List.map() method
-    // demonstrates this because it gets passed a method even though it
-    // expects a function.
+    // When a Scala method is defined to accept a function as an argument,
+    // you can usually pass a method instead and it'll work because Scala
+    // will automatically convert the method into a function.  The following
+    // call to the List.map() method demonstrates this because it gets
+    // passed a method, even though its API documentation says it accepts
+    // a function argument.
     var listResult:List[Int] = numberList.map(squareMethod)
     println(s"listResult 1) = $listResult") // PRINTS: listResult 1) = List(1, 4, 9, 16, 25)
     // ********************************************************************
