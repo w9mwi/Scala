@@ -2,6 +2,11 @@ The words "method" and "function" are often used interchangeably.
 However, in Scala there are important differences between a method
 and a function.
 
+This section also demonstrates the use of VARARGS (Variable
+number of arguments).  For more information on VARARGS, see
+the section titled:  Variable_No_Of_Args
+SEE --> https://github.com/w9mwi/Scala/edit/master/Variable_No_Of_Args
+
 Method - A Scala method is bound to a class/object/trait.  In other
          words, a method IS A MEMBER of a class/object/trait.
          A Scala method is ALWAYS created using the "def" keyword.
