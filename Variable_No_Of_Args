@@ -142,32 +142,6 @@ object Demo
 
 object Demo
 {
-  /**
-    * @param str - NOTE: When a variable number of arguments is passed to a function
-    *                    as in this example, the asterisk (*) transforms the data type
-    *                    into a Seq[].  For example, even though the "str" argument
-    *                    is declared as a String, the asterisk transforms it into a
-    *                    a Seq[String].
-    */
-  def display(str:String *):Unit =
-  {
-    if (str.isInstanceOf[Seq[String]])
-      println("str is of type Seq[String]") // PRINTS: str is of type Seq[String]
-
-    // For each String passed to this method, the print function is called.
-    str.map(print) // PRINTS: Play Scala Java
-  }
-
-  def main(args:Array[String])
-  {
-    display("Play ", "Scala ", "Java ")
-  }
-}
-
-============================================================================
-
-object Demo
-{
   def main(args:Array[String]): Unit =
   {
     var averageScore:Double = calculateAverage() // PRINTS: numbers IS a Seq[Double] data type.
