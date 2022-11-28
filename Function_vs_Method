@@ -151,6 +151,11 @@ object Demo
 ========================================================================================
 PARTIAL FUNCTIONS - PART 1 of 3
 
+DON'T confuse partial functions with partially-applied functions!  Partial functions
+are NOT related to, or similar to, partially-applied functions.  Partial functions
+and partially-applied functions are totally unrelated, and totally different from
+each other.
+
 A Scala partial function is a function that returns values for
 only a specific set of values passed to it.  A partial function
 DOESN'T return anything when it's passed an invalid value.
