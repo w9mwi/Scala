@@ -209,8 +209,13 @@ PARTIAL FUNCTIONS - PART 2 OF 3
 
 object Demo
 {
-  // The [Int, String] below means you pass the PartialFunction
-  // an Int argument, and it returns a String.
+  // NOTICE: In the above example the PartialFunction definition requires
+  //         the apply() and isDefinedAt() methods to be defined.  But in the
+  //         below example the PartialFunction definition requires only
+  //         a case statement.  Because a single case statement effectively
+  //         contains the isDefinedAt() and apply() methods.  In the "val Case1"
+  //         declaration below:  isDefinedAt() = if (x % 3) != 0
+  //                             isApply()     = The entire "case x" statement.
   val Case1:PartialFunction[Int, String] =
   { case x if (x % 3) != 0 => "odd" }
 
@@ -241,7 +246,9 @@ object Demo
 {
   def main(args: Array[String])
   {
-    // NOTE: operation1 is a PartialFunction; operation2 is a regular function.
+    // Like the 2 PartialFunctions defined in the above example, here we define
+    // the operation1 PartialFunction with a single case statement, instead
+    // of needing to define the apply() and isDefinedAt() methods.
     val operation1:PartialFunction[Int, Int] = { case x if (x%4 != 0) => x*42 }
     val operation2:(Int=>Int)                = (x: Int) => x/3
     // NOTE: andThen is a method defined in the PartialFunction trait.
