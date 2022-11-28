@@ -1,3 +1,5 @@
+VARIABLE NUMBER OF ARGUMENTS (VARARGS)
+======================================
 
 The code samples below show how to pass a variable number
 of arguments to a method.  Read in-line comments in the
@@ -58,6 +60,28 @@ object Demo
 }
 
 ============================================================================
+
+When a method argument accepts a variable number of arguments, as
+designated by the asterisk (*) char, the Scala compiler designates
+that argument as type Seq.  So in the following code sample, the
+display() method's "str" argument has the data type Seq[String].
+
+
+object Demo
+{
+  def display(str:String *):Unit =
+  {
+    if (str.isInstanceOf[Seq[String]])
+      println("str is of type: Seq[String]") // PRINTS: str is of type: Seq[String]
+
+    str.map(print) // PRINTS: Play Scala Java
+  }
+
+  def main(args:Array[String])
+  {
+    display("Play ", "Scala ", "Java ")
+  }
+}
 
 ============================================================================
 
