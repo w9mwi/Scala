@@ -5,6 +5,11 @@ The code samples below show how to pass a variable number
 of arguments to a method.  Read in-line comments for
 detailed explanations.
 
+This section also demonstrates the use of ETA EXPANSIONS.
+For more information on ETA EXPANSIONS, see the section
+titled: Function_vs_Method
+SEE --> https://github.com/w9mwi/Scala/blob/master/Function_vs_Method
+
 ============================================================================
 
 object Demo
@@ -105,121 +110,5 @@ object Demo
     val listOfStrings:List[String] = seqOfStrings.toList
     strResult = getString(listOfStrings:_*)
     println(s"strResult 4) = $strResult") // PRINTS: strResult 4) = Alpha Beta Xray Zulu
-  }
-}
-
-============================================================================
-
-object Demo
-{
-  def main(args: Array[String]): Unit =
-  {
-    def add(numbers:Double *):Double      = { numbers.reduce(_ + _) }
-    def divide(numbers:Double *):Double   = { numbers.reduce(_ / _) }
-    def multiply(numbers:Double *):Double = { numbers.reduce(_ * _) }
-    def subtract(numbers:Double *):Double = { numbers.reduce(_ - _) }
-
-    val numbersList:List[Double] = List(7777.777D, 2.54D, 33.3D, 10.0D)
-
-    // NOTE: The _* in the following calls to add(), divide(), multiply(), and subtract()
-    //       transforms numbersList into 4 SEPARATE numbers of type Double so those
-    //       4 functions can handle the "variable number of arguments" they were defined to receive.
-    var result:Double = add(numbersList:_*) // Performs this calculation: 7777.777 + 2.54 + 33.3 + 10.0
-    println("result = " + result) // PRINTS: result = 7823.617
-
-    result = divide(numbersList:_*) // Performs this calculation: 7777.777 / 2.54 / 33.3 / 10.0
-    println("result = " + result) // PRINTS: result = 9.195546333735312
-
-    result = multiply(numbersList:_*) // Performs this calculation: 7777.777 * 2.54 * 33.3 * 10.0
-    println("result = " + result) // PRINTS: result = 6578599.342139998
-
-    result = subtract(numbersList:_*) // Performs this calculation: 7777.777 - 2.54 - 33.3 - 10.0
-    println("result = " + result) // PRINTS: result = 7731.937
-  }
-}
-
-============================================================================
-
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    var averageScore:Double = calculateAverage() // PRINTS: numbers IS a Seq[Double] data type.
-                                                 //         List()
-
-    printScore(averageScore, "averageScore = ") // PRINTS: The score is not a number.
-
-    averageScore = calculateAverage(1.23, 4.56, 7.89) // PRINTS: numbers IS a Seq[Double] data type.
-                                                      //         ArraySeq(1.23, 4.56, 7.89)
-
-    printScore(averageScore, "averageScore = ")  // PRINTS: averageScore = 4.56
-  }
-
-  /**
-   * @param numbers - NOTE: When a variable number of arguments is passed to a function
-   *                        as in this example, the asterisk (*) transforms the data type
-   *                        into a Seq[].  For example, even though the "numbers" argument
-   *                        is declared as a Double, the asterisk transforms it into a
-   *                        a Seq[Double].
-   * @return the average of all Double values passed to this function.
-   */
-  def calculateAverage(numbers:Double *):Double =
-  {
-    // NOTE: The following if() statement exists to:
-    //       1) Demonstrate how to use the isInstanceOf[] method.
-    //       2) Demonstrate how to perform pattern matching using the "matches" keyword.
-    if (numbers.isInstanceOf[Seq[Double]])
-    {
-      numbers match
-      {
-        case a: Seq[Double] => println("numbers IS a Seq[Double] data type.")
-        case _              => println("numbers is NOT a Seq[Double] data type.")
-      }
-    }
-    println(numbers)
-    numbers.sum / numbers.length // Return the average of all numbers passed to this function.
-  }
-
-  def printScore(score:Double, msg:String):Unit =
-  {
-    if   (score.isNaN) println("The score is not a number.")
-    else println(msg + score) // PRINTS: averageScore = 4.56
-  }
-}
-
-============================================================================
-
-object Demo {
-  def main(args: Array[String]) {
-    {
-      val fruits: List[String] = List("apple", "banana", "blueberry", "cherry")
-
-      // The following 5 calls to the printAll() function shows that
-      // printAll() can accept a variable number of arguments.
-      printAll() // PRINTS: nothing (no text)
-      printAll("ONE") // PRINTS: ONE
-      printAll("ONE", "TWO") // PRINTS: ONE
-                             //         TWO
-      printAll("ONE", "TWO", "THREE") // PRINTS: ONE
-                                      //         TWO
-                                      //         THREE
-
-      // The _* in the following call to printAll() transforms
-      // the List "fruits" into 4 SEPARATE STRINGS.
-      printAll(fruits: _*) // PRINTS: apple
-                           //         banana
-                           //         blueberry
-                           //         cherry
-      printAll(fruits.toString()) // PRINTS: List(apple, banana, blueberry, cherry)
-      println(fruits.flatten)     // PRINTS: List(a, p, p, l, e, b, a, n, a, n, a, b, l, u, e, b, e, r, r, y, c, h, e, r, r, y)
-    }
-
-    /**
-     * @param strs - A variable number of strings can get passed to this printAll() function.
-     */
-    def printAll(strs: String*) // The asterisk char (*) designates possible MULTIPLE ARGUMENTS.
-    {
-      strs.foreach(println)
-    }
   }
 }
