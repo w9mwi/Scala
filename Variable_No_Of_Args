@@ -1,69 +1,59 @@
 
-The following code samples show how to pass a variable number
-of arguments to a function.  Read in-line comments in the
+The code samples below show how to pass a variable number
+of arguments to a method.  Read in-line comments in the
 following examples for details.
 
 ============================================================================
 
 object Demo
 {
-  /**
-   * The '*' character in this function's argument list designates that
-   * a variable number of arguments can be passed to this function.
-   * In this example these arguments are designated as Strings.
-   */
-  def convertMultipleStringsToOneString(names:String *):String =
-  {
-    // The following line of code transforms multiple String arguments
-    // passed to this function into a single String delimited by commas.
-    // EXAMPLE: If these 4 Strings are passed to this function:
-    //          "ABC"   "DEF"   "GHI"   "JKL"
-    //          This single String will be returned: "ABC,DEF,GHI,JKL"
-    names.mkString(",")
-  }
-
-  def convertCommaDelimitedStringToList(str:String):List[String] =
-  {
-    // The following line of code transforms the comma-delimited String passed
-    // to this function (i.e., "ABC,DEF,GHI,JKL") into an Array[String].
-    // Where each element in the Array[String] corresponds one of the
-    // substrings delimited by the commas.
-    val strArray:Array[String] = str.split(",")
-    strArray.toList // Converts the Array[String] to a List[String]
-  }
-
-  /********************************************
-   * main() function
-   ********************************************/
   def main(args: Array[String])
   {
-    val cityString:String     = "Madison,Manitowoc,Milwaukee"
-    val cityList:List[String] = List(cityString)
+    // The asterisk in the following "words:String*" argument designates that
+    // makeSentence() MUST be called by passing it one or more String arguments.
+    def makeSentence(words:String*):String = words.mkString(" ") + "."
 
-    // The '_*' characters in the following line of code performs "Type Ascription"
-    // on the cityList arg.  Type Ascription is basically an up-cast performed
-    // at compile time for the sake of the type checker.  The most often used case
-    // of Type Ascription is invoking a varargs method with a single Seq parameter.
-    //
-    // So in this example cityList (which is a Scala 'Seq' type) is up-cast to
-    // multiple Strings, where each String is obtained from each String element
-    // in cityList.
-    var str:String = convertMultipleStringsToOneString(cityList: _*)
-    println(str) // PRINTS: Madison,Manitowoc,Milwaukee
+    // EXAMPLE 1)
+    var strResult:String = makeSentence("Make", "these", "words", "into", "a", "single", "sentence")
+    println(s"strResult 1) = $strResult")
+    // PRINTS:  strResult 1) = Make these words into a single sentence.
+    // ***************************************************************************
+    // EXAMPLE 2)  The '_*' characters in the below call to makeSentence()
+    //             performs "TYPE ASCRIPTION" at compile time, which up-casts
+    //             listOfWords from type List[String] into one or more String
+    //             arguments which makeSentence() requires.
+    val listOfWords:List[String] = List("Tomorrow", "is", "a", "different", "day")
+    strResult = makeSentence(listOfWords: _*)
+    println(s"strResult 2) = $strResult")
+    // PRINTS: strResult 2) = Tomorrow is a different day.
+    // ***************************************************************************
+    // EXAMPLE 3) This is identical to EXAMPLE 2) above except makeSentence()
+    //            gets passed an Array[String].  As with EXAMPLE 2) above,
+    //            makeSentence is called using the '_*' chars, which is explained
+    //            in EXAMPLE 2).
+    val arrayOfWords:Array[String] = listOfWords.toArray
+    strResult = makeSentence(arrayOfWords: _*)
+    println(s"strResult 3) = $strResult")
+    // PRINTS: strResult 3) = Tomorrow is a different day.
+    // ***************************************************************************
+    // EXAMPLE 4) Here we first perform an ETA EXPANSION on makeSentence(),
+    //            and then call it.
+    var etaExpand:(Seq[String]=>String) = makeSentence
+    strResult = etaExpand(listOfWords)
+    println(s"strResult 4) = $strResult")
+    // PRINTS: strResult 4) = Tomorrow is a different day.
+    // ***************************************************************************
+    // EXAMPLE 5) The following ETA EXPANSION performed on makeSentence is
+    //            identical to EXAMPLE 4).  Only the syntax is different.
+    etaExpand = makeSentence _
+    strResult = etaExpand(listOfWords)
+    println(s"strResult 5) = $strResult")
+    // PRINTS: strResult 5) = Tomorrow is a different day.
 
-    val list:List[String] = convertCommaDelimitedStringToList(cityString)
-    println(list) // PRINTS: List(Madison, Manitowoc, Milwaukee)
-
-    // NOTE: Above we passed a List[String] to the convertMultipleStringsToOneString()
-    //       function.  But that function also works by passing it an Array[String],
-    //       a Vector[String], etc. as shown below.
-    val array:Array[String] = Array("123", "456", "789")
-    str = convertMultipleStringsToOneString(array: _*)
-    println(str) // PRINTS: 123,456,789
-
-    val vector:Vector[String] = Vector("RST", "UVW", "XYZ")
-    str = convertMultipleStringsToOneString(vector: _*)
-    println(str) // PRINTS: RST,UVW,XYZ
+    // NOTE: If you uncomment the following commented-out line it WON'T COMPILE
+    //       because makeSentence(_) returns a function of type:  String=>String
+    //       While etaExpand is a function of type:  Seq[String]=>String
+    // etaExpand = makeSentence(_) // WON'T COMPILE!
   }
 }
 
