@@ -39,7 +39,30 @@ IMPORTANT: To distinguish a Scala function from a Scala method LOOK AT THE SIGNA
            A Scala method's signature will look similar to this:
            (Int):Int  -  The method takes an Int argument, and returns an Int value.
 
+
 ========================================================================================
+ANONYMOUS FUNCTION
+==================
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // The var result is assigned an anonymous function, which has this signature:  (Int, Int) => Int
+    var result:(Int, Int) => Int = (a:Int, b:Int) => a+b
+    println(result(222, 444)) // PRINTS: 666
+
+    // Here result is again assinged an anonymous function.  This anonymous function is
+    // IDENTICAL to the one above.  Howvever, the syntax used to define it is different.
+    result = (_:Int)+(_:Int)
+    println(result(123, 321)) // PRINTS: 444
+  }
+}
+
+========================================================================================
+
+
+
 
 object Demo
 {
