@@ -34,6 +34,8 @@ object Demo
 NOTE: The Scala Vector class is the recommended “go to” class for
       IMMUTABLE, INDEXED SEQUENTIAL collections.
 =================================================================
+ArrayBuffer
+===========
 
 Difference Between Array and ArrayBuffer
 ========================================
@@ -120,6 +122,88 @@ object Demo
 }
 
 ==================================================================================
+ListBuffer
+==========
+
+A standard List is not mutable, so you cannot grow or shink the List,
+you can only create a new one.  A mutable List can be altered, but
+it doesn't contain operators that make growing/shrinking a List easy.
+The alternative is to use a ListBuffer when you want to grow/shrink
+a List.  The following sample code shows how to use a ListBuffer.
+
+import java.io.PrintWriter
+import scala.collection.mutable.ListBuffer
+object Demo
+{
+  case class Student(name:String, assignments:List[Double], tests:List[Double])
+  case class Section(students:ListBuffer[Student])
+
+  def main(args: Array[String]) =
+  {
+    val fileName:String = "/home/tjb/section.txt"
+    val section:ListBuffer[Student] = createSection()
+    saveSectionToFile(fileName, section)
+  }
+
+  /**
+    * Return a Section class (defined above), which consists of a ListBuffer containing
+    * Section class (defined above) elements.
+    */
+  def createSection():ListBuffer[Student] =
+  {
+    val tom:Student   = new Student("Tom",   List(12.34, 45.56, 67.89),     List(99.9, 88.8, 77.7, 66.6))
+    val tanya:Student = new Student("Tanya", List(57.8, 34.98, 75.9, 99.3), List(75.8, 37.5, 19.5, 39,4))
+    val jill:Student  = new Student("Jill",  List(45.8, 67.2, 98.7, 28.4),  List(15.3, 83,1, 94.3, 67.8))
+    var section:ListBuffer[Student] = new ListBuffer[Student]()
+    // DANGER: The following commented-out line WILL NOT COMPILE on a ListBuffer!...
+    //         section = tom
+    //         Only the "+=" operator (as shown below) is allowed, which seems weird,
+    //         but "=" may not exist cuz ListBuffer is a BUFFER type.
+    section += tom += tanya += jill
+    section
+  }
+
+  /**
+    *
+    */
+  def saveSectionToFile(fileName:String, section:ListBuffer[Student]):Unit =
+  {
+    val pw = new PrintWriter(fileName)
+    pw.println(section.length)
+    for (student <- section) // Loop through all student elements contained in section.
+    {
+      pw.println(student.name)
+      pw.println(student.assignments.mkString(" "))
+      pw.println(student.tests.mkString(" "))
+    }
+    pw.flush(); pw.close();
+    // The above code writes the following text to the section.txt file...
+    // 3
+    // Tom
+    // 12.34 45.56 67.89
+    // 99.9 88.8 77.7 66.6
+    // Tanya
+    // 57.8 34.98 75.9 99.3
+    // 75.8 37.5 19.5 39.0 4.0
+    // Jill
+    // 45.8 67.2 98.7 28.4
+    // 15.3 83.0 1.0 94.3 67.8
+    // ****************************************************************************************
+    // If the above calls to mkString() are removed, the section.txt file contains this text...
+    // 3
+    // Tom
+    // List(12.34, 45.56, 67.89)
+    // List(99.9, 88.8, 77.7, 66.6)
+    // Tanya
+    // List(57.8, 34.98, 75.9, 99.3)
+    // List(75.8, 37.5, 19.5, 39.0, 4.0)
+    // Jill
+    // List(45.8, 67.2, 98.7, 28.4)
+    // List(15.3, 83.0, 1.0, 94.3, 67.8)
+  }
+}
+
+=================================================================================
 The following is a list of some common methods used by the Buffer type...
 
 ___ +=(elem: A):Buffer[A]                 - Append an element to the buffer and return the same buffer.
