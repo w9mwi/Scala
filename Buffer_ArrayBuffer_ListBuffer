@@ -1,0 +1,142 @@
+Buffer - Buffer is defined in the Scala API as an Object and a Trait.
+         Both the Scala ArrayBuffer and ListBuffer classes extend
+         the Buffer Trait.
+
+A Buffer can change size, so it can grow and shrink dynamically in size.
+Therefore, the Buffer type is immutable.  (There is no mutable Buffer type.)
+
+There are several Scala Buffer types.  The two most significant Buffer types are
+ArrayBuffer and ListBuffer.  In the following sample code we see (via println
+statements) that when a Buffer val/var is declared, it prints as an ArrayBuffer type.
+
+==========================================================================
+object Demo
+{
+  def main(args: Array[String])
+  {
+    import collection.mutable.Buffer
+    import collection.mutable.ListBuffer
+
+    // NOTE: The following 3 vars are all MUTABLE data types.
+    var buf1:Buffer[Double] = Buffer(1, 2, 3, 4, 5);
+    println(buf1) // PRINTS: ArrayBuffer(1, 2, 3, 4, 5)
+    var buf2:Buffer[Double] = Buffer.fill(5)(math.random);
+    println(buf2) // PRINTS: ArrayBuffer(0.7788466721537356, ...4 more numbers)
+    var buf3:ListBuffer[String] = ListBuffer("pop", "a", "top");
+    println(buf3) // PRINTS: ListBuffer(pop, a, top)
+
+    buf1 += 6 += 7;    println(buf1) // PRINTS: ArrayBuffer(1, 2, 3, 4, 5, 6, 7)
+    buf1 = 0 +=: buf1; println(buf1) // PRINTS: ArrayBuffer(0, 1, 2, 3, 4, 5, 6, 7)
+  }
+}
+
+=================================================================
+NOTE: The Scala Vector class is the recommended “go to” class for
+      IMMUTABLE, INDEXED SEQUENTIAL collections.
+=================================================================
+
+Difference Between Array and ArrayBuffer
+========================================
+The size of a Scala Array is fixed.  Once an Array is declared, its size CAN'T be changed.
+The size of a Scala ArrayBuffer is variable.  Once an ArrayBuffer is declared, its size
+CAN can be increased or decreased dynamically by adding or deleting elements.
+
+ArrayBuffer Performance
+=======================
+Append, update, and random access take constant time (amortized time).
+Prepends and removes are linear in the buffer size.  The ArrayBuffer
+documentation states: ArrayBuffers are useful for efficiently building
+up a large collection whenever the new items are always added to the end.
+
+If you need a mutable sequential collection that works more like
+a List (i.e., a linear sequence rather than an indexed sequence)
+use ListBuffer instead of ArrayBuffer.  A ListBuffer is like an
+ArrayBuffer, except that it uses a linked list internally instead
+of an Array.  If you plan to convert the buffer to a List once it's
+built, use a ListBuffer instead of an ArrayBuffer.
+
+==================================================================================
+Below is sample code demonstrating how an ArrayBuffer is used.
+
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+object Demo
+{
+  case class Student(name:String, assignments:List[Double], tests:List[Double])
+  case class Section(students:ListBuffer[Student])
+
+  def main(args: Array[String]):Unit =
+  {
+    // You can create EMPTY ArrayBuffers.  (Once created, this code never uses them.)
+    var fruits = ArrayBuffer[String]()
+    var ints   = ArrayBuffer[Int]()
+
+    // You can create an initialized ArrayBuffer...
+    val nums:ArrayBuffer[Int] = ArrayBuffer(1, 2, 3)
+
+    // Even though nums is a val, you can add/delete elements to/from an ArrayBuffer!...
+    nums += 4      // Add one element to the ArrayBuffer.
+    nums += (5, 6) // Add two elements to the ArrayBuffer.
+    nums ++= List(7, 8, 9) // You can add a List to an ArrayBuffer!  Note that ++= is used to do this.
+    println(nums) // PRINTS: ArrayBuffer(1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+
+    nums -= 4 // To remove one or more elements from ArrayBuffer, use the -= operator.
+    nums -= (2, 8)
+    println(nums) // PRINTS: ArrayBuffer(1, 3, 5, 6, 7, 9)
+    nums ++= Array(4, 8, 2) // You can add an Array to an ArrayBuffer!  Note that ++= is used to do this.
+    println(nums) // PRINTS: ArrayBuffer(1, 3, 5, 6, 7, 9, 4, 8, 2)
+
+    demoArrayBufferMethods()
+  }
+
+  /**
+    * This function demonstrates a buncha methods used by the ArrayBuffer type.
+    */
+  def demoArrayBufferMethods():Unit =
+  {
+    var arrayBuf_1:ArrayBuffer[Int] = ArrayBuffer(1, 2, 3) // ArrayBuffer(1, 2, 3)
+    arrayBuf_1.append(4)           // ArrayBuffer(1, 2, 3, 4)
+    arrayBuf_1.append(5, 6)        // ArrayBuffer(1, 2, 3, 4, 5, 6)
+    arrayBuf_1.appendAll(Seq(7,8)) // ArrayBuffer(1, 2, 3, 4, 5, 6, 7, 8)
+    arrayBuf_1.clear               // ArrayBuffer()
+
+    arrayBuf_1 = ArrayBuffer(9, 10)        // ArrayBuffer(9, 10)
+    arrayBuf_1.insert(0, 8)                // ArrayBuffer(8, 9, 10)       (Inserts an 8 at element index 0)
+    arrayBuf_1.insert(0, 6, 7)             // ArrayBuffer(6, 7, 8, 9, 10) (Inserts a 6, 7 beginning at element index 0)
+    arrayBuf_1.insertAll(0, Vector(4, 5))  // ArrayBuffer(4, 5, 6, 7, 8, 9, 10) (Inserts a 4, 5 beginning at element index 0)
+    arrayBuf_1.prepend(3)                  // ArrayBuffer(3, 4, 5, 6, 7, 8, 9, 10)
+    arrayBuf_1.prepend(1, 2)               // ArrayBuffer(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    arrayBuf_1.prependAll(Array(-3, 0, 1)) // ArrayBuffer(-3, 0, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10) (Prepends a -3, 0, 1 at the beginning.)
+    arrayBuf_1.clear                       // ArrayBuffer()
+
+    var arrayBuf_2:ArrayBuffer[Char] = ArrayBuffer.range('a', 'h') // ArrayBuffer(a, b, c, d, e, f, g)
+    arrayBuf_2.remove(0)    // ArrayBuffer(b, c, d, e, f, g) (Removes the 3 elements beginning at index 2.)
+    arrayBuf_2.remove(2, 3) // ArrayBuffer(b, c, g)
+
+    arrayBuf_2 = ArrayBuffer.range('a', 'h') // ArrayBuffer(a, b, c, d, e, f, g)
+    arrayBuf_2.trimStart(2) // ArrayBuffer(c, d, e, f, g) (Removes all elements BEFORE index 2.)
+    arrayBuf_2.trimEnd(2)   // ArrayBuffer(c, d, e) (Removes all elements AFTER index 2.)
+  }
+}
+
+==================================================================================
+The following is a list of some common methods used by the Buffer type...
+
+___ +=(elem: A):Buffer[A]                 - Append an element to the buffer and return the same buffer.
+___ +=:(elem: A):Buffer[A]                - Prepend an element to the buffer and return the same buffer.
+___ ++=(xs:TraversableOnce[A]):Buffer[A]  - Append the elements in xs to the buffer and return the same buffer.
+___ ++=:(xs:TraversableOnce[A]):Buffer[A] - Prepend the elements in xs to the buffer and return the same buffer.
+___ -=(elem:A):Buffer[A]                  - Remove the element from the buffer and return the same buffer.
+___ --=(xs:TraversableOnce[A]):Buffer[A] - Remove all the elements in xs from the buffer and return the same buffer.
+
+___ append(elem:A):Unit                   - Append the element to the buffer.
+___ appendAll(xs:TraversableOnce[A]):Unit - Append the elements in xs to the buffer.
+___ clear():Unit - Remove all elements from the buffer.
+___ insert(n:Int, elems: A*):Unit               - Insert the specified elements at the specified index.
+___ insertAll(n:Int, elems:Traversable[A]):Unit - Insert all the elements in elems at index n.
+___ prepend(elems: A*):Unit - Prepend the elements to this buffer.
+___ prependAll(xs: TraversableOnce[A]):Unit - Prepend the elements in xs to this buffer.
+___ remove(n:Int, count:Int): Unit - Remove count elements starting with the one at index n.
+___ remove(n:Int): A               - Remove the one element at n and return it.
+___ trimEnd(n:Int): Unit   - Remove the last n elements from this buffer.
+___ trimStart(n:Int): Unit - Remove the first n elements from this buffer.
