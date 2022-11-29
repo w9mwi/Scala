@@ -66,7 +66,7 @@ object Demo
     println("result_1 = " + result_1) // PRINTS: result_1 = 21
 
     val stringList:List[String] = List("A", "B", "C")
-    val result_2:String = ourFold(stringList, "D")(_ + "" + _)
+    val result_2:String = ourFold(stringList, "D")(_+_)
     println("result_2 = " + result_2) // PRINTS: result_2 = ABCD
   }
 
