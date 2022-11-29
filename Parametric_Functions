@@ -242,8 +242,7 @@ object Demo
      ********************************************************/
     def foreach(blockOfCode:A => Unit):Unit =
     {
-      // The foreach() method always gets passed a block of Scala code
-      // that DOESN'T return a value; so its return type is: Unit
+      // The foreach() method always gets passed a block of Scala code.
       elems.foreach{blockOfCode}
     }
 
