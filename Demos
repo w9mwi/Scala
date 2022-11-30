@@ -2,66 +2,63 @@ ANNUAL PERCENTAGE GROWTH RATE
 =============================
 
 import scala.collection.mutable.ArrayBuffer
-
 object Demo
 {
   def main(args: Array[String])
   {
-    val yearRange:Range               = 1 to 150
+    val yearRange:Range = 1 to 150
     val annualPercentGrowthRate:Float = 2.0F
 
     println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
 
-    // Calculate the number of units consumed for each year
-    // in the yearRange, at the annualPercentGrowthRate...
-    val result:ArrayBuffer[(Float, Int)] = calculate(annualPercentGrowthRate * 0.01F, yearRange)
-
-    // Print the ArrayBuffer contents stored in the result val...
-    result.foreach(x => printResult(x._1, x._2, annualPercentGrowthRate))
+    // For each year in yearRange, calculate the number
+    // of units consumed at the annualPercentGrowthRate.
+    val result: ArrayBuffer[Float] = calculate(annualPercentGrowthRate * 0.01F, yearRange)
+    var yearCount = 1
+    // The following line prints every element in the result ArrayBuffer...
+    result.foreach{
+      x => printResult(yearCount, x, annualPercentGrowthRate)
+      yearCount += 1
+    }
   }
 
-  /**
-   * Build an ArrayBuffer that will contain the same number of elements
-   * in the yearRange argument passed to this function.  Return a tuple
-   * of type (Float, Int).  Where the Float type represents the numerical
-   * result (units consumed), and the Int type represents the year.
-   */
-  def calculate(annualRate:Float, yearRange:Range):ArrayBuffer[(Float, Int)] =
+  def calculate(annualRate:Float, yearRange:Range):ArrayBuffer[Float] =
   {
     val result:ArrayBuffer[Float] = new ArrayBuffer()
 
-    // For each element in the yearRange add an element to the ArrayBuffer.
+    // For each element in yearRange, add an element to the ArrayBuffer
+    // which represents the result for that year...
     for (idx <- yearRange)
     {
       if (result.size == 0)
-        result += 1.0F  // Add the first element to the ArrayBuffer.
+        result += 1.0F  // Adds the first element to the result ArrayBuffer.
       else {
-        // Add all remaining elements to the ArrayBuffer.
-        val total: Float = (result(result.size - 1) * annualRate) + result(result.size - 1)
-        result += total
+        val resultInPreviousArrayElement:Float = result(result.size - 1)
+        // Calculate the result for the new ArrayBuffer element from resultInPreviousArrayElement,
+        // and store it in the newly-added ArrayBuffer element...
+        result += (resultInPreviousArrayElement * annualRate) + resultInPreviousArrayElement
       }
     }
-    result.zipWithIndex
+    result
   }
 
-  /**
-   *
-   */
-  def printResult(result:Float, index:Int, annualPercentGrowthRate:Float):Unit =
+  def printResult(count:Int, result:Float,  annualPercentGrowthRate:Float):Unit =
   {
-    if (index < 9)
-      printf("%d     - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate )
-    else if (index < 99)
-      printf("%d    - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate)
-    else if (index < 999)
-      printf("%d   - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate)
+    if (count < 10)
+      printf("%d     - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
+    else if (count < 100)
+      printf("%d    - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
+    else if (count < 1000)
+      printf("%d   - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
     else
-      printf("%d  - %14.2f - %5.2f\n", index+1, result, annualPercentGrowthRate)
+      printf("%d  - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
   }
 }
 
+
 ======================================================================================
-The following program determines if a number is or isn't a prime number.
+IS AN INTEGER NUMBER PRIME?
+===========================
 
 import java.io.FileNotFoundException
 
