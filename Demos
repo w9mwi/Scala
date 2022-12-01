@@ -13,33 +13,31 @@ object Demo
 
     // For each year in yearRange, calculate the number
     // of units consumed at the annualPercentGrowthRate.
-    val result: ArrayBuffer[Float] = calculate(annualPercentGrowthRate * 0.01F, yearRange)
+    val resultArrayBuf: ArrayBuffer[Float] = calculate(annualPercentGrowthRate * 0.01F, yearRange)
     var yearCount = 1
-    // The following line prints every element in the result ArrayBuffer...
-    result.foreach{
+    // The following line prints every element in the resultArrayBuf.
+    resultArrayBuf.foreach{
       x => printResult(yearCount, x, annualPercentGrowthRate)
-      yearCount += 1
+        yearCount += 1
     }
   }
 
   def calculate(annualRate:Float, yearRange:Range):ArrayBuffer[Float] =
   {
-    val result:ArrayBuffer[Float] = new ArrayBuffer()
+    val resultArrayBuf:ArrayBuffer[Float] = new ArrayBuffer()
 
-    // For each element in yearRange, add an element to the ArrayBuffer
-    // which represents the result for that year...
+    // For each element in yearRange, add an element to the AresultArrayBuf for that year.
     for (idx <- yearRange)
     {
-      if (result.size == 0)
-        result += 1.0F  // Adds the first element to the result ArrayBuffer.
+      if (resultArrayBuf.size == 0)
+        resultArrayBuf += 1.0F  // Adds the first element to the resultArrayBuf.
       else {
-        val resultInPreviousArrayElement:Float = result(result.size - 1)
-        // Calculate the result for the new ArrayBuffer element from resultInPreviousArrayElement,
-        // and store it in the newly-added ArrayBuffer element...
-        result += (resultInPreviousArrayElement * annualRate) + resultInPreviousArrayElement
+        val resultInPreviousArrayElement:Float = resultArrayBuf(resultArrayBuf.size - 1)
+        // Calculate resultArrayBuf for the new element to be added to resultArrayBuf.
+        resultArrayBuf += (resultInPreviousArrayElement * annualRate) + resultInPreviousArrayElement
       }
     }
-    result
+    resultArrayBuf
   }
 
   def printResult(count:Int, result:Float,  annualPercentGrowthRate:Float):Unit =
@@ -54,7 +52,6 @@ object Demo
       printf("%d  - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
   }
 }
-
 
 ======================================================================================
 IS AN INTEGER NUMBER PRIME?
