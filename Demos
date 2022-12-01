@@ -12,8 +12,8 @@ object Demo
     println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
 
     val resultArrayBuf:ArrayBuffer[(Float, Int)] =
-        calculate(annualPercentGrowthRate * 0.01F, yearRange).zipWithIndex
-    // The following line prints every element in the resultArrayBuf.
+      calculate(annualPercentGrowthRate * 0.01F, yearRange).zipWithIndex
+    // Print contents of entire resultArrayBuf.
     resultArrayBuf.foreach{ x => printResult(x, annualPercentGrowthRate) }
   }
 
@@ -26,10 +26,10 @@ object Demo
     for (idx <- yearRange)
     {
       if (resultArrayBuf.size == 0)
-        resultArrayBuf += 1.0F  // Adds the first element to the resultArrayBuf.
+        resultArrayBuf += 1.0F  // Add the first element to the resultArrayBuf.
       else {
+        // Calculate result for the current element in resultArrayBuf, then assing it.
         val resultInPreviousArrayElement:Float = resultArrayBuf(resultArrayBuf.size - 1)
-        // Calculate resultArrayBuf for the new element to be added to resultArrayBuf.
         resultArrayBuf += (resultInPreviousArrayElement * annualRate) + resultInPreviousArrayElement
       }
     }
@@ -51,6 +51,7 @@ object Demo
       printf("%d  - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
   }
 }
+
 
 ======================================================================================
 IS AN INTEGER NUMBER PRIME?
