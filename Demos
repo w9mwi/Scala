@@ -28,7 +28,7 @@ object Demo
       if (resultArrayBuf.size == 0)
         resultArrayBuf += 1.0F  // Add the first element to the resultArrayBuf.
       else {
-        // Calculate result for the current element in resultArrayBuf, then assing it.
+        // Calculate result, then assign it to a new element in resultArrayBuf.
         val resultInPreviousArrayElement:Float = resultArrayBuf(resultArrayBuf.size - 1)
         resultArrayBuf += (resultInPreviousArrayElement * annualRate) + resultInPreviousArrayElement
       }
