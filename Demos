@@ -11,22 +11,18 @@ object Demo
 
     println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
 
-    // For each year in yearRange, calculate the number
-    // of units consumed at the annualPercentGrowthRate.
-    val resultArrayBuf: ArrayBuffer[Float] = calculate(annualPercentGrowthRate * 0.01F, yearRange)
-    var yearCount = 1
+    val resultArrayBuf:ArrayBuffer[(Float, Int)] =
+        calculate(annualPercentGrowthRate * 0.01F, yearRange).zipWithIndex
     // The following line prints every element in the resultArrayBuf.
-    resultArrayBuf.foreach{
-      x => printResult(yearCount, x, annualPercentGrowthRate)
-        yearCount += 1
-    }
+    resultArrayBuf.foreach{ x => printResult(x, annualPercentGrowthRate) }
   }
 
   def calculate(annualRate:Float, yearRange:Range):ArrayBuffer[Float] =
   {
     val resultArrayBuf:ArrayBuffer[Float] = new ArrayBuffer()
 
-    // For each element in yearRange, add an element to the AresultArrayBuf for that year.
+    // For each year in yearRange, add an element to resultArrayBuffer.
+    // Then populate that element with the calculated result.
     for (idx <- yearRange)
     {
       if (resultArrayBuf.size == 0)
@@ -40,16 +36,19 @@ object Demo
     resultArrayBuf
   }
 
-  def printResult(count:Int, result:Float,  annualPercentGrowthRate:Float):Unit =
+  def printResult(result:(Float, Int),  annualPercentGrowthRate:Float):Unit =
   {
-    if (count < 10)
-      printf("%d     - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
-    else if (count < 100)
-      printf("%d    - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
-    else if (count < 1000)
-      printf("%d   - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
+    val floatResult:Float = result._1
+    val indexResult:Int   = result._2 + 1
+
+    if (indexResult < 10)
+      printf("%d     - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+    else if (indexResult < 100)
+      printf("%d    - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+    else if (indexResult < 1000)
+      printf("%d   - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
     else
-      printf("%d  - %14.2f - %5.2f\n", count, result, annualPercentGrowthRate)
+      printf("%d  - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
   }
 }
 
