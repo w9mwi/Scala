@@ -1,5 +1,5 @@
-ANNUAL PERCENTAGE GROWTH RATE USING AN ArrayBuffer
-==================================================
+[PART 1 OF 2] - ANNUAL PERCENTAGE GROWTH USING AN ArrayBuffer
+=============================================================
 The sample program immediately BELOW this program generates
 identical results, but instead uses an Array.
 
@@ -56,8 +56,8 @@ object Demo
 }
 
 ======================================================================================
-ANNUAL PERCENTAGE GROWTH RATE USING AN Array
-============================================
+[PART 2 OF 2] - ANNUAL PERCENTAGE GROWTH USING AN Array
+=======================================================
 The sample program immediately ABOVE this program generates
 identical results, but instead uses an ArrayBuffer.
 
