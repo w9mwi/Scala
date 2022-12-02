@@ -204,6 +204,61 @@ object Demo
 }
 
 =================================================================================
+The sample program BELOW uses an ArrayBuffer to calculate
+annual growth at a given interest rate.
+
+import scala.collection.mutable.ArrayBuffer
+object Demo
+{
+  def main(args: Array[String])
+  {
+    val yearRange:Range = 1 to 150
+    val annualPercentGrowthRate:Float = 2.0F
+
+    println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
+
+    val resultArrayBuf:ArrayBuffer[(Float, Int)] =
+      calculate(annualPercentGrowthRate * 0.01F, yearRange).zipWithIndex
+    // Print contents of entire resultArrayBuf.
+    resultArrayBuf.foreach{ x => printResult(x, annualPercentGrowthRate) }
+  }
+
+  def calculate(annualRate:Float, yearRange:Range):ArrayBuffer[Float] =
+  {
+    val resultArrayBuf:ArrayBuffer[Float] = new ArrayBuffer()
+
+    // For each year in yearRange, add an element to resultArrayBuffer.
+    // Then populate that element with the calculated result.
+    for (idx <- yearRange)
+    {
+      if (resultArrayBuf.size == 0)
+        resultArrayBuf += 1.0F  // Add the first element to the resultArrayBuf.
+      else {
+        // Calculate result, then assign it to a new element in resultArrayBuf.
+        val resultInPreviousArrayElement:Float = resultArrayBuf(resultArrayBuf.size - 1)
+        resultArrayBuf += (resultInPreviousArrayElement * annualRate) + resultInPreviousArrayElement
+      }
+    }
+    resultArrayBuf
+  }
+
+  def printResult(result:(Float, Int),  annualPercentGrowthRate:Float):Unit =
+  {
+    val floatResult:Float = result._1
+    val indexResult:Int   = result._2 + 1
+
+    if (indexResult < 10)
+      printf("%d     - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+    else if (indexResult < 100)
+      printf("%d    - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+    else if (indexResult < 1000)
+      printf("%d   - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+    else
+      printf("%d  - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+  }
+}
+
+=================================================================================
 The following is a list of some common methods used by the Buffer type...
 
 ___ +=(elem: A):Buffer[A]                 - Append an element to the buffer and return the same buffer.
