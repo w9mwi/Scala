@@ -70,9 +70,9 @@ object Demo
 
     println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
 
-    // NOTE: The call to zipWithIndex in the following line transform the data type
-    //       of "array" so it stores a tuple value of (Float, Int) = (result, index)
-    //       Where index is the element index of the val array.
+    // NOTE: Calling zipWithIndex in the following line transforms the data type of
+    //       "array", so it stores a tuple value of (Float, Int) = (result, index)
+    //       index is the element index of the val array, which is the part "zipped"!
     val array:Array[(Any, Int)] = (new Array(yearRange.size)).zipWithIndex
     calculate(array, annualPercentGrowthRate*0.01F)
     array.foreach{ x => printResult(x._1, x._2, annualPercentGrowthRate) }
