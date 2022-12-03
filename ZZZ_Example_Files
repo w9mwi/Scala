@@ -178,25 +178,26 @@ object Demo
       val strWithIndex:IndexedSeq[(Char, Int)] = str.zipWithIndex
       strWithIndex.foreach // Loop through the strWithIndex collection.
       {
-        // As we loop, obtain the current and previous chars from the strWithIndex collection.
+        // For each loop, obtain currentChar from the current strWithIndex element.
+        // Obtain previousChar from the previous strWithIndex element.
         x => val currentChar:Char = x._1
-          val previousChar:Char = if (x._2 == 0) ZERO // This is the first char in the collection, so set the previousChar val to an invalid char.
-          else strWithIndex(x._2-1)._1
+             val previousChar:Char = if (x._2 == 0) ZERO // For the first element in strWithIndex, set previousChar to an invalid char.
+                                     else strWithIndex(x._2-1)._1 // Set 
 
-          // Change the filename's chars to uppercase or lowercase based on this criteria:
-          // 1) The first char of the filename is always set to uppercase.  If the filename's
-          //    first char is '_', setting it to uppercase won't matter.
-          // 2) All chars preceded with the '_' char will be set to uppercase.
-          // 3) All remaining chars will be set to lowercase.
-          val myChar:Char =  if (previousChar == ZERO || (previousChar == '_' && currentChar != '_'))
-            currentChar.toUpper
-          else
-            currentChar.toLower
-          // The following if() statement transforms multiple consecutive '_' chars
-          // into a single '_' char.  Ensuring that the filename will never contain
-          // more than one consecutive '_' char.
-          if (myChar != '_'  ||  (myChar == '_'  &&  previousChar != '_'))
-            strBuild.append(myChar)
+        // Change the filename's chars to uppercase or lowercase based on this criteria:
+        // 1) The first char of the filename is always set to uppercase.  If the filename's
+        //    first char is '_', setting it to uppercase won't matter.
+        // 2) All chars preceded with the '_' char will be set to uppercase.
+        // 3) All remaining chars will be set to lowercase.
+        val myChar:Char =  if (previousChar == ZERO || (previousChar == '_' && currentChar != '_'))
+          currentChar.toUpper
+        else
+          currentChar.toLower
+        // The following if() statement transforms multiple consecutive '_' chars
+        // into a single '_' char.  Ensuring that the filename will never contain
+        // more than one consecutive '_' char.
+        if (myChar != '_'  ||  (myChar == '_'  &&  previousChar != '_'))
+          strBuild.append(myChar)
       }
       result += new StringTuple(origFilename, strBuild.toString())
     }
