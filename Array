@@ -323,8 +323,8 @@ object Demo
   }
 
   /**
-   *  NOTE: Each element of the array passed to this method holds a tuple of type: (Float, Int)
-   *        Where the Float value stores the result, and the Int value stores the array index.
+   *  NOTE: Each element of the array passed to this method holds a tuple of type: (Any, Int)
+   *        The Any value stores the result as a Float, and the Int stores the array index.
    */
   def calculate(array:Array[(Any, Int)], percent:Float):Unit = {
     for (x <- array) {
