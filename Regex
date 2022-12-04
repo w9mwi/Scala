@@ -129,5 +129,55 @@ object Demo
   // ************************************************************************
 }
 
+=========================================================
+The following program is another Regex example.
 
+import java.io.File
+object Demo
+{
+  object FileFind {
+    private def filesInDir(dir:String):Array[File] = (new java.io.File(dir)).listFiles
 
+    private def filesMatching(dir:String, matcher:String => Boolean):Array[File] =
+    {  for (file <- filesInDir(dir); if matcher(file.getName)) yield file  }
+
+    // Notice the following 3 methods pass these 3 arguments to the filesMatching() method:
+    // 1) _.endsWith(regexText)
+    // 2) _.contains(regexText)
+    // 3) _.matches(regexText)
+    // Those are all methods that get called on a String, where the underscore (_) char
+    // represents the String that will invoke the function.  The underscore (_) char has
+    // no meaning inside the 3 method definitions below.  ONLY when filesMatching()
+    // gets called and receives its arguments does the underscore (_) reference a String.
+    // At that time the underscore (_) char will reference the String returned by
+    // file.getName when matcher(file.getName) is called.  matcher(file.getName) will
+    // then execute the regexText passed to it, returning true/false depending on
+    // whether the filename exists.
+    def filesEndWith(dir:String, regexText:String):Array[File] = filesMatching(dir, _.endsWith(regexText))
+    def filesContain(dir:String, regexText:String):Array[File] = filesMatching(dir, _.contains(regexText))
+    def filesRegex(dir:String,   regexText:String):Array[File] = filesMatching(dir, _.matches(regexText))
+    def getDirFiles(dir:String):Array[File] = filesInDir(dir)
+  }
+
+  def main(args: Array[String]): Unit =
+  {
+    val directory:String = "/home/tjb/junkDir"
+    var result:Array[File] = FileFind.filesEndWith(directory, ".txt")
+    result.foreach(println)
+
+    result = FileFind.filesContain(directory, "ebr")
+    result.foreach(println)
+
+    // Obtain all file names beginning with 2-4 'a' chars,
+    //                                      0-4 b chars
+    //                                      1-2 'c' chars
+    result = FileFind.filesRegex(directory, "a{2,4}b{0,4}c{1,2}")
+    result.foreach(println)
+
+    // Obtain all file names beginning with 'Z' char, followed by 0 or more chars.
+    // 1) This regex works:  Z+.*
+    // 1) This regex also works:  ^Z.*
+    result = FileFind.filesRegex(directory, "Z+.*")
+    result.foreach(println)
+  }
+}
