@@ -1,10 +1,11 @@
 CURRYING
 ========
-In Scala, a curried function is defined as:
-Any function that returns a function, where the
-returned function accepts a single parameter list.
-Note that a single parameter list can contain one
-argument or multiple arguments.
+In Scala a curried function is defined as:
+
+Any function that returns a function, where the returned
+function accepts a single parameter list.
+NOTE:  A single parameter list can contain one
+       argument or multiple arguments.
 
 All Scala functions defined with multiple parameter lists are
 curried functions--EXCEPT when one of the parameter lists
@@ -44,6 +45,11 @@ partially applied, or fully applied.  Here are the definitions:
 2) FULLY APPLIED - When a curried function is called with the last
    of its multiple parameter lists, it returns a final value, not
    a function.  This makes the curried function fully applied.
+
+NOTE: Don't confuse a "partially applied function" with a "partial
+      function"--THEY ARE NOT THE SAME!  A partial function is
+      defined in the Scala API as "PartialFunction", as both
+      a Scala trait and a Scala object.
 
 The following code sample shows how to call a curried function
 as fully applied and partially applied.  It also shows how to
