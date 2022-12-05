@@ -173,6 +173,39 @@ object Demo
 }
 
 ========================================================================================
+The following program shows another example of how functions and methods are used.
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    // The twice_1 method and the twice_2 function defined below have
+    // IDENTICAL SIGNATURES AND IDENTICAL BEHAVIOR.  twice_1 and twice_2
+    // both accept a function (named "op") as the first argument, and
+    // "number" as the second argument.  The op() function is then
+    // performed on number, which becomes the returned result.
+    def twice_1(op:Double=>Double, number:Double):Double = { op(op(number)) }
+    val twice_2:(Double=>Double, Double)=>Double = { (op:Double=>Double, number:Double) => op(op(number)) }
+
+    // EXPLANATION: In the following call to twice_1()...
+    //              1) The "_ + 1" is a function that gets passed to the "op" argument of
+    //                 twice_1(), and 5 gets passed to the "number" argument of twice_1().
+    //              2) The underscore (_) references the "number" argument passed
+    //                 to twice_1(), which is the number 5.
+    //              3) twice_1() returns this expression:  op(op(5))
+    //                 First, op(5) returns:  (5.0 + 1.0) = 6.0
+    //                 Next, op(6.0) is called, which returns this final value:  (6.0 + 1.0) = 7.0
+    var result:Double = twice_1(_ + 1, 5)
+    println(s"result #1 = $result") // PRINTS: result #1 = 7.0
+
+    // The EXPLANATION given above for what happens when twice_1() gets called
+    // applies equally to what happens when twice_2() is called below.
+    result = twice_2(_ + 1, 5)
+    println(s"result #2 = $result") // PRINTS: result #2 = 7.0
+  }
+}
+
+========================================================================================
 PARTIAL FUNCTIONS - PART 1 of 3
 
 DON'T confuse partial functions with partially-applied functions!  Partial functions
