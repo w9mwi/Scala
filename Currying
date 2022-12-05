@@ -48,14 +48,13 @@ partially applied, or fully applied.  Here are the definitions:
 
 NOTE: Don't confuse a "partially applied function" with a "partial
       function"--THEY ARE NOT THE SAME!  A partial function is
-      defined in the Scala API as "PartialFunction", as both
+      defined in the Scala API as "PartialFunction" as both
       a Scala trait and a Scala object.
 
 The following code sample shows how to call a curried function
 as fully applied and partially applied.  It also shows how to
 call a partially applied function with the OPTIONAL underscore
 character (_) at the end of the parameter list(s).
-
 ========================================================================================
 
 object Demo
@@ -88,7 +87,6 @@ object Demo
 }
 
 ========================================================================================
-
 DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
 ==========================================================
 
@@ -164,7 +162,6 @@ object Demo
 }
 
 ========================================================================================
-
 When a function definition contains multiple parameter lists, that function
 is generally a curried function, but not always!  There is an exception...
 
@@ -209,7 +206,6 @@ object Demo
     println("add(myInt, myFloat)    = " + add(myInt, myFloat))    // PRINTS: add(myInt, myFloat)    = 1332.543
   }
 }
-
 ========================================================================================
 
 Here's an example where we have two functions that both return a function
@@ -285,10 +281,10 @@ object Demo
 
 ========================================================================================
 
-NOTICE: The above funcXYZ and funcXYZ_2 functions will generate identical results
-        after both those functions become FULLY APPLIED.  The ONLY way they differ
-        is that funcXYZ is defined to take 3 parameters in 1 PARAMETER LIST,
-        while funcXYZ_2 is defined to take 3 PARAMETER LISTS.
+NOTICE: The funcXYZ and funcXYZ_2 functions in the above example will generate
+        identical results after both those functions become FULLY APPLIED.  The
+        ONLY way they differ is that funcXYZ is defined to take 3 parameters in
+        1 PARAMETER LIST, while funcXYZ_2 is defined to take 3 PARAMETER LISTS.
 
 FROM THIS POINT ON, ONLY THE funcXYZ FUNCTION IS DISCUSSED, NOT THE funcXYZ_2 FUNCTION.
 
@@ -360,9 +356,7 @@ TAKE NOTE: The A value in the funcXYZ return type is literally the same value
            The D value in the funcXYZ return type is literally the same value
            as the D value in the funcX return type.  When funcXYZ becomes
            fully applied, funcX is ALWAYS the LAST parameter list executed.
-
 ========================================================================================
-
 Here is another example of currying.  Read in-line comments below for explanations.
 
 object Demo
