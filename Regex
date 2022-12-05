@@ -138,6 +138,9 @@ object Demo
   object FileFind {
     def filesInDir(dir:String):Array[File] = (new java.io.File(dir)).listFiles
 
+    // This filesMatching() method accepts a function as an argument.  That
+    // allows filesMatching() to return only files that meet the criteria
+    // of the function passed to it.
     private def filesMatching(dir:String, matcher:String => Boolean):Array[File] =
     {  for (file <- filesInDir(dir); if matcher(file.getName)) yield file  }
 
@@ -156,16 +159,7 @@ object Demo
     def filesEndWith(dir:String, regexText:String):Array[File] = filesMatching(dir, _.endsWith(regexText))
     def filesContain(dir:String, regexText:String):Array[File] = filesMatching(dir, _.contains(regexText))
     def filesRegex(dir:String,   regexText:String):Array[File] = filesMatching(dir, _.matches(regexText))
-    def getDirFiles(dir:String):Array[File] = filesInDir(dir)
-
-    // The below 2 methods show an ALTERNATIVE WAY coding the above filesMatching()
-    // and filesEndWith() methods.  Instead of passing a function to filesEndWith2()
-    // below, we pass it a regexText argument instead.  The results returned by
-    // filesEndWith() above and filesEndWith2() below are IDENTICAL.
-    private def filesMatching2(dir: String, regexText:String):Array[File] =
-    {  for (file <- FileFind.filesInDir(dir);  if (file.getName.endsWith(regexText))) yield file  }
-
-    def filesEndWith2(dir:String, regexText:String):Array[File] = filesMatching2(dir, regexText)
+    def getDirFiles(dir:String):Array[File]                    = filesInDir(dir)
   }
 
   def main(args: Array[String]): Unit =
@@ -187,9 +181,6 @@ object Demo
     // 1) This regex works:  Z+.*
     // 1) This regex also works:  ^Z.*
     result = FileFind.filesRegex(directory, "Z+.*")
-    result.foreach(println)
-
-    result = FileFind.filesEndWith2(directory, ".txt")
     result.foreach(println)
   }
 }
