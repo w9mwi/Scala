@@ -39,21 +39,19 @@ object Demo
   }
 }
 
-==========================================================================
-The following code sample shows another example of using
-an implicit parameter.  Here, we make the add() function
-a parametric function so it takes a Numeric type implicit
-parameter, so it will work properly on all Numeric types,
-such as Long, Int, Float, Double, etc.
+===============================================================================
+The following code sample shows another example of using an implicit parameter.
+Here, we make the add() function a parametric function so it takes a Numeric
+type implicit parameter, so it will work properly on all Numeric types, such
+as Long, Int, Float, Double, etc.
 
-As is always the case with implicit functions, if it's
-called without specifying the implicit parameter, Scala
-will determine if it can obtain an implicit value of the
-correct type, and if it can, pass it automatically.
+As is always the case with implicit functions, if it's called without specifying
+the implicit parameter, Scala will determine if it can obtain an implicit value
+of the correct type, and if it can, pass it automatically.
 
-In the following example, the implicit parameter is never
-designated so Scala passes that parameter for us, making
-the add() function work as we want with all Numeric types.
+In the following example, the implicit parameter is never designated so Scala
+passes that parameter for us, making the add() function work as we want with
+all Numeric types.
 
 object Demo
 {
