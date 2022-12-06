@@ -264,7 +264,6 @@ object Demo
 }
 
 ========================================================================================
-
 Here's an example where we have two functions that both return a function
 that takes an Int as a parameter.  This means that both these functions
 must get called with one more parameter than appears in their definition
@@ -294,127 +293,7 @@ object Demo
 }
 
 ========================================================================================
-
-Since the add() function defined above uses ONLY ONE parametric type, you need
-only ONE letter (A, B, C, X, Y, Z, etc.) to designate the parametric type.
-
-However, the following curried function funcXYZ requires multiple parametric types
-in its definition.  In the funcXYZ function definition below, you can still choose
-any letters you want to designate the types, but you must choose the correct parametric
-type in each of the many locations where one is used.  Keep reading below for an
-explanation of how this is determined.
-
-========================================================================================
-
-object Demo
-{
-  def funcX(x:Int):Int = { x + 10 }
-  def funcY(y:Int):Int = { y - 3 }
-  def funcZ(z:Int):Int = { z * 4 }
-
-  // funcXYZ is identical to the below funcXYZ_2 function,
-  // except funcXYZ_2 has 3 PARAMETER LISTS.
-  def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
-  {
-    x => funcX(funcY(funcZ(x)))
-  }
-
-  // funcXYZ_2 is identical to the above funcXYZ function,
-  // except funcXYZ has 1 PARAMETER LIST containing 3 arguments.
-  def funcXYZ_2[A,B,C,D](funcX:(C=>D))(funcY:(B=>C))(funcZ:(A=>B)):(A=>D) =
-  {
-    x => funcX(funcY(funcZ(x)))
-  }
-
-  def main(args:Array[String]): Unit =
-  {
-    var result:Int = funcXYZ(funcX, funcY, funcZ)(5)
-    println("result = " + result) // PRINTS: result = 27
-
-    result = funcXYZ_2(funcX)(funcY)(funcZ)(5)
-    println("result = " + result) // PRINTS: result = 27
-  }
-}
-
-========================================================================================
-
-NOTICE: The funcXYZ and funcXYZ_2 functions in the above example will generate
-        identical results after both those functions become FULLY APPLIED.  The
-        ONLY way they differ is that funcXYZ is defined to take 3 parameters in
-        1 PARAMETER LIST, while funcXYZ_2 is defined to take 3 PARAMETER LISTS.
-
-FROM THIS POINT ON, ONLY THE funcXYZ FUNCTION IS DISCUSSED, NOT THE funcXYZ_2 FUNCTION.
-
-In the above funcXYZ definition, the letters in the [A,B,C,D] section can
-appear in ANY ORDER you want.  For example:
-funcXYZ[A,B,C,D]...
-funcXYZ[B,A,D,C]...
-funcXYZ[D,C,A,B]...
-The order won't affect the behavior of the code, but it's best to always
-keep them in alphabetical order.  Following that text in the function
-definition, the correct parametric type must be used wherever one is referenced.
-
-The funcXYZ definition uses parametric types to designate several return types.
-You can choose any letters for the parametric types, but YOU SHOULD ALWAYS
-begin using letter A, followed by B, C, D, etc. so it's easy to follow the order.
-This part explains how the parametric return types are determined.
-
-We begin by observing what funcXYZ returns.  We see that funcXYZ returns this...
-
-x => funcX(funcY(funcZ(x)))
-
-That's a function, which takes a single parameter (x), and returns this line of code:
-
-funcX(funcY(funcZ(x)))  // Where x is the param passed to funcZ
-
-When that line of code is executed, the first thing that executes is funcZ.
-Let's begin by saying funcZ takes parameter A (representing the x parameter
-value passed to funcZ), and it returns the value B, like this:
-
-A=>B   (funcZ return type)
-
-The next thing that executes is funcY.  The parameter fed to funcY comes
-from the value returned by funcZ.  So the funcY return type is:
-
-B=>C   (funcY return type)
-
-The next thing that executes is funcX.  The parameter fed to funcX comes
-from the value returned by funcY.  So the funcX return type is:
-
-C=>D   (funcX return type)
-
-Finally, we need to designate what funcXYZ returns.  funcXYZ RETURNS A FUNCTION that
-takes the parameter x.  Notice that this x parmameter is literally the same value
-that gets passed to funcZ.  Since funcZ defined that x value as type A, funcXYZ
-must also use that same A value in its return type.  Therefore, the funcXYZ
-return type is:
-
-A=>D   (funcXYZ return type)
-
-Now we can write the funcXYZ definition (shown below) using these return types...
-
-funcXYZ returns: A=>D
-funcZ   returns: A=>B
-funcY   returns: B=>C
-funcX   returns: C=>D
-
-Those are the return types that get plugged into the funcXYZ definition, like this:
-
-def funcXYZ[A,B,C,D](funcX:(C=>D), funcY:(B=>C), funcZ:(A=>B)):(A=>D) =
-{
-  x => funcX(funcY(funcZ(x)))
-}
-
-TAKE NOTE: The A value in the funcXYZ return type is literally the same value
-           as the A value in the funcZ return type.  When funcXYZ is executed
-           (either as a partially-applied or fully-applied function) funcZ
-           is ALWAYS the FIRST parameter list executed.
-
-           The D value in the funcXYZ return type is literally the same value
-           as the D value in the funcX return type.  When funcXYZ becomes
-           fully applied, funcX is ALWAYS the LAST parameter list executed.
-========================================================================================
-Here is another example of currying.  Read in-line comments below for explanations.
+Here is another example of currying.  Read in-line comments below for details.
 
 object Demo
 {
@@ -442,18 +321,14 @@ object Demo
 }
 
 ========================================================================================
-
 The following sample code includes this parametric function:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
 Although funcOfGunc() is defined with ONE parameter list, it must get called
-by passing two (2) parameters.  The first parameter list gets passed the func
-and gunc functions as two arguments.  The second parameter list must include
+by passing it two (2) parameter lists.  The first parameter list gets passed
+the func and gunc functions as two arguments.  The second parameter gets passed
 the numeric value of x.
-
-
-========================================================================================
 
 object Demo
 {
@@ -477,47 +352,6 @@ object Demo
   //       def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
   //
   def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
-}
-
-========================================================================================
-
-The following code sample shows an example of transforming a regular function into
-a curried function by first performing an eta expansion on it by adding the underscore
-(_) character, and then calling Scala's .curried() method.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // The following line of code converts the add() function defined below
-    // (which contains one parameter list) into a curried function (which
-    // contains two parameter lists) via an "Eta Expansion".  The "Eta
-    // Expansion" occurs when adding the underscore character (_) after
-    // the "add" method name.
-    val addFunction:((Int, Int)=>Int)        = add _  // The underscore char (_) on this line is REQUIRED.
-    val addFunctionCurried:(Int=>(Int=>Int)) = addFunction.curried // Converts the addFunction into a curried function.
-
-    println(add(123, 456))                // PRINTS: 579
-    println(addFunction(123, 456))        // PRINTS: 579
-    println(addFunctionCurried(123)(456)) // PRINTS: 579
-
-    // The following TWO (2) calls to addFunctionCurried show
-    // how to call addFunctionCurried in 2 separate steps.
-    // Firstly, as a partially-applied function call.  Secondly,
-    // as a fully-applied function call.
-    val func1:(Int => Int) = addFunctionCurried(123)(_) // Partially applied function call.
-    println(func1(456)) // Fully applied function call.  PRINTS: 579
-
-    val func2:(Int => Int) = addFunctionCurried(123) // Partially applied function call.
-    println(func2(456)) // Fully applied function call.  PRINTS: 579
-  }
-
-  /**
-   * This add() function is a regular Scala function.  In the code
-   * above, this add() function is used to create a curried function
-   * by calling:  addFunction.curried
-   */
-  def add(x:Int, y:Int):Int = { x + y }
 }
 
 ========================================================================================
@@ -739,20 +573,4 @@ object Demo
   }
 }
 
-========================================================================================
-
-Once you understand all the code and all the explanations above,
-let's take another look at the curried function we used above...
-
-def addXYZ_Curried(x:Int)(y:Int)(z:Int):Int = { x + y + z }
-
-Assume you have code that calls this function in the following
-manner, let's examine its behavior.
-
-addXYZ_Curried(1)  // This returns this FUNCTION: (1 + (y + z))
-addXYZ_Curried(2)  // This returns this FUNCTION: (1 + 2 + z) = (3 + z)
-addXYZ_Curried(3)  // This returns this VALUE:    1 + 2 + 3 = 6
-
-
-========================================================================================
 ========================================================================================
