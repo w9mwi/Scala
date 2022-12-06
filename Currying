@@ -1,15 +1,26 @@
 CURRYING
 ========
-In Scala a curried function is defined as:
 
-Any function that returns a function, where the returned
-function accepts a single parameter list.
-NOTE:  A single parameter list can contain one
-       argument or multiple arguments.
+A curried function is any function that returns a function,
+where the returned function accepts a single parameter list.
+NOTE:  The single parameter list of a curried function can
+       contain one argument, or multiple arguments.
 
 All Scala functions defined with multiple parameter lists are
-curried functions--EXCEPT when one of the parameter lists
-includes an implicit argument, as is explained further below.
+curried functions with these two exceptions...
+
+1) When one of its parameter lists includes an implicit argument
+   it's NOT a curried function.
+   SEE SECTION TITLED:
+   FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
+
+2) When it contains two parameter lists, and the second parameter list
+   argument contains a block of Scala code (instead of a data type
+   like Int, String, etc) it's NOT a curried function.
+   SEE SECTION TITLED:
+   WHEN MULTIPLE PARAMETER LISTS DON'T DESIGNATE A CURRIED FUNCTION
+
+
 Each set of parenthesis defined in a function represents a
 parameter list.  For example, the following 2 functions
 contain multiple parameter lists, which means these 2 functions
@@ -28,13 +39,14 @@ but a final value.
 Whenever a Scala curried function is called, the function is either
 partially applied, or fully applied.  Here are the definitions:
 
-1) PARTIALLY APPLIED - Calling a curried function with fewer than
-   all its parameter lists means that function is partially applied,
+1) PARTIALLY APPLIED FUNCTION - Calling a curried function with fewer
+   than all its parameter lists means that function is partially applied,
    because it returns a function which accepts a single parameter list.
 
-   When a curried function is called as a partially applied function
-   an OPTIONAL underscore character (_) at the end of its parameter
-   list(s) designates all parameter list(s) that aren't specified.
+   IMPORTANT: When a curried function is called as a partially applied
+              function an OPTIONAL underscore character (_) at the end
+              of its parameter list(s) designates all parameter list(s)
+              that aren't specified.
 
    It's possible to define a curried function that contains only
    one parameter list in its fuction definition.  To see an example
@@ -42,20 +54,21 @@ partially applied, or fully applied.  Here are the definitions:
    its definition is defined, read the section further below titled:
    "DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST"
 
-2) FULLY APPLIED - When a curried function is called with the last
-   of its multiple parameter lists, it returns a final value, not
+2) FULLY APPLIED FUNCTION - When a curried function is called with the
+   last of its multiple parameter lists, it returns a final value, not
    a function.  This makes the curried function fully applied.
 
-NOTE: Don't confuse a "partially applied function" with a "partial
-      function"--THEY ARE NOT THE SAME!  A partial function is
-      defined in the Scala API as "PartialFunction" as both
-      a Scala trait and a Scala object.
+NOTE: Don't confuse a "partially applied function" with a "partial function"
+      because THEY'RE NOT THE SAME.  A partial function is defined in the
+      Scala API as:  PartialFunction 
+      PartialFunction is defined as both a Scala trait and a Scala object.
+
+========================================================================================
 
 The following code sample shows how to call a curried function
 as fully applied and partially applied.  It also shows how to
 call a partially applied function with the OPTIONAL underscore
 character (_) at the end of the parameter list(s).
-========================================================================================
 
 object Demo
 {
@@ -122,7 +135,6 @@ of addXY_Curried_1() contains only one parameter list.
 addXY_Curried_2(5)_ will compile because the definition
 of addXY_Curried_2()() contains two parameter lists.
 
-
 object Demo
 {
   def main(args: Array[String])
@@ -162,50 +174,94 @@ object Demo
 }
 
 ========================================================================================
+FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
+=================================================================
+
 When a function definition contains multiple parameter lists, that function
-is generally a curried function, but not always!  There is an exception...
+is generally a curried function, but not always!  Here is an exception...
 
 When a function definition contains multiple parameter lists, and one
 of those parameter lists contains an implicit argument, that function
 is NOT a curried function.
 
-In the sample code below the add()() function contains two parameter lists,
-but it's NOT a curried function because the second parameter list contains
-an implicit argument.  An implicit argument means that when the function is
-called without supplying that argument, Scala supplies that argument automatically,
-and the function returns a final value.
+Read the section titled "Implicit_Parameters" for more info on this.
+SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
+
+========================================================================================
+WHEN MULTIPLE PARAMETER LISTS DON'T DESIGNATE A CURRIED FUNCTION
+================================================================
+
+Although the myWhileLoop()() is defined in the code sample below with
+two (2) patrameter lists. it's NOT a curried function because it doesn't
+return a function.
+
+The myWhileLoop()() method has this definition:
+def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
+
+Its 1st parameter list:  (testCondition: => Boolean)
+Its 2nd parameter list:  (codeBlock: => Unit)
+
+Obviously, the "=> Boolean" designates a function that returns a Boolean,
+and the "=> Unit" designates a function that returns nothing.  But the
+following question arises...
+
+QUESTION: Why is there no data type specified between the colon (:) and
+          the rocket (=>) in these two parameter lists as you may expect?
+
+          (testCondition: => Boolean)
+          (codeBlock: => Unit)
+
+ANSWER:  Because both those arguments do NOT get passed a value (i.e., Int,
+         String, Boolean, List[Float], etc.).  Those arguments get passed
+         lines of Scala code.  Lines of Scala code never represent a data type.
+         Therefore, no data type is specified for the testCondition and
+         codeBlock arguments.
+
+         The testCondition argument literally accepts this expression: (idx < 5),
+         which has no data type but evaluates to a Boolean.  So testCondition
+         returns Boolean.
+
+         The codeBlock argument literally accepts a block (several lines) of
+         Scala code, which also has no data type.  The last line executed in
+         codeBlock doesn't evaluate to anything.  So codeBlock returns Unit.
+
+NOTE: It's possible for a block of code to evaluate to a value, and thus have a
+      return data type.  For example, if the last line executed in codeBlock
+      evaluated to a String, then codeBlock would return a String.  If that were
+      the case, the function defined in the sample code below would...
+      look like this:   def myWhileLoop(testCondition: => Boolean)(codeBlock: => String):Unit
+      instead of this:  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit
 
 object Demo
 {
-  // The following add()() function is defined with two (2) parameter lists,
-  // which usually means it's a curried function.  However, because its
-  // second  parameter list contains an implicit argument, it's NOT a
-  // curried function.  The Scala compiler automatically invokes the
-  // implicit parameter when the add()() function is called with only
-  // one of its two parameter lists.
-  //
-  // This code shows how to define an add function so it will work with
-  // different data types (Byte, Int, Long, Float, Double).  The returned
-  // data type will be "upcast" to the highest of the two data types passed
-  // to the function.
-  def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
-
-  def main(args:Array[String]): Unit =
+  def main(args: Array[String])
   {
-    val myByte:Byte     = 123
-    val myInt:Int       = 456
-    val myLong:Long     = 999999999L
-    val myFloat:Float   = 876.543F
-    val myDouble:Double = 1234567.890123D
+    var idx:Int = 0
+    myWhileLoop(idx < 5)
+    {
+      // IMPORTANT: It appears the myWhileLoop() method called above is being called
+      //            with only one of its two parameter lists, but that's wrong!
+      //            All code between the above and below braces pair {} gets passed
+      //            to the second parameter list of the myWhileLoop()() method
+      //            defined below.
+      print("idx = " + idx + ", ") // PRINTS: idx = 0, idx = 1, idx = 2, idx = 3, idx = 4,
+      idx += 1
+    }
+  }
 
-    println("add(myByte, myInt)     = " + add(myByte, myInt))     // PRINTS: add(myByte, myInt)     = 579
-    println("add(myInt, myLong)     = " + add(myInt, myLong))     // PRINTS: add(myInt, myLong)     = 1000000455
-    println("add(myLong, myFloat)   = " + add(myLong, myFloat))   // PRINTS: add(myLong, myFloat)   = 1.0000009E9
-    println("add(myFloat, myDouble) = " + add(myFloat, myDouble)) // PRINTS: add(myFloat, myDouble) = 1235444.433152785
-    println("add(myByte, myDouble)  = " + add(myByte, myDouble))  // PRINTS: add(myByte, myDouble)  = 1234690.890123
-    println("add(myInt, myFloat)    = " + add(myInt, myFloat))    // PRINTS: add(myInt, myFloat)    = 1332.543
+  // The following myWhileLoop()() method is RECURSIVE!  The Scala code passed to
+  // this method in the codeBlock argument keeps executing (which is a recursive
+  // call) until the testCondition parameter becomes false.
+  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit =
+  {
+    // NOTE: The following line of code can be written using any of these 3 variations:
+    //       1) while(testCondition)(codeBlock)
+    //       2) while(testCondition){codeBlock}
+    //       3) while(testCondition) codeBlock
+    while(testCondition)(codeBlock)
   }
 }
+
 ========================================================================================
 
 Here's an example where we have two functions that both return a function
