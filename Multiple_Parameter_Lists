@@ -18,23 +18,23 @@ QUESTION: Why is there no data type specified between the
           (testCondition: => Boolean)
           (codeBlock: => Unit)
 
-ANSWER:  Because both those arguments do NOT get passed a value (an Int,
-         String, etc.), they get passed Scala code.  Lines of Scala code
-         don't represent a data type, so no data type is specified for
-         the "testCondition" and "codeBlock" arguments.
+ANSWER:  Because both those arguments do NOT get passed a value (i.e., Int,
+         String, Boolean, List[Float], etc.), they actually get passed Scala code.
+         Lines of Scala code never represent a data type.  Therefore, no data type
+         is specified for the testCondition and codeBlock arguments.
 
          The testCondition argument literally accepts this expression: (idx < 5),
-         which has no data type but evaluates to a Boolean, so testCondition
+         which has no data type but evaluates to a Boolean.  So testCondition
          returns Boolean.
 
          The codeBlock argument literally accepts a block (several lines) of
-         Scala code, which of course has no data type.  The last line executed in
-         this block of code doesn't evaluate to anything, so codeBlock returns Unit.
+         Scala code, which of course has no data type.  The last line executed
+         in codeBlock doesn't evaluate to anything.  So codeBlock returns Unit.
          
 NOTE: It's possible for a block of code to evaluate to a value, and thus have a
-      data type.  For example, if the last line executed in blockOfCode evaluates
-      to a String, then blockOfDode returns a String.  If that were the case, the
-      function defined in the sample code below would...
+      return data type.  For example, if the last line executed in codeBlock
+      evaluates to a String, then codeBlock returns a String.  If that were
+      the case, the function defined in the sample code below would...
       look like this:   def myWhileLoop(testCondition: => Boolean)(codeBlock: => String):Unit
       instead of this:  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit
 
