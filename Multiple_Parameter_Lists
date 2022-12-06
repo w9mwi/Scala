@@ -23,19 +23,18 @@ ANSWER:  Because both those arguments do NOT get passed a value (an Int,
          don't represent a data type, so no data type is specified for
          the "testCondition" and "codeBlock" arguments.
 
-         The "testCondition" argument literally accepts this expression: (idx < 5),
+         The testCondition argument literally accepts this expression: (idx < 5),
          which has no data type but evaluates to a Boolean, so testCondition
-         returns Unit.
+         returns Boolean.
 
-         The "codeBlock" argument literally accepts a block (several lines) of
+         The codeBlock argument literally accepts a block (several lines) of
          Scala code, which of course has no data type.  The last line executed in
          this block of code doesn't evaluate to anything, so codeBlock returns Unit.
          
-NOTE: It's possible for a block of code (passed to a function argument)
-      to evaluate to a value, and thus have a data type.  For example,
-      if the last line executed in a block of code evaluates to a String,
-      then that block of code returns a String.  If that were the case
-      the function defined in the sample code below would...
+NOTE: It's possible for a block of code to evaluate to a value, and thus have a
+      data type.  For example, if the last line executed in blockOfCode evaluates
+      to a String, then blockOfDode returns a String.  If that were the case, the
+      function defined in the sample code below would...
       look like this:   def myWhileLoop(testCondition: => Boolean)(codeBlock: => String):Unit
       instead of this:  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit
 
