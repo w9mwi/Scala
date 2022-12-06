@@ -192,8 +192,8 @@ WHEN MULTIPLE PARAMETER LISTS DON'T DESIGNATE A CURRIED FUNCTION
 ================================================================
 
 Although the myWhileLoop()() is defined in the code sample below with
-two (2) patrameter lists. it's NOT a curried function because it doesn't
-return a function.
+two (2) parameter lists, it's NOT a curried function because it doesn't
+return a function that accepts a single parameter list.
 
 The myWhileLoop()() method has this definition:
 def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
@@ -222,8 +222,9 @@ ANSWER:  Because both those arguments do NOT get passed a value (i.e., Int,
          returns Boolean.
 
          The codeBlock argument literally accepts a block (several lines) of
-         Scala code, which also has no data type.  The last line executed in
-         codeBlock doesn't evaluate to anything.  So codeBlock returns Unit.
+         Scala code.  Lines of Scala code never represent a data type.  Also,
+         the last line of code executed in codeBlock doesn't evaluate to
+         anything, so codeBlock returns Unit.
 
 NOTE: It's possible for a block of code to evaluate to a value, and thus have a
       return data type.  For example, if the last line executed in codeBlock
