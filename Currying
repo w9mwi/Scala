@@ -442,81 +442,16 @@ object Demo
 }
 
 ========================================================================================
-The following code is an example of calling a recursive curried function.  The curried
-forloop()() function is called as a fully-applied function (with 2 parameter lists)
-every time it executes a loop.
 
-When 'count > 0' evaluates to false in the main() function, the forloop()()
-function is called as a partially-applied function (with only 1 parameter list),
-and then terminates.
-========================================================================================
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    var count = 5
-    forloop(count > 0) // 'count > 0' is passed to the 1st param. list of the forloop()() function.
-    {
-      // The code contained within these curly braces {} is passed as
-      // the 2nd param. list to the curried forloop()() function.
-      print("count = " + count + ",  ") // PRINTS: count = 5,  count = 4,  count = 3,  count = 2,  count = 1,
-      count -= 1
-    }
-    println("\nProgram Terminated.") // PRINTS: Program Terminated.
-  }
-
-  /**
-   * This forloop()() function is a RECURSIVE CURRIED FUNCTION with 2 argument lists.
-   * BOTH its arguments are Pass-By-Value functions (aka, Nullary functions), which
-   * means they get passed A BLOCK OF SCALA CODE.
-   */
-  def forloop(rule: => Boolean)(body: => Unit):Unit =
-  {
-    if (rule)
-    {
-      body // Executes the Scala code passed to the 2nd parameter list.
-      forloop(rule)(body) // This is a RECURSIVE function call.
-    }
-  }
-}
-
-========================================================================================
-The following sample code includes this parametric curried function:
+The following sample code includes this parametric function:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
-This part explains how funcOfGunc was defined.
+Although funcOfGunc() is defined with ONE parameter list, it must get called
+by passing two (2) parameters.  The first parameter list gets passed the func
+and gunc functions as two arguments.  The second parameter list must include
+the numeric value of x.
 
-1)
-We will pass 2 functions to funcOfGunc in a single parameter list.  Both those
-functions will get passed a Double, and return a Double.
-
-NOTICE: Recall that a curried function always has at least TWO (2) parameter
-        lists.  The second parameter list that funcOfGunc accepts is NOT included
-        in the funcOfGunc definition because funcOfGunc returns a function that
-        accepts a single parameter.  Therefore, the return value of funcOfGunc
-        is where the second parameter list gets defined.
-
-2)
-Since the gunc function gets called FIRST, we will begin by saying gunc(x) gets
-passed a parameter of type A, and returns type B.  So gunc has this return type:
-A=>B
-
-2)
-The func function gets called AFTER gunc is called, and gets passed the
-value returned by gunc, which is type B.  So func has this return type:
-B=>C
-
-4)
-After both the func and gunc functions passed to funcOfGunc are called
-(i.e., func(gunc(x))), funcOfGunc returns its value, which is a function
-that gets passed a parameter.
-
-Therefore, funcOfGunc gets passed the same value passed to gunc (parameter
-type A), and it returns the same value returned by func (parameter type C).
-So funcOfGunc has this return type:
-A=>C
 
 ========================================================================================
 
@@ -529,13 +464,18 @@ object Demo
 
     // NOTE: 54.0 = 5.0+(7.0*7.0)
     var result:Double = funcOfGunc(plus5, square)(7.0D)
-    println("result = " + result) // PRINTS: result = 54.0
+    println("1) result = " + result) // PRINTS: 1) result = 54.0
 
     // NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
     result = funcOfGunc(square, plus5)(7.0D)
-    println("result = " + result) // PRINTS: result = 144.0
+    println("2) result = " + result) // PRINTS: 2) result = 144.0
   }
 
+  // NOTE: Because the A, B, and C data types in the funcOfGunc definition below
+  //       are all Int types, it can instead be writen the following way, with
+  //       ONLY a single parametric data type A:
+  //       def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
+  //
   def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 }
 
