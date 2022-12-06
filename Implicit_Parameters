@@ -7,39 +7,35 @@ the correct type, and if it can, pass it automatically.
 A method, fuction, or constructor can have ONLY ONE implicit
 paramater list, and it must be THE LAST PARAMETER LIST specified.
 
-In the following code sample, if the main() function were to declare more
-than one 'implicit String' val, or declare more than one 'implicit Boolean'
-val, the code wouldn't compile.  It wouldn't compile because the compiler
-can't determine which of the multiple 'implicit String' vals, or which of
-the multiple 'implicit Boolean' vals, to pass as the implicit parameter.
-
-In other words, there can be ONLY ONE implicit val/var of a given data type
-declared in a function.
-
+Read in-line comments in the below sample programs for details.
 ==========================================================================
 
 object Demo
 {
-  def main(args: Array[String]): Unit =
+  def main(args: Array[String])
   {
-    implicit val str:String = "Fred" // This implicit MIGHT get used by the howdy() function.
-    howdy("Jack") // PRINTS: Howdy, Jack
-    howdy         // PRINTS: Howdy, Fred
+    // The second parameter list in printIntIfTrue()() is designated as an
+    // implicit parameter.  Therefore, you can call printIntIfTrue()() with
+    // only its first parameter list.
+    def printIntIfTrue(a: Int)(implicit b: Boolean): Unit = { if (b) {println(a)} }
 
+    printIntIfTrue(123)(false) // Prints nothing because the second param is false.
+    printIntIfTrue(456)(true)  // PRINTS: 456
 
-    val number:Int = 54220
-    implicit val test:Boolean = true  // This implicit val MIGHT get used by the printIntIfTrue()
-                                      // or printIntAndNameIfTrue() functions.
-    printIntIfTrue(number)(true)  // PRINTS: a = 54220
-    printIntIfTrue(number)(false) // PRINTS NOTHING!
-    printIntIfTrue(number)        // PRINTS: a = 54220
-  }
-
-  def howdy(implicit s: String) = println("Howdy, " + s)
-
-  def printIntIfTrue(a:Int)(implicit test:Boolean):Unit =
-  {
-    if (test) { println("a = " + a) }
+    // Because the printIntIfTrue()() function below accepts an implicit parameter
+    // of type Boolean, and because an implicit val/var of type Boolean is declared
+    // BEFORE printIntIfTrue() gets called, printIntIfTrue()() will execute when it's
+    // called WITHOUT a second parameter!
+    //
+    // NOTE: In this example, ONLY ONE implicit val of type Boolean can exist when you
+    //       invoke printIntIfTrue()() without its second parameter.  If you were to
+    //       declare two or more implicit Boolean vals here, the code WON'T COMPILE.
+    //       Multiple implicit vals/vars can exist (without causing an error) as long as they
+    //       have different data types., as shown below.
+    implicit val string_1:String   = "BEER"  // Because printIntIfTrue()() accepts no String
+                                             // argument, this implicit declaration has no effect.
+    implicit val boolean_1:Boolean = true
+    printIntIfTrue(420) // PRINTS: 420
   }
 }
 
