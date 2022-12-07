@@ -334,15 +334,15 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    val plus5:(Double=>Double)  = { x:Double => x+5.0D }
-    val square:(Double=>Double) = { x:Double => x*x }
+    val plus5Func:(Double=>Double)  = { x:Double => x+5.0D }
+    val squareFunc:(Double=>Double) = { x:Double => x*x }
 
     // NOTE: 54.0 = 5.0+(7.0*7.0)
-    var result:Double = funcOfGunc(plus5, square)(7.0D)
+    var result:Double = funcOfGunc(plus5Func, squareFunc)(7.0D)
     println("1) result = " + result) // PRINTS: 1) result = 54.0
 
     // NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
-    result = funcOfGunc(square, plus5)(7.0D)
+    result = funcOfGunc(squareFunc, plus5Func)(7.0D)
     println("2) result = " + result) // PRINTS: 2) result = 144.0
   }
 
@@ -351,7 +351,7 @@ object Demo
   //       ONLY a single parametric data type A:
   //       def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
   //
-  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x =>func(gunc(x)) }
 }
 
 ========================================================================================
