@@ -164,9 +164,9 @@ object Demo
 {
   def main(args: Array[String])
   {
-    // The add_1() function is a just a standard, normal function.
-    // The first time the add_1() is called here, it's called in
-    // the usual way....
+    // The add_1() function is a regular/normal function.
+    // The first time the add_1() is called here, it's
+    // called in the usual way....
     println("add_1(7, 3) = " + add_1(7, 3)) // PRINTS: add_1(7, 3) = 10
 
     // Perform an "Eta Expansion" on add_1() by using the underscore (_) character...
