@@ -173,6 +173,39 @@ object Demo
 }
 
 ========================================================================================
+Below is an example of two curried functions that can get called with one more
+parameter list than is contained in their definitions.
+
+Although the sum1() function is defined with only one parameter list, it
+doesn't become fully-applied until it's called with two parameter lists.
+
+Although the sum2() function is defined with two parameter lists, it
+doesn't become fully-applied until it's called with three parameter lists.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // NOTE: Both of the following 2 functions return a function
+    //       that takes an Int as a parameter.  Therefore...
+    //       1) The sum1() function must get called with TWO (2)
+    //          parameter lists until it's fully applied.
+    //       2) The sum2()() function must get called with THREE (3)
+    //          parameter lists until it's fully applied.
+    def sum1(a: Int):(Int => Int)       = { b => a + b }
+    def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c }
+
+    var func:(Int => Int) = sum1(123) // sum1() is partially applied.
+    var result:Int = func(321)        // sum1() is fully applied.
+    println(s"1) result = $result") // PRINTS: 1) result = 444
+
+    func = sum2(5)(10) // sum2()() is partially applied.
+    result = func(20)  // sum2()() is fully applied.
+    println(s"2) result = $result") // PRINTS: 2) result = 35
+  }
+}
+
+========================================================================================
 FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
 =================================================================
 
@@ -260,35 +293,6 @@ object Demo
     //       2) while(testCondition){codeBlock}
     //       3) while(testCondition) codeBlock
     while(testCondition)(codeBlock)
-  }
-}
-
-========================================================================================
-Here's an example where we have two functions that both return a function
-that takes an Int as a parameter.  This means that both these functions
-must get called with one more parameter than appears in their definition
-to become fully applied.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // NOTE: Both of the following 2 functions return a function
-    //       that takes an Int as a parameter.  Therefore...
-    //       1) The sum1() function must get called with TWO (2)
-    //          parameter lists until it's fully applied.
-    //       2) The sum2()() function must get called with THREE (3)
-    //          parameter lists until it's fully applied.
-    def sum1(a: Int):(Int => Int)       = { b => a + b }
-    def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c }
-
-    var func:(Int => Int) = sum1(123) // sum1() is partially applied.
-    var result:Int = func(321)        // sum1() is fully applied.
-    println(s"1) result = $result") // PRINTS: 1) result = 444
-
-    func = sum2(5)(10) // sum2()() is partially applied.
-    result = func(20)  // sum2()() is fully applied.
-    println(s"2) result = $result") // PRINTS: 2) result = 35
   }
 }
 
