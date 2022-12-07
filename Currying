@@ -7,19 +7,18 @@ NOTE:  The single parameter list of a curried function can
        contain one argument, or multiple arguments.
 
 All Scala functions defined with multiple parameter lists are
-curried functions with these two exceptions...
+curried functions with the exception of implicit arguments...
 
-1) When one of its parameter lists includes an implicit argument
-   it's NOT a curried function.
-   SEE SECTION TITLED:
-   FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
+When a method/function includes an implicit argument in one of
+its parameter lists, it's NOT a curried function.  SEE SECTION TITLED:
+FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
 
-2) When it contains two parameter lists, and the second parameter list
-   argument contains a block of Scala code (instead of a data type
-   like Int, String, etc) it's NOT a curried function.
-   SEE SECTION TITLED:
-   WHEN MULTIPLE PARAMETER LISTS DON'T DESIGNATE A CURRIED FUNCTION
-
+Sometimes multiple parameter lists are used in while() loops or
+for() loops.  Under those circumstances the first parameter list
+evaluates to a true/false expression, and the second parameter
+list contains a "block of code" that gets executed for each
+iteration of the loop.  SEE SECTION TITLED:
+WHEN MULTIPLE PARAMETER LISTS ARE USED FOR LOOPING
 
 Each set of parenthesis defined in a function represents a
 parameter list.  For example, the following 2 functions
@@ -39,7 +38,11 @@ but a final value.
 Whenever a Scala curried function is called, the function is either
 partially applied, or fully applied.  Here are the definitions:
 
-1) PARTIALLY APPLIED FUNCTION - Calling a curried function with fewer
+2) FULLY APPLIED FUNCTION - When a curried function is called with the
+   last of its multiple parameter lists, it returns a final value, not
+   a function.  This makes the curried function fully applied.
+
+2) PARTIALLY APPLIED FUNCTION - Calling a curried function with fewer
    than all its parameter lists means that function is partially applied,
    because it returns a function which accepts a single parameter list.
 
@@ -52,11 +55,7 @@ partially applied, or fully applied.  Here are the definitions:
    one parameter list in its fuction definition.  To see an example
    of how a curried function containing only one parameter list in
    its definition is defined, read the section further below titled:
-   "DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST"
-
-2) FULLY APPLIED FUNCTION - When a curried function is called with the
-   last of its multiple parameter lists, it returns a final value, not
-   a function.  This makes the curried function fully applied.
+   DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
 
 NOTE: Don't confuse a "partially applied function" with a "partial function"
       because THEY'RE NOT THE SAME.  A partial function is defined in the
@@ -188,48 +187,49 @@ Read the section titled "Implicit_Parameters" for more info on this.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 
 ========================================================================================
-WHEN MULTIPLE PARAMETER LISTS DON'T DESIGNATE A CURRIED FUNCTION
-================================================================
+WHEN MULTIPLE PARAMETER LISTS ARE USED FOR LOOPING
+==================================================
 
-Although the myWhileLoop()() is defined in the code sample below with
-two (2) parameter lists, it's NOT a curried function because it doesn't
-return a function that accepts a single parameter list.
+The myWhileLoop()() method in the sample code below has this definition:
 
-The myWhileLoop()() method has this definition:
 def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
 
-Its 1st parameter list:  (testCondition: => Boolean)
-Its 2nd parameter list:  (codeBlock: => Unit)
+Its 1st parameter list is:  (testCondition: => Boolean)
+Its 2nd parameter list is:  (codeBlock: => Unit)
 
 Obviously, the "=> Boolean" designates a function that returns a Boolean,
 and the "=> Unit" designates a function that returns nothing.  But the
 following question arises...
 
 QUESTION: Why is there no data type specified between the colon (:) and
-          the rocket (=>) in these two parameter lists as you may expect?
+          the rocket (=>) in these two parameter lists, as you may expect?
 
           (testCondition: => Boolean)
           (codeBlock: => Unit)
 
-ANSWER:  Because both those arguments do NOT get passed a value (i.e., Int,
-         String, Boolean, List[Float], etc.).  Those arguments get passed
-         lines of Scala code.  Lines of Scala code never represent a data type.
-         Therefore, no data type is specified for the testCondition and
-         codeBlock arguments.
+ANSWER:  Because both those parameter lists do NOT get passed a value (i.e.,
+         Int, String, Boolean, List[Float], etc.).  The first parameter list
+         contains a Scala expression that evaluates to true/false.  A Scala
+         expression (i.e., idx < 5) is NOT a data type.  The second parameter
+         list contains a block of Scala code.  A block of code is also NOT
+         a data type.  Therefore, no data type is specified for the testCondition
+         and codeBlock arguments.
 
-         The testCondition argument literally accepts this expression: (idx < 5),
-         which has no data type but evaluates to a Boolean.  So testCondition
-         returns Boolean.
+         In the code sample below the testCondition argument literally accepts
+         this expression: (idx < 5), which has no data type but does evaluate
+         to a Boolean.  So testCondition returns a Boolean type.
 
          The codeBlock argument literally accepts a block (several lines) of
-         Scala code.  Lines of Scala code never represent a data type.  Also,
-         the last line of code executed in codeBlock doesn't evaluate to
-         anything, so codeBlock returns Unit.
+         Scala code, which has no data type.  In the sample code below the last
+         line of code executed in codeBlock doesn't evaluate to anything,
+         so codeBlock returns a Unit type.
 
-NOTE: It's possible for a block of code to evaluate to a value, and thus have a
-      return data type.  For example, if the last line executed in codeBlock
-      evaluated to a String, then codeBlock would return a String.  If that were
-      the case, the function defined in the sample code below would...
+NOTE: It's possible for a block of code to evaluate to a value like Int, String,
+      List[Float], etc. based on the last line of code executed.  Therefore it's
+      possible for a block of code to have return data type.  For example, if
+      the last line executed in codeBlock evaluated to a String, then codeBlock
+      would return a String.  If that were the case, the function defined in
+      the sample code below would...
       look like this:   def myWhileLoop(testCondition: => Boolean)(codeBlock: => String):Unit
       instead of this:  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit
 
