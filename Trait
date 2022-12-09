@@ -55,13 +55,17 @@ Scala lets you define the following inside a class or trait...
 
    trait Base
    {
-     type T                  // An abstract type is declared.
-     def square(number:T):T  // An abstract method is declared.
+     type T // An abstract type is declared.
+     def square(number:T):T // An abstract method is declared.
+     val initialValue:T
+     var currentValue:T
    }
-   class Parent extends Base  // Inherits from the above trait named Base.
+   class Parent extends Base // Inherits from the above trait named Base.
    {
      type T = Int
-     def square(number:T):T = number*number
+     def square(number:T):T = number * number
+     val initialValue:T = 123
+     var currentValue:T = initialValue
    }
 
 Below are four (4) sample declarations that show how to inherit from traits.
