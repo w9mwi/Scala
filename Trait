@@ -9,17 +9,17 @@ Person, Automobile, Aircraft, Animal, etc.  Use a Scala
 trait to represent a "behavior", such as talk, ride,
 fly, walk, etc.
 
-IMPORTANT:  A SCALA TRAIT IS ALWAYS ABSTRACT.
-            A Scala class can be either abstract or concrete.
-            But a trait is abstract by definition.
-            
+A member of a class or trait is abstract if that member
+DOESN'T have a complete definition in the class/trait.
+
+IMPORTANT:  A SCALA TRAIT IS ALWAYS ABSTRACT.  Because
+            by definition, a trait is abstract.  A Scala
+            class can be either abstract or concrete.
+
 An trait is always abstract because its val/var members, and
-its method members, are NOT defined in the trait.  These
-abstract members are intended to be implemented in a subclass
-that inherits from the trait.
-
-
-
+its method members, are NOT defined in the trait.  Abstract
+members are intended to be implemented in a subclass that
+inherits from the trait.
 
 In the Scala API documentation...
 1) A circled 'c' represents a class.
