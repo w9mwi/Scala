@@ -68,94 +68,64 @@ Scala lets you define the following inside a class or trait...
      var currentValue:T = initialValue
    }
 
+When a class/object/trait inherits from another class/object/trait,
+the "extends" keyword can be used ONLY ONCE, and it MUST APPEAR BEFORE
+any "with" keyword(s).  The "extends" keyword can be used to inherit from
+a class, an object, or a trait.  But the "with" keyword can be used
+ONLY to inherit from traits.
+
 Below are four (4) sample declarations that show how to inherit from traits.
-NOTE: When inheriting from a class/object/trait, the "extends" keyword
-      can be used ONLY ONCE, and it MUST APPEAR BEFORE any "with"
-      keyword(s).  The "extends" keyword can be used to inherit from
-      a class, an object, or a trait.  The "with" keyword can be used
-      to extend ONLY traits (never a class/object).
 
-// A CLASS that extends one class and multiple traits...
-class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
+1) A CLASS that extends one class and multiple traits:
+   class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
 
-// A CLASS that extends no class and multiple traits...
-class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
+2) A CLASS that extends no class and multiple traits:
+   class Class_1 extends Trait_A with Trait_B with Trait_C { ... }
 
-// A TRAIT that extends one class and multiple traits...
-trait Trait_A extends Class_A with Trait_B with Trait_C { ... }
+3) A TRAIT that extends one class and multiple traits:
+   trait Trait_A extends Class_A with Trait_B with Trait_C { ... }
 
-// A TRAIT that extends no class and multiple traits...
-trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
-
-Some important differences between a Scala class/object and a trait are:
-
-1) Traits allow multiple inheritance to always function properly because Scala's
-   trait linearization algorithm always resolves the ambiguity of which method
-   should get called when multiple inheritance encounters "the diamond problem."
-   Trait lineraization and the "diamond problem" is explained further below.
-
-2) A class/object can extend any number of traits.
-   A trait can extend ONLY ONE class/object, and any number of traits.
-
-3) A trait CAN'T contain arguments/parameters like a class can.
-   (NOTE: In Scala 3 Traits can take args/params.)
-
-4) A call to super.methodName() IN A CLASS is STATICALLY BOUND if the
-   super.methodName() is contained in a PARENT CLASS (not in a parent
-   trait).  This means the PARENT CLASS METHOD that gets called is
-   DETERMINED AT COMPILE-TIME.  (STATICALLY BOUND OCCURS AT COMPILE TIME.)
-
-   If a class/trait inherits a method that EXISTS IN TWO (2) OR MORE PARENT
-   TRAITS, a call to super.methodName() is DYNAMICALLY BOUND.  This means
-   the PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME via
-   the Scala trait linearization algorithm.  (DYNAMICALLY BOUND OCCURS AT RUN TIME.)
-
-5) A class/object CAN be instantiated.
-   A trait CAN'T be instantiated.
+4) A TRAIT that extends no class and multiple traits:
+   trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
    
-The code below defines Person as a trait.  The main() function then
-appears to instantiate a trait by calling: new Person {...}
+The code sample below defines the trait Person.  The main() function then
+appears to instantiate that trait by calling: new Person {...}
 
 The code compiles and successfully executes, but it DOESN'T instatiate
-the Person trait!  Instead, the code is instantiating an ANONYMOUS CLASS
-using the Person trait.  So a trait can be used to instantiate an
-anonymous class, but you CAN'T instantiate a trait.  Read in-line comments
-in the code sample below for details.
+the trait named Person!  Instead, the code is instantiating an ANONYMOUS CLASS
+using the Person trait.  So a trait can be used to instantiate an anonymous class,
+but you CAN'T instantiate a trait.  Read in-line comments in the code sample
+below for details.
 
 For more info on anonymous classes see:
 https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
 ==================================================================================
- object Demo
- {
-   trait Person {
-     def name:String
-     def age:Int
-     override def toString = s"name = $name,  age = $age"
-   }
+object Demo
+{
+  trait Person {
+  def name:String
+  def age:Int
+  override def toString = s"name = $name,  age = $age"
+  }
 
-   def main(args: Array[String]): Unit = {
-     val tom:Person = new Person { val name:String = "tom"
-                                   val age:Int = 17 }
-     println(tom) // PRINTS: name = tom,  age = 17
+  def main(args: Array[String]): Unit =
+  {
+    val tom:Person = new Person { val name:String = "tom"
+                                  val age:Int = 17 }
+    println(tom) // PRINTS: name = tom,  age = 17
 
-     // Even though Person is defined above as a trait, the following
-     // println reveals that Person tom is an anonymous class because
-     // the text 'anon' is contained in the class name.  So the above
-     // "new Person..." instantiates an anonymous class, NOT a trait.
-     println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
-   }
- }
+    // Even though Person is defined above as a trait, the following
+    // below to println() reveals that "val tom" is an anonymous class.
+    // Because it prints the text 'anon' as part of the class name.
+    // So the "new Person {...}" code above instantiates an anonymous
+    // class, NOT a trait.
+    println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
+  }
+}
 
 ==================================================================================
-If a trait/class contains a member function that     IS defined, that member method is concrete.
-If a trait/class contains a member function that  ISN'T defined, that member method is abstract.
-If a trait/class contains a member value that    IS initialized, that member value is concrete.
-If a trait/class contains a member value that ISN'T initialized, that member value is abstract.
 
-A trait is very similar to an abstract class in many ways.  When a class extends a
-trait that has an abstract method (a method that's declared, but not defined), each
-abstract method contained in the trait must be defined in the class that extends
-the trait.  The following sample code shows how to use a Scala trait, and shows how
+The following sample code shows how to use a Scala trait, and shows how
 both abstract and concrete trait methods are implemented.
 
 object Demo
@@ -166,7 +136,6 @@ object Demo
     // speak is a CONCRETE method because it's defined.
     def comeToMaster:Unit
     def speak:Unit = { println("I speak the universal Pet language.") }
-    
   }
 
   class Dog extends Pet
@@ -191,7 +160,6 @@ object Demo
     dogPet.comeToMaster // PRINTS: I'm a Dog, so I come when called.
   }
 }
-
 
 ===================================================================================================
 
