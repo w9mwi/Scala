@@ -55,10 +55,10 @@ Scala lets you define the following inside a class or trait...
 
    trait Base
    {
-     type T // An abstract type is declared.
+     type T                 // An abstract type is declared.
      def square(number:T):T // An abstract method is declared.
-     val initialValue:T
-     var currentValue:T
+     val initialValue:T     // An abstract val is declared.
+     var currentValue:T     // An abstract var is declared.
    }
    class Parent extends Base // Inherits from the above trait named Base.
    {
