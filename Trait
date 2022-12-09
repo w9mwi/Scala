@@ -16,10 +16,42 @@ IMPORTANT:  A SCALA TRAIT IS ALWAYS ABSTRACT.  Because
             by definition, a trait is abstract.  A Scala
             class can be either abstract or concrete.
 
-An trait is always abstract because its val/var members, and
+A trait is always abstract because its val/var members, and
 its method members, are NOT defined in the trait.  Abstract
 members are intended to be implemented in a subclass that
 inherits from the trait.
+
+Scala lets you define the following inside a class or trait...
+
+1) An abstract field (val/var).
+2) An abstract method.
+3) An abstract type.  Scala has the keyword "type" which works like this:
+   
+   type Number        = Int
+   type IntFloatTuple = (Int,Float)
+
+   So you can use "Number" in place of: Int
+   So you can use "IntFloatTuple" in place of: (Int,Float)
+
+   Just as you can declare an abstract val/var, and an abstract
+   method, you can also declare an abstract type, like this:
+   
+   type T
+
+   If you declared "type T" (an abstract type) in a trait, you would
+   then implement "type T" in a subclass, like this:
+
+   trait Base
+   {
+     type T
+     def square(number:T): T
+   }
+   class Parent extends Base
+   {
+     type T = Int
+     def square(number:T):T = number*number
+   }
+
 
 In the Scala API documentation...
 1) A circled 'c' represents a class.
