@@ -4,9 +4,22 @@ There are three ways to create a data type in Scala:
 2) class
 3) trait
 
-Use a Scala trait to represent a "behavior", such as talk,
-ride, fly, walk, etc.  Use a Scala class/object to represent
-a "thing" such as Person, Automobile, Aircraft, Animal, etc.
+Use a Scala class/object to represent a "thing" such as
+Person, Automobile, Aircraft, Animal, etc.  Use a Scala
+trait to represent a "behavior", such as talk, ride,
+fly, walk, etc.
+
+IMPORTANT:  A SCALA TRAIT IS ALWAYS ABSTRACT.
+            A Scala class can be either abstract or concrete.
+            But a trait is abstract by definition.
+            
+An trait is always abstract because its val/var members, and
+its method members, are NOT defined in the trait.  These
+abstract members are intended to be implemented in a subclass
+that inherits from the trait.
+
+
+
 
 In the Scala API documentation...
 1) A circled 'c' represents a class.
