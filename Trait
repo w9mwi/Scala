@@ -27,26 +27,20 @@ Scala lets you define the following inside a class or trait...
 2) An abstract method.
 3) An abstract type.  Scala has the keyword "type" which works like this:
    
-   type Number        = Int
-   type IntFloatTuple = (Int,Float)
-
-   So you can use "Number" in place of: Int
-   So you can use "IntFloatTuple" in place of: (Int,Float)
+   type Number        = Int         // Allows you to use "Number" in place of: Int
+   type IntFloatTuple = (Int,Float) // Allows you to use "IntFloatTuple" in place of: (Int,Float)
 
    Just as you can declare an abstract val/var, and an abstract
-   method, you can also declare an abstract type, like this:
-   
-   type T
-
-   If you declared "type T" (an abstract type) in a trait, you would
-   then implement "type T" in a subclass, like this:
+   method, you can also declare an abstract type.  If you declared
+   "type T" (an abstract type) in a trait, you would then implement
+   "type T" in a subclass, like this:
 
    trait Base
    {
-     type T
-     def square(number:T): T
+     type T                   // An abstract type is declared.
+     def square(number:T): T  // An abstract method is declared.
    }
-   class Parent extends Base
+   class Parent extends Base  // Inherits from the above Base trait.
    {
      type T = Int
      def square(number:T):T = number*number
@@ -59,8 +53,8 @@ In the Scala API documentation...
 3) A circled 'p' represents a package.
 4) A circled 't' represents a trait.
 
-A Scala class, object or trait can extend ONLY ONE class/object.
-But they can all extend any number of traits.
+A Scala class, object or trait can extend ONLY ONE class/object,
+but can all extend ANY NUMBER of traits.
 
 sealed trait - When a Scala trait definition is preceded with the Scala keyword "sealed"
                it means no other Scala file can extend that trait.  In other words,
