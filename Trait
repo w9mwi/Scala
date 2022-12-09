@@ -12,7 +12,8 @@ fly, walk, etc.
 A member of a class or trait is abstract if that member
 DOESN'T have a complete definition in the class/trait.
 
-IMPORTANT:  BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT.
+IMPORTANT:  BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT,
+            WHICH MEANS A TRAIT CAN'T BE INSTANTIATED.
             A Scala class can be either abstract or concrete.
 
 A trait is always abstract because its val/var members, and
@@ -48,22 +49,22 @@ Scala lets you define the following inside a class or trait...
    type IntFloatTuple = (Int,Float) // Allows you to use "IntFloatTuple" in place of (Int,Float)
 
    Just as you can declare an abstract val/var, and an abstract
-   method, you can also declare an abstract type.  If you declared
-   "type T" (an abstract type) in a trait, you would then implement
-   "type T" in a subclass.  Here's an example:
+   method, you can also declare an abstract type.  The following
+   code shows how to define an abstract type in a trait, and how
+   to implment it in a subclass.
 
    trait Base
    {
      type T                  // An abstract type is declared.
      def square(number:T):T  // An abstract method is declared.
    }
-   class Parent extends Base  // Inherits from the above Base trait.
+   class Parent extends Base  // Inherits from the above trait named Base.
    {
      type T = Int
      def square(number:T):T = number*number
    }
 
-Below are four (4) declarations that show how to inherit from traits.
+Below are four (4) sample declarations that show how to inherit from traits.
 NOTE: When inheriting from a class/object/trait, the "extends" keyword
       can be used ONLY ONCE, and it MUST APPEAR BEFORE any "with"
       keyword(s).  The "extends" keyword can be used to inherit from
@@ -81,16 +82,6 @@ trait Trait_A extends Class_A with Trait_B with Trait_C { ... }
 
 // A TRAIT that extends no class and multiple traits...
 trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
-
-QUESTION: When coding an abstract type that WILL BE USED WITH INHERITANCE,
-          should a "trait" or an "abstract class" be used?
-
-ANSWER: The rule of thumb is to use a trait because traits are capable of
-        always functioning properly when multiple inheritance is implemented.
-        While a trait can't take arguments (as can an abstract class can),
-        any vals/vars that you'd generally provide as arguments can be put
-        into a trait and left undefined, so the class that implements
-        the trait will have to provide those values.
 
 Some important differences between a Scala class/object and a trait are:
 
@@ -118,19 +109,17 @@ Some important differences between a Scala class/object and a trait are:
 5) A class/object CAN be instantiated.
    A trait CAN'T be instantiated.
    
-   NOTE: A trait is always abstract by definition, which means a trait CAN'T be
-         instantiated.  The code below defines Person as a trait.  The main()
-         function then APPEARS to instantiate a trait by calling:  new Person...
+The code below defines Person as a trait.  The main() function then
+appears to instantiate a trait by calling: new Person {...}
 
-         The code compiles and successfully executes, but it DOESN'T instatiate
-         the Person trait!!!  Instead, the code is instantiating an ANONYMOUS CLASS
-         using the Person trait.  An anonynous class is NOT abstract so an anonymous
-         class CAN be instantiated.  So a trait can be used to instantiate an
-         anonymous class.  But you CAN'T instantiate a trait.  Read in-line comments
-         in the code sample for details.
+The code compiles and successfully executes, but it DOESN'T instatiate
+the Person trait!  Instead, the code is instantiating an ANONYMOUS CLASS
+using the Person trait.  So a trait can be used to instantiate an
+anonymous class, but you CAN'T instantiate a trait.  Read in-line comments
+in the code sample below for details.
 
-         For more info on anonymous classes see:
-         https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
+For more info on anonymous classes see:
+https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
 ==================================================================================
  object Demo
  {
