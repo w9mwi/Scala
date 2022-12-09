@@ -12,14 +12,31 @@ fly, walk, etc.
 A member of a class or trait is abstract if that member
 DOESN'T have a complete definition in the class/trait.
 
-IMPORTANT:  A SCALA TRAIT IS ALWAYS ABSTRACT.  Because
-            by definition, a trait is abstract.  A Scala
-            class can be either abstract or concrete.
+IMPORTANT:  BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT.
+            A Scala class can be either abstract or concrete.
 
 A trait is always abstract because its val/var members, and
 its method members, are NOT defined in the trait.  Abstract
 members are intended to be implemented in a subclass that
 inherits from the trait.
+
+A Scala class, object or trait can extend ONLY ONE class/object,
+but can all extend ANY NUMBER of traits.
+
+Traits look nearly the same as a class.  However, just like objects,
+traits CAN'T take parameters.  (NOTE: In Scala 3, traits CAN take
+parameters.)
+
+sealed trait - When a Scala trait definition is preceded with the Scala keyword "sealed"
+               it means no other Scala file can extend that trait.  In other words,
+               a sealed trait can only be extended by the file that contains the
+               sealed trait definition.  Example:
+
+               sealed trait Weather
+               case object Sunny  extends Weather
+               case object Windy  extends Weather
+               case object Rainy  extends Weather
+               case object Cloudy extends Weather
 
 Scala lets you define the following inside a class or trait...
 
@@ -27,18 +44,18 @@ Scala lets you define the following inside a class or trait...
 2) An abstract method.
 3) An abstract type.  Scala has the keyword "type" which works like this:
    
-   type Number        = Int         // Allows you to use "Number" in place of: Int
-   type IntFloatTuple = (Int,Float) // Allows you to use "IntFloatTuple" in place of: (Int,Float)
+   type Number        = Int         // Allows you to use "Number" in place of Int
+   type IntFloatTuple = (Int,Float) // Allows you to use "IntFloatTuple" in place of (Int,Float)
 
    Just as you can declare an abstract val/var, and an abstract
    method, you can also declare an abstract type.  If you declared
    "type T" (an abstract type) in a trait, you would then implement
-   "type T" in a subclass, like this:
+   "type T" in a subclass.  Here's an example:
 
    trait Base
    {
-     type T                   // An abstract type is declared.
-     def square(number:T): T  // An abstract method is declared.
+     type T                  // An abstract type is declared.
+     def square(number:T):T  // An abstract method is declared.
    }
    class Parent extends Base  // Inherits from the above Base trait.
    {
@@ -46,34 +63,12 @@ Scala lets you define the following inside a class or trait...
      def square(number:T):T = number*number
    }
 
-
-In the Scala API documentation...
-1) A circled 'c' represents a class.
-2) A circled 'o' represents an object.
-3) A circled 'p' represents a package.
-4) A circled 't' represents a trait.
-
-A Scala class, object or trait can extend ONLY ONE class/object,
-but can all extend ANY NUMBER of traits.
-
-sealed trait - When a Scala trait definition is preceded with the Scala keyword "sealed"
-               it means no other Scala file can extend that trait.  In other words,
-               a sealed trait can only be extended by the file that contains the
-               sealed trait definition.  Example:
-               
-               sealed trait Weather
-               case object Sunny  extends Weather
-               case object Windy  extends Weather
-               case object Rainy  extends Weather
-               case object Cloudy extends Weather
-
-Traits look nearly the same as a class.  However, just like objects,
-traits CAN'T take parameters.  (NOTE: In Scala 3, traits CAN take
-parameters.)  This is the syntax for defining a trait:
-
-trait <identifier> [extends <identifier>] [{ fields, methods, and classes }]
-
-Below are four (4) declarations that show how to extend traits.
+Below are four (4) declarations that show how to inherit from traits.
+NOTE: When inheriting from a class/object/trait, the "extends" keyword
+      can be used ONLY ONCE, and it MUST APPEAR BEFORE any "with"
+      keyword(s).  The "extends" keyword can be used to inherit from
+      a class, an object, or a trait.  The "with" keyword can be used
+      to extend ONLY traits (never a class/object).
 
 // A CLASS that extends one class and multiple traits...
 class Class_1 extends Class_2 with Trait_A with Trait_B { ... }
@@ -109,25 +104,16 @@ Some important differences between a Scala class/object and a trait are:
 
 3) A trait CAN'T contain arguments/parameters like a class can.
    (NOTE: In Scala 3 Traits can take args/params.)
-   For example, you can define a class like below, which contains
-   the arguments/parameters x and y...
-   class Point(x: Int, y: Int) // Will compile
-
-   The following attempt to define a trait WON'T compile
-   because it contains arguments/parameters...
-   trait Point(x: Int, y: Int) // Won't compile
 
 4) A call to super.methodName() IN A CLASS is STATICALLY BOUND if the
    super.methodName() is contained in a PARENT CLASS (not in a parent
    trait).  This means the PARENT CLASS METHOD that gets called is
-   DETERMINED AT COMPILE-TIME.
-   (STATICALLY BOUND OCCURS AT COMPILE TIME.)
+   DETERMINED AT COMPILE-TIME.  (STATICALLY BOUND OCCURS AT COMPILE TIME.)
 
    If a class/trait inherits a method that EXISTS IN TWO (2) OR MORE PARENT
    TRAITS, a call to super.methodName() is DYNAMICALLY BOUND.  This means
    the PARENT TRAIT METHOD that gets called is DETERMINED AT RUNTIME via
-   the Scala trait linearization algorithm.
-   (DYNAMICALLY BOUND OCCURS AT RUN TIME.)
+   the Scala trait linearization algorithm.  (DYNAMICALLY BOUND OCCURS AT RUN TIME.)
 
 5) A class/object CAN be instantiated.
    A trait CAN'T be instantiated.
