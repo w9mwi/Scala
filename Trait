@@ -12,16 +12,37 @@ fly, walk, etc.
 A member of a class or trait is abstract if that member
 DOESN'T have a complete definition in the class/trait.
 
+Scala traits are mostly used to contain abstract (undefined)
+vals/vars, methods, and types.  However, a Scala trait
+CAN contain vals/vars, methods, and types that are defined
+as shown in this sample code...
+
+object Demo
+{
+  trait TomsTrait {
+    val weight = 123
+    def getMyAge:Int = 17
+  }
+  case class Person(name:String) extends TomsTrait
+
+  def main(args: Array[String]):Unit = {
+    val tom:Person = Person("Tom")
+    println(s"TomsTrait.weight = ${tom.weight}")     // PRINTS: TomsTrait.weight = 123
+    println(s"TomsTrait.getMyAge = ${tom.getMyAge}") // PRINTS: TomsTrait.getMyAge = 17
+  }
+}
+
 IMPORTANT:
 BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT, WHICH MEANS A TRAIT
 CAN'T BE INSTANTIATED.  However, it's possible to instantiate a Scala
 trait via an anonymous class.  See the section below titled:
 "HOW TO INSTANTIATE A TRAIT AS AN ANONYMOUS CLASS"
 
-A trait is always abstract because its val/var members, and
-its method members, are NOT defined in the trait.  Abstract
-members are intended to be implemented in a subclass that
-inherits from the trait.
+A trait is always abstract because it can't be instantiated.
+When a trait's members are not defined (which is usually the
+case), then those members (vals/vars, methods, types) are also
+abstract.  Abstract members (of a trait or class) are intended
+to be implemented in a subclass that inherits from the trait/class.
 
 A Scala class, object or trait can extend ONLY ONE class/object,
 but can all extend ANY NUMBER of traits.
@@ -100,8 +121,6 @@ getting instantiated via the trait.
 Read the in-line comments in the following two (2) code samples
 below, which show how this is done.
 
-For more info on anonymous classes see:
-https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
 ==================================================================================
 
 object Demo
