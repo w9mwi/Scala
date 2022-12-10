@@ -92,16 +92,13 @@ Below are four (4) sample declarations that show how to inherit from traits.
    
 HOW TO INSTANTIATE A TRAIT AS AN ANONYMOUS CLASS
 ================================================
-Generally, you can't instantiate a trait
+A trait can't be instantiated.  However, a trait can be used to
+instantiate an anonymous class.  So it may appear as though a
+trait can be instantiated, but it's an anonymous class that's
+getting instantiated via the trait.
 
-The code sample below defines the trait Person.  The main() function then
-appears to instantiate that trait by calling: new Person {...}
-
-The code compiles and successfully executes, but it DOESN'T instatiate the
-trait named Person!  Instead, the code is instantiating an ANONYMOUS CLASS
-using the Person trait.  So a trait can be used to instantiate an anonymous class,
-but you CAN'T instantiate a trait.  Read in-line comments in the code sample
-below for details.
+Read the in-line comments in the following two (2) code samples
+below, which show how this is done.
 
 For more info on anonymous classes see:
 https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
