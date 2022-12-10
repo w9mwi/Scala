@@ -12,9 +12,11 @@ fly, walk, etc.
 A member of a class or trait is abstract if that member
 DOESN'T have a complete definition in the class/trait.
 
-IMPORTANT:  BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT,
-            WHICH MEANS A TRAIT CAN'T BE INSTANTIATED.
-            A Scala class can be either abstract or concrete.
+IMPORTANT:
+BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT, WHICH MEANS A TRAIT
+CAN'T BE INSTANTIATED.  However, it's possible to instantiate a Scala
+trait via an anonymous class.  See the section below titled:
+"HOW TO INSTANTIATE A TRAIT AS AN ANONYMOUS CLASS"
 
 A trait is always abstract because its val/var members, and
 its method members, are NOT defined in the trait.  Abstract
@@ -88,11 +90,15 @@ Below are four (4) sample declarations that show how to inherit from traits.
 4) A TRAIT that extends no class and multiple traits:
    trait Trait_E extends trait_D with trait_C with trait_B with trait_A { ... }
    
+HOW TO INSTANTIATE A TRAIT AS AN ANONYMOUS CLASS
+================================================
+Generally, you can't instantiate a trait
+
 The code sample below defines the trait Person.  The main() function then
 appears to instantiate that trait by calling: new Person {...}
 
-The code compiles and successfully executes, but it DOESN'T instatiate
-the trait named Person!  Instead, the code is instantiating an ANONYMOUS CLASS
+The code compiles and successfully executes, but it DOESN'T instatiate the
+trait named Person!  Instead, the code is instantiating an ANONYMOUS CLASS
 using the Person trait.  So a trait can be used to instantiate an anonymous class,
 but you CAN'T instantiate a trait.  Read in-line comments in the code sample
 below for details.
@@ -100,6 +106,7 @@ below for details.
 For more info on anonymous classes see:
 https://github.com/w9mwi/Scala/blob/master/Class_Anonymous
 ==================================================================================
+
 object Demo
 {
   trait Person {
@@ -120,6 +127,40 @@ object Demo
     // So the "new Person {...}" code above instantiates an anonymous
     // class, NOT a trait.
     println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
+  }
+}
+
+==================================================================================
+Here is another example where a trait is instantated via an anonymous class.
+
+object Demo
+{
+  trait RationalTrait {
+    def numerArg:Int // An abstract method, defined in main() when RationalTrait is called.
+    def denomArg:Int // An abstract method, defined in main() when RationalTrait is called.
+    private def calculateGcd(numer:Int, denom:Int):Int =
+    {
+      // This is a RECURSIVE method.
+      if (denom == 0) numer
+      else calculateGcd(denom, numer % denom)
+    }
+    require(denomArg !=0) // The require() method is always visible via Scala's PreDef class.
+    private val gcd:Int = calculateGcd(numerArg, denomArg)
+    def myStringResult:String = (numerArg/gcd) + "/" + (denomArg/gcd)
+  }
+
+  def main(args: Array[String]): Unit =
+  {
+    // IMPORTANT: Calling "new RationalTrait {...}" below does NOT
+    //            instantiate a trait, because that's impossible.
+    //            It instead instantiates an ANONYMOUS CLASS.
+    var result:RationalTrait = new RationalTrait { override def numerArg: Int = 42;
+                                                   override def denomArg: Int = 420 }
+    println(s"result.myStringResult = ${result.myStringResult}") // PRINTS: result.myStringResult = 1/10
+
+    // Here we see that result (of type RationalTrait) is an ANONYMOUS CLASS
+    // because the text "anon" appears in the following println.
+    println(s"result = $result") // PRINTS: result = Demo$$anon$1@782663d3
   }
 }
 
