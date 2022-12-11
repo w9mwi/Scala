@@ -14,16 +14,16 @@ DOESN'T have a complete definition in the class/trait.
 
 Scala traits are mostly used to contain abstract (undefined)
 vals/vars, methods, and types.  However, a Scala trait
-CAN contain vals/vars, methods, and types that are defined
-as shown in this sample code...
+CAN contain vals/vars, methods, and types that are defined,
+as this example shows...
 ==============================================================
 object Demo
 {
-  abstract trait TomsTrait  // The "abstract" keyword is optional here.
+  abstract trait TomsTrait  // The "abstract" keyword here is optional.
   {
-    val weight:Int   = 123
-    def getMyAge:Int = 17
-    def undefinedMethod():String
+    val weight:Int   = 123       // A defined val.
+    def getMyAge:Int = 17        // A defined method.
+    def undefinedMethod():String // An undefined methof.
   }
   case class Person(name:String) extends TomsTrait {
     override def undefinedMethod():String = "This method IS defined."
