@@ -128,27 +128,26 @@ Read the in-line comments in the following two (2) code samples
 below, which show how this is done.
 
 ==================================================================================
-
 object Demo
 {
   trait Person {
-  def name:String
-  def age:Int
-  override def toString = s"name = $name,  age = $age"
+    def name:String
+    def age:Int
+    def myStringResult:String = (s"name = ${name},  age = ${age}")
   }
 
   def main(args: Array[String]): Unit =
   {
-    val tom:Person = new Person { val name:String = "tom"
-                                  val age:Int = 17 }
-    println(tom) // PRINTS: name = tom,  age = 17
+    // IMPORTANT: Calling "new Person {...}" below does NOT instantiate
+    //            a trait because that's impossible.  It instantiates
+    //            an ANONYMOUS CLASS.
+    var result:Person = new Person { val name:String = "Tom"
+                                     val age:Int = 17 }
+    println(result.myStringResult) // PRINTS: name = Tom,  age = 17
 
-    // Even though Person is defined above as a trait, the following
-    // below to println() reveals that "val tom" is an anonymous class.
-    // Because it prints the text 'anon' as part of the class name.
-    // So the "new Person {...}" code above instantiates an anonymous
-    // class, NOT a trait.
-    println(tom.getClass.toString) // PRINTS: class Demo$$anon$1
+    // The following println() reveals that "val result" is an ANONYMOUS CLASS
+    // because the text "anon" appears when it's printed.
+    println(result) // PRINTS: Demo$$anon$1@782663d3
   }
 }
 
@@ -174,8 +173,8 @@ object Demo
   def main(args: Array[String]):Unit =
   {
     // IMPORTANT: Calling "new RationalTrait {...}" below does NOT
-    //            instantiate a trait, because that's impossible.
-    //            It instead instantiates an ANONYMOUS CLASS.
+    //            instantiate a trait because that's impossible.
+    //            It instantiates an ANONYMOUS CLASS.
     var result:RationalTrait = new RationalTrait { override def numerArg: Int = 42;
                                                    override def denomArg: Int = 420 }
     println(s"result.myStringResult = ${result.myStringResult}") // PRINTS: result.myStringResult = 1/10
