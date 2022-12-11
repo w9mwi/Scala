@@ -19,8 +19,10 @@ as shown in this sample code...
 
 object Demo
 {
-  trait TomsTrait {
-    val weight = 123
+  // The following text "abstract" is optional.  The code works with or without it.
+  abstract trait TomsTrait
+  {
+    val weight:Int   = 123
     def getMyAge:Int = 17
   }
   case class Person(name:String) extends TomsTrait
