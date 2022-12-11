@@ -19,18 +19,21 @@ as shown in this sample code...
 ==============================================================
 object Demo
 {
-  // The following text "abstract" is optional.  The code works with or without it.
-  abstract trait TomsTrait
+  abstract trait TomsTrait  // The "abstract" keyword is optional here.
   {
     val weight:Int   = 123
     def getMyAge:Int = 17
+    def undefinedMethod():String
   }
-  case class Person(name:String) extends TomsTrait
+  case class Person(name:String) extends TomsTrait {
+    override def undefinedMethod():String = "This method IS defined."
+  }
 
   def main(args: Array[String]):Unit = {
     val tom:Person = Person("Tom")
     println(s"TomsTrait.weight = ${tom.weight}")     // PRINTS: TomsTrait.weight = 123
     println(s"TomsTrait.getMyAge = ${tom.getMyAge}") // PRINTS: TomsTrait.getMyAge = 17
+    println(tom.undefinedMethod())                   // PRINTS: This method IS defined.
   }
 }
 ==============================================================
