@@ -137,10 +137,11 @@ object Demo
 
   def main(args: Array[String]): Unit =
   {
-    // IMPORTANT: Calling "new Person {...}" below does NOT instantiate
-    //            a trait because that's impossible.  It instantiates
-    //            an ANONYMOUS CLASS.
-    val result:Person = new Person { val name:String = "Tom"
+    // Calling "new Person {...}" below does NOT instantiate a trait because
+    // that's impossible.  It instantiates an ANONYMOUS CLASS.  The trait's
+    // undefined name and age fields get defined (initialized) between the
+    // braces {} pair.
+    val result:Person = new Person { val name:String = "Tom";
                                      val age:Int = 17 }
     println(result.myStringResult) // PRINTS: name = Tom,  age = 17
 
@@ -171,9 +172,10 @@ object Demo
 
   def main(args: Array[String]):Unit =
   {
-    // IMPORTANT: Calling "new RationalTrait {...}" below does NOT
-    //            instantiate a trait because that's impossible.
-    //            It instantiates an ANONYMOUS CLASS.
+    // Calling "new RationalTrait {...}" below does NOT instantiate a trait because
+    // that's impossible.  It instantiates an ANONYMOUS CLASS.  The trait's
+    // undefined numerArg and denomArg methods get defined (initialized) between
+    // the braces {} pair.
     var result:RationalTrait = new RationalTrait { override def numerArg: Int = 42;
                                                    override def denomArg: Int = 420 }
     println(s"result.myStringResult = ${result.myStringResult}") // PRINTS: result.myStringResult = 1/10
