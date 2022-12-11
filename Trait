@@ -16,7 +16,7 @@ Scala traits are mostly used to contain abstract (undefined)
 vals/vars, methods, and types.  However, a Scala trait
 CAN contain vals/vars, methods, and types that are defined
 as shown in this sample code...
-
+==============================================================
 object Demo
 {
   // The following text "abstract" is optional.  The code works with or without it.
@@ -33,6 +33,7 @@ object Demo
     println(s"TomsTrait.getMyAge = ${tom.getMyAge}") // PRINTS: TomsTrait.getMyAge = 17
   }
 }
+==============================================================
 
 IMPORTANT:
 BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT, WHICH MEANS A TRAIT
