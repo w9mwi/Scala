@@ -185,6 +185,44 @@ object Demo
     println(s"result = $result") // PRINTS: result = Demo$$anon$1@782663d3
   }
 }
+==================================================================================
+The following program is identical in behavior to the above program, except it's
+rewritten to use "lazy vals".  This is very difficult to understand!  For an
+explanation, read pages 416 to 422 of "Programming in Scala - Second Edition"
+
+object Demo
+{
+  trait RationalTrait {
+    def numerArg:Int // An abstract method, defined in main() when RationalTrait is called.
+    def denomArg:Int // An abstract method, defined in main() when RationalTrait is called.
+    lazy val numer:Int = numerArg / gcd
+    lazy val denom:Int = denomArg / gcd
+    private def calculateGcd(numer:Int, denom:Int):Int =
+    {
+      // This is a RECURSIVE method.
+      if (denom == 0) numer
+      else calculateGcd(denom, numer % denom)
+    }
+    private lazy val gcd:Int = { require(denomArg !=0) // The require() method is always visible via Scala's PreDef class.
+                                 calculateGcd(numerArg, denomArg) }
+    def myStringResult:String = (numer) + "/" + (denom)
+  }
+
+  def main(args: Array[String]):Unit =
+  {
+    // Calling "new RationalTrait {...}" below does NOT instantiate a trait because
+    // that's impossible.  It instantiates an ANONYMOUS CLASS.  The trait's
+    // undefined numerArg and denomArg methods get defined (initialized) between
+    // the braces {} pair.
+    var result:RationalTrait = new RationalTrait { val numerArg:Int = 42;
+                                                   val denomArg:Int = 420 }
+    println(s"result.myStringResult = ${result.myStringResult}") // PRINTS: result.myStringResult = 1/10
+
+    // The following println() reveals that "var result" is an ANONYMOUS CLASS
+    // because the text "anon" appears when it's printed.
+    println(s"result = $result") // PRINTS: result = Demo$$anon$1@782663d3
+  }
+}
 
 ==================================================================================
 
