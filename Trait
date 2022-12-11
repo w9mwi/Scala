@@ -141,7 +141,7 @@ object Demo
     // IMPORTANT: Calling "new Person {...}" below does NOT instantiate
     //            a trait because that's impossible.  It instantiates
     //            an ANONYMOUS CLASS.
-    var result:Person = new Person { val name:String = "Tom"
+    val result:Person = new Person { val name:String = "Tom"
                                      val age:Int = 17 }
     println(result.myStringResult) // PRINTS: name = Tom,  age = 17
 
