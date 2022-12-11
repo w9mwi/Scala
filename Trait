@@ -171,7 +171,7 @@ object Demo
     def myStringResult:String = (numerArg/gcd) + "/" + (denomArg/gcd)
   }
 
-  def main(args: Array[String]): Unit =
+  def main(args: Array[String]):Unit =
   {
     // IMPORTANT: Calling "new RationalTrait {...}" below does NOT
     //            instantiate a trait, because that's impossible.
@@ -180,8 +180,8 @@ object Demo
                                                    override def denomArg: Int = 420 }
     println(s"result.myStringResult = ${result.myStringResult}") // PRINTS: result.myStringResult = 1/10
 
-    // Here we see that result (of type RationalTrait) is an ANONYMOUS CLASS
-    // because the text "anon" appears in the following println.
+    // The following println() reveals that "var result" is an ANONYMOUS CLASS
+    // because the text "anon" appears when it's printed.
     println(s"result = $result") // PRINTS: result = Demo$$anon$1@782663d3
   }
 }
