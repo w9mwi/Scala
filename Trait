@@ -36,9 +36,8 @@ object Demo
     println(tom.undefinedMethod())                   // PRINTS: This method IS defined.
   }
 }
-==============================================================
 
-IMPORTANT:
+==============================================================
 BY DEFINITION, A SCALA TRAIT IS ALWAYS ABSTRACT, WHICH MEANS A TRAIT
 CAN'T BE INSTANTIATED.  However, it's possible to instantiate a Scala
 trait via an anonymous class.  See the section below titled:
