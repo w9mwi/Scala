@@ -129,9 +129,9 @@ below, which show how this is done.
 ==================================================================================
 object Demo
 {
-  trait Person {
-    def name:String
-    def age:Int
+  abstract trait Person { // The "abstract" keyword here is optional.
+    def name:String // This method is undefined (abstract).
+    def age:Int     // This method is undefined (abstract).
     def myStringResult:String = (s"name = ${name},  age = ${age}")
   }
 
