@@ -77,9 +77,11 @@ Scala lets you define the following inside a class or trait...
    type IntFloatTuple = (Int,Float) // Allows you to use "IntFloatTuple" in place of (Int,Float)
 
    Just as you can declare an abstract val/var, and an abstract
-   method, you can also declare an abstract type.  The following
-   code shows how to define an abstract type in a trait, and how
-   to implment it in a subclass.
+   method, you can also declare an abstract type.  An abstract
+   type declaration is a placeholder for something that will
+   be defined concretely in subclasses.  The following code
+   shows how to define an abstract type in a trait, and how to
+   implement it in a subclass.
 
    trait Base
    {
