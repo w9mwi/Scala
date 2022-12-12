@@ -399,12 +399,43 @@ object Demo
   }
 }
 
-SEE ALSO:
-https://www.geeksforgeeks.org/partial-functions-in-scala/
-https://www.includehelp.com/scala/partial-functions.aspx#:~:text=Scala%20partial%20functions%20A%20partial%20function%20is%20a,are%20allowed%20in%20the%20processing%20of%20the%20code.
+========================================================================================
+ANONYMOUS FUNCTIONS - Some examples below.
+
+object Demo
+{
+  def main(args: Array[String]): Unit = {
+    // EXAMPLE 1 **************************************************************************
+    case class StringToInt(run:String => Int)
+    // Instantiate a StringToInt class by passing to it an anonymous function,
+    // which will get assigned to its member val named "run".
+    // NOTE: You could replace this text: StringToInt(x => x.toInt)
+    //       with this text:              StringToInt{ str:String => str.toInt }
+    val myClass_1:StringToInt = StringToInt(x => x.toInt)
+    var myInt:Int = myClass_1.run("-777") // "run" is a val member of myClass_1.
+    println(s"myInt #1 = $myInt") // PRINTS: result #1 = -777
+
+    // This time we pass stringToInt() a defined function named: myStrLengthFunc
+    def myStrLengthFunc(str:String):Int = { str.length }
+    val valFunc_1:StringToInt = StringToInt(myStrLengthFunc)
+    myInt = valFunc_1.run("Madison, Wisconsin")
+    println(s"myInt #2 = $myInt") // PRINTS: myInt #2 = 18
+
+    // EXAMPLE 2 **************************************************************************
+    case class TwoStringsToInt[A,B](func:(A,A) => B)
+    val anonFunc = (a:String, b:String) => (a.length + b.length)
+    val myClass_2:TwoStringsToInt[String, Int] = TwoStringsToInt(anonFunc)
+    // func is a member val of the TwoStringsToInt class, created upon instantiation of TwoStringsToInt.
+    myInt = myClass_2.func("Madison", "Wisconsin")
+    println(s"myInt #3 = $myInt") // PRINTS: myInt #3 = 16
+  }
+}
 
 ========================================================================================
-OBSCURE WAYS FUNCTIONS CAN BE USED - Read in-line comments if the following code sample.
+OBSCURE WAYS FUNCTIONS CAN BE USED
+==================================
+
+Read in-line comments if the following code sample.
 
 
 object Demo
