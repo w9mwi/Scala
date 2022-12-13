@@ -80,8 +80,8 @@ Scala lets you define the following inside a class or trait...
    method, you can also declare an abstract type.  An abstract
    type declaration is a placeholder for something that will
    be defined concretely in subclasses.  The following code
-   shows how to define an abstract type in a trait, and how to
-   implement it in a subclass.
+   shows how to define an abstract type in a trait, and how
+   to implement it in a subclass.
 
    trait Base
    {
@@ -97,6 +97,58 @@ Scala lets you define the following inside a class or trait...
      val initialValue:T = 123
      var currentValue:T = initialValue
    }
+
+The following 2 code samples show another example of why an
+abstract type would be used.  In this example, we want the
+Cow class to implement a method named eat(), that will accept
+an argument of type Grass.  In the first example, the code
+WON'T COMPILE.  In the following example, the code is fixed
+so it will compile.
+=============================================================
+object Demo
+{
+  class Food
+  abstract class Animal {
+    def eat(food:Food)
+  }
+  class Grass extends Food
+  class Cow extends Animal {
+    // THE FOLLOWING LINE LINE OF CODE WON'T COMPILE!
+    // This is because the argument accepted by Cow.eat(food:Grass)
+    // references type Grass instead of type Food.
+    override def eat(food:Grass):Unit = {}  // WON'T COMPILE!
+  }
+
+  def main(args: Array[String]): Unit = {
+    println("main() executes.")
+  }
+}
+=============================================================
+The above code is fixed below by adding/changing the lines
+marked by 1), 2), and 3) in the comments.  In this example,
+"Animal" (a class) can "eat" (a method) ONLY a SuitableFood
+(a type).  The text "SuitableFood <: Food"  means that any
+concrete instantiation of SuitableFood (in a subclass of
+Animal) MUST be a subclass of Food.
+
+object Demo
+{
+  class Food
+  abstract class Animal {
+    type SuitableFood <: Food  // <-- 1) ADDED THIS LINE.
+    def eat(food:SuitableFood) // <-- 2) CHANGED THIS LINE.
+  }
+  class Grass extends Food
+  class Cow extends Animal {
+    type SuitableFood = Grass  // <-- 3) ADDED THIS LINE.
+    override def eat(food:Grass):Unit = {}
+  }
+
+  def main(args: Array[String]): Unit = {
+    println("main() executes.")
+  }
+}
+=============================================================
 
 When a class/object/trait inherits from another class/object/trait,
 the "extends" keyword can be used ONLY ONCE, and it MUST APPEAR BEFORE
