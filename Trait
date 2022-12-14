@@ -23,7 +23,7 @@ object Demo
   {
     val weight:Int   = 123       // A defined val.
     def getMyAge:Int = 17        // A defined method.
-    def undefinedMethod():String // An undefined methof.
+    def undefinedMethod():String // An undefined method.
   }
   case class Person(name:String) extends TomsTrait {
     override def undefinedMethod():String = "This method IS defined."
