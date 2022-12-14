@@ -124,12 +124,13 @@ object Demo
   }
 }
 =============================================================
-The above code is fixed below by adding/changing the lines
-marked by 1), 2), and 3) in the comments.  In this example,
-"Animal" (a class) can "eat" (a method) ONLY a SuitableFood
-(a type).  The text "SuitableFood <: Food"  means that any
-concrete instantiation of SuitableFood (in a subclass of
-Animal) MUST be a subclass of Food.
+The compilation error in the above code is fixed below by
+adding/changing the lines marked by 1), 2), and 3) in the
+comments.  In this example, "Animal" (a class) can "eat"
+(a method) ONLY a SuitableFood (a type).  The text
+"SuitableFood <: Food"  means that any concrete instantiation
+of SuitableFood (in a subclass of Animal) MUST be a subclass
+of Food.
 
 object Demo
 {
