@@ -12,8 +12,8 @@ fly, walk, etc.
 A member of a class or trait is abstract if that member
 DOESN'T have a complete definition in the class/trait.
 
-Scala traits are mostly used to contain abstract (undefined)
-vals/vars, methods, and types.  However, a Scala trait
+Scala traits are mostly used to hold vals/vars, methods, or
+types that are abstract (undefined).  However, a Scala trait
 CAN contain vals/vars, methods, and types that are defined,
 as this example shows...
 ==============================================================
