@@ -5,7 +5,7 @@ Scala will determine if it can obtain an implicit value of
 the correct type, and if it can, pass it automatically.
 
 A method, fuction, or constructor can have ONLY ONE implicit
-paramater list, and it must be THE LAST PARAMETER LIST specified.
+parameter list, and it must be THE LAST PARAMETER LIST specified.
 
 The implicit keyword can be used to mark any val/var, method/function,
 or object.
