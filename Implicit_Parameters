@@ -110,20 +110,19 @@ object Demo
     // NOTICE: You CAN pass an Employee to the printPerson()() function because
     //         an Employee extends Person, which means an Employee is defined
     //         to also be a Person.
-    printPerson(true)     // PRINTS: p = Employee
-    printPerson(false)    // PRINTS NOTHING!
+    printPerson(true)     // PRINTS: p = Employee  (Why does this always print "p = Employee" and never "p = Person" ???)
+    printPerson(false)    // PRINTS:
     printPerson(true)(e)  // PRINTS: p = Employee
     printPerson(true)(p)  // PRINTS: p = Person
-    printPerson(false)(e) // PRINTS NOTHING!
-    printPerson(false)(p) // PRINTS NOTHING!
+    printPerson(false)(e) // PRINTS:
+    printPerson(false)(p) // PRINTS:
 
     // NOTICE: You CAN'T pass a Person to the printEmployee()() function because a
-    //         Person doesn't extend Employee, which means a Person isn't defined
-    //         to be an Employee.
+    //         Person doesn't extend Employee.
     printEmployee(true)     // PRINTS: e = Employee
-    printEmployee(false)    // PRINTS NOTHING!
+    printEmployee(false)    // PRINTS:
     printEmployee(true)(e)  // PRINTS: e = Employee
-    printEmployee(false)(e) // PRINTS NOTHING!
+    printEmployee(false)(e) // PRINTS:
     // The following 2 lines are commented out because they won't compile.
     // As they both require an Employee to be passed as the 2nd parameter.
     // printEmployee(true)(p)  // Won't compile!
