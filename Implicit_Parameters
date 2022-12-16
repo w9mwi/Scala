@@ -7,6 +7,9 @@ the correct type, and if it can, pass it automatically.
 A method, fuction, or constructor can have ONLY ONE implicit
 paramater list, and it must be THE LAST PARAMETER LIST specified.
 
+The implicit keyword can be used to mark any val/var, method/function,
+or object.
+
 Read in-line comments in the below sample programs for details.
 ==========================================================================
 
