@@ -1,14 +1,12 @@
-A method can have an implicit parameter list, marked by the
-'implicit' keyword at the start of the parameter list.  If
-the method is called without passing the implicit parameter,
-Scala will determine if it can obtain an implicit value of
-the correct type, and if it can, pass it automatically.
 
-A method, fuction, or constructor can have ONLY ONE implicit
-parameter list, and it must be THE LAST PARAMETER LIST specified.
+A method, function, or constructor can have ONLY ONE implicit parameter
+list, and it must be THE LAST PARAMETER LIST specified.  If an implicit
+method is called without passing its implicit parameter, Scala will
+determine if it can obtain an implicit value of the correct type,
+and if it can, pass it automatically.
 
-The implicit keyword can be used to mark any val/var, method/function,
-or object.
+The implicit keyword can be used to mark a val/var, a method/function,
+or an object.
 
 The Scala "implicit" keyword is used in these THREE (3) places:
 
