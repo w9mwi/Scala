@@ -10,6 +10,32 @@ parameter list, and it must be THE LAST PARAMETER LIST specified.
 The implicit keyword can be used to mark any val/var, method/function,
 or object.
 
+The Scala "implicit" keyword is used in these THREE (3) places:
+
+1) Conversions to an expected type.
+   This allows the programmer to use one type in a context where another type is expected.
+   When the compiler references a data type of X, but a data type of Y is required, Scala
+   first looks for an implicit conversion to see if that will resolve the problem.  If
+   an implicit conversion is not found, Scala will throw an error.  EXAMPLE:
+
+   object Demo
+   {
+     implicit def doubleToInt(x:Double):Int = x.toInt
+     def main(args:Array[String]): Unit =
+     {
+       // Without the implicit doubleToInt() method defined above, the
+       // following assignment to myInt would generate a compile error.
+       val myInt:Int = -12.9876D
+       println(s"myInt = $myInt") // PRINTS: myInt = -12
+     }
+   }
+
+2) Conversions of the receiver of a selection.
+
+
+3) Implicit parameters.
+
+
 Read in-line comments in the below sample programs for details.
 ==========================================================================
 
