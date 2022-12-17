@@ -28,6 +28,8 @@ The Scala "implicit" keyword is used in these THREE (3) scenarios:
 }
 
 2) CONVERSIONS OF THE RECEIVER OF A SELECTION.
+   Implicit conversions also apply to the receiver of a method call,
+   the object on which the method is invoked.
 
 
 3) IMPLICIT PARAMETERS.
