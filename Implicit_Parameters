@@ -27,6 +27,7 @@ The Scala "implicit" keyword is used in these THREE (3) scenarios:
   }
 }
 
+
 2) CONVERSIONS OF THE RECEIVER OF A SELECTION.
    Implicit conversions also apply to the receiver of a method call,
    the object on which the method is invoked.  The following example
@@ -87,41 +88,41 @@ The Scala "implicit" keyword is used in these THREE (3) scenarios:
 
 
 3) IMPLICIT PARAMETERS.
+   The following code sample (and more sample code below that) demonstrates
+   how to define and use an implicit parameter within a method.  Read in-line
+   comments in the below code samples for details.
 
+   object Demo
+   {
+     def main(args: Array[String])
+     {
+       // The second parameter list in printIntIfTrue()() is designated as an
+       // implicit parameter.  Therefore, you can call printIntIfTrue()() with
+       // only its first parameter list.
+       def printIntIfTrue(a: Int)(implicit b: Boolean): Unit = { if (b) {println(a)} }
 
-Read in-line comments in the below sample programs for details.
-==========================================================================
+       printIntIfTrue(123)(false) // Prints nothing because the second param is false.
+       printIntIfTrue(456)(true)  // PRINTS: 456
 
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // The second parameter list in printIntIfTrue()() is designated as an
-    // implicit parameter.  Therefore, you can call printIntIfTrue()() with
-    // only its first parameter list.
-    def printIntIfTrue(a: Int)(implicit b: Boolean): Unit = { if (b) {println(a)} }
-
-    printIntIfTrue(123)(false) // Prints nothing because the second param is false.
-    printIntIfTrue(456)(true)  // PRINTS: 456
-
-    // Because the printIntIfTrue()() function below accepts an implicit parameter
-    // of type Boolean, and because an implicit val/var of type Boolean is declared
-    // BEFORE printIntIfTrue() gets called, printIntIfTrue()() will execute when it's
-    // called WITHOUT a second parameter!
-    //
-    // NOTE: In this example, ONLY ONE implicit val of type Boolean can exist when you
-    //       invoke printIntIfTrue()() without its second parameter.  If you were to
-    //       declare two or more implicit Boolean vals here, the code WON'T COMPILE.
-    //       Multiple implicit vals/vars can exist (without causing an error) as long as they
-    //       have different data types., as shown below.
-    implicit val string_1:String   = "BEER"  // Because printIntIfTrue()() accepts no String
-                                             // argument, this implicit declaration has no effect.
-    implicit val boolean_1:Boolean = true
-    printIntIfTrue(420) // PRINTS: 420
-  }
-}
+       // Because the printIntIfTrue()() function below accepts an implicit parameter
+       // of type Boolean, and because an implicit val/var of type Boolean is declared
+       // BEFORE printIntIfTrue() gets called, printIntIfTrue()() will execute when it's
+       // called WITHOUT a second parameter!
+       //
+       // NOTE: In this example, ONLY ONE implicit val of type Boolean can exist when you
+       //       invoke printIntIfTrue()() without its second parameter.  If you were to
+       //       declare two or more implicit Boolean vals here, the code WON'T COMPILE.
+       //       Multiple implicit vals/vars can exist (without causing an error) as long as they
+       //       have different data types., as shown below.
+       implicit val string_1:String   = "BEER"  // Because printIntIfTrue()() accepts no String
+                                                // argument, this implicit declaration has no effect.
+       implicit val boolean_1:Boolean = true
+       printIntIfTrue(420) // PRINTS: 420
+     }
+   }
 
 ===============================================================================
+
 The following code sample shows another example of using an implicit parameter.
 Here, we make the add() function a parametric function so it takes a Numeric
 type implicit parameter, so it will work properly on all Numeric types, such
