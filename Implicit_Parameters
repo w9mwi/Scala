@@ -35,56 +35,59 @@ The Scala "implicit" keyword is used in these THREE (3) scenarios:
    numbers.  In the example below, study the "implicit def intToRational()"
    method to understand how it's used.
 
-   object Demo {
-     class Rational(n:Int, d:Int)
-     {
-       require(d !=0) // require() is automatically available from the Scala object Predef.
-       private val g = calculateGcd(n.abs, d.abs)
-       val numer = n/g
-       val denom = d/g
-       def this(n:Int) = this(n, 1)
+object Demo {
+  class Rational(n:Int, d:Int)
+  {
+    require(d !=0) // require() is automatically available from the Scala object Predef.
+    private val g = calculateGcd(n.abs, d.abs)
+    val numer = n/g
+    val denom = d/g
+    def this(n:Int) = this(n, 1)
 
-       def + (that:Rational):Rational = new Rational(numer * that.denom + that.numer * denom,
-                                                     denom * that.denom)
-       def + (i:Int):Rational         = new Rational(numer + 1 * denom, denom)
-       def - (that:Rational):Rational = new Rational(numer * that.denom - that.numer * denom,
-                                                     denom * that.denom)
-       def - (i:Int):Rational         = new Rational(numer - 1 * denom, denom)
-       def * (that:Rational):Rational = new Rational(numer * that.numer, denom * that.denom)
-       def * (i:Int):Rational         = new Rational(numer * i, denom)
-       def / (that:Rational):Rational = new Rational(numer * that.denom, denom * that.numer)
-       def / (i:Int):Rational         = new Rational(numer, denom * i)
-       override def toString = numer + "/" + denom
-       private def calculateGcd(numer: Int, denom: Int): Int =
-       {
-         // This is a RECURSIVE method.
-         if (denom == 0) numer
-         else calculateGcd(denom, numer % denom)
-       }
-     } // END: class Rational(n:Int, d:Int)
+    def + (that:Rational):Rational = new Rational(numer * that.denom + that.numer * denom,
+                                                  denom * that.denom)
+    def + (i:Int):Rational         = new Rational(numer + i * denom, denom)
+    def - (that:Rational):Rational = new Rational(numer * that.denom - that.numer * denom,
+                                                  denom * that.denom)
+    def - (i:Int):Rational         = new Rational(numer - i * denom, denom)
+    def * (that:Rational):Rational = new Rational(numer * that.numer, denom * that.denom)
+    def * (i:Int):Rational         = new Rational(numer * i, denom)
+    def / (that:Rational):Rational = new Rational(numer * that.denom, denom * that.numer)
+    def / (i:Int):Rational         = new Rational(numer, denom * i)
+    override def toString = numer + "/" + denom
+    private def calculateGcd(numer: Int, denom: Int): Int =
+    {
+      // This is a RECURSIVE method.
+      if (denom == 0) numer
+      else calculateGcd(denom, numer % denom)
+    }
+  } // END: class Rational(n:Int, d:Int)
 
-     implicit def intToRational(x:Int) = new Rational(x, 1)
+  implicit def intToRational(x:Int) = new Rational(x, 1)
 
-     def main(args: Array[String]): Unit = {
-       val rat_1 = new Rational(4, 8)
-       println(s"rat_1 = ${rat_1.toString}") // PRINTS: rat_1 = 1/2
+  /************************************
+   * main()
+   ***********************************/
+  def main(args: Array[String]): Unit = {
+    val rat_1 = new Rational(4, 8)
+    println(s"rat_1 = ${rat_1.toString}") // PRINTS: rat_1 = 1/2
 
-       val rat_2 = new Rational(3, 27)
-       println(s"rat_2 = ${rat_2.toString}") // PRINTS: rat_2 = 1/9
+    val rat_2 = new Rational(3, 27)
+    println(s"rat_2 = ${rat_2.toString}") // PRINTS: rat_2 = 1/9
 
-       var result:Rational = rat_1 + rat_2
-       println(s"result 1 = ${result.toString}") // PRINTS: result 1 = 11/18
+    var result:Rational = rat_1 + rat_2
+    println(s"result 1 = ${result.toString}") // PRINTS: result 1 = 11/18
 
-       // Without the implicit method intToRational() defined above, the following
-       // line of code wouldn't compile.  This is because the Rational '+' methods
-       // defined above operate only on numbers of type Rational.  The number 1 (one)
-       // in the following line of code isn't of type Rational.  But the above
-       // implicit method named intToRational() gets called and converts that Int
-       // value 1 into a Rational type, so the '+' method defined above will work.
-       result = 1 + rat_2
-       println(s"result 2 = ${result.toString}") // PRINTS: result 2 = 10/9
-     }
-   }
+    // Without the implicit method intToRational() defined above, the following
+    // line of code wouldn't compile.  This is because the Rational '+' methods
+    // defined above operate only on numbers of type Rational.  The number 1 (one)
+    // in the following line of code isn't of type Rational.  But the above
+    // implicit method named intToRational() gets called and converts that Int
+    // value 1 into a Rational type, so the '+' method defined above will work.
+    result = rat_2 + 2
+    println(s"result 2 = ${result.toString}") // PRINTS: result 2 = 19/9
+  }
+}
 
 
 3) IMPLICIT PARAMETERS.
