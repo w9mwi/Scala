@@ -132,36 +132,34 @@ object Demo {
 }
 
 
-   
+object Demo
+{
+  def main(args: Array[String])
+  {
+    // The second parameter list in printIntIfTrue()() is designated as an
+    // implicit parameter.  Therefore, you can call printIntIfTrue()() with
+    // only its first parameter list.
+    def printIntIfTrue(a: Int)(implicit b: Boolean): Unit = { if (b) {println(a)} }
 
-   object Demo
-   {
-     def main(args: Array[String])
-     {
-       // The second parameter list in printIntIfTrue()() is designated as an
-       // implicit parameter.  Therefore, you can call printIntIfTrue()() with
-       // only its first parameter list.
-       def printIntIfTrue(a: Int)(implicit b: Boolean): Unit = { if (b) {println(a)} }
+    printIntIfTrue(123)(false) // Prints nothing because the second param is false.
+    printIntIfTrue(456)(true)  // PRINTS: 456
 
-       printIntIfTrue(123)(false) // Prints nothing because the second param is false.
-       printIntIfTrue(456)(true)  // PRINTS: 456
-
-       // Because the printIntIfTrue()() function below accepts an implicit parameter
-       // of type Boolean, and because an implicit val/var of type Boolean is declared
-       // BEFORE printIntIfTrue() gets called, printIntIfTrue()() will execute when it's
-       // called WITHOUT a second parameter!
-       //
-       // NOTE: In this example, ONLY ONE implicit val of type Boolean can exist when you
-       //       invoke printIntIfTrue()() without its second parameter.  If you were to
-       //       declare two or more implicit Boolean vals here, the code WON'T COMPILE.
-       //       Multiple implicit vals/vars can exist (without causing an error) as long as they
-       //       have different data types., as shown below.
-       implicit val string_1:String   = "BEER"  // Because printIntIfTrue()() accepts no String
-                                                // argument, this implicit declaration has no effect.
-       implicit val boolean_1:Boolean = true
-       printIntIfTrue(420) // PRINTS: 420
-     }
-   }
+    // Because the printIntIfTrue()() function below accepts an implicit parameter
+    // of type Boolean, and because an implicit val/var of type Boolean is declared
+    // BEFORE printIntIfTrue() gets called, printIntIfTrue()() will execute when it's
+    // called WITHOUT a second parameter!
+    //
+    // NOTE: In this example, ONLY ONE implicit val of type Boolean can exist when you
+    //       invoke printIntIfTrue()() without its second parameter.  If you were to
+    //       declare two or more implicit Boolean vals here, the code WON'T COMPILE.
+    //       Multiple implicit vals/vars can exist (without causing an error) as long as they
+    //       have different data types., as shown below.
+    implicit val string_1:String   = "BEER"  // Because printIntIfTrue()() accepts no String
+                                             // argument, this implicit declaration has no effect.
+    implicit val boolean_1:Boolean = true
+    printIntIfTrue(420) // PRINTS: 420
+  }
+}
 
 ===============================================================================
 
@@ -207,6 +205,39 @@ object Demo
     println("add(myFloat, myDouble) = " + add(myFloat, myDouble)) // PRINTS: add(myFloat, myDouble) = 1235444.433152785
     println("add(myByte, myDouble)  = " + add(myByte, myDouble))  // PRINTS: add(myByte, myDouble)  = 1234690.890123
     println("add(myInt, myFloat)    = " + add(myInt, myFloat))    // PRINTS: add(myInt, myFloat)    = 1332.543
+  }
+}
+
+==========================================================================
+This code sample shows how to use a VIEW BOUND.  Read in-line comments.
+
+object Demo {
+  // The text "T <% Ordered[T]" designates that type "T" is TREATED
+  // AS an Ordered[T].  "<%" designates a VIEW BOUND.
+  //
+  // The text "T <: Ordered[T]" designates that T IS an Ordered[T].
+  // "<:" designates an UPPER BOUND.
+  def maxList[T <% Ordered[T]](elements:List[T]):T =
+  elements match {
+    case List() => throw new IllegalArgumentException("Empty List.")
+    case List(x) => x
+    case head::tail => val maxTail = maxList(tail)
+                       if (head > maxTail)
+                         head
+                       else maxTail
+    }
+
+  /************************************
+   * main()
+   ***********************************/
+  def main(args: Array[String]): Unit = {
+    val strList:List[String] = List ("DDD", "YYY", "LLL", "ZZZ", "BBB", "AAA")
+    val strResult:String = maxList(strList)
+    println(s"strResult = $strResult") // PRINTS: strResult = ZZZ
+
+    val intList: List[Int] = List(88, -11, 456, 54220, -789)
+    val intResult:Int = maxList(intList)
+    println(s"intResult = $intResult") // PRINTS: intResult = 54220
   }
 }
 
