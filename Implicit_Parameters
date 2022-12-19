@@ -91,9 +91,48 @@ object Demo {
 
 
 3) IMPLICIT PARAMETERS.
-   The following code sample (and more sample code below that) demonstrates
-   how to define and use an implicit parameter within a method.  Read in-line
-   comments in the below code samples for details.
+   The following 2 code samples demonstrate how to define and use an implicit parameter
+   within a method.  Read in-line comments in the below code samples for details.
+
+import Demo.TomsPrefs._  // This import statement is REQUIRED for this program to compile.
+object Demo {
+  class PreferredDrink(val preference:String)
+  class PreferredPrompt(val preference:String)
+
+  // When Greet.greeter()() is called with only one parameter list, this TomsPref
+  // object is used to supply the 2 implicit arguments in the second parameter list.
+  // WARNING: This program WON'T COMPILE without this import statement at the top of this file:
+  //          import Demo.TomsPrefs._
+  object TomsPrefs {
+    implicit val drink = new PreferredDrink("beer")
+    implicit val prompt = new PreferredPrompt("Yes, master> ")
+  }
+
+  object Greeter {
+    def greet(name:String)(implicit prompt:PreferredPrompt, drink:PreferredDrink): Unit = {
+      println("Welcome, " + name + ".  The system is ready.")
+      println("While you work, drink some " + drink.preference + ".")
+      println(prompt.preference)
+    }
+  }
+
+  /************************************
+   * main()
+   ***********************************/
+  def main(args: Array[String]): Unit = {
+    // The following call to Greeter.greet()() requires only the first parameter list.
+    // The second parameter list contains implicit arguments, which are automatically
+    // supplied when they're not specified.
+    Greeter.greet("Tom")
+
+    // The following code supplies both parameter lists to Greet.greeter()(),
+    // which overrides the implicit arguments
+    Greeter.greet("Jack")(new PreferredPrompt("PROMPT> "), new PreferredDrink("poison"))
+  }
+}
+
+
+   
 
    object Demo
    {
