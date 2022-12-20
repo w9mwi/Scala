@@ -230,3 +230,82 @@ object Demo
     mutualFriends.foreach(println)              // PRINTS: Person(Jim,Beam)
   }
 }
+
+================================================================================
+Below are more examples of how to write for() expressions.
+
+object Demo {
+  case class Person(name:String, isMale:Boolean, children:Person*)
+
+  def removeDuplicates[A](xs:List[A]):List[A] = {
+    if (xs.isEmpty) xs
+    else xs.head :: removeDuplicates(xs.tail.filter(x => x != xs.head))
+  }
+
+  /************************************
+   * main()
+   ***********************************/
+  def main(args: Array[String]): Unit = {
+    val lara = Person("Lara", false)
+    val bob  = Person("Bob",  true)
+    val julie = Person("Julie", false, lara, bob)
+    val persons = List(lara, bob, julie)
+
+    // EXAMPLE 1:
+    var result1:List[(String, String)] = persons.filter(p => !p.isMale).flatMap(p => p.children.map(c => (p.name, c.name)))
+    println(result1) // PRINTS: List((Julie,Lara), (Julie,Bob))
+
+    // EXAMPLE 2: Identical to EXAMPLE 1 except persons.filter() is replaced with persons.withFilter().
+    result1 = persons.withFilter(p => !p.isMale).flatMap(p => p.children.map(c => (p.name, c.name)))
+    println(result1) // PRINTS: List((Julie,Lara), (Julie,Bob))
+
+    // EXAMPLE 3: Identical results as EXAMPLE 1 and EXAMPLE 2.
+    result1 = for (p <- persons; if !p.isMale; c <- p.children) yield (p.name, c.name)
+    println(result1) // PRINTS: List((Julie,Lara), (Julie,Bob))
+
+    // EXAMPLE 4:
+    var result2:List[String] = for {
+                        p <- persons
+                        n = p.name
+                        if (n.startsWith("Bo"))
+                      } yield n
+    println(result2) // PRINTS: List(Bob)
+
+    // EXAMPLE 5:
+    // NOTE: The following for() expression generates a result DIFFERENT than EXAMPLE 4.
+    var result3:List[Person] = for {
+                                     p <- persons
+                                     if p.name.startsWith("Bo")
+                                   } yield p
+    println(result3) // PRINTS: List(Person(Bob,true,WrappedArray()))
+
+    // EXAMPLE 6:
+    var result4:List[(Int,String)] = for (x <- List(1,2); y <- List("one","two")) yield (x,y)
+    println(result4) // PRINTS: List((1,one), (1,two), (2,one), (2,two))
+
+    // EXAMPLE 7:
+    case class Book(title:String, authors:String *)
+    val books:List[Book] = List(Book("Structure of Computer Programs", "Abelson", "Sussman"),
+                                Book("Principles of Compiler Design", "Aho", "Alfred", "Ullman"),
+                                Book("Programming in Modula-2", "Wirth", "Worthless"),
+                                Book("ML Programming", "Ullman", "Gookers"),
+                                Book("The Java Language Specs", "Joy", "Gosling", "Steele"))
+    var result5:List[String] = for (b <- books; a <- b.authors;  if a.startsWith("Gosling")) yield b.title
+    println(result5) // PRINTS: List(The Java Language Specs)
+
+    result2 = for (b <- books; if b.title.indexOf("Program") >= 0) yield b.title
+    println(result2) // PRINTS: List(Structure of Computer Programs, Programming in Modula-2, ML Programming)
+
+    // This example finds all authors that have written 2 or more books.
+    // Unfortunately, it returns the author's name multiple times.
+    result2 = for (b1 <- books;      b2 <- books;      if (b1 != b2);
+                   a1 <- b1.authors; a2 <- b2.authors; if (a1 == a2)) yield a1
+    println(result2) // PRINTS: List(Ullman, Ullman)
+
+    // Here we remove the duplicates from result2.
+    result2 = removeDuplicates(result2)
+    println(result2) // PRINTS: List(Ullman)
+  }
+}
+
+================================================================================
