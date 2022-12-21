@@ -59,7 +59,7 @@ flatMap()    - This function enables a class to work with a "for expression" (wh
                so it's optional.
 withFilter() - This method enables a class to work with a filter.
 
-The 4 functions listed imediately above enable a user-defined class to work
+The 4 functions listed immediately above enable a user-defined class to work
 with "for expressions" (which use the "yield" keyword).  Scala-defined classes
 that work with "for expressions" (which use the "yield" keyword) also implement
 those 4 functions.
