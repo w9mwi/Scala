@@ -12,11 +12,15 @@ object Demo
    ********************************************/
   def main(args: Array[String])
   {
-    println("\n================================================")
+    println("1) Scala Version = " + util.Properties.versionNumberString) // PRINTS: 1) Scala Version = version 2.12.14
+    println("2) Scala Version = " + util.Properties.versionString)       // PRINTS: 2) Scala Version = 2.12.14
+    println("3) Scala Version = " + util.Properties.versionMsg)
+    // PRINTS: 3) Scala Version = Scala library version 2.12.14 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
+    println("=======================================================")
     println("PRINT ALL ENVIRONMENT VALUES:")
     var envVars = System.getenv().asScala
     for ((k,v) <- envVars) { println(s"key = $k\nvalue = $v\n") }
-    println("================================================")
+    println("\n=======================================================")
 
     println("PRINT ALL SYSTEM PROPERTIES:\n")
     var sysProps = System.getProperties().asScala
