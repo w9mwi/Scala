@@ -1,5 +1,6 @@
 =========================================================================
-The following sample program demonstrates various way of a file in Scala.
+The following sample program demonstrates various ways of
+opening and reading a file in Scala.
 
 import java.io.File
 import java.util.Scanner
@@ -181,8 +182,8 @@ object Demo
         // For each loop, obtain currentChar from the current strWithIndex element.
         // Obtain previousChar from the previous strWithIndex element.
         x => val currentChar:Char = x._1
-             val previousChar:Char = if (x._2 == 0) ZERO // For the first element in strWithIndex, set previousChar to an invalid char.
-                                     else strWithIndex(x._2-1)._1 // Set 
+             val previousChar:Char = if (x._2 == 0) ZERO // Set the first element of strWithIndex to ZERO, which CAN'T exist in any filename.
+                                     else strWithIndex(x._2 - 1)._1 // previousChar is obtained from the previous element in strWithIndex.
 
         // Change the filename's chars to uppercase or lowercase based on this criteria:
         // 1) The first char of the filename is always set to uppercase.  If the filename's
