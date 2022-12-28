@@ -1,0 +1,27 @@
+A Scala "view" is a special kind of collection that represents some base collection,
+(i.e., Array, List, etc.) but implements all TRANSFORMERS lazily.  To understand
+what this means, keep reading.
+
+Scala Collections (Arrays, Lists, etc.) contain methods that construct new collections.
+Some examples are...
+
+The map() method.
+The filter() method.
+The "++" operator method.
+
+Methods such as these are called TRANSFORMERS because they take at least one collection
+as their receiver object, and generate another collection as their result.
+
+There are TWO (2) ways to implement transformers.
+
+1) STRICT - A new collection with all its elements is constructed as a result
+            of the transformer.
+
+2) NON-STRICT OR LAZY - Only a proxy is constructed for the result collection.
+                        Its resulting elements get constructed ONLY when you
+                        access them.
+
+To go from a collection to its view, you can call the view() method on the collection.
+
+To return from a view (a non-strict collection), to a strict collection, you can call
+the to() method on a strict collection.
