@@ -24,4 +24,47 @@ There are TWO (2) ways to implement transformers.
 To go from a collection to its view, you can call the view() method on the collection.
 
 To return from a view (a non-strict collection), to a strict collection, you can call
-the to() method on a strict collection.
+the to() method on a strict collection.  Here is an example.
+
+import scala.collection.SeqView
+object Demo
+{
+  /********************************************
+   * main()
+   ********************************************/
+  def main(args: Array[String]): Unit =
+  {
+    println("PART 1) =============================")
+    println("Here we initialize vect.")
+    val vect:Vector[Int] = Vector(1 to 10: _*)
+    vect.foreach(println)
+
+    println("PART 2) =============================")
+    println("In this example each call to map() generates a new result.")
+    var result:Vector[Int] = vect.map(_ + 1).map(_ * 2)
+    result.foreach(println)
+
+    println("PART 3) =============================")
+    println("Here we see that no result is generated when the map() method is invoked\n" +
+            "on the view() method.  This happens because the view() method transforms\n" +
+            "transforms a strict collection into a lazy/non-strict collection/evaluation.")
+    val seqView:SeqView[Int, Seq[_]] = vect.view.map(_ + 1)
+    // seqView.foreach(println)
+
+    println("PART 4) =============================")
+    println("Here we invoke the map() method on seqView, which does generate a result.\n" +
+            "NOTE: The to() method below transforms SeqView[Int, Seq[_]] into IndexedSeq[Int],\n" +
+            "      which is a strict collection." +
+            "      The toVector() method below transforms IndexedSeq[Int] into Vector[Int].")
+    result = seqView.map(_ * 2).to.toVector
+    result.foreach(println)
+
+    println("PART 5) =============================")
+    println("Here we combine PART 3) and PART 4) above into a single line of equivalent code.")
+    result = vect.view.map(_ + 1).map(_ * 2).to.toVector
+    result.foreach(println)
+  }
+}
+
+============================================================================
+============================================================================
