@@ -21,10 +21,11 @@ There are TWO (2) ways to implement transformers.
                         Its resulting elements get constructed ONLY when you
                         access them.
 
-To go from a collection to its view, you can call the view() method on the collection.
+To transform a strict collection into a non-strict (lazy) collection,
+invoke the view() method on the collection.
 
-To return from a view (a non-strict collection), to a strict collection, you can call
-the to() method on a strict collection.  Here is an example.
+To transform a non-strict (lazy) collection back into into a strict collection,
+invoke the to() method on the collection.  Here is an example...
 
 import scala.collection.SeqView
 object Demo
