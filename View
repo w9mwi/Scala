@@ -39,29 +39,34 @@ object Demo
     val vect:Vector[Int] = Vector(1 to 10: _*)
     vect.foreach(println)
 
-    println("PART 2) =============================")
+    println("\nPART 2) =============================")
     println("In this example each call to map() generates a new result.")
     var result:Vector[Int] = vect.map(_ + 1).map(_ * 2)
     result.foreach(println)
 
-    println("PART 3) =============================")
-    println("Here we see that no result is generated when the map() method is invoked\n" +
-            "on the view() method.  This happens because the view() method transforms\n" +
-            "a strict collection into a lazy/non-strict collection/evaluation.")
-    val seqView:SeqView[Int, Seq[_]] = vect.view.map(_ + 1)
-    // seqView.foreach(println)
+    println("\nPART 3) =============================")
+    println("Here we see that calling vect.view() transforms vect (a strict\n" +
+            "collection) into a lazy/non-strict collection.")
+    val seqView1:SeqView[Int, Vector[Int]] = vect.view
 
-    println("PART 4) =============================")
-    println("Here we invoke the map() method on seqView, which does generate a result.\n" +
-            "NOTE: The to() method below transforms the non-strict collection\n" +
-            "      SeqView[Int, Seq[_]] into a strict collection IndexedSeq[Int].\n" +
-            "      The toVector() method below transforms the data type from\n" +
-            "      IndexedSeq[Int] into Vector[Int].")
-    result = seqView.map(_ * 2).to.toVector
+    println("\nPART 4) =============================")
+    println("When map() is called on seqView1 (a lazy/non-strict collection)\n" +
+            "no result is generated, but the data type returned changes.")
+    val seqView2:SeqView[Int, Seq[_]] = seqView1.map(_ + 1)
+    // seqView2.foreach(println)
+
+    println("\nPART 5) =============================")
+    println("We now invoke the map() method on seqView2, and are ready to generate\n" +
+            "a result, which means we must obtain a non-strict collection.\n" +
+      "NOTE: The to() method below transforms the non-strict collection\n" +
+      "      SeqView[Int, Seq[_]] into a strict collection (IndexedSeq[Int]).\n" +
+      "      The toVector() method below transforms the data type from\n" +
+      "      IndexedSeq[Int] into Vector[Int].")
+    result = seqView2.map(_ * 2).to.toVector
     result.foreach(println)
 
-    println("PART 5) =============================")
-    println("Here we combine PART 3) and PART 4) above into a single line of equivalent code.")
+    println("\nPART 6) =============================")
+    println("Here we combine PART 3), PART 4) and PART 5) above into a single line of equivalent code.")
     result = vect.view.map(_ + 1).map(_ * 2).to.toVector
     result.foreach(println)
   }
