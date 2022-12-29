@@ -131,22 +131,22 @@ object Demo
     // this way (where myStrArray.view represents a non-strict/lazy
     // Array) also works:       findFirstPalindrome(myStrArray.view)
     var result:Option[String] = findFirstPalindrome(myStrArray)
-    println(s"result 1 = ${result.get}") // PRINTS: result 1 = radar
+    println(s"result #1 = ${result.get}") // PRINTS: result #1 = radar
 
-    // Here we "take" 999 elements of myStrArray and pass them to
+    // Here we "take" 15 elements of myStrArray and pass them to
     // findFirstPalindrome().
     // IMPORTANT: If myStrArray was super-large, and we were to "take" a
-    //            number equal to the size of myStrArray, an OutOfMemory
+    //            number equal to myStrArray.length, an OutOfMemory
     //            exception could be thrown because an intermediary
     //            Sequence of that size would be constructed first.
     result = findFirstPalindrome(myStrArray take 15)
-    println(s"result 2 = ${result.get}")  // PRINTS: result 2 = radar
+    println(s"result #2 = ${result.get}")  // PRINTS: result #2 = radar
 
     // Here we first transform myStrArray into a view (a non-strict/lazy
-    // Array) before "take(999)" is called.  Calling view prevents the
+    // Array) before "take(15)" is called.  Calling view prevents the
     // construction of an intermediary Sequence of size 15.
     result = findFirstPalindrome(myStrArray.view.take(15))
-    println(s"result 3 = ${result.get}")  // PRINTS: result 3 = radar
+    println(s"result #3 = ${result.get}")  // PRINTS: result #3 = radar
   }
 }
 
