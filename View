@@ -84,4 +84,70 @@ object Demo
 }
 
 ============================================================================
+Here is another example of how calling the view() prevents an intermediary
+Sequence being generated that may be too large.  Read in-line comments for
+details.
+
+
+object Demo
+{
+  def isPalindrome(str:String):Boolean                    = { str == str.reverse }
+  def findFirstPalindrome(seq:Seq[String]):Option[String] = seq.find(isPalindrome)
+
+  /********************************************
+   * main() function
+   ********************************************/
+  def main(args: Array[String])
+  {
+    println("PART 1) ==============================")
+    // If you attempt to execute the following commented-out line of code, this error will
+    // be thrown:  Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+    // This occurs because an intermediary Sequence containing Int.MaxValue (2,147,483,647)
+    // elements is constructed BEFORE "filter(_ % 2 == 0).take(10)" is invoked.
+    // var myList:List[Int] = (1 to Int.MaxValue).filter(_ % 2 == 0).take(10).toList
+
+    // To prevent an intermediary Sequence of Int.MaxValue (2,147,483,647) elements
+    // from being constructed, the view method is added to the above line of
+    // commented-out code.  The view method transforms a strict Sequence into
+    // a non-strict/lazy Sequence.  Therefore, when "filter(_ % 2 == 0).take(10)"
+    // is invoked, an intermediary Sequence of only 10 elements is constructed.
+    var myList:List[Int] = (1 to Int.MaxValue).view.filter(_ % 2 == 0).take(10).toList
+    println(s"No. of elements in myList = ${myList.size}") // PRINTS: No. of elements in myList = 10
+    println(s"myList = $myList") // PRINTS: myList = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
+
+
+    println("PART 2) ==============================")
+    // Make myString is a very long string.  In a real application,
+    // this string could have a size of many megabytes.
+    val myString:String = "Marion Robert Morrison radar (May 26, 1907 to June 11, 1979), known professionally as John Wayne oxo"
+    println(s"myString length = ${myString.length}")
+
+    // Transform myString into an Array of strings (words).
+    val myStrArray:Array[String] = myString.split(" ")
+    println(s"Number of elements in myStrArray = ${myStrArray.length}")
+
+    // Obtain the first word in myStrArray that's a palindrome.
+    // Here, we do it in the standard way.  NOTE: Calling it
+    // this way (where myStrArray.view represents a non-strict/lazy
+    // Array) also works:       findFirstPalindrome(myStrArray.view)
+    var result:Option[String] = findFirstPalindrome(myStrArray)
+    println(s"result 1 = ${result.get}") // PRINTS: result 1 = radar
+
+    // Here we "take" 999 elements of myStrArray and pass them to
+    // findFirstPalindrome().
+    // IMPORTANT: If myStrArray was super-large, and we were to "take" a
+    //            number equal to the size of myStrArray, an OutOfMemory
+    //            exception could be thrown because an intermediary
+    //            Sequence of that size would be constructed first.
+    result = findFirstPalindrome(myStrArray take 15)
+    println(s"result 2 = ${result.get}")  // PRINTS: result 2 = radar
+
+    // Here we first transform myStrArray into a view (a non-strict/lazy
+    // Array) before "take(999)" is called.  Calling view prevents the
+    // construction of an intermediary Sequence of size 15.
+    result = findFirstPalindrome(myStrArray.view.take(15))
+    println(s"result 3 = ${result.get}")  // PRINTS: result 3 = radar
+  }
+}
+
 ============================================================================
