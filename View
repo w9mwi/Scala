@@ -25,7 +25,13 @@ To transform a strict collection into a non-strict (lazy) collection,
 invoke the view() method on the collection.
 
 To transform a non-strict (lazy) collection back into into a strict collection,
-invoke the to() method on the collection.  Here is an example...
+invoke the to() method on the collection.
+
+The main reason for using views is performance.  By switching a collection to
+a view, the construction of intermediate results can be avoided. 
+
+
+Here is an example...
 
 import scala.collection.SeqView
 object Demo
