@@ -10,6 +10,10 @@ In Scala, there are two kinds of program evaluations:
                      gets executed does it get evaluated.  ONLY vals can be declared
                      lazy, vars cannot be declared lazy.
 
+To see code examples of why you'd want to use lazy evaluation,
+read the "View" section.
+--> https://github.com/w9mwi/Scala/blob/master/View
+
 ========================================================================
 object Demo
 {
