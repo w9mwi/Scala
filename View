@@ -158,9 +158,12 @@ import scala.collection.mutable.IndexedSeqView
 import scala.collection.mutable.Seq
 object Demo
 {
-  // NOTE: The xs argument below MUST be declared as a Seq[Int] type.
-  //       In this example, this negate() method gets called as
-  //       a "view", which is ALWAYS a Seq type.
+  /********************************************
+   * NOTE: The xs argument below MUST be declared as a Seq[Int] type.
+   *       In this example, the negate() method gets called by
+   *       passing to it a "view", and by passing to it an Array,
+   *       which are both Seq types.
+   ********************************************/
   def negate(xs:Seq[Int]) =
   {
     for (idx <- 0 until xs.length)
@@ -175,18 +178,27 @@ object Demo
     // ******************************************************
     // NOTE: In the following line "(0 to 9).toArray" is equivalent to "Array(0 to 9: _*)"
     val intArray:Array[Int] = (0 to 9).toArray
+
+    println("PART 1) ===============")
     var viewSubArray:IndexedSeqView[Int, Array[Int]] = intArray.view
     // The following line of code CHANGES THE CONTENTS of intArray
     // by negating the Int values in every one of its elements.
     negate(viewSubArray)
-    println("PART 1)")
     intArray.foreach(println)
+
     // ******************************************************
+    println("PART 2) ===============")
     viewSubArray = intArray.view.slice(3,6)
     // The following line of code CHANGES THE CONTENTS of intArray[3]
     // through intArray[5] by negating their Int values.
     negate(viewSubArray)
-    println("PART 2)")
+    intArray.foreach(println)
+
+    // ***************************************************
+    println("PART 3) ===============")
+    // Here we demonstrate that passing intArray to the negate()
+    // method works the same as passing to it viewSubArray.
+    negate(intArray)
     intArray.foreach(println)
   }
 }
