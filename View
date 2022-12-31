@@ -151,21 +151,22 @@ object Demo
 }
 
 ============================================================================
-Here is another example of how you can use the view() on a collection.
-
+This example shows how a "view" can be used to alter a subset
+of values in a MUTABLE collection, like an Array.
 
 import scala.collection.mutable.IndexedSeqView
 import scala.collection.mutable.Seq
 object Demo
 {
   /********************************************
-   * NOTE: The xs argument below MUST be declared as a Seq[Int] type.
-   *       In this example, the negate() method gets called by
-   *       passing to it a "view", and by passing to it an Array,
-   *       which are both Seq types.
+   * The xs argument below MUST be declared as a
+   * MUTABLE Seq[Int] type so it can alter values
+   * within a MUTABLE collection--in this example
+   * an Array.
    ********************************************/
   def negate(xs:Seq[Int]) =
   {
+    // Negate ALL values in the collection.
     for (idx <- 0 until xs.length)
       xs(idx) = -xs(idx)
   }
@@ -176,29 +177,37 @@ object Demo
   def main(args: Array[String])
   {
     // ******************************************************
-    // NOTE: In the following line "(0 to 9).toArray" is equivalent to "Array(0 to 9: _*)"
-    val intArray:Array[Int] = (0 to 9).toArray
+    val intArray:Array[Int] = Array(0 to 9: _*)
+    // The following commented-out line is EQUIVALENT to the above line.
+    // val intArray:Array[Int] = (0 to 9).toArray
 
+    // ******************************************************
     println("PART 1) ===============")
-    var viewSubArray:IndexedSeqView[Int, Array[Int]] = intArray.view
-    // The following line of code CHANGES THE CONTENTS of intArray
-    // by negating the Int values in every one of its elements.
-    negate(viewSubArray)
+    // The negate() method does change the contents of intArray
+    // when you pass the entire intArray to negate().
+    negate(intArray) // All elements of intArray are negated.
     intArray.foreach(println)
 
     // ******************************************************
     println("PART 2) ===============")
-    viewSubArray = intArray.view.slice(3,6)
-    // The following line of code CHANGES THE CONTENTS of intArray[3]
-    // through intArray[5] by negating their Int values.
-    negate(viewSubArray)
+    // Recall that a Scala Array (unlike a List, Vector, etc.) is mutable.
+    // Here we pass a slice of intArray to the negate() method, but
+    // negate() does NOT change any values in intArray.  intArray
+    // remains unchanged because intArray.slice(3,6) constructs a
+    // new Array[Int], which is an entirely different Array than intArray.
+    negate(intArray.slice(3,6)) // intArray remains unchanged.
     intArray.foreach(println)
 
-    // ***************************************************
+    // ******************************************************
     println("PART 3) ===============")
-    // Here we demonstrate that passing intArray to the negate()
-    // method works the same as passing to it viewSubArray.
-    negate(intArray)
+    // For MUTABLE SEQUENCES (like an Array) a "view" provides direct
+    // access to the collection so you can change its contents.  So
+    // in this example negate() DOES change the contents of intArray
+    // because negate gets passed intArray.view.
+    val viewSubArray:IndexedSeqView[Int, Array[Int]] = intArray.view
+    negate(viewSubArray.slice(3,6)) // Negates values in intArray(3) through intArray(5).
     intArray.foreach(println)
   }
 }
+
+============================================================================
