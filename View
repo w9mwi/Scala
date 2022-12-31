@@ -1,6 +1,6 @@
 A Scala "view" is a special kind of collection that represents some base collection,
 (i.e., Array, List, etc.) but implements all TRANSFORMERS lazily.  To understand
-what this means, keep reading.
+what this means keep reading.
 
 Scala Collections (Arrays, Lists, etc.) contain methods that construct new collections.
 Some examples are...
@@ -10,17 +10,17 @@ The filter() method.
 The "++" operator method.
 
 Methods such as these are called TRANSFORMERS because they take at least one collection
-as their receiver object, and generate another collection as their result.
+as their receiver object, and generate a new collection as their result.
 
 There are TWO (2) ways to implement transformers.
 
 1) STRICT - A new collection with all its elements is constructed as a result
-            of the transformer.  This is what's used 99% of the time.  When
-            the List.filter() method, or the List.map() method is called,
+            of the transformer.  This is what's used most of the time.  When
+            the List.filter() method, or the List.map() method, is called
             they're almost always called on a STRICT List.
 
 2) NON-STRICT OR LAZY - Only a proxy is constructed for the result collection.
-                        Its resulting elements get constructed ONLY when you
+                        Its resulting elements don't get constructed until you
                         access them.
 
 To transform a strict collection into a non-strict (lazy) collection,
@@ -29,9 +29,18 @@ invoke the view() method on the collection.
 To transform a non-strict (lazy) collection back into into a strict collection,
 invoke the to() method on the collection.
 
+NOTE: All Scala collections except "streams" and "views" are STRICT collection.
+      So if you want to generate a lazy result on an Array, List, or Vector,
+      you must first call Array.view, List.view, or Vector.view first,
+      like this...
+
+      Array.view.map(...)
+      List.view.map(...)
+      Vector.view.map(...)
+
 The main reason for using views is performance.  By switching a collection to
-a view, the construction of intermediate results can be avoided.  Below is an
-example program.
+a view, the construction of intermediate results can be avoided.  Below are
+some sample programs.
 
 To learn more, read this web page:
 https://docs.scala-lang.org/overviews/collections-2.13/views.html#
