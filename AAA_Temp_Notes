@@ -218,3 +218,71 @@ object Demo
     println(s"order = $order\n")
   }
 }
+
+==================================================================
+CODE FROM PAGE 581
+==================
+
+import scala.collection.IndexedSeqLike
+import scala.collection.mutable.{ArrayBuilder, Builder}
+import scala.collection.generic.CanBuildFrom
+
+object Demo
+{
+  object Base
+  {
+    // Both of the following vals fromInt() and toInt() are FUNCTIONS.
+    val fromInt:(Int=>Base) = Array(A, G, T, U)
+    val toInt:(Base=>Int) = Map(A -> 0, G -> 1, T -> 2, U -> 3)
+  }
+
+  abstract class Base
+  case object A extends Base // A = Adenine
+  case object G extends Base // G = Guanine
+  case object T extends Base // T = Thymine
+  case object U extends Base // U = Uracil
+
+  /** ***********************************
+   * OBJECT: RNA1
+   * ********************************** */
+  object RNA1
+  {
+    private val S:Int = 2
+    private val N:Int = 32
+    private val M:Int = (1 << S) - 1
+    def apply(bases:Base*) = fromSeq(bases)
+    def fromSeq(buf:Seq[Base]): RNA1 =
+    {
+      val groups:Array[Int] = Array[Int]((buf.length + N - 1) / N)
+      for (idx <- 0 until buf.length) { groups(idx / N) |= Base.toInt(buf(idx)) << (idx % N * S) }
+      new RNA1(groups, buf.length)
+    }
+  }
+
+  /*************************************
+   * CLASS: RNA1(groups, length)
+   ************************************/
+  final class RNA1 private (val groups:Array[Int], val length:Int) extends IndexedSeq[Base]
+  {
+    def apply(idx:Int):Base = {
+      if (idx < 0 || length <= idx)
+        throw new IndexOutOfBoundsException
+
+      Base.fromInt(groups(idx / RNA1.N) >> (idx % RNA1.N * RNA1.S) & RNA1.M)
+    }
+  }
+
+
+
+  /********************************************
+   * main() function
+   ********************************************/
+  def main(args: Array[String])
+  {
+    val xs:List[Base] = List(A,U,G,G,T)
+    val rna_1:List[Base] = List(A,U,G,G,T)
+  }
+}
+==================================================================
+
+
