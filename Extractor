@@ -1,31 +1,31 @@
-A Scala class that defines an unapply() method is called an extractor.
+A Scala class/object that defines an unapply() method is called an extractor.
 
 Recall that the Scala keyword "match" is used for pattern matching.
 
-Scala Extractor - Defined as an object that has a method named unapply()
-                  as one of its methods.  The unapply() method extracts
-                  an object and returns the argument(s).  The unapply()
-                  method is USED IN PATTERN MATCHING AND PARTIAL FUNCTIONS.
-                  A class's apply() method takes arguments and constructs
-                  the class.  A class's unapply() method REVERSES the
-                  construction procedure of the apply() method.
+Scala Extractor - A class/object is an extractor if it has a method named unapply().
+                  The unapply() method is USED IN PATTERN MATCHING AND PARTIAL FUNCTIONS,
+                  and is automatically invoked by the Scala keyword "match."  A class/object
+                  apply() method takes arguments and constructs the object/class.  Its
+                  unapply() method extracts a class/object and returns the argument(s).
+                  In other words, a class's unapply() method REVERSES the construction
+                  procedure of the apply() method.
 
-When you define a Scala "case class", Scala automatically creates BOTH
-the apply() and unapply() methods for that class.  So a "case class"
-can always be used for pattern matching.
+When you define a Scala "case class" or "case object", Scala automatically creates BOTH
+the apply() and unapply() methods for that class.  So any "case class" or "case object"
+is ready to be used for pattern matching without any additional programming.
 
-When you define a regular Scala class (not a "case class"), Scala automatically
-creates the apply() method for that class, but NOT an unapply() method.
-Therefore, if you want to perform a pattern match on a regular Scala class
-(not a "case class"), the programmer must write her own unapply() method for
-the class.
+When you define a regular Scala class/object (not a "case class" or a "case object"),
+Scala automatically creates the apply() method for that class/object, but NOT an
+unapply() method.  Therefore, if you want to perform a pattern match on a regular
+Scala class/object, the programmer must write her own unapply() method for the
+class/object.
 
 The unapply() method says:  Pass me the object which was created by
 applying a function to argument x, and I will return the argument x.
 
-Since the purpose of unapply() is to extract values from an object,
-it is in some sense the exact opposite of a constructor, whose
-purpose it is to collect values and hide them in an object.
+Since the purpose of unapply() is to extract values from a class/object,
+it is in some sense the exact opposite of a constructor, whose purpose
+it is to collect values and hide them in a class/object.
 
 ...unapplySeq()...
 
