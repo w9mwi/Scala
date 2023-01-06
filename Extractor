@@ -10,6 +10,12 @@ Scala Extractor - A class/object is an extractor if it has a method named unappl
                   In other words, a class's unapply() method REVERSES the construction
                   procedure of the apply() method.
 
+NOTE: The unapply() method is most commonly invoked automatically when the keyword
+      "match" is encountered to perform pattern matching.  However, the unapply()
+      method also gets invoked automatically when a PARTIAL FUNCTION is invoked.
+      One of the code examples below uses a PARTIAL FUNCTION (instead of the match
+      keyword) to invoke the unapply() method.
+
 When you define a Scala "case class" or "case object", Scala automatically creates BOTH
 the apply() and unapply() methods for that class.  So any "case class" or "case object"
 is ready to be used for pattern matching without any additional programming.
@@ -45,7 +51,7 @@ to pattern match on, you must write your own unapply() method, and
 then place it inside that class's COMPANION OBJECT.  See the following
 sample code for an example of this.
 
-========================================================================
+===================================================================================
 object Demo
 {
   def main(args: Array[String])
@@ -79,7 +85,7 @@ object Demo
   }
 }
 
-========================================================================
+===================================================================================
 This code sample performs TWO (2) pattern matches on the MyClass class.
 The FIRST patten match invokes the unapply() method because we're
 matching on the contents of MyClass (name and id).  The SECOND pattern
@@ -135,7 +141,12 @@ object MyClass
   }
 }
 
-========================================================================
+===================================================================================
+The following code sample is DIFFICULT TO UNDERSTAND.  In this example
+Scala automatically invokes the unapply() method NOT as a result of
+pattern matching via the Scala "match" keyword, but as the result of
+calling a PARTIAL FUNCTION.  In this example, a PARTIAL FUNCTION is
+passed as an argument to the stud.collect{} method call.
 
 object Demo
 {
@@ -144,6 +155,8 @@ object Demo
 
   object State
   {
+    // This unapply() method is automatically invoked by Scala
+    // when the stud.collect() method in main() gets called.
     def unapply(stud:Student):Option[Seq[String]] =
     {
       println("State.unapply() called.")
@@ -151,16 +164,19 @@ object Demo
       // a SINGLE Address, such as this:  Address(Jacksonville,Florida)
       // Then, "yield addr.state" returns ONLY THE STATE as a Seq[String] wrapped
       // in an Option.  An example of what's returned is this:  Some(List(Florida))
-      Some(for(addr <- stud.address) yield addr.state)
+      val result:Seq[String] = for(addr <- stud.address) yield addr.state
+      Option(result)
     }
   }
 
   class StrSeqContains(strValue:String)
   {
+    // This unapply() method is automatically invoked by Scala
+    // when the stud.collect() method in main() gets called.
     def unapply(strSeq:Seq[String]):Boolean =
     {
       println("StrSeqContains.unapply() called.")
-      // The following contains() method tests if strSeq contains strValue
+      // The following line tests if strSeq contains strValue.
       strSeq.contains(strValue) // This line can also be written as: strSeq contains strValue
     }
   }
@@ -172,26 +188,17 @@ object Demo
                                   Student("Rob",    List(Address("Dallas",       "Texas"))),
                                   Student("Chris",  List(Address("Jacksonville", "Florida"))))
 
-    val Texas:StrSeqContains = new StrSeqContains("Texas")
-    // The following line of code calls State.unapply() AND StrSeqContains.unapply().
-    // Both those unapply() methods are called 4 times--once for each student.
-    val students:List[String] = stud.collect { case student@State(Texas()) => student.name }
-    println(students) // PRINTS: List(Reena, Rob)
-    testSeqStr()
-  }
+    // The following val (texas) is used to obtain all students residing in Texas.
+    val texas:StrSeqContains = new StrSeqContains("Texas")
 
-  def testSeqStr():Unit =
-  {
-    // This method exists just to demonstrate how a Seq[String] data
-    // type is used.  A Seq[String] is nearly the same (but NOT
-    // identical) data type as List[String], as shown here...
-    val seqStr:Seq[String] = Seq("123", "ABC", "789", "XYZ")
-    var list:List[String] = List()
-    list = seqStr(0) :: seqStr(1) :: seqStr(2) :: seqStr(3) :: list
-    println(list)   // PRINTS: List(123, ABC, 789, XYZ)
-    println(seqStr) // PRINTS: List(123, ABC, 789, XYZ)
-    // list = seqStr;  // This line will NOT compile cuz list and seqStr are different data types.
-    val seqStr2:Seq[String] = seqStr  // This line compiles cuz seqStr2 and seqStr are identical data types.
-    println(seqStr2) // PRINTS: List(123, ABC, 789, XYZ)
+    // When the stud.collect() method is called below, it GETS PASSED A PARTIAL FUNCTION.
+    // This partial function automatically invokes BOTH the State.unapply() AND the
+    // StrSeqContains.unapply() methods.  Both of those unapply() methods get called
+    // here 4 times; once for each of the 4 students.  NOTE: The following line
+    // MUST reference "texas()", not just "texas".
+    val students:List[String] = stud.collect{ case student@State(texas()) => student.name }
+    println(students) // PRINTS: List(Reena, Rob)
   }
 }
+
+===================================================================================
