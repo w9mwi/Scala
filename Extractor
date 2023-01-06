@@ -46,25 +46,18 @@ then place it inside that class's COMPANION OBJECT.  See the following
 sample code for an example of this.
 
 ========================================================================
-Extractors can be utilized in Pattern Matching.  While comparing the
-Object of an Extractor in Pattern Matching, the unapply() method is
-invoked by Scala when the "match" statement is executed.  In Scala,
-every "case class" has an unapply() method (an Extractor) by default,
-so every "case class" can be used in pattern matching.
-
 object Demo
 {
   def main(args: Array[String])
   {
-    val x:Double = Demo(25.0) // NOTE: This line of code invokes the method:  Demo.apply()
-    println("2) x = " + x)  // PRINTS: 2) x = 5.0
+    val x:Double = Demo(25.0D) // This line of code invokes:  Demo.apply(25.0)
+    println("2) x = " + x)     // PRINTS: 2) x = 5.0
 
-    // Perform pattern matching...
-    x match
+    x match // Perform a pattern match on x, which is of type Double.
     {
-      // The following line of code invokes the method: Demo.unapply(5.0)
-      case Demo(y) => println("4) y = " + y)  // PRINTS: 4) y = 1.0
-      case _ => println("4) Can't be evaluated.")
+      // The following line of code invokes:  Demo.unapply(5.0)
+      case Demo(y) => println("4) y = " + y)  // PRINTS: 4) y = 25.0
+      case _ => println("4) No pattern is matched.")
     }
   }
 
@@ -74,12 +67,15 @@ object Demo
     x / 5
   }
 
+  // An unapply() method MUST return a class/object having a member  method with
+  // this name and signature:  def isEmpty: Boolean
+  // To fulfill that requirement, unapply() returns a Some class.  The Some class
+  // extends the Option class.  Both Some and Option classes contain the isEmpty()
+  // method.
   def unapply(z:Double):Option[Double] =
   {
     println("3) Demo.unapply(" + z + ") is called.  ") // PRINTS: 3) Demo.unapply(5.0) is called.
-    if (z % 5 == 0)
-      Some(z / 5)
-    else None
+    Some(z * 5)
   }
 }
 
