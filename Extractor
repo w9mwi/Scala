@@ -80,8 +80,14 @@ object Demo
 }
 
 ========================================================================
-import Demo.MyClass
+This code sample performs TWO (2) pattern matches on the MyClass class.
+The FIRST patten match invokes the unapply() method because we're
+matching on the contents of MyClass (name and id).  The SECOND pattern
+match DOESN'T invoke the unapply() method because we're metching on
+the entire class (MyClass) and not its contents.
 
+
+import Demo.MyClass
 object Demo
 {
   class MyClass(val name:String, val id:Int)
@@ -93,34 +99,31 @@ object Demo
     mc match
     {
       // When the following line of code executes, Scala automatically
-      // invokes the MyClass.unapply() method, defined below.
+      // invokes the MyClass.unapply() method defined below.
       case MyClass(x) => println("2) x.name = " + x.name + ",  x.id = " + x.id) // PRINTS: 2) x.name = Tom,  x.id = 123456
-      case _          => println("No pattern match.") // This line of code never executes.
+      case _          => println("No pattern match.") // This line never executes.
     }
 
     mc match
     {
       // The following line of code does NOT call the MyClass.unapply()
-      // method because it matches on the MyClass class.
+      // method because it matches on the entire MyClass class.
       case x:MyClass => println("3) x.name = " + x.name + ",  x.id = " + x.id) // PRINTS: 3) x.name = Tom,  x.id = 123456
-      case _         => println("No pattern match.") // This line of code never executes.
+      case _         => println("No pattern match.") // This line never executes.
     }
   }
 }
 
 /**
- * This "object MyClass" is the COMPANION OBJECT to the class MyClass that's
- * defined above inside "object Demo".  This "object Myclass" could be moved
- * inside the above-defined "object Demo", and it would work.
+ * This "object MyClass" is the COMPANION OBJECT to MyClass defined above
+ * inside of "object Demo".  This "object Myclass" could be moved inside
+ * of "object Demo" above and it would also work.
  *
- * The class MyClass is declared above (inside "object Demo") as a regular class
- * (not a case class).  Only a case class contains an unapply() method by default,
- * when it's declared.
-
-  To obtain an unapply() method for a regular class like MyClass,
-  you must write your own unapply() method.  Where the unapply()
-  method is defined inside the MyClass's COMPANION OBJECT.  And
-  the companion object also has the name MyClass, as shown here...
+ * Because MyClass is defined as a regular class (not a case class) it
+ * DOESN'T contain an unapply() method by default, as a case class does.
+ * Therefore, the unapply() method MUST be written by the programmer.
+ * This unapply() method MUST also be a member of the MyClass companion
+ * object, NOT a member of the MyClass class.
  */
 object MyClass
 {
