@@ -1,20 +1,33 @@
 A Scala class that defines an unapply() method is called an extractor.
 
-Scala Extractor - Defined as an object that has a method named
-unapply() as one of its methods.  The unapply() method extracts
-an object and returns the argument(s).  The unapply() method is
-USED IN PATTERN MATCHING AND PARTIAL FUNCTIONS.  Extractors also
-explain the apply() method, which takes arguments and constructs
-an object.  The unapply() method REVERSES the construction
-procedure of the apply() method.
+Recall that the Scala keyword "match" is used for pattern matching.
 
-IMPORTANT:
+Scala Extractor - Defined as an object that has a method named unapply()
+                  as one of its methods.  The unapply() method extracts
+                  an object and returns the argument(s).  The unapply()
+                  method is USED IN PATTERN MATCHING AND PARTIAL FUNCTIONS.
+                  A class's apply() method takes arguments and constructs
+                  the class.  A class's unapply() method REVERSES the
+                  construction procedure of the apply() method.
+
+When you define a Scala "case class", Scala automatically creates BOTH
+the apply() and unapply() methods for that class.  So a "case class"
+can always be used for pattern matching.
+
+When you define a regular Scala class (not a "case class"), Scala automatically
+creates the apply() method for that class, but NOT an unapply() method.
+Therefore, if you want to perform a pattern match on a regular Scala class
+(not a "case class"), the programmer must write her own unapply() method for
+the class.
+
 The unapply() method says:  Pass me the object which was created by
 applying a function to argument x, and I will return the argument x.
 
 Since the purpose of unapply() is to extract values from an object,
 it is in some sense the exact opposite of a constructor, whose
 purpose it is to collect values and hide them in an object.
+
+...unapplySeq()...
 
 unapply() (and unapplySeq()) is "silently" called on a class whenever
 you attempt to PATTERN MATCH on a class instance.  That is, unapply()
