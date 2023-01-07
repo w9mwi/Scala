@@ -22,7 +22,9 @@ they both have identical spelling, the Scala object is referred
 to as a "companion object" to the class.  For example, if a Scala
 "Person" class and "Person" object were defined in the same file,
 the "Person" companion object would contain only members and methods
-that are applicable to every "Person" class that gets created.
+that are applicable to every "Person" class that gets created.  Also,
+the members and methods contained in the "Person" companion object
+could be accessed ONLY by "Person" classes.
 
 NOTE: In the Scala API documentation...
       1) A circled 'c' represents a class.
