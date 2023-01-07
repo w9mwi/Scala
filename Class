@@ -15,7 +15,12 @@ represent planet Earth because only one exists (it's a singleton).
 It wouldn't make sense to create multiple planet Earth objects or
 classes.
 
-Unlike Scala classes, Scala objects CAN'T accept arguments/parameters.
+Unlike Scala classes, Scala objects CAN'T be defined to accept arguments
+via a parameter list.  Instead, a Scala object can be written to include
+the apply() method so when you create a new object, you can pass
+arguments/parameters to the object.  When you do that, you're really
+calling the object's apply() method, as Scala automatically calls
+apply() in the background.
 
 If a Scala class and a Scala object exists in the same file, and
 they both have identical spelling, the Scala object is referred
