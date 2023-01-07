@@ -15,12 +15,14 @@ represent planet Earth because only one exists (it's a singleton).
 It wouldn't make sense to create multiple planet Earth objects or
 classes.
 
+Unlike Scala classes, Scala objects CAN'T accept arguments/parameters.
+
 If a Scala class and a Scala object exists in the same file, and
 they both have identical spelling, the Scala object is referred
 to as a "companion object" to the class.  For example, if a Scala
 "Person" class and "Person" object were defined in the same file,
-the Person companion object would contain only members and methods
-that are applicable to all Person classes.
+the "Person" companion object would contain only members and methods
+that are applicable to every "Person" class that gets created.
 
 NOTE: In the Scala API documentation...
       1) A circled 'c' represents a class.
