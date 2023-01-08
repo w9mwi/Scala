@@ -68,8 +68,8 @@ There are three (3) main levels of visibility in Scala, they are:
 When a class is defined to accept arguments when instantiated, and an argument
 is NOT preceeded by the "val" or "var" keywords, the argument is "val" by default.
 
-When a class's argument is "val", it's accessible from ONLY inside the class.
-When a class's argument is "var", it's accessible inside and outside the class.
+When an argument passed to a class constructor is a "val", it's accessible only inside the class.
+When an argument passed to a class constructor is a "var", it's accessible inside and outside the class.
 
 The following sample code demonstrates this behavior.  Read in-line comments
 for detailed explanations.
