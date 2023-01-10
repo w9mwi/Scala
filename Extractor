@@ -92,7 +92,6 @@ matching on the contents of MyClass (name and id).  The SECOND pattern
 match DOESN'T invoke the unapply() method because we're metching on
 the entire class (MyClass) and not its contents.
 
-
 import Demo.MyClass
 object Demo
 {
@@ -138,6 +137,48 @@ object MyClass
     // The following line PRINTS:  1) MyClass.unapply() called.  x.name = Tom,  x.id = 123456
     println("1) MyClass.unapply() called.  x.name = " + x.name + ",  x.id = " + x.id)
     Some(x) // Return the Option type because it contains the get() method.
+  }
+}
+
+===================================================================================
+Here is another example of an object that contains an unapply() method,
+which makes it an extractor.
+
+object Demo
+{
+  object EMail {
+    def apply(user:String, domain:String):String = { user + "@" + domain }
+
+    def unapply(str: String): Option[(String, String)] = {
+      val strArray: Array[String] = str.split("@")
+      if (strArray.length == 2)
+        Some(strArray(0), strArray(1))
+      else None
+    }
+  }
+
+  def main(args:Array[String]):Unit =
+  {
+    // The following line of code automatically invokes the apply() method
+    // because an EMail object is constructed.
+    val emailAddr1:String = EMail("joe", "blow.com")
+    println(emailAddr1) // PRINTS: joe@blow.com
+
+    // The following "match" automatically invokes the unapply() method.
+    // unapply() returns a None value because THE PATTERN of "JUNK"
+    // DOESN'T match THE PATTERN of emailAddr1.
+    "JUNK" match {
+      case EMail(emailAddr1) => println("MATCH")
+      case _ => println("NO MATCH");
+    }
+
+    // The following "match" automatically invokes the unapply() method.
+    // unapply() returns a Some value because THE PATTERN of "JUNK@X"
+    // matches THE PATTERN of emailAddr1.
+    "JUNK@X" match {
+      case EMail(emailAddr1) => println("MATCH")
+      case _ => println("NO MATCH");
+    }
   }
 }
 
