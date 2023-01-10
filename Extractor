@@ -56,14 +56,14 @@ object Demo
 {
   def main(args: Array[String])
   {
-    val x:Double = Demo(25.0D) // This line of code invokes:  Demo.apply(25.0)
-    println("2) x = " + x)     // PRINTS: 2) x = 5.0
+    val x:Double = Demo(25.0D) // Demo(25.0D) automatically invokes the Demo.apply() method.
 
-    x match // Perform a pattern match on x, which is of type Double.
+    // When this pattern match matches on Demo(y), the
+    // Demo.unapply() method is automatically invoked.
+    x match
     {
-      // The following line of code invokes:  Demo.unapply(5.0)
-      case Demo(y) => println("4) y = " + y)  // PRINTS: 4) y = 25.0
-      case _ => println("4) No pattern is matched.")
+      case Demo(y) => println("3) y = " + y)  // PRINTS: 3) y = 25.0
+      case _ => println("3) No pattern is matched.")
     }
   }
 
@@ -73,14 +73,14 @@ object Demo
     x / 5
   }
 
-  // An unapply() method MUST return a class/object having a member  method with
-  // this name and signature:  def isEmpty: Boolean
+  // An unapply() method MUST return a class/object having a method with this
+  // name and signature:  def isEmpty: Boolean
   // To fulfill that requirement, unapply() returns a Some class.  The Some class
   // extends the Option class.  Both Some and Option classes contain the isEmpty()
   // method.
   def unapply(z:Double):Option[Double] =
   {
-    println("3) Demo.unapply(" + z + ") is called.  ") // PRINTS: 3) Demo.unapply(5.0) is called.
+    println("2) Demo.unapply(" + z + ") is called.  ") // PRINTS: 2) Demo.unapply(5.0) is called.
     Some(z * 5)
   }
 }
