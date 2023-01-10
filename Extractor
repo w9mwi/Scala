@@ -104,15 +104,15 @@ object Demo
 
     mc match
     {
-      // When the following line of code executes, Scala automatically
-      // invokes the MyClass.unapply() method defined below.
+      // The following line of code automatically invokes the
+      // MyClass.unapply() method defined below.
       case MyClass(x) => println("2) x.name = " + x.name + ",  x.id = " + x.id) // PRINTS: 2) x.name = Tom,  x.id = 123456
       case _          => println("No pattern match.") // This line never executes.
     }
 
     mc match
     {
-      // The following line of code does NOT call the MyClass.unapply()
+      // The following line of code DOESN'T call the MyClass.unapply()
       // method because it matches on the entire MyClass class.
       case x:MyClass => println("3) x.name = " + x.name + ",  x.id = " + x.id) // PRINTS: 3) x.name = Tom,  x.id = 123456
       case _         => println("No pattern match.") // This line never executes.
@@ -126,10 +126,10 @@ object Demo
  * of "object Demo" above and it would also work.
  *
  * Because MyClass is defined as a regular class (not a case class) it
- * DOESN'T contain an unapply() method by default, as a case class does.
+ * DOESN'T contain an unapply() method by default as does a "case class."
  * Therefore, the unapply() method MUST be written by the programmer.
- * This unapply() method MUST also be a member of the MyClass companion
- * object, NOT a member of the MyClass class.
+ * IMPORTANT: This unapply() method MUST be a member of the MyClass
+ *            companion object, NOT a member of the MyClass class.
  */
 object MyClass
 {
