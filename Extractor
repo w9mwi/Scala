@@ -176,7 +176,7 @@ object Demo
     // the pattern of EMail(user, domain).
     "JUNK@X" match {
       case EMail(user, domain) => println(s"MATCH - user = $user,  domain = $domain")
-      // PRINTS: MATCH - user = JUNK,  domain = X
+      //                          PRINTS: MATCH - user = JUNK,  domain = X
       case _ => println("NO MATCH");
     }
 
@@ -186,7 +186,7 @@ object Demo
     // the pattern of EMail(myMatcher).
     "JUNK@X" match {
       case EMail(myMatcher) => println(s"MATCH - myMatcher._1 = ${myMatcher._1},  myMatcher._2 = ${myMatcher._2}")
-      // PRINTS: MATCH - myMatcher._1 = JUNK,  myMatcher._2 = X
+      //                       PRINTS: MATCH - myMatcher._1 = JUNK,  myMatcher._2 = X
       case _ => println("NO MATCH");
     }
 
