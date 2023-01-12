@@ -161,22 +161,24 @@ object Demo
   {
     // The following line of code automatically invokes the apply() method
     // because an EMail object is constructed.
-    val emailAddr1:String = EMail("joe", "blow.com")
-    println(emailAddr1) // PRINTS: joe@blow.com
+    val emailAddr:String = EMail("joe", "blow.com")
+    println(emailAddr) // PRINTS: joe@blow.com
 
     // The following "match" automatically invokes the unapply() method.
     // unapply() returns a None value because THE PATTERN of "JUNK"
-    // DOESN'T match THE PATTERN of emailAddr1.
+    // DOESN'T match THE PATTERN of emailAddr.
+    // NOTE: The string "JUNK" gets passed to the EMail.unapply() method.
     "JUNK" match {
-      case EMail(emailAddr1) => println("MATCH")
+      case EMail(emailAddr) => println("MATCH")
       case _ => println("NO MATCH");
     }
 
     // The following "match" automatically invokes the unapply() method.
     // unapply() returns a Some value because THE PATTERN of "JUNK@X"
-    // matches THE PATTERN of emailAddr1.
+    // matches THE PATTERN of emailAddr.
+    // NOTE: The string "JUNK@X" gets passed to the EMail.unapply() method.
     "JUNK@X" match {
-      case EMail(emailAddr1) => println("MATCH")
+      case EMail(emailAddr) => println("MATCH")
       case _ => println("NO MATCH");
     }
   }
