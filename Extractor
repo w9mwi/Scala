@@ -16,9 +16,10 @@ NOTE: The unapply() method is most commonly invoked automatically when the keywo
       One of the code examples below uses a PARTIAL FUNCTION (instead of the match
       keyword) to invoke the unapply() method.
 
-When you define a Scala "case class" or "case object", Scala automatically creates BOTH
-the apply() and unapply() methods for that class.  So any "case class" or "case object"
-is ready to be used for pattern matching without any additional programming.
+When you define a Scala "case class" or "case object", Scala automatically creates
+BOTH the apply() and unapply() methods for that class/object.  So any "case class"
+or "case object" is ready to be used for pattern matching without any additional
+programming.
 
 When you define a regular Scala class/object (not a "case class" or a "case object"),
 Scala automatically creates the apply() method for that class/object, but NOT an
