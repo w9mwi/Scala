@@ -34,6 +34,11 @@ Since the purpose of unapply() is to extract values from a class/object,
 it is in some sense the exact opposite of a constructor, whose purpose
 it is to collect values and hide them in a class/object.
 
+IMPORTANT: An unapply() method MUST return a class/object that has a
+           method with this name and signature:  def isEmpty: Boolean
+           An Option class meets that requirement, so an Option class
+           is what's most often returned by an unapply() method.
+
 ...unapplySeq()...
 
 unapply() (and unapplySeq()) is "silently" called on a class whenever
