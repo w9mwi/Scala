@@ -162,24 +162,35 @@ object Demo
     // The following line of code automatically invokes the apply() method
     // because an EMail object is constructed.
     val emailAddr:String = EMail("joe", "blow.com")
-    println(emailAddr) // PRINTS: joe@blow.com
+    println(s"emailAddr = $emailAddr") // PRINTS: emailAddr = joe@blow.com
 
-    // The following "match" automatically invokes the unapply() method.
-    // unapply() returns a None value because THE PATTERN of "JUNK"
-    // DOESN'T match THE PATTERN of emailAddr.
-    // NOTE: The string "JUNK" gets passed to the EMail.unapply() method.
-    "JUNK" match {
-      case EMail(emailAddr) => println("MATCH")
+    // The following "match" automatically invokes the unapply() method,
+    // where the string "JUNK@X" gets passed as an argument.  unapply()
+    // returns a Some value because the pattern of "JUNK@X" matches
+    // the pattern of EMail(user, domain).
+    "JUNK@X" match {
+      case EMail(user, domain) => println(s"MATCH - user = $user,  domain = $domain")
+      // PRINTS: MATCH - user = JUNK,  domain = X
       case _ => println("NO MATCH");
     }
 
-    // The following "match" automatically invokes the unapply() method.
-    // unapply() returns a Some value because THE PATTERN of "JUNK@X"
-    // matches THE PATTERN of emailAddr.
-    // NOTE: The string "JUNK@X" gets passed to the EMail.unapply() method.
+    // The following "match" automatically invokes the unapply() method,
+    // where the string "JUNK@X" gets passed as an argument.  unapply()
+    // returns a Some value because the pattern of "JUNK@X" matches
+    // the pattern of EMail(myMatcher).
     "JUNK@X" match {
-      case EMail(emailAddr) => println("MATCH")
+      case EMail(myMatcher) => println(s"MATCH - myMatcher = $myMatcher")
+      // PRINTS: MATCH - myMatcher = (JUNK,X)
       case _ => println("NO MATCH");
+    }
+
+    // The following "match" automatically invokes the unapply() method,
+    // where the string "JUNK" gets passed as an argument.
+    // unapply() returns a None value because the pattern of "JUNK"
+    // doesn't match the pattern of EMail(myMatcher).
+    "JUNK" match {
+      case EMail(myMatcher) => println("MATCH")
+      case _ => println("NO MATCH"); // PRINTS: NO MATCH
     }
   }
 }
