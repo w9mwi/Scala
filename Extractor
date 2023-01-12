@@ -185,8 +185,8 @@ object Demo
     // returns a Some value because the pattern of "JUNK@X" matches
     // the pattern of EMail(myMatcher).
     "JUNK@X" match {
-      case EMail(myMatcher) => println(s"MATCH - myMatcher = $myMatcher")
-      // PRINTS: MATCH - myMatcher = (JUNK,X)
+      case EMail(myMatcher) => println(s"MATCH - myMatcher._1 = ${myMatcher._1},  myMatcher._2 = ${myMatcher._2}")
+      // PRINTS: MATCH - myMatcher._1 = JUNK,  myMatcher._2 = X
       case _ => println("NO MATCH");
     }
 
@@ -200,6 +200,7 @@ object Demo
     }
   }
 }
+
 
 ===================================================================================
 The following code sample is DIFFICULT TO UNDERSTAND.  In this example
