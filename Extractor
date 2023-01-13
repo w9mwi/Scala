@@ -3,29 +3,32 @@ A Scala class/object that defines an unapply() method is called an extractor.
 Recall that the Scala keyword "match" is used for pattern matching.
 
 Scala Extractor - A class/object is an extractor if it contains a method named unapply()
-                  or unapplySeq().  The unapply() method is USED BY PATTERN MATCHING AND
-                  BY PARTIAL FUNCTIONS, and is automatically invoked by the Scala keyword
+                  or unapplySeq().  (NOTE: The unapplySeq() method is similar unapply(),
+                  except it's used to process a variable number of arguments.)  The
+                  unapply() and unapplySeq() methods are USED BY PATTERN MATCHING AND
+                  BY PARTIAL FUNCTIONS, and are automatically invoked by the Scala keyword
                   "match."  A class/object apply() method takes arguments and constructs
-                  the object/class.  Its unapply() method extracts a class/object and
-                  returns the argument(s).  In other words, a class's unapply() method
-                  REVERSES the construction procedure of the apply() method.
+                  the object/class.  Its unapply() and unapplySeq() methods extracts a
+                  class/object and returns the argument(s).  In other words, a class's
+                  unapply() and unapplySeq() methods REVERSE the construction procedure
+                  of the apply() method.
 
-NOTE: The unapply() method is most commonly invoked automatically when the keyword
-      "match" is encountered to perform pattern matching.  However, the unapply()
-      method also gets invoked automatically when a PARTIAL FUNCTION is invoked.
-      One of the code examples below uses a PARTIAL FUNCTION (instead of the match
-      keyword) to invoke the unapply() method.
+NOTE: The unapply() and unapplySeq() methods are most commonly invoked automatically when
+      the keyword "match" is encountered to perform pattern matching.  However, the
+      unapply() and unapplySeq() methods also get invoked automatically when a PARTIAL
+      FUNCTION is invoked.  One of the code examples below uses a PARTIAL FUNCTION
+      (instead of the match keyword) to invoke the unapply() method.
 
 When you define a Scala "case class" or "case object", Scala automatically creates
-BOTH the apply() and unapply() methods for that class/object.  So any "case class"
-or "case object" is ready to be used for pattern matching without any additional
-programming.
+BOTH the apply() and unapply()/unapplySeq() methods for that class/object.  So any
+"case class" or "case object" is ready to be used for pattern matching without any
+additional programming.
 
 When you define a regular Scala class/object (not a "case class" or a "case object"),
-Scala automatically creates the apply() method for that class/object, but NOT an
-unapply() method.  Therefore, if you want to perform a pattern match on a regular
-Scala class/object, the programmer must write her own unapply() method for the
-class/object.
+Scala automatically creates the apply() methods for that class/object, but NOT an
+unapply() or unapplySeq() method.  So if you want to perform a pattern match on a
+regular Scala class/object, the programmer must write her own unapply() or unapplySeq()
+method for the class/object.
 
 The unapply() method says:  Pass me the object which was created by
 applying a function to argument x, and I will return the argument x.
@@ -38,19 +41,6 @@ IMPORTANT: An unapply() method MUST return a class/object that has a
            method with this name and signature:  def isEmpty: Boolean
            An Option class meets that requirement, so an Option class
            is what's most often returned by an unapply() method.
-
-...unapplySeq()...
-
-unapply() (and unapplySeq()) is "silently" called on a class whenever
-you attempt to PATTERN MATCH on a class instance.  That is, unapply()
-gets called via the case statement that matches the object, which
-means Scala calls it in the background--you don't call it directly.
-
-The returned result type of an unapply() method MUST CONTAIN A get()
-METHOD, which is used as an extractor pattern.  That's why unapply()
-methods typically return an Option type.  Because the Option type
-already contains a get() method.  When the unapply() method is called
-on a pattern match, it simply "undoes" what the apply() method does.
 
 Whenever you define a regular class (not a case class) that you want
 to pattern match on, you must write your own unapply() method, and
