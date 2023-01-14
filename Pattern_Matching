@@ -1,7 +1,7 @@
 
 In most cases pattern matching (which invokes the unapply() method) is performed
 using the Scala keyword "match".  But pattern matching can also be performed in
-an assignment statement, which isn't very intuative, like this...
+an assignment statement, which isn't very intuitive, like this...
 
 val FullName(first, last) = joe  // This line perfroms pattern matching.
 
@@ -12,7 +12,7 @@ object Demo
 {
   def main(args: Array[String]): Unit = {
     // For all case classes Scala automatically generates
-    // an apply() method and an unapply() method.
+    // both an apply() method and an unapply() method.
     case class FullName(firstName:String, lastName:String)
 
     // When a case class is instantiated (as on the following line),
@@ -21,7 +21,7 @@ object Demo
     println(s"1) joe.firstName = ${joe.firstName},  joe.lastName = ${joe.lastName}")
     // PRINTS: 1) joe.firstName = Joe,  joe.lastName = Blow
 
-    // The following line of code doesn't seem to make sense as it's NOT
+    // The following line of code doesn't seem to make sense because it's NOT
     // very intuitive.  The following line of code performs a pattern match
     // on "val joe" by automatically invoking the FullName.unapply() method.
     // The unapply() method extracts joe.firstName and joe.lastName from
