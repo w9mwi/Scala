@@ -44,8 +44,35 @@ IMPORTANT: An unapply() method MUST return a class/object that has a
 
 Whenever you define a regular class (not a case class) that you want
 to pattern match on, you must write your own unapply() method, and
-then place it inside that class's COMPANION OBJECT.  See the following
-sample code for an example of this.
+then place it inside that class's COMPANION OBJECT.
+
+===================================================================================
+object Demo
+{
+  def main(args: Array[String]): Unit = {
+    // For all case classes Scala automatically generates
+    // an apply() method and an unapply() method.
+    case class FullName(firstName:String, lastName:String)
+
+    // When a case class is instantiated (as on the following line),
+    // Scala automatically invokes the case class's apply() method.
+    val joe:FullName = FullName("Joe", "Blow") // FullName.apply() gets called.
+    println(s"1) joe.firstName = ${joe.firstName},  joe.lastName = ${joe.lastName}")
+    // PRINTS: 1) joe.firstName = Joe,  joe.lastName = Blow
+
+    // The following line of code doesn't seem to make sense as it's NOT
+    // very intuitive.  The following line of code performs a pattern match
+    // on "val joe" by automatically invoking the FullName.unapply() method.
+    // The unapply() method extracts joe.firstName and joe.lastName from
+    // val joe and assigns them to the vals "first" and "last" respectively.
+    // NOTE:  If the following line contained the keyword var instead of val,
+    //        then first and last would become vars instead of vals.
+    val FullName(first, last) = joe
+    println(s"2) first = $first,  last = $last")
+    // 2) first = Joe,  last = Blow
+  }
+}
+
 
 ===================================================================================
 object Demo
