@@ -1,4 +1,41 @@
 
+In most cases pattern matching (which invokes the unapply() method) is performed
+using the Scala keyword "match".  But pattern matching can also be performed in
+an assignment statement, which isn't very intuative, like this...
+
+val FullName(first, last) = joe  // This line perfroms pattern matching.
+
+The following code sample shows an example of how this is done.
+Read in-line comments for details.
+
+object Demo
+{
+  def main(args: Array[String]): Unit = {
+    // For all case classes Scala automatically generates
+    // an apply() method and an unapply() method.
+    case class FullName(firstName:String, lastName:String)
+
+    // When a case class is instantiated (as on the following line),
+    // Scala automatically invokes the case class's apply() method.
+    val joe:FullName = FullName("Joe", "Blow") // FullName.apply() gets called.
+    println(s"1) joe.firstName = ${joe.firstName},  joe.lastName = ${joe.lastName}")
+    // PRINTS: 1) joe.firstName = Joe,  joe.lastName = Blow
+
+    // The following line of code doesn't seem to make sense as it's NOT
+    // very intuitive.  The following line of code performs a pattern match
+    // on "val joe" by automatically invoking the FullName.unapply() method.
+    // The unapply() method extracts joe.firstName and joe.lastName from
+    // val joe and assigns them to the vals "first" and "last" respectively.
+    // NOTE:  If the following line contained the keyword var instead of val,
+    //        then first and last would become vars instead of vals.
+    val FullName(first, last) = joe
+    println(s"2) first = $first,  last = $last")
+    // 2) first = Joe,  last = Blow
+  }
+}
+
+===================================================================================
+
 The following sample programs demonstrate many variations on
 how to use Scala's "match" keyword with a case statement to
 perform pattern matching.  Read in-line comments for details.
