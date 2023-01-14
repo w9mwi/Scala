@@ -47,6 +47,15 @@ to pattern match on, you must write your own unapply() method, and
 then place it inside that class's COMPANION OBJECT.
 
 ===================================================================================
+In most cases pattern matching (which invokes the unapply() method) is performed
+using the Scala keyword "match".  But pattern matching can also be performed in
+an assignment statement, which isn't very intuative, like this...
+
+val FullName(first, last) = joe  // This line perfroms pattern matching.
+
+The following code sample shows an example of how this is done.
+Read in-line comments for details.
+
 object Demo
 {
   def main(args: Array[String]): Unit = {
