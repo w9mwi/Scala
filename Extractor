@@ -1,8 +1,13 @@
-A Scala class/object that defines an unapply() method is called an extractor.
+A Scala object that defines an unapply() method is called an extractor.
 
-Recall that the Scala keyword "match" is used for pattern matching.
+Recall that the Scala keyword "match" is frequently used for pattern matching.
+NOTE: Pattern matching can be performed without using the "match" keyword,
+      so keep that in mind.
 
-Scala Extractor - A class/object is an extractor if it contains a method named unapply()
+When a Scala "case class" is defined, Scala automatically generates an apply()
+method and an unapply() method for that "case class."
+
+Scala Extractor - An object is an extractor if it contains a method named unapply()
                   or unapplySeq().  (NOTE: The unapplySeq() method is similar unapply(),
                   except it's used to process a variable number of arguments.)  The
                   unapply() and unapplySeq() methods are USED BY PATTERN MATCHING AND
