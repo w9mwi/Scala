@@ -46,7 +46,8 @@ with these class types.
 * Implicit class
 * Inner class
 
-Below are some examples of how to use Scala classes and objects.
+Below are some code samples of how to use Scala classes and objects.
+Read in-line comments for explanations.
 
 ===============================================================================
 There are three (3) main levels of visibility in Scala, they are:
