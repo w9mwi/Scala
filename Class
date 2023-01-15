@@ -112,7 +112,7 @@ object Demo
    **************************************************/
   object Person {
     // Scala automatically invokes this apply() method
-    // when a new Person class is constructed.
+    // when a Person class is instantiated.
     def apply(firstName:String, lastName:String): Person = {
       new Person(firstName, lastName) // Don't forget to include the "new" keyword!
     }
