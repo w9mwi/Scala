@@ -4,7 +4,7 @@ Scala provides three constructs for creating user-defined types:
 2) object (Scala has two kinds of object: "case object" and "object")
 3) class  (Scala has two kinds of class:  "case class" and "class")
 
-You should use a Scala class (or an object) to represent a "thing"
+You should use a Scala class (or a Scala object) to represent a "thing"
 or an "object", such as Person, Automobile, Aircraft, Animal, etc.
 
 You should use a Scala trait to represent a "behavior", such as
@@ -26,8 +26,8 @@ a Scala object is used as a "companion object" to a regular Scala class.
 
 Companion objects are used ONLY for regular Scala classes so you can
 define your own apply() AND/OR unapply() method inside the companion
-object.  (To understand apply() and unapply() keep reading.)  You
-wouldn't create a companion object for a Scala "case class" because
+object.  (To understand apply() and unapply() methods keep reading.)
+You wouldn't create a companion object for a Scala "case class" because
 Scala automatically generates both an apply() and unapply() method
 for a "case class".
 
@@ -56,7 +56,7 @@ Two of the most common methods contained in a companion object are:
 
 1) apply() - This method gets invoked when a companion class is instantiated and
              and performs the instantiation.  When you write your own apply()
-             method, the companion class can be instantiated without using the
+             method the companion class can be instantiated without using the
              "new" keyword.  If the companion object doesn't contain an apply()
              method, Scala provides a default apply() method and the "new" keyword
              must be used to instantiate the companion class.
