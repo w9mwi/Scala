@@ -76,8 +76,10 @@ object Demo
 
   /**************************************************
    *  When you define a regular class (not a case class) that accepts
-   *  constructor argument(s), you must also define a companion object
-   *  to that class which meets the following criteria:
+   *  constructor argument(s), you must also define a companion object.
+   *  In this example, the following object Person becomes the
+   *  companion object to the Person class defined above.
+   *  A companion object must always meet the following criteria:
    *  1) The companion object MUST have the identical name as the class.
    *  2) The companion object MUST be contained in the same file as the class.
    *  3) The companion object MUST contain an apply() method.  The apply()
@@ -118,8 +120,7 @@ object Demo
     // The following line of code WON'T COMPILE without the Person.unapply() method.
     // The following match statement automatically invokes the Person.unapply() method.
     joe match {
-      case Person(fn, ln) => println(s"3) fn = $fn,  ln = $ln")
-     // PRINTS: 3) fn = Joe,  ln = Blow
+      case Person(fn, ln) => println(s"3) fn = $fn,  ln = $ln") // PRINTS: 3) fn = Joe,  ln = Blow
       case _ => println("NO PATTERN MATCH")
     }
 
@@ -133,8 +134,7 @@ object Demo
     // NOTE: If the following line contained the keyword var instead of val,
     //       then first and last would become vars instead of vals.
     val Person(first, last) = joe
-    println(s"4) first = $first,  last = $last")
-    // PRINTS: 4) first = Joe,  last = Blow
+    println(s"4) first = $first,  last = $last") // PRINTS: 4) first = Joe,  last = Blow
   }
 }
 
