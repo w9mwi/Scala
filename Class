@@ -31,7 +31,7 @@ wouldn't create a companion object for a Scala "case class" because
 Scala automatically generates both an apply() and unapply() method
 for a "case class".
 
-There are two reasons for defining a companion object to a regular class...
+There are two reasons for defining a companion object to a regular class:
 
 1) So you can instantiate the class without using the "new" keyword.
    To accomplish that requires you to define an apply() method
@@ -41,6 +41,7 @@ There are two reasons for defining a companion object to a regular class...
    companion object.  (See code example below.)
 
 A companion object must always meet the following three criteria:
+
 1) The companion object MUST have the identical name as the class.
 2) The companion object MUST be contained in the same file as the class.
 3) The companion object MUST contain an apply() method (to instantiate
@@ -49,7 +50,7 @@ A companion object must always meet the following three criteria:
 
 A companion object can be used for more than just defining your own
 apply() or unapply() methods.  A companion object can also be used
-to contain member values (vals,  vars) or methods that are singletons.
+to contain values (vals,  vars) or methods that are singletons.
 Singletons are values or methods in the companion object that apply
 to all instances of the companion class.
 
