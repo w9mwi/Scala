@@ -95,6 +95,39 @@ There are three (3) main levels of visibility in Scala, they are:
                This means a protected method IS made available to subclasses.
 
 ===============================================================================
+The following code sample demonstrates how to use a "case class."  The following
+are some differences and similarities betweeen a Scala "case class" and a regular
+Scala class.
+
+1) By default, arguments in a case class declaration automatically become member
+   values of the case class when the case class is instantiated.  By default, those
+   members are vals.  If you want an argument to be a var, you must precede the
+   the argument (in the case class definition parameter list) with the keyword "var".
+
+2) In a regular class, arguments contained in the class definition DON'T become
+   members of the class by default--they are just values passed to the class that
+   can be referenced inside the class.  If you want arguments passed to a regular
+   class to become member values (so they can be referenced outside the class),
+   you must precede the argument (in the class definition parameter list) with
+   the keyword "val" or "var".
+
+3) By default Scala provides an apply() method (which performs the instantiation
+   of the case class) and an unapply() method (which is used to pattern match on
+   the class).  So for a Scala case class you NEVER write your own apply() or
+   unapply() methods.
+
+4) A regular Scala class provides an apply() method by default, which gets
+   called automatically when you instantiate a class.  If you want to write
+   your own apply() method, you can do so by putting it inside a "companion
+   object" (explained below), and then your apply() method will be called
+   (instead of Scala's default method) when a class is instantiated.
+   
+5) A regular Scala class doesn't provide an unapply() method, which is used
+   for pattern matching on the class.  If you want to perform pattern matching
+   on a regular Scala class, you can write your own unapply() method and put
+   it inside a "companion object" (explained below).
+
+===============================================================================
 
 object Demo
 {
