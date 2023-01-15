@@ -1,4 +1,4 @@
-Scala provides three (3) constructs for creating user-defined types:
+Scala provides three constructs for creating user-defined types:
 
 1) trait
 2) object (Scala has two kinds of object: "case object" and "object")
@@ -31,7 +31,7 @@ wouldn't create a companion object for a Scala "case class" because
 Scala automatically generates both an apply() and unapply() method
 for a "case class".
 
-There are two reasons for defining a companion object to a regular class:
+There are three reasons for defining a companion object to a regular class:
 
 1) So you can instantiate the class without using the "new" keyword.
    To accomplish that requires you to define an apply() method
@@ -39,20 +39,25 @@ There are two reasons for defining a companion object to a regular class:
 2) To perform pattern matching on the class.  To accomplish
    that requires you to define an unapply() method in the
    companion object.  (See code example below.)
+3) A companion object can be used to contain values (vals, vars)
+   or methods that are singletons.  Singletons are values or
+   methods in the companion object that apply to all instances
+   of the companion class.
 
-A companion object must always meet the following three criteria:
+A companion object must always meet the following 3 criteria:
 
 1) The companion object MUST have the identical name as the class.
 2) The companion object MUST be contained in the same file as the class.
-3) The companion object MUST contain an apply() method (to instantiate
-   the class without using the "new" keyword) AND/OR contain an
-   unapply() method (to perform pattern matching on the class).
+3) The companion object MUST contain an ONLY singleton values
+   (vals/vars) and singleton methods, which means they apply to
+   all instances of the companion class.
 
-A companion object can be used for more than just defining your own
-apply() or unapply() methods.  A companion object can also be used
-to contain values (vals,  vars) or methods that are singletons.
-Singletons are values or methods in the companion object that apply
-to all instances of the companion class.
+The two most common methods contained in a companion object are:
+
+1) The apply() method, so the companion class can be instantiated
+   without using the "new" keyword.
+2) The unapply() method, to perform pattern matching on the
+   companion class.
 
 Scala also has the following type of classes.  This page
 doesn't discuss these class types.
@@ -102,25 +107,8 @@ object Demo
   /**************************************************
    *  When you define a regular class (not a case class) that accepts
    *  constructor argument(s), you can also define a companion object,
-   *  but it's not required.  There are two reasons for defining a
-   *  companion object to a regular class...
-   *
-   *  1) To instantiate the class without using the "new" keyword.
-   *     To accomplish that requires you to define an apply() method
-   *     in the companion object.  (See code example below.)
-   *  2) To perform pattern matching on the class.  To accomplish
-   *     that requires you to define an unapply() method in the
-   *     companion object.  (See code example below.)
-   *
-   *  In this example the object Person defined below becomes the
-   *  companion object to the Person class defined above.
-   *
-   *  A companion object must always meet the following 3 criteria:
-   *  1) The companion object MUST have the identical name as the class.
-   *  2) The companion object MUST be contained in the same file as the class.
-   *  3) The companion object MUST contain an apply() method (to instantiate
-   *     the class without using the "new" keyword) AND/OR contain an
-   *     unapply() method (to perform pattern matching on the class).
+   *  but it's not required.  In this example the object Person defined
+   *  below becomes the companion object to the Person class defined above.
    **************************************************/
   object Person {
     // Scala automatically invokes this apply() method
@@ -136,8 +124,8 @@ object Demo
   }
 
   /**************************************************
-  * main()
-  **************************************************/
+   * main()
+   **************************************************/
   def main(args: Array[String]): Unit = {
     val joe:Person = Person("Joe", "Blow") // Person.apply() automatically gets called.
     println(s"1) joe.firstName = ${joe.firstName},  joe.lastName = ${joe.lastName}")
