@@ -1,51 +1,50 @@
 Scala provides three (3) constructs for creating user-defined types:
+
 1) trait
 2) object (Scala has two kinds of object: "case object" and "object")
 3) class  (Scala has two kinds of class:  "case class" and "class")
 
 Use a Scala class (or object) to represent a "thing" or an "object",
-such as Person, Automobile, Aircraft, Animal, etc.  Use a Scala
-trait to represent a "behavior", such as talk, ride, fly, walk, etc.
+such as Person, Automobile, Aircraft, Animal, etc.
+
+Use a Scala trait to represent a "behavior", such as
+talk, ride, fly, walk, etc.
 
 A Scala object always represents a "singleton."  A Scala object
 wouldn't be used to represent a person because you'd probably want
-the capability to handle multiple persons.  So you'd use a Scala
+the capability to generate multiple persons.  So you'd use a Scala
 class to represent a person.  A Scala object would be used to
 represent planet Earth because only one exists (it's a singleton).
 It wouldn't make sense to create multiple planet Earth objects or
 classes.
 
-Unlike Scala classes, Scala objects CAN'T be defined to accept arguments
-via a parameter list.  Instead, a Scala object can be written to include
-the apply() method so when you create a new object, you can pass
-arguments/parameters to the object.  When you do that, you're really
-calling the object's apply() method, as Scala automatically calls
-apply() in the background.
+Unlike Scala classes, Scala objects are never instantiated and CAN'T
+be defined to accept arguments--which means a Scala object CAN'T have
+a parameter list.  Quite often, a Scala object is used as a "companion
+object" to a regular Scala class.  NOTE: Companion objects are used
+ONLY for regular Scala classes--NOT for Scala case classes!
 
-If a Scala class and a Scala object exists in the same file, and
-they both have identical spelling, the Scala object is referred
-to as a "companion object" to the class.  For example, if a Scala
-"Person" class and "Person" object were defined in the same file,
-the "Person" companion object would contain only members and methods
-that are applicable to every "Person" class that gets created.  Also,
-the members and methods contained in the "Person" companion object
-could be accessed ONLY by "Person" classes.
+When a Scala object is a "companion object" to a regular Scala class,
+it must meet the following criteria:
 
-NOTE: In the Scala API documentation...
-      1) A circled 'c' represents a class.
-      2) A circled 'o' represents an object.
-      3) A circled 'p' represents a package.
-      4) A circled 't' represents a trait.
+1) The companion object MUST have the identical name as the class.
+2) The companion object MUST be contained in the same file as the class.
+3) The companion object MUST contain an apply() method.  This apply()
+   method is automatically invoked by Scala when you construct a new class.
+4) If you want to perform pattern matching on the class, the companion object
+   MUST contain an unapply() method.  The unapply() method is automatically
+   invoked by Scala when pattern matching occurs.  A class does NOT need
+   an unapply() method if pattern matching isn't performed on the class.
 
-Scala also has the following type of classes, which are more esoteric,
-not so common, and documented here: https://github.com/w9mwi/Scala
-On this page we won't be concerned with these class types.
+Scala also has the following type of classes.  This page we won't be concerned
+with these class types.
+
 * Anonymous class
 * Generic class
 * Implicit class
 * Inner class
 
-Below are some examples of how to use standard Scala classes (not case classes).
+Below are some examples of how to use Scala classes and objects.
 
 ===============================================================================
 There are three (3) main levels of visibility in Scala, they are:
