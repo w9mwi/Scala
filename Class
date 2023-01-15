@@ -65,6 +65,80 @@ There are three (3) main levels of visibility in Scala, they are:
                Therefore, a protected method IS made avaiable to subclasses!
 
 ===============================================================================
+
+object Demo
+{
+  // When a regular class (not a case class) is defined to accept
+  // arguments like the following class Person, all arguments in the
+  // class definition MUST be preceded with Scala keyword "val" or "var".
+  class Person(val firstName: String, val lastName: String)
+
+  /**************************************************
+   *  When you define a regular class (not a case class) that accepts
+   *  constructor argument(s), you must also define a companion object
+   *  to that class which meets the following criteria:
+   *  1) The companion object MUST have the identical name as the class.
+   *  2) The companion object MUST be contained in the same file as the class.
+   *  3) The companion object MUST contain an apply() method.  The apply()
+   *     method is automatically called by Scala when you construct a new class.
+   *  4) If you want to perform pattern matching on the class, the companion object
+   *     MUST contain an unapply() method.  The unapply() method is automatically
+   *     called by Scala when pattern matching occurs.  A class does NOT need
+   *     an unapply() method if pattern matching isn't performed on the class.
+   **************************************************/
+  object Person {
+    // Scala automatically invokes this apply() method
+    // when a new Person class is constructed.
+    def apply(firstName:String, lastName:String): Person = {
+      Person(firstName, lastName)
+    }
+    // Scala automatically invokes this unapply() method when
+    // pattern matching is performed on a Person class.
+    def unapply(person:Person):Some[(String, String)] = {
+      Some(person.firstName, person.lastName)
+    }
+  }
+
+  /**************************************************
+  * main()
+  **************************************************/
+  def main(args: Array[String]): Unit = {
+    val joe:Person = new Person("Joe", "Blow") // Person.apply() gets called.
+    println(s"1) joe.firstName = ${joe.firstName},  joe.lastName = ${joe.lastName}")
+    // PRINTS: 1) joe.firstName = Joe,  joe.lastName = Blow
+
+    // The following match statement DOESN'T require the Person.unapply() method!
+    joe match {
+      case x => println(s"2) x.firstName = ${x.firstName},  x.lastName = ${x.lastName}")
+      // PRINTS: 2) x.firstName = Joe,  x.lastName = Blow
+      case _ => println("NO PATTERN MATCH")
+    }
+
+    // The following line of code WON'T COMPILE without the Person.unapply() method.
+    // The following match statement automatically invokes the Person.unapply() method.
+    joe match {
+      case Person(fn, ln) => println(s"3) fn = $fn,  ln = $ln")
+     // PRINTS: 3) fn = Joe,  ln = Blow
+      case _ => println("NO PATTERN MATCH")
+    }
+
+    // The following line of code WON'T COMPILE without the Person.unapply() method.
+    // The following line of code doesn't seem to make sense because it's NOT
+    // very intuitive.  The following line of code is an assignment statement
+    // which performs a pattern match on "val joe" by automatically invoking
+    // the Person.unapply() method.  The Person.unapply() method extracts
+    // joe.firstName and joe.lastName from val joe, then assigns them to the
+    // vals "first" and "last" respectively.
+    // NOTE: If the following line contained the keyword var instead of val,
+    //       then first and last would become vars instead of vals.
+    val Person(first, last) = joe
+    println(s"4) first = $first,  last = $last")
+    // PRINTS: 4) first = Joe,  last = Blow
+  }
+}
+
+
+===============================================================================
 When a class is defined to accept arguments when instantiated, and an argument
 is NOT preceeded by the "val" or "var" keywords, the argument is "val" by default.
 
