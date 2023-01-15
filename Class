@@ -23,7 +23,8 @@ be defined to accept arguments.  This means a Scala object CAN'T have
 a parameter list.  (A Scala class can have a parameter list containing
 arguments.)  Quite often, a Scala object is used as a "companion
 object" to a regular Scala class.  NOTE: Companion objects are used
-ONLY for regular Scala classes--NOT for Scala case classes.
+ONLY for regular Scala classes.  You wouldn't create a companion object
+for a Scala "case class".
 
 When a Scala object is a "companion object" to a regular Scala class,
 it must meet the following criteria:
