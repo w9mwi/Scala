@@ -19,10 +19,11 @@ It wouldn't make sense to create multiple planet Earth objects or
 classes.
 
 Unlike Scala classes, Scala objects are never instantiated and CAN'T
-be defined to accept arguments--which means a Scala object CAN'T have
-a parameter list.  Quite often, a Scala object is used as a "companion
+be defined to accept arguments.  This means a Scala object CAN'T have
+a parameter list.  (A Scala class can have a parameter list containing
+arguments.)  Quite often, a Scala object is used as a "companion
 object" to a regular Scala class.  NOTE: Companion objects are used
-ONLY for regular Scala classes--NOT for Scala case classes!
+ONLY for regular Scala classes--NOT for Scala case classes.
 
 When a Scala object is a "companion object" to a regular Scala class,
 it must meet the following criteria:
@@ -52,16 +53,16 @@ There are three (3) main levels of visibility in Scala, they are:
 1) public (default) - There does NOT exist a public keyword in Scala.  If you want
                       something public, it's public BY DEFAULT, which means you
                       wouldn't use the private or protected keyword.  If the
-                      visibility level is public, a class's val/var or method
-                      is accessible by code inside, or outside, the class.
-2) private - A "private" declaration means a class's member val/var/method
+                      visibility level is public, a class's val/var member or
+                      method is accessible by code inside, or outside, the class.
+2) private - A "private" declaration means a class's val/var member or method
              can be accessed only inside the class.  If you prefix a declaration
              inside a class with the private keyword, that member will be visible
-             to that class only.  Therefore, a private method is NOT made avaiable
-             to subclasses!
+             to that class only.  This means a private method is NOT made avaiable
+             to subclasses.
 3) protected - A protected declaration is much like private, except protected class
                members are also accessible in subtypes (children) of the class.
-               Therefore, a protected method IS made avaiable to subclasses!
+               This means a protected method IS made available to subclasses.
 
 ===============================================================================
 
