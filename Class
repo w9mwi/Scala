@@ -13,15 +13,15 @@ talk, ride, fly, walk, etc.
 A Scala object always represents a "singleton."  A Scala object
 wouldn't be used to represent a person because you'd probably want
 the capability to generate multiple persons.  So you'd use a Scala
-class to represent a person.  A Scala object would be used to
-represent planet Earth because only one exists (it's a singleton).
-It wouldn't make sense to create multiple planet Earth objects or
-classes.
+class (or case class) to represent a person.  A Scala object would
+be used to represent planet Earth because only one exists (it's a
+singleton).  It wouldn't make sense to create multiple planet
+Earth objects or classes.
 
 Unlike Scala classes, Scala objects are never instantiated and CAN'T
 be defined to accept arguments.  This means a Scala object CAN'T have
 a parameter list.  (A Scala class can have a parameter list containing
-arguments.)  Quite often, a Scala object is used as a "companion
+arguments.)  Quite often a Scala object is used as a "companion
 object" to a regular Scala class.  NOTE: Companion objects are used
 ONLY for regular Scala classes.  You wouldn't create a companion object
 for a Scala "case class".
