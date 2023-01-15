@@ -4,11 +4,11 @@ Scala provides three (3) constructs for creating user-defined types:
 2) object (Scala has two kinds of object: "case object" and "object")
 3) class  (Scala has two kinds of class:  "case class" and "class")
 
-Use a Scala class (or object) to represent a "thing" or an "object",
-such as Person, Automobile, Aircraft, Animal, etc.
+You should use a Scala class (or an object) to represent a "thing"
+or an "object", such as Person, Automobile, Aircraft, Animal, etc.
 
-Use a Scala trait to represent a "behavior", such as
-talk, ride, fly, walk, etc.
+You should use a Scala trait to represent a "behavior", such as
+communicate, learn, transport, work, etc.
 
 A Scala object always represents a "singleton."  A Scala object
 wouldn't be used to represent a person because you'd probably want
@@ -18,22 +18,22 @@ be used to represent planet Earth because only one exists (it's a
 singleton).  It wouldn't make sense to create multiple planet
 Earth objects or classes.
 
-Unlike Scala classes, Scala objects are never instantiated and CAN'T
-be defined to accept arguments.  This means a Scala object CAN'T have
+Unlike Scala classes, Scala objects can't be instantiated, and can't
+be defined to accept arguments.  This means a Scala object can't have
 a parameter list.  (A Scala class and "case class" can have a parameter
 list containing arguments, as classes are instantiated.)  Quite often
 a Scala object is used as a "companion object" to a regular Scala class.
 
 Companion objects are used ONLY for regular Scala classes so you can
-define your own apply() AND/OR unapply() method inside the comapnion
-object.  (Keep reading to understand that.)  You wouldn't create a
+define your own apply() AND/OR unapply() method inside the companion
+object.  (Keep reading to understand this.)  You wouldn't create a
 companion object for a Scala "case class" because Scala automatically
 generates both an apply() and unapply() method for a "case class".
 
 There are two reasons for defining a companion object to a regular class...
 
-1) To instantiate the class without using the "new" keyword.
-   To accomplish this requires you to define an apply() method
+1) So you can instantiate the class without using the "new" keyword.
+   To accomplish thats requires you to define an apply() method
    in the companion object.  (See code example below.)
 2) To perform pattern matching on the class.  To accomplish
    this requires you to define an unapply() method in the
@@ -47,13 +47,13 @@ A companion object must always meet the following three criteria:
    unapply() method (to perform pattern matching on the class).
 
 A companion object can be used for more than just defining your own
-apply() or unapply() methods.  A companion object can be used to contain
-any member value (i.e., val or var) or method that's a singleton.  In
-this example, that would be any member or method that applies to all
-instantiated Person classes.
+apply() or unapply() methods.  A companion object can also be used
+to contain member values (i.e., val or var) or methods that are
+singletons.  In other words, values or methods in the companion
+object that apply to all instances of the companion class.
 
-Scala also has the following type of classes.  This page we won't be concerned
-with these class types.
+Scala also has the following type of classes.  This page
+doesn't discuss these class types.
 
 * Anonymous class
 * Generic class
