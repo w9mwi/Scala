@@ -96,7 +96,7 @@ object Demo
   // Because the firstName and lastName arguments passed to Person in the line
   // below are preceded by the val keyword, firstName and lastName become
   // members of the Person class.  So when a Person class is instantiated,
-  // its members (firstName and lastName) get initalized.
+  // its members (firstName and lastName) get initialized.
   class Person(val firstName: String, val lastName: String)
 
   /**************************************************
