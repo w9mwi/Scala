@@ -21,22 +21,26 @@ Earth objects or classes.
 Unlike Scala classes, Scala objects are never instantiated and CAN'T
 be defined to accept arguments.  This means a Scala object CAN'T have
 a parameter list.  (A Scala class can have a parameter list containing
-arguments.)  Quite often a Scala object is used as a "companion
-object" to a regular Scala class.  NOTE: Companion objects are used
-ONLY for regular Scala classes.  You wouldn't create a companion object
-for a Scala "case class".
+arguments.)  Quite often a Scala object is used as a "companion object"
+to a regular Scala class.  NOTE: Companion objects are used ONLY for
+regular Scala classes.  You wouldn't create a companion object for
+a Scala "case class".
 
-When a Scala object is a "companion object" to a regular Scala class,
-it must meet the following criteria:
+There are two reasons for defining a companion object to a regular class...
 
+1) To instantiate the class without using the "new" keyword.
+   To accomplish that requires you to define an apply() method
+   in the companion object.  (See code example below.)
+2) To perform pattern matching on the class.  To accomplish
+   that requires you to define an unapply() method in the
+   companion object.  (See code example below.)
+
+A companion object must always meet the following three criteria:
 1) The companion object MUST have the identical name as the class.
 2) The companion object MUST be contained in the same file as the class.
-3) The companion object MUST contain an apply() method.  This apply()
-   method is automatically invoked by Scala when you construct a new class.
-4) If you want to perform pattern matching on the class, the companion object
-   MUST contain an unapply() method.  The unapply() method is automatically
-   invoked by Scala when pattern matching occurs.  A class does NOT need
-   an unapply() method if pattern matching isn't performed on the class.
+3) The companion object MUST contain an apply() method (to instantiate
+   the class without using the "new" keyword) AND/OR contain an
+   unapply() method (to perform pattern matching on the class).
 
 Scala also has the following type of classes.  This page we won't be concerned
 with these class types.
@@ -79,29 +83,38 @@ object Demo
   //
   // Because the firstName and lastName arguments passed to Person in the line
   // below are preceded by the val keyword, firstName and lastName become
-  // members of the Person class.
+  // members of the Person class.  So when a Person class is instantiated,
+  // its members (firstName and lastName) get initalized.
   class Person(val firstName: String, val lastName: String)
 
   /**************************************************
    *  When you define a regular class (not a case class) that accepts
-   *  constructor argument(s), you must also define a companion object.
-   *  In this example, the following object Person becomes the
+   *  constructor argument(s), you can also define a companion object,
+   *  but it's not required.  There are two reasons for defining a
+   *  companion object to a regular class...
+   *
+   *  1) To instantiate the class without using the "new" keyword.
+   *     To accomplish that requires you to define an apply() method
+   *     in the companion object.  (See code example below.)
+   *  2) To perform pattern matching on the class.  To accomplish
+   *     that requires you to define an unapply() method in the
+   *     companion object.  (See code example below.)
+   *
+   *  In this example the object Person defined below becomes the
    *  companion object to the Person class defined above.
-   *  A companion object must always meet the following criteria:
+   *
+   *  A companion object must always meet the following 3 criteria:
    *  1) The companion object MUST have the identical name as the class.
    *  2) The companion object MUST be contained in the same file as the class.
-   *  3) The companion object MUST contain an apply() method.  The apply()
-   *     method is automatically called by Scala when you construct a new class.
-   *  4) If you want to perform pattern matching on the class, the companion object
-   *     MUST contain an unapply() method.  The unapply() method is automatically
-   *     called by Scala when pattern matching occurs.  A class does NOT need
-   *     an unapply() method if pattern matching isn't performed on the class.
+   *  3) The companion object MUST contain an apply() method (to instantiate
+   *     the class without using the "new" keyword) AND/OR contain an
+   *     unapply() method (to perform pattern matching on the class).
    **************************************************/
   object Person {
     // Scala automatically invokes this apply() method
     // when a new Person class is constructed.
     def apply(firstName:String, lastName:String): Person = {
-      Person(firstName, lastName)
+      new Person(firstName, lastName) // Don't forget to include the "new" keyword!
     }
     // Scala automatically invokes this unapply() method when
     // pattern matching is performed on a Person class.
@@ -114,7 +127,7 @@ object Demo
   * main()
   **************************************************/
   def main(args: Array[String]): Unit = {
-    val joe:Person = new Person("Joe", "Blow") // Person.apply() gets called.
+    val joe:Person = Person("Joe", "Blow") // Person.apply() automatically gets called.
     println(s"1) joe.firstName = ${joe.firstName},  joe.lastName = ${joe.lastName}")
     // PRINTS: 1) joe.firstName = Joe,  joe.lastName = Blow
 
