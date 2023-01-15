@@ -35,10 +35,9 @@ There are three reasons for a regular Scala class to have a companion object:
 
 1) So you can define your own apply() method for the class, instead of using
    Scala's default apply() method.  There's usually no reason to do this,
-   so it's rarely used.  (See code example below.)
+   so it's rarely used.
 2) To perform pattern matching on the class.  To accomplish that requires
-   you to define an unapply() method in the companion object.  (See code
-   example below.)
+   you to define an unapply() method in the companion object.
 3) A companion object can be used to contain values (vals, vars) or methods
    that are singletons.  Singletons are values or methods in the companion
    object that apply to all instances of the companion class.
@@ -72,9 +71,6 @@ doesn't discuss these class types.
 * Implicit class
 * Inner class
 
-Below are some code samples of how to use Scala classes and objects.
-Read in-line comments for explanations.
-
 ===============================================================================
 There are three (3) main levels of visibility in Scala, they are:
 
@@ -93,6 +89,12 @@ There are three (3) main levels of visibility in Scala, they are:
                This means a protected method IS made available to subclasses.
 
 ===============================================================================
+
+Below are some code samples demonstrating how to use Scala classes and objects.
+How to use companion objects.  How to code your own apply() and unapply() methods.
+And how to perform pattern matching on classes.  Always read the in-line comments
+for explanations.
+
 The following code sample demonstrates how to use a "case class."  The following
 are some differences and similarities betweeen a Scala "case class" and a regular
 Scala class.
@@ -129,7 +131,9 @@ Scala class.
 
 object Demo
 {
-  case class Person(firstName: String, lastName: String)
+  // This is a case class definition.  A case class
+  // differs in some ways from a regular class.
+  case class Person(firstName:String, lastName:String)
 
   /**************************************************
    * main()
