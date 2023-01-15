@@ -31,25 +31,24 @@ You wouldn't create a companion object for a Scala "case class" because
 Scala automatically generates both an apply() and unapply() method
 for a "case class".
 
-There are three reasons for defining a companion object to a regular class:
+There are three reasons for a regular Scala class to have a companion object:
 
-1) So you can instantiate the class without using the "new" keyword.
-   To accomplish that requires you to define an apply() method
-   in the companion object.  (See code example below.)
-2) To perform pattern matching on the class.  To accomplish
-   that requires you to define an unapply() method in the
-   companion object.  (See code example below.)
-3) A companion object can be used to contain values (vals, vars)
-   or methods that are singletons.  Singletons are values or
-   methods in the companion object that apply to all instances
-   of the companion class.
+1) So you can define your own apply() method for the class, instead of using
+   Scala's default apply() method.  There's usually no reason to do this,
+   so it's rarely used.  (See code example below.)
+2) To perform pattern matching on the class.  To accomplish that requires
+   you to define an unapply() method in the companion object.  (See code
+   example below.)
+3) A companion object can be used to contain values (vals, vars) or methods
+   that are singletons.  Singletons are values or methods in the companion
+   object that apply to all instances of the companion class.
 
 A companion object must always meet the following 3 criteria:
 
 1) The companion object MUST have the identical name as the class.
 2) The companion object MUST be contained in the same file as the class.
-3) The companion object MUST contain an ONLY singleton values
-   (vals/vars) and singleton methods, which means they apply to
+3) The companion object MUST contain an ONLY singleton values (vals/vars)
+   and singleton methods, which means they apply to, and can be invoked on,
    all instances of the companion class.
 
 Two of the most common methods contained in a companion object are:
@@ -98,22 +97,23 @@ The following code sample demonstrates how to use a "case class."  The following
 are some differences and similarities betweeen a Scala "case class" and a regular
 Scala class.
 
-1) By default, arguments in a case class declaration automatically become member
-   values of the case class when the case class is instantiated.  By default, those
-   members are vals.  If you want an argument to be a var, you must precede the
-   the argument (in the case class definition parameter list) with the keyword "var".
+1) By default, arguments in a case class definition parameter list automatically
+   become member values of the case class when the case class is instantiated.
+   By default, those members are vals.  If you want an argument to be a var,
+   you must precede the argument (in the case class definition parameter list)
+   with the keyword "var".
 
 2) In a regular class, arguments contained in the class definition DON'T become
-   members of the class by default--they are just values passed to the class that
-   can be referenced inside the class.  If you want arguments passed to a regular
-   class to become member values (so they can be referenced outside the class),
-   you must precede the argument (in the class definition parameter list) with
-   the keyword "val" or "var".
+   members of the class by default--they are only values passed to the class that
+   can be referenced inside the class (they can't be referenced outside the class).
+   If you want arguments passed to a regular class to become member values (so
+   they can be referenced outside the class), you must precede the argument
+   (in the class definition parameter list) with the keyword "val" or "var".
 
-3) By default Scala provides an apply() method (which performs the instantiation
-   of the case class) and an unapply() method (which is used to pattern match on
-   the class).  So for a Scala case class you NEVER write your own apply() or
-   unapply() methods.
+3) By default Scala provides an apply() method (which performs instantiation
+   of the case class) and an unapply() method (which performs pattern matching
+   on the class).  So for a Scala case class you NEVER write your own apply()
+   or unapply() methods.
 
 4) A regular Scala class provides an apply() method by default, which gets
    called automatically when you instantiate a class.  If you want to write
@@ -125,6 +125,43 @@ Scala class.
    for pattern matching on the class.  If you want to perform pattern matching
    on a regular Scala class, you can write your own unapply() method and put
    it inside a "companion object" (explained below).
+
+
+object Demo
+{
+  case class Person(firstName: String, lastName: String)
+
+  /**************************************************
+   * main()
+   **************************************************/
+  def main(args: Array[String]): Unit = {
+    val joe:Person = Person("Joe", "Blow")
+    println(s"1) joe.firstName = ${joe.firstName},  joe.lastName = ${joe.lastName}")
+    // PRINTS: 1) joe.firstName = Joe,  joe.lastName = Blow
+
+    joe match {
+      case x => println(s"2) x.firstName = ${x.firstName},  x.lastName = ${x.lastName}")
+      // PRINTS: 2) x.firstName = Joe,  x.lastName = Blow
+      case _ => println("NO PATTERN MATCH")
+    }
+
+    joe match {
+      case Person(fn, ln) => println(s"3) fn = $fn,  ln = $ln") // PRINTS: 3) fn = Joe,  ln = Blow
+      case _ => println("NO PATTERN MATCH")
+    }
+
+    // The following line of code doesn't seem to make sense because it's NOT
+    // very intuitive.  The following line of code is an assignment statement
+    // which performs a pattern match on "val joe" by automatically invoking
+    // the Person.unapply() method.  The Person.unapply() method extracts
+    // joe.firstName and joe.lastName from val joe, then assigns them to the
+    // vals "first" and "last" respectively.
+    // NOTE: If the following line contained the keyword var instead of val,
+    //       then first and last would become vars instead of vals.
+    val Person(first, last) = joe
+    println(s"4) first = $first,  last = $last") // PRINTS: 4) first = Joe,  last = Blow
+  }
+}
 
 ===============================================================================
 
