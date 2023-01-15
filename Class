@@ -69,9 +69,16 @@ There are three (3) main levels of visibility in Scala, they are:
 
 object Demo
 {
-  // When a regular class (not a case class) is defined to accept
-  // arguments like the following class Person, all arguments in the
-  // class definition MUST be preceded with Scala keyword "val" or "var".
+  // The line of code below defines a Person class.  (NOTE: Person is defined
+  // here as a regular class, not a "case class.")  In a regular class, an
+  // argument that's not preceded with the "val" or "var" keyword remains only
+  // an argument, and doesn't become a member of the class.  (FYI, in a case class
+  // all arguments become members of the case class automatically, even if they're
+  // not preceded with the "val" or "var" keyword--by default, they're vals.)
+  //
+  // Because the firstName and lastName arguments passed to Person in the line
+  // below are preceded by the val keyword, firstName and lastName become
+  // members of the Person class.
   class Person(val firstName: String, val lastName: String)
 
   /**************************************************
@@ -140,68 +147,8 @@ object Demo
 
 
 ===============================================================================
-When a class is defined to accept arguments when instantiated, and an argument
-is NOT preceeded by the "val" or "var" keywords, the argument is "val" by default.
-
-When an argument passed to a class constructor is a "val", it's accessible only inside the class.
-When an argument passed to a class constructor is a "var", it's accessible inside and outside the class.
-
-The following sample code demonstrates this behavior.  Read in-line comments
-for detailed explanations.
-
-object Demo
-{
-  // The "name" and "id" arguments accepted by the Person1 class
-  // below are of type "val" by default.  The "ssn" and "state"
-  // arguments are explicitly specified as "var" types.
-  class Person1(name:String, id:Int, var ssn:String, var state:String) {
-    // The following line shows that all arguments passed to the Person1 class
-    // (whether of type "val" or "var") are accessible within the Person1 class.
-    println(s"Result 1) name = $name,  id = $id, ssn = $ssn,  state = $state")
-    // PRINTS: Result 1) name = Tom,  id = -4321, ssn = 987-65-4321,  state = Wisconsin
-  }
-
-  // The following Person2 class is similar (but not identical) to the Person1
-  // class above.  Person2 contains the same member names (having the same data
-  // types) as the Person1 class.  But those members aren't passed as arguments.
-  // Instead, those members must get initialized to the same values every time
-  // a Person2 class is instantiated.
-  class Person2 {
-    val name:String  = "Joe"
-    val id:Int       = 666777
-    var ssn:String   = "123-666-9999"
-    var state:String = "Wyoming"
-  }
-
-  def main(args:Array[String]):Unit =
-  {
-    val tom:Person1 = new Person1("Tom", -4321, "987-65-4321", "Wisconsin")
-
-    // If the following commented-out line is uncommented it WON'T COMPILE because
-    // the "name" and "id" arguments accepted by the Person1 class are "val" types,
-    // so they're NOT accessible from outside the Person1 class.
-    // println(s"Result 2A) tom.name = ${tom.name},  tom.id = ${tom.id}") // WON'T COMPILE!
-
-    // The following line CAN access the "ssn" and "state" arguments accepted
-    // by the Person1 class because they are "var" types.
-    println(s"Result 2B) tom.ssn = ${tom.ssn},  tom.state = ${tom.state}")
-    // PRINTS: Result 2B) tom.ssn = 987-65-4321,  tom.state = Wisconsin
-
-    // Notice the difference here between the Person1 and Person2 classes.
-    // The "val" arguments passed to Person1 are NOT accessible outside
-    // the Person1 class.  But "val" members declared inside Person2 ARE
-    // accessible outside the Person2 class.
-    val joe:Person2 = new Person2
-    println(s"Result 3) joe.name = ${joe.name},  joe.id = ${joe.id}, joe.ssn = ${joe.ssn},  joe.state = ${joe.state}")
-    // PRINTS: Result 3) joe.name = Joe,  joe.id = 666777, joe.ssn = 123-666-9999,  joe.state = Wyoming
-  }
-}
-
-
-
-
-
 ===============================================================================
+
 The syntax used for defining getter and setter methods for regular Scala
 classes is rather strange.  The following code demonstrates how to use
 getter and setter methods for standard Scala classes.  Read the comments
