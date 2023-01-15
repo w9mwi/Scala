@@ -26,17 +26,18 @@ a Scala object is used as a "companion object" to a regular Scala class.
 
 Companion objects are used ONLY for regular Scala classes so you can
 define your own apply() AND/OR unapply() method inside the companion
-object.  (Keep reading to understand this.)  You wouldn't create a
-companion object for a Scala "case class" because Scala automatically
-generates both an apply() and unapply() method for a "case class".
+object.  (To understand apply() and unapply() keep reading.)  You
+wouldn't create a companion object for a Scala "case class" because
+Scala automatically generates both an apply() and unapply() method
+for a "case class".
 
 There are two reasons for defining a companion object to a regular class...
 
 1) So you can instantiate the class without using the "new" keyword.
-   To accomplish thats requires you to define an apply() method
+   To accomplish that requires you to define an apply() method
    in the companion object.  (See code example below.)
 2) To perform pattern matching on the class.  To accomplish
-   this requires you to define an unapply() method in the
+   that requires you to define an unapply() method in the
    companion object.  (See code example below.)
 
 A companion object must always meet the following three criteria:
@@ -48,9 +49,9 @@ A companion object must always meet the following three criteria:
 
 A companion object can be used for more than just defining your own
 apply() or unapply() methods.  A companion object can also be used
-to contain member values (i.e., val or var) or methods that are
-singletons.  In other words, values or methods in the companion
-object that apply to all instances of the companion class.
+to contain member values (vals,  vars) or methods that are singletons.
+Singletons are values or methods in the companion object that apply
+to all instances of the companion class.
 
 Scala also has the following type of classes.  This page
 doesn't discuss these class types.
