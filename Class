@@ -53,16 +53,16 @@ A companion object must always meet the following 3 criteria:
 
 Two of the most common methods contained in a companion object are:
 
-1) apply() - This method gets invoked when a companion class is instantiated, and
-             it literally performs the instantiation.  When you write your own
-             apply() method the companion class can be instantiated without using
-             the "new" keyword.  If the companion object doesn't contain an apply()
-             method, Scala provides a default apply() method.
-2) unapply() - This method gets invoked when pattern matching is performed on
-               the companion class.  Scala doesn't provide an unapply() method
-               for regular classes (only for case classes), so you must write
-               your own unapply() method if you want to perform pattern matching
-               on a regular class.
+1) apply() - This method gets invoked whenever a class is instantiated, and it
+             literally performs the class's instantiation.  Scala provides an
+             apply() method for all classes by default, so you don't have to write
+             your own.  Rarely is there a good reason to write your own apply()
+             method, but that option is available if you need it.
+2) unapply() - This method gets invoked automatically whenever pattern matching
+               is performed on a class.  Scala doesn't provide a default unapply()
+               method for regular classes (only for case classes).  So you must
+               write your own unapply() method (inside the companion object)
+               if you want to perform pattern matching on a regular class.
 
 Scala also has the following type of classes.  This page
 doesn't discuss these class types.
