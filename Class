@@ -255,7 +255,8 @@ object Demo
 
 The following code sample contains no Scala classes, and therefore no companion objects.
 All of the objects are pure singleton objects, not associated with any companion class.
-This code demonstrates more complex examples of how to use pattern matching.
+This code demonstrates more complex examples of how to use pattern matching, including
+using the unapplySeq() method for dealing with an unknown (variable) number of arguments.
 
 import java.time.{LocalDate, LocalDateTime, LocalTime}
 object Demo
@@ -280,8 +281,8 @@ object Demo
   // When you need to extract an unknown (variable) number of
   // arguments from a class, you must write an unapplySeq()
   // method.  Just as Scala automatically invokes the unapply()
-  // method in a companion object, Scala also automatically
-  // invokes the unapplySeq() method when it's called for.
+  // method in a companion object, Scala automatically invokes
+  // the unapplySeq() method when it's called for.
   object DateTimeSeq {  // A pure singleton object, not associated with a companion class.
     def unapplySeq(dt: LocalDateTime):Some[Seq[Int]] = {
       Some(Seq(dt.getYear, dt.getMonthValue, dt.getDayOfMonth,
