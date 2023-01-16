@@ -252,58 +252,64 @@ object Demo
 
 
 ===============================================================================
-The following code sample demonstrates some more companion objects and
-pattern matching.
+
+The following code sample contains no Scala classes, and therefore no companion objects.
+All of the objects are pure singleton objects, not associated with any companion class.
+This code demonstrates more complex examples of how to use pattern matching.
 
 import java.time.{LocalDate, LocalDateTime, LocalTime}
 object Demo
 {
-  object DateTime {
+  object DateTime {  // A pure singleton object, not associated with a companion class.
     def unapply(dt: LocalDateTime): Some[(LocalDate, LocalTime)] =
       Some((dt.toLocalDate, dt.toLocalTime))
   }
 
-  object Date {
+  object Date {  // A pure singleton object, not associated with a companion class.
     def unapply(date: LocalDate): Some[(Int, Int, Int)] =
       Some((date.getYear, date.getMonthValue, date.getDayOfMonth))
   }
 
-  object Time {
+  object Time {  // A pure singleton object, not associated with a companion class.
     def unapply(time: LocalTime): Some[(Int, Int, Int)] =
       Some((time.getHour, time.getMinute, time.getSecond))
   }
 
-  // NOTE: When a variable number of arguments must be extracted from
-  //       a class, the unapply() method won't work.  In such cases,
-  //       you must instead write an unapplySeq() method.  Just as
-  //       Scala automatically invokes the unapply() method in a
-  //       companion object, Scala also automatically invokes the
-  //       unapplySeq() method when it's called for.
-  object DateTimeSeq {
+  // When an unknown (variable) number of arguments must be
+  // extracted from a class, the unapply() method won't work.
+  // When you need to extract an unknown (variable) number of
+  // arguments from a class, you must write an unapplySeq()
+  // method.  Just as Scala automatically invokes the unapply()
+  // method in a companion object, Scala also automatically
+  // invokes the unapplySeq() method when it's called for.
+  object DateTimeSeq {  // A pure singleton object, not associated with a companion class.
     def unapplySeq(dt: LocalDateTime):Some[Seq[Int]] = {
-      println("DateTimeSeq.unapply() is called!")
       Some(Seq(dt.getYear, dt.getMonthValue, dt.getDayOfMonth,
                dt.getHour, dt.getMinute,     dt.getSecond))
     }
   }
 
-  object AM {
+  // Notice the if() statement embedded within the match/case statement,
+  // which allows more flexibility.  When the if() statement is true,
+  // the match is successful.  When it's false, the match fails.
+  object AM {  // A pure singleton object, not associated with a companion class.
     def unapply(time: LocalTime):Option[(Int, Int, Int)] = {
-      println("AM.unapply() is called!")
       time match {
-        case Time(hour, minute, second) if hour < 12 => Some((hour, minute, second))
-        case _ => None
+        case Time(hour, minute, second) if (hour < 12) => Some((hour, minute, second))
+        case _ => None  // No match above is successful.
       }
     }
   }
 
-  object PM {
+  // Notice the if() statement embedded within the match/case statement,
+  // which allows more flexibility.  When the if() statement is true,
+  // the match is successful.  When it's false, the match fails.
+  object PM { // A pure singleton object, not associated with a companion class.
     def unapply(time: LocalTime):Option[(Int, Int, Int)] = {
-      println("PM.unapply() is called!")
       time match {
         case Time(12, minute, second) => Some(12, minute, second)
-        case Time(hour, minute, second) if hour > 12 => Some(hour - 12, minute, second)
-        case _ => None
+        case Time(hour, minute, second) if (hour > 12) => Some(hour-12, minute, second)
+        case _ => None  // No match above is successful.
       }
     }
   }
@@ -312,36 +318,44 @@ object Demo
    * main()
    *************************************************/
   def main(args: Array[String]): Unit = {
-    // As in a previous example above, here we perform pattern matching
-    // not by using the "match" keyword (as is commonly done), but via
-    // some assignment statements.  When a match succeeds, it binds the
-    // Date and Time values returned by the unapply() methods to these
-    // vals:  year, month, day, hour, minute, second
+    // The pattern match performed on the following line of code will succeed
+    // because it's written properly.  When it succeeds, year, month, and date
+    // become Int vars, which are used in the following println statement.
     var Date(year, month, date) = LocalDate.now
-    println(s"Date = ${getMonthName(month)} $date, $year")
+    println(s"Date_1 = ${getMonthName(month)} $date, $year")
 
+    // The pattern match performed on the following line of code will succeed
+    // because it's written properly.  When it succeeds, hour, minute, and date
+    // become Int vars, which are used in the following println statement.
     var Time(hour, minute, second) = LocalTime.now
-    println(s"Time = $hour:$minute:$second")
+    println(s"Time_1 = $hour:$minute:$second")
 
-    // The following line of code obtains the same information as above,
-    // but in a single line of code, which calls for a different pattern
-    // match format.
+    Thread.sleep(2000) // Wait 2 seconds.
+
+    // The following line of code obtains the same Date and Time information
+    // as the above examples,  but in a single line of code.  But the a pattern
+    // match format used is different.
     // NOTE: Even though year, hour, etc. are declared above as vars,
     //       they CAN'T be reused again in the following pattern match.
     //       This is because they've already been declared, and the
     //       following line of code would try to declare them a second
-    //       time.  That's is why year2, hour2, etc. are used instead...
+    //       time.  That's is why year2, hour2, etc. are used instead.
     var DateTime(Date(year2, month2, date2), Time(hour2, minute2, second2)) = LocalDateTime.now
-    println(s"Date = ${getMonthName(month2)} $date2, $year2")
-    println(s"Time = $hour2:$minute2:$second2")
+    println(s"Date_2 = ${getMonthName(month2)} $date2, $year2")
+    println(s"Time_2 = $hour2:$minute2:$second2")
 
-    // The following line of code obtains a subset of the information obtained
-    // above by DateTime(), but we're not interested in obtaining the minutes
-    // or seconds.  To substitute explicit names for minutes and seconds,
-    // we use "_*", which designates a variable number of values are returned.
+    Thread.sleep(2000) // Wait 2 seconds.
+    // To understand the following line of code, read comments in the getTimeString() method.
+    println(s"Time_3 = ${getTimeString(LocalTime.now)}")
+
+    // The following line of code obtains a subset of the information returned
+    // by the call to LocalDateTime.now.  We're not interested in obtaining
+    // the minutes or seconds from LocalDateTime.now.  So instead of supplying
+    // var names of minutes and seconds, we specify "_*", which accepts a
+    // variable number of arguments that we ignore.
     var DateTimeSeq(year3, month3, date3, hour3, _*) = LocalDateTime.now
-    println(s"Date = ${getMonthName(month3)} $date3, $year3")
-    println(s"Time = $hour3:??:??")
+    println(s"Date_4 = ${getMonthName(month3)} $date3, $year3")
+    println(s"Time_4 = $hour3:??:??")
   }
 
   /************************************************
@@ -354,6 +368,52 @@ object Demo
       case 5 => "May";       case  6 => "June";     case  7 => "July";     case  8 => "August";
       case 9 => "September"; case 10 => "October";  case 11 => "November"; case 12 => "December";
       case _ => "NO MATCH"
+    }
+  }
+
+  /************************************************
+   * This getTimeString() method gets passed an argument
+   * of type Time.  It transforms that Time value into
+   * a String having thw following format and returns
+   * the String.
+   *
+   * 1) Zero-fills the minute and second values when they're
+   *    less than 10.
+   * 2) Converts 24-hour time into 12-hour time, with
+   *    AM or PM appended.
+   * 3) Appends to that String the exact value of Time
+   *    passed to this method.
+   *
+   * The 2 lines of code below the match statement are explained here...
+   *
+   * A pattern match is performed on localTime, which is passed to this method.
+   *
+   * The "match" keyword automatically invokes a call to AM.unapply().  If
+   * localTime passed to this method matches the AM(h, m, s) pattern,
+   * AM.unapply() returns a Time value, meaning the pattern match succeeded.
+   * If the pattern match succeeded, the syntax  "time @ AM(h, m, s)"  binds
+   * localTime to "time" which, is a val.  The formatted String after the
+   * rocket (=>) is then returned by this method.
+   *
+   * If AM.unapply() returns None, that pattern match failed.  So the
+   * next line of code is executed, which works the same as the first
+   * line of code.// The following 2 lines of code explained...
+   * A pattern match is performed on localTime, which is passed to this method.
+   * The "match" keyword automatically invokes a call to AM.unapply().  If
+   * localTime passed to this method matches the AM(h, m, s) pattern,
+   * AM.unapply() returns a Time value, meaning the pattern match succeeded.
+   * If the pattern match succeeded, the syntax  "time @ AM(h, m, s)"  binds
+   * localTime to "time" which, is a val.  The formatted String after the
+   *  rocket (=>) is then returned by this method.
+   *
+   * If AM.unapply() returns None, that pattern match failed.  So the
+   * next line of code is executed, which works the same as the first
+   * line of code.
+   ***********************************************/
+   def getTimeString(localTime:LocalTime):String = {
+     localTime match {
+       case time @ AM(h, m, s) => f"$h%2d:$m%02d:$s%02d AM ($time precisely)"
+       case time @ PM(h, m, s) => f"$h%2d:$m%02d:$s%02d PM ($time precisely)"
     }
   }
 }
