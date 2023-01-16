@@ -24,10 +24,11 @@ a parameter list.  (A Scala class and "case class" can have a parameter
 list containing arguments, as classes are instantiated.)  Quite often
 a Scala object is used as a "companion object" to a regular Scala class.
 
-Companion objects are used ONLY for regular Scala classes so you can
-define your own apply() AND/OR unapply() method inside the companion
-object.  (To understand apply() and unapply() methods keep reading.)
-You wouldn't create a companion object for a Scala "case class" because
+Companion objects are companions to ONLY regular Scala classes, not
+case classes.  If you choose to write your own apply() or unapply()
+method for a class, you place them inside the companion object.
+(To understand apply() and unapply() methods keep reading.)  You
+wouldn't create a companion object for a Scala "case class" because
 Scala automatically generates both an apply() and unapply() method
 for a "case class".
 
