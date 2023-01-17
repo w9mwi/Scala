@@ -374,27 +374,21 @@ object Demo
 
   /************************************************
    * This getTimeString() method gets passed an argument
-   * of type Time.  It transforms that Time value into
-   * a String having thw following format and returns
-   * the String.
+   * of type Time.  It converts that Time value into a
+   * String by performing the following 3 transfomations
+   * then returns that String.
    *
-   * 1) Zero-fills the minute and second values when they're
-   *    less than 10.
-   * 2) Converts 24-hour time into 12-hour time, with
-   *    AM or PM appended.
-   * 3) Appends to that String the exact value of Time
-   *    passed to this method.
+   * 1) Zero-fills the minute and second values when they're < 10.
+   * 2) Converts 24-hour time into 12-hour time with AM or PM appended.
+   * 3) Appends to that String the exact value of Time passed to this method.
    *
-   * The 2 lines of code below the match statement are explained here...
-   *
-   * A pattern match is performed on localTime, which is passed to this method.
-   *
-   * The "match" keyword automatically invokes a call to AM.unapply().  If
-   * localTime passed to this method matches the AM(h, m, s) pattern,
-   * AM.unapply() returns a Time value, meaning the pattern match succeeded.
-   * If the pattern match succeeded, the syntax  "time @ AM(h, m, s)"  binds
-   * localTime to "time" which, is a val.  The formatted String after the
-   * rocket (=>) is then returned by this method.
+   * This method performs a pattern match on localTime, which is passed
+   * to this method.  The "match" keyword automatically invokes a call
+   * to AM.unapply().  If localTime passed to this method matches the
+   * AM(h, m, s) pattern, AM.unapply() returns a Time value, meaning the
+   * pattern match succeeded.  If the pattern match succeeded, the syntax
+   * "time @ AM(h, m, s)" binds localTime to "time" which, is a val.  The
+   * formatted String after the rocket (=>) is then returned by this method.
    *
    * If AM.unapply() returns None, that pattern match failed.  So the
    * next line of code is executed, which works the same as the first
