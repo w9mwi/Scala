@@ -9,7 +9,7 @@ or an "object", such as Person, Automobile, Aircraft, Animal, etc.
 
 You should use a Scala trait to represent a "behavior", such as
 communicate, learn, transport, work, etc.  (Traits are covered
-in a different section.)
+in the "Trait" different section.)
 
 A Scala object always represents a "singleton."  A Scala object
 wouldn't be used to represent a person because you'd probably want
@@ -19,13 +19,15 @@ be used to represent planet Earth because only one exists (it's a
 singleton).  It wouldn't make sense to create multiple planet
 Earth objects or classes.
 
+An object can extend another class, but a class CAN'T extend an object.
+
 Unlike Scala classes, Scala objects can't be instantiated, and can't
 be defined to accept arguments.  This means a Scala object can't have
 a parameter list.  But a Scala object can contain member values that
 get initialized when an object is referenced for the first time.
 
 NOTE: Unlike a Scala object,  Scala class and "case class" can have
-a parameter list containing arguments, as classes are instantiated.
+      a parameter list containing arguments, as classes are instantiated.
 
 Quite often a Scala object is used as a "companion object" to a
 regular Scala class.  Companion objects are companions to ONLY
@@ -129,8 +131,6 @@ Below are some code samples demonstrating how to use:
 * unapply() method
 * pattern matching
 
-Always read the in-line comments for explanations.
-
 The following are some differences and similarities betweeen a Scala
 "case class" and a regular Scala class.
 
@@ -160,6 +160,40 @@ The following are some differences and similarities betweeen a Scala
    for pattern matching on the class.  If you want to perform pattern matching
    on a regular Scala class, you can write your own unapply() method and put
    it inside a "companion object".
+
+=============================================================================
+OBJECT TYPES - Read in-line comments in the sample code below to understand
+               the difference between an "object type" and a "class type."
+
+object Demo
+{
+  class Kid(name:String, age:Int) {
+    def greeting():String = s"My name is $name, I am $age years old."
+  }
+  object Kid {
+    val IS_ADULT:Boolean            = false
+    val IS_COLLEGE_GRADUATE:Boolean = false
+  }
+
+  def main(args: Array[String]):Unit = {
+    val kidClass:Kid = new Kid("Jane Train", 13)
+    println(s"${kidClass.greeting}") // PRINTS: My name is Jane Train, I am 13 years old.
+
+    // IMPORTANT: A Kid class has the type:  Kid
+    //            A Kid object has the type: Kid.type
+    //
+    // If you uncomment the following commented-out line, it WON'T COMPILE!
+    // It won't compile because kid_1 is defined as type Kid, which
+    // is the type of the Kid CLASS.  And we're trying to assign Kid
+    // (which is the OBJECT Kid) to a CLASS of type Kid.
+    // val kid_1:Kid = Kid
+
+    // The following line of code WILL COMPILE because kid_2 is defined
+    // as type Kid.type.  Kid.type is the type of a Kid OBJECT.  Therefore,
+    // Kid (which is a Kid OBJECT) can be assigned to kid_2.
+    val kid_2:Kid.type = Kid
+  }
+}
 
 ===============================================================================
 
