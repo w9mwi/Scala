@@ -8,7 +8,8 @@ You should use a Scala class (or a Scala object) to represent a "thing"
 or an "object", such as Person, Automobile, Aircraft, Animal, etc.
 
 You should use a Scala trait to represent a "behavior", such as
-communicate, learn, transport, work, etc.
+communicate, learn, transport, work, etc.  (Traits are covered
+in a different section.)
 
 A Scala object always represents a "singleton."  A Scala object
 wouldn't be used to represent a person because you'd probably want
@@ -20,28 +21,33 @@ Earth objects or classes.
 
 Unlike Scala classes, Scala objects can't be instantiated, and can't
 be defined to accept arguments.  This means a Scala object can't have
-a parameter list.  (A Scala class and "case class" can have a parameter
-list containing arguments, as classes are instantiated.)  Quite often
-a Scala object is used as a "companion object" to a regular Scala class.
+a parameter list.  But a Scala object can contain member values that
+get initialized when an object is referenced for the first time.
 
-Companion objects are companions to ONLY regular Scala classes, not
-case classes.  If you choose to write your own apply() or unapply()
-method for a class, you place them inside the companion object.
-(To understand apply() and unapply() methods keep reading.)  You
-wouldn't create a companion object for a Scala "case class" because
-Scala automatically generates both an apply() and unapply() method
-for a "case class".
+NOTE: Unlike a Scala object,  Scala class and "case class" can have
+a parameter list containing arguments, as classes are instantiated.
+
+Quite often a Scala object is used as a "companion object" to a
+regular Scala class.  Companion objects are companions to ONLY
+regular Scala classes, not case classes.  If you choose to write
+your own apply() or unapply() method for a class, you place them
+inside the companion object.  (To understand apply() and unapply()
+methods keep reading.)  You wouldn't create a companion object for
+a Scala "case class" because Scala automatically generates both an
+apply() and unapply() method for a "case class".
 
 There are three reasons for a regular Scala class to have a companion object:
 
 1) So you can define your own apply() method for the class, instead of using
-   Scala's default apply() method.  There's usually no reason to do this,
-   so it's rarely used.
+   Scala's default apply() method.  However, there's usually no reason to
+   write your own apply() method for a class, so it's rarely done.
 2) To perform pattern matching on the class.  To accomplish that requires
    you to define an unapply() method in the companion object.
 3) A companion object can be used to contain values (vals, vars) or methods
    that are singletons.  Singletons are values or methods in the companion
-   object that apply to all instances of the companion class.
+   object that apply to all instances of the companion class.  The vals/vars
+   contained in an object get initialized only once--the first time the object
+   is referenced.
 
 A companion object must always meet the following 3 criteria:
 
@@ -58,11 +64,34 @@ Two of the most common methods contained in a companion object are:
              apply() method for all classes by default, so you don't have to write
              your own.  Rarely is there a good reason to write your own apply()
              method, but that option is available if you need it.
-2) unapply() - This method gets invoked automatically whenever pattern matching
-               is performed on a class.  Scala doesn't provide a default unapply()
-               method for regular classes (only for case classes).  So you must
-               write your own unapply() method (inside the companion object)
-               if you want to perform pattern matching on a regular class.
+2) unapply()    - The unapply() method gets invoked automatically whenever pattern
+                  matching is performed on a class.  Scala doesn't provide a default
+                  unapply() method for regular classes (only for case classes).
+                  So you must write your own unapply() method (inside the companion
+                  object) if you want to perform pattern matching on a regular class.
+   unapplySeq() - An unapplySeq() method takes the place of unapply() when
+                  you want to deconstruct an unknown (variable number) of
+                  arguments for pattern matching.  That variable number of arguments
+                  gets passed to the companion class when the companion class gets
+                  instantiated.
+
+CASE OBJECT - Just as you can create a "case class" in Scala, you can also create
+              a "case object."  A "case object" differs from a regular object in
+              these ways.
+              1) A case object is serializable.
+              2) A case object has a default hashCode() implementation.
+              3) A case object has an improved toString implementation.
+
+              The use of case objects is not so common, but they are used
+              for enumerations.  Like this, for example:
+
+              sealed trait Topping
+              case object Cheese    extends Topping
+              case object Pepperoni extends Topping
+              case object Sausage   extends Topping
+              case object Mushrooms extends Topping
+              case object Onions    extends Topping
+               
 
 Scala also has the following type of classes.  This page
 doesn't discuss these class types.
