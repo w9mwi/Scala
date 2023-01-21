@@ -8,18 +8,18 @@ You should use a Scala class (or a Scala object) to represent a "thing"
 or an "object", such as Person, Automobile, Aircraft, Animal, etc.
 
 You should use a Scala trait to represent a "behavior", such as
-communicate, learn, transport, work, etc.  (Traits are covered
-in the "Trait" different section.)
+communicate, learn, transport, work, etc.  (Traits aren't covered
+here, but in the section titled "Trait".)
 
 CASE CLASS - A Scala "case class" is genearally defind in one line of code, like this:
 
              case class Person(name:String, id:Int) // A case class definition
              val jim = Person("Jim", 98765)         // A case class instantiation
 
-             All values passed to a case class automatically become members
-             of the case class, and are vals by default.  In the case class
-             definition you can precede an argument with the "val" or "var"
-             keyword.
+             All values passed to a case class automatically become public members
+             of the case class (meaning they can be accessed outside the class),
+             and are vals by default.  In the case class definition you can precede
+             any argument with the "val" or "var" keyword.
 
              A Scala "case class" is different from regular Scala class in the following 8 ways...
 
