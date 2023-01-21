@@ -11,6 +11,64 @@ You should use a Scala trait to represent a "behavior", such as
 communicate, learn, transport, work, etc.  (Traits are covered
 in the "Trait" different section.)
 
+CASE CLASS - A Scala "case class" is genearally defind in one line of code, like this:
+
+             case class Person(name:String, id:Int) // A case class definition
+             val jim = Person("Jim", 98765)         // A case class instantiation
+
+             All values passed to a case class automatically become members
+             of the case class, and are vals by default.  In the case class
+             definition you can precede an argument with the "val" or "var"
+             keyword.
+
+             A Scala "case class" is different from regular Scala class in the following 8 ways...
+
+             1) A regular Scala class generally requires multiple lines of
+                code to define it.  But a case class definition (as shown
+                above) usually requires just one line of code.
+
+             2) When a case class is instantiated, the following 6 methods become
+                available by default, so you don't need to write them.
+
+                apply()   - Explained further below
+                unapply() - Explained further below
+                copy()    - Creates a new "case class" instance that's a copy of the
+                            existing case class.  If you pass this copy() method any
+                            arguments, those arguments specify the case class member
+                            values you want changed in the copied instance.  Calling
+                            copy() on a case class does NOT make any changes to the existing
+                            case class.  Only the newly-created case class will contain
+                            changes to its member values.
+                equals()  - Determines if two Scala objects are equal.  Read the hashCode()
+                            description below.
+                hashCode() - Returns an Int value.  If calling hashCode() on two Scala objects
+                             returns the same Int value, they are equal.  You can use this
+                             equals() method or the '==' operator in place of calling hashCode().
+                toString() - Renders the case class’s name and fields to a String.
+
+             3) The case class Scala type automatically inherits from the type Serializable.
+
+             4) A case class MUST contain one or more args/params in its definition.
+
+             5) A case class CAN be abstract, like this:
+                abstract case class Card(id:Int)
+
+             6) A case class CAN'T extend another case class.  But a case class CAN extend
+                a regular class OR an abstract class.  The following example will work
+                with or without the "abstract" keyword:
+
+                abstract class Card(id:Int)
+                case class DebitCard(id:Int, name:String, number:Int) extends Card(id)
+
+             7) A case class can extend a Trait, like the following example shows:
+
+                trait Event
+                case class ComplexEvent() extends Event
+
+             8) The constructor parameters of case classes are treated as public
+                values and can be accessed directly from outside the case class.
+
+
 A Scala object always represents a "singleton."  A Scala object
 wouldn't be used to represent a person because you'd probably want
 the capability to generate multiple persons.  So you'd use a Scala
@@ -23,11 +81,8 @@ An object can extend another class, but a class CAN'T extend an object.
 
 Unlike Scala classes, Scala objects can't be instantiated, and can't
 be defined to accept arguments.  This means a Scala object can't have
-a parameter list.  But a Scala object can contain member values that
+a parameter list.  But a Scala object can contain member values, which
 get initialized when an object is referenced for the first time.
-
-NOTE: Unlike a Scala object,  Scala class and "case class" can have
-      a parameter list containing arguments, as classes are instantiated.
 
 Quite often a Scala object is used as a "companion object" to a
 regular Scala class.  Companion objects are companions to ONLY
@@ -71,11 +126,10 @@ Two of the most common methods contained in a companion object are:
                   unapply() method for regular classes (only for case classes).
                   So you must write your own unapply() method (inside the companion
                   object) if you want to perform pattern matching on a regular class.
-   unapplySeq() - An unapplySeq() method takes the place of unapply() when
-                  you want to deconstruct an unknown (variable number) of
-                  arguments for pattern matching.  That variable number of arguments
-                  gets passed to the companion class when the companion class gets
-                  instantiated.
+   unapplySeq() - An unapplySeq() method takes the place of unapply() when you want
+                  to deconstruct an unknown (variable number) of arguments for pattern
+                  matching.  That variable number of arguments gets passed to the
+                  companion class when the companion class gets instantiated.
 
 CASE OBJECT - Just as you can create a "case class" in Scala, you can also create
               a "case object."  A "case object" differs from a regular object in
