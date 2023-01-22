@@ -451,8 +451,8 @@ object Demo
     Thread.sleep(2000) // Wait 2 seconds.
 
     // The following line of code obtains the same Date and Time information
-    // as the above examples,  but in a single line of code.  But the a pattern
-    // match format used is different.
+    // as the above examples,  but in a single line of code.  Hovever the
+    // following pattern match format is different than the one above.
     // NOTE: Even though year, hour, etc. are declared above as vars,
     //       they CAN'T be reused again in the following pattern match.
     //       This is because they've already been declared, and the
