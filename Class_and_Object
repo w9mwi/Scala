@@ -11,7 +11,7 @@ You should use a Scala trait to represent a "behavior", such as
 communicate, learn, transport, work, etc.  (Traits aren't covered
 here, but in the section titled "Trait".)
 
-CASE CLASS - A Scala "case class" is generally defind in one line of code, like this:
+CASE CLASS - A Scala "case class" is generally defined in one line of code, like this:
 
              case class Person(name:String, id:Int) // A case class definition
              val jim = Person("Jim", 98765)         // A case class instantiation
