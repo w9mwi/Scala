@@ -11,24 +11,29 @@ You should use a Scala trait to represent a "behavior", such as
 communicate, learn, transport, work, etc.  (Traits aren't covered
 here, but in the section titled "Trait".)
 
-CASE CLASS - A Scala "case class" is genearally defind in one line of code, like this:
+CASE CLASS - A Scala "case class" is generally defind in one line of code, like this:
 
              case class Person(name:String, id:Int) // A case class definition
              val jim = Person("Jim", 98765)         // A case class instantiation
 
-             All values passed to a case class automatically become public members
-             of the case class (meaning they can be accessed outside the class),
-             and are vals by default.  In the case class definition you can precede
-             any argument with the "val" or "var" keyword.
+             All values passed to a case class become public members of the case class
+             (meaning they can be accessed outside the class) by default.  By default,
+             they are vals.  In the case class definition you can precede any argument
+             with the "val" or "var" keyword.
 
-             A Scala "case class" is different from regular Scala class in the following 8 ways...
+             A Scala "case class" is different from a regular Scala class in the following 8 ways...
 
              1) A regular Scala class generally requires multiple lines of
                 code to define it.  But a case class definition (as shown
                 above) usually requires just one line of code.
 
-             2) When a case class is instantiated, the following 6 methods become
-                available by default, so you don't need to write them.
+             2) A case class MUST contain one or more args/params in its definition.
+
+             3) Constructor arguments of case classes are treated as public values,
+                and can be accessed from outside the case class.
+
+             4) When a case class is instantiated, the following 6 methods become
+                available by default, so you never need to write them yourself.
 
                 apply()   - Explained further below
                 unapply() - Explained further below
@@ -37,36 +42,31 @@ CASE CLASS - A Scala "case class" is genearally defind in one line of code, like
                             arguments, those arguments specify the case class member
                             values you want changed in the copied instance.  Calling
                             copy() on a case class does NOT make any changes to the existing
-                            case class.  Only the newly-created case class will contain
-                            changes to its member values.
+                            case class.  Only the newly-created case class will contain the
+                            changes that you specify to its member values.
                 equals()  - Determines if two Scala objects are equal.  Read the hashCode()
                             description below.
                 hashCode() - Returns an Int value.  If calling hashCode() on two Scala objects
-                             returns the same Int value, they are equal.  You can use this
-                             equals() method or the '==' operator in place of calling hashCode().
+                             return the same Int value, they are equal.  You can use the equals()
+                             method or the '==' operator in place of calling hashCode() to
+                             determine equivalency.
                 toString() - Renders the case class’s name and fields to a String.
 
-             3) The case class Scala type automatically inherits from the type Serializable.
+             5) A case class is Serializable.
 
-             4) A case class MUST contain one or more args/params in its definition.
+             6) A case class CAN be abstract, like this:   abstract case class Card(id:Int)
 
-             5) A case class CAN be abstract, like this:
-                abstract case class Card(id:Int)
-
-             6) A case class CAN'T extend another case class.  But a case class CAN extend
+             7) A case class CAN'T extend another case class.  But a case class CAN extend
                 a regular class OR an abstract class.  The following example will work
                 with or without the "abstract" keyword:
 
                 abstract class Card(id:Int)
                 case class DebitCard(id:Int, name:String, number:Int) extends Card(id)
 
-             7) A case class can extend a Trait, like the following example shows:
+             8) A case class can extend a trait, like the following example shows:
 
                 trait Event
                 case class ComplexEvent() extends Event
-
-             8) The constructor parameters of case classes are treated as public
-                values and can be accessed directly from outside the case class.
 
 
 A Scala object always represents a "singleton."  A Scala object
