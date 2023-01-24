@@ -25,12 +25,18 @@ CASE CLASS - A Scala "case class" is generally defined in one line of code, like
 
              1) A regular Scala class generally requires multiple lines of
                 code to define it.  But a case class definition (as shown
-                above) usually requires just one line of code.
+                above) often requires just one line of code.
 
-             2) A case class MUST contain one or more args/params in its definition.
+             2) A case class MUST contain one or more args/params in its definition,
+                while a regular class doesn't require any args/params.
 
-             3) Constructor arguments of case classes are treated as public values,
-                and can be accessed from outside the case class.
+             3) When a case class definition doesn't precede its constructor argument(s)
+                with the "val" or "var" keyword, they are "val" by default, and are treated
+                as public values, which means they can be accessed from outside the case class.
+
+                When a regular case class definition doesn't precede its constructor argument(s)
+                with the "val" or "var" keyword, they are "vals" by default, and are treated
+                as private values, which means they can't be accessed from outside the class.
 
              4) When a case class is instantiated, the following 6 methods become
                 available by default, so you never need to write them yourself.
@@ -68,7 +74,8 @@ CASE CLASS - A Scala "case class" is generally defined in one line of code, like
                 trait Event
                 case class ComplexEvent() extends Event
 
-
+OBJECT
+======
 A Scala object always represents a "singleton."  A Scala object
 wouldn't be used to represent a person because you'd probably want
 the capability to generate multiple persons.  So you'd use a Scala
