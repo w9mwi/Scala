@@ -157,25 +157,6 @@ doesn't discuss these class types.
 * Implicit class
 * Inner class
 
-===============================================================================
-There are three (3) main levels of visibility in Scala, they are:
-
-1) public (default) - There does NOT exist a public keyword in Scala.  If you want
-                      something public, it's public BY DEFAULT, which means you
-                      wouldn't use the private or protected keyword.  If the
-                      visibility level is public, a class's val/var member or
-                      method is accessible by code inside, or outside, the class.
-2) private - A "private" declaration means a class's val/var member or method
-             can be accessed only inside the class.  If you prefix a declaration
-             inside a class with the private keyword, that member will be visible
-             to that class only.  This means a private method is NOT made avaiable
-             to subclasses.
-3) protected - A protected declaration is much like private, except protected class
-               members are also accessible in subtypes (children) of the class.
-               This means a protected method IS made available to subclasses.
-
-===============================================================================
-
 Below are some code samples demonstrating how to use:
 
 * Scala classes
@@ -531,7 +512,121 @@ object Demo
 }
 
 ===============================================================================
+Here is nother example of hot to perform pattern matching using the "match" keyword.
+
+object Demo
+{
+  // NOTICE: The Email, SMS, VoiceRecording, and MorseCodeNotify case classes declarations
+  //         below all extend the Notification class, which is an abstract class.
+  //         Therefore, these 4 case classes can be treated as a Notification class.
+  abstract class Notification
+  case class Email(sender:String, title:String, body:String) extends Notification
+  case class SMS(caller:String, message:String)              extends Notification
+  case class VoiceRecording(contactName:String, link:String) extends Notification
+  case class MorseCodeNotify()                               extends Notification
+
+  def main(args: Array[String])
+  {
+    // We now demonstrate how to pattern match on the 4 case classes defined above.
+    // Because all 4 of those case classes extend the Notification abstract class,
+    // we can pass these classes as an argument to the showNotification() method
+    // below, as type Notification.
+    val emailNotify:Email               = Email("Sender Bender", "Titletown, USA", "Hi.  See you later.")
+    val smsNotify:SMS                   = SMS("12345", "Are you there?")
+    val voiceNotify:VoiceRecording      = VoiceRecording("Jack", "www.420.com")
+    val morseCodeNotify:MorseCodeNotify = MorseCodeNotify()
+
+    println
+
+    println(showNotification(morseCodeNotify))
+    // PRINTS: This is an unknown Notification message.
+
+    println(showNotification(voiceNotify))
+    // PRINTS: You received a Voice Recording from Jack.  To hear it, click on: www.420.com
+
+    println(showNotification(emailNotify))
+    // PRINTS: You have an email from Sender Bender with title: Titletown, USA
+
+    println(showNotification(smsNotify))
+    //PRINTS: You have an SMS from 12345! Message: Are you there?
+  }
+
+  def showNotification(notification:Notification):String =
+  {
+    notification match
+    {
+      case Email(email, title, _)     => s"You have an email from $email with title: $title"
+      case SMS(number, message)       =>  s"You have an SMS from $number! Message: $message"
+      case VoiceRecording(name, link) =>  s"You received a Voice Recording from $name!  To hear it, click on: $link"
+      case _                          => "This is an unknown Notification message."
+    }
+  }
+}
+
 ===============================================================================
+
+AUXILIARY CLASS CONSTRUCTORS
+----------------------------
+A Scala Class can have multiple constructors.  The "default" constructor
+is known as the "primary constructor".  The programmer can create additional
+class constructors known as "auxiliary constructors" by defining them inside
+the class, using the "this" keyword as the following example shows.
+NOTE: The equal sign (=) in the constructor is optional--it's NOT required.
+
+def this(arg1:datatype, arg2:datatype) = { Constructor code here. }
+
+The following code contains TWO (2) auxiliary constructors defined
+by the programmer.  The programmer never defines the primary
+constructor because Scala defines it by default.
+
+object Demo
+{
+  class Company
+  {
+    private var companyName:String = ""
+    private var noOfEmployees:Int  = 0
+
+    def show()
+    {
+      println("Company Name: " + companyName + " - Number of Employees: " + noOfEmployees)
+    }
+
+    // This Auxiliary Constructor contains one argument...
+    def this(companyName: String)
+    {
+      this() // Calls the primary constructor, which is always available by default.
+      this.companyName = companyName
+    }
+
+    // This Auxiliary Constructor contains two arguments...
+    def this(companyName:String, noOfEmployees:Int)
+    {
+      this(companyName) // Calls the Auxiliary Constructor that has one argument.
+      this.noOfEmployees = noOfEmployees
+    }
+  }
+
+  def main(args: Array[String])
+  {
+    // Calls the Primary Constructor, which contains zero arguments...
+    val company1 = new Company()
+    company1.show() // PRINTS: Company Name:  - Number of Employees: 0
+
+    // Calls the auxiliary constructor containing one argument...
+    val company2 = new Company("Joe's Pipes, Inc.")
+    company2.show() // PRINTS: Company Name: Joe's Pipes, Inc. - Number of Employees: 0
+
+    // Calls the auxiliary constructor containing two arguments...
+    val company3= new Company("Hard-Rock Cement Company", 42)
+    company3.show() // PRINTS: Company Name: Hard-Rock Cement Company - Number of Employees: 42
+  }
+}
+
+
+===============================================================================
+
+GETTER AND SETTER METHODS
+=========================
 
 The syntax used for defining getter and setter methods for regular Scala
 classes is rather strange.  The following code demonstrates how to use
@@ -580,61 +675,40 @@ object Demo
   }
 }
 
-==========================================================================
-The following sample code shows a difference between a regular class and
-a case class.  If the class Student_2 doesn't contain a "val" or "var"
-keyword before the name and id arguments, then john_2.name and john_2.id
-references in the println() statement will fail to compile.
-
-Without a "val" or "var" preceding an argument in a regular class,
-the argument remains only an argument, and doesn't become a member
-of the class (as it does in a case class).  Often, you do NOT want
-a member of a class visible outside the class.  So when you do NOT
-want an argument passed to a class constructor visible outside the
-class, you will use a regular class instead of a case class.
-
-You can reference john_1.name john_1.id in case class Student_1 when the
-class Student_2 does NOT contain a "val" or "var" keyword!  Because all
-arguments passed to a case class become members of the case class, and
-are therefore VISIBLE to code outside the case class.
-===============================================================================
-object Demo
-{
-  def main(args: Array[String]):Unit =
-  {
-    val john_1 = new Student_1("John Doe", "0123456")
-    val john_2 = new Student_2("John Doe", "0123456")
-
-    println("john_1.name = " + john_1.name + ", john_1.id = " + john_1.id)
-    println("john_2.name = " + john_2.name + ", john_2.id = " + john_2.id)
-  }
-
-  // All arguments passed to a case class become members of the case class.
-  case class Student_1(var name:String, var id:String)
-
-  // If the name and id arguments below are NOT preceded with a "val"
-  // or "var" keyword, the above println will fail to compile!  This
-  // is because arguments passed to a regular class do NOT become
-  // members of the class unless those arguments are preceded with
-  the "val" or "var" keyword.
-  class Student_2(var name:String, var id:String)
-  {
-  }
-}
 ===============================================================================
 
-SOME ADVANCED VISIBILITY OPTIONS
-================================
-In addition to the above-mentioned modifiers, Scala has other visibility modifiers.
-The keywords 'private' and 'protected' can be followed by square brackets [], and
-the name of an enclosing scope of one of the following...
+ADVANCED VISIBILITY MODIFIERS
+=============================
+Scala has keywords 'private' and 'protected' that visibility modifiers.  Those
+keywords  can be followed by square brackets [], and the name of an enclosing
+scope of one of the following...
+
 1) package
 2) class
 3) trait
 4) object
+
 If you want to a make a method available to all members of the current package
 (aka, “package scope”), mark the method as being private to the current package,
 with the private[packageName] syntax as in this example:
+
+There are three (3) main levels of visibility in Scala, they are:
+
+1) public (default) - There does NOT exist a public keyword in Scala.  If you want
+                      something public, it's public BY DEFAULT, which means you
+                      wouldn't use the private or protected keyword.  If the
+                      visibility level is public, a class's val/var member or
+                      method is accessible by code inside, or outside, the class.
+2) private - A "private" declaration means a class's val/var member or method
+             can be accessed only inside the class.  If you prefix a declaration
+             inside a class with the private keyword, that member will be visible
+             to that class only.  This means a private method is NOT made avaiable
+             to subclasses.
+3) protected - A protected declaration is much like private, except protected class
+               members are also accessible in subtypes (children) of the class.
+               This means a protected method IS made available to subclasses.
+
+===============================================================================
 
 package com.acme.coolapp.model
 {
@@ -654,8 +728,9 @@ package com.acme.coolapp.model
 These advanced modifiers will make class members publicly visible for everything
 at that scope and closer to the declaration.  The benefit of this is that special
 access can be attained for closely-related code without making a member public
-to the entire world.  For more details regarding scope, go to this URL...
---> https://alvinalexander.com/scala/how-to-control-scala-method-scope-object-private-package
+to the entire world.  For more details regarding scope, go to this URL:
+
+https://alvinalexander.com/scala/how-to-control-scala-method-scope-object-private-package
 
 The following code shows how private[this] differs from the standard private declaration.
 Read the comments at the top of the Account class definition...
@@ -702,63 +777,4 @@ object Demo
   }
 }
 
-====================================================================================
-AUXILIARY CLASS CONSTRUCTORS
-----------------------------
-A Scala Class can have multiple constructors.  The "default" constructor
-is known as the "primary constructor".  The programmer can create additional
-class constructors known as "auxiliary constructors" by defining them inside
-the class, using the "this" keyword as the following example shows.
-NOTE: The equal sign (=) in the constructor is optional--it's NOT required.
-
-def this(arg1:datatype, arg2:datatype) = { Constructor code here. }
-
-The following code contains TWO (2) auxiliary constructors defined
-by the programmer.  The programmer never defines the primary
-constructor because Scala defines it by default.
-
-
-object Demo
-{
-  class Company
-  {
-    private var companyName:String = ""
-    private var noOfEmployees:Int  = 0
-
-    def show()
-    {
-      println("Company Name: " + companyName + " - Number of Employees: " + noOfEmployees)
-    }
-
-    // This Auxiliary Constructor contains one argument...
-    def this(companyName: String)
-    {
-      this() // Calls the primary constructor, which is always available by default.
-      this.companyName = companyName
-    }
-
-    // This Auxiliary Constructor contains two arguments...
-    def this(companyName:String, noOfEmployees:Int)
-    {
-      this(companyName) // Calls the Auxiliary Constructor that has one argument.
-      this.noOfEmployees = noOfEmployees
-    }
-  }
-
-
-  def main(args: Array[String])
-  {
-    // Calls the Primary Constructor, which contains zero arguments...
-    val company1 = new Company()
-    company1.show() // PRINTS: Company Name:  - Number of Employees: 0
-
-    // Calls the auxiliary constructor containing one argument...
-    val company2 = new Company("Joe's Pipes, Inc.")
-    company2.show() // PRINTS: Company Name: Joe's Pipes, Inc. - Number of Employees: 0
-
-    // Calls the auxiliary constructor containing two arguments...
-    val company3= new Company("Hard-Rock Cement Company", 42)
-    company3.show() // PRINTS: Company Name: Hard-Rock Cement Company - Number of Employees: 42
-  }
-}
 ====================================================================================
