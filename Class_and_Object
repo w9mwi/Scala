@@ -519,7 +519,7 @@ object Demo
 }
 
 ===============================================================================
-Here is nother example of hot to perform pattern matching using the "match" keyword.
+Here's another example of how to perform pattern matching using the "match" keyword.
 
 object Demo
 {
