@@ -1,0 +1,313 @@
+=========================================================================
+The following sample program demonstrates various ways of
+opening and reading a file in Scala.
+
+import java.io.File
+import java.util.Scanner
+import scala.io.Source
+
+object Demo
+{
+  def main(args: Array[String]): Unit =
+  {
+    println("Program running!")
+
+    println("1) Read a text file using the Java API.")
+    println("===========================================")
+    readTextFileViaJavaAPI()
+
+    println("2) Read a text file using the Scala API.")
+    println("===========================================")
+    readTextFileViaScalaAPI()
+
+    println("3) Open and read a text file in one function call.")
+    println("===========================================")
+    val myTextFile:Iterator[String] = openAndReadTextFile("/home/tjb/junkDir/junkText.txt")
+    myTextFile.foreach(println)
+  }
+
+  /**
+   * This function uses the Java API to read a text file.  The entire
+   * file gets loaded into memory before the text is read, which
+   * makes it time efficient, but memory inefficient.
+   */
+  def readTextFileViaJavaAPI():Unit =
+  {
+    val filepath: String = "/home/tjb/junkDir/junkText.txt"
+    val file: File = new File(filepath)
+    val scanner: Scanner = new Scanner(file)
+    while(scanner.hasNextLine)
+    {
+      val lineOfText:String = scanner.nextLine()
+      println(lineOfText)
+    }
+  }
+
+  /**
+   * This function uses the Scala API to read a text file.  Only one
+   * line of text at a time is read from the file, which makes it
+   * memory efficient, but time inefficient.  Since the Scala API
+   * is used, Scala methods like map(), flatMap(), filter(),
+   * drop(), etc. can be called on the val fileContents.
+   */
+  def readTextFileViaScalaAPI(): Unit =
+  {
+    val filepath: String = "/home/tjb/junkDir/junkText.txt"
+    val file: File = new File(filepath)
+    val fileContents:Iterator[String] = Source.fromFile(file).getLines()
+    fileContents.foreach(println)
+  }
+
+  /**
+   * Calling this function allows a text file to be opened and read with
+   * only one line of code.  The returned value also allows Scala methods
+   * like map(), flatMap(), filter(), drop(), etc. to be called on it.
+   */
+  def openAndReadTextFile(filepath:String):Iterator[String] =
+  {
+    // Declare the openFile() function.
+    def openFile(filepath: String):File = new File(filepath)
+
+    // Declare an implicit class named RichFile, which contains a method named read().
+    implicit class RichFile(file: File)
+    {
+      def read(): Iterator[String] = Source.fromFile(file).getLines()
+    }
+
+    // The openFile() function called below (and defined above) returns
+    // a File class, and then the read() method is called on that class.
+    // Since the File class DOESN'T contain a read() method, Scala searches
+    // for a read() method that can be invoked, and finds it in the RichFile
+    // implicit class defined above.  So when the following line of code
+    // executes, Scala translates it into this line of code:
+    // RichFile(openFile(filepath)).read()
+    openFile(filepath).read()
+  }
+}
+
+=========================================================================
+The following sample program demonstrates the following:
+
+1) How to read and write files in Scala.
+2) How to rename/move files in Scala.
+3) How to execute a Linux script file in Scala.
+
+
+import java.io.{File, PrintWriter}
+import java.nio.file.{Files, Path, Paths, StandardCopyOption}
+import scala.collection.mutable.ArrayBuffer
+import scala.sys.{SystemProperties}
+import sys.process._
+
+object Demo
+{
+  type StringTuple = (String, String)
+
+  def main(args: Array[String]): Unit =
+  {
+    // This section of code creates and executes a Linux script file,
+    // which contains the "ls -la" command.  Certain filenames returned
+    // by that script file are then used to rename files.
+    val dirPath:String = "/home/tjb/junkDir/"
+    // Obtain filenames via the "ls -la" command in the linuxScriptTester.sh file.
+    val linuxFilesTextList:Option[String] = executeLinuxScriptFile(dirPath)
+    if (linuxFilesTextList != None)
+    {
+      // If this code executes, the executeLinuxScriptFile() function returned successfully.
+      val fileNames:Array[String] = getMp3WavFilenames(linuxFilesTextList.get)
+      val origAndNewFilenames:ArrayBuffer[StringTuple] = transformFilenames(fileNames)
+      renameFiles(dirPath, origAndNewFilenames)
+    }
+  }
+
+  /**
+   * Read in-line comments for details.
+   */
+  def getMp3WavFilenames(filesInfo:String):Array[String] =
+  {
+    // Each element of varArray will contain each row of text returned by the "ls -la" command.
+    var varArray:Array[String] = filesInfo.toString.split("\n")
+    val filenameIndex:Int = getFilenameIndex(varArray)
+
+    // *****************************************************************************
+    // NOTE: This block of commented-out code could replace all the below code in
+    //       this function!  But that's like drinking from a firehose, so the
+    //       current code will stand for now.
+    //  (for (x <- filesInfo.split("\n").drop(3).filter(x => x.startsWith("-")))
+    //  yield (if (x.indexOf("'") > -1) x.substring(filenameIndex - 1) else x.substring(filenameIndex)))
+    //  .filter(x => !x.startsWith("."))
+    //  .filter(x => (x.toLowerCase.endsWith(".mp3") || x.toLowerCase.endsWith(".wav")))
+    // *****************************************************************************
+
+    // The first 3 lines returned by "ls -la" aren't real filenames, so drop them.
+    varArray.drop(3)
+    // The first char of every file returned by "ls -la" designates the file type.
+    // If that first char is a "-" it designates a regular file--not a directory
+    // file, not a network file, etc.  Obtain only regular file names.
+    varArray = varArray.filter(x => x.startsWith("-"))
+
+    // For each file returned by "ls -la", strip all leading chars to obtain only filenames.
+    // NOTE: Filenames containing space char(s) begin with the single-quote (') char, and their
+    //       beginning index is ONE LESS than a filename containing no space chars.
+    varArray = for (x <- varArray) yield (if (x.indexOf("'") > -1) x.substring(filenameIndex - 1) else x.substring(filenameIndex))
+
+    // Remove all invisible files, which have filenames beginning with the period "." char.
+    varArray = varArray.filter(x => !x.startsWith("."))
+
+    // Obtain ONLY filenames ending with ".mp3" or ".wav".
+    varArray = varArray.filter(x => (x.toLowerCase.endsWith(".mp3") || x.toLowerCase.endsWith(".wav")))
+    varArray
+  }
+
+  /**
+   * Each filename passed to this function in an Array will get returned
+   * in an ArrayBuffer.  Where the filename returned may, or may not,
+   * be changed.  Read in-line comments below to understand the criteria
+   * used to change a filename.
+   */
+  def transformFilenames(filenameArray:Array[String]): ArrayBuffer[StringTuple] =
+  {
+    val result:ArrayBuffer[StringTuple] = ArrayBuffer() // Fill and return this ArrayBuffer below.
+    val ZERO:Char = 0 // Initialize to a char that CAN'T appear in a filename.
+
+    for (origFilename <- filenameArray)
+    {
+      // Replace whitespace chars in the filename with underscore ('_') chars...
+      val str:String = origFilename.replace(" ", "_").replace("\t", "_")
+      // Declare a StringBuilder (which is mutable) that we use to build a new String.
+      val strBuild:StringBuilder               = StringBuilder.newBuilder
+      val strWithIndex:IndexedSeq[(Char, Int)] = str.zipWithIndex
+      strWithIndex.foreach // Loop through the strWithIndex collection.
+      {
+        // For each loop, obtain currentChar from the current strWithIndex element.
+        // Obtain previousChar from the previous strWithIndex element.
+        x => val currentChar:Char = x._1
+             val previousChar:Char = if (x._2 == 0) ZERO // Set the first element of strWithIndex to ZERO, which CAN'T exist in any filename.
+                                     else strWithIndex(x._2 - 1)._1 // previousChar is obtained from the previous element in strWithIndex.
+
+        // Change the filename's chars to uppercase or lowercase based on this criteria:
+        // 1) The first char of the filename is always set to uppercase.  If the filename's
+        //    first char is '_', setting it to uppercase won't matter.
+        // 2) All chars preceded with the '_' char will be set to uppercase.
+        // 3) All remaining chars will be set to lowercase.
+        val myChar:Char =  if (previousChar == ZERO || (previousChar == '_' && currentChar != '_'))
+          currentChar.toUpper
+        else
+          currentChar.toLower
+        // The following if() statement transforms multiple consecutive '_' chars
+        // into a single '_' char.  Ensuring that the filename will never contain
+        // more than one consecutive '_' char.
+        if (myChar != '_'  ||  (myChar == '_'  &&  previousChar != '_'))
+          strBuild.append(myChar)
+      }
+      result += new StringTuple(origFilename, strBuild.toString())
+    }
+    result
+  }
+
+  /**
+   * Obtains and returns the Linux temporary directory path as a String.
+   */
+  def getTempDirectory():Option[String] =
+  {
+    val sysProps:SystemProperties = new SystemProperties()
+    val tempDir:Option[String] = sysProps.get("java.io.tmpdir")
+    return(tempDir)
+  }
+
+  /**
+   * @param dirPath - String containing the directory path where the files exist.
+   * @param origAndNewFilenames - Each element of this ArrayBuffer is a tuple of
+   *                              type (String, String), which contains BOTH
+   *                              the original filename and the new filename.
+   */
+  def renameFiles(dirPath:String, origAndNewFilenames:ArrayBuffer[StringTuple]):Unit =
+  {
+    for (x <- origAndNewFilenames)
+    {
+      // The following println() is used for DEBUGGING.
+      println(s"BEFORE=${x._1}\nAFTER =${x._2}\n")
+
+      // NOTE: Both the Files and Path classes are Java classes.
+      val path:Path = Files.move(Paths.get(dirPath + x._1),  // x._1 is the original filename.
+        Paths.get(dirPath + x._2),  // x._2 is the new filename.
+        StandardCopyOption.REPLACE_EXISTING)
+    }
+  }
+
+  /**
+   * The filenames Array argument passed to this method contains all text returned
+   * by the Linux "ls -la" command.  Each Array element of filenames contains
+   * a single row of that text.  The filenames(1) element will ALWAYS contain
+   * the filename "./" as shown below, which is the file we use to determine
+   * the location (index) of all filenames in the filenames Array.
+   * WARNING: If a filename contains whitespace (like shown in the text below),
+   *          it's surrounded by single quote (') chars.  When that occurs
+   *          we know the filename index is ONE LESS than the returned value.
+   *
+   * total 588
+   * drwxr-xr-x 28 tjb  tjb    4096 Sep 29 15:11  ./
+   * drwxr-xr-x  3 root root   4096 Dec 17  2021  ../
+   * -rw-rw-r--  1 tjb  tjb       0 Sep 29 15:11  aaa.txt
+   * -rw-rw-r--  1 tjb  tjb       0 Sep 29 15:05 '     ABC    XYZ    .mp3'
+   * drwxrwxr-x  2 tjb  tjb    4096 Dec 18  2021  .android/
+   */
+  def getFilenameIndex(filenames:Array[String]):Int =
+  {
+    filenames(1).indexOf(".")
+  }
+
+  /**
+   * This function creates a Linux script file in the Linux temporary directory.
+   * That Linux script file contains the Linux "ls -la" command for the Linux
+   * directory path that is passed to this function as an argument.  The script
+   * file is then executed and deleted.  Its result is returned as a text String
+   * in type Option[String].
+   *
+   * @param dirPath - The directory in which the "ls -la" Linux command is run.
+   * @return - An Option[String] containing the result of the "ls -la" command.
+   *           None will be returned if there's a failure.
+   */
+  def executeLinuxScriptFile(dirPath:String):Option[String] =
+  {
+    val osName:String = sys.props("os.name").toLowerCase
+    if (false == osName.contains("linux"))
+    {
+      println("FAIL - The operating system is not Linux.")
+      return(None)
+    }
+
+    val tempDir:Option[String] = getTempDirectory()
+    if (tempDir == None)
+    {
+      println("FAIL - The operating system's temporary directory not found.")
+      return(None)
+    }
+
+    // Create a Linux script file in the temporary directory.
+    val scriptFilename: String = tempDir.get + "/" + "linuxScriptTester.sh"
+    val scriptFile: File = new File(scriptFilename)
+
+    // Write linux command(s) to the Linux script file.
+    val pw:PrintWriter = new PrintWriter(scriptFile)
+    pw.print("ls -la " + dirPath + "\n")
+    scriptFile.setExecutable(true) // Sets the file's Linux user permission to executable.
+    pw.flush()
+    pw.close()
+
+    // Generate the "command" that'll execute the linux script file.
+    val command:Seq[String] = Seq(scriptFilename)
+
+    // Execute the linux script file...
+    // NOTE: Calling command.! executes the linuxScriptTester.sh file, but
+    //       directs its output to the terminal.  The following line of
+    //       code is commented out because we DON'T want that behavior.
+    // command.!
+    //
+    // Calling command.!! executes the Linux linuxScriptTester.sh
+    // file, and returns the result as a String.
+    val result:String = command.!!
+    scriptFile.delete // Delete the Linux script file.
+    return(Option(result))
+  }
+}
