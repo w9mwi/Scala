@@ -82,6 +82,9 @@ Scala lets you define the following inside a class or trait...
    be defined concretely in subclasses.  The following code
    shows how to define an abstract type in a trait, and how
    to implement it in a subclass.
+   
+   The "type T" declaration in "trait Base" below is used as a generic type,
+   so it can represent any data type (i.e., Float, Double, Int, String, etc.).
 
    trait Base
    {
