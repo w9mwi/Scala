@@ -12,8 +12,14 @@ object Demo
     val yearRange:Range = 1 to 150
     val annualPercentGrowthRate:Float = 2.0F
 
-    println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
+    // Print the header.
+    println("\nYEAR  | UNITS CONSUMED | ANNUAL PERCENT GROWTH RATE")
+    println("---------------------------------------------------")
 
+    // Calling zipWithIndex on the calculate() method transforms
+    // data type:      ArrayBuffer[Float]
+    // into data type: ArrayBuffer[(Float, Int)]
+    // Where Int corresponds to the index value.
     val resultArrayBuf:ArrayBuffer[(Float, Int)] =
       calculate(annualPercentGrowthRate * 0.01F, yearRange).zipWithIndex
     // Print contents of entire resultArrayBuf.
@@ -45,13 +51,13 @@ object Demo
     val indexResult:Int   = result._2 + 1
 
     if (indexResult < 10)
-      printf("%d     - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+      printf("%d     | %14.2f | %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
     else if (indexResult < 100)
-      printf("%d    - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+      printf("%d    | %14.2f | %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
     else if (indexResult < 1000)
-      printf("%d   - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+      printf("%d   | %14.2f | %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
     else
-      printf("%d  - %14.2f - %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
+      printf("%d  | %14.2f | %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
   }
 }
 
@@ -68,12 +74,14 @@ object Demo
     val yearRange:Range = 1 to 150
     val annualPercentGrowthRate:Float = 2.0F
 
-    println("YEAR  - UNITS CONSUMED - ANNUAL PERCENT GROWTH RATE") // Prints the header.
+    // Print the header.
+    println("\nYEAR  | UNITS CONSUMED | ANNUAL PERCENT GROWTH RATE")
+    println("---------------------------------------------------")
 
-    // NOTE: Calling zipWithIndex in the following line transforms the data type
-    //       of "array" into a tuple value of (Any, Int) = (result, index)
-    //       The index value represents the element index of array, which is
-    //       the value that gets "zipped" with result.
+    // Calling zipWithIndex on the calculate() method transforms
+    // data type:      Array[Float]
+    // into data type: Array[(Float, Int)]
+    // Where Int corresponds to the index value.
     val array:Array[(Any, Int)] = (new Array(yearRange.size)).zipWithIndex
     calculate(array, annualPercentGrowthRate*0.01F)
     array.foreach{ x => printResult(x._1, x._2, annualPercentGrowthRate) }
