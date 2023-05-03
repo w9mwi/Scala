@@ -1,8 +1,7 @@
 [PART 1 OF 2] - ANNUAL PERCENTAGE GROWTH USING AN ArrayBuffer
 =============================================================
-The sample program immediately BELOW this program generates
-identical results, but instead uses an Array.
-
+This sample program (PART 1) uses an ArrayBuffer.  It generates results
+identical to the program further below (PART 2), which uses an Array.
 
 import scala.collection.mutable.ArrayBuffer
 object Demo
@@ -21,7 +20,7 @@ object Demo
     // into data type: ArrayBuffer[(Float, Int)]
     // Where Int corresponds to the index value.
     val resultArrayBuf:ArrayBuffer[(Float, Int)] =
-      calculate(annualPercentGrowthRate * 0.01F, yearRange).zipWithIndex
+    calculate(annualPercentGrowthRate * 0.01F, yearRange).zipWithIndex
     // Print contents of entire resultArrayBuf.
     resultArrayBuf.foreach{ x => printResult(x, annualPercentGrowthRate) }
   }
@@ -48,7 +47,7 @@ object Demo
   def printResult(result:(Float, Int),  annualPercentGrowthRate:Float):Unit =
   {
     val floatResult:Float = result._1
-    val indexResult:Int   = result._2 + 1
+    val indexResult:Int   = result._2
 
     if (indexResult < 10)
       printf("%d     | %14.2f | %5.2f\n", indexResult, floatResult, annualPercentGrowthRate)
@@ -61,11 +60,12 @@ object Demo
   }
 }
 
+
 ======================================================================================
 [PART 2 OF 2] - ANNUAL PERCENTAGE GROWTH USING AN Array
 =======================================================
-The sample program immediately ABOVE this program generates
-identical results, but instead uses an ArrayBuffer.
+This sample program (PART 2) uses an Array.  It generates results identical
+to the program above (PART 1), which uses an ArrayBuffer.
 
 object Demo
 {
@@ -109,13 +109,13 @@ object Demo
     val floatResult:Float = result.asInstanceOf[Float]
 
     if (index < 10)
-      printf("%d     - %14.2f - %5.2f\n", index, floatResult, annualPercentGrowthRate)
+      printf("%d     | %14.2f | %5.2f\n", index, floatResult, annualPercentGrowthRate)
     else if (index < 100)
-      printf("%d    - %14.2f - %5.2f\n", index, floatResult, annualPercentGrowthRate)
+      printf("%d    | %14.2f | %5.2f\n", index, floatResult, annualPercentGrowthRate)
     else if (index < 1000)
-      printf("%d   - %14.2f - %5.2f\n", index, floatResult, annualPercentGrowthRate)
+      printf("%d   | %14.2f | %5.2f\n", index, floatResult, annualPercentGrowthRate)
     else
-      printf("%d  - %14.2f - %5.2f\n", index, floatResult, annualPercentGrowthRate)
+      printf("%d  | %14.2f | %5.2f\n", index, floatResult, annualPercentGrowthRate)
   }
 }
 
