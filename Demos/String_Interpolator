@@ -17,11 +17,11 @@ object Demo
     // follows.  Notice when "\n" is embedded within a String it usually
     // designates a newline character.  However, the "raw" string interpolator
     // interprets "\n" not as a newline char, but as literal "\" and "n" chars.
-    val rawInterpolator:String = raw"The value of PI = $pi"
-    println(rawInterpolator) // PRINTS: The value of PI = 3.141592653589793
+    val rawInterpolator:String = raw"\nThe value of PI = $pi"
+    println(rawInterpolator) // PRINTS: \nThe value of PI = 3.141592653589793
 
     // Another lesser-known string interpolator (designated by "f") is
-    // used as follows.  The 10 designates the value will be 10 chars long.
+    // used as follows.  The 10 designates the filed length will be 10 chars long.
     // If the value is less than 10 chars long, it'll be padded with leading
     // space (" ") chars.  The .3 designates a precision of 3 digits past the
     // decimal point.
@@ -45,7 +45,7 @@ object Demo
       //       which are always preceded by the '$' character.  See the above examples.
       def person(args:Any*):Person =
       {
-        // NOTE: val parts below represents the parts of the string BETWEEN the args.
+        // NOTE: The "val parts" below represents the parts of the string BETWEEN the args.
         //       Calling sc.parts() is NOT required to make this program work.  It's done
         //       here only to show that a StringContext contains string(s) known as "parts".
         val parts:Seq[String] = sc.parts
