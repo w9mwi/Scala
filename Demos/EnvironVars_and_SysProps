@@ -1,7 +1,10 @@
-The following two code samples show how to obtain:
+The following code sample shows how to:
 
-1) Environment Variables
-2) System Properties
+1) Obtain and print the Scala version number.
+2) Obtain and print ALL environment variables.
+3) Obtain and print ALL system properties.
+4) Obtain and print A SINGLE environment variable.
+5) Obtain and print A SINGLE system property.
 
 import scala.collection.JavaConverters._
 object Demo
@@ -35,6 +38,11 @@ object Demo
 }
 
 =======================================================
+The following code sample shows how to:
+
+1) Obtain and print ALL system properties.
+2) Obtain and print A SINGLE system property.
+
 
 import scala.sys.SystemProperties
 
