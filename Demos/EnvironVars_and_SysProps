@@ -46,7 +46,7 @@ object Demo
     println("================================================")
     println("PRINT A SINGLE SYSTEM PROPERTY VALUE:")
     optionStr = sysProps.get("os.name")
-    println("os.name = " + optionStr)                 // PRINTS: os.name = os.name = Some(Linux)
+    println("os.name = " + optionStr)                 // PRINTS: os.name = Some(Linux)
     println("os.name = " + getOptionValue(optionStr)) // PRINTS: os.name = Linux
 
     println("================================================")
