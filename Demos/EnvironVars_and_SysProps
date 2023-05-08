@@ -1,80 +1,66 @@
-The following code sample shows how to:
-
+The code sample below shows how to:
 1) Obtain and print the Scala version number.
 2) Obtain and print ALL environment variables.
-3) Obtain and print ALL system properties.
+3) Obtain and print ALL system properties, using two different methods.
 4) Obtain and print A SINGLE environment variable.
 5) Obtain and print A SINGLE system property.
+6) Obtain and print A NON-EXISTENT environment variable,
+   and A NON-EXISTENT system property.
 
 import scala.collection.JavaConverters._
+import scala.collection.mutable
+import scala.sys.SystemProperties
+
 object Demo
 {
   /********************************************
    * main() function
    ********************************************/
-  def main(args: Array[String])
-  {
+  def main(args: Array[String]) {
     println("1) Scala Version = " + util.Properties.versionNumberString) // PRINTS: 1) Scala Version = version 2.12.14
     println("2) Scala Version = " + util.Properties.versionString)       // PRINTS: 2) Scala Version = 2.12.14
     println("3) Scala Version = " + util.Properties.versionMsg)
     // PRINTS: 3) Scala Version = Scala library version 2.12.14 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
+
     println("=======================================================")
     println("PRINT ALL ENVIRONMENT VALUES:")
-    var envVars = System.getenv().asScala
-    for ((k,v) <- envVars) { println(s"key = $k\nvalue = $v\n") }
-    println("\n=======================================================")
+    val envVars:mutable.Map[String,String] = System.getenv().asScala
+    for ((k,v) <- envVars) { println(s"key = $k, value = $v") }
 
-    println("PRINT ALL SYSTEM PROPERTIES:\n")
-    var sysProps = System.getProperties().asScala
-    for ((k,v) <- sysProps) { println(s"key = $k\nvalue = $v\n") }
+    println("=======================================================")
+    println("PRINT ALL SYSTEM PROPERTIES USING:  System.getProperties().asScala")
+    var sysProps:mutable.Map[String,String] = System.getProperties().asScala
+    for ((k,v) <- sysProps) { println(s"key = $k, value = $v") }
+
+    println("=======================================================")
+    println("PRINT ALL SYSTEM PROPERTIES USING:  new SystemProperties()")
+    sysProps = new SystemProperties()
+    for (sp <-sysProps)     { println(s"key = ${sp._1}, value = ${sp._2}") }
+
     println("================================================")
+    println("PRINT A SINGLE ENVIRONMENT VALUE:")
+    var optionStr:Option[String] = envVars.get("USER")
+    println("USER = " + optionStr)                 // PRINTS: USER = Some(tjb)
+    println("USER = " + getOptionValue(optionStr)) // PRINTS: USER = tjb
 
-    // Obtain a single environment value...
-    println("\nUSER = " + envVars.get("USER")) // PRINTS: USER = Some(tjb)
+    println("================================================")
+    println("PRINT A SINGLE SYSTEM PROPERTY VALUE:")
+    optionStr = sysProps.get("os.name")
+    println("os.name = " + optionStr)                 // PRINTS: os.name = os.name = Some(Linux)
+    println("os.name = " + getOptionValue(optionStr)) // PRINTS: os.name = Linux
 
-    // Obtain a single system property...
-    println("java.version = " + sysProps.get("java.version")) // PRINTS: java.version = Some(11.0.13)
-  }
-}
-
-=======================================================
-The following code sample shows how to:
-
-1) Obtain and print ALL system properties.
-2) Obtain and print A SINGLE system property.
-
-
-import scala.sys.SystemProperties
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // Print ALL System Properties...
-    val sysProps = new SystemProperties()
-    for (sp <-sysProps) { println(s"${sp._1},  ${sp._2}") }
-
-    println("=================================")
-
-    // Obtain some individual System Properties and print them...
-    var sysProp:Option[String] = sysProps.get("user.name")
-    println("user.name = " + getOptionValue(sysProp))
-
-    sysProp = sysProps.get("os.name")
-    println("os.name = " + getOptionValue(sysProp))
-
-    sysProp = sysProps.get("user.country")
-    println("user.country = " + getOptionValue(sysProp))
-
-    // Attempt to obtain a System Property (named "junk") that doesn't exist.
-    // The Option.None value will be returned.
-    sysProp = sysProps.get("junk")
-    println("junk = " + getOptionValue(sysProp))
+    println("================================================")
+    println("PRINT A NON-EXISTENT ENVIRONMENT AND SYSTEM PROPERTY VALUE:")
+    optionStr = envVars.get("Junk_1")
+    println("Junk_1 = " + optionStr)                 // PRINTS: Junk_1 = None
+    println("Junk_1 = " + getOptionValue(optionStr)) // PRINTS: Junk_1 = Does not exist.
+    optionStr = sysProps.get("Junk_2")
+    println("Junk_2 = " + optionStr)                 // PRINTS: Junk_2 = None
+    println("Junk_2 = " + getOptionValue(optionStr)) // PRINTS: Junk_2 = Does not exist.
   }
 
-  def getOptionValue(opt:Option[String]): String =
-  {
-    if (opt == None) "None"
-    else opt.get.toString
+  def getOptionValue(optionStr: Option[String]): String = {
+    if (optionStr == None) "Does not exist."
+    else optionStr.get.toString
   }
 }
