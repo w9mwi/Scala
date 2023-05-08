@@ -35,7 +35,7 @@ object Demo
     println("=======================================================")
     println("PRINT ALL SYSTEM PROPERTIES USING:  new SystemProperties()")
     sysProps = new SystemProperties()
-    for (sp <-sysProps)     { println(s"key = ${sp._1}, value = ${sp._2}") }
+    for (sp <-sysProps) { println(s"key = ${sp._1}, value = ${sp._2}") }
 
     println("================================================")
     println("PRINT A SINGLE ENVIRONMENT VALUE:")
