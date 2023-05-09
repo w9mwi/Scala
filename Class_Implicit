@@ -1,19 +1,19 @@
-NOTE:  This section ignores "implicit" parameters.  For details about
-       implicit parameters, see the section titled:  Implicit_Parameters
+In this discussion, we ignore 'implicit' parameters/arguments, which get
+passed to a function.  For details about 'implicit' parameters, see the
+section titled:  Implicit_Parameters
 
-       "implicit" is a Scala keyword.   the "implicit" keyword
-       can be used in conjunction with a class, an object,
-       or a function, like this...
+'implicit' is a Scala keyword.  The 'implicit' keyword can be used when
+defining a class, an object, or a function, like this...
 
-       1) implicit class  someClass(str: String){ ... }
-       2) implicit object someObject(str: String){ ... }
-       3) implicit def    someFunction(str: String){ ... }
+1) implicit class  someClass(str: String) { ... }
+2) implicit object someObject(str: String) { ... }
+3) implicit def    someFunction(str: String) { ... }
 
-       If the "implicit" keyword is used in a function definition,
-       the function MUST return a class, an object, or a trait, which
-       then makes the returned object, class or trait implicit.  The
-       "implicit" keyword can also be used on a val/var declaration,
-       but only if the val/var is assigned a class, an object, or a trait.
+When the 'implicit' keyword is used in a function definition, the function
+MUST return a class, an object, or a trait, which then makes the returned
+object, class or trait implicit.  The 'implicit' keyword can also be used
+on a val/var declaration, but only when the val/var is assigned a class,
+an object, or a trait.
 
 The following code sample shows how to use an implicit class.  You can
 add new functions to an existing Scala class by using an implicit class.
@@ -21,8 +21,8 @@ In this example we add the decrement() and increment() functions to the
 String class, which already exists in Scala.
 
 In the following example, we create a var named 'state' of type String.
-Now, when you type the text 'state.' in your IDE, and then press
-"Ctrl + space bar", the 'increment' and 'decrement' functions that you
+Then, when you type the text 'state.' into your IDE, and then press
+"Ctrl + space bar", the increment() and decrement() functions that you
 have written (inside the implicit class MyEnhancedString) will appear
 in the IDE's dropdown menu, so you can select them.  This demonstrates
 that the decrement() and increment() functions you defined are now
@@ -33,15 +33,15 @@ For this to work, your implicit class must have a single parameter
 function name(s) must be different than function names that already
 exist for that type.
 
-NOTICE: The two (2) sample programs below have identical behavior.
-        The first sample shows the 'implicit' keyword being used
-        ONLY on a class definition.  The second sample shows the
-        'implicit' keyword being used ONLY on a function definition.
+NOTE: The two (2) sample programs below have identical behavior.
+      The first sample shows the 'implicit' keyword being used
+      ONLY on a class definition.  The second sample shows the
+      'implicit' keyword being used ONLY on a function definition.
 
 ====================================================================
-
-This is the same sample program as shown further below, except
-a class is defined as implicit instead of a function.
+This sample program has identical behavior to the sample program further
+below, except we use the 'implicit' keyword in the class definition,
+instead of in the function definition.
 
 object Demo
 {
@@ -68,11 +68,14 @@ object Demo
 }
 
 ====================================================================
+This sample program has identical behavior to the sample program above,
+except we use the 'implicit' keyword in the function definition,
+instead of in the class definition.
 
-The sample program below has identical behavior to the sample program
-above.  But in this example, we define an implicit function, instead of
-an implicit class.  Since the implicit function defined below returns a
-MyEnhancedString class, an implicit class is actually being defined.
+Since the implicit function defined below returns a MyEnhancedString class,
+an implicit class is actually what is being defined.  In other words,
+this example shows an alternative (and more convoluted) way of defining
+an implicit class.
 
 object Demo
 {
