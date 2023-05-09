@@ -181,8 +181,10 @@ This page doesn't discuss these class types.
 * Implicit class
 * Inner class
 
-Below are some code samples demonstrating how to use:
+Below are some code samples demonstrating:
 
+* When an object and a class have identical names, how can the
+  code determine if it's referencing the object or the class?
 * Scala classes
 * Scala objects
 * Scala companion objects
@@ -190,12 +192,11 @@ Below are some code samples demonstrating how to use:
 * unapply() method
 * pattern matching
 
-The following are some differences and similarities betweeen a Scala
-"case class" and a regular Scala class.
-
 =============================================================================
-OBJECT TYPES - Read in-line comments in the sample code below to understand
-               the difference between an "object type" and a "class type."
+When a companion object is being used, it means there exists both an object
+and a class having identical names.  When this occurs, how can the code
+determine if it's referencing the object or the class?  The following code
+sample shows how that is accomplished.
 
 object Demo
 {
