@@ -23,10 +23,10 @@ String class, which already exists in Scala.
 In the following example, we create a var named 'state' of type String.
 Now, when you type the text 'state.' in your IDE, and then press
 "Ctrl + space bar", the 'increment' and 'decrement' functions that you
-have written (inside the implicit class EnhancedString) will appear in
-the IDE's dropdown menu, so you can select them.  This demonstrates
-that the functions decrement() and increment() functions you defined
-are now avaliable for the String data type.
+have written (inside the implicit class MyEnhancedString) will appear
+in the IDE's dropdown menu, so you can select them.  This demonstrates
+that the decrement() and increment() functions you defined are now
+avaliable for the String data type.
 
 For this to work, your implicit class must have a single parameter
 (that matches the type of an existing Scala type), and your new
@@ -45,8 +45,9 @@ a class is defined as implicit instead of a function.
 
 object Demo
 {
-  // Define the EnhancedString class as an implicit class...
-  implicit class EnhancedString(str: String)
+  // NOTE: This implicit class can be given any name, as long as
+  //       it doesn't conflict with an existing Scala class...
+  implicit class MyEnhancedString(str: String)
   {
     // increment or decrement every Char in the String by one.
     def decrement:String = { str.map(ch => (ch - 1).toChar) }
@@ -68,31 +69,33 @@ object Demo
 
 ====================================================================
 
-This is the same sample program as shown above, except we define
-an implicit function, instead of an implicit class.  Since the
-implicit function defined below returns an EnhancedString class,
-an implicit class is what's actually being defined.
+The sample program below has identical behavior to the sample program
+above.  But in this example, we define an implicit function, instead of
+an implicit class.  Since the implicit function defined below returns a
+MyEnhancedString class, an implicit class is actually being defined.
 
 object Demo
 {
-  class EnhancedString(str: String)
+  // NOTE: Unlike the sample program above, this class is defined
+  //       without using the 'implicit' keyword.
+  class MyEnhancedString(str: String)
   {
     // increment or decrement every Char in the String by one.
     def decrement:String = { str.map(ch => (ch - 1).toChar) }
     def increment:String = { str.map(ch => (ch + 1).toChar) }
   }
 
-  // NOTE: This function returns the EnhancedString class, and its
-  //       definition must include the "implicit" keyword.  This
+  // NOTE: This function returns the MyEnhancedString class, and its
+  //       definition MUST include the "implicit" keyword.  This
   //       function can be given ANY NAME, except for function names
   //       that already exist on the String class (i.e., compare, split,
   //       toInt, etc.).  If this implicit function isn't defined,
-  //       this program won't compile, even though this code never
-  //       explicitly calls this function directly by name.  This
+  //       this program won't compile, even though this program never
+  //       explicitly calls the dumbFuncName() function.  This
   //       function gets called implicitly.
-  implicit def stupidDumbFuncName(str: String):EnhancedString =
+  implicit def dumbFuncName(str: String):MyEnhancedString =
   {
-    new EnhancedString(str)
+    new MyEnhancedString(str)
   }
 
   def main(args: Array[String]): Unit =
