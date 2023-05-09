@@ -124,13 +124,14 @@ There are three reasons for a regular Scala class to have a companion object:
    contained in an object get initialized only once--the first time the object
    is referenced.
 
-A companion object must always meet the following 3 criteria:
+A companion object always meets these 4 criteria:
 
 1) The companion object MUST have the identical name as the class.
 2) The companion object MUST be contained in the same file as the class.
-3) The companion object MUST contain an ONLY singleton values (vals/vars)
-   and singleton methods, which means they apply to, and can be invoked on,
-   all instances of the companion class.
+3) All vars/vals within the companion object are singleton values, and
+   can be accessed by all instances of the companion class.
+4) All methods within the companion object can be invoked on all
+   instances of the companion class.
 
 Two of the most common methods contained in a companion object are:
 
