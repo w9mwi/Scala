@@ -34,12 +34,12 @@ A Scala "case class" is different from a regular Scala class in the following 9 
    while a regular class can contain zero (or multiple) args/params.
 
 3) The args/params passed to a case class automatically become PUBLIC values
-   by default--so they can be accessed repeatedly, from outside the class,
+   by default--so they can be accessed repeatedly, from outside the case class,
    after the case class is instantiated.
 
    The args/params passed to a regular class become PRIVATE values by default.
-   So its args/params can be accessed only within the body of the class,
-   at the time it's instatiated
+   So its args/params can be accessed only within the body of the class, when
+   the class is instantiated.
 
 4) When the definition of a regular class, or a case class, doesn't precede
    its args/params with the "val" or "var" keyword, the args/params become
