@@ -12,22 +12,21 @@ NOTE:  This section ignores "implicit" parameters.  For details about
        If the "implicit" keyword is used in a function definition,
        the function MUST return a class, an object, or a trait, which
        then makes the returned object, class or trait implicit.  The
-       "implicit" keyword can also be used on a val/var declaration
-       if the val/var is assigned a class, an object, or a trait.
+       "implicit" keyword can also be used on a val/var declaration,
+       but only if the val/var is assigned a class, an object, or a trait.
 
-The following code sample shows how to use implicit class.
-Using an implicit class, you can add new functions to an
-existing Scala class.  In this example we add the decrement()
-and increment() functions to the String class, which
-already exists in Scala.
+The following code sample shows how to use an implicit class.  You can
+add new functions to an existing Scala class by using an implicit class.
+In this example we add the decrement() and increment() functions to the
+String class, which already exists in Scala.
 
-In the following example, we create a var named 'state'
-of type String.  Now, when you type the text 'state.' in
-your IDE, and then press "Ctrl + space bar", the 'increment'
-and 'decrement' functions THAT YOU DEFINED will appear in
-the IDE's dropdown menu, so you can select them.  This shows
-the functions you defined are now avaliable for the Scala
-String type.
+In the following example, we create a var named 'state' of type String.
+Now, when you type the text 'state.' in your IDE, and then press
+"Ctrl + space bar", the 'increment' and 'decrement' functions that you
+have written (inside the implicit class EnhancedString) will appear in
+the IDE's dropdown menu, so you can select them.  This demonstrates
+that the functions decrement() and increment() functions you defined
+are now avaliable for the String data type.
 
 For this to work, your implicit class must have a single parameter
 (that matches the type of an existing Scala type), and your new
