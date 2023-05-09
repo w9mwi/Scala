@@ -197,10 +197,10 @@ When a piece of code contains both an object and a class with identical
 names, the object is usually a "companion object" to the class.  In the
 following code example, that is NOT the case.
 
-In this example, we show how to assign an object to a val, where the object
-name (Kid) has the same name as the class.  For the compiler to determine
-that you want to assign the Kid object to the val (and not the Kid class),
-you must call ".type" on Kid, as is shown in the code below.
+In this example, we show how to assign an object to a val, where the name
+of the object (Kid) is identical to the class's name.  For the compiler to
+determine you want to assign the Kid object (not the Kid class) to the
+val, you must call ".type" on Kid, as is shown in the code below.
 
 object Demo
 {
