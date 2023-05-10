@@ -197,12 +197,11 @@ Below are some code samples demonstrating:
 =============================================================================
 When a piece of code contains both an object and a class with identical
 names, the object is usually a "companion object" to the class.  In the
-following code example, that is NOT the case.
+following code example, the object Kid is NOT a companion object to
+the class Kid.
 
-In this example, we show how to assign an object to a val, where the name
-of the object (Kid) is identical to the class's name.  For the compiler to
-determine you want to assign the Kid object (not the Kid class) to the
-val, you must call ".type" on Kid, as is shown in the code below.
+Read the in-line comments below to understand that when an object and
+a class have identical names, they have DIFFERENT types.
 
 object Demo
 {
@@ -229,13 +228,13 @@ object Demo
     // val kidObject:Kid = Kid  // WON'T COMPILE!
 
     // The following line successfully compiles because kidObject is declared
-    // to have the type of Kid.type, which matches the Kid type on the right
-    // side of the '=' sign
+    // to have the type of Kid.type, which is the type of the object Kid.  The
+    // Kid on the right-side of the '=' sign is an object Kid (not a class Kid).
     val kidObject:Kid.type = Kid  // Assigns the object Kid (defined above) to kidObject.
 
     // Because the val kid below isn't declared to have a type, it references whatever
     // gets assigned to it.  So in this example, the val kid references the object Kid,
-    // which has the type: Kid.type
+    // because Kid is an object, not a class.
     val kid = Kid
 
     println(s"kid.IS_ADULT = ${kid.IS_ADULT},  kid.IS_COLLEGE_GRADUATE = ${kid.IS_COLLEGE_GRADUATE}")
