@@ -53,13 +53,13 @@ A Scala "case class" is different from a regular Scala class in the following 9 
 
    apply()   - Explained further below
    unapply() - Explained further below
-   copy()    - Creates a new "case class" instance that's a copy of the
-               existing case class.  If you pass this copy() method any
+   copy()    - Creates a new "case class" instance that's a copy of the existing
+               case class by returning it.  If you pass this copy() method any
                args/params, those args/params specify the case class member
-               values you want changed in the copied instance.  Only the
-               newly-created case class will contain the changes you specify
-               via the args/params.  (Calling copy() on a case class DOESN'T
-               make any changes to the copied-from case class.)
+               values that you want to be changed in the copied-to (returned)
+               instance.  Only the newly-created case class will contain the
+               changes you specify via the args/params.  Calling copy() on a
+               case class DOESN'T make any changes to the copied-from case class.
    equals()  - Determines if two Scala objects are equal.  Read the hashCode() description below.
    hashCode() - Returns an Int value.  If calling hashCode() on two Scala objects
                 return the same Int value, they are equal.  You can use the equals()
