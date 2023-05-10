@@ -207,8 +207,9 @@ val, you must call ".type" on Kid, as is shown in the code below.
 object Demo
 {
   class Kid(name:String, age:Int) {
-    def greeting():String = s"My name is $name, I am $age years old."
+    def greeting():String = s"My name is $name.  I am $age years old."
   }
+
   object Kid {
     val IS_ADULT:Boolean            = false
     val IS_COLLEGE_GRADUATE:Boolean = true
@@ -216,33 +217,31 @@ object Demo
 
   def main(args: Array[String]):Unit = {
     val kidClass:Kid = new Kid("Jane Train", 13)
-    println(s"${kidClass.greeting}") // PRINTS: My name is Jane Train, I am 13 years old.
+    println(s"${kidClass.greeting}") // PRINTS: My name is Jane Train.  I am 13 years old.
 
-    // IMPORTANT: A Kid class has the type:  Kid
-    //            A Kid object has the type: Kid.type
+    // IMPORTANT: The class Kid has the type:  Kid
+    //            The object Kid has the type: Kid.type
     //
-    // If you uncomment the following commented-out line, it WON'T COMPILE!
-    // It won't compile because kid_1 is defined as type Kid, which
-    // is the type of the Kid CLASS.  And we're trying to assign Kid
-    // (which is the OBJECT Kid) to a CLASS of type Kid.
-    // val kid_1:Kid = Kid
+    // If you uncomment the following commented-out line, it WON'T COMPILE.
+    // It won't compile because KidObject is declared to have the type of Kid,
+    // which references the class Kid.  But Kid on the right side of the
+    // '=' sign references the object Kid, which causes a type mismatch.
+    // val kidObject:Kid = Kid  // WON'T COMPILE!
 
+    // The following line successfully compiles because kidObject is declared
+    // to have the type of Kid.type, which matches the Kid type on the right
+    // side of the '=' sign
+    val kidObject:Kid.type = Kid  // Assigns the object Kid (defined above) to kidObject.
 
-    // The following line of code WILL COMPILE because kid_2 is defined
-    // as type Kid.type.  Kid.type is the type of a Kid OBJECT.  Therefore,
-    // Kid (which is a Kid OBJECT) can be assigned to kid_2.
-    val kid_2:Kid.type = Kid
-    println(s"kid_2.IS_ADULT = ${kid_2.IS_ADULT},  kid_2.IS_COLLEGE_GRADUATE = ${kid_2.IS_COLLEGE_GRADUATE}")
-    // PRINTS:  kid_2.IS_ADULT = false,  kid_2.IS_COLLEGE_GRADUATE = true
+    // Because the val kid below isn't declared to have a type, it references whatever
+    // gets assigned to it.  So in this example, the val kid references the object Kid,
+    // which has the type: Kid.type
+    val kid = Kid
 
-    // When you don't specify the data type in the declaration of kid_3 below, Scala
-    // automatically assigns to it the object Kid, thus making its type:  Kid.type
-    val kid_3 = Kid
-    println(s"kid_3.IS_ADULT = ${kid_3.IS_ADULT},  kid_3.IS_COLLEGE_GRADUATE = ${kid_3.IS_COLLEGE_GRADUATE}")
-    // PRINTS:  kid_3.IS_ADULT = false,  kid_3.IS_COLLEGE_GRADUATE = true
+    println(s"kid.IS_ADULT = ${kid.IS_ADULT},  kid.IS_COLLEGE_GRADUATE = ${kid.IS_COLLEGE_GRADUATE}")
+    // PRINTS:  kid.IS_ADULT = false,  kid.IS_COLLEGE_GRADUATE = true
   }
 }
-
 
 ===============================================================================
 
