@@ -12,9 +12,10 @@ Use a Scala class, or Scala object, to represent a thing/object.
 
 When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  This means a Scala object represents
-a singleton (a single entity).  Once you write an object's definition, that
-object's contents can be accessed/changed without doing anything else.  An
-object is never (and can't be) instantiated, as a class must be instantiated.
+a singleton (a single entity).  Unlike a class (which must be instantiated
+before it can be used), an object is never (and can't be) instantiated.
+Once you write an object's definition, that object's contents can be
+accessed/changed without doing anything else.
 
 When there can exist MULTIPLE things/objects (for example, a Person),
 use a Scala class.  A Scala class can be instantiated any number of
