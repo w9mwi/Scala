@@ -10,16 +10,17 @@ titled "Trait".)
 
 Use a Scala class, or Scala object, to represent a thing/object.
 
+When there can exist MULTIPLE things/objects (for example, a person),
+use a Scala class.  Using the example of a person, you would instantiate
+(create) a new Person class for every person, which would store the data
+corresponding to that person.
+
 When there can exist ONLY ONE of something (for example, planet Earth),
-use a Scala object to represent it.  This means a Scala object represents
+use a Scala object to represent it.  A Scala object always represents
 a singleton (a single entity).  Unlike a class (which must be instantiated
 before it can be used), an object is never (and can't be) instantiated.
 Once you write an object's definition, that object's contents can be
 accessed/changed without doing anything else.
-
-When there can exist MULTIPLE things/objects (for example, a Person),
-use a Scala class.  A Scala class can be instantiated any number of
-times to represent any number of classes of the same type (such as Person).
 
 DIFFERNCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ===========================================================
