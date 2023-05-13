@@ -22,8 +22,8 @@ before it can be used), an object is never (and can't be) instantiated.
 Once you write an object's definition, the object's contents can be
 accessed/changed.
 
-DIFFERNCES BETWEEN A SCALA "case class" AND A SCALA "class"
-===========================================================
+DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
+============================================================
 A Scala "case class" is different from a regular Scala class in the following
 8 ways.  After 8) below, a sample program is provided demonstrating the use
 of a Scala "class", a "case class", and an "object."
