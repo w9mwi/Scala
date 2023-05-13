@@ -11,9 +11,11 @@ section titled "Trait" instead.)
 Use a Scala class, or a Scala object, to represent a thing/object.
 
 When there can exist MULTIPLE things/objects (for example, a person),
-use a Scala class.  A Person class would be defined to store the data
-(i.e., Name, Address, Social Security Number, etc.) of a person.  You
-would then instantiate (create) a new Person class for each person.
+use a Scala class.  A Person class would be defined to store data
+about the person; i.e., Name, Address, Social Security Number, etc.
+After you write the definition of a class (whether it's a "case class"
+or a regular "class"), you then need to instantiate (create) a new
+Person class for each person.
 
 When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  A Scala object always represents
@@ -22,11 +24,12 @@ before it can be used), an object is never (and can't be) instantiated.
 Once you write an object's definition, the object's contents can be
 accessed/changed.
 
+At the end of the next section, a sample program is provided demonstrating
+the use of a Scala "class", a "case class", and an "object."
+
 DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ============================================================
-A Scala "case class" is different from a regular Scala class in the following
-8 ways.  After 8) below, a sample program is provided demonstrating the use
-of a Scala "class", a "case class", and an "object."
+A Scala "case class" is different from a regular Scala class in the following 8 ways.
 
 1) A regular Scala class generally requires multiple lines of code
    to define it.  But a case class definition is usually very short,
