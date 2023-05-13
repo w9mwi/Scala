@@ -1,26 +1,26 @@
 Scala provides three constructs for creating user-defined types:
 
-1) trait
-2) object (Scala has two kinds of object: "case object" and "object")
-3) class  (Scala has two kinds of class:  "case class" and "class")
+1) class  (Scala has two types of class:  A "case class" and a regular "class")
+2) object (Scala has two kinds of object: A "case object" and a regular "object")
+3) trait
 
 Use a Scala trait to represent a "behavior", such as communicate, learn,
-transport, work, etc.  (Traits aren't covered here, but in the section
-titled "Trait".)
+transport, work, etc.  (Traits are NOT covered in this section.  See the
+section titled "Trait" instead.)
 
-Use a Scala class, or Scala object, to represent a thing/object.
+Use a Scala class, or a Scala object, to represent a thing/object.
 
 When there can exist MULTIPLE things/objects (for example, a person),
-use a Scala class.  Using the example of a person, you would instantiate
-(create) a new Person class for every person, which would store the data
-corresponding to that person.
+use a Scala class.  A Person class would be defined to store the data
+(i.e., Name, Address, Social Security Number, etc.) of a person.  You
+would then instantiate (create) a new Person class for each person.
 
 When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  A Scala object always represents
 a singleton (a single entity).  Unlike a class (which must be instantiated
 before it can be used), an object is never (and can't be) instantiated.
-Once you write an object's definition, that object's contents can be
-accessed/changed without doing anything else.
+Once you write an object's definition, the object's contents can be
+accessed/changed.
 
 DIFFERNCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ===========================================================
