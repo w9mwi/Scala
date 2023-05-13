@@ -24,25 +24,28 @@ accessed/changed.
 
 DIFFERNCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ===========================================================
-A Scala "case class" is different from a regular Scala class in the following 9 ways...
+A Scala "case class" is different from a regular Scala class in the following
+8 ways.  After 8) below, a sample program is provided demonstrating the use
+of a Scala "class", a "case class", and an "object."
 
 1) A regular Scala class generally requires multiple lines of code
-   to define it.  But a case class definition usually requires just
-   one line of code, like this:
+   to define it.  But a case class definition is usually very short,
+   often times requiring only one line of code, like this:
 
    case class Person(name:String, id:Int) // A case class definition
-   val jim = Person("Jim", 98765)         // A case class instantiation
+   val jim = Person("Jim", 98765)         // The case class being instantiated.
 
 2) A case class MUST contain one or more args/params in its definition,
    while a regular class can contain zero (or multiple) args/params.
 
-3) The args/params passed to a case class automatically are PUBLIC values by
-   default--so they can be accessed repeatedly, from outside the case class,
+3) The args/params passed to a case class are PUBLIC values by default;
+   so they can be accessed repeatedly, from outside the case class,
    after the case class is instantiated.
 
    The args/params passed to a regular class are PRIVATE values by default.
    So the args/params passed to a regular class can be accessed only within
-   the body of the class, when the class is instantiated.
+   the body of the class, when the class is instantiated--unless they're
+   explicitly declared to be PUBLIC.
 
 4) When the definition of a regular class, or a case class, doesn't precede
    its args/params with the "val" or "var" keyword, the args/params become
@@ -72,17 +75,14 @@ A Scala "case class" is different from a regular Scala class in the following 9 
 
 7) A case class CAN be abstract, like this:   abstract case class Card(id:Int)
 
-8) A case class CAN'T extend another case class.  But a case class CAN extend
-   a regular class OR an abstract class.  The following example will work
-   with or without the "abstract" keyword:
+8) A regular class can extend a trait.  But a case class CAN'T extend a trait,
+   or another case class.  However, a case class CAN extend a regular class OR
+   an abstract class.  The following example will work with or without the
+   "abstract" keyword:
 
    abstract class Card(id:Int)
    case class DebitCard(id:Int, name:String, number:Int) extends Card(id)
 
-9) A case class can extend a trait, like the following example shows:
-
-   trait Event
-   case class ComplexEvent() extends Event
 
 
 EXPLANATION OF A SCALA "object"
