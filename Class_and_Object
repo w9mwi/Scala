@@ -19,11 +19,10 @@ Person class for each person.
 
 When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  A Scala object always represents
-a singleton (a single entity).  A Scala class must be instantiated before
-it can be used, and can contain args/params.  But an object is never
-(and can't be) instantiated, and can't contain args/params.  Once you write
-an object's definition, the object's contents can be accessed/changed.
-An object can extend a class, but a class CAN'T extend an object.
+a singleton (a single entity).  A Scala object can't contain args/params,
+and can't be instantiated.  So once you write an object's definition,
+it's available for use without doing anything else.  An object can extend
+a class, but a class CAN'T extend an object.
 
 DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ============================================================
@@ -186,11 +185,10 @@ paragraph that was stated previously, above...
 
 When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  A Scala object always represents
-a singleton (a single entity).  A Scala class must be instantiated before
-it can be used, and can contain args/params.  But an object is never
-(and can't be) instantiated, and can't contain args/params.  Once you write
-an object's definition, the object's contents can be accessed/changed.
-An object can extend a class, but a class CAN'T extend an object.
+a singleton (a single entity).  A Scala object can't contain args/params,
+and can't be instantiated.  So once you write an object's definition,
+it's available for use without doing anything else.  An object can extend
+a class, but a class CAN'T extend an object.
 
 Quite often a Scala object is used as a "companion object" to a
 regular Scala class.  Companion objects are companions ONLY to
