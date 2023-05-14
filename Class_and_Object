@@ -45,8 +45,8 @@ A Scala "case class" is different from a regular Scala class in the following 7 
 
    The args/params passed to a plain Scala class become public class members
    ONLY when they're preceded with the val/var keyword.  If those args/params
-   aren't preceded with val/var, they don't become class members--they
-   exist only as args/params when the class is instantiated.
+   aren't preceded with val/var, they don't become class members--they exist
+   only as args/params temporarily, at the time the class is instantiated.
    
    The following code sample demonstrates this behavior. Read in-line comments
    for details.
@@ -146,100 +146,6 @@ A Scala "case class" is different from a regular Scala class in the following 7 
    abstract class Card(id:Int)
    case class DebitCard(id:Int, name:String, number:Int) extends Card(id)
 
-=============================================================================
-This sample program demonstrates the use of:
-1) A Scala case class
-2) A plain Scala class
-3) A Scala object
-
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
-object Demo
-{
-  // args/params passed to a "case class" are always PUBLIC members,
-  // which means they can be accessed from outside the "case class".
-  // Members declared inside a "case class" are also PUBLIC.
-  case class PersonCaseClass(name: String, dob: LocalDate, ssn: String) {
-    val publicName = name // This val is a PUBLIC member.
-  }
-
-  // args/params passed to a regular "class" are always PRIVATE members,
-  // which means they can be accessed only from inside the class.
-  // Members declared inside a regular "class" are PUBLIC.
-  class PersonClass(name: String, dob: LocalDate, ssn: String) {
-    val publicName = name // This val is a PUBLIC member.
-
-    // This method is PUBLIC by default.  If you declare it private,
-    // it can't be called outside the PersonClass.
-    def printPersonClassMembers() = {
-      println(s"3) name = $name,  dob = $dob,  ssn = $ssn")
-    }
-  }
-
-  object Earth {
-    val DIAMETER_MILES:Float          = 7926.0F;
-    val CIRCUMFERENCE_MILES:Float     = 24901.0F;
-    var AVERAGE_TEMP_FAHRENHEIT:Float = 57.0F
-  }
-
-  /********************************************************
-   *  main()
-   *******************************************************/
-  def main(args: Array[String]):Unit = {
-    // ******************************************************
-    // Demonstrate that args/params passed to a "case class", ARE PUBLIC,
-    // as they CAN be referenced here in main(), outside of PersonCaseClass.
-    // Demonstrate that internally-declared "case class" members are also PUBLIC,
-    // as they CAN be referenced here in main(), outside of PersonCaseClass.
-    val larry = PersonCaseClass("Larry Hairy", convertStringToDate("1963-11-22"), "987-65-4321")
-    println(s"1) larry.name = ${larry.name},  larry.dob = ${larry.dob.toString},  larry.ssn = ${larry.ssn},  larry.publicName = ${larry.publicName}")
-    // PRINTS: 1) larry.name = Larry Hairy,  larry.dob = 1963-11-22,  larry.ssn = 987-65-4321,  larry.publicName = Larry Hairy
-
-    // ******************************************************
-    // Demonstrate that args/params passed to a "case", are PRIVATE,
-    // as they CAN'T be referenced here in main(), outside of PersonClass.
-    // Demonstrate that internally-declared "class" members ARE PUBLIC,
-    // as they CAN be referenced here in main(), outside of PersonClass.
-    val jack = new PersonClass("Jack Hack", convertStringToDate("1941-12-07"), "123-45-6789")
-    // If you uncomment the following 3 lines of commented-out code, they WON'T COMPILE!
-    // Because these 3 members of PersonClass are PRIVATE.
-    // println(s"jack.name = ${jack.name}") // WON'T COMPILE!
-    // println(s"jack.dob = ${jack.dob}")   // WON'T COMPILE!
-    // println(s"jack.ssn = ${jack.ssn}")   // WON'T COMPILE!
-    println(s"2) jack.publicName = ${jack.publicName}") // PRINTS: 2) jack.publicName = Jack Hack
-
-    // ******************************************************
-    // Demonstrate that you can view/obtain PersonClass members
-    // from main() via a PersonClass PUBLIC method...
-    jack.printPersonClassMembers()
-    // PRINTS: 3) name = Jack Hack,  dob = 1941-12-07,  ssn = 123-45-6789
-
-    // ******************************************************
-    // Demonstrate that a Scala object is always used/referenced directly,
-    // without instantiating the object.
-    println(s"4) Earth.AVERAGE_TEMP_FAHRENHEIT = ${Earth.AVERAGE_TEMP_FAHRENHEIT}")
-    // PRINTS: 4) Earth.AVERAGE_TEMP_FAHRENHEIT = 57.0
-    // Demonstrate you can alter an object's var member...
-    Earth.AVERAGE_TEMP_FAHRENHEIT = 123.0F
-    println(s"5) Earth.AVERAGE_TEMP_FAHRENHEIT = ${Earth.AVERAGE_TEMP_FAHRENHEIT}")
-    // PRINTS: 5) Earth.AVERAGE_TEMP_FAHRENHEIT = 123.0
-    println(s"6) Earth.DIAMETER_MILES = ${Earth.DIAMETER_MILES}")
-    // PRINTS: 6) Earth.DIAMETER_MILES = 7926.0
-    println(s"7) Earth.CIRCUMFERENCE_MILES = ${Earth.CIRCUMFERENCE_MILES}")
-    // PRINTS: 7) Earth.CIRCUMFERENCE_MILES = 24901.0
-  }
-
-  /********************************************************
-   convertStringToDate() - Convert a String to a Date.
-  ********************************************************/
-  def convertStringToDate(strDate:String) = {
-    val formatter:DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    val date:LocalDate = LocalDate.parse(strDate, formatter)
-    date
-  }
-}
-=============================================================================
 
 SCALA COMPANION OBJECTS
 =======================
