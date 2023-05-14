@@ -47,6 +47,8 @@ A Scala "case class" is different from a regular Scala class in the following 7 
 
    All args/params passed to a Scala case class become public class members by
    default, regardless if they're preceded with keywords val/var, or nothing.
+   If the args/params passed to a case class are preceded with nothing, they
+   become vals by default.
 
    Within the body of a plain class, or a case class, you can declare additional
    val/var class members, and define them to be "private" or "protected" members.
