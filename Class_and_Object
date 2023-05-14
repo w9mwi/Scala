@@ -19,10 +19,11 @@ Person class for each person.
 
 When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  A Scala object always represents
-a singleton (a single entity).  Unlike a class (which must be instantiated
-before it can be used), an object is never (and can't be) instantiated.
-Once you write an object's definition, the object's contents can be
-accessed/changed.
+a singleton (a single entity).  A Scala class must be instantiated before
+it can be used, and can contain args/params.  But an object is never
+(and can't be) instantiated, and can't contain args/params.  Once you write
+an object's definition, the object's contents can be accessed/changed.
+An object can extend a class, but a class CAN'T extend an object.
 
 DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ============================================================
@@ -178,25 +179,18 @@ object Demo
 }
 =============================================================================
 
-EXPLANATION OF A SCALA "object"
-===============================
-A Scala object always represents a singleton, which means the
-object always represents a single entity.  Because an object
-is a singleton, you CAN'T instantiate a Scala object.  So a
-Scala object would be used to represent something like planet
-Earth, because there is only one Earth.
+SCALA COMPANION OBJECTS
+=======================
+Before a Scala "companion object is explained, let's repeat the following
+paragraph that was stated previously, above...
 
-You wouldn't use a Scala object to represent a Person because there
-can be multiple people.  Instead, you would use a Scala class to
-represent a Person.  For each Person, you would instantiate a new
-Person class.
-
+When there can exist ONLY ONE of something (for example, planet Earth),
+use a Scala object to represent it.  A Scala object always represents
+a singleton (a single entity).  A Scala class must be instantiated before
+it can be used, and can contain args/params.  But an object is never
+(and can't be) instantiated, and can't contain args/params.  Once you write
+an object's definition, the object's contents can be accessed/changed.
 An object can extend a class, but a class CAN'T extend an object.
-
-Unlike Scala classes, Scala objects CAN'T be instantiated and CAN'T
-contain args/params!  Instead of args/params, a Scala object can
-contain member values, which get initialized within the object the
-the first time the object is referenced.
 
 Quite often a Scala object is used as a "companion object" to a
 regular Scala class.  Companion objects are companions ONLY to
