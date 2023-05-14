@@ -42,8 +42,8 @@ A Scala "case class" is different from a regular Scala class in the following 7 
 
 3) The args/params passed to a plain Scala class become public class members
    ONLY when they're preceded with the val or var keyword.  If those args/params
-   aren't preceded with val/var, they don't become class members--they exist
-   only as args/params temporarily, at the time the class is instantiated.
+   aren't preceded with val/var, they become private members, accessible only
+   from within the body of the class.
 
    All args/params passed to a Scala case class become public class members by
    default, regardless if they're preceded with keywords val/var, or nothing.
@@ -69,8 +69,11 @@ A Scala "case class" is different from a regular Scala class in the following 7 
        }
      }
 
-     // Both args/params passed to PersonClass_2 never become class
-     // members, because they're NOT preceded with keywords val or var.
+     // Both args/params passed to PersonClass_2 become private class
+     // members because they're NOT preceded with keywords val or var.
+     // The private members "name" and "age" are accessed and printed
+     // after the PersonClass_2 is instantiated, by calling the method
+     // printArgs().
      class PersonClass_2(name:String, age:Int) {
        def printArgs():Unit = {
          println(s"PersonClass_2.name = $name,  PersonClass_2.age = $age")
