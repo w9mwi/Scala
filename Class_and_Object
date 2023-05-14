@@ -38,7 +38,7 @@ A Scala "case class" is different from a regular Scala class in the following 7 
    val jim = Person("Jim", 98765)         // The case class being instantiated.
 
 2) A case class MUST contain one or more args/params in its definition,
-   while a plainn Scala class can contain zero, or multiple, args/params.
+   while a plain Scala class can contain zero, or multiple, args/params.
 
 3) The args/params passed to a plain Scala class become public class members
    ONLY when they're preceded with the val or var keyword.  If those args/params
