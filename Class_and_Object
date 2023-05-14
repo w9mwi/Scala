@@ -28,7 +28,7 @@ class CAN'T extend an object.
 
 DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ============================================================
-A Scala "case class" is different from a regular Scala class in the following 8 ways.
+A Scala "case class" is different from a regular Scala class in the following 7 ways.
 
 1) A regular Scala class generally requires multiple lines of code
    to define it.  But a case class definition is usually very short,
@@ -38,23 +38,82 @@ A Scala "case class" is different from a regular Scala class in the following 8 
    val jim = Person("Jim", 98765)         // The case class being instantiated.
 
 2) A case class MUST contain one or more args/params in its definition,
-   while a regular class can contain zero (or multiple) args/params.
+   while a plainn Scala class can contain zero, or multiple, args/params.
 
-3) The args/params passed to a case class are PUBLIC values by default;
-   so they can be accessed repeatedly, from outside the case class,
-   after the case class is instantiated.
+3) All args/params passed to a Scala case class become public class members by
+   default, regardless if they're preceded with keywords val/var, or nothing.
 
-   The args/params passed to a regular class are PRIVATE values by default.
-   So the args/params passed to a regular class can be accessed only within
-   the body of the class, when the class is instantiated--unless they're
-   explicitly declared to be PUBLIC.
+   The args/params passed to a plain Scala class become public class members
+   ONLY when they're preceded with the val/var keyword.  If those args/params
+   aren't preceded with val/var, they don't become class members--they
+   exist only as args/params when the class is instantiated.
+   
+   The following code sample demonstrates this behavior. Read in-line comments
+   for details.
+   ===========================================================================
+   object Demo
+   {
+     // Both args/params passed to PersonClass_1 become public
+     // members by default, because they're preceded with
+     // keywords val or var.
+     class PersonClass_1(val name: String, var age: Int) {
+       def printArgs(): Unit = {
+         println(s"PersonClass_1.name = $name,  PersonClass_1.age = $age")
+       }
+     }
 
-4) When the definition of a regular class, or a case class, doesn't precede
-   its args/params with the "val" or "var" keyword, the args/params become
-   "val" by default.  If you want an arg/param to become a "var", you must
-   precede it with the "var" keyword.
+     // Both args/params passed to PersonClass_2 never become class
+     // members, because they're NOT preceded with keywords val or var.
+     class PersonClass_2(name:String, age:Int) {
+       def printArgs():Unit = {
+         println(s"PersonClass_2.name = $name,  PersonClass_2.age = $age")
+       }
+     }
 
-5) When a case class is instantiated, the following 6 methods become
+     // All args/params passed to PersonCaseClass become public
+     // members by default, regardless if they're preceded with
+     // val, var, or no keywords.
+     case class PersonCaseClass(name:String, val age:Int) {
+       def printArgs(): Unit = {
+         println(s"PersonCaseClass.name = $name,  PersonCaseClass.age = $age")
+       }
+     }
+
+     def main(args: Array[String]):Unit = {
+       // **********************************
+       // Test PersonClass_1 behavior:
+       val person_1 = new PersonClass_1("Joe", 15)
+       person_1.printArgs() // PRINTS: PersonClass_1.name = Joe,  PersonClass_1.age = 15
+
+       // The following 2 lines compile because person_1.name and person_1.age
+       // are public class members.
+       var name = person_1.name
+       var age  = person_1.age
+
+       // **********************************
+       // Test PersonClass_2 behavior:
+       val person_2 = new PersonClass_2("Jack", 23)
+       person_2.printArgs() // PRINTS: PersonClass_2.name = Jack,  PersonClass_2.age = 23
+
+       // If you uncomment the following 2 lines, they won't compile because
+       // person_2.name and person_2.age are private class members.
+       // name = person_2.name  // WON'T COMPILE!
+       // age  = person_2.age   // WON'T COMPILE!
+
+       // **********************************
+       // Test PersonCaseClass behavior:
+       val person_3 = new PersonCaseClass("Sally", 47)
+       person_3.printArgs() // PRINTS: PersonCaseClass.name = Sally,  PersonCaseClass.age = 47
+
+       // The following 2 lines compile because ALL args/params passed
+       // to a case class are ALWAYS public class members.
+       name = person_3.name
+       age  = person_3.age
+     }
+   }
+   ===========================================================================
+
+4) When a case class is instantiated, the following 6 methods become
    available by default, so you never need to write them yourself.
 
    apply()   - This method gets called automatically whenever a Scala class
@@ -75,11 +134,11 @@ A Scala "case class" is different from a regular Scala class in the following 8 
                 determine equivalency.
    toString() - Renders the case class’s name and fields to a String.
 
-6) A case class is Serializable.
+5) A case class is Serializable.
 
-7) A case class CAN be abstract, like this:   abstract case class Card(id:Int)
+6) A case class CAN be abstract, like this:   abstract case class Card(id:Int)
 
-8) A regular class can extend a trait.  But a case class CAN'T extend a trait,
+7) A regular class can extend a trait.  But a case class CAN'T extend a trait,
    or another case class.  However, a case class CAN extend a regular class OR
    an abstract class.  The following example will work with or without the
    "abstract" keyword:
