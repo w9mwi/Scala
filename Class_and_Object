@@ -40,15 +40,20 @@ A Scala "case class" is different from a regular Scala class in the following 7 
 2) A case class MUST contain one or more args/params in its definition,
    while a plainn Scala class can contain zero, or multiple, args/params.
 
-3) All args/params passed to a Scala case class become public class members by
-   default, regardless if they're preceded with keywords val/var, or nothing.
-
-   The args/params passed to a plain Scala class become public class members
-   ONLY when they're preceded with the val/var keyword.  If those args/params
+3) The args/params passed to a plain Scala class become public class members
+   ONLY when they're preceded with the val or var keyword.  If those args/params
    aren't preceded with val/var, they don't become class members--they exist
    only as args/params temporarily, at the time the class is instantiated.
+
+   All args/params passed to a Scala case class become public class members by
+   default, regardless if they're preceded with keywords val/var, or nothing.
+
+   Within the body of a plain class, or a case class, you can declare additional
+   val/var class members, and define them to be "private" or "protected" members.
+   If you don't define them as "private" or "protected", they are public members
+   by default.
    
-   The following code sample demonstrates this behavior. Read in-line comments
+   The following code sample demonstrates this behavior.  Read in-line comments
    for details.
    ===========================================================================
    object Demo
@@ -72,7 +77,7 @@ A Scala "case class" is different from a regular Scala class in the following 7 
 
      // All args/params passed to PersonCaseClass become public
      // members by default, regardless if they're preceded with
-     // val, var, or no keywords.
+     // val, var, or nothing.
      case class PersonCaseClass(name:String, val age:Int) {
        def printArgs(): Unit = {
          println(s"PersonCaseClass.name = $name,  PersonCaseClass.age = $age")
