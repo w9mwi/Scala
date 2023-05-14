@@ -161,26 +161,25 @@ contained within a Scala object get initialized only once--the first
 time the object is referenced.  An object can extend a class, but a
 class CAN'T extend an object.
 
-Whenever pattern matching is performed on a class, the class's unapply()
-method is automatically invoked.
+Whenever pattern matching is performed on a class, Scala automatically
+invokes the class's unapply() method--you never call a class's unapply()
+method directly.
 
-If you want to perform pattern matching on a "case class", you would NOT
+If you want to perform pattern matching on a "case class", you DON'T
 write your own unapply() method, because a "case class" automatically
 supplies the unapply() method.
 
-However, a plain Scala class doesn't supply the unapply() method.  If
+However, a plain Scala class doesn't supply an unapply() method.  If
 you want to perform pattern matching on a plain Scala class, you must
-write your own unapply() method, and it MUST be contained inside a
-companion object.  So if you want to perform pattern matching on a
-plain Scala class, you must create a companion object to that class,
-and the companion object must contain an unapply() method which you
-also must define
+first define a companion object for the class, and then write the
+unapply() method inside the companion object.
 
-There are three reasons for a plain Scala class to have a companion object:
+A companion class can be used with a plain Scala class, or a Scala case class.
+There are three reasons for a Scala class to have a companion object:
 
 1) To perform pattern matching on a plain Scala class.  To accomplish that
-   requires you to define an unapply() method, which must be contained
-   within the class's companion object.
+   requires you to write an unapply() method, which must be contained
+   within the class's companion object that you also define.
 
 2) A companion object can be used to contain vals, vars, or methods that
    are singletons.  Singletons are values or methods in the companion
