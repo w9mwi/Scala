@@ -185,6 +185,39 @@ that method inside a companion object named Person.  So instead of creating
 1,000 redundant methods named printPersonInfo() for 1,000 Person classes
 instantiated, there would exist only one instance of it in the companion
 object.  Here is an example...
+========================================================================
+import Demo.Person.printPersonInfo
+
+object Demo
+{
+  // IMPORTANT: The class Person and the object Person defined below
+  //            can be defined inside the object Demo (as they are
+  //            in this example), or they can be moved outside the
+  //            object Demo.  They will work in either location,
+  //            as long as they are both defined in the same file.
+  case class Person(name: String, age: Int)
+
+  // Instead of defining printPersonInfo() inside the class Person,
+  // define it here, inside the object Person, which is the
+  // COMPANION OBJECT of the class Person.
+  object Person {
+    def printPersonInfo(person:Person): Unit = {
+      println(s"name = ${person.name}, age = ${person.age}")
+    }
+  }
+
+  def main(args: Array[String]):Unit = {
+    val person_1 = Person("Jack", 17)
+    printPersonInfo(person_1) // PRINTS: name = Jack, age = 17
+
+    val person_2 = new Person("Jane", 13)
+    printPersonInfo(person_2) // PRINTS: name = Jane, age = 13
+
+    val person_3 = new Person("Julie", 23)
+    printPersonInfo(person_3) // PRINTS: name = Julie, age = 23
+  }
+}
+========================================================================
 
 
 
