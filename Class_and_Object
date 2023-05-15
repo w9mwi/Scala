@@ -245,10 +245,12 @@ you want to perform pattern matching on that class, instead of writing
 an unapply() method for that class, you must to instead write an
 unapplySeq() method, and place it in the class's companion object.
 
-TJB - UNDER CONSTRUCTION
-========================
-import Demo.Person.{printPersonInfo, toTuple}
+The following code sample shows how to write your own apply()
+and unapply() methods for a plain Scala class, and put them
+inside a companion object.
 
+========================================================================
+import Demo.Person.printPersonInfo
 object Demo
 {
   class Person(val name:String, val age:Int)
@@ -264,28 +266,26 @@ object Demo
 
     // This unapply() method gets called automatically by Scala
     // when a pattern match is performed on the Person class.
-    // In this  example we return a (String, Int) tuple.  But
-    // if you comment out this unapply() method, and uncomment
-    // the line below it, unapply() returns a String instead.
-    def unapply(p: Person):(String, Int) = {
-      println("unapply() called.")
-      (p.name, p.age)
+    // In this unapply(), we return a (String, Int) tuple.  The
+    // commented-out unapply() method further below can be used
+    // instead, to return only a string.
+    def unapply(p: Person):Some[(String, Int)] = {
+      print("unapply() #1 called:  ")
+      Some(p.name, p.age)
     }
-//    def unapply(p: Person): String = {
-//      println("unapply() called.")
-//      s"${p.name}, ${p.age}"
+
+//    def unapply(p: Person):Some[String] = {
+//      Some(s"unapply() #2 called:  ${p.name}, ${p.age}")
 //    }
 
     def printPersonInfo(person: Person): Unit = {
       println(s"name = ${person.name}, age = ${person.age}")
     }
-
-    def toTuple(p:Person):(String, Int) = (p.name, p.age)
   }
   // *************************************************
 
   def main(args: Array[String]):Unit = {
-    // Because we wrote the apply() method for class Person (and
+    // Because we wrote an apply() method for class Person (and
     // placed it in the companion object), we can instantiate the
     // class Person without using the "new" keyword, which is
     // how a case class is instantiated.
@@ -293,20 +293,16 @@ object Demo
     printPersonInfo(person_1) // PRINTS: name = Jack, age = 17
 
     person_1 match {
-      // case x => println(s"Tuple = (${x._1}, ${x._2})") // PRINTS: Tuple = (Jack, 17)
-      case x => println(x.name, x.age) // PRINTS: Tuple = (Jack, 17)
+      case Person(x, y) => println(x, y) // PRINTS: unapply() #1 called:  (Jack,17)
+
+      // Use the following commented-out line with the commented-out unapply() method.
+      // case Person(x) => println(x) // PRINTS: unapply() #2 called:  Jack, 17
+
       case _ => println("No pattern match.")
     }
   }
 }
-
-
-
-
-
-
-
-
+========================================================================
 
 EXPLANATION OF A SCALA "case object"
 ====================================
