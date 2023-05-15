@@ -174,9 +174,25 @@ names, and they're both contained in the same file, the object is called
 a "companion object" to the class.  Conversely, the class is called a
 "companion class" to the object.
 
-A companion class, or object, can access the private members of its companion.
-Use a companion object for methods and values that apply to all instances
-of the companion class.
+A companion object can access the private members of its companion class.
+AND
+A companion class can access the private members of its companion object.
+
+Use a companion object for methods and vals/vars that apply to all instances
+of the companion class.  For example, instead of defining a method named
+printPersonInfo() inside a class named Person, it'd be better to define
+that method inside a companion object named Person.  So instead of creating
+1,000 redundant methods named printPersonInfo() for 1,000 Person classes
+instantiated, there would exist only one instance of it in the companion
+object.  Here is an example...
+
+
+
+
+
+if a val/var, or a method, is shared
+across all instances of a class, you should put it in a companion object to
+save memory.  
 
 Whenever pattern matching is performed on a class, Scala automatically
 invokes the class's unapply() method--you never call a class's unapply()
