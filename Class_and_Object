@@ -184,8 +184,9 @@ you want to perform pattern matching on a plain Scala class, you must
 first define a companion object for the class, and then write the
 unapply() method inside the companion object.
 
-A companion class can be used with a plain Scala class, or a Scala case class.
-There are three reasons for a Scala class to have a companion object:
+A companion object can be a companion to either a plain Scala class,
+or a Scala case class.  There are three reasons for a Scala class to
+have a companion object:
 
 1) To perform pattern matching on a plain Scala class.  To accomplish that
    requires you to write an unapply() method, which must be contained
