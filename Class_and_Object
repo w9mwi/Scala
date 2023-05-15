@@ -245,6 +245,68 @@ you want to perform pattern matching on that class, instead of writing
 an unapply() method for that class, you must to instead write an
 unapplySeq() method, and place it in the class's companion object.
 
+TJB - UNDER CONSTRUCTION
+========================
+import Demo.Person.{printPersonInfo, toTuple}
+
+object Demo
+{
+  class Person(val name:String, val age:Int)
+
+  // *************************************************
+  // This is a COMPANION OBJECT to the class Person...
+  object Person {
+    // This apply() method gets called automatically by Scala
+    // when a Person class is instantiated.
+    def apply(name: String, age:Int): Person = {
+      new Person(name, age)  // Instantiate and return a Person class.
+    }
+
+    // This unapply() method gets called automatically by Scala
+    // when a pattern match is performed on the Person class.
+    // In this  example we return a (String, Int) tuple.  But
+    // if you comment out this unapply() method, and uncomment
+    // the line below it, unapply() returns a String instead.
+    def unapply(p: Person):(String, Int) = {
+      println("unapply() called.")
+      (p.name, p.age)
+    }
+//    def unapply(p: Person): String = {
+//      println("unapply() called.")
+//      s"${p.name}, ${p.age}"
+//    }
+
+    def printPersonInfo(person: Person): Unit = {
+      println(s"name = ${person.name}, age = ${person.age}")
+    }
+
+    def toTuple(p:Person):(String, Int) = (p.name, p.age)
+  }
+  // *************************************************
+
+  def main(args: Array[String]):Unit = {
+    // Because we wrote the apply() method for class Person (and
+    // placed it in the companion object), we can instantiate the
+    // class Person without using the "new" keyword, which is
+    // how a case class is instantiated.
+   val person_1 = Person("Jack", 17)
+    printPersonInfo(person_1) // PRINTS: name = Jack, age = 17
+
+    person_1 match {
+      // case x => println(s"Tuple = (${x._1}, ${x._2})") // PRINTS: Tuple = (Jack, 17)
+      case x => println(x.name, x.age) // PRINTS: Tuple = (Jack, 17)
+      case _ => println("No pattern match.")
+    }
+  }
+}
+
+
+
+
+
+
+
+
 
 EXPLANATION OF A SCALA "case object"
 ====================================
