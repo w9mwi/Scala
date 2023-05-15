@@ -21,10 +21,9 @@ When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  A Scala object always represents
 a singleton (a single entity).  A Scala object CAN'T contain args/params,
 and CAN'T be instantiated.  So once you write an object's definition,
-it's available for use without doing anything else.  The vals/vars
-contained within a Scala object get initialized only once--the first
-time the object is referenced.  An object can extend a class, but a
-class CAN'T extend an object.
+it's available for use without having to instantiate it.  A Scala object
+is "lazy", which means it gets created the first time it's referenced.
+An object can extend a class, but a class CAN'T extend an object.
 
 DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ============================================================
@@ -159,17 +158,25 @@ A Scala "case class" is different from a regular Scala class in the following 7 
 
 SCALA COMPANION OBJECTS
 =======================
-Before a Scala "companion object is explained, review these facts about
+Before a Scala "companion object" is explained, review these facts about
 a Scala object...
 
 When there can exist ONLY ONE of something (for example, planet Earth),
 use a Scala object to represent it.  A Scala object always represents
 a singleton (a single entity).  A Scala object CAN'T contain args/params,
 and CAN'T be instantiated.  So once you write an object's definition,
-it's available for use without doing anything else.  The vals/vars
-contained within a Scala object get initialized only once--the first
-time the object is referenced.  An object can extend a class, but a
-class CAN'T extend an object.
+it's available for use without having to instantiate it.  A Scala object
+is "lazy", which means it gets created the first time it's referenced.
+An object can extend a class, but a class CAN'T extend an object.
+
+When both a Scala object and a Scala class (or case class) have identical
+names, and they're both contained in the same file, the object is called
+a "companion object" to the class.  Conversely, the class is called a
+"companion class" to the object.
+
+A companion class, or object, can access the private members of its companion.
+Use a companion object for methods and values that apply to all instances
+of the companion class.
 
 Whenever pattern matching is performed on a class, Scala automatically
 invokes the class's unapply() method--you never call a class's unapply()
