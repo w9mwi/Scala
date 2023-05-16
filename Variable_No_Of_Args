@@ -11,51 +11,50 @@ titled: Function_vs_Method
 SEE --> https://github.com/w9mwi/Scala/blob/master/Function_vs_Method
 
 ============================================================================
-
 object Demo
 {
   def main(args: Array[String])
   {
-    // The asterisk in the following "words:String*" argument designates that
-    // makeSentence() MUST be called by passing it one or more String arguments.
-    def makeSentence(words:String*):String = words.mkString(" ") + "."
+    // The asterisk in the following "words:String *" argument designates
+    // that the words argument accepts a variable number of String args.
+    def makeSentence(words:String *):String = words.mkString(" ") + "."
 
+    // ***************************************************************************
     // EXAMPLE 1)
     var strResult:String = makeSentence("Make", "these", "words", "into", "a", "single", "sentence")
-    println(s"strResult 1) = $strResult")
-    // PRINTS:  strResult 1) = Make these words into a single sentence.
+    println(s"strResult 1) = $strResult") // PRINTS:  strResult 1) = Make these words into a single sentence.
+
     // ***************************************************************************
     // EXAMPLE 2)  The '_*' characters in the below call to makeSentence()
     //             performs "TYPE ASCRIPTION" at compile time, which up-casts
-    //             listOfWords from type List[String] into one or more String
-    //             arguments which makeSentence() requires.
+    //             listOfWords from type List[String] into multiple String
+    //             arguments, which makeSentence() requires.
     val listOfWords:List[String] = List("Tomorrow", "is", "a", "different", "day")
     strResult = makeSentence(listOfWords: _*)
-    println(s"strResult 2) = $strResult")
-    // PRINTS: strResult 2) = Tomorrow is a different day.
+    println(s"strResult 2) = $strResult") // PRINTS: strResult 2) = Tomorrow is a different day.
+
     // ***************************************************************************
-    // EXAMPLE 3) This is identical to EXAMPLE 2) above except makeSentence()
-    //            gets passed an Array[String].  As with EXAMPLE 2) above,
-    //            makeSentence is called using the '_*' chars, which is explained
-    //            in EXAMPLE 2).
+    // EXAMPLE 3) This is identical to EXAMPLE 2) above, except makeSentence()
+    //            gets passed an Array[String] instead of a List[String], but
+    //            the result is identical.
     val arrayOfWords:Array[String] = listOfWords.toArray
     strResult = makeSentence(arrayOfWords: _*)
-    println(s"strResult 3) = $strResult")
-    // PRINTS: strResult 3) = Tomorrow is a different day.
+    println(s"strResult 3) = $strResult")  // PRINTS: strResult 3) = Tomorrow is a different day.
+
     // ***************************************************************************
     // EXAMPLE 4) Here we first perform an ETA EXPANSION on makeSentence(),
-    //            and then call it.
+    //            and then call the makeSentence() method via etaExpand.
     var etaExpand:(Seq[String]=>String) = makeSentence
     strResult = etaExpand(listOfWords)
-    println(s"strResult 4) = $strResult")
-    // PRINTS: strResult 4) = Tomorrow is a different day.
+    println(s"strResult 4) = $strResult") // PRINTS: strResult 4) = Tomorrow is a different day.
+
     // ***************************************************************************
     // EXAMPLE 5) The following ETA EXPANSION performed on makeSentence is
-    //            identical to EXAMPLE 4).  Only the syntax is different.
+    //            IDENTICAL to EXAMPLE 4).  Only the syntax is different by
+    //            including the underscore (_) char.
     etaExpand = makeSentence _
     strResult = etaExpand(listOfWords)
-    println(s"strResult 5) = $strResult")
-    // PRINTS: strResult 5) = Tomorrow is a different day.
+    println(s"strResult 5) = $strResult") // PRINTS: strResult 5) = Tomorrow is a different day.
 
     // NOTE: If you uncomment the following commented-out line it WON'T COMPILE
     //       because makeSentence(_) returns a function of type:  String=>String
@@ -65,7 +64,6 @@ object Demo
 }
 
 ============================================================================
-
 When a method argument accepts a variable number of arguments, as
 designated by the asterisk (*) char, the Scala compiler designates
 that argument as type Seq.  So in the following code sample, the
