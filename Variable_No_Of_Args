@@ -2,21 +2,80 @@ VARIABLE NUMBER OF ARGUMENTS (VARARGS)
 ======================================
 
 The code samples below show how to pass a variable number
-of arguments to a method.  Read in-line comments for
+of arguments to a method.  Read all in-line comments for
 detailed explanations.
 
-This section also demonstrates the use of ETA EXPANSIONS.
-For more information on ETA EXPANSIONS, see the section
-titled: Function_vs_Method
-SEE --> https://github.com/w9mwi/Scala/blob/master/Function_vs_Method
+============================================================================
+EXAMPLE 1 OF 2
+==============
+Here are some basic examples of how to write and use methods that accept
+a variable number of arguments.  Read in-line comments for details.
+
+object Demo
+{
+  // The asterisk in the argument of this getString() method designates
+  // that it will accept any number String arguments.
+  def getString(str:String *):String =
+  {
+    // In this code example, the following if() statement always returns true,
+    // which reveals the asterisk char (*) in the argument of this method
+    // transforms the argument...
+    // FROM:  type String
+    // TO:    type Seq[String]
+    if (str.isInstanceOf[Seq[String]])
+      println("str is of type: Seq[String]") // PRINTS: str is of type: Seq[String]
+
+    // Return all strings passed to this method in a single string, separated by space (" ") chars.
+    str.mkString(" ")
+  }
+
+  def main(args:Array[String])
+  {
+    var strResult:String = getString("Cat", "Dog", "Mouse")
+    println(s"strResult 1) = $strResult") // PRINTS: strResult 1) = Cat Dog Mouse
+
+    val seqOfStrings:Seq[String] = Seq("Alpha", "Beta", "Xray", "Zulu")
+    // WARNING: Although the argument(s) passed to getString() get transformed into
+    //          the type Seq[String], you must pass it ONLY arguments of type String.
+    //          You CAN'T pass it an argument of type Seq[String].  If you uncomment
+    //          the following line of code, it WON'T COMPILE because getString()
+    //          won't accept an argument of type Seq[String].
+    // getString(seqOfStrings)  // WON'T COMPILE!
+
+    // You can call getString() by passing it a Seq[String], but only when you
+    // add the ":_*" text as shown below.  Doing that performs TYPE ASCRIPTION,
+    // as is described in the previous sample program above.
+    strResult = getString(seqOfStrings:_*)
+    println(s"strResult 2) = $strResult") // PRINTS: strResult 2) = Alpha Beta Xray Zulu
+
+    // Scala Array and List classes are subtypes of Seq, so they can also be
+    // passed as arguments to the getString() method.  But the ":_*" text
+    // must be added to the argument.  Here are 2 examples...
+    val arrayOfStrings:Array[String] = seqOfStrings.toArray
+    strResult = getString(arrayOfStrings:_*)
+    println(s"strResult 3) = $strResult") // PRINTS: strResult 3) = Alpha Beta Xray Zulu
+
+    val listOfStrings:List[String] = seqOfStrings.toList
+    strResult = getString(listOfStrings:_*)
+    println(s"strResult 4) = $strResult") // PRINTS: strResult 4) = Alpha Beta Xray Zulu
+  }
+}
 
 ============================================================================
+EXAMPLE 2 OF 2
+==============
+This is another example of how to write and use methods that accept
+a variable number of arguments.  This example explains the concepts
+of "TYPE ASCRIPTION" and "ETA EXPANSION" which are often associated
+with methods that accept varargs (variable number of arguments).
+Read in-line comments for details.
+
 object Demo
 {
   def main(args: Array[String])
   {
-    // The asterisk in the following "words:String *" argument designates
-    // that the words argument accepts a variable number of String args.
+    // The asterisk contained in the argument of this makeSentence() method
+    // designates that it accepts a variable number of String args.
     def makeSentence(words:String *):String = words.mkString(" ") + "."
 
     // ***************************************************************************
@@ -75,53 +134,5 @@ object Demo
     // NOTE: If you uncomment the following commented-out line it WON'T COMPILE.
     //       The underscore char must NOT be enclosed in parenthesis.
     // etaExpand = makeSentence(_) // WON'T COMPILE!
-  }
-}
-
-============================================================================
-When a method argument accepts a variable number of arguments, as
-designated by the asterisk (*) char, the Scala compiler designates
-that argument as type Seq.  So in the following code sample, the
-getString() method's "str" argument has the data type Seq[String].
-
-object Demo
-{
-  def getString(str:String *):String =
-  {
-    if (str.isInstanceOf[Seq[String]])
-      println("str is of type: Seq[String]") // PRINTS: str is of type: Seq[String]
-
-    str.mkString(" ")
-  }
-
-  def main(args:Array[String])
-  {
-    var strResult:String = getString("Cat", "Dog", "Mouse")
-    println(s"strResult 1) = $strResult") // PRINTS: strResult 1) = Cat Dog Mouse
-
-    val seqOfStrings:Seq[String] = Seq("Alpha", "Beta", "Xray", "Zulu")
-    // NOTE: Although the getString() method's argument "str" is of type
-    //       Seq[String], you CAN'T pass getString() an argument having
-    //       that data type.  If you uncomment the following line of
-    //       code, it WON'T COMPILE because the getString() method MUST
-    //       be called with one or more String arguments.
-    // getString(seqOfStrings)  // WON'T COMPILE!
-
-    // You can call getString() by passing it a Seq[String], but you MUST add
-    // the ":_*" text as shown below.  Doing that performs TYPE ASCRIPTION,
-    // as is described in the previous sample program above.
-    strResult = getString(seqOfStrings:_*)
-    println(s"strResult 2) = $strResult") // PRINTS: strResult 2) = Alpha Beta Xray Zulu
-
-    // Scala Array and List classes are subtypes of Seq, so they can also
-    // be passed as arguments to the getString() method, as long as they
-    // also include the ":_*" text when they're called.  Examples...
-    val arrayOfStrings:Array[String] = seqOfStrings.toArray
-    strResult = getString(arrayOfStrings:_*)
-    println(s"strResult 3) = $strResult") // PRINTS: strResult 3) = Alpha Beta Xray Zulu
-
-    val listOfStrings:List[String] = seqOfStrings.toList
-    strResult = getString(listOfStrings:_*)
-    println(s"strResult 4) = $strResult") // PRINTS: strResult 4) = Alpha Beta Xray Zulu
   }
 }
