@@ -9,36 +9,57 @@ NOTE: This section also demonstrates the use of VARARGS (Variable
 
 Method - A Scala method is always bound to a class/object/trait.
          In other words, a method IS A MEMBER of a class/object/trait.
-         A Scala method is always defined inside using the keyword
-         "def", like this:
+         A Scala method is always defined using the keyword "def", like this:
 
-         // def squareMethod(number: Float): Float = number * number
-         // println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")
+         def squareMethod(number: Float): Float = number * number  // Write the method.
+         println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
-Function - A Scala function is NOT bound to a class/object/trait.  You
-           CAN'T create a Scala function using the "def" keyword because
-           the "def" keyword makes it a method.  The following shows the
-           three (3) ways to create a Scala function.  
+Function - A Scala function is NOT bound to a class/object/trait.  (Although,
+           the code you write will reside in some class/object/trait.)  You
+           CAN'T create a Scala function using the "def" keyword because the
+           "def" keyword makes it a method.  The following shows three (3)
+           ways to write a Scala function.
            
-           1) Write the function code, and assign it to a val/var.
-           
-              val squareFunction:(Int=>Int) = { (number:Int) => number*number }
+           1) Write the function code, and assign it to a val/var.  This allows
+              you to call the function repeatedly after it's written, by
+              referencing the val/var.
 
+              val squareFunction:(Float=>Float) = { (number:Float) => number*number } // Write the function.
+              // Call the function and print its result.
+              println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
+              // PRINTS: squareFunction(123.456F) = 15241.384
 
+           2) Create a Scala function by transform a method into a function, which
+              is performed by doing an ETA EXPANSION on the method.  Then assign
+              the function to a val/var.
 
-           1) You can write a function A function CAN 
-           assigned to a val/var, a method CAN'T be assigned to a val/var.
-           
-           If you want to write
-           a function, you can write its code and assign it to a val/var,
-           like this:
-           
-           A Scala method can be transformed into a Scala function by
-         performing an ETA EXPANSION on the method.
-         The following code sample
-         below performs an ETA EXPANSION on some methods, so you can
-         see how this is done.
+              // Define a Scala method.
+              def squareMethod(number: Float): Float = number * number
+              
+              // Transform the squareMethod() method into a function.
+              val squareFunction:(Float=>Float) = squareMethod
+              // NOTE: The above line can also be written these 2 ways, with the underscore (_) char.
+              //       val squareFunction:(Float=>Float) = squareMethod _
+              //       val squareFunction:(Float=>Float) = squareMethod(_)
+              // Call the function and print its result.
+              println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}")
+              // PRINTS: squareFunction(123.456F) = 15241.384
+
+           3) When a method/function has an argument that requires a function data type,
+              you can write an anonymous function directly inside the argument.  The
+              Scala API contains hundreds of methods that take function arguments.
+              Here is an example.
+
+              var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
+              floatList = floatList.map(x=>x*x)  // Pass map() an anonymous function
+              println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
+
+              // You can also pass a method OR a function to the map() function.
+              def squareMethod(number: Float): Float = number * number
+              floatList = floatList.map(squareMethod)
+              println(s"floatList = $floatList")
+              // PRINTS: floatList = floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
 
 
            
