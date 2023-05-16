@@ -26,7 +26,6 @@ Function - A Scala function is NOT bound to a class/object/trait.  (Although,
               referencing the val/var.
 
               val squareFunction:(Float=>Float) = { (number:Float) => number*number } // Write the function.
-              // Call the function and print its result.
               println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
               // PRINTS: squareFunction(123.456F) = 15241.384
 
@@ -42,8 +41,7 @@ Function - A Scala function is NOT bound to a class/object/trait.  (Although,
               // NOTE: The above line can also be written these 2 ways, with the underscore (_) char.
               //       val squareFunction:(Float=>Float) = squareMethod _
               //       val squareFunction:(Float=>Float) = squareMethod(_)
-              // Call the function and print its result.
-              println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}")
+              println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
               // PRINTS: squareFunction(123.456F) = 15241.384
 
            3) When a method/function has an argument that requires a function data type,
@@ -52,10 +50,10 @@ Function - A Scala function is NOT bound to a class/object/trait.  (Although,
               Here is an example.
 
               var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-              floatList = floatList.map(x=>x*x)  // Pass map() an anonymous function
+              floatList = floatList.map(x=>x*x)  // Pass List.map() an anonymous function
               println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
 
-              // You can also pass a method OR a function to the map() function.
+              // You can also pass a method OR a function to the List.map() function.
               def squareMethod(number: Float): Float = number * number
               floatList = floatList.map(squareMethod)
               println(s"floatList = $floatList")
