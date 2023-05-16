@@ -134,20 +134,21 @@ A Scala "case class" is different from a regular Scala class in the following 6 
    available by default, so you never need to write them yourself.
 
    apply()   - This method gets called automatically whenever a Scala class
-               (or case class) is instantiated.  Both a regular class also
+               (or case class) is instantiated.  A regular class also
                supplies the apply() method by default, but you can replace
-               it by writing your own apply() method if you choose.
+               a regular class's default apply() method by writing your own
+               apply() method, if you choose.
    unapply() - This method gets called automatically whenever pattern matching
                is performed on a Scala class (or case class).  If you want
                to perform pattern matching on a regular class, you must write
                your own unapply() method because it's not provided by default.
-   copy()    - Creates, and returns, a new "case class" instance that's a copy
+   copy()    - Creates and returns a new "case class" instance that's a copy
                of the existing case class.  If you pass this copy() method any
                args/params, those args/params specify the case class member
                values that will be changed in the copied-to (returned) instance.
                Only the newly-created case class will contain the changes you
-               specify via the args/params.  Calling copy() on a case class DOESN'T
-               make any changes to the copied-from case class.
+               specify via the args/params.  Calling copy() on a case class
+               DOESN'T make any changes to the copied-from case class.
    equals()  - Determines if two Scala objects are equal.  Read the hashCode() description below.
    hashCode() - Returns an Int value.  If calling hashCode() on two Scala objects
                 return the same Int value, they are equal.  You can use the equals()
