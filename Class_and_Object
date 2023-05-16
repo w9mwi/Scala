@@ -31,10 +31,10 @@ DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 Here's an example of how to create a simple class, and a simple case class.
 Both of these classes store a "name" and "Id" as a val--so they are basically
 equivalent classes.  However, a regular class (the PersonClass) REQUIRES its
-args/params to be preceded with the keyword "val" or "var".  The args/params
-passed to a case class (the PersonCaseClass) become "val" by default.  However,
-you can explicitly precede the args/params passed to a case class with the
-keyword "val" or "var" if you choose.
+args/params to be preceded with the keyword "val" or "var", or it won't compile.
+The args/params passed to a case class (the PersonCaseClass) become "val" by
+default when they're not specified.  However, you can explicitly precede the
+args/params passed to a case class with the keyword "val" or "var" if you choose.
 
    class PersonClass(val name:String, val Id:Int)  // A class definition.
    val joe = new PersonClass("Jim", 12345)         // The class being instantiated.
