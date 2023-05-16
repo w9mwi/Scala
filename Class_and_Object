@@ -130,13 +130,17 @@ A Scala "case class" is different from a regular Scala class in the following 6 
    }
    ===========================================================================
 
-3) When a case class is instantiated, the following 6 methods become
+3) When a "case class" is instantiated, the following 6 methods become
    available by default, so you never need to write them yourself.
 
    apply()   - This method gets called automatically whenever a Scala class
-               (or case class) is instantiated.
+               (or case class) is instantiated.  Both a regular class also
+               supplies the apply() method by default, but you can replace
+               it by writing your own apply() method if you choose.
    unapply() - This method gets called automatically whenever pattern matching
-               is performed on a Scala class (or case class).
+               is performed on a Scala class (or case class).  If you want
+               to perform pattern matching on a regular class, you must write
+               your own unapply() method because it's not provided by default.
    copy()    - Creates, and returns, a new "case class" instance that's a copy
                of the existing case class.  If you pass this copy() method any
                args/params, those args/params specify the case class member
