@@ -28,7 +28,7 @@ An object can extend a class or a trait, but a class CAN'T extend an object.
 
 DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ============================================================
-Here's an example of how to create a simple class, and a simple case class.
+Below is an example of how to create a simple class, and a simple case class.
 Both of these classes store a "name" and "Id" as a val--so they are basically
 equivalent classes.  However, a regular class (the PersonClass) REQUIRES its
 args/params to be preceded with the keyword "val" or "var", or it won't compile.
