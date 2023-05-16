@@ -42,8 +42,23 @@ object Demo
     println(s"strResult 3) = $strResult")  // PRINTS: strResult 3) = Tomorrow is a different day.
 
     // ***************************************************************************
-    // EXAMPLE 4) Here we first perform an ETA EXPANSION on makeSentence(),
-    //            and then call the makeSentence() method via etaExpand.
+    // EXAMPLE 4) First, let's review what is meant by an "ETA EXPANSION."
+    //
+    //            A Scala method is bound to a class/object/trait.  In other
+    //            words, a method IS A MEMBER of a class/object/trait.
+    //            A Scala method is ALWAYS created using the "def" keyword.
+    //
+    //            A Scala function is NOT bound to a class/object/trait.  You
+    //            CAN'T create a Scala function using the "def" keyword because
+    //            using the "def" keyword makes it a method.
+    //
+    //            A function CAN be assigned to a val/var.
+    //            A method CAN'T be assigned to a val/var.
+    //
+    //            In this example we transform the makeSentence() method into
+    //            a function by performing an ETA EXAPANSION on makeSentence(),
+    //            and then assigning that function to the var etaExpand.
+    //
     var etaExpand:(Seq[String]=>String) = makeSentence
     strResult = etaExpand(listOfWords)
     println(s"strResult 4) = $strResult") // PRINTS: strResult 4) = Tomorrow is a different day.
