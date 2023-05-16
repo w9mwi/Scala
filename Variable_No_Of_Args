@@ -55,9 +55,10 @@ object Demo
     //            A function CAN be assigned to a val/var.
     //            A method CAN'T be assigned to a val/var.
     //
-    //            In this example we transform the makeSentence() method into
-    //            a function by performing an ETA EXAPANSION on makeSentence(),
-    //            and then assigning that function to the var etaExpand.
+    //            In this example we demonstrate how to transform a Scala method
+    //            (the makeSentence() method) into a function by performing an
+    //            ETA EXAPANSION on it, and then assigning that function to
+    //            the var etaExpand.
     //
     var etaExpand:Seq[String]=>String = makeSentence
     strResult = etaExpand(listOfWords)
