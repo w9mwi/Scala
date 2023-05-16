@@ -119,6 +119,10 @@ object Demo
     //            ETA EXPANSION on it, and then assigning that function to
     //            the var etaExpand.
     //
+    //            To learn more about functions vs. methods, read the section
+    //            titled: Function_vs_Method
+    //            SEE: --> https://github.com/w9mwi/Scala/blob/master/Function_vs_Method
+    //
     var etaExpand:Seq[String]=>String = makeSentence
     strResult = etaExpand(listOfWords)
     println(s"strResult 4) = $strResult") // PRINTS: strResult 4) = Tomorrow is a different day.
