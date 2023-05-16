@@ -59,21 +59,20 @@ object Demo
     //            a function by performing an ETA EXAPANSION on makeSentence(),
     //            and then assigning that function to the var etaExpand.
     //
-    var etaExpand:(Seq[String]=>String) = makeSentence
+    var etaExpand:Seq[String]=>String = makeSentence
     strResult = etaExpand(listOfWords)
     println(s"strResult 4) = $strResult") // PRINTS: strResult 4) = Tomorrow is a different day.
 
     // ***************************************************************************
     // EXAMPLE 5) The following ETA EXPANSION performed on makeSentence is
-    //            IDENTICAL to EXAMPLE 4).  Only the syntax is different by
-    //            including the underscore (_) char.
+    //            IDENTICAL to EXAMPLE 4).  Only the syntax is different
+    //            by including the underscore (_) char.
     etaExpand = makeSentence _
     strResult = etaExpand(listOfWords)
     println(s"strResult 5) = $strResult") // PRINTS: strResult 5) = Tomorrow is a different day.
 
-    // NOTE: If you uncomment the following commented-out line it WON'T COMPILE
-    //       because makeSentence(_) returns a function of type:  String=>String
-    //       While etaExpand is a function of type:  Seq[String]=>String
+    // NOTE: If you uncomment the following commented-out line it WON'T COMPILE.
+    //       The underscore char must NOT be enclosed in parenthesis.
     // etaExpand = makeSentence(_) // WON'T COMPILE!
   }
 }
