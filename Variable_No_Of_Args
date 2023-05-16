@@ -116,7 +116,7 @@ object Demo
     //
     //            In this example we demonstrate how to transform a Scala method
     //            (the makeSentence() method) into a function by performing an
-    //            ETA EXAPANSION on it, and then assigning that function to
+    //            ETA EXPANSION on it, and then assigning that function to
     //            the var etaExpand.
     //
     var etaExpand:Seq[String]=>String = makeSentence
