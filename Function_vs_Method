@@ -16,11 +16,11 @@ Method - A Scala method is always bound to a class/object/trait.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
 Function - A Scala function is NOT bound to a class/object/trait.  (Although,
-           the code you write will reside in some class/object/trait.)  You
-           CAN'T create a Scala function using the "def" keyword because the
-           "def" keyword makes it a method.  The following shows three (3)
+           any function you write will reside in some class/object/trait.)
+           You CAN'T create a Scala function using the "def" keyword because
+           the "def" keyword makes it a method.  The following shows three (3)
            ways to write a Scala function.
-           
+
            1) Write the function code, and assign it to a val/var.  This allows
               you to call the function repeatedly after it's written, by
               referencing the val/var.
