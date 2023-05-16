@@ -45,7 +45,7 @@ args/params passed to a case class with the keyword "val" or "var" if you choose
 A Scala "case class" is different from a regular Scala class in the following 6 ways.
 
 1) A case class MUST contain one or more args/params in its definition,
-   while a plain Scala class can contain zero, or multiple, args/params.
+   while a plain Scala class can contain zero or more args/params.
 
 2) The args/params passed to a plain Scala class become PUBLIC class members
    ONLY when they're preceded with the val or var keyword.  If its args/params
