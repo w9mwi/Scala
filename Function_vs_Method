@@ -2,23 +2,45 @@ The words "method" and "function" are often used interchangeably.
 However, in Scala there are important differences between a method
 and a function.
 
-This section also demonstrates the use of VARARGS (Variable
-number of arguments).  For more information on VARARGS, see
-the section titled:  Variable_No_Of_Args
-SEE --> https://github.com/w9mwi/Scala/edit/master/Variable_No_Of_Args
+NOTE: This section also demonstrates the use of VARARGS (Variable
+      number of arguments).  For more information on VARARGS, see
+      the section titled:  Variable_No_Of_Args
+      SEE --> https://github.com/w9mwi/Scala/edit/master/Variable_No_Of_Args
 
-Method - A Scala method is bound to a class/object/trait.  In other
-         words, a method IS A MEMBER of a class/object/trait.
-         A Scala method is ALWAYS created using the "def" keyword.
-         A Scala method can be transformed into a Scala function by
-         performing an ETA EXPANSION on the method.  The code sample
-         below performs an ETA EXPANSION on some methods, so you can
-         see how this is done.
+Method - A Scala method is always bound to a class/object/trait.
+         In other words, a method IS A MEMBER of a class/object/trait.
+         A Scala method is always defined inside using the keyword
+         "def", like this:
+
+         // def squareMethod(number: Float): Float = number * number
+         // println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")
+         // PRINTS: squareMethod(123.456F) = 15241.384
 
 Function - A Scala function is NOT bound to a class/object/trait.  You
            CAN'T create a Scala function using the "def" keyword because
-           using the "def" keyword makes it a method.  A function CAN be
+           the "def" keyword makes it a method.  The following shows the
+           three (3) ways to create a Scala function.  
+           
+           1) Write the function code, and assign it to a val/var.
+           
+              val squareFunction:(Int=>Int) = { (number:Int) => number*number }
+
+
+
+           1) You can write a function A function CAN 
            assigned to a val/var, a method CAN'T be assigned to a val/var.
+           
+           If you want to write
+           a function, you can write its code and assign it to a val/var,
+           like this:
+           
+           A Scala method can be transformed into a Scala function by
+         performing an ETA EXPANSION on the method.
+         The following code sample
+         below performs an ETA EXPANSION on some methods, so you can
+         see how this is done.
+
+
            
 The code samples below shows examples of how to write both Scala methods
 and Scala functions.
