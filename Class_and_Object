@@ -60,7 +60,7 @@ A Scala "case class" is different from a regular Scala class in the following 6 
    Within the body of a plain class, or a case class, you can declare additional
    val/var class members, and define them to be "private" or "protected" members.
    If you don't define them as "private" or "protected", they are PUBLIC class
-   members by default.
+   members by default.  (In Scala, there is no keyword named "public".)
    
    The following code sample demonstrates this behavior.  Read in-line comments
    for details.
