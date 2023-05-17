@@ -8,7 +8,7 @@ NOTE: This section also demonstrates the use of VARARGS (Variable
       SEE --> https://github.com/w9mwi/Scala/edit/master/Variable_No_Of_Args
 
 Method - A Scala method's signature will NEVER contain the rocket symbol (=>),
-         will look similar to this:
+         and will look similar to this:
          (String):Int   (The method takes an String argument, and returns an Int value.)
 
          A Scala method is always bound to a class/object/trait.
