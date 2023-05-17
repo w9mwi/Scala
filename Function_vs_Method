@@ -27,20 +27,19 @@ Function - A Scala function is NOT bound to a class/object/trait.  (Although,
               println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
               // PRINTS: squareFunction(123.456F) = 15241.384
 
-           2) Create a Scala function by transforming a method into a function by performing
-              an ETA EXPANSION on the method.  Then assign the function to a val/var.
+           2) Generate a Scala function from a Scala method by performing an ETA EXPANSION
+              on the method.  Then, assign the function to a val/var.
 
               // Define a Scala method.
               def squareMethod(number: Float): Float = number * number
               
-              // Transform squareMethod() into a function via an ETA EXPANSION, like this:
-              val squareFunction:(Float=>Float) = squareMethod
-              // NOTE: The above line could also be written with the underscore (_) char,
-              //       as shown in the following two lines.
-              //       val squareFunction:(Float=>Float) = squareMethod _
-              //       val squareFunction:(Float=>Float) = squareMethod(_)
-              println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
-              // PRINTS: squareFunction(123.456F) = 15241.384
+              // Transform squareMethod() into a function via an ETA EXPANSION,
+              // using any of the following 3 lines--they are all equivalent.
+              val squareFunction_1:(Float=>Float) = squareMethod    // Transforms squareMethod into a function.
+              val squareFunction_2:(Float=>Float) = squareMethod _
+              val squareFunction_3:(Float=>Float) = squareMethod(_)
+              println(s"squareFunction_1(123.456F) = ${squareFunction_1(123.456F)}") // Call the function.
+              // PRINTS: squareFunction_1(123.456F) = 15241.384
 
            3) When a method/function has an argument that accepts a function, you can
               pass that argument as an anonymous function.  The Scala API contains
