@@ -43,8 +43,7 @@ object Demo
     // getString(seqOfStrings)  // WON'T COMPILE!
 
     // You can call getString() by passing it a Seq[String], but only when you
-    // add the ":_*" text as shown below.  Doing that performs TYPE ASCRIPTION,
-    // as is described in the previous sample program above.
+    // add the ":_*" text as shown below, which performs TYPE ASCRIPTION.
     strResult = getString(seqOfStrings:_*)
     println(s"strResult 2) = $strResult") // PRINTS: strResult 2) = Alpha Beta Xray Zulu
 
