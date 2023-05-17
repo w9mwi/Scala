@@ -32,44 +32,67 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
 
            1) Define a function and assign it to a val/var.  The function gets
               called by referencing the val/var, as demonstrated here.
-
-              val squareFunction:(Float=>Float) = { (number:Float) => number*number } // Function assigned to a val.
-              println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
-              // PRINTS: squareFunction(123.456F) = 15241.384
+              ===========================================================
+              object Demo
+              {
+                def main(args:Array[String]): Unit =
+                {
+                  // Define the function and assign it to val squareFunction.
+                  val squareFunction: (Float => Float) = { (number: Float) => number * number }
+                  println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
+                  // PRINTS: squareFunction(123.456F) = 15241.384
+                }
+              }
+              ===========================================================
 
            2) Generate a Scala function from a Scala method by performing an
               ETA EXPANSION on the method, and assigning it to a val/var.
+              ===========================================================
+              object Demo
+              {
+                def main(args:Array[String]): Unit =
+                {
+                  // Define a Scala method.
+                  def squareMethod(number: Float): Float = number * number
 
-              // Define a Scala method.
-              def squareMethod(number: Float): Float = number * number
-              
-              // Transform squareMethod() into a function via an ETA EXPANSION,
-              // using any of the following 3 lines--they are all equivalent.
-              val squareFunction_1:(Float=>Float) = squareMethod
-              val squareFunction_2:(Float=>Float) = squareMethod _
-              val squareFunction_3:(Float=>Float) = squareMethod(_)
-              println(s"squareFunction_1(123.456F) = ${squareFunction_1(123.456F)}") // Call the function.
-              // PRINTS: squareFunction_1(123.456F) = 15241.384
+                  // Transform squareMethod() into a function via an ETA EXPANSION,
+                  // using any of the following 3 lines--they are all equivalent.
+                  val squareFunction_1: (Float => Float) = squareMethod
+                  val squareFunction_2: (Float => Float) = squareMethod _
+                  val squareFunction_3: (Float => Float) = squareMethod(_)
+                  println(s"squareFunction_1(123.456F) = ${squareFunction_1(123.456F)}") // Call the function.
+                  // PRINTS: squareFunction_1(123.456F) = 15241.384
+                }
+              }
+              ===========================================================
 
            3) The Scala API contains hundreds of methods that accept a function
-              as an argument.  For example, the List.map() requires a function to
+              as an argument.  For example, List.map() requires a function to
               be passed as its argument.  When a method/function accepts a function
-              as an argument, you can pass it an anonymous function when it's called
-              as this example demonstrates.
+              as an argument, you can pass it an anonymous function when it's called,
+              as this example demonstrates.  Although List.map() specifies that it
+              takes a function as its argument, it will accept a method.  Read
+              in-line comments below for details.
+              ===========================================================
+              object Demo
+              {
+                def main(args:Array[String]): Unit =
+                {
+                  var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
+                  floatList = floatList.map(x=>x*x)  // Pass List.map() an anonymous function.
+                  println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
 
-              var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-              floatList = floatList.map(x=>x*x)  // Pass List.map() an anonymous function.
-              println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
-
-              // You can pass the List.map() a function OR a method.  If you pass
-              // List.map() a method instead of a function, Scala automatically
-              // transforms the method into a function, so it will compile, as
-              // shown here.
-              def squareMethod(number: Float): Float = number * number
-              var floatList = floatList.map(squareMethod) // Pass List.map() a method.
-              println(s"floatList = $floatList")
-              // PRINTS: floatList = floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
-
+                  // You can pass the List.map() a function OR a method.  If you pass
+                  // List.map() a method instead of a function, Scala automatically
+                  // transforms the method into a function, so it will compile, as
+                  // happens here.
+                  def squareMethod(number: Float): Float = number * number
+                  floatList = floatList.map(squareMethod) // Pass List.map() a method.
+                  println(s"floatList = $floatList")
+                  // PRINTS: floatList = floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
+                }
+              }
+              ===========================================================
 
 
 IMPORTANT: To distinguish a Scala function from a Scala method LOOK AT THE SIGNATURE!
