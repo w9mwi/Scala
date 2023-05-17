@@ -17,9 +17,9 @@ object Demo
   // that it will accept any number String arguments.
   def getString(str:String *):String =
   {
-    // In this code example, the following if() statement always returns true,
-    // which reveals the asterisk char (*) in the argument of this method
-    // transforms the argument...
+    // The following if() statement always returns true, which reveals
+    // the asterisk char (*) in the argument of this method transforms
+    // the argument "str"...
     // FROM:  type String
     // TO:    type Seq[String]
     if (str.isInstanceOf[Seq[String]])
