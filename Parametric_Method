@@ -1,27 +1,38 @@
 
-A PARAMETRIC FUNCTION is defined to accept any valid data type that can work with
-the function.  For example, instead of defining 3 different add() functions to
-work with the Int, Float, and Double data types, you can write a single add()
-function as a parametric function, so it'll work with all 3 of those data types.
+A PARAMETRIC METHOD is defined to accept any valid data type that applies.
+For example, instead of defining 3 different add() methods to work with
+data types Int, Float, and Double, you can write a single add() method
+as a parametric method, so it'll work with all 3 of those data types.
 
-The following code sample shows this by defining the add() function so it calls
-Scala's Numeric.plus() function via a an implicit parameter.  The add function
-specifies the data type as a type 'A', which designates any data type that works
-with the Numeric.plus() method.
+The following code sample shows this by defining the add() method so it calls
+Scala's Numeric.plus() method via a an implicit parameter.  The add method
+specifies the data type as a type 'A', which designates any data type that
+works with the Numeric.plus() method.
+
+NOTE: Scala functions CAN'T be written to contain paramaterized data types.
+      Only Scala methods can contain paramaterized data types.
+      
+      A Scala function's signature ALWAYS contains the rocket symbol (=>),
+      and looks similar to this:
+      String=>Int   (Takes a String argument, and returns an Int value.)
+      
+      A Scala method's signature NEVER contains the rocket symbol (=>),
+      and looks similar to this:
+      (String):Int   (Takes a String argument, and returns an Int value.)
 
 object Demo
 {
-  // The following add()() function is defined with two (2) parameter lists,
-  // which usually means it's a curried function.  However, because its
+  // The following add()() method is defined with two (2) parameter lists,
+  // which usually means it's a curried method.  However, because its
   // second  parameter list contains an implicit argument, it's NOT a
-  // curried function.  The Scala compiler automatically invokes the
-  // implicit parameter when the add()() function is called with only
+  // curried method.  The Scala compiler automatically invokes the
+  // implicit parameter when the add()() method is called with only
   // one of its two parameter lists.
   //
-  // This code shows how to define an add function so it will work with
+  // This code shows how to define an add method so it will work with
   // different data types (Byte, Int, Long, Float, Double).  The returned
   // data type will be "upcast" to the highest of the two data types passed
-  // to the function.
+  // to the method.
   def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
 
   def main(args:Array[String]): Unit =
@@ -43,17 +54,17 @@ object Demo
 
 ========================================================================================
 
-In the sample code below, we make 4 different functions work with multiple data
-types by declaring them as parametric functions.
+In the sample code below, we make 4 different methods work with multiple data
+types by declaring them as parametric methods.
 
 object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    println(myFunction('X'))           // PRINTS: X
-    println(myFunction("My string"))   // PRINTS: My string
-    println(myFunction(123.4F))        // PRINTS: 123.4
-    println(myFunction(987.6D))        // PRINTS: 987.6
+    println(myMethod('X'))           // PRINTS: X
+    println(myMethod("My string"))   // PRINTS: My string
+    println(myMethod(123.4F))        // PRINTS: 123.4
+    println(myMethod(987.6D))        // PRINTS: 987.6
 
     println(makeTuple(987.6D, 123.4F)) // PRINTS: (987.6,123.4)
     println(makeTuple('A', "zip"))     // PRINTS: (A,zip)
@@ -71,16 +82,16 @@ object Demo
   }
 
   /**
-   * This is a RECURSIVE, CURRIED FUNCTION.  The List passed to this function can
+   * This is a RECURSIVE, CURRIED METHOD.  The List passed to this method can
    * be of any data type that works with the '+' operator such as Int, Float, String,
    * etc.  The data type must work with the '+' operator because when this ourFold()
-   * function gets called (by the main() function) the 'func' parameter passed to
+   * method gets called (by the main() method) the 'func' parameter passed to
    * it uses the '+' operator.  Therefore, both operands used by the '+' operator
    * must be of the same data type.
    *
    * @param list - A Scala List of type A, where A is a parameterized type.
    * @param base - A value of type A, where A is a parameterized type.
-   * @param func - A function defined by the programmer that gets passed
+   * @param func - A method defined by the programmer that gets passed
    *               a value of type A, and a value of type A.
    * @return - A value of type A.
    */
@@ -92,11 +103,11 @@ object Demo
     //       2) def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
     //       3) def ourFold[B,A](list:List[A], base:B)(func:(A,B) => B):B =
 
-    // NOTE: Every time this ourFold() function gets called recursively below,
+    // NOTE: Every time this ourFold() method gets called recursively below,
     //       the contents of these two (2) arguments remain UNCHANGED:
     //       1) base
     //       2) func
-    //       Every time this ourFold() function gets called recursively below,
+    //       Every time this ourFold() method gets called recursively below,
     //       the list param becomes one (1) element smaller (because list.tail
     //       gets passed to the list argument), until the if() statement
     //       executes, which terminates the recursion.
@@ -104,75 +115,75 @@ object Demo
     else func(list.head, ourFold(list.tail, base)(func))
   }
 
-  // The below makeTuple() function takes two parameters (one of type A, one of type B),
+  // The below makeTuple() method takes two parameters (one of type A, one of type B),
   // and returns a tuple of type (A, B).
   def makeTuple[A,B](a:A, b:B):(A, B) = (a, b)
 
-  // The below makeThreeElementList() function takes three parameters all of type A,
-  // and returns a List of type A, containing the 3 values passed to this function.
+  // The below makeThreeElementList() method takes three parameters all of type A,
+  // and returns a List of type A, containing the 3 values passed to this method.
   def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
 
 ========================================================================================
 
-The sample code shown below includes this CURRIED, PARAMETRIC FUNCTION:
+The sample code shown below includes this CURRIED, PARAMETRIC METHOD:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
-Recall that a curried function gets called by passing it at least two (2)
-separate parameter lists.  The main() function below shows that funcOfGunc gets
+Recall that a curried method gets called by passing it at least two (2)
+separate parameter lists.  The main() method below shows that funcOfGunc gets
 passed two (2) parameter lists when it's called, which means funcOfGunc is a
-curried function.  However, notice that funcOfGunc is defined with only one
+curried method.  However, notice that funcOfGunc is defined with only one
 parameter list; yet, it gets called by passing it two (2) parameter lists.
 
 QUESTION:  Since only one argument list appears in the definition of the
-           funcOfGunc function, why must funcOfGunc get called by passing
+           funcOfGunc method, why must funcOfGunc get called by passing
            it two (2) argument lists?
-ANSWER:    Notice that funcOfGunc RETURNS THIS FUNCTION:  x=>func(gunc(x))
-           That returned function must get passed the argument x.  Therefore,
+ANSWER:    Notice that funcOfGunc RETURNS THIS METHOD:  x=>func(gunc(x))
+           That returned method must get passed the argument x.  Therefore,
            when funcOfGunc is called you must pass to it:
-           1) The func and gunc functions as two arguments contained
+           1) The func and gunc methods as two arguments contained
               in funcOfGunc's single parameter list.
            2) A second parameter list that contains only the value x.  Although
               the funcOfGunc definition DOESN'T show a second parameter list,
               funcOfGunc MUST get called by passing it the value x within a
               second parameter list.
 
-IMPORTANT: Although a curried function gets called by passing it more than
-           one parameter list, a curried function DOESN'T always require
+IMPORTANT: Although a curried method gets called by passing it more than
+           one parameter list, a curried method DOESN'T always require
            multiple parameter lists in its definition, as this example shows...
 
-           // This funcOfGunc function is defined with only ONE parameter list,
+           // This funcOfGunc method is defined with only ONE parameter list,
            // but it MUST get called by passing it TWO parameter lists.
            def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
 The following 4 steps describe how to determine the parametric types (i.e., A, B, C)
 used for the argument types, and the return types, in the funcOfGunc definition.
 
-1) When funcOfGunc is called, the FIRST function it executes is gunc.
+1) When funcOfGunc is called, the FIRST method it executes is gunc.
    So we'll begin by defining the parametric argument type, and the
-   parametric return type, for the gunc function.  The gunc function
+   parametric return type, for the gunc method.  The gunc method
    is passed a single argument value, and returns a result value.
    Let's choose the first two letters of the alphabet so gunc gets
    passed type A, and returns type B, which translate to this signature:
    gunc:(A=>B)
 
-2) When funcOfGunc is called, the SECOND function it executes is func.  So we
+2) When funcOfGunc is called, the SECOND method it executes is func.  So we
    must define the parametric argument type, and the parametric return type,
-   for the func function.  The func function gets passed the type returned
-   by the gunc function, which is type B.  The type returned by func we'll
+   for the func method.  The func method gets passed the type returned
+   by the gunc method, which is type B.  The type returned by func we'll
    designate as C (the next letter in the alphabet).  So gunc gets passed
    type B, and returns type C, which translates to this signature:
    func:(B=>C)
 
 3) When funcOfGunc is called, it returns the type returned by func, which
    is type C.  The only thing left to determine is the parametric argument
-   type that gets passed to the funcOfGunc function, which is the same type
-   passed to the gunc function, type A.  So this is the funcOfGunc signature:
+   type that gets passed to the funcOfGunc method, which is the same type
+   passed to the gunc method, type A.  So this is the funcOfGunc signature:
    funcOfGunc:(A=>C)
 
 4) From all the information obtained in Steps 1-3 above we can determine
-   the definition of the funcOfGunc function, which is this:
+   the definition of the funcOfGunc method, which is this:
 
    def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
@@ -183,14 +194,14 @@ used for the argument types, and the return types, in the funcOfGunc definition.
 
    def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
 
-The above text explains the funcOfGunc function implemented in the
+The above text explains the funcOfGunc method implemented in the
 sample code shown below.
 
 object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    // The following "plus5" and "square" vals are defined as functions
+    // The following "plus5" and "square" vals are defined as methods
     // that take a parameter of type Double, and return a type Double.
     val plus5:(Double=>Double)  = { x:Double => x+5.0D }
     val square:(Double=>Double) = { x:Double => x*x }
@@ -236,7 +247,7 @@ object Demo
     // 4) withFilter()
 
     /*********************************************************
-     * NOTE: This foreach() method enables the main() function
+     * NOTE: This foreach() method enables the main() method
      *       below to implement this type of for loop on this
      *       Sequence case class:  for (x <- ints) println(x)
      ********************************************************/
@@ -247,7 +258,7 @@ object Demo
     }
 
     /*********************************************************
-     * NOTE: This map() method enables the main() function
+     * NOTE: This map() method enables the main() method
      *       below to implement this type of for loop on
      *       this Sequence case class:
      *       for { x <- ints } yield x*2
@@ -263,7 +274,7 @@ object Demo
     }
 
     /*********************************************************
-     * NOTE: This flatMap() method enables the main() function
+     * NOTE: This flatMap() method enables the main() method
      *       below to implement MULTIPLE GENERATORS within
      *       a for loop on this Sequence case class.
      ********************************************************/
@@ -283,7 +294,7 @@ object Demo
 
     /*********************************************************
      * NOTE: This withFilter() method enables the main()
-     *       function below to implement filters within
+     *       method below to implement filters within
      *       for loops on this Sequence case class:
      ********************************************************/
     def withFilter(func: A => Boolean):Sequence[A] =
