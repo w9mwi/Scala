@@ -2,31 +2,26 @@ The words "method" and "function" are often used interchangeably.
 However, in Scala there are important differences between a method
 and a function.
 
-Method - A Scala method's signature NEVER contains the rocket symbol (=>),
-         and will look similar to this:
-         (String):Int   (The method takes a String argument, and returns an Int value.)
-
-         A Scala method is always bound to a class/object/trait.
+Method - A Scala method is always bound to a class/object/trait.
          In other words, a method IS A MEMBER of a class/object/trait.
-         A Scala method is always defined using the keyword "def", like this:
+         A Scala method is ALWAYS defined using the "def" keyword.
+         A Scala method's signature NEVER contains the rocket symbol (=>).
+         The following line of code defines a Scala method.
 
          def squareMethod(number: Float): Float = number * number  // Method definition.
          println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
-Function - A Scala function's signature ALWAYS contains the rocket symbol (=>),
-           and will look similar to this:
-           String=>Int   (The function takes a String argument, and returns an Int value.)
-
-           A Scala function is NOT bound to a class/object/trait.  (Although,
+Function - A Scala function is NOT bound to a class/object/trait.  (Although,
            any function you write will reside in some class/object/trait.)
-           You CAN'T create a Scala function using the "def" keyword because
-           the "def" keyword makes it a method.  The following shows three (3)
-           ways to write a Scala function.
+           A Scala function is NEVER written using the "def" keyword, because
+           the "def" keyword makes it a method.  A Scala function's signature
+           ALWAYS contains the rocket symbol (=>).  Unlike a method, a function
+           CAN'T take parameterized (generic) arguments.  The following shows
+           three (3) ways to write a Scala function.
 
-           1) Write the function code, and assign it to a val/var.  This allows
-              you to call the function repeatedly after it's written by
-              referencing the val/var.
+           1) Write the function code and assign it to a val/var.  This allows the
+              function to be called by referencing the val/var, as shown here.
 
               val squareFunction:(Float=>Float) = { (number:Float) => number*number } // Function assigned to a val.
               println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
@@ -38,10 +33,10 @@ Function - A Scala function's signature ALWAYS contains the rocket symbol (=>),
               // Define a Scala method.
               def squareMethod(number: Float): Float = number * number
               
-              // Transform the squareMethod() method into a function via an ETA EXPANSION.
+              // Transform squareMethod() into a function via an ETA EXPANSION, like this:
               val squareFunction:(Float=>Float) = squareMethod
-              // NOTE: The above line can also be written these 2 ways,
-              //       with the underscore (_) char.
+              // NOTE: The above line could also be written with the underscore (_) char,
+              //       as shown in the following two lines.
               //       val squareFunction:(Float=>Float) = squareMethod _
               //       val squareFunction:(Float=>Float) = squareMethod(_)
               println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
@@ -53,13 +48,13 @@ Function - A Scala function's signature ALWAYS contains the rocket symbol (=>),
               function.  Here is an example:
 
               var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-              floatList = floatList.map(x=>x*x)  // Pass List.map() an anonymous function
+              floatList = floatList.map(x=>x*x)  // Pass List.map() an anonymous function.
               println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
 
-              // You can pass a method OR a function to the List.map() function, as you
-              // can with many Scala API methods.  If you pass List.map() a method instead
-              // of a function, Scala automatically transforms the method into a function,
-              // so it will compile.
+              // You can pass the List.map() function a method OR a function, as can be done
+              // with many Scala API methods.  If you pass List.map() a method instead of a
+              // function, Scala automatically transforms the method into a function, so it
+              // will compile.
               def squareMethod(number: Float): Float = number * number
               floatList = floatList.map(squareMethod)
               println(s"floatList = $floatList")
@@ -69,7 +64,7 @@ Function - A Scala function's signature ALWAYS contains the rocket symbol (=>),
 The code samples below shows examples of how to write both Scala methods
 and Scala functions.
 
-Unlike a method, a function CAN'T contain parameterized (generic) arguments.
+
 The following method definition 
 
 // firstChar works with args of type Double, Float, Int, String, etc.
