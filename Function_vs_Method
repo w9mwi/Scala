@@ -7,15 +7,23 @@ NOTE: This section also demonstrates the use of VARARGS (Variable
       the section titled:  Variable_No_Of_Args
       SEE --> https://github.com/w9mwi/Scala/edit/master/Variable_No_Of_Args
 
-Method - A Scala method is always bound to a class/object/trait.
+Method - A Scala method's signature will NEVER contain the rocket symbol (=>),
+         will look similar to this:
+         (String):Int   (The method takes an String argument, and returns an Int value.)
+
+         A Scala method is always bound to a class/object/trait.
          In other words, a method IS A MEMBER of a class/object/trait.
          A Scala method is always defined using the keyword "def", like this:
 
-         def squareMethod(number: Float): Float = number * number  // Write the method.
+         def squareMethod(number: Float): Float = number * number  // Method definition.
          println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
-Function - A Scala function is NOT bound to a class/object/trait.  (Although,
+Function - A Scala function's signature ALWAYS contains the rocket symbol (=>),
+           and will look similar to this:
+           String=>Int   (The function takes a String argument, and returns an Int value.)
+
+           A Scala function is NOT bound to a class/object/trait.  (Although,
            any function you write will reside in some class/object/trait.)
            You CAN'T create a Scala function using the "def" keyword because
            the "def" keyword makes it a method.  The following shows three (3)
@@ -25,7 +33,7 @@ Function - A Scala function is NOT bound to a class/object/trait.  (Although,
               you to call the function repeatedly after it's written, by
               referencing the val/var.
 
-              val squareFunction:(Float=>Float) = { (number:Float) => number*number } // Write the function.
+              val squareFunction:(Float=>Float) = { (number:Float) => number*number } // Function assigned to a val.
               println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
               // PRINTS: squareFunction(123.456F) = 15241.384
 
