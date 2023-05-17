@@ -2,72 +2,75 @@ The words "method" and "function" are often used interchangeably.
 However, in Scala there are important differences between a method
 and a function.
 
-Method - A Scala method is always bound to a class/object/trait.
+METHOD - A Scala method is always bound to a class/object/trait.
          In other words, a method IS A MEMBER of a class/object/trait.
+
          A Scala method is ALWAYS defined using the "def" keyword.
-         A Scala method's signature NEVER contains the rocket symbol (=>).
-         The following line of code defines a Scala method.
+
+         The following line of code defines a Scala method:
 
          def squareMethod(number: Float): Float = number * number  // Method definition.
          println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
-Function - A Scala function is NOT bound to a class/object/trait.  (Although,
+FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
            any function you write will reside in some class/object/trait.)
-           A Scala function is NEVER written using the "def" keyword, because
-           the "def" keyword makes it a method.  A Scala function's signature
-           ALWAYS contains the rocket symbol (=>).  Unlike a method, a function
-           CAN'T take parameterized (generic) arguments.  The following shows
-           three (3) ways to write a Scala function.
 
-           1) Write the function code and assign it to a val/var.  This allows the
-              function to be called by referencing the val/var, as shown here.
+           A Scala function is NEVER defined using the "def" keyword.
+           
+           When a Scala function is defined by assigning it to a val/var,
+           the data type of the val/var is ALWAYS a function.  A function
+           data type is specified by using the rocket symbol (=>).  The
+           the data type specified to the left of the rocket (=>) gets
+           passed to the function.  The data type specified to the right
+           of the rocket (=>) is the data type returned by the function.
+           Examples 1) and 2) below demonstrate this.
+
+           Unlike a method.  A function CAN'T accept parameterized (generic) arguments.
+
+           Here are three ways to write a Scala function:
+
+           1) Define a function and assign it to a val/var.  The function gets
+              called by referencing the val/var, as demonstrated here.
 
               val squareFunction:(Float=>Float) = { (number:Float) => number*number } // Function assigned to a val.
               println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
               // PRINTS: squareFunction(123.456F) = 15241.384
 
-           2) Generate a Scala function from a Scala method by performing an ETA EXPANSION
-              on the method.  Then, assign the function to a val/var.
+           2) Generate a Scala function from a Scala method by performing an
+              ETA EXPANSION on the method, and assigning it to a val/var.
 
               // Define a Scala method.
               def squareMethod(number: Float): Float = number * number
               
               // Transform squareMethod() into a function via an ETA EXPANSION,
               // using any of the following 3 lines--they are all equivalent.
-              val squareFunction_1:(Float=>Float) = squareMethod    // Transforms squareMethod into a function.
+              val squareFunction_1:(Float=>Float) = squareMethod
               val squareFunction_2:(Float=>Float) = squareMethod _
               val squareFunction_3:(Float=>Float) = squareMethod(_)
               println(s"squareFunction_1(123.456F) = ${squareFunction_1(123.456F)}") // Call the function.
               // PRINTS: squareFunction_1(123.456F) = 15241.384
 
-           3) When a method/function has an argument that accepts a function, you can
-              pass that argument as an anonymous function.  The Scala API contains
-              hundreds of methods that accept function arguments--like the List.map()
-              function.  Here is an example:
+           3) The Scala API contains hundreds of methods that accept a function
+              as an argument.  For example, the List.map() requires a function to
+              be passed as its argument.  When a method/function accepts a function
+              as an argument, you can pass it an anonymous function when it's called
+              as this example demonstrates.
 
               var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
               floatList = floatList.map(x=>x*x)  // Pass List.map() an anonymous function.
               println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
 
-              // You can pass the List.map() function a method OR a function, as can be done
-              // with many Scala API methods.  If you pass List.map() a method instead of a
-              // function, Scala automatically transforms the method into a function, so it
-              // will compile.
+              // You can pass the List.map() a function OR a method.  If you pass
+              // List.map() a method instead of a function, Scala automatically
+              // transforms the method into a function, so it will compile, as
+              // shown here.
               def squareMethod(number: Float): Float = number * number
-              floatList = floatList.map(squareMethod)
+              var floatList = floatList.map(squareMethod) // Pass List.map() a method.
               println(s"floatList = $floatList")
               // PRINTS: floatList = floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
 
 
-The code samples below shows examples of how to write both Scala methods
-and Scala functions.
-
-
-The following method definition 
-
-// firstChar works with args of type Double, Float, Int, String, etc.
-def firstChar[A](a: A) = { a.toString.charAt(0) }
 
 IMPORTANT: To distinguish a Scala function from a Scala method LOOK AT THE SIGNATURE!
 
