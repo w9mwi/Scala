@@ -1,24 +1,29 @@
 
-A PARAMETRIC METHOD is defined to accept any valid data type that applies.
-For example, instead of defining 3 different add() methods to work with
-data types Int, Float, and Double, you can write a single add() method
-as a parametric method, so it'll work with all 3 of those data types.
+A PARAMETRIC METHOD is defined to accept any data type that applies to
+the method's algorithm.  For example, instead of defining 3 different
+add() methods to work with data types Int, Float, and Double, you can
+write a single add() method as a parametric method, so it'll work with
+all 3 of those data types.
 
 The following code sample shows this by defining the add() method so it calls
 Scala's Numeric.plus() method via a an implicit parameter.  The add method
 specifies the data type as a type 'A', which designates any data type that
 works with the Numeric.plus() method.
 
-NOTE: Scala functions CAN'T be written to contain paramaterized data types.
-      Only Scala methods can contain paramaterized data types.
+IMPORTANT: Only Scala methods can use paramaterized data types.  Scala functions
+           CAN'T be written to use paramaterized data types.  To distinguish a
+           a method from a function, look for the following...
       
-      A Scala function's signature ALWAYS contains the rocket symbol (=>),
-      and looks similar to this:
-      String=>Int   (Takes a String argument, and returns an Int value.)
-      
-      A Scala method's signature NEVER contains the rocket symbol (=>),
-      and looks similar to this:
-      (String):Int   (Takes a String argument, and returns an Int value.)
+           A Scala function is NEVER defined using the "def" keyword.  If the
+           "def" keyword is used, it is a method, not a function.  A Scala
+           function's signature ALWAYS contains the rocket symbol (=>), and
+           looks similar to this:
+           String=>Int   (Takes a String argument, and returns an Int value.)
+
+           A Scala method is ALWAYS defined using the "def" keyword.  A Scala 
+           method's signature NEVER contains the rocket symbol (=>), and looks
+           similar to this:
+           (String):Int   (Takes a String argument, and returns an Int value.)
 
 object Demo
 {
