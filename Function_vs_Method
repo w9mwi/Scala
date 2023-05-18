@@ -29,20 +29,21 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
            Examples of how to define a function are shown further below.
 
            Every Scala function has a data type associated with it.  The
-           data type of a function always contains these 3 items, on a
-           single line, in this order:
+           data type of a function ALWAYS contains the rocket symbol (=>).
+           The rocket symbol (=>) separates the data type of the argument
+           passed to the function (on its left), and the data type the
+           the function returns (on its right).  This is an example of
+           what a function's data type looks like:
 
-           1) The data type of the argument passed to the function.
-           2) The rocket symbol (=>)
-           3) The data type returned by the function.  For example:
+           Int=>String   - Data type of a function that accepts an
+                           Int argument, and returns a String value.
 
-           Int=>String   - Represents the data type of a function that accepts
-                           an Int argument, and returns a String value.
+           
+           NOTE: A parameterized (generic) argument is an argument that can
+                 accept different data types (i.e., Int, and Float, and Double)
+                 instead of a single data type, like only a Float.
 
-           Unlike a method.  A function CAN'T accept parameterized (generic) arguments.
-           A parameterized (generic) argument is an argument that can accept different
-           data types (i.e., Int, and Float, and Double) instead of a single data type,
-           like only a Float.
+           Unlike a method, function CAN'T accept parameterized (generic) arguments.
 
            There are the three ways to define a Scala function:
 
@@ -84,7 +85,18 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
               }
               ===========================================================
 
-           3) The Scala API contains hundreds of methods that accept a function
+           3) NOTE: An anonymous function is written with the rocket symbol (=>).
+                    To the left of the rocket is a generic representation of
+                    the argument passed to the function.  That generic argument
+                    is used on the right side of the rocket to write an expression
+                    that represents the value returned by the anonymous function.
+                    All of the following are identical anonymous functions.
+                    
+                    x = x*(x-3)+1
+                    y = y*(y-3)+1
+                    z = z*(z-3)+1
+
+              The Scala API contains hundreds of methods that accept a function
               as an argument.  For example, List.map() requires a function to
               be passed as its argument.  When a method/function accepts a function
               as an argument, you can pass it an anonymous function, as this example
