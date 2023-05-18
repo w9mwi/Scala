@@ -38,7 +38,6 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
            Int=>String   - Data type of a function that accepts an
                            Int argument, and returns a String value.
 
-           
            NOTE: A parameterized (generic) argument is an argument that can
                  accept different data types (i.e., Int, and Float, and Double)
                  instead of a single data type, like only a Float.
