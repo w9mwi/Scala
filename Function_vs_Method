@@ -6,8 +6,17 @@ METHOD - A Scala method is always bound to a class/object/trait.
          In other words, a method IS A MEMBER of a class/object/trait.
 
          A Scala method is ALWAYS defined using the "def" keyword.
+         So whenever the "def" keyword appears, a method is defined.
 
-         The following line of code defines a Scala method:
+         In the following line of code, "number" appears like it could
+         be a val/var.  However, because the keywords "val" or "var"
+         aren't used, "number" isn't a val/var  Because the keyword
+         "def" is used, "number" is a method--which accepts no arguments,
+         and always returns the Int value 123.
+
+         def number:Int = 123 // number is a method.
+
+         Here's another example of a Scala method being defined:
 
          def squareMethod(number: Float): Float = number * number  // Method definition.
          println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
@@ -17,21 +26,28 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
            any function you write will reside in some class/object/trait.)
 
            A Scala function is NEVER defined using the "def" keyword.
-           
-           When a Scala function is defined by assigning it to a val/var,
-           the data type of the val/var is ALWAYS a function.  A function
-           data type is specified by using the rocket symbol (=>).  The
-           the data type specified to the left of the rocket (=>) gets
-           passed to the function.  The data type specified to the right
-           of the rocket (=>) is the data type returned by the function.
-           Examples 1) and 2) below demonstrate this.
+           Examples of how to define a function are shown further below.
+
+           Every Scala function has a data type associated with it.  The
+           data type of a function always contains these 3 items, on a
+           single line, in this order:
+
+           1) The data type of the argument passed to the function.
+           2) The rocket symbol (=>)
+           3) The data type returned by the function.  For example:
+
+           Int=>String   - Represents the data type of a function that accepts
+                           an Int argument, and returns a String value.
 
            Unlike a method.  A function CAN'T accept parameterized (generic) arguments.
+           A parameterized (generic) argument is an argument that can accept different
+           data types (i.e., Int, and Float, and Double) instead of a single data type,
+           like only a Float.
 
-           Here are three ways to write a Scala function:
+           There are the three ways to define a Scala function:
 
-           1) Define a function and assign it to a val/var.  The function gets
-              called by referencing the val/var, as demonstrated here.
+           1) Define a function that gets assigned to a val/var.  The function
+              gets called by referencing the val/var, as demonstrated here.
               ===========================================================
               object Demo
               {
@@ -47,6 +63,8 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
 
            2) Generate a Scala function from a Scala method by performing an
               ETA EXPANSION on the method, and assigning it to a val/var.
+              NOTE: An ETA EXPANSION is an operation that transforms a
+                    Scala method into a Scala function.
               ===========================================================
               object Demo
               {
@@ -69,10 +87,10 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
            3) The Scala API contains hundreds of methods that accept a function
               as an argument.  For example, List.map() requires a function to
               be passed as its argument.  When a method/function accepts a function
-              as an argument, you can pass it an anonymous function when it's called,
-              as this example demonstrates.  Although List.map() specifies that it
-              takes a function as its argument, it will accept a method.  Read
-              in-line comments below for details.
+              as an argument, you can pass it an anonymous function, as this example
+              demonstrates.  Although List.map() specifies that it takes a function
+              as its argument, it will accept a method.  Read in-line comments below
+              for details.
               ===========================================================
               object Demo
               {
@@ -84,8 +102,8 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
 
                   // You can pass the List.map() a function OR a method.  If you pass
                   // List.map() a method instead of a function, Scala automatically
-                  // transforms the method into a function, so it will compile, as
-                  // happens here.
+                  // transforms the method into a function (via an ETA EXPANSION),
+                  // so it will compile.  Here's an example.
                   def squareMethod(number: Float): Float = number * number
                   floatList = floatList.map(squareMethod) // Pass List.map() a method.
                   println(s"floatList = $floatList")
