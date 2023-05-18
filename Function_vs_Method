@@ -9,7 +9,7 @@ METHOD - A Scala method is always bound to a class/object/trait.
          So whenever the "def" keyword appears, a method is defined.
 
          In the following line of code, "number" appears like it could
-         be a val/var.  However, because the keywords "val" or "var"
+         be a val/var.  However, because the keywords "val" and "var"
          aren't used, "number" isn't a val/var  Because the keyword
          "def" is used, "number" is a method--which accepts no arguments,
          and always returns the Int value 123.
