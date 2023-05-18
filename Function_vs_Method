@@ -31,7 +31,7 @@ FUNCTION - A Scala function is NOT bound to a class/object/trait.  (Although,
            Every Scala function has a data type associated with it.  The
            data type of a function ALWAYS contains the rocket symbol (=>).
            The rocket symbol (=>) separates the data type of the argument
-           passed to the function (on its left), and the data type the
+           passed to the function (on its left), and the data type that
            the function returns (on its right).  This is an example of
            what a function's data type looks like:
 
