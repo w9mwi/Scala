@@ -33,12 +33,11 @@ METHOD - A Scala method is always bound to a class/object/trait.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
 FUNCTION - Unlike a method, a function is NOT bound to a class/object/trait.
-           (Although, any function will reside in some class/object/trait.)
            So you CAN'T reference a function via a class/object/trait, as you
            can with a method.
            
-           Person.printPerson() // CAN'T call a function like this!
-                                // (That works only with a method.)
+           Person.printPerson() // CAN'T invoke a FUNCTION like this!
+                                // (That works only with a METHOD.)
 
            A Scala function is NEVER defined using the "def" keyword.
            Examples of how to define a function are shown further below.
