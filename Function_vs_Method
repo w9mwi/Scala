@@ -6,16 +6,14 @@ differences.
 
 METHOD - A Scala method is always bound to a class/object/trait.
          In other words, a method IS A MEMBER of a class/object/trait.
-         So if a class/object/trait defines method named printPerson(),
-         then that method can be called by code like this:
-         
+         So if we create a class/object/trait named Person, and Person
+         defines a method named printPerson(), then that method can be
+         invoked by this code:
 
-         A Scala method is ALWAYS defined using the "def" keyword.  So whenever
-         the "def" keyword appears, a method is defined.  If a method named
-         printPerson() is defined within a class/object/trait, printPerson()
-         can be called as follows, whether Person is a class, an object:
-         
          Person.printPerson()
+
+         A Scala method is ALWAYS defined using the "def" keyword.
+         So whenever the "def" keyword appears, a method is defined.
 
          In the following line of code, "number" appears like it could
          be a val/var.  But the keywords "val" and "var" aren't used,
