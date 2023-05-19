@@ -1,8 +1,12 @@
 The words "method" and "function" are often used interchangeably, as if
-it it doesn't matter whether it's a method, or a function.  In most cases
-that's true.  However, in Scala there are important differences between
-a method and a function that the programmer should know about.  The
-following explains methods, functions, and how the differ.
+if a method and a function are the same.  However, in Scala there are
+important differences between a method and a function that the programmer
+should know about.  This section explains methods, functions, and how
+the differ.  The following related concepts are also explained in this
+section:
+
+* Anonymous Function
+* Eta Exapansion
 
 METHOD - A Scala method is ALWAYS defined using the "def" keyword.
          So whenever the "def" keyword appears, a method is defined.
