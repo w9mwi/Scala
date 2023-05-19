@@ -1,19 +1,19 @@
 The words "method" and "function" are often used interchangeably, as if
 it it doesn't matter whether it's a method, or a function.  In most cases
 that's true.  However, in Scala there are important differences between
-a method and a function that the programmer should know.  Here are those
-differences.
+a method and a function that the programmer should know about.  The
+following explains methods, functions, and how the differ.
 
-METHOD - A Scala method is always bound to a class/object/trait.
+METHOD - A Scala method is ALWAYS defined using the "def" keyword.
+         So whenever the "def" keyword appears, a method is defined.
+
+         A Scala method is always bound to a class/object/trait.
          In other words, a method IS A MEMBER of a class/object/trait.
          So if we create a class/object/trait named Person, and Person
          defines a method named printPerson(), then that method can be
          invoked by this code:
 
          Person.printPerson()
-
-         A Scala method is ALWAYS defined using the "def" keyword.
-         So whenever the "def" keyword appears, a method is defined.
 
          In the following line of code, "number" appears like it could
          be a val/var.  But the keywords "val" and "var" aren't used,
@@ -32,22 +32,22 @@ METHOD - A Scala method is always bound to a class/object/trait.
          println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
-FUNCTION - Unlike a method, a function is NOT bound to a class/object/trait.
-           So you CAN'T reference a function via a class/object/trait, as you
-           can with a method.
-           
-           Person.printPerson() // CAN'T invoke a FUNCTION like this!
-                                // (That works only with a METHOD.)
-
-           A Scala function is NEVER defined using the "def" keyword.
+FUNCTION - A Scala function is NEVER defined using the "def" keyword.
            Examples of how to define a function are shown further below.
+
+           Unlike a method, a function is NOT bound to a class/object/trait.
+           So you CAN'T reference a function via a class/object/trait, as you
+           can with a method...
+           
+           Person.printPerson() // CAN'T invoke a FUNCTION with code like this!
+                                // (That works only with a METHOD.)
 
            Every Scala function has a data type associated with it.  The
            data type of a function ALWAYS contains the rocket symbol (=>).
            The rocket symbol (=>) separates the data type of the argument
-           that gets passed to the function (on its leftside), and the
-           data type that the function returns (on its rightside).
-           Here's an example of what a function's data type looks like:
+           gets passed to the function (on its leftside), and the data
+           type returned by the function (on its rightside).  Here's an
+           example of what a function's data type looks like:
 
            Int=>String   - Data type of a function that accepts an
                            Int argument, and returns a String value.
