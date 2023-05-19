@@ -109,17 +109,12 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
               following example demonstrates.
 
               An ANONYMOUS FUNCTION is written with the rocket symbol (=>).
-              The token on the leftside of "=>" represents the argument
+              The token(s) on the leftside of "=>" represents the argument(s)
               passed to the function.  The expression on the rightside of
               "=>" is the algorithm that calculates the function's return
-              value.  That algorithm will always reference the argument
-              passed to the function.  All of the following are identical
-              anonymous functions.  SEE EXAMPLE 2) IN THE FOLLOWING CODE SAMPLE.
-
-              x => x*(x-3)+1
-              y => y*(y-3)+1
-              z => z*(z-3)+1
-
+              value.  That algorithm must always reference the argument(s)
+              passed to the anonymous function.  The following code sample
+              demonstrates some examples of how to use anonymous functions.
               ===========================================================
               object Demo
               {
@@ -142,21 +137,22 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
               }
               ===========================================================
               
-              Although List.map() specifies that it takes a
-              function as its argument, it will accept a method.  Read in-line
-              comments below
-              for details.  SEE EXAMPLE 1) IN THE FOLLOWING CODE SAMPLE.
+              Although List.map() specifies that it takes a function as its
+              argument, it will accept a method.  The following code sample
+              demonstrates how to perform an ETA EXPANSION on a method.  An
+              ETA EXPANSION transforms a Scala method into a Scala function.
               
               object Demo
               {
                 def main(args:Array[String]): Unit =
                 {
-                  // =====================================================
-                  // EXAMPLE 1)
-                  // You can pass the List.map() a function OR a method.  If you pass
-                  // List.map() a method instead of a function, Scala automatically
-                  // transforms the method into a function (via an ETA EXPANSION),
-                  // so it will compile.  Here's an example.
+                  // The Scala API contains hundreds of functions that take a function
+                  // as an argument.  In many of these instances you can pass a method
+                  // instead of a function, and Scala automatically will automatically
+                  // transform the method into a function (via an ETA EXPANSION), so
+                  // it will compile.  This example shows that the List.map() method
+                  // works by passing to it a method, as Scala will transform it
+                  // into a function.
                   def squareMethod(number: Float): Float = number * number
                   var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
                   floatList = floatList.map(squareMethod) // Pass List.map() a method.
