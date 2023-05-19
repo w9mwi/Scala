@@ -101,13 +101,11 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
            3) The Scala API contains hundreds of methods that accept a function
               as an argument.  For example, List.map() requires a function to
               be passed as its argument.  When a method/function accepts a function
-              as an argument, you can pass it an anonymous function, as this example
-              demonstrates.  Although List.map() specifies that it takes a function
-              as its argument, it will accept a method.  Read in-line comments below
-              for details.  SEE EXAMPLE 1) IN THE FOLLOWING CODE SAMPLE.
+              as an argument, you can pass it an ANONYMOUS FUNCTION, as the
+              following example demonstrates.
 
               An ANONYMOUS FUNCTION is written with the rocket symbol (=>).
-              the token on the leftside of "=>" represents the argument
+              The token on the leftside of "=>" represents the argument
               passed to the function.  The expression on the rightside of
               "=>" is the algorithm that calculates the function's return
               value.  That algorithm will always reference the argument
@@ -118,8 +116,37 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
               y => y*(y-3)+1
               z => z*(z-3)+1
 
-
               ===========================================================
+              object Demo
+              {
+                def main(args: Array[String])
+                {
+                  // Pass List.map() this anonymous function: x => x * x
+                  val floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
+                  floatList = floatList.map(x => x * x) // Pass List.map() an anonymous function.
+                  println(s"floatList = $floatList") // PRINTS: List(1.0, 16.0, 81.0, 256.0, 625.0)
+
+                  floatList = floatList.map(_ => _ * _) // Pass List.map() an anonymous function.
+                  println(s"floatList = $floatList") // PRINTS: List(1.0, 16.0, 81.0, 256.0, 625.0)
+
+                  // The following line defines an anonymous function, and assigns it to the var result.
+                  var result:(Int, Int) => Int = (a:Int, b:Int) => a+b
+                  // The following line calls the function assigned to the var result.
+                  println(result(222, 444)) // PRINTS: 666
+
+                  // The following line defines an anonymous function, and assigns it to the var result.
+                  // This anonymous function is IDENTICAL to the one above, but its syntax is different.
+                  result = (_:Int)+(_:Int)  // Assign an
+                  println(result(123, 321)) // PRINTS: 444
+                }
+              }
+              ===========================================================
+              
+              Although List.map() specifies that it takes a
+              function as its argument, it will accept a method.  Read in-line
+              comments below
+              for details.  SEE EXAMPLE 1) IN THE FOLLOWING CODE SAMPLE.
+              
               object Demo
               {
                 def main(args:Array[String]): Unit =
