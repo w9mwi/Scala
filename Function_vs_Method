@@ -32,7 +32,9 @@ METHOD - A Scala method is ALWAYS defined using the "def" keyword.
          // number is a method that takes no args, and always returns Int 123.
          def number:Int = 123
 
-         Another example of a Scala method definition:
+         Here's a realistic example of a Scala method definition.  It takes a Float
+         number for an argument, squares the number, and returns that result
+         as a Float number.
 
          def squareMethod(number: Float): Float = number * number  // Method definition.
          println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
