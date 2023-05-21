@@ -44,8 +44,11 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
            Examples of how to define a function are shown further below.
 
            Unlike a method, a function is NOT bound to a class/object/trait.
-           So you CAN'T reference a function via a class/object/trait, as you
-           can with a method...
+           A function can be bound ONLY to a val/var that's a member of a
+           class/object/trait; keep reading to see how that's done..
+           
+           So you CAN'T reference a function via a class/object/trait name,
+           as you can with a method, like this...
            
            Person.printPerson() // CAN'T invoke a FUNCTION with code like this!
                                 // (That works only with a METHOD.)
@@ -53,18 +56,18 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
            Every Scala function has a data type associated with it.  The
            data type of a function ALWAYS contains the rocket symbol (=>).
            The rocket symbol (=>) separates the data type of the argument
-           gets passed to the function (on its leftside), and the data
-           type returned by the function (on its rightside).  Here's an
-           example of what a function's data type looks like:
+           passed to the function (on its leftside), and the data type
+           returned by the function (on its rightside).  Here's an example
+           of what a function's data type looks like:
 
            Int=>String   - Data type of a function that accepts an
                            Int argument, and returns a String value.
 
            NOTE: A parameterized (generic) argument is an argument that can
                  accept different data types (i.e., Int, and Float, and Double)
-                 instead of a single data type, like only a Float.
-
-           Unlike a method, a function CAN'T accept parameterized (generic) arguments.
+                 instead of a single data type, like only a Float.  Only a method
+                 can accept parametric (genergic) data type.  A function CAN'T
+                 accept parametric (genergic) data types.
 
            There are the three ways to define a Scala function:
 
