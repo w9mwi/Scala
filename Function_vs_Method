@@ -1,5 +1,5 @@
 The words "method" and "function" are often used interchangeably, as if
-if a method and a function are the same.  In Scala there are important
+a method and a function are the same.  In Scala there are important
 differences between a method and a function that the programmer should
 know.  This section explains methods, functions, and how they differ.
 
@@ -7,7 +7,6 @@ This section also covers these topics, related to methods and functions:
 
 * Anonymous Function
 * Eta Expansion
-
 
 
 METHOD - A Scala method is ALWAYS defined using the "def" keyword.
@@ -39,6 +38,7 @@ METHOD - A Scala method is ALWAYS defined using the "def" keyword.
          def squareMethod(number: Float): Float = number * number  // Method definition.
          println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
          // PRINTS: squareMethod(123.456F) = 15241.384
+
 
 FUNCTION - A Scala function is NEVER defined using the "def" keyword.
            Examples of how to define a function are shown further below.
