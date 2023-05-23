@@ -66,7 +66,7 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
            NOTE: A parameterized (generic) argument is an argument that can
                  accept different data types (i.e., Int, and Float, and Double)
                  instead of a single data type, like only a Float.  Only a method
-                 can accept parametric (genergic) data type.  A function CAN'T
+                 can accept parametric (genergic) data types.  A function CAN'T
                  accept parametric (genergic) data types.
 
            There are the three ways to define a Scala function:
