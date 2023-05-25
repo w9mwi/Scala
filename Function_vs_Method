@@ -40,18 +40,19 @@ METHOD - A Scala method is ALWAYS defined using the "def" keyword.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
 
-FUNCTION - A Scala function is NEVER defined using the "def" keyword.
+FUNCTION - While a Scala method definition REQUIRES the "def" keyword,
+           a Scala function is NEVER written using the "def" keyword.
            Examples of how to define a function are shown further below.
 
            Unlike a method, a function is NOT bound to a class/object/trait.
            A function can be bound ONLY to a val/var that's a member of a
-           class/object/trait; keep reading to see how that's done..
-           
-           So you CAN'T reference a function via a class/object/trait name,
+           class/object/trait--keep reading to see how that's done.
+
+           You CAN'T reference a function via a class/object/trait name,
            as you can with a method, like this...
-           
-           Person.printPerson() // CAN'T invoke a FUNCTION with code like this!
-                                // (That works only with a METHOD.)
+
+           Person.printPerson() // CAN'T invoke a FUNCTION with code like this.
+                                // That works only with a METHOD.
 
            Every Scala function has a data type associated with it.  The
            data type of a function ALWAYS contains the rocket symbol (=>).
@@ -63,11 +64,12 @@ FUNCTION - A Scala function is NEVER defined using the "def" keyword.
            Int=>String   - Data type of a function that accepts an
                            Int argument, and returns a String value.
 
-           NOTE: A parameterized (generic) argument is an argument that can
-                 accept different data types (i.e., Int, and Float, and Double)
-                 instead of a single data type, like only a Float.  Only a method
-                 can accept parametric (genergic) data types.  A function CAN'T
-                 accept parametric (genergic) data types.
+           NOTE: A Scala method can be written to accept a parameteric (generic)
+                 data type as one or more arguments, and return a parameteric
+                 (generic) data types.  For example, a method that squares a
+                 number can be made to work by passing it an Int, Float, or
+                 Double argument, and returning that same data type.  Parametric
+                 (genergic) data types CAN'T be implemented by Scala functions.
 
            There are the three ways to define a Scala function:
 
