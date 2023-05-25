@@ -3,7 +3,8 @@ a method and a function are the same.  In Scala there are important
 differences between a method and a function that the programmer should
 know.  This section explains methods, functions, and how they differ.
 
-This section also covers these topics, related to methods and functions:
+This section also covers these topics, which are related to methods
+and functions:
 
 * Anonymous Function
 * Eta Expansion
