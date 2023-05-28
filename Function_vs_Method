@@ -176,8 +176,86 @@ FUNCTION - While a Scala method definition REQUIRES the "def" keyword,
                 }
               }
               ===========================================================
+              
 
-========================================================================================
+==========================================================================================
+NULLARY FUNCTION - Read the inline comments in the code sample below to understand
+                   nullary functions.
+
+object Demo
+{
+  // When this LoopUntilCond class is instantiated, its argument literally
+  // gets passed a block of Scala code.  Notice the data type specified for
+  // the blockOfCode argument is:   => Unit
+
+  // IMPORTANT 1: The rocket symbol (=>) designates that the argument blockOfCode
+  //              represents a FUNCTION.
+  //
+  // IMPORTANT 2: "Unit" (on the right side of "=>") designates the return type of
+  //              the function.  (The return type is determined by the last line
+  //              executed in the code block, which always evaluates to some data type.)
+  //
+  // IMPORTANT 3: There is no data type specified on the left side of "=>"
+  //              because an argument that accepts a block of code NEVER evaluates
+  //              to a data type, which makes it a NULLARY FUNCTION.  Therefore,
+  //              blockOfCode argument represents a NULLARY FUNCTION.
+  //
+  // IMPORTANT 4: A block of code passed as an argument can contain a single line
+  //              of code, or many lines of code.  It's important to understand the
+  //              block of code is NEVER executed when the argument gets passed.
+  //              Only the class, the method, etc. receiving the block of code
+  //              argument can execute the block of code.
+  //
+  //              FOR EXAMPLE:  In the code sample below, the last line of main()
+  //                            calls this method:
+  //
+  //                            LoopUntilCond.until(idx == 0)
+  //
+  //                            "idx == 0" is NOT first evaluated to true/false,
+  //                            and then passed to the until() method as a Boolean!
+  //                            Instead, "idx == 0" is literally passed to the
+  //                            LoopUntilCond.until() method as pure Scala code.
+  //                            The LoopUntilCond.until() method then executes it.
+  //
+  class LoopUntilCond(blockOfCode: => Unit)
+  {
+    // The "cond" argument below (like the blockOfCode argument above)
+    // is a NULLARY FUNCTION.
+    def until(cond: => Boolean): Unit = {
+      blockOfCode // Executes the block of code passed to this class.
+      if (false == cond)
+        until(cond) // Recursively calls the until() method.
+    }
+  }
+
+  def loop(blockOfCode: => Unit):LoopUntilCond = { new LoopUntilCond(blockOfCode) }
+
+  def main(args: Array[String]): Unit = {
+    var idx:Int = 5
+
+    // 1) The following line of code calls the loop() method defined above.
+    // 2) We pass the loop() method an argument containing a block of Scala
+    //    between a pair of braces {}.  NOTE: When passing a block of Scala
+    //    code to an argument, the block of code MUST be enclosed in braces {},
+    //    and NOT in parenthesis ().
+    // 3) Calling the loop() method returns an instance of the LoopUntilCond class,
+    //    which also gets passed the same block of code.
+    // 4) At the same time we invoke the loop() method (and thus instantiate a
+    //    LoopUntilCond class), we call the LoopUntilCond.until() method.
+    loop {
+      println("idx = " + idx)
+      idx -= 1
+    } until idx == 0 // This line can be rewritten like this:   }.until(idx == 0)
+    // PRINTS: idx = 5
+    //         idx = 4
+    //         idx = 3
+    //         idx = 2
+    //         idx = 1
+  }
+}
+
+==========================================================================================
+
 
 The following code sample shows another example of transforming
 a regular function into a curried function by first performing
