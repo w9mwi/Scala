@@ -69,9 +69,9 @@ FUNCTION - While a Scala method definition REQUIRES the "def" keyword,
                  data type as one or more argument, and return a parameteric
                  (generic) data type.  By doing that, a method that squares a
                  number can be made to work by passing it an Int, or a Float, or
-                 a Double argument, and returning that same data type.  Scala
-                 functions CAN'T implement parameteric (generic) data types--ONLY
-                 methods can.
+                 a Double argument, and returning that same data type.  You CAN'T
+                 write a Scala function that implements parameteric (generic)
+                 data types.
 
            There are the three ways to define a Scala function:
 
