@@ -10,205 +10,238 @@ and functions:
 * Eta Expansion
 * Nullary Function
 
+==========================================================================================
+
+SCALA METHOD
+============
+A Scala method is ALWAYS defined using the "def" keyword.  So whenever the
+"def" keyword appears, a method is defined.
+
+A Scala method is always bound to a class/object/trait.  In other words, a method
+IS A MEMBER of a class/object/trait.  So if we create a class/object/trait named
+Person, and Person defines a method named printPerson(), then that method can be
+invoked by this code:
+
+   Person.printPerson()
+
+In the following line of code, "number" appears like it could be a val/var.  But the
+keywords "val" and "var" aren't used, so "number" isn't a val/var.  Because the keyword
+"def" is used, "number" has to be a method.  In this example, the method number accepts
+no arguments, and always returns the Int value 123.  (In real code, you'd never do this.
+Instead, you'd make number a val because it's only purpose is to return a constant value.)
+
+// Below, number is defined to be a method that takes no args, and always returns Int 123.
+def number:Int = 123
+
+Here's a realistic example of a Scala method definition.  It takes a Float number for an
+argument, squares the number, and returns that result as a Float number.
+
+def squareMethod(number: Float): Float = number * number  // Method definition.
+println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
+// PRINTS: squareMethod(123.456F) = 15241.384
 
 ==========================================================================================
 
-METHOD - A Scala method is ALWAYS defined using the "def" keyword.
-         So whenever the "def" keyword appears, a method is defined.
+SCALA FUNCTION
+==============
+While a Scala method definition REQUIRES the "def" keyword, a Scala function is NEVER
+written using the "def" keyword.  Sxamples of how to define a function are shown further
+below.
 
-         A Scala method is always bound to a class/object/trait.
-         In other words, a method IS A MEMBER of a class/object/trait.
-         So if we create a class/object/trait named Person, and Person
-         defines a method named printPerson(), then that method can be
-         invoked by this code:
+Unlike a method, a function is NOT bound to a class/object/trait.  A function can be
+bound ONLY to a val/var that's a member of a class/object/trait.  Keep reading to see
+how that's done.
 
-         Person.printPerson()
+You CAN'T reference a function via a class/object/trait name, as you can with a method,\
+like this...
 
-         In the following line of code, "number" appears like it could
-         be a val/var.  But the keywords "val" and "var" aren't used,
-         so "number" isn't a val/var.  Because the keyword "def" is used,
-         "number" has to be a method.  In this example, the method number
-         accepts no arguments, and always returns the Int value 123.
-         (In real code, you'd never do this.  Instead, you'd make number
-         a val because it's only purpose is to return a constant value.)
+   Person.printPerson() // CAN'T invoke a FUNCTION with code like this.
+                        // That works only with a METHOD.
 
-         // number is a method that takes no args, and always returns Int 123.
-         def number:Int = 123
+Every Scala function has a data type associated with it.  The data type of a function ALWAYS
+contains the rocket symbol (=>).  The rocket symbol (=>) separates the data type of the
+argument passed to the function (on its leftside), and the data type returned by the function
+(on its rightside).  Here's an example of what a function's data type looks like:
 
-         Here's a realistic example of a Scala method definition.  It takes a Float
-         number for an argument, squares the number, and returns that result
-         as a Float number.
+Int=>String   - Data type of a function that accepts an Int argument, and returns a String value.
 
-         def squareMethod(number: Float): Float = number * number  // Method definition.
-         println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
-         // PRINTS: squareMethod(123.456F) = 15241.384
+NOTE: A Scala method can be written to accept a parameteric (generic) data type as one or more
+      argument, and return a parameteric (generic) data type.  By doing that, a method that
+      squares a number can be made to work by passing it an argument that's an Int, or a Float,
+      or a Double, and returning that same data type.  You CAN'T write a Scala function that
+      implements parameteric (generic) data types.
+
+There are the three ways to define a Scala function:
+
+1) Define a function that gets assigned to a val/var.  The function is always called by
+   referencing the val/var, as demonstrated here.
+
+   object Demo
+   {
+     def main(args:Array[String]): Unit =
+     {
+       // Define the function and assign it to val squareFunction.
+       val squareFunction: (Float => Float) = { (number: Float) => number * number }
+       println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
+       // PRINTS: squareFunction(123.456F) = 15241.384
+     }
+   }
+
+2) Generate a Scala function from a Scala method by performing an ETA EXPANSION
+   on the method, and assigning it to a val/var.  NOTE: An ETA EXPANSION is an
+   operation that transforms a Scala method into a Scala function.
+
+   object Demo
+   {
+     def main(args:Array[String]): Unit =
+     {
+       // Define a Scala method.
+       def squareMethod(number: Float): Float = number * number
+
+       // Transform squareMethod() into a function via an ETA EXPANSION,
+       // using any of the following 3 lines--they are all equivalent.
+       val squareFunction_1: (Float => Float) = squareMethod
+       val squareFunction_2: (Float => Float) = squareMethod _
+       val squareFunction_3: (Float => Float) = squareMethod(_)
+       println(s"squareFunction_1(123.456F) = ${squareFunction_1(123.456F)}") // Call the function.
+       // PRINTS: squareFunction_1(123.456F) = 15241.384
+     }
+   }
+
+3) The Scala API contains hundreds of methods that accept a function as an argument.
+   For example, List.map() requires a function to be passed as its argument.  When a
+   method/function accepts a function as an argument, you can pass it an ANONYMOUS
+   FUNCTION, as the following example demonstrates.
+
+   NOTE: When an ANONYMOUS FUNCTION is written with the rocket symbol (=>)
+         the token(s) on the leftside of "=>" represents the argument(s)
+         passed to the function.  The expression on the rightside of "=>"
+         is the algorithm that calculates the function's return value.
+         That algorithm must always reference the argument(s) passed to
+         the anonymous function.  The following code sample demonstrates
+         some examples of how to use anonymous functions.
+
+   object Demo
+   {
+     def main(args: Array[String])
+     {
+       var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
+       floatList = floatList.map(x => x * x) // Pass List.map() this anonymous function: x => x * x
+       println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
+
+       // The following line defines an anonymous function, and assigns it to the var result.
+       var result:(Int, Int) => Int = (a:Int, b:Int) => a+b
+       // The following line calls the function assigned to the var result.
+       println(result(222, 444)) // PRINTS: 666
+
+       // The following line defines an anonymous function, and assigns it to the var result.
+       // This anonymous function is IDENTICAL to the one above, but its syntax is different.
+       result = (_:Int)+(_:Int)
+       println(result(444, 222)) // PRINTS: 666
+     }
+   }
 
 
-==========================================================================================
-FUNCTION - While a Scala method definition REQUIRES the "def" keyword,
-           a Scala function is NEVER written using the "def" keyword.
-           Examples of how to define a function are shown further below.
+Although List.map() specifies that it takes a function as its argument, it will accept
+a method.  The following code sample demonstrates how to perform an ETA EXPANSION on
+a method.  An ETA EXPANSION transforms a Scala method into a Scala function.
 
-           Unlike a method, a function is NOT bound to a class/object/trait.
-           A function can be bound ONLY to a val/var that's a member of a
-           class/object/trait.  Keep reading to see how that's done.
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // EXAMPLE 1)
+    // The Scala API contains hundreds of methods/functions that take a function
+    // as an argument.  In many of these instances you can pass a method instead
+    // of a function, and Scala automatically will automatically transform the
+    // method into a function (via an ETA EXPANSION), so it will compile.  This
+    // example shows that the List.map() method works by passing to it a method,
+    // as Scala will transform it into a function.
+    def squareMethod(number: Float): Float = number * number
+    var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
+    floatList = floatList.map(squareMethod) // Pass List.map() a method.
+    println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
 
-           You CAN'T reference a function via a class/object/trait name,
-           as you can with a method, like this...
-
-           Person.printPerson() // CAN'T invoke a FUNCTION with code like this.
-                                // That works only with a METHOD.
-
-           Every Scala function has a data type associated with it.  The
-           data type of a function ALWAYS contains the rocket symbol (=>).
-           The rocket symbol (=>) separates the data type of the argument
-           passed to the function (on its leftside), and the data type
-           returned by the function (on its rightside).  Here's an example
-           of what a function's data type looks like:
-
-           Int=>String   - Data type of a function that accepts an
-                           Int argument, and returns a String value.
-
-           NOTE: A Scala method can be written to accept a parameteric (generic)
-                 data type as one or more argument, and return a parameteric
-                 (generic) data type.  By doing that, a method that squares a
-                 number can be made to work by passing it an argument that's an
-                 Int, or a Float, or a Double, and returning that same data type.
-                 You CAN'T write a Scala function that implements parameteric
-                 (generic) data types.
-
-           There are the three ways to define a Scala function:
-
-           1) Define a function that gets assigned to a val/var.  The function
-              is always called by referencing the val/var, as demonstrated here.
-              ===========================================================
-              object Demo
-              {
-                def main(args:Array[String]): Unit =
-                {
-                  // Define the function and assign it to val squareFunction.
-                  val squareFunction: (Float => Float) = { (number: Float) => number * number }
-                  println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
-                  // PRINTS: squareFunction(123.456F) = 15241.384
-                }
-              }
-              ===========================================================
-
-           2) Generate a Scala function from a Scala method by performing an
-              ETA EXPANSION on the method, and assigning it to a val/var.
-              NOTE: An ETA EXPANSION is an operation that transforms a
-                    Scala method into a Scala function.
-              ===========================================================
-              object Demo
-              {
-                def main(args:Array[String]): Unit =
-                {
-                  // Define a Scala method.
-                  def squareMethod(number: Float): Float = number * number
-
-                  // Transform squareMethod() into a function via an ETA EXPANSION,
-                  // using any of the following 3 lines--they are all equivalent.
-                  val squareFunction_1: (Float => Float) = squareMethod
-                  val squareFunction_2: (Float => Float) = squareMethod _
-                  val squareFunction_3: (Float => Float) = squareMethod(_)
-                  println(s"squareFunction_1(123.456F) = ${squareFunction_1(123.456F)}") // Call the function.
-                  // PRINTS: squareFunction_1(123.456F) = 15241.384
-                }
-              }
-              ===========================================================
-
-           3) The Scala API contains hundreds of methods that accept a function
-              as an argument.  For example, List.map() requires a function to
-              be passed as its argument.  When a method/function accepts a function
-              as an argument, you can pass it an ANONYMOUS FUNCTION, as the
-              following example demonstrates.
-
-              An ANONYMOUS FUNCTION is written with the rocket symbol (=>).
-              The token(s) on the leftside of "=>" represents the argument(s)
-              passed to the function.  The expression on the rightside of
-              "=>" is the algorithm that calculates the function's return
-              value.  That algorithm must always reference the argument(s)
-              passed to the anonymous function.  The following code sample
-              demonstrates some examples of how to use anonymous functions.
-              ===========================================================
-              object Demo
-              {
-                def main(args: Array[String])
-                {
-                  var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-                  floatList = floatList.map(x => x * x) // Pass List.map() this anonymous function: x => x * x
-                  println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
-
-                  // The following line defines an anonymous function, and assigns it to the var result.
-                  var result:(Int, Int) => Int = (a:Int, b:Int) => a+b
-                  // The following line calls the function assigned to the var result.
-                  println(result(222, 444)) // PRINTS: 666
-
-                  // The following line defines an anonymous function, and assigns it to the var result.
-                  // This anonymous function is IDENTICAL to the one above, but its syntax is different.
-                  result = (_:Int)+(_:Int)
-                  println(result(444, 222)) // PRINTS: 666
-                }
-              }
-              ===========================================================
-              
-              Although List.map() specifies that it takes a function as its
-              argument, it will accept a method.  The following code sample
-              demonstrates how to perform an ETA EXPANSION on a method.  An
-              ETA EXPANSION transforms a Scala method into a Scala function.
-              
-              object Demo
-              {
-                def main(args:Array[String]): Unit =
-                {
-                  // The Scala API contains hundreds of functions that take a function
-                  // as an argument.  In many of these instances you can pass a method
-                  // instead of a function, and Scala automatically will automatically
-                  // transform the method into a function (via an ETA EXPANSION), so
-                  // it will compile.  This example shows that the List.map() method
-                  // works by passing to it a method, as Scala will transform it
-                  // into a function.
-                  def squareMethod(number: Float): Float = number * number
-                  var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-                  floatList = floatList.map(squareMethod) // Pass List.map() a method.
-                  println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
-
-                  // =====================================================
-                  // EXAMPLE 2)
-                      floatList = floatList.map(x => x * x) // Pass List.map() an anonymous function.
-                      println(s"floatList = $floatList") // PRINTS: List(1.0, 16.0, 81.0, 256.0, 625.0)
-                }
-              }
-              ===========================================================
-              
+    // EXAMPLE 2)
+    floatList = floatList.map(x => x * x) // Pass List.map() an anonymous function.
+    println(s"floatList = $floatList") // PRINTS: List(1.0, 16.0, 81.0, 256.0, 625.0)
+  }
+}
 
 ==========================================================================================
-NULLARY FUNCTION - When a class constructor, a method, or a function gets passed an
-                   argument, that argument always translates to some data type; such as
-                   an Int, a String, a class, etc.  But there's an exception to that.
-                   Scala also allows an argument to accept a "block of Scala code."  But
-                   a block of Scala code has no data type; therefore, the argument has
-                   no data type, which means the argument's data type is effectively "null."
-                   Therefore...
 
-                   Whenever you pass a "block of code" to an argument, the argument
-                   references a NULLARY FUNCTION.  Recall that a function's data type
-                   looks similar to this:
-                   
-                   Int=>String
-                   
-                   A block of Scala code passed to an argument can be any length--a
-                   single line of code, or many lines of code.  The class constructor,
-                   the method, or the function receiving the argument can then execute
-                   that block of code by referencing the argument.
+SCALA NULLARY FUNCTION 
+======================
 
+When a class constructor, a method, or a function gets passed an
+argument, that argument always translates to some data type; such as
+an Int, a String, a class, etc.  But there's an exception to that.
+Scala also allows an argument to accept a "block of Scala code."  But
+a block of Scala code has no data type; therefore, the argument has
+no data type, which means the argument's data type is effectively "null."
+Therefore...
 
-                   
-                   contains the data type passed to the function (on the left side
+Whenever a "block of code" is passed to an argument, the argument
+references a NULLARY FUNCTION.  Recall that a function's data type
+looks similar to this:
 
+Int=>String   // Function accepts an Int argument, and returns a String value.
 
-Read the inline comments in the code sample below to understand
-                   nullary functions.
+An argument that references a nullary function will NEVER have a data type
+on the LEFT SIDE of the rocket symbol (=>), but will ALWAYS have a data type
+on the RIGHT SIDE side of the rocket symbol (=>).  The data type on the
+RIGHT SIDE of the the rocket symbol (=>) is the data type returned by the
+last line of code executed in the code block.  If the last line executed
+in the block of code returns nothing, its data type is "Unit".  Here are
+some examples of data types of an argument that references a block of code:
+
+   =>String // A nullary function that returns a String value.
+   =>Double // A nullary function that returns a Double value.
+   =>Unit   // A nullary function that returns nothing.
+
+The block of Scala code passed to an argument can be of any length;
+a single line of Scala code, or multiple lines.  When you call a
+class constructor, a method, or a function that accepts a block of
+code as an argument, you MUST surround the block of Scala code with
+braces {} instead of parenthesis ().  The exception being when the
+block of code contains only an expression (i.e.,  "idx == 0"), you
+can surround the block of Scala code with either parenthesis ()
+or braces {}.
+
+Here's an example of how to define and call a method that gets
+passed a block of Scala code to its "blockOfCode" argument.
+
+object Demo
+{
+  // The blockOfCode argument passed to myMethod()
+  // references a NULLARY FUNCTION.
+  def myMethod(blockOfCode: => Boolean): Unit = {
+    // The following line executes the block of code passed to this method
+    // as an argument, and assigns its returned value to the val result.
+    val result: Boolean = blockOfCode
+
+    if (result == true)
+      println("blockOfCode returned true.")
+    else
+      println("blockOfCode returned false.")
+  }
+
+  def main(args: Array[String]): Unit = {
+    // Call myMethod() by passing to its argument a block of Scala code.
+    // NOTE: The block of Scala code MUST be surrounded by braces {}.
+    myMethod {
+      val number = 123
+      if (number == 123)
+        true
+      else false
+    }
+  }
+}
+
+==========================================================================================
+
+Below are several more complex examples of how to write and use nullary functions.
+Read the inline comments for detailed explanations.
 
 object Demo
 {
@@ -278,8 +311,8 @@ object Demo
                      // The line can be rewritten like this:   }.until(idx == 0)
   }
 }
-==========================================================================================
 
+==========================================================================================
 
 The following code sample shows another example of transforming
 a regular function into a curried function by first performing
