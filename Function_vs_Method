@@ -8,7 +8,10 @@ and functions:
 
 * Anonymous Function
 * Eta Expansion
+* Nullary Function
 
+
+==========================================================================================
 
 METHOD - A Scala method is ALWAYS defined using the "def" keyword.
          So whenever the "def" keyword appears, a method is defined.
@@ -41,13 +44,14 @@ METHOD - A Scala method is ALWAYS defined using the "def" keyword.
          // PRINTS: squareMethod(123.456F) = 15241.384
 
 
+==========================================================================================
 FUNCTION - While a Scala method definition REQUIRES the "def" keyword,
            a Scala function is NEVER written using the "def" keyword.
            Examples of how to define a function are shown further below.
 
            Unlike a method, a function is NOT bound to a class/object/trait.
            A function can be bound ONLY to a val/var that's a member of a
-           class/object/trait--keep reading to see how that's done.
+           class/object/trait.  Keep reading to see how that's done.
 
            You CAN'T reference a function via a class/object/trait name,
            as you can with a method, like this...
@@ -68,10 +72,10 @@ FUNCTION - While a Scala method definition REQUIRES the "def" keyword,
            NOTE: A Scala method can be written to accept a parameteric (generic)
                  data type as one or more argument, and return a parameteric
                  (generic) data type.  By doing that, a method that squares a
-                 number can be made to work by passing it an Int, or a Float, or
-                 a Double argument, and returning that same data type.  You CAN'T
-                 write a Scala function that implements parameteric (generic)
-                 data types.
+                 number can be made to work by passing it an argument that's an
+                 Int, or a Float, or a Double, and returning that same data type.
+                 You CAN'T write a Scala function that implements parameteric
+                 (generic) data types.
 
            There are the three ways to define a Scala function:
 
@@ -198,7 +202,7 @@ object Demo
   // IMPORTANT 3: There is no data type specified on the left side of "=>"
   //              because an argument that accepts a block of code NEVER evaluates
   //              to a data type, which makes it a NULLARY FUNCTION.  Therefore,
-  //              blockOfCode argument represents a NULLARY FUNCTION.
+  //              the blockOfCode argument represents a NULLARY FUNCTION.
   //
   // IMPORTANT 4: A block of code passed as an argument can contain a single line
   //              of code, or many lines of code.  It's important to understand the
