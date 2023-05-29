@@ -239,7 +239,7 @@ object Demo
 
     // 1) The following line of code calls the loop() method defined above.
     // 2) We pass the loop() method an argument containing a block of Scala
-    //    between a pair of braces {}.  NOTE: When passing a block of Scala
+    //    code between a pair of braces {}.  NOTE: When passing a block of Scala
     //    code to an argument, the block of code MUST be enclosed in braces {},
     //    and NOT in parenthesis ().
     // 3) Calling the loop() method returns an instance of the LoopUntilCond class,
