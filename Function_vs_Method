@@ -183,7 +183,31 @@ FUNCTION - While a Scala method definition REQUIRES the "def" keyword,
               
 
 ==========================================================================================
-NULLARY FUNCTION - Read the inline comments in the code sample below to understand
+NULLARY FUNCTION - When a class constructor, a method, or a function gets passed an
+                   argument, that argument always translates to some data type; such as
+                   an Int, a String, a class, etc.  But there's an exception to that.
+                   Scala also allows an argument to accept a "block of Scala code."  But
+                   a block of Scala code has no data type; therefore, the argument has
+                   no data type, which means the argument's data type is effectively "null."
+                   Therefore...
+
+                   Whenever you pass a "block of code" to an argument, the argument
+                   references a NULLARY FUNCTION.  Recall that a function's data type
+                   looks similar to this:
+                   
+                   Int=>String
+                   
+                   A block of Scala code passed to an argument can be any length--a
+                   single line of code, or many lines of code.  The class constructor,
+                   the method, or the function receiving the argument can then execute
+                   that block of code by referencing the argument.
+
+
+                   
+                   contains the data type passed to the function (on the left side
+
+
+Read the inline comments in the code sample below to understand
                    nullary functions.
 
 object Demo
