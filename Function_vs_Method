@@ -202,7 +202,7 @@ object Demo
   // IMPORTANT 3: There is no data type specified on the left side of "=>"
   //              because an argument that accepts a block of code NEVER evaluates
   //              to a data type, which makes it a NULLARY FUNCTION.  Therefore,
-  //              the blockOfCode argument represents a NULLARY FUNCTION.
+  //              blockOfCode argument represents a NULLARY FUNCTION.
   //
   // IMPORTANT 4: A block of code passed as an argument can contain a single line
   //              of code, or many lines of code.  It's important to understand the
@@ -216,7 +216,7 @@ object Demo
   //                            LoopUntilCond.until(idx == 0)
   //
   //                            "idx == 0" is NOT first evaluated to true/false,
-  //                            and then passed to the until() method as a Boolean!
+  //                            and then passed to the until() method as a Boolean.
   //                            Instead, "idx == 0" is literally passed to the
   //                            LoopUntilCond.until() method as pure Scala code.
   //                            The LoopUntilCond.until() method then executes it.
@@ -239,25 +239,21 @@ object Demo
 
     // 1) The following line of code calls the loop() method defined above.
     // 2) We pass the loop() method an argument containing a block of Scala
-    //    code between a pair of braces {}.  NOTE: When passing a block of Scala
+    //    between a pair of braces {}.  NOTE: When passing a block of Scala
     //    code to an argument, the block of code MUST be enclosed in braces {},
-    //    and NOT in parenthesis ().
+    //    and NOT in parenthesis ().  The exception is a simple expression,
+    //    such as "idx == 0", can be passed between parenthesis ().
     // 3) Calling the loop() method returns an instance of the LoopUntilCond class,
     //    which also gets passed the same block of code.
     // 4) At the same time we invoke the loop() method (and thus instantiate a
     //    LoopUntilCond class), we call the LoopUntilCond.until() method.
     loop {
-      println("idx = " + idx)
+      print("idx = " + idx + ", ") // PRINTS: idx = 5, idx = 4, idx = 3, idx = 2, idx = 1,
       idx -= 1
-    } until idx == 0 // This line can be rewritten like this:   }.until(idx == 0)
-    // PRINTS: idx = 5
-    //         idx = 4
-    //         idx = 3
-    //         idx = 2
-    //         idx = 1
+    } until idx == 0 // "idx ==0" is passed to until() as a block of code (a nullary function).
+                     // The line can be rewritten like this:   }.until(idx == 0)
   }
 }
-
 ==========================================================================================
 
 
