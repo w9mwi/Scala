@@ -59,8 +59,8 @@ invoked by this code:   Person.printPerson()
 
 ==========================================================================================
 
-SCALA FUNCTION
-==============
+FUNCTION
+========
 While a Scala method definition REQUIRES the "def" keyword, a Scala function is NEVER
 written using the "def" keyword.  Sxamples of how to define a function are shown further
 below.
@@ -187,41 +187,38 @@ object Demo
 
 ==========================================================================================
 
-SCALA NULLARY FUNCTION 
-======================
+NULLARY FUNCTION
+================
 
 When a class constructor, a method, or a function gets passed an argument, that argument
 always translates to some data type; such as an Int, a String, a class, etc.  But there's
 an exception...  Scala allows an argument to accept a "block of Scala code."  However,
-a block of Scala code has no data type, so the argument has no data type; which means
-the argument's data type is effectively "null."  Therefore...
+a block of Scala code has no data type.  So when a block of code is passed to an argument,
+the argument has no data type, and the argument therefore references a NULLARY FUNCTION.
 
-Whenever a "block of code" is passed to an argument, the argument references a
-NULLARY FUNCTION.  Recall that a function's data type looks similar to this:
+Recall that a function's data type looks similar to this:
 
-Int=>String   // Function accepts an Int argument, and returns a String value.
+Int=>String   // The function accepts an Int argument, and returns a String value.
 
 An argument that references a nullary function will NEVER have a data type
-on the LEFT SIDE of the rocket symbol (=>), but will ALWAYS have a data type
-on the RIGHT SIDE side of the rocket symbol (=>).  The data type on the
-RIGHT SIDE of the the rocket symbol (=>) is the data type returned by the
-last line of code executed in the code block.  If the last line executed
-in the code block returns nothing, the argument's data type is "Unit".  Here
-are some examples of argument data types when the argument references a
-block of code:
+on the LEFT SIDE of the rocket symbol (=>) because a block of code has no
+data type.  But a nullary function will ALWAYS have a data type on the RIGHT SIDE
+side of the rocket symbol (=>).  The data type on the RIGHT SIDE of the the rocket
+symbol (=>) is the data type returned by the last line of code executed in the
+code block.  If the last line executed in the code block returns nothing, the
+argument's return data type is "Unit".  Here are some examples of argument data
+types, when the argument references a block of code.
 
-   =>String // A nullary function that returns a String value.
-   =>Double // A nullary function that returns a Double value.
-   =>Unit   // A nullary function that returns nothing.
+   =>String // The argument references a nullary function that returns a String value.
+   =>Double // The argument references a nullary function that returns a Double value.
+   =>Unit   // The argument references a nullary function that returns nothing.
 
-The block of Scala code passed to an argument can be of any length.
-(A single line of Scala code, or multiple lines.)  When you call a
-class constructor, a method, or a function that accepts a block of
-code as an argument, you MUST surround the block of Scala code with
-braces {} instead of parenthesis ().  The exception being when the
-block of code contains only an expression (i.e.,  "idx == 0"), you
-can then surround the block of Scala code with either parenthesis ()
-or braces {}.
+The block of Scala code passed to an argument can be of any length.  (A single line
+of Scala code, or multiple lines.)  When you call a class constructor, a method,
+or a function that accepts a block of code as an argument, you MUST enclose the
+code block with braces {} instead of parenthesis ().  The exception is when the
+code block contains only an expression (i.e.,  "idx == 0"), you can then enclose
+the code block with either parenthesis () or braces {}.
 
 Here's an example of how to define and call a method that gets passed
 a block of Scala code to its "blockOfCode" argument.  Read in-line
@@ -229,11 +226,10 @@ comments for details.
 
 object Demo
 {
-  // The blockOfCode argument passed to myMethod()
-  // references a NULLARY FUNCTION.
+  // The blockOfCode argument passed to myMethod() references a NULLARY FUNCTION.
   def myMethod(blockOfCode: => Boolean): Unit = {
-    // The following line executes the block of code passed to this method
-    // as an argument, and assigns its returned value to the val result.
+    // The following line executes the block of code passed to this method,
+    // and assigns its returned value to the val result.
     val result: Boolean = blockOfCode
 
     if (result == true)
