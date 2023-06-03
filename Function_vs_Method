@@ -23,7 +23,9 @@ println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the meth
 // PRINTS: squareMethod(123.456F) = 15241.384
 
 The following sample code shows two method definitions that may look rather
-strange to a newcomer.  Read the in-line comments for details.
+strange to a newcomer.  Both methods accept no arguments and return the same
+constant value.  One of the methods is defined WITHOUT parenthesis, and the
+other one is defined WITH parenthesis.  Read in-line comments for details.
 
 object Demo
 {
