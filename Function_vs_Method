@@ -201,7 +201,7 @@ When a class constructor, a method, or a function accepts an argument, that argu
 usually references some common data type such as a class, an Int, a String, etc.
 
 In Scala, an argument can literally accept a block of Scala code.  Whenever an
-argument accepts a block of code, that argument represents a function known as
+argument accepts a block of code, that argument references a function known as
 a NULLARY FUNCTION.  The data type of a nullary function argument is written
 differently than the data type of a common function.
 
