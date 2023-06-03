@@ -192,19 +192,20 @@ object Demo
 NULLARY FUNCTION
 ================
 
-When a class constructor, a method, or a function gets passed an argument, that argument
-always translates to some data type; such as an Int, a String, a class, etc.  But there's
-an exception...  Scala allows an argument to accept a "block of Scala code."  However,
-a block of Scala code has no data type.  So when a block of code is passed to an argument,
-the argument has no data type, and the argument therefore references a NULLARY FUNCTION.
+When a class constructor, a method, or a function accepts an argument, that argument
+usually references some common data type, such as a class, an Int, a String, etc.
+However, in Scala, an argument can accept a block of Scala code.  Whenever an argument
+accepts a block of code, that argument represents a function known as a NULLARY FUNCTION.
+The data type of a nullary function argument is written differently than the data type
+of a common function.
 
-Recall that a function's data type looks similar to this:
+When a common function is passed to an argument, that data type is written similar to this:
 
-Int=>String   // The function accepts an Int argument, and returns a String value.
+Int=>String   // A function that accepts an Int argument, and returns a String value.
 
-An argument that references a nullary function will NEVER have a data type
-on the LEFT SIDE of the rocket symbol (=>) because a block of code has no
-data type.  But a nullary function will ALWAYS have a data type on the RIGHT SIDE
+An argument that accepts a nullary function will NEVER have a data type on the LEFT
+SIDE of the rocket symbol (=>) because a block of code has no data type.  But a
+nullary function will ALWAYS have a data type on the RIGHT SIDE
 side of the rocket symbol (=>).  The data type on the RIGHT SIDE of the the rocket
 symbol (=>) is the data type returned by the last line of code executed in the
 code block.  If the last line executed in the code block returns nothing, the
