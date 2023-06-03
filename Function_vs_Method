@@ -83,18 +83,19 @@ write Scala functions.
 
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
 contains the rocket symbol (=>).  On the LEFT SIDE of the rocket symbol (=>) is the data
-type of the argument passed to the function.  On the RIGHT SIDE of the rocket symbol (=>)
+type of each argument passed to the function.  On the RIGHT SIDE of the rocket symbol (=>)
 is the data type returned by the function.
 
-Here's an example of what a function's data type looks like:
+Examples of how a function's data type is written:
 
-Int=>String    (Data type of a function that accepts an Int argument, and returns a String value.)
+Int=>String                 (Data type of a function that accepts an Int argument, and returns a String value.)
+(Int,Char,Float)=>Boolean   (Data type of a function that accepts Int, Char, and Float arguments, and returns a Boolean value.)
 
 NOTE: A Scala method can be written to accept a parameteric (generic) data type as one or more
       argument, and return a parameteric (generic) data type.  By doing that, a method that
       squares a number can be made to work by passing it an argument that's an Int, or a Float,
       or a Double, and returning that same data type.  You CAN'T write a Scala function that
-      implements parameteric (generic) data types.
+      implements parameteric (generic) data types!
 
 Here are the four (4) ways to define a Scala function:
 
