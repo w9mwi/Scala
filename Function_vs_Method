@@ -68,16 +68,16 @@ FUNCTION
 Unlike a method (which is ALWAYS bound to a class/object/trait), a function is NEVER bound
 to a class/object/trait.
 
-If "joe" references a class, and printPerson() is a function, the function printPerson()
-CAN'T be a member of the Person class.  Therefore, you CAN'T invoke the printPerson()
-function by calling it like this:
+If "joe" is an instance of a class named Person, and printPerson() is a function,
+the function printPerson() CAN'T be a member of the Person class.  Therefore, you
+CAN'T invoke the printPerson() function by calling it like this:
 
 joe.printPerson()  // This works ONLY if printPerson() is a method,
                    // NOT if printPerson() is a function.
 
 While a Scala method definition REQUIRES the "def" keyword, a Scala function is NEVER
 written using the "def" keyword.  Further below are some code samples showing how to
-define Scala functions.
+write Scala functions.
 
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
 contains the rocket symbol (=>).  On the LEFT SIDE of the rocket symbol (=>) is the data
