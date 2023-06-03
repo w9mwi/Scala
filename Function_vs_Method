@@ -48,9 +48,10 @@ object Demo
   }
 }
 
-In the real world you'd never define methods like those in the above code,
-as they accept no arguments, and always return a constant value.  Instead,
-you'd define number as a val, like this:   val number:Int = 123
+Because the methods above accept no arguments and always return a constant value, you'd
+never write such methods.  Instead, you'd just define number as a val, like this:
+
+val number:Int = 123
 
 A Scala method is ALWAYS bound to a class/object/trait.  In other words, a method
 IS A MEMBER of a class/object/trait.  Assume a class named Person is defined, and
@@ -58,7 +59,7 @@ it contains a method named printPerson().  If we instantiate the Person class an
 assign it to a val named "joe", we can then invoke the printPerson() method with
 the following code because printPerson() is a member of the Person class.
 
-joe.printPerson()  // Invoke the Person.printPerson() method on the "joe" Person class.
+joe.printPerson()  // Invokes the Person.printPerson() method on the "joe" Person class.
 
 ==========================================================================================
 
