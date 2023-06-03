@@ -207,7 +207,7 @@ Int=>String   // Data type of a function that accepts an Int argument, and retur
 An argument that accepts a nullary function will NEVER have a data type on the LEFT
 SIDE of the rocket symbol (=>) because a block of code has no data type.  But a
 nullary function will ALWAYS have a data type on the RIGHT SIDE side of the rocket
-symbol (=>).  The data type on the RIGHT SIDE of the the rocket symbol (=>) will be
+symbol (=>).  The data type on the RIGHT SIDE of the rocket symbol (=>) will be
 the data type returned by the last line of code executed in the code block.  If the
 last line executed in the code block returns nothing, the argument's return data type
 will be "Unit".
@@ -310,15 +310,15 @@ object Demo
     var idx:Int = 5
 
     // 1) The following line of code calls the loop() method defined above.
-    // 2) We pass the loop() method an argument containing a block of Scala
-    //    between a pair of braces {}.  NOTE: When passing a block of Scala
-    //    code to an argument, the block of code MUST be enclosed in braces {},
+    // 2) We pass the loop() method an argument containing a block of code
+    //    between a pair of braces {}.  NOTE: When passing a block of code
+    //    to an argument, the block of code MUST be enclosed in braces {},
     //    and NOT in parenthesis ().  The exception is a simple expression,
     //    such as "idx == 0", can be passed between parenthesis ().
     // 3) Calling the loop() method returns an instance of the LoopUntilCond class,
     //    which also gets passed the same block of code.
-    // 4) At the same time we invoke the loop() method (and thus instantiate a
-    //    LoopUntilCond class), we call the LoopUntilCond.until() method.
+    // 4) At the same time the loop() method is invoked (which instantiates
+    //    a LoopUntilCond class), the LoopUntilCond.until() method is called.
     loop {
       print("idx = " + idx + ", ") // PRINTS: idx = 5, idx = 4, idx = 3, idx = 2, idx = 1,
       idx -= 1
