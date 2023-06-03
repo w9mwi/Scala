@@ -52,33 +52,38 @@ In the real world you'd never define methods like those in the above code,
 as they accept no arguments, and always return a constant value.  Instead,
 you'd define number as a val, like this:   val number:Int = 123
 
-A Scala method is always bound to a class/object/trait.  In other words, a method
-IS A MEMBER of a class/object/trait.  So if we create a class/object/trait named
-Person, and Person defines a method named printPerson(), then that method can be
-invoked by this code:   Person.printPerson()
+A Scala method is ALWAYS bound to a class/object/trait.  In other words, a method
+IS A MEMBER of a class/object/trait.  Assume a class named Person is defined, and
+it contains a method named printPerson().  If we instantiate the Person class and
+assign it to a val named "joe", we can then invoke the printPerson() method with
+the following code because printPerson() is a member of the Person class.
+
+joe.printPerson()  // Invoke the Person.printPerson() method on the "joe" Person class.
 
 ==========================================================================================
 
 FUNCTION
 ========
+Unlike a method (which is ALWAYS bound to a class/object/trait), a function is NEVER bound
+to a class/object/trait.
+
+If "joe" references a class, and printPerson() is a function, the function printPerson()
+CAN'T be a member of the Person class.  Therefore, you CAN'T invoke the printPerson()
+function by calling it like this:
+
+joe.printPerson()  // This works ONLY if printPerson() is a method,
+                   // NOT if printPerson() is a function.
+
 While a Scala method definition REQUIRES the "def" keyword, a Scala function is NEVER
-written using the "def" keyword.  Examples of how to define a function are shown further
-below.
-
-Unlike a method, a function is NOT bound to a class/object/trait.  A function can be
-bound ONLY to a val/var that's a member of a class/object/trait, or bound to an argument.
-Keep reading to see how that's done.
-
-You CAN'T reference a function via a class/object/trait name, as you can with a method,
-like this...
-
-   Person.printPerson() // CAN'T invoke a FUNCTION with code like this.
-                        // That works only with a METHOD.
+written using the "def" keyword.  Further below are some code samples showing how to
+define Scala functions.
 
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
-contains the rocket symbol (=>).  The rocket symbol (=>) separates the data type of the
-argument passed to the function (on its leftside), and the data type returned by the function
-(on its rightside).  Here's an example of what a function's data type looks like:
+contains the rocket symbol (=>).  On the LEFT SIDE of the rocket symbol (=>) is the data
+type of the argument passed to the function.  On the RIGHT SIDE of the rocket symbol (=>)
+is the data type returned by the function.
+
+Here's an example of what a function's data type looks like:
 
 Int=>String    (Data type of a function that accepts an Int argument, and returns a String value.)
 
@@ -88,7 +93,7 @@ NOTE: A Scala method can be written to accept a parameteric (generic) data type 
       or a Double, and returning that same data type.  You CAN'T write a Scala function that
       implements parameteric (generic) data types.
 
-There are the four (4) ways to define a Scala function:
+Here are the four (4) ways to define a Scala function:
 
 1) Define a function that gets assigned to a val/var.  The function is always called by
    referencing the val/var, as demonstrated here.
@@ -158,11 +163,10 @@ There are the four (4) ways to define a Scala function:
      }
    }
 
-4) An argument to a class constructor, or a method, or a function can reference
-   a function by passing to the argument a block of code.  The argument will
-   then reference a "nullary function".  Nullary functions are explained in the
-   next section titled:  NULLARY FUNCTION
-
+4) In Scala, you can pass a block of Scala code to a class constructor, or a method, or
+   a function as an argument.  When an argument accepts a block of code, that argument
+   refernces a NULLARY FUNCTION.  Nullary functions are explained in the next section
+   below titled: NULLARY FUNCTION
 
 Although the Scala API specifies that List.map() takes a function as its argument, you
 can pass to it a method instead of a function by first performing an ETA EXPANSION on
