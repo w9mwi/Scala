@@ -197,14 +197,15 @@ NULLARY FUNCTION
 ================
 
 When a class constructor, a method, or a function accepts an argument, that argument
-usually references some common data type, such as a class, an Int, a String, etc.
-However, in Scala, an argument can literally accept a block of Scala code.  Whenever
-an argument accepts a block of code, that argument represents a function known as
+usually references some common data type such as a class, an Int, a String, etc.
+
+In Scala, an argument can literally accept a block of Scala code.  Whenever an
+argument accepts a block of code, that argument represents a function known as
 a NULLARY FUNCTION.  The data type of a nullary function argument is written
 differently than the data type of a common function.
 
-When a common function is passed to an argument, that function's data type is written
-similar to this:
+When a common function is passed to an argument, that function's data type
+is written similar to this:
 
 Int=>String   // Data type of a function that accepts an Int argument, and returns a String value.
 
@@ -228,11 +229,10 @@ Scala code, or multiple lines.)  When you invoke a class constructor, or a metho
 or a function which accepts a block of code as an argument, you MUST enclose the
 code block between braces {} instead of parenthesis ().  The exception is when the
 code block contains only an expression (i.e.,  "idx == 0"), you can then enclose
-the code block between parenthesis () or braces {}.
+the code block between parenthesis () or between braces {}.
 
-Here's an example of how to define and call a method that gets passed
-a block of Scala code to its "blockOfCode" argument.  Read in-line
-comments for details.
+Here's an example of how to define and call a method that accepts an argument
+containing a block of Scala code.  Read in-line comments for details.
 
 object Demo
 {
