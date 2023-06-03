@@ -194,34 +194,37 @@ NULLARY FUNCTION
 
 When a class constructor, a method, or a function accepts an argument, that argument
 usually references some common data type, such as a class, an Int, a String, etc.
-However, in Scala, an argument can accept a block of Scala code.  Whenever an argument
-accepts a block of code, that argument represents a function known as a NULLARY FUNCTION.
-The data type of a nullary function argument is written differently than the data type
-of a common function.
+However, in Scala, an argument can literally accept a block of Scala code.  Whenever
+an argument accepts a block of code, that argument represents a function known as
+a NULLARY FUNCTION.  The data type of a nullary function argument is written
+differently than the data type of a common function.
 
-When a common function is passed to an argument, that data type is written similar to this:
+When a common function is passed to an argument, that function's data type is written
+similar to this:
 
-Int=>String   // A function that accepts an Int argument, and returns a String value.
+Int=>String   // Data type of a function that accepts an Int argument, and returns a String value.
 
 An argument that accepts a nullary function will NEVER have a data type on the LEFT
 SIDE of the rocket symbol (=>) because a block of code has no data type.  But a
-nullary function will ALWAYS have a data type on the RIGHT SIDE
-side of the rocket symbol (=>).  The data type on the RIGHT SIDE of the the rocket
-symbol (=>) is the data type returned by the last line of code executed in the
-code block.  If the last line executed in the code block returns nothing, the
-argument's return data type is "Unit".  Here are some examples of argument data
-types, when the argument references a block of code.
+nullary function will ALWAYS have a data type on the RIGHT SIDE side of the rocket
+symbol (=>).  The data type on the RIGHT SIDE of the the rocket symbol (=>) will be
+the data type returned by the last line of code executed in the code block.  If the
+last line executed in the code block returns nothing, the argument's return data type
+will be "Unit".
+
+When an argument accepts a nullary function (a block of code), that argument's data
+type will be written similar to these examples:
 
    =>String // The argument references a nullary function that returns a String value.
    =>Double // The argument references a nullary function that returns a Double value.
    =>Unit   // The argument references a nullary function that returns nothing.
 
-The block of Scala code passed to an argument can be of any length.  (A single line
+A block of Scala code passed to an argument can be of any length.  (A single line
 of Scala code, or multiple lines.)  When you call a class constructor, a method,
 or a function that accepts a block of code as an argument, you MUST enclose the
-code block with braces {} instead of parenthesis ().  The exception is when the
+code block between braces {} instead of parenthesis ().  The exception is when the
 code block contains only an expression (i.e.,  "idx == 0"), you can then enclose
-the code block with either parenthesis () or braces {}.
+the code block between parenthesis () or braces {}.
 
 Here's an example of how to define and call a method that gets passed
 a block of Scala code to its "blockOfCode" argument.  Read in-line
@@ -242,8 +245,8 @@ object Demo
   }
 
   def main(args: Array[String]): Unit = {
-    // Call myMethod() by passing to its argument a block of Scala code.
-    // NOTE: The block of Scala code MUST be surrounded by braces {}.
+    // Call myMethod() by passing a block of Scala code to its argument.
+    // NOTE: The block of Scala code MUST be enclosed by braces {}.
     myMethod {
       val number = 123
       if (number == 123)
@@ -255,7 +258,7 @@ object Demo
 
 ==========================================================================================
 
-Below are several more complex examples of how to write and use nullary functions.
+Below are some more complex examples of how to write and use nullary functions.
 Read the inline comments for detailed explanations.
 
 object Demo
@@ -267,31 +270,29 @@ object Demo
   // IMPORTANT 1: The rocket symbol (=>) designates that the argument blockOfCode
   //              represents a FUNCTION.
   //
-  // IMPORTANT 2: "Unit" (on the right side of "=>") designates the return type of
-  //              the function.  (The return type is determined by the last line
-  //              executed in the code block, which always evaluates to some data type.)
+  // IMPORTANT 2: When a block of code is passed to an argument, it means the argument
+  //              references a NULLARY FUNCTION.  A nullary function's data type NEVER
+  //              contains any data type on the LEFT SIDE of the rocket symbol (=>).
   //
-  // IMPORTANT 3: There is no data type specified on the left side of "=>"
-  //              because an argument that accepts a block of code NEVER evaluates
-  //              to a data type, which makes it a NULLARY FUNCTION.  Therefore,
-  //              blockOfCode argument represents a NULLARY FUNCTION.
+  // IMPORTANT 3: The text "Unit" on the RIGHT SIDE of the rocket symbol ("=>") designates
+  //              the return type of the nullary function.  (The return type of a nullary
+  //              function is always determined by the last line executed in the code
+  //              block, which always evaluates to some data type.)
   //
   // IMPORTANT 4: A block of code passed as an argument can contain a single line
   //              of code, or many lines of code.  It's important to understand the
   //              block of code is NEVER executed when the argument gets passed.
-  //              Only the class, the method, etc. receiving the block of code
-  //              argument can execute the block of code.
+  //              Only the class, the method, or the function receiving the block
+  //              of code argument can execute the block of code.  FOR EXAMPLE:
   //
-  //              FOR EXAMPLE:  In the code sample below, the last line of main()
-  //                            calls this method:
+  //              In the code sample below, the last line of main() calls this method:
   //
-  //                            LoopUntilCond.until(idx == 0)
+  //              LoopUntilCond.until(idx == 0)
   //
-  //                            "idx == 0" is NOT first evaluated to true/false,
-  //                            and then passed to the until() method as a Boolean.
-  //                            Instead, "idx == 0" is literally passed to the
-  //                            LoopUntilCond.until() method as pure Scala code.
-  //                            The LoopUntilCond.until() method then executes it.
+  //              "idx == 0" is NOT first evaluated to true/false, and then passed to
+  //              the until() method as a Boolean.  Instead, "idx == 0" is literally
+  //              passed to the LoopUntilCond.until() method as Scala code.  The
+  //              LoopUntilCond.until() method then executes the block of code.
   //
   class LoopUntilCond(blockOfCode: => Unit)
   {
@@ -322,7 +323,7 @@ object Demo
       print("idx = " + idx + ", ") // PRINTS: idx = 5, idx = 4, idx = 3, idx = 2, idx = 1,
       idx -= 1
     } until idx == 0 // "idx ==0" is passed to until() as a block of code (a nullary function).
-                     // The line can be rewritten like this:   }.until(idx == 0)
+                     // This line can be rewritten like this:   }.until(idx == 0)
   }
 }
 
