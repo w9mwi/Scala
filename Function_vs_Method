@@ -91,13 +91,24 @@ Examples of how a function's data type is written:
 Int=>String                 (Data type of a function that accepts an Int argument, and returns a String value.)
 (Int,Char,Float)=>Boolean   (Data type of a function that accepts Int, Char, and Float arguments, and returns a Boolean value.)
 
-NOTE: A Scala method can be written to accept a parameteric (generic) data type as one or more
-      argument, and return a parameteric (generic) data type.  By doing that, a method that
-      squares a number can be made to work by passing it an argument that's an Int, or a Float,
-      or a Double, and returning that same data type.  You CAN'T write a Scala function that
-      implements parameteric (generic) data types!
+A NOTE ABOUT PARAMETRIC (GENERGIC) DATA TYPES...
+Assume you define a METHOD that accepts a number as an argument, squares that number,
+and returns the result.  Typically the argument passed to that METHOD, and the result
+it returns, must have a specific data type (i.e., an Int, a Float, a Double).  However,
+Scala METHODS can accept parametric data types as arguments, and can return a parametric
+data type.  (A parametric data type is also known as a generic data type.)
 
-Here are the four (4) ways to define a Scala function:
+Therefore, if a METHOD named squareNumber() is defined to accept and return a parametric
+data type (AKA a generic type), the squareNumber() method will be able to accept an argument
+of type Int, or Float, or Double, and return the same data type passed to the argument.
+
+IMPORTANT: ONLY Scala methods (NOT functions) can be written to accept and return
+           parametric (generic) data types!  To learn more about parametric (generic)
+           data types, read this section:
+           https://github.com/w9mwi/Scala/blob/master/Parametric_Method
+
+
+There are the four (4) ways to define a Scala function:
 
 1) Define a function that gets assigned to a val/var.  The function is always called by
    referencing the val/var, as demonstrated here.
@@ -181,7 +192,6 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    // EXAMPLE 1)
     // The Scala API contains hundreds of methods/functions that take a function
     // as an argument.  In many of these instances you can pass a method instead
     // of a function, and Scala will automatically transform the method into a
