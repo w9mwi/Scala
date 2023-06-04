@@ -78,8 +78,8 @@ joe.printPerson()  // This works ONLY if printPerson() is a method,
                    // NOT if printPerson() is a function.
 
 While a Scala method definition REQUIRES the "def" keyword, a Scala function is NEVER
-written using the "def" keyword.  Further below are some code samples showing how to
-write Scala functions.
+written using the "def" keyword.  Code samples showing how to write Scala functions
+are further below.
 
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
 contains the rocket symbol (=>).  On the LEFT SIDE of the rocket symbol (=>) is the data
