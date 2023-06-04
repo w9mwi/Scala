@@ -124,6 +124,7 @@ There are the four (4) ways to define a Scala function:
      }
    }
 
+
 2) Generate a Scala function from a Scala method by performing an ETA EXPANSION
    on the method, and assigning it to a val/var.  NOTE: An ETA EXPANSION is an
    operation that transforms a Scala method into a Scala function.
@@ -132,18 +133,67 @@ There are the four (4) ways to define a Scala function:
    {
      def main(args:Array[String]): Unit =
      {
-       // Define a Scala method.
+       // *********************************************************************
+       // Define methods here that will be transformed into functions
+       // further below by performing an ETA EXPANSION on them.
+       def noArgumentMethod_1:Int = 123;
+       def noArgumentMethod_2():Int = 123;
        def squareMethod(number: Float): Float = number * number
+       def multiply2NumbersMethod(number_1: Float, number_2: Float): Float = number_1 * number_2
 
-       // Transform squareMethod() into a function via an ETA EXPANSION,
-       // using any of the following 3 lines--they are all equivalent.
-       val squareFunction_1: (Float => Float) = squareMethod
-       val squareFunction_2: (Float => Float) = squareMethod _
-       val squareFunction_3: (Float => Float) = squareMethod(_)
-       println(s"squareFunction_1(123.456F) = ${squareFunction_1(123.456F)}") // Call the function.
-       // PRINTS: squareFunction_1(123.456F) = 15241.384
+       // *********************************************************************
+       // It probably makes no sense to do this, but this section demonstrates
+       // how to perform an ETA EXPANSION on...
+       // 1) A method defined WITHOUT parenthesis that accepts no argument.
+       // 2) A method defined WITH parenthesis that accepts no argument.
+       val func_1: () => Int = noArgumentMethod_1 _
+       println(s"1) func_1.apply = ${func_1.apply}")     // PRINTS: 1) func_1.apply = 123
+       println(s"2) func_1().toInt = ${func_1().toInt}") // PRINTS: 2) func_1().toInt = 123
+       val func_2: () => Int = noArgumentMethod_2 _
+       println(s"3) func_2.apply = ${func_2.apply}")     // PRINTS: 3) func_2.apply = 123
+       println(s"4) func_2().toInt = ${func_2().toInt}") // PRINTS: 4) func_2().toInt = 123
+
+       // *********************************************************************
+       // Transform squareMethod() into a function via an ETA EXPANSION.
+       // NOTE: An Eta Expansion works for all 3 of the following lines
+       //       when the method accepts ONLY ONE ARGUMENT.
+       //        1)  squareMethod
+       //        2)  squareMethod _
+       //        3)  squareMethod(_)
+       var squareFunction: Float => Float = squareMethod
+       println(s"5) squareFunction(123.456F) = ${squareFunction(123.456F)}")
+       // PRINTS: 5) squareFunction(123.456F) = 15241.384
+
+       squareFunction = squareMethod _
+       println(s"6) squareFunction(123.456F) = ${squareFunction(123.456F)}")
+       // PRINTS: 6) squareFunction(123.456F) = 15241.384
+
+       squareFunction = squareMethod(_)
+       println(s"7) squareFunction(123.456F) = ${squareFunction(123.456F)}")
+       // PRINTS: 7) squareFunction(123.456F) = 15241.384
+       // *********************************************************************
+
+       // *********************************************************************
+       // Transform multiply2NumbersMethod() into a function via an ETA EXPANSION.
+       // Notice the data type of multiply2NumbersFunction is written designating
+       // that it accepts TWO ARGUMENTS.  Also note that when parenthesis are
+       // included in the ETA EXPANSION, the ETA EXPANSION must be written to
+       // designate that multiply2NumbersMethod accepts TWO ARGUMENTS, like this:
+       // multiply2NumbersMethod(_, _)
+       var multiply2NumbersFunction: (Float, Float) => Float = multiply2NumbersMethod
+       println(s"8) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
+       // PRINTS: 9) multiply2NumbersFunction(123F, 456F) = 56088.0
+
+       multiply2NumbersFunction = multiply2NumbersMethod _
+       println(s"9) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
+       // PRINTS: 9) multiply2NumbersFunction(123F, 456F) = 56088.0
+
+       multiply2NumbersFunction = multiply2NumbersMethod(_, _)
+       println(s"10) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
+       // PRINTS: 10) multiply2NumbersFunction(123F, 456F) = 56088.0
      }
    }
+
 
 3) The Scala API contains hundreds of methods that accept a function as an argument.
    For example, List.map() requires a function to be passed as its argument.  When a
@@ -177,6 +227,7 @@ There are the four (4) ways to define a Scala function:
        println(result(444, 222)) // PRINTS: 666
      }
    }
+
 
 4) In Scala, you can pass a block of Scala code to a class constructor, or a method, or
    a function as an argument.  When an argument accepts a block of code, that argument
