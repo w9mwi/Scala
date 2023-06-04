@@ -91,7 +91,7 @@ Examples of how a function's data type is written:
 Int=>String                 (Data type of a function that accepts an Int argument, and returns a String value.)
 (Int,Char,Float)=>Boolean   (Data type of a function that accepts Int, Char, and Float arguments, and returns a Boolean value.)
 
-A NOTE ABOUT PARAMETRIC (GENERGIC) DATA TYPES...
+A NOTE ABOUT PARAMETRIC (GENERIC) DATA TYPES...
 Assume you define a METHOD that accepts a number as an argument, squares that number,
 and returns the result.  Typically the argument passed to that METHOD, and the result
 it returns, must have a specific data type (i.e., an Int, a Float, a Double).  However,
