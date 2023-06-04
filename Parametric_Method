@@ -11,19 +11,9 @@ specifies the data type as a type 'A', which designates any data type that
 works with the Numeric.plus() method.
 
 IMPORTANT: Only Scala methods can use paramaterized data types.  Scala functions
-           CAN'T be written to use paramaterized data types.  To distinguish a
-           a method from a function, look for the following...
-      
-           A Scala function is NEVER defined using the "def" keyword.  If the
-           "def" keyword is used, it is a method, not a function.  A Scala
-           function's signature ALWAYS contains the rocket symbol (=>), and
-           looks similar to this:
-           String=>Int   (Takes a String argument, and returns an Int value.)
-
-           A Scala method is ALWAYS defined using the "def" keyword.  A Scala 
-           method's signature NEVER contains the rocket symbol (=>), and looks
-           similar to this:
-           (String):Int   (Takes a String argument, and returns an Int value.)
+           CAN'T be written to use paramaterized data types.  To understand
+           (and distinguish) a Scala method from a function, read this section:
+           https://github.com/w9mwi/Scala/blob/master/Function_vs_Method
 
 object Demo
 {
