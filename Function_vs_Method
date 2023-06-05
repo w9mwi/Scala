@@ -14,9 +14,10 @@ and functions:
 
 METHOD
 ======
-A Scala method is ALWAYS defined using the "def" keyword.  So whenever the "def" keyword
-appears, a method is defined.  Here's an example of a Scala method definition.  It takes
-a Float number for an argument, squares the number, and returns the result as a Float number.
+A Scala method is ALWAYS written using the "def" keyword.  So whenever the "def" keyword
+appears, a method is defined.  Here's an example of a Scala method named squareMethod(),
+which accepts a Float number as an argument, squares the number, and returns the result
+as a Float number.
 
 def squareMethod(number: Float): Float = number * number        // Method definition.
 println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
