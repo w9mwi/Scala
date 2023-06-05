@@ -243,7 +243,7 @@ There are the four (4) ways to define a Scala function:
    }
 
 
-4) In Scala, you can pass a block of Scala code to a class constructor, or a method, or
+4) In Scala you can pass a block of Scala code to a class constructor, or a method, or
    a function as an argument.  When an argument accepts a block of code, that argument
    refernces a NULLARY FUNCTION.  Nullary functions are explained in the next section
    below titled: NULLARY FUNCTION
