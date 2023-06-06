@@ -6,9 +6,11 @@ know.  This section explains methods, functions, and how they differ.
 This section also covers these topics, which are related to methods
 and functions:
 
-* Anonymous Function
-* Eta Expansion
-* Nullary Function
+* METHOD
+* FUNCTION
+* ANONYMOUS FUNCTION
+* ETA EXPANSION
+* NULLARY FUNCTION
 
 ==========================================================================================
 
@@ -126,9 +128,11 @@ There are the four (4) ways to define a Scala function:
    }
 
 
-2) Generate a Scala function from a Scala method by performing an ETA EXPANSION
-   on the method, and assigning it to a val/var.  NOTE: An ETA EXPANSION is an
-   operation that transforms a Scala method into a Scala function.
+ETA EXPANSION
+=============
+An ETA EXPANSION is an operation that transforms a Scala method into a Scala function.
+The following code sample demonstrates severals exampls of how to perform an Eta
+Expnansion on a method, thus transforming the method into a function.
 
    object Demo
    {
