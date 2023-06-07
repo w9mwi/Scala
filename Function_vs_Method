@@ -42,12 +42,12 @@ object Demo
     // A method defined without parenthesis MUST be called without parenthesis!
     println("number_1 = " + number_1)  // PRINTS: number_1 = 123
 
-    // If you uncomment the following commented-out line, it WON'T COMPILE cuz
-    // you're trying to call the number_1 method with empty parenthesis.
+    // If you uncomment the following commented-out line it WON'T COMPILE,
+    // as you're trying to call the number_1 method with empty parenthesis.
     // println("number_1() = " + number_1()) // WON'T COMPILE!
 
-    // A method defined with empty parenthesis can be called without
-    // parenthesis, OR with empty parenthesis.
+    // A method defined with empty parenthesis can be called
+    // without parenthesis OR with empty parenthesis.
     println("number_2 = " + number_2)     // PRINTS: number_2 = 123
     println("number_2() = " + number_2()) // PRINTS: number_2() = 123
   }
