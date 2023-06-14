@@ -311,9 +311,9 @@ line executed in the code block returns nothing, the argument's return data type
 be "Unit".
 
 The block of Scala code passed to an argument can be of any length.  (A single line
-or multiple lines of code.)  When pass a block of Scala code to an argument, you
-MUST enclose the code block between braces {} instead of parenthesis ().  The
-exception is when the code block contains a single-line expression (i.e.,
+or multiple lines of code.)  When a block of Scala code is passed to an argument,
+the block of code MUST be enclosed between braces {} instead of parenthesis ().
+The exception is when the code block contains a single-line expression (i.e.,
 "idx == 0"), you can then enclose the code block either between parenthesis (),
 or between braces {}.
 
