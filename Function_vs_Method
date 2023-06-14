@@ -136,6 +136,7 @@ object Demo
 Besides assigning a function to a val/var, there are other ways to write functions.
 Alternative ways to write functions are shown in examples below.  (Keep reading.)
 
+==========================================================================================
 
 ETA EXPANSION
 =============
@@ -416,6 +417,8 @@ object Demo
   }
 }
 
+==========================================================================================
+==========================================================================================
 ==========================================================================================
 
 The following code sample shows another example of transforming
