@@ -116,147 +116,145 @@ IMPORTANT: ONLY Scala methods (NOT functions) can be written to accept and retur
            https://github.com/w9mwi/Scala/blob/master/Parametric_Method
 
 
-There are the four (4) ways to define a Scala function:
+When you write a function, you can assign the function to a val/var.  When a function
+is assigned to a val/var, that function gets invoked by referencing the val/var as
+is shown in the following example...
 
-1) Define a function that gets assigned to a val/var.  The function is always called by
-   referencing the val/var, as demonstrated here.
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // The following line of code ASSIGNS a function to the val squareFunction.
+    val squareFunction: (Float => Float) = { (number: Float) => number * number }
 
-   object Demo
-   {
-     def main(args:Array[String]): Unit =
-     {
-       // Define the function and assign it to val squareFunction.
-       val squareFunction: (Float => Float) = { (number: Float) => number * number }
-       println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}") // Call the function.
-       // PRINTS: squareFunction(123.456F) = 15241.384
-     }
-   }
+    // The following line of code INVOKES the function assigned to val squareFunction.
+    println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}")
+    // PRINTS: squareFunction(123.456F) = 15241.384
+  }
+}
+
+Besides assigning a function to a val/var, there are other ways to write functions.
+Alternative ways to write functions are shown in examples below.  (Keep reading.)
 
 
 ETA EXPANSION
 =============
 An ETA EXPANSION is an operation that transforms a Scala method into a Scala function.
-The following code sample demonstrates severals exampls of how to perform an Eta
+The following code sample demonstrates severals examples of how to perform an Eta
 Expnansion on a method, thus transforming the method into a function.
 
-   object Demo
-   {
-     def main(args:Array[String]): Unit =
-     {
-       // *********************************************************************
-       // Define methods here that will be transformed into functions
-       // further below by performing an ETA EXPANSION on them.
-       def noArgumentMethod_1:Int = 123;
-       def noArgumentMethod_2():Int = 123;
-       def squareMethod(number: Float): Float = number * number
-       def multiply2NumbersMethod(number_1: Float, number_2: Float): Float = number_1 * number_2
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // *********************************************************************
+    // Define methods here that will be transformed into functions
+    // further below by performing an ETA EXPANSION on them.
+    def noArgumentMethod_1:Int = 123;
+    def noArgumentMethod_2():Int = 123;
+    def squareMethod(number: Float): Float = number * number
+    def multiply2NumbersMethod(number_1: Float, number_2: Float): Float = number_1 * number_2
 
-       // *********************************************************************
-       // It probably makes no sense to do this, but this section demonstrates
-       // how to perform an ETA EXPANSION on...
-       // 1) A method defined WITHOUT parenthesis that accepts no argument.
-       // 2) A method defined WITH parenthesis that accepts no argument.
-       val func_1: () => Int = noArgumentMethod_1 _
-       println(s"1) func_1.apply = ${func_1.apply}")     // PRINTS: 1) func_1.apply = 123
-       println(s"2) func_1().toInt = ${func_1().toInt}") // PRINTS: 2) func_1().toInt = 123
-       val func_2: () => Int = noArgumentMethod_2 _
-       println(s"3) func_2.apply = ${func_2.apply}")     // PRINTS: 3) func_2.apply = 123
-       println(s"4) func_2().toInt = ${func_2().toInt}") // PRINTS: 4) func_2().toInt = 123
+    // *********************************************************************
+    // It probably makes no sense to do this, but this section demonstrates
+    // how to perform an ETA EXPANSION on...
+    // 1) A method defined WITHOUT parenthesis that accepts no argument.
+    // 2) A method defined WITH parenthesis that accepts no argument.
+    val func_1: () => Int = noArgumentMethod_1 _
+    println(s"1) func_1.apply = ${func_1.apply}")     // PRINTS: 1) func_1.apply = 123
+    println(s"2) func_1().toInt = ${func_1().toInt}") // PRINTS: 2) func_1().toInt = 123
+    val func_2: () => Int = noArgumentMethod_2 _
+    println(s"3) func_2.apply = ${func_2.apply}")     // PRINTS: 3) func_2.apply = 123
+    println(s"4) func_2().toInt = ${func_2().toInt}") // PRINTS: 4) func_2().toInt = 123
 
-       // *********************************************************************
-       // Transform squareMethod() into a function via an ETA EXPANSION.
-       // NOTE: An Eta Expansion works for all 3 of the following lines
-       //       when the method accepts ONLY ONE ARGUMENT.
-       //        1)  squareMethod
-       //        2)  squareMethod _
-       //        3)  squareMethod(_)
-       var squareFunction: Float => Float = squareMethod
-       println(s"5) squareFunction(123.456F) = ${squareFunction(123.456F)}")
-       // PRINTS: 5) squareFunction(123.456F) = 15241.384
+    // *********************************************************************
+    // Transform squareMethod() into a function via an ETA EXPANSION.
+    // NOTE: An Eta Expansion works for all 3 of the following lines
+    //       when the method accepts ONLY ONE ARGUMENT.
+    //        1)  squareMethod
+    //        2)  squareMethod _
+    //        3)  squareMethod(_)
+    var squareFunction: Float => Float = squareMethod
+    println(s"5) squareFunction(123.456F) = ${squareFunction(123.456F)}")
+    // PRINTS: 5) squareFunction(123.456F) = 15241.384
 
-       squareFunction = squareMethod _
-       println(s"6) squareFunction(123.456F) = ${squareFunction(123.456F)}")
-       // PRINTS: 6) squareFunction(123.456F) = 15241.384
+    squareFunction = squareMethod _
+    println(s"6) squareFunction(123.456F) = ${squareFunction(123.456F)}")
+    // PRINTS: 6) squareFunction(123.456F) = 15241.384
 
-       squareFunction = squareMethod(_)
-       println(s"7) squareFunction(123.456F) = ${squareFunction(123.456F)}")
-       // PRINTS: 7) squareFunction(123.456F) = 15241.384
-       // *********************************************************************
+    squareFunction = squareMethod(_)
+    println(s"7) squareFunction(123.456F) = ${squareFunction(123.456F)}")
+    // PRINTS: 7) squareFunction(123.456F) = 15241.384
+    // *********************************************************************
 
-       // *********************************************************************
-       // Transform multiply2NumbersMethod() into a function via an ETA EXPANSION.
-       // Notice the data type of multiply2NumbersFunction is written designating
-       // that it accepts TWO ARGUMENTS.  Also note that when parenthesis are
-       // included in the ETA EXPANSION, the ETA EXPANSION must be written to
-       // designate that multiply2NumbersMethod accepts TWO ARGUMENTS, like this:
-       // multiply2NumbersMethod(_, _)
-       var multiply2NumbersFunction: (Float, Float) => Float = multiply2NumbersMethod
-       println(s"8) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
-       // PRINTS: 9) multiply2NumbersFunction(123F, 456F) = 56088.0
+    // *********************************************************************
+    // Transform multiply2NumbersMethod() into a function via an ETA EXPANSION.
+    // Notice the data type of multiply2NumbersFunction is written designating
+    // that it accepts TWO ARGUMENTS.  Also note that when parenthesis are
+    // included in the ETA EXPANSION, the ETA EXPANSION must be written to
+    // designate that multiply2NumbersMethod accepts TWO ARGUMENTS, like this:
+    // multiply2NumbersMethod(_, _)
+    var multiply2NumbersFunction: (Float, Float) => Float = multiply2NumbersMethod
+    println(s"8) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
+    // PRINTS: 9) multiply2NumbersFunction(123F, 456F) = 56088.0
 
-       multiply2NumbersFunction = multiply2NumbersMethod _
-       println(s"9) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
-       // PRINTS: 9) multiply2NumbersFunction(123F, 456F) = 56088.0
+    multiply2NumbersFunction = multiply2NumbersMethod _
+    println(s"9) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
+    // PRINTS: 9) multiply2NumbersFunction(123F, 456F) = 56088.0
 
-       multiply2NumbersFunction = multiply2NumbersMethod(_, _)
-       println(s"10) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
-       // PRINTS: 10) multiply2NumbersFunction(123F, 456F) = 56088.0
+    multiply2NumbersFunction = multiply2NumbersMethod(_, _)
+    println(s"10) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
+    // PRINTS: 10) multiply2NumbersFunction(123F, 456F) = 56088.0
 
-       // *********************************************************************
-       // The Scala API contains hundreds of methods that accept a function as an argument.
-       // For example, List.map() accepts a function as its argument.  But if you pass a
-       // method to List.map(), Scala automatically transforms the method into a function.
-       // This behavior is common in Scala.  If a method or a function accepts a function
-       // as an argument, and it's easier to pass it a method, then pass it a method and
-       // see if it works.  The following code demonstrates that List.map() works by passing
-       // to it a method (squareMethod) or a function (squareFunction).
-       var floatList: List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-       floatList = floatList.map(squareMethod)
-       println(s"11) floatList = $floatList") // PRINTS: 11) floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
-       floatList = floatList.map(squareFunction)
-       println(s"12) floatList = $floatList") // PRINTS: 12) floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
-     }
-   }
-
-
-3) The Scala API contains hundreds of methods that accept a function as an argument.
-   For example, List.map() requires a function to be passed as its argument.  When a
-   method/function accepts a function as an argument, you can pass it an ANONYMOUS
-   FUNCTION, as the following example demonstrates.
-
-   NOTE: When an ANONYMOUS FUNCTION is written with the rocket symbol (=>)
-         the token(s) on the leftside of "=>" represents the argument(s)
-         passed to the function.  The expression on the rightside of "=>"
-         is the algorithm that calculates the function's return value.
-         That algorithm must always reference the argument(s) passed to
-         the anonymous function.  The following code sample demonstrates
-         some examples of how to use anonymous functions.
-
-   object Demo
-   {
-     def main(args: Array[String])
-     {
-       var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-       floatList = floatList.map(x => x * x) // Pass List.map() this anonymous function: x => x * x
-       println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
-
-       // The following line defines an anonymous function, and assigns it to the var result.
-       var result:(Int, Int) => Int = (a:Int, b:Int) => a+b
-       // The following line calls the function assigned to the var result.
-       println(result(222, 444)) // PRINTS: 666
-
-       // The following line defines an anonymous function, and assigns it to the var result.
-       // This anonymous function is IDENTICAL to the one above, but its syntax is different.
-       result = (_:Int)+(_:Int)
-       println(result(444, 222)) // PRINTS: 666
-     }
-   }
+    // *********************************************************************
+    // The Scala API contains hundreds of methods that accept a function as an argument.
+    // For example, List.map() accepts a function as its argument.  But if you pass a
+    // method to List.map(), Scala automatically transforms the method into a function.
+    // This behavior is common in Scala.  If a method or a function accepts a function
+    // as an argument, and it's easier to pass it a method, then pass it a method and
+    // see if it works.  The following code demonstrates that List.map() works by passing
+    // to it a method (squareMethod) or a function (squareFunction).
+    var floatList: List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
+    floatList = floatList.map(squareMethod)
+    println(s"11) floatList = $floatList") // PRINTS: 11) floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
+    floatList = floatList.map(squareFunction)
+    println(s"12) floatList = $floatList") // PRINTS: 12) floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
+  }
+}
 
 
-4) In Scala you can pass a block of Scala code to a class constructor, or a method, or
-   a function as an argument.  When an argument accepts a block of code, that argument
-   refernces a NULLARY FUNCTION.  Nullary functions are explained in the next section
-   below titled: NULLARY FUNCTION
+The Scala API contains hundreds of methods that accept a function as an argument.
+For example, List.map() requires a function to be passed as its argument.  When a
+method/function accepts a function as an argument, you can pass it an ANONYMOUS
+FUNCTION, as the following example demonstrates.
+
+NOTE: When an ANONYMOUS FUNCTION is written with the rocket symbol (=>)
+      the token(s) on the leftside of "=>" represents the argument(s)
+      passed to the function.  The expression on the rightside of "=>"
+      is the algorithm that calculates the function's return value.
+      That algorithm must always reference the argument(s) passed to
+      the anonymous function.  The following code sample demonstrates
+      some examples of how to use anonymous functions.
+
+object Demo
+{
+  def main(args: Array[String])
+  {
+    var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
+    floatList = floatList.map(x => x * x) // Pass List.map() this anonymous function: x => x * x
+    println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
+
+    // The following line defines an anonymous function, and assigns it to the var result.
+    var result:(Int, Int) => Int = (a:Int, b:Int) => a+b
+    // The following line calls the function assigned to the var result.
+    println(result(222, 444)) // PRINTS: 666
+
+    // The following line defines an anonymous function, and assigns it to the var result.
+    // This anonymous function is IDENTICAL to the one above, but its syntax is different.
+    result = (_:Int)+(_:Int)
+    println(result(444, 222)) // PRINTS: 666
+  }
+}
 
 Although the Scala API specifies that List.map() takes a function as its argument, you
 can pass to it a method instead of a function by first performing an ETA EXPANSION on
@@ -287,23 +285,21 @@ NULLARY FUNCTION
 
 When a class constructor, a method, or a function accepts an argument, that argument
 usually references some common data type such as a class, an Int, a String, etc.
+The following is the data type of a non-nullary function that accepts an Int argument,
+and returns a String value:
 
-In Scala, an argument can also accept a block of Scala code.  Whenever an
-argument accepts a block of code, that argument references a function known as
-a NULLARY FUNCTION.  The data type of a nullary function argument is written
-differently than the data type of a common function.
+Int=>String
 
-When a common function is passed to an argument, that function's data type
-is written similar to this:
+Scala allows you to pass A BLOCK OF SCALA CODE to an argument.  When an argument accepts
+a block of Scala code, that argument references a NULLARY FUNCTION.  The data type of a
+nullary function is written differently than the data type of a non-nullary function.
 
-Int=>String   // Data type of a function that accepts an Int argument, and returns a String value.
+Below are three examples of how to write the data type of a nullary function.  Remember,
+a nullary function ALWAYS references an argument.
 
-When an argument accepts a nullary function (a block of code), that argument's data
-type is written similar to these examples:
-
-   =>String // The argument references a nullary function that returns a String value.
-   =>Double // The argument references a nullary function that returns a Double value.
-   =>Unit   // The argument references a nullary function that returns nothing.
+=>String // Data type of an argument that references a nullary function, and returns a String value.
+=>Double // Data type of an argument that references a nullary function, and returns a Double value.
+=>Unit   // Data type of an argument that references a nullary function, and returns nothing.
 
 When an argument references a nullary function, there will NEVER be a data type on the
 LEFT SIDE of the rocket symbol (=>) because a block of code has no data type.  But a
@@ -313,12 +309,12 @@ data type returned by the last line of code executed in the code block.  If the 
 line executed in the code block returns nothing, the argument's return data type will
 be "Unit".
 
-A block of Scala code passed to an argument can be of any length.  (A single line of
-Scala code, or multiple lines.)  When you invoke a class constructor, or a method,
-or a function which accepts a block of code as an argument, you MUST enclose the
-code block between braces {} instead of parenthesis ().  The exception is when the
-code block contains only an expression (i.e.,  "idx == 0"), you can then enclose
-the code block between parenthesis () or between braces {}.
+The block of Scala code passed to an argument can be of any length.  (A single line
+or multiple lines of code.)  When pass a block of Scala code to an argument, you
+MUST enclose the code block between braces {} instead of parenthesis ().  The
+exception is when the code block contains a single-line expression (i.e.,
+"idx == 0"), you can then enclose the code block either between parenthesis (),
+or between braces {}.
 
 Here's an example of how to define and call a method that accepts an argument
 containing a block of Scala code.  Read in-line comments for details.
