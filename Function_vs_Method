@@ -26,9 +26,14 @@ appears, a method is defined.  Here's an example of a Scala method named squareM
 which accepts a Float number as an argument, squares the number, and returns the result
 as a Float number.
 
-def squareMethod(number: Float): Float = number * number        // Method definition.
-println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")  // Call the method.
-// PRINTS: squareMethod(123.456F) = 15241.384
+object Demo
+{
+  def squareMethod(number: Float): Float = number * number // Method definition.
+  def main(args: Array[String]): Unit = {
+    println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}") // Call the method.
+    // PRINTS: squareMethod(123.456F) = 15241.384
+  }
+}
 
 The following sample code shows two method definitions that may look rather
 strange to a newcomer.  Both methods accept no arguments and return the same
@@ -115,10 +120,9 @@ IMPORTANT: ONLY Scala methods (NOT functions) can be written to accept and retur
            data types, read this section:
            https://github.com/w9mwi/Scala/blob/master/Parametric_Method
 
-
 When you write a function, you can assign the function to a val/var.  When a function
 is assigned to a val/var, that function gets invoked by referencing the val/var as
-is shown in the following example...
+is shown in the following example.
 
 object Demo
 {
@@ -185,7 +189,6 @@ object Demo
     squareFunction = squareMethod(_)
     println(s"7) squareFunction(123.456F) = ${squareFunction(123.456F)}")
     // PRINTS: 7) squareFunction(123.456F) = 15241.384
-    // *********************************************************************
 
     // *********************************************************************
     // Transform multiply2NumbersMethod() into a function via an ETA EXPANSION.
@@ -304,6 +307,8 @@ nullary function as its lone argument.  (Further below we show how to invoke a
 method that accepts multiple arguments, where one of the arguments is a nullary
 function.)
 
+Nullary Function Example #1...
+
 object Demo
 {
   // The blockOfCode argument passed to myMethod() references a NULLARY FUNCTION.
@@ -330,11 +335,11 @@ object Demo
   }
 }
 
-Here are four important points to remember about nullary functions:
+Four important points to remember about nullary functions:
 
 1) When a block of code is passed as an argument to a class constructor, a method,
    or a function, that argument references a NULLARY FUNCTION.  The nullary function
-   (the block of code) is executed by referencing the argument.
+   (the block of code) gets executed by referencing the argument.
 
 2) The data type of a nullary function will ALWAYS include the rocket symbol (=>).
    There will NEVER be a data type on the left side of the rocket symbol because
@@ -346,18 +351,15 @@ Here are four important points to remember about nullary functions:
 3) A block of code passed as an argument can contain a single line of code, or
    many lines of code.  It's important to understand the block of code is NEVER
    executed when the argument gets passed.  Only the class constructor, the method,
-   or the function receiving the block of code argument can execute the block of code
-   by referencing the argument.
+   or the function receiving the block of code argument can execute the block of code,
+   which is done by referencing the argument.
 
 4) When passing a block of code to an argument, the block of code MUST be enclosed
    in braces {}, and NOT in parenthesis ().  The exception is a simple expression
    (such as "idx == 0"), which can be passed between parenthesis () or between
    braces {}.
 
-==========================================================================================
-
-Below are some more complex examples of how to write and use nullary functions.
-Read the inline comments for detailed explanations.
+Nullary Function Example #2...
 
 object Demo
 {
