@@ -351,41 +351,44 @@ Nullary Function Example #2
 
 object Demo
 {
-  // When this LoopUntilCond class is instantiated, its argument literally
-  // gets passed a block of Scala code.
-  class LoopUntilCond(blockOfCode: => Unit)
+  class LoopUntilCond_1(blockOfCode: => Unit)
   {
     // This until() method accepts a nullary function (a block of code) as its argument.
     def until(cond: => Boolean): Unit = {
-      blockOfCode // Execute the block of code passed to this LoopUntilCond class instance.
+      blockOfCode // Execute the block of code passed to this LoopUntilCond_1 class instance.
       if (false == cond)
         until(cond) // Recursively call the until() method until the "cond" argument evaluates to true.
     }
   }
-
-  // Invoking this loop() method returns an instance of the LoopUntilCond class.
-  def loop(blockOfCode: => Unit):LoopUntilCond = { new LoopUntilCond(blockOfCode) }
+  // Invoking this loop_1() method returns an instance of the LoopUntilCond_1 class.
+  def loop_1(blockOfCode: => Unit):LoopUntilCond_1 = { new LoopUntilCond_1(blockOfCode) }
 
   def main(args: Array[String]): Unit = {
+    // **************************************************************************************
+    // EXAMPLE #1 - Demonstrates passing a nullary function (a block of code)
+    //              as an argument to a method.
+    //
     // The following code is explained in these 3 steps...
-    // 1) The loop() method gets passed a block of Scala code between a pair of braces {}.
-    // 2) The loop() method returns an instance of the LoopUntilCond class,
+    // 1) The loop_1() method gets passed a block of Scala code between a pair of braces {}.
+    // 2) The loop_1() method returns an instance of the LoopUntilCond_1 class,
     //    which also gets passed the same block of Scala code.
-    // 3) Because the loop() method returns an instance of the LoopUntilCond class,
-    //    the LoopUntilCond.until() method can be invoked in the same line of code.
+    // 3) Because the loop_1() method returns an instance of the LoopUntilCond_1 class,
+    //    the LoopUntilCond_1.until() method can be invoked in the same line of code.
     var idx:Int = 5
-    loop {
+    loop_1 {
       print("idx = " + idx + ", ") // PRINTS: idx = 5, idx = 4, idx = 3, idx = 2, idx = 1,
       idx -= 1
-    } until idx == 0 // "idx ==0" is passed to until() as a block of code (a nullary function).
-    // The above line can be rewritten like this:   }.until(idx == 0)
+    } until idx == 0 // This line can be rewritten like this:   }.until(idx == 0)
 
     println()
 
-    // The following code generates results identical to the code above, but is written slightly differently
+    // **************************************************************************************
+    // EXAMPLE #2 - Identical behavior to EXAMPLE #1 above.  But it's written so the
+    //              LoopUntilCond_1 class (returned by invoking the loop_1() method)
+    //              gets assigned to the val myLoop.
     idx = 5 // Reset the idx var.
-    val myLoop:LoopUntilCond = loop {
-      print("idx = " + idx + ", ") // PRINTS: idx = 5, idx = 4, idx = 3, idx = 2, idx = 1,
+    val myLoop:LoopUntilCond_1 = loop_1 {
+      print("idx = " + idx + ", ")
       idx -= 1
     }
     myLoop.until(idx == 0)  // Can also be written:  myLoop.until{idx == 0}
