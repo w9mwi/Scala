@@ -283,13 +283,13 @@ an argument that accepts a block of code ALWAYS references a nullary function.
 =>Double // Data type of an argument that references a nullary function, and returns a Double value.
 =>Unit   // Data type of an argument that references a nullary function, and returns nothing.
 
-When an argument references a nullary function, there will NEVER be a data type on the
-LEFT SIDE of the rocket symbol (=>) because a block of code has no data type.  But a
-nullary function will ALWAYS have a data type on the RIGHT SIDE side of the rocket
-symbol (=>).  The data type on the RIGHT SIDE of the rocket symbol (=>) will be the
-data type returned by the last line of code executed in the code block.  If the last
-line executed in the code block returns nothing, the argument's return data type will
-be "Unit".
+When an argument references a nullary function, the data type of the nullary function
+will NEVER have a data type on the LEFT SIDE of the rocket symbol (=>) because a block
+of code has no data type.  But the data type of a nullary function will ALWAYS have
+a data type on the RIGHT SIDE side of the rocket symbol (=>).  The data type on the
+RIGHT SIDE of the rocket symbol (=>) will be the data type returned by the last line
+of code executed in the code block.  If the last line executed in the code block returns
+nothing, the argument's return data type will be "Unit".
 
 The block of Scala code passed to an argument can be of any length.  (A single line
 or multiple lines of code.)  When a block of Scala code is passed to an argument,
@@ -330,6 +330,30 @@ object Demo
   }
 }
 
+Here are four important points to remember about nullary functions:
+
+1) When a block of code is passed as an argument to a class constructor, a method,
+   or a function, that argument references a NULLARY FUNCTION.  The nullary function
+   (the block of code) is executed by referencing the argument.
+
+2) The data type of a nullary function will ALWAYS include the rocket symbol (=>).
+   There will NEVER be a data type on the left side of the rocket symbol because
+   a block of code doesn't have a data type.  There will ALWAYS be a data type on
+   the right side of the rocket symbol (=>), which designates the data type
+   returned by the last line of code executed in the code block.  (If the code
+   block returns nothing, its data type will be "Unit".)
+
+3) A block of code passed as an argument can contain a single line of code, or
+   many lines of code.  It's important to understand the block of code is NEVER
+   executed when the argument gets passed.  Only the class constructor, the method,
+   or the function receiving the block of code argument can execute the block of code
+   by referencing the argument.
+
+4) When passing a block of code to an argument, the block of code MUST be enclosed
+   in braces {}, and NOT in parenthesis ().  The exception is a simple expression
+   (such as "idx == 0"), which can be passed between parenthesis () or between
+   braces {}.
+
 ==========================================================================================
 
 Below are some more complex examples of how to write and use nullary functions.
@@ -340,34 +364,6 @@ object Demo
   // When this LoopUntilCond class is instantiated, its argument literally
   // gets passed a block of Scala code.  Notice the data type specified for
   // the blockOfCode argument is:   => Unit
-
-  // IMPORTANT 1: The rocket symbol (=>) designates that the argument blockOfCode
-  //              represents a FUNCTION.
-  //
-  // IMPORTANT 2: When a block of code is passed to an argument, it means the argument
-  //              references a NULLARY FUNCTION.  A nullary function's data type NEVER
-  //              contains any data type on the LEFT SIDE of the rocket symbol (=>).
-  //
-  // IMPORTANT 3: The text "Unit" on the RIGHT SIDE of the rocket symbol ("=>") designates
-  //              the return type of the nullary function.  (The return type of a nullary
-  //              function is always determined by the last line executed in the code
-  //              block, which always evaluates to some data type.)
-  //
-  // IMPORTANT 4: A block of code passed as an argument can contain a single line
-  //              of code, or many lines of code.  It's important to understand the
-  //              block of code is NEVER executed when the argument gets passed.
-  //              Only the class, the method, or the function receiving the block
-  //              of code argument can execute the block of code.  FOR EXAMPLE:
-  //
-  //              In the code sample below, the last line of main() calls this method:
-  //
-  //              LoopUntilCond.until(idx == 0)
-  //
-  //              "idx == 0" is NOT first evaluated to true/false, and then passed to
-  //              the until() method as a Boolean.  Instead, "idx == 0" is literally
-  //              passed to the LoopUntilCond.until() method as Scala code.  The
-  //              LoopUntilCond.until() method then executes the block of code.
-  //
   class LoopUntilCond(blockOfCode: => Unit)
   {
     // The "cond" argument below (like the blockOfCode argument above) is a NULLARY FUNCTION.
@@ -459,24 +455,6 @@ object Demo
    * that takes a single argument.
    */
   def add_2(x:Int) = { (y:Int) => x + y }
-}
-
-========================================================================================
-ANONYMOUS FUNCTION - Read in-line comments in sample code below.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // The var result is assigned an anonymous function, which has this signature:  (Int, Int) => Int
-    var result:(Int, Int) => Int = (a:Int, b:Int) => a+b
-    println(result(222, 444)) // PRINTS: 666
-
-    // Here result is again assinged an anonymous function.  This anonymous function is
-    // IDENTICAL to the one above.  Howvever, the syntax used to define it is different.
-    result = (_:Int)+(_:Int)
-    println(result(123, 321)) // PRINTS: 444
-  }
 }
 
 ========================================================================================
