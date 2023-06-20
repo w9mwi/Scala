@@ -215,10 +215,12 @@ object Demo
     // see if it works.  The following code demonstrates that List.map() works by passing
     // to it a method (squareMethod) or a function (squareFunction).
     var floatList: List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-    floatList = floatList.map(squareMethod) // This also works:  floatList = floatList.map(squareMethod _)
-    println(s"11) floatList = $floatList")  // PRINTS: 11) floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
+    // The following 2 lines are equivalent.  (The underscore (_) char is OPTIONAL.)
+    floatList = floatList.map(squareMethod)
+    floatList = floatList.map(squareMethod _)
+    println(s"11) floatList = $floatList") // PRINTS: 11) floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
     floatList = floatList.map(squareFunction)
-    println(s"12) floatList = $floatList")  // PRINTS: 12) floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
+    println(s"12) floatList = $floatList") // PRINTS: 12) floatList = List(1.0, 16.0, 81.0, 256.0, 625.0)
   }
 }
 
