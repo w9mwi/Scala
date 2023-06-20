@@ -286,28 +286,38 @@ an argument that accepts a block of code ALWAYS references a nullary function.
 =>Double // Data type of an argument that references a nullary function, and returns a Double value.
 =>Unit   // Data type of an argument that references a nullary function, and returns nothing.
 
-When an argument references a nullary function, the data type of the nullary function
-will NEVER have a data type on the LEFT SIDE of the rocket symbol (=>) because a block
-of code has no data type.  But the data type of a nullary function will ALWAYS have
-a data type on the RIGHT SIDE side of the rocket symbol (=>).  The data type on the
-RIGHT SIDE of the rocket symbol (=>) will be the data type returned by the last line
-of code executed in the code block.  If the last line executed in the code block returns
-nothing, the argument's return data type will be "Unit".
+Four important points to remember about nullary functions:
 
-The block of Scala code passed to an argument can be of any length.  (A single line
-or multiple lines of code.)  When a block of Scala code is passed to an argument,
-the block of code MUST be enclosed between braces {} instead of parenthesis ().
-The exception is when the code block contains a single-line expression (i.e.,
-"idx == 0"), you can then enclose the code block between parenthesis (),
-or between braces {}.
+1) When a block of code is passed as an argument to a class constructor, a method,
+   or a function, that argument references a NULLARY FUNCTION.  The nullary function
+   (the block of code) gets executed by referencing the argument.
 
-Recall, a method can accept no arguments, a single argument, or multiple arguments.
+2) The data type of a nullary function will ALWAYS include the rocket symbol (=>).
+   There will NEVER be a data type on the left side of the rocket symbol because
+   a block of code doesn't have a data type.  There will ALWAYS be a data type on
+   the right side of the rocket symbol (=>), which designates the data type
+   returned by the last line of code executed in the code block.  (If the code
+   block returns nothing, its data type will be "Unit".)
+
+3) A block of code passed as an argument can contain a single line of code, or
+   many lines of code.  It's important to understand the block of code is NEVER
+   executed when the argument gets passed.  Only the class constructor, the method,
+   or the function receiving the block of code argument can execute the block of code,
+   which is done by referencing the argument.
+
+4) When passing a block of code to an argument, the block of code MUST be enclosed
+   in braces {}, and NOT in parenthesis ().  The exception is a simple expression
+   (such as "idx == 0"), which can be passed between parenthesis () or between
+   braces {}.
+
+Recall that a method can accept no arguments, a single argument, or multiple arguments.
 The following code sample shows how to invoke a method that accepts ONLY a
 nullary function as its lone argument.  (Further below we show how to invoke a
 method that accepts multiple arguments, where one of the arguments is a nullary
 function.)
 
-Nullary Function Example #1...
+Nullary Function Example #1
+===========================
 
 object Demo
 {
@@ -335,67 +345,50 @@ object Demo
   }
 }
 
-Four important points to remember about nullary functions:
 
-1) When a block of code is passed as an argument to a class constructor, a method,
-   or a function, that argument references a NULLARY FUNCTION.  The nullary function
-   (the block of code) gets executed by referencing the argument.
-
-2) The data type of a nullary function will ALWAYS include the rocket symbol (=>).
-   There will NEVER be a data type on the left side of the rocket symbol because
-   a block of code doesn't have a data type.  There will ALWAYS be a data type on
-   the right side of the rocket symbol (=>), which designates the data type
-   returned by the last line of code executed in the code block.  (If the code
-   block returns nothing, its data type will be "Unit".)
-
-3) A block of code passed as an argument can contain a single line of code, or
-   many lines of code.  It's important to understand the block of code is NEVER
-   executed when the argument gets passed.  Only the class constructor, the method,
-   or the function receiving the block of code argument can execute the block of code,
-   which is done by referencing the argument.
-
-4) When passing a block of code to an argument, the block of code MUST be enclosed
-   in braces {}, and NOT in parenthesis ().  The exception is a simple expression
-   (such as "idx == 0"), which can be passed between parenthesis () or between
-   braces {}.
-
-Nullary Function Example #2...
+Nullary Function Example #2
+===========================
 
 object Demo
 {
   // When this LoopUntilCond class is instantiated, its argument literally
-  // gets passed a block of Scala code.  Notice the data type specified for
-  // the blockOfCode argument is:   => Unit
+  // gets passed a block of Scala code.
   class LoopUntilCond(blockOfCode: => Unit)
   {
-    // The "cond" argument below (like the blockOfCode argument above) is a NULLARY FUNCTION.
+    // This until() method accepts a nullary function (a block of code) as its argument.
     def until(cond: => Boolean): Unit = {
-      blockOfCode // Executes the block of code passed to this class.
+      blockOfCode // Execute the block of code passed to this LoopUntilCond class instance.
       if (false == cond)
-        until(cond) // Recursively calls the until() method.
+        until(cond) // Recursively call the until() method until the "cond" argument evaluates to true.
     }
   }
 
+  // Invoking this loop() method returns an instance of the LoopUntilCond class.
   def loop(blockOfCode: => Unit):LoopUntilCond = { new LoopUntilCond(blockOfCode) }
 
   def main(args: Array[String]): Unit = {
+    // The following code is explained in these 3 steps...
+    // 1) The loop() method gets passed a block of Scala code between a pair of braces {}.
+    // 2) The loop() method returns an instance of the LoopUntilCond class,
+    //    which also gets passed the same block of Scala code.
+    // 3) Because the loop() method returns an instance of the LoopUntilCond class,
+    //    the LoopUntilCond.until() method can be invoked in the same line of code.
     var idx:Int = 5
-
-    // 1) The following line of code calls the loop() method defined above.
-    // 2) We pass the loop() method an argument containing a block of code
-    //    between a pair of braces {}.  NOTE: When passing a block of code
-    //    to an argument, the block of code MUST be enclosed in braces {},
-    //    and NOT in parenthesis ().  The exception is a simple expression,
-    //    such as "idx == 0", can be passed between parenthesis ().
-    // 3) Calling the loop() method returns an instance of the LoopUntilCond class,
-    //    which also gets passed the same block of code.
-    // 4) At the same time the loop() method is invoked (which instantiates
-    //    a LoopUntilCond class), the LoopUntilCond.until() method is called.
     loop {
       print("idx = " + idx + ", ") // PRINTS: idx = 5, idx = 4, idx = 3, idx = 2, idx = 1,
       idx -= 1
     } until idx == 0 // "idx ==0" is passed to until() as a block of code (a nullary function).
-                     // This line can be rewritten like this:   }.until(idx == 0)
+    // The above line can be rewritten like this:   }.until(idx == 0)
+
+    println()
+
+    // The following code generates results identical to the code above, but is written slightly differently
+    idx = 5 // Reset the idx var.
+    val myLoop:LoopUntilCond = loop {
+      print("idx = " + idx + ", ") // PRINTS: idx = 5, idx = 4, idx = 3, idx = 2, idx = 1,
+      idx -= 1
+    }
+    myLoop.until(idx == 0)  // Can also be written:  myLoop.until{idx == 0}
   }
 }
 
