@@ -265,20 +265,19 @@ object Demo
 
 NULLARY FUNCTION
 ================
-
-When a class constructor, a method, or a function accepts an argument, that argument
+When a class constructor, or a method, or a function accepts an argument, that argument
 usually references some common data type such as a class, an Int, a String, etc.
-The following is the data type of a non-nullary function that accepts an Int argument,
-and returns a String value:
+The following is the data type of a "regular" (non-nullary) function that accepts
+an Int argument, and returns a String value:
 
 Int=>String
 
 Scala allows you to pass A BLOCK OF SCALA CODE to an argument.  When an argument accepts
 a block of Scala code, that argument references a NULLARY FUNCTION.  The data type of a
-nullary function is written differently than the data type of a non-nullary function.
+nullary function is written differently than the data type of a "regular" (non-nullary) function.
 
 Below are three examples of how to write the data type of a nullary function.  Remember,
-a nullary function ALWAYS references an argument.
+an argument that accepts a block of code ALWAYS references a nullary function.
 
 =>String // Data type of an argument that references a nullary function, and returns a String value.
 =>Double // Data type of an argument that references a nullary function, and returns a Double value.
@@ -296,11 +295,14 @@ The block of Scala code passed to an argument can be of any length.  (A single l
 or multiple lines of code.)  When a block of Scala code is passed to an argument,
 the block of code MUST be enclosed between braces {} instead of parenthesis ().
 The exception is when the code block contains a single-line expression (i.e.,
-"idx == 0"), you can then enclose the code block either between parenthesis (),
+"idx == 0"), you can then enclose the code block between parenthesis (),
 or between braces {}.
 
-Here's an example of how to define and call a method that accepts an argument
-containing a block of Scala code.  Read in-line comments for details.
+Recall, a method can accept no arguments, a single argument, or multiple arguments.
+The following code sample shows how to invoke a method that accepts ONLY a
+nullary function as its lone argument.  (Further below we show how to invoke a
+method that accepts multiple arguments, where one of the arguments is a nullary
+function.)
 
 object Demo
 {
