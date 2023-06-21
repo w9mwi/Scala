@@ -310,12 +310,6 @@ Four important points to remember about nullary functions:
    (such as "idx == 0"), which can be passed between parenthesis () or between
    braces {}.
 
-Recall that a method can accept no arguments, a single argument, or multiple arguments.
-The following code sample shows how to invoke a method that accepts ONLY a
-nullary function as its lone argument.  (Further below we show how to invoke a
-method that accepts multiple arguments, where one of the arguments is a nullary
-function.)
-
 Nullary Function Example #1
 ===========================
 
