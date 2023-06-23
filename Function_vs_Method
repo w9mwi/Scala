@@ -16,7 +16,7 @@ methods and functions:
 * ETA EXPANSION
 * ANONYMOUS FUNCTION
 * NULLARY FUNCTION
-* FUNCTION CONSISTING OF ONLY CASE STATEMENTS
+* FUNCTIONS CONSISTING OF ONLY CASE STATEMENTS
 
 ==========================================================================================
 
@@ -654,17 +654,18 @@ object Demo
 
 ========================================================================================
 
-FUNCTION CONSISTING OF ONLY CASE STATEMENTS
-===========================================
-Read in-line comments for details.
-
+FUNCTIONS CONSISTING OF ONLY CASE STATEMENTS
+============================================
+It's possible to write a Scala function where the body of the function consists
+of nothing but case statements, and the "match" keyword isn't used.  Below is
+an example.  Read in-line comments for details.
 
 object Demo
 {
   def main(args: Array[String])
   {
     // Declare a function with a body that contains only case statements,
-    // without using the "match" keyword.  In this example, the function
+    // and the "match" keyword isn't used.  In this example, the function
     // gets passed the "Any" Scala data type, returns a String, and is
     // assigned to the val func.
     val func:(Any=>String) =
