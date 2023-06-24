@@ -27,15 +27,19 @@ will be changed in this manner:
 3) Multiple consecutive underscore (_) characters will be replaced
    with a single underscore (_) character.
 
-4) The first alpha character in the filename will always be changed
-   to upper case.
+4) All alpha characters in the filename will be changed to lower case
+   with these two exceptions:
 
-5) The first character following an underscore (_) character will
-   always be changed to upper case.  All other alpha character
-   will be changed to lower case.
+   * The first alpha character in the filename will always be upper case.
+   * Every alpha character that appears immediately after an underscore
+     (_) character will be upper case.
 
-EXAMPLE:  This filename:      '  ____ aBc _ _ _ _dEF__ ghi  ___JKL____.wAV'
-          Will be changed to:  Abc_Def_Ghi_Jkl.wav
+EXAMPLES:
+This filename:       '  ____ aBc _ _ _ _dEF__ ghi  ___JKL____.wAV'
+Will be changed to:  Abc_Def_Ghi_Jkl.wav
+
+This filename:       ' _ 1aBC .wav'
+Will be changed to:  1abc.wav
 
 ==============================================================================
 
