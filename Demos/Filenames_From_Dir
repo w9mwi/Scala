@@ -27,16 +27,16 @@ The .mp3 and .wav filenames will be changed in this manner:
    always be changed to upper case.  All other alpha character
    will be changed to lower case.
 
-EXAMPLE:  This filename:      '  ____ aAa _ _ _ _bBB__ ccc  ___DDD____.wav'
-          Will be changed to:  _Aaa_Bbb_Ccc_Ddd_.wav
+EXAMPLE:  This filename:      '  ____ aBc _ _ _ _dEF__ ghi  ___JKL____.wAV'
+          Will be changed to:  _Abc_Def_Ghi_Jkl_.wav
 
-
-The following sample program demonstrates the following:
+This program demonstrates the following:
 
 1) How to read and write files in Scala.
 2) How to rename/move files in Scala.
 3) How to execute a Linux script file in Scala.
 
+==============================================================================
 
 import java.io.{File, PrintWriter}
 import java.nio.file.{Files, Path, Paths, StandardCopyOption}
