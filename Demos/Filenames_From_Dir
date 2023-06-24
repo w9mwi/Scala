@@ -31,8 +31,8 @@ will be changed in this manner:
 
 5) All alpha characters in the changed filename will be lower case with these two exceptions:
 
-   * When the first character in the changed filename is an alpha character,
-     it will be upper case.
+   * When the first character in the filename is an alpha character,
+     it will be changed to upper case.
    * Every alpha character that appears immediately after an underscore
      (_) character will be changed to upper case.
 
