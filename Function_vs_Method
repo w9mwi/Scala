@@ -40,10 +40,10 @@ object Demo
   }
 }
 
-The following sample code shows two method definitions that may look strange
-to a newcomer.  Both methods accept no arguments and return the same constant
-value.  One of the methods is defined WITHOUT parenthesis.  The other method
-is defined WITH parenthesis.  Read in-line comments for details.
+The following code sample shows two method definitions that may look strange to a
+newcomer.  Both methods accept no arguments and return the same Int value (123).
+One of the methods is defined WITHOUT parenthesis.  The other method is defined
+WITH parenthesis.  Read in-line comments for details.
 
 object Demo
 {
