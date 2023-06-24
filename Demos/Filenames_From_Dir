@@ -1,4 +1,16 @@
 =========================================================================
+The Scala program below program does the following:
+
+Change all filenames that end the with the text ".mp3" and ".wav"
+located in the directory specified in the main() method.  In this
+example, that line of code in the main() method is this:
+
+val dirPath:String = "/home/tjb/junkDir/"
+
+Those .mp3 and .wav filenames will be changed 
+   
+
+
 The following sample program demonstrates the following:
 
 1) How to read and write files in Scala.
