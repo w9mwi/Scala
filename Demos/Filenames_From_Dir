@@ -1,13 +1,12 @@
 =========================================================================
-The Scala program below program does the following:
-
-Change all filenames that end the with the text ".mp3" and ".wav"
-located in the directory specified in the main() method.  In this
-example, that line of code in the main() method is this:
+The Scala program below program change all filenames that end the with
+the text ".mp3" and ".wav" located in the directory specified in the
+main() method.  In this example, that line of code in the main() method
+is this:
 
 val dirPath:String = "/home/tjb/junkDir/"
 
-The .mp3 and .wav filenames will be changed in this manner.
+The .mp3 and .wav filenames will be changed in this manner:
 
 1) All whitespace characters will be removed from the filename
    and replaced with the underscore (_) character.  However,
