@@ -2,7 +2,7 @@ This program demonstrates the following:
 
 1) How to execute a Linux script file in Scala.
 2) How to read and write files in Scala.
-3) How to rename/move files in Scala.
+3) How to rename (move) files in Scala.
 
 The Scala program below will change all filenames that end the with
 the text ".mp3" and ".wav" located in the directory specified in the
