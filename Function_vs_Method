@@ -40,10 +40,10 @@ object Demo
   }
 }
 
-The following sample code shows two method definitions that may look rather
-strange to a newcomer.  Both methods accept no arguments and return the same
-constant value.  One of the methods is defined WITHOUT parenthesis, and the
-other method is defined WITH parenthesis.  Read in-line comments for details.
+The following sample code shows two method definitions that may look strange
+to a newcomer.  Both methods accept no arguments and return the same constant
+value.  One of the methods is defined WITHOUT parenthesis.  The other method
+is defined WITH parenthesis.  Read in-line comments for details.
 
 object Demo
 {
@@ -51,10 +51,10 @@ object Demo
   {
     // You can define a method that accepts no arguments by leaving
     // out the parenthesis, OR by including empty parenthesis ().
-    def number_1:Int = 123    // Method number_1 method accepts no arguments.
-    def number_2():Int = 123  // Method number_2 method accepts no arguments.
+    def number_1:Int   = 123  // Method number_1 has no parenthesis, and accepts no arguments.
+    def number_2():Int = 123  // Method number_2 has parenthesis, and accepts no arguments.
 
-    // A method defined without parenthesis MUST be called without parenthesis!
+    // A method defined without parenthesis MUST be called without parenthesis.
     println("number_1 = " + number_1)  // PRINTS: number_1 = 123
 
     // If you uncomment the following commented-out line it WON'T COMPILE,
