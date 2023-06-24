@@ -14,25 +14,25 @@ val dirPath:String = "/home/tjb/junkDir/"
 So all .mp3 and .wav files in the directory "/home/tjb/junkDir/"
 will be changed in this manner:
 
-1) The ".mp3" and ".wav" text is NOT case sensitive.  So filenames
-   ending with ".mp3", ".mP3", ".wav", ".WaV", etc. will be changed.
-   After the filename is changed, the ".mp3" and ".wav" text will
-   become all lower case characters.
+1) The ".mp3" and ".wav" text is NOT case sensitive.  So filenames ending with
+   ".mp3", ".mP3", ".wav", ".WaV", etc. will be changed.  After the filename
+   is changed, the ".mp3" and ".wav" text will become all lower case characters.
 
-2) All whitespace characters will be removed from the filename
-   and replaced with the underscore (_) character.  However,
-   multiple consecutive whitespace characters will be replaced
-   with only a single underscore (_) character.
+2) All whitespace characters will be removed from the filename and replaced
+   with the underscore (_) character.  However, multiple consecutive whitespace
+   characters will be replaced with only a single underscore (_) character.
 
-3) Multiple consecutive underscore (_) characters will be replaced
-   with a single underscore (_) character.
+3) If the original filename contains multiple consecutive underscore (_)
+   characters, they'll be replaced with a single underscore (_) character.
 
-4) All alpha characters in the filename will be changed to lower case
-   with these two exceptions:
+4) The first character of the changed filename will never be an underscore (_) character.
 
-   * The first alpha character in the filename will always be upper case.
+5) All alpha characters in the changed filename will be lower case with these two exceptions:
+
+   * When the first character in the changed filename is an alpha character,
+     it will be upper case.
    * Every alpha character that appears immediately after an underscore
-     (_) character will be upper case.
+     (_) character will be changed to upper case.
 
 EXAMPLES:
 This filename:       '  ____ aBc _ _ _ _dEF__ ghi  ___JKL____.wAV'
