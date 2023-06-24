@@ -119,10 +119,11 @@ object Demo
   }
 
   /**
-   * Each filename passed to this function in an Array will get returned
-   * in an ArrayBuffer.  Where the filename returned may, or may not,
-   * be changed.  Read in-line comments below to understand the criteria
-   * used to change a filename.
+   * Each element of the filenameArray passed to this method contains an
+   * original filename.  Each element of the ArrayBuffer returned by
+   * this method contains a (String, String) tuple.  The first tuple
+   * string is the original filename.  The second tuple string contains
+   * the changed filename.  Read in-line comments for details.
    */
   def transformFilenames(filenameArray:Array[String]): ArrayBuffer[StringTuple] =
   {
