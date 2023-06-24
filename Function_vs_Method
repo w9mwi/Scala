@@ -17,7 +17,7 @@ methods and functions:
 * ANONYMOUS FUNCTION
 * NULLARY FUNCTION
 * PARTIAL FUNCTION
-* FUNCTIONS CONSISTING OF ONLY CASE STATEMENTS
+* FUNCTIONS BUILT WITH ONLY CASE STATEMENTS
 
 ==========================================================================================
 
@@ -655,8 +655,8 @@ object Demo
 
 ========================================================================================
 
-FUNCTIONS CONSISTING OF ONLY CASE STATEMENTS
-============================================
+FUNCTIONS BUILT WITH ONLY CASE STATEMENTS
+=========================================
 It's possible to write a Scala function where the body of the function consists
 of nothing but case statements, and the "match" keyword isn't used.  Below is
 an example.  Read in-line comments for details.
