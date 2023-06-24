@@ -7,7 +7,13 @@ example, that line of code in the main() method is this:
 
 val dirPath:String = "/home/tjb/junkDir/"
 
-Those .mp3 and .wav filenames will be changed 
+The .mp3 and .wav filenames will be changed in this manner.
+
+1) All whitespace characters will be removed from the filename
+   and replaced with the underscore (_) character.  However,
+   multiple consecutive whitespace characters will be replaced
+   with only a single underscore (_) character.
+   
    
 
 
