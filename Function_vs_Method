@@ -68,8 +68,9 @@ object Demo
   }
 }
 
-Because the methods above accept no arguments and always return a constant value, you'd
-never write such methods.  Instead, you'd just define number as a val, like this:
+Because methods number_1 and number_2() above accept no arguments and always return
+the same value, you'd never write such methods.  Instead, you'd just define number
+as a val, like this:
 
 val number:Int = 123
 
