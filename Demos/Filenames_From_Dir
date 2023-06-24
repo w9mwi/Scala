@@ -85,7 +85,8 @@ object Demo
     //  .filter(x => (x.toLowerCase.endsWith(".mp3") || x.toLowerCase.endsWith(".wav")))
     // *****************************************************************************
 
-    // The first 3 lines returned by "ls -la" aren't real filenames, so drop them.
+    // The first 3 lines of text returned by running "ls -la" from the command prompt
+    // don't contain filenames that can be changed.  So drop them.
     varArray.drop(3)
     // The first char of every file returned by "ls -la" designates the file type.
     // If that first char is a "-" it designates a regular file--not a directory
