@@ -31,8 +31,10 @@ as a Float number.
 object Demo
 {
   def squareMethod(number: Float): Float = number * number // Method definition.
+
   def main(args: Array[String]): Unit = {
-    println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}") // Call the method.
+    // The following line calls squareMethod(), and prints its returned result.
+    println(s"squareMethod(123.456F) = ${squareMethod(123.456F)}")
     // PRINTS: squareMethod(123.456F) = 15241.384
   }
 }
