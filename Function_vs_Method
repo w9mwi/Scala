@@ -111,20 +111,22 @@ Int=>String                 (Data type of a function that accepts an Int argumen
 (Int,Char,Float)=>Boolean   (Data type of a function that accepts Int, Char, and Float arguments, and returns a Boolean value.)
 
 A NOTE ABOUT PARAMETRIC (GENERIC) DATA TYPES...
-Assume you define a METHOD that accepts a number as an argument, squares that number,
-and returns the result.  Typically the argument passed to that METHOD, and the result
-it returns, must have a specific data type (i.e., an Int, a Float, a Double).  However,
-Scala METHODS can accept parametric data types as arguments, and can return a parametric
-data type.  (A parametric data type is also known as a generic data type.)
+Assume you define a method that accepts a number as an argument, squares that number,
+and returns the result.  Typically, the argument passed to that method, and the
+returned value, must have a specific data type (i.e., an Int, a Float, a Double).
+However, Scala methods can be defined to accept parametric data types as arguments,
+and can return a parametric data type.  (A parametric data type is also known as
+a generic data type.)
 
-Therefore, if a METHOD named squareNumber() is defined to accept and return a parametric
-data type (AKA a generic type), the squareNumber() method will be able to accept an argument
-of type Int, or Float, or Double, and return the same data type passed to the argument.
+For example, a method named squareNumber() could be defined to accept a generic
+data type as an argument, and return a generic data type as a result.  So you
+could pass squareNumber() an argument of any valid numeric type (Int, Float,
+Double), and it would return that same data type as a result.
 
-IMPORTANT: ONLY Scala methods (NOT functions) can be written to accept and return
-           parametric (generic) data types!  To learn more about parametric (generic)
-           data types, read this section:
-           https://github.com/w9mwi/Scala/blob/master/Parametric_Method
+IMPORTANT:
+Only Scala methods (NOT functions) can be written to accept and return generic
+data types.  To learn more about generic data types, read this section:
+https://github.com/w9mwi/Scala/blob/master/Parametric_Method
 
 When you write a function, you can assign the function to a val/var.  When a function
 is assigned to a val/var, that function gets invoked by referencing the val/var as
