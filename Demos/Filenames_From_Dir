@@ -29,7 +29,7 @@ will be changed in this manner:
    will be changed to lower case.
 
 EXAMPLE:  This filename:      '  ____ aBc _ _ _ _dEF__ ghi  ___JKL____.wAV'
-          Will be changed to:  _Abc_Def_Ghi_Jkl_.wav
+          Will be changed to:  Abc_Def_Ghi_Jkl.wav
 
 This program demonstrates the following:
 
