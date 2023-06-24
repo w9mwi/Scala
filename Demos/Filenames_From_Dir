@@ -146,6 +146,17 @@ object Demo
         if (myChar != '_'  ||  (myChar == '_'  &&  previousChar != '_'))
           strBuild.append(myChar)
       }
+
+      // If the char preceding the ".mp3" or ".wav" text is an underscore (_), delete it.
+      val idxOfDotChar:Int = strBuild.lastIndexOf(".")
+      if (strBuild.charAt(idxOfDotChar - 1) == '_')
+        strBuild.deleteCharAt(idxOfDotChar - 1)
+
+      // If the first char is an underscore (_), delete it.
+      if (strBuild.charAt(0) == '_')
+        strBuild.deleteCharAt(0)
+
+      // Add the StringTuple to the ArrayBuffer.
       result += new StringTuple(origFilename, strBuild.toString())
     }
     result
