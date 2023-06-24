@@ -30,7 +30,8 @@ as a Float number.
 
 object Demo
 {
-  def squareMethod(number: Float): Float = number * number // Method definition.
+  // Define the method.
+  def squareMethod(number: Float): Float = number * number
 
   def main(args: Array[String]): Unit = {
     // The following line calls squareMethod(), and prints its returned result.
