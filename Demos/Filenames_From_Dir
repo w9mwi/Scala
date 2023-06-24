@@ -141,10 +141,10 @@ object Demo
       // The following println() is used for DEBUGGING.
       println(s"BEFORE=${x._1}\nAFTER =${x._2}\n")
 
-      // NOTE: Both the Files and Path classes are Java classes.
-      val path:Path = Files.move(Paths.get(dirPath + x._1),  // x._1 is the original filename.
-        Paths.get(dirPath + x._2),  // x._2 is the new filename.
-        StandardCopyOption.REPLACE_EXISTING)
+      // NOTE: Both the Files class and the Paths class are Java classes.
+      Files.move(Paths.get(dirPath + x._1),  // x._1 is the original filename.
+                 Paths.get(dirPath + x._2),  // x._2 is the new filename.
+                 StandardCopyOption.REPLACE_EXISTING)
     }
   }
 
