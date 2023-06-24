@@ -25,7 +25,9 @@ will be changed in this manner:
 3) If the original filename contains multiple consecutive underscore (_)
    characters, they'll be replaced with a single underscore (_) character.
 
-4) The first character of the changed filename will never be an underscore (_) character.
+4) The first character of the changed filename will never be an underscore
+   (_) character.  The character immediately before the ".mp3" or ".wav"
+   text will never be an underscore (_) character.
 
 5) All alpha characters in the changed filename will be lower case with these two exceptions:
 
