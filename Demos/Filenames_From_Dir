@@ -8,11 +8,22 @@ val dirPath:String = "/home/tjb/junkDir/"
 
 The .mp3 and .wav filenames will be changed in this manner:
 
-1) All whitespace characters will be removed from the filename
+1) The ".mp3" and ".wav" text is NOT case sensitive.  So filenames
+   ending with ".mp3", ".mP3", ".wav", ".WaV", etc. will be changed.
+   After the filename is changed, the ".mp3" and ".wav" text will
+   always be lower case characters.
+
+2) All whitespace characters will be removed from the filename
    and replaced with the underscore (_) character.  However,
    multiple consecutive whitespace characters will be replaced
    with only a single underscore (_) character.
-   
+
+3) The first alpha character of the filename will always be changed
+   to upper case.
+
+4) If the first character following an underscore (_) character is
+   an alpha character, that alpha character will be changed to
+   upper case.
    
 
 
