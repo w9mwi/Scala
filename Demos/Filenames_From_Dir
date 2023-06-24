@@ -5,12 +5,13 @@ method is this:
 
 val dirPath:String = "/home/tjb/junkDir/"
 
-The .mp3 and .wav filenames will be changed in this manner:
+So all .mp3 and .wav files in the directory "/home/tjb/junkDir/"
+will be changed in this manner:
 
 1) The ".mp3" and ".wav" text is NOT case sensitive.  So filenames
    ending with ".mp3", ".mP3", ".wav", ".WaV", etc. will be changed.
    After the filename is changed, the ".mp3" and ".wav" text will
-   always become lower case characters.
+   become all lower case characters.
 
 2) All whitespace characters will be removed from the filename
    and replaced with the underscore (_) character.  However,
