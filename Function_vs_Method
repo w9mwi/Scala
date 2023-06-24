@@ -680,8 +680,8 @@ object Demo {
     println(func("Jupiter")) // PRINTS: String
 
     // The following code exists only to remind how
-    // case statements are often used, along with the
-    // "match" keyword, to perform pattern matching.
+    // case statements are used with the "match"
+    // keyword to perform pattern matching.
     val number: Int = 3
     val result: String = number match {
       case 1 => "One"
