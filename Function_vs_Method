@@ -668,10 +668,10 @@ object Demo {
     // gets passed the "Any" data type, returns a String.
     val func: (Any => String) = { // Assigns the function to the val func.
       case d: Double => "Double"
-      case f: Float =>  "Float"
-      case i: Int =>    "Int"
+      case f: Float  => "Float"
+      case i: Int    => "Int"
       case s: String => "String"
-      case _ =>         "Other"
+      case _         => "Other"
     }
     println(func('X'))       // PRINTS: Other
     println(func(123.456D))  // PRINTS: Double
