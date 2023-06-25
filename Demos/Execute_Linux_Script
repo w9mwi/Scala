@@ -61,7 +61,7 @@ object Demo
     // which contains the "ls -la" command.  Certain filenames returned
     // by that script file are then used to rename files.
     val dirPath:String = "/home/tjb/junkDir/"
-    // Obtain filenames via the "ls -la" command in the linuxScriptTester.sh file.
+    // Obtain filenames via the "ls -la" command in the linuxScript.sh file.
     val linuxFilesTextList:Option[String] = executeLinuxScriptFile(dirPath)
     if (linuxFilesTextList != None)
     {
@@ -77,7 +77,7 @@ object Demo
    ************************************************************************/
   def getMp3WavFilenames(filesInfo:String):Array[String] =
   {
-    // Each element of varArray will contain each row of text returned by the "ls -la" command.
+    // Each element of varArray will correspond to one row of text returned by the "ls -la" command.
     var varArray:Array[String] = filesInfo.toString.split("\n")
     val filenameIndex:Int = getFilenameIndex(varArray)
 
@@ -276,7 +276,7 @@ object Demo
     }
 
     // Create a Linux script file in the temporary directory.
-    val scriptFilename: String = tempDir.get + "/" + "linuxScriptTester.sh"
+    val scriptFilename: String = tempDir.get + "/" + "linuxScript.sh"
     val scriptFile: File = new File(scriptFilename)
 
     // Write linux command(s) to the Linux script file.
@@ -290,12 +290,12 @@ object Demo
     val command:Seq[String] = Seq(scriptFilename)
 
     // Execute the linux script file...
-    // NOTE: Calling command.! executes the linuxScriptTester.sh file, but
+    // NOTE: Calling command.! executes the linuxScript.sh file, but
     //       directs its output to the terminal.  The following line of
     //       code is commented out because we DON'T want that behavior.
     // command.!
     //
-    // Calling command.!! executes the Linux linuxScriptTester.sh
+    // Calling command.!! executes the Linux linuxScript.sh
     // file, and returns the result as a String.
     val result:String = command.!!
     scriptFile.delete // Delete the Linux script file.
