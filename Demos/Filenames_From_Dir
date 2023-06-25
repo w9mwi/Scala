@@ -72,9 +72,9 @@ object Demo
     }
   }
 
-  /**
-   * Read in-line comments for details.
-   */
+  /************************************************************************
+  * Read in-line comments for details.
+  ************************************************************************/
   def getMp3WavFilenames(filesInfo:String):Array[String] =
   {
     // Each element of varArray will contain each row of text returned by the "ls -la" command.
@@ -118,13 +118,14 @@ object Demo
     varArray
   }
 
-  /**
-   * Each element of the filenameArray passed to this method contains an
-   * original filename.  Each element of the ArrayBuffer returned by
-   * this method contains a (String, String) tuple.  The first tuple
-   * string is the original filename.  The second tuple string contains
-   * the changed filename.  Read in-line comments for details.
-   */
+
+  /************************************************************************
+  * Each element of the filenameArray passed to this method contains an
+  * original filename.  Each element of the ArrayBuffer returned by
+  * this method contains a (String, String) tuple.  The first tuple
+  * string is the original filename.  The second tuple string contains
+  * the changed filename.  Read in-line comments for details.
+  ************************************************************************/
   def transformFilenames(filenameArray:Array[String]): ArrayBuffer[StringTuple] =
   {
     val result:ArrayBuffer[StringTuple] = ArrayBuffer() // Fill and return this ArrayBuffer below.
@@ -176,9 +177,10 @@ object Demo
     result
   }
 
-  /**
-   * Obtains and returns the Linux temporary directory path as a String.
-   */
+
+  /************************************************************************
+  * Obtains and returns the Linux temporary directory path as a String.
+  ************************************************************************/
   def getTempDirectory():Option[String] =
   {
     val sysProps:SystemProperties = new SystemProperties()
@@ -186,12 +188,13 @@ object Demo
     return(tempDir)
   }
 
-  /**
-   * @param dirPath - String containing the directory path where the files exist.
-   * @param origAndNewFilenames - Each element of this ArrayBuffer is a tuple of
-   *                              type (String, String), which contains BOTH
-   *                              the original filename and the new filename.
-   */
+
+  /************************************************************************
+  * @param dirPath - String containing the directory path where the files exist.
+  * @param origAndNewFilenames - Each element of this ArrayBuffer is a tuple of
+  *                              type (String, String), which contains BOTH
+  *                              the original filename and the new filename.
+  ************************************************************************/
   def renameFiles(dirPath:String, origAndNewFilenames:ArrayBuffer[StringTuple]):Unit =
   {
     for (x <- origAndNewFilenames)
@@ -206,45 +209,47 @@ object Demo
     }
   }
 
-  /**
-   * When the "ls -la" Linux command is run, it returns text similar to this:
-   *
-   * total 588
-   * drwxr-xr-x 28 tjb  tjb    4096 Sep 29 15:11  ./
-   * drwxr-xr-x  3 root root   4096 Dec 17  2021  ../
-   * -rw-rw-r--  1 tjb  tjb       0 Sep 29 15:11  aaa.txt
-   * -rw-rw-r--  1 tjb  tjb       0 Sep 29 15:05 '     ABC    XYZ    .mp3'
-   * drwxrwxr-x  2 tjb  tjb    4096 Dec 18  2021  .android/
-   *
-   * Notice that the filenames are specified at the end of each line of text.
-   * Since the "./" file is a system file that exists in every directory,
-   * THIS METHOD RETURNS the Int index of the period (.) char in the "./"
-   * filename.  That Int index is identical for all filenames in the list.
-   *
-   * WARNING: When a filename contains whitespace chars (as shown in above
-   *          sample file list), the filename is surrounded by single quote
-   *          (') chars.  When that occurs, we know the filename index is
-   *          ONE LESS than the Int value returned by this method.  This
-   *          possibility is accounted for in the getMp3WavFilenames() method,
-   *          which must obtain the correct Int index of all filenames returned
-   *          by the "ls -la" Linux command.
-   */
+
+  /************************************************************************
+  * When the "ls -la" Linux command is run, it returns text similar to this:
+  *
+  * total 588
+  * drwxr-xr-x 28 tjb  tjb    4096 Sep 29 15:11  ./
+  * drwxr-xr-x  3 root root   4096 Dec 17  2021  ../
+  * -rw-rw-r--  1 tjb  tjb       0 Sep 29 15:11  aaa.txt
+  * -rw-rw-r--  1 tjb  tjb       0 Sep 29 15:05 '     ABC    XYZ    .mp3'
+  * drwxrwxr-x  2 tjb  tjb    4096 Dec 18  2021  .android/
+  *
+  * Notice that the filenames are specified at the end of each line of text.
+  * Since the "./" file is a system file that exists in every directory,
+  * THIS METHOD RETURNS the Int index of the period (.) char in the "./"
+  * filename.  That Int index is identical for all filenames in the list.
+  *
+  * WARNING: When a filename contains whitespace chars (as shown in above
+  *          sample file list), the filename is surrounded by single quote
+  *          (') chars.  When that occurs, we know the filename index is
+  *          ONE LESS than the Int value returned by this method.  This
+  *          possibility is accounted for in the getMp3WavFilenames() method,
+  *          which must obtain the correct Int index of all filenames returned
+  *          by the "ls -la" Linux command.
+  ************************************************************************/
   def getFilenameIndex(filenames:Array[String]):Int =
   {
     filenames(1).indexOf(".")
   }
 
-  /**
-   * This function creates a Linux script file in the Linux temporary directory.
-   * That Linux script file contains the Linux "ls -la" command for the Linux
-   * directory path that is passed to this function as an argument.  The script
-   * file is then executed and deleted.  Its result is returned as a text String
-   * in type Option[String].
-   *
-   * @param dirPath - The directory in which the "ls -la" Linux command is run.
-   * @return - An Option[String] containing the result of the "ls -la" command.
-   *           None will be returned if there's a failure.
-   */
+
+  /************************************************************************
+  * This function creates a Linux script file in the Linux temporary directory.
+  * That Linux script file contains the Linux "ls -la" command for the Linux
+  * directory path that is passed to this function as an argument.  The script
+  * file is then executed and deleted.  Its result is returned as a text String
+  * in type Option[String].
+  *
+  * @param dirPath - The directory in which the "ls -la" Linux command is run.
+  * @return - An Option[String] containing the result of the "ls -la" command.
+  *           None will be returned if there's a failure.
+  ************************************************************************/
   def executeLinuxScriptFile(dirPath:String):Option[String] =
   {
     val osName:String = sys.props("os.name").toLowerCase
@@ -285,6 +290,6 @@ object Demo
     // file, and returns the result as a String.
     val result:String = command.!!
     scriptFile.delete // Delete the Linux script file.
-    return(Option(result))
+    Option(result)
   }
 }
