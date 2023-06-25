@@ -77,19 +77,22 @@ object Demo
    ************************************************************************/
   def getMp3WavFilenames(filesInfo:String):Array[String] =
   {
-    // Each element of varArray will correspond to one row of text returned by the "ls -la" command.
-    var varArray:Array[String] = filesInfo.toString.split("\n")
-    val filenameIndex:Int = getFilenameIndex(varArray)
-
     // *****************************************************************************
-    // NOTE: This block of commented-out code could replace all the below code in
-    //       this method!  However, that's like drinking from a firehose, so the
-    //       current code will stand for now.
+    // NOTE: This block of commented-out code could replace all the existing code
+    //       in this method!  However, that's like drinking from a firehose, so
+    //       the current code will stand for now.
     //  (for (x <- filesInfo.split("\n").drop(3).filter(x => x.startsWith("-")))
-    //  yield (if (x.indexOf("'") > -1) x.substring(filenameIndex - 1) else x.substring(filenameIndex)))
+    //   yield (if (x.indexOf("'") > -1)
+    //            x.substring(getFilenameIndex(filesInfo.toString.split("\n")) - 1)
+    //          else
+    //            x.substring(getFilenameIndex(filesInfo.toString.split("\n")))))
     //  .filter(x => !x.startsWith("."))
     //  .filter(x => (x.toLowerCase.endsWith(".mp3") || x.toLowerCase.endsWith(".wav")))
     // *****************************************************************************
+
+    // Each element of varArray will correspond to one row of text returned by the "ls -la" command.
+    var varArray:Array[String] = filesInfo.toString.split("\n")
+    val filenameIndex:Int = getFilenameIndex(varArray)
 
     // The first 3 lines of text returned by running the "ls -la" Linux command
     // don't contain filenames that can be changed.  So drop them.
