@@ -105,9 +105,9 @@ object Demo
     // the filenameIndex value must be subtracted by one.  For details, read comments
     // in the getFilenameIndex() method.
     varArray = for (x <- varArray) yield
-      (if (x.indexOf("'") > -1)
-        x.substring(filenameIndex - 1)
-      else x.substring(filenameIndex))
+               (if (x.indexOf("'") > -1)
+                  x.substring(filenameIndex - 1)
+                else x.substring(filenameIndex))
 
     // In Linux, all files that begin with the period (.) character
     // are considered "hidden files".  Remove all "hidden files."
