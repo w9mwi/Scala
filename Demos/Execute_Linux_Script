@@ -250,14 +250,11 @@ object Demo
 
   /************************************************************************
    * This method creates a Linux script file in the Linux temporary directory.
-   * That Linux script file contains the Linux "ls -la" command for the Linux
-   * directory path that is passed to this method as an argument.  The script
-   * file is then executed and deleted.  Its result is returned as a text String
-   * in type Option[String].
+   * That script file is then executed and deleted.  Its result is returned
+   * by this method.  Read in-line comments for details.
    *
-   * @param dirPath - The directory in which the "ls -la" Linux command is run.
-   * @return - An Option[String] containing the result of the "ls -la" command.
-   *           None will be returned if there's a failure.
+   * @param dirPath - The directory on which the Linux script will be executed.
+   * @return - None if there's a failure; otherwise, return Option[String]
    ************************************************************************/
   def executeLinuxScriptFile(dirPath:String):Option[String] =
   {
@@ -271,7 +268,7 @@ object Demo
     val tempDir:Option[String] = getTempDirectory()
     if (tempDir == None)
     {
-      println("FAIL - The operating system's temporary directory not found.")
+      println("FAIL - The operating system's temporary directory was not found.")
       return(None)
     }
 
@@ -279,24 +276,25 @@ object Demo
     val scriptFilename: String = tempDir.get + "/" + "linuxScript.sh"
     val scriptFile: File = new File(scriptFilename)
 
-    // Write linux command(s) to the Linux script file.
+    // Write the contents to the Linux script file.
     val pw:PrintWriter = new PrintWriter(scriptFile)
     pw.print("ls -la " + dirPath + "\n")
     scriptFile.setExecutable(true) // Sets the file's Linux user permission to executable.
     pw.flush()
     pw.close()
 
-    // Generate the "command" that'll execute the linux script file.
+    // Generate the "command" that'll execute the Linux script file.
     val command:Seq[String] = Seq(scriptFilename)
 
     // Execute the linux script file...
-    // NOTE: Calling command.! executes the linuxScript.sh file, but
+    //
+    // NOTE: Calling "command.!" executes the linuxScript.sh file, but
     //       directs its output to the terminal.  The following line of
-    //       code is commented out because we DON'T want that behavior.
+    //       code is commented out because we DON'T want this behavior.
     // command.!
     //
-    // Calling command.!! executes the Linux linuxScript.sh
-    // file, and returns the result as a String.
+    // Calling "command.!!" executes the Linux linuxScript.sh file,
+    // and returns its result as a String.
     val result:String = command.!!
     scriptFile.delete // Delete the Linux script file.
     Option(result)
