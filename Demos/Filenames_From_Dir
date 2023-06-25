@@ -4,8 +4,8 @@ This program demonstrates the following:
 2) How to read and write files in Scala.
 3) How to rename (move) files in Scala.
 
-The Scala program below will change all filenames that end the with the
-text ".mp3" and ".wav" that are located in this directory:
+The Scala program below will change all filenames that end with
+the text ".mp3" and ".wav", and are located in this directory:
 
 val dirPath:String = "/home/tjb/junkDir/"
 
