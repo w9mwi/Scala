@@ -4,14 +4,13 @@ This program demonstrates the following:
 2) How to read and write files in Scala.
 3) How to rename (move) files in Scala.
 
-The Scala program below will change all filenames that end the with
-the text ".mp3" and ".wav" located in the directory specified in the
-main() method.  In this example, that line of code in the main()
-method is this:
+The Scala program below will change all filenames that end the with the
+text ".mp3" and ".wav" that are located in this directory:
 
 val dirPath:String = "/home/tjb/junkDir/"
 
-So all .mp3 and .wav files in the directory "/home/tjb/junkDir/"
+The above line of code is taken from the main() method in the following
+program.  So all .mp3 and .wav files in the directory "/home/tjb/junkDir/"
 will be changed in this manner:
 
 1) The ".mp3" and ".wav" text is NOT case sensitive.  So filenames ending with
@@ -27,7 +26,7 @@ will be changed in this manner:
 
 4) The first character of the changed filename will never be an underscore
    (_) character.  The character immediately before the ".mp3" or ".wav"
-   text will never be an underscore (_) character.
+   text will also never be an underscore (_) character.
 
 5) All alpha characters in the changed filename will be lower case,
    with these two exceptions:
@@ -41,8 +40,8 @@ EXAMPLES:
 This filename:       '  ____ aBc _ _ _ _dEF__ ghi  ___JKL____.wAV'
 Will be changed to:  Abc_Def_Ghi_Jkl.wav
 
-This filename:       ' _ 1aBC .wav'
-Will be changed to:  1abc.wav
+This filename:       ' _ 1aBC .MP3'
+Will be changed to:  1abc.mp3
 
 ==============================================================================
 
