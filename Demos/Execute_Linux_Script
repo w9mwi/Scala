@@ -95,8 +95,9 @@ object Demo
     val filenameIndex:Int = getFilenameIndex(varArray)
 
     // The first 3 lines of text returned by running the "ls -la" Linux command
-    // don't contain filenames that can be changed.  So drop them.
+    // don't contain relevant filenames.  So drop them.
     varArray.drop(3)
+
     // The first char of every file returned by the "ls -la" Linux command
     // designates the file type.  If that first char is a '-' it designates
     // a regular file (not a directory file, not a network file, etc.).
@@ -105,15 +106,16 @@ object Demo
 
     // For each line of text returned by the "ls -la" Linux command, strip all leading
     // chars to obtain only the filenames.  NOTE: When a filename contains space char(s),
-    // the filenameIndex value must be subtracted by one.  For details, read comments
-    // in the getFilenameIndex() method.
+    // the filenameIndex value must be subtracted by one.  For details about this, read
+    // comments in the getFilenameIndex() method.
     varArray = for (x <- varArray) yield
                (if (x.indexOf("'") > -1)
                   x.substring(filenameIndex - 1)
                 else x.substring(filenameIndex))
 
     // In Linux, all files that begin with the period (.) character
-    // are considered "hidden files".  Remove all "hidden files."
+    // are considered "hidden files".  Remove all "hidden" filenames
+    // from varArray.
     varArray = varArray.filter(x => !x.startsWith("."))
 
     // Obtain ONLY filenames ending with ".mp3" or ".wav".
