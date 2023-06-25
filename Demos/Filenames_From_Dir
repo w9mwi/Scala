@@ -40,7 +40,7 @@ EXAMPLES:
 This filename:       '  ____ aBc _ _ _ _dEF__ ghi  ___JKL____.wAV'
 Will be changed to:  Abc_Def_Ghi_Jkl.wav
 
-This filename:       ' _ 1aBC .MP3'
+This filename:       ' _ 1ABC .MP3'
 Will be changed to:  1abc.mp3
 
 ==============================================================================
