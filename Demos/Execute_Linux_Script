@@ -65,7 +65,7 @@ object Demo
     val linuxFilesTextList:Option[String] = executeLinuxScriptFile(dirPath)
     if (linuxFilesTextList != None)
     {
-      // If this code executes, the executeLinuxScriptFile() function returned successfully.
+      // If this code executes, the executeLinuxScriptFile() method returned successfully.
       val fileNames:Array[String] = getMp3WavFilenames(linuxFilesTextList.get)
       val origAndNewFilenames:ArrayBuffer[StringTuple] = transformFilenames(fileNames)
       renameFiles(dirPath, origAndNewFilenames)
@@ -83,7 +83,7 @@ object Demo
 
     // *****************************************************************************
     // NOTE: This block of commented-out code could replace all the below code in
-    //       this function!  But that's like drinking from a firehose, so the
+    //       this method!  However, that's like drinking from a firehose, so the
     //       current code will stand for now.
     //  (for (x <- filesInfo.split("\n").drop(3).filter(x => x.startsWith("-")))
     //  yield (if (x.indexOf("'") > -1) x.substring(filenameIndex - 1) else x.substring(filenameIndex)))
@@ -249,9 +249,9 @@ object Demo
 
 
   /************************************************************************
-   * This function creates a Linux script file in the Linux temporary directory.
+   * This method creates a Linux script file in the Linux temporary directory.
    * That Linux script file contains the Linux "ls -la" command for the Linux
-   * directory path that is passed to this function as an argument.  The script
+   * directory path that is passed to this method as an argument.  The script
    * file is then executed and deleted.  Its result is returned as a text String
    * in type Option[String].
    *
