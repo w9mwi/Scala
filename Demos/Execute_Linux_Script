@@ -95,7 +95,7 @@ object Demo
     val filenameIndex:Int = getFilenameIndex(varArray)
 
     // The first 3 lines of text returned by the "ls -la" Linux command
-    // will never contain .mp3 or .wav filenames.  So drop them.
+    // don't contain any user-generated filenames.  So drop them.
     varArray.drop(3)
 
     // The first char of every file returned by the "ls -la" Linux command
