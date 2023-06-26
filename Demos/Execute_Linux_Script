@@ -79,8 +79,8 @@ object Demo
   {
     // *****************************************************************************
     // NOTE: This block of commented-out code could replace all the existing code
-    //       in this method!  However, that's like drinking from a firehose, so
-    //       the current code will stand for now.
+    //       in this method!  However, understanding this code is like drinking
+    //       from a firehose.  So the current code will stand for now.
     //  (for (x <- filesInfo.split("\n").drop(3).filter(x => x.startsWith("-")))
     //   yield (if (x.indexOf("'") > -1)
     //            x.substring(getFilenameIndex(filesInfo.toString.split("\n")) - 1)
