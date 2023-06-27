@@ -35,7 +35,7 @@ object Demo
 ===============================================
 
 The following code sample demonstrates another example of higher-order functions.
-Read in-line comments for details.
+Read the comments for details.
 
 object Demo
 {
