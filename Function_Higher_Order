@@ -25,9 +25,9 @@ object Demo
 
   def main(args: Array[String]): Unit =
   {
-    val doubleResult:Int = doubleFunc(100)                // doubleResult = 100 * 2 = 200
-    val tripleResult:Int = bind(tripleFunc, doubleResult) // tripleResult = 200 * 2 = 400
-    val quadResult:Int   = bind(quadFunc, tripleResult)
+    val doubleResult:Int = doubleFunc(100)                // doubleResult = (100 * 2) = 200
+    val tripleResult:Int = bind(tripleFunc, doubleResult) // tripleResult = (200 * 3) = 600
+    val quadResult:Int   = bind(quadFunc, tripleResult)   // quadResult   = (600 * 4) = 2400
     println(s"quadResult = $quadResult")  // PRINTS: quadResult = 2400
   }
 }
