@@ -1,10 +1,16 @@
+HIGHER-ORDER FUNCTION
+=====================
 
-
+A higher-order function is a method, or a function, that accepts an
+argument that is a function, and/or returns a function.  In the
+following code sample, the bind() method accepts the multiplyFunc()
+function as an argument, calls that function, and returns an Int
+result.  Read the comments for details.
 
 object Demo
 {
   /**
-   * Pass this bind() method the following 2 arguments:
+   * This bind() method accepts the following 2 arguments:
    *
    * @multiplyFunc - A function that multiplies 2 Int values and returns the Int result.
    * @multiplier   - An Int value.
@@ -25,3 +31,16 @@ object Demo
     println(s"quadResult = $quadResult")  // PRINTS: quadResult = 2400
   }
 }
+
+===============================================
+
+
+
+
+The following
+code defines the compose_1() and compose_2() functions that are
+higher-order functions--as they both get passed functions as parameters,
+and they both return a function.  Both compose_1() and compose_2()
+return the function f(g(x))...
+
+
