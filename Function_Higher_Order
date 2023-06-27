@@ -34,29 +34,37 @@ object Demo
 
 ===============================================
 
-In the following code sample:
-
-compose_1() is a METHOD that accepts two arguments as functions, and returns a function.
-
-compose_2 is a val that gets assigned a FUNCTION.  The function accepts three arguments.
-          The first two arguments are functions, the third argument is of type Double.
-
-Both the compose_1() method and the compose_2 function return a function.
+The following code sample demonstrates another example of higher-order functions.
+Read in-line comments for details.
 
 object Demo
 {
-  val plus5  = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
-  val square = (x:Double) => x*x    // EQUIVALENT TO:  def square(x:Double):Double = x*x
+  /**
+   * compose_1() is a METHOD that accepts two arguments as functions, and returns a function.
+   */
+  def compose_1(f: Double => Double, g: Double => Double): (Double => Double) = { x => f(g(x)) }
 
-  // The following compose_1() function gets passed 2 functions as params (f and g),
-  // and returns a function that gets passed a Double and returns a Double.
-  def compose_1(f:Double => Double, g:Double => Double):(Double => Double) = { x => f(g(x)) }
-  val compose_2 = (f:Double => Double, g:Double => Double, x:Double) => f(g(x))
+  /**
+   * compose_2 is a val that gets assigned a FUNCTION.  The function accepts three arguments.
+   *           The first two arguments are functions, the third argument is of type Double.
+   */
+  val compose_2:(((Double=>Double), (Double=>Double), Double) => Double) =
+      (f: Double => Double, g: Double => Double, x: Double) => f(g(x))
+
+  // plus5 is a val that get assigned a function.
+  // The plus5 function could be rewritten as a method like this:
+  // def plus5(x:Double):Double = x+5.0
+  val plus5:(Double => Double)  = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
+
+  // square is a val that get assigned a function.
+  // The square function could be rewritten as a method like this:
+  // def square(x:Double):Double = x*x
+  val square:(Double => Double) = (x:Double) => x*x    // EQUIVALENT TO:  def square(x:Double):Double = x*x
 
   def main(args: Array[String])
   {
-    val a:(Double => Double) = compose_1(plus5, square) // EQUIVALENT TO:  val a  = compose_1(plus5, square)
-    val b                    = compose_1(square, plus5) // EQUIVALENT TO:  val b:(Double => Double) = compose_1(square, plus5)
+    val a:(Double => Double) = compose_1(plus5, square)
+    val b:(Double => Double) = compose_1(square, plus5)
 
     println("a(3) = " + a(3)) // PRINTS: a(3) = 14.0
     println("b(3) = " + b(3)) // PRINTS: b(3) = 64.0
@@ -67,15 +75,3 @@ object Demo
     println("compose_2(square, plus5,  3) = " + compose_2(square, plus5, 3)) // PRINTS: compose_2(square, plus5,  3) = 64.0
   }
 }
-
-
-
-
-
-The following
-code defines the compose_1() and compose_2() functions that are
-higher-order functions--as they both get passed functions as parameters,
-and they both return a function.  Both compose_1() and compose_2()
-return the function f(g(x))...
-
-
