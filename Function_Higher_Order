@@ -79,9 +79,9 @@ object Demo
 
 ======================================================================
 
-The following code sample contains a function named "funcOfGunc", which
+The following code sample contains a function named funcOfGunc(), which
 is a higher-order function because it accepts functions as its arguments,
-and returns a function.  The functions that funcOfGunc accepts as
+and returns a function.  The functions that funcOfGunc() accepts as
 arguments, and the function it returns are all "parametric functions"
 because they work on generic data types.
 
@@ -91,22 +91,26 @@ object Demo
 
   def main(args:Array[String]): Unit =
   {
-    val plus5  = (x:Double) => x+5
-    val square = (x:Double) => x*x
+    // Define the plus5() and square() functions, assigning them each to a val.
+    val plus5:(Double=>Double)  = (x:Double) => x+5
+    val square:(Double=>Double) = (x:Double) => x*x
 
-    // First, test the plus5 and square functions defined above...
-    println("plus5(3)  = " + plus5(3))  // Prints: plus5(3)  = 8.0
-    println("square(3) = " + square(3)) // Prints: square(3) = 9.0
+    // Test the plus5() and square() functions.
+    println("plus5(3)  = " + plus5(3))  // PRINTS: plus5(3)  = 8.0
+    println("square(3) = " + square(3)) // PRINTS: square(3) = 9.0
 
-    // Next, initialize myFunc so it points to funcOfGunc...
+    // The funcOfGunc function accepts two arguments that are both functions,
+    // and returns a function.  Invoke funcOfGunc by passing it two
+    // functions, and assign its returned result (which is a function)
+    // to the val myFunc().
     val myFunc:(Double=>Double) = funcOfGunc(plus5, square)
 
-    // Finally, call myFunc with a numeric value and print the result...
+    // Finally, call myFunc() with a numeric value and print the result...
     var result:Double = myFunc(7.0D)
     println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
 
-    // Instead of creating an interim myFunc val above, we can call funcOfGunc
-    // here in one step by calling it as a curried function...
+    // Instead of creating the val myFunc above, here we invoke funcOfGunc()
+    // in one step by calling it as a curried function.
     result = funcOfGunc(plus5, square)(7.0D)
     println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
   }  
