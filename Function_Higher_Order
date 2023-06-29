@@ -79,15 +79,42 @@ object Demo
 
 ======================================================================
 
-The following code sample contains a function named funcOfGunc(), which
-is a higher-order function because it accepts functions as its arguments,
-and returns a function.  The functions that funcOfGunc() accepts as
-arguments, and the function it returns are all "parametric functions"
-because they work on generic data types.
+The following code sample defines a function named funcOfGunc().  What
+makes funcOfGunc() a function (and not a method) is that it returns
+a function.  Any function that accepts an argument that's a function,
+and/or returns a function, s considered a higher-order function.  So
+funcOfGunc() is a higher-ordered function.
+
+Also note, the functions that funcOfGunc() accepts as arguments, and the
+function funcOfGunc() returns, are all "parametric functions" because they
+work on generic data types.
 
 object Demo
 {
+  // NOTICE: The funcOfGunc() function defined below returns a function.  After you
+  //         invoke funcOfGunc() by passing it its two arguments, it returns a
+  //         function, which makes it a partially-applied function.  To make the
+  //         funcOfGunc() function fully applied, its returned function must be
+  //         invoked.  (Once a partially-applied function no longer returns a
+  //         function, it becomes a fully-applied function.)
+  //
+  //         Any function that can be partially applied is classified as a curried
+  //         function.  funcOfGunc() is a curried function because it must be invoked
+  //         more than once until it becomes fully applied.  funcOfGunc() can be
+  //         invoked the following two ways.
+  //
+  //         1) Invoking funcOfGunc() in this manner returns a function, which makes it
+  //            a partially-applied function.
+  //
+  //            funcOfGunc(func_1, func_2)
+  //
+  //         2) Invoking funcOfGunc() in this manner returns a function, and then it invokes the returned
+  //            function by passing to it the value 12.34.  So the function becomes fully applied.
+  //
+  //            funcOfGunc(func_1, func_2)(12.34)
+  //         
   def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
+
 
   def main(args:Array[String]): Unit =
   {
