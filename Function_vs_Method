@@ -252,8 +252,9 @@ ANONYMOUS FUNCTION
 
 READ --> https://www.baeldung.com/scala/functions-methods
 
-An anonymous function is a function that does not have a name.  In the "FUNCTION"
-section above, we wrote a function and assigned it to val squareFunction, like this:
+An anonymous function is a function that does not have a name, and is not
+bound to a class/object/trait.  In the "FUNCTION" section above, we wrote
+a function and assigned it to the val squareFunction, like this:
 
 val squareFunction: (Float => Float) = { (number: Float) => number * number }
 
@@ -266,8 +267,8 @@ because it has no name--it's an anonymous function.  When a method or a function
 accepts a function as an argument, you can pass that argument a function in any
 of these 3 ways:
 
-1) Pass the argument a method that's been transformed into a function via
-   an Eta Expansion.  (See the "ETA EXPANSION" section above.)
+1) Pass the argument a method that's been transformed into a function
+   via an Eta Expansion.  (See the "ETA EXPANSION" section above.)
 
 2) Pass the argument a val/var that points to a function, like the
    val squareFunction shown above.
@@ -279,7 +280,7 @@ of these 3 ways:
 
    Which is an anonymous function because it has no name.  Notice it's also
    the same code that defines the val squareFunction above.  THIS IS HOW
-   AN ANONYMOUS FUNCTION IS COMMONLY USED IN SCALA CODE.
+   ANONYMOUS FUNCTION ARE MOSTLY USED IN SCALA CODE.
 
 The Scala API contains hundreds of methods that accept a function as an argument.
 For example, List.map() requires a function to be passed as its argument.  When a
