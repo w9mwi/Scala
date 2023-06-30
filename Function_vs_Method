@@ -252,10 +252,39 @@ ANONYMOUS FUNCTION
 
 READ --> https://www.baeldung.com/scala/functions-methods
 
+An anonymous function is a function that does not have a name.  In the "FUNCTION"
+section above, we wrote a function and assigned it to val squareFunction, like this:
+
+val squareFunction: (Float => Float) = { (number: Float) => number * number }
+
+If only the code on the right side of the equal sign (=) existed, like this...
+
+(number: Float) => number * number
+
+...the program would still compile, but you'd never be able to call the function
+because it has no name--it's an anonymous function.  When a method or a function
+accepts a function as an argument, you can pass that argument a function in any
+of these 3 ways:
+
+1) Pass the argument a method that's been transformed into a function via
+   an Eta Expansion.  (See the "ETA EXPANSION" section above.)
+
+2) Pass the argument a val/var that points to a function, like the
+   val squareFunction shown above.
+
+3) Pass the argument an anonymous function.  So instead of passing the argument
+   squareFunction, you could instead pass to the argument this code:
+
+   (number: Float) => number * number
+
+   Which is an anonymous function because it has no name.  Notice it's also
+   the same code that defines the val squareFunction above.  THIS IS HOW
+   AN ANONYMOUS FUNCTION IS COMMONLY USED IN SCALA CODE.
+
 The Scala API contains hundreds of methods that accept a function as an argument.
 For example, List.map() requires a function to be passed as its argument.  When a
-method/function accepts a function as an argument, you can pass it an ANONYMOUS
-FUNCTION, as the following example demonstrates.
+method/function accepts a function as an argument, you can pass the argument an
+anonymous function, as the following example demonstrates.
 
 NOTE: When an ANONYMOUS FUNCTION is written using the rocket symbol (=>)
       the token(s) on the left side of "=>" represents the argument(s)
@@ -275,13 +304,18 @@ object Demo
 
     // The following line defines an anonymous function, and assigns it to the var result.
     var result:(Int, Int) => Int = (a:Int, b:Int) => a+b  // Anonymous Function is: (a:Int, b:Int) => a+b
-    // The following line calls the function assigned to the var result.
-    println(result(222, 444)) // PRINTS: 666
+
+    // Both of the following 2 lines invoke the same function!
+    println(result(222, 444))                  // PRINTS: 666
+    println(((a:Int, b:Int) => a+b)(222, 444)) // PRINTS: 666
 
     // The following line defines an anonymous function, and assigns it to the var result.
     // This anonymous function is IDENTICAL to the one above, but its syntax is different.
     result = (_:Int)+(_:Int)  // // Anonymous Function is: (_:Int)+(_:Int)
-    println(result(444, 222)) // PRINTS: 666
+
+    // Both of the following 2 lines invoke the same function!
+    println(result(444, 222))            // PRINTS: 666
+    println(((_:Int)+(_:Int))(444, 222)) // PRINTS: 666
   }
 }
 
