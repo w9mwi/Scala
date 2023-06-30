@@ -86,8 +86,16 @@ joe.printPerson()  // Invokes the Person.printPerson() method on the "joe" Perso
 
 FUNCTION
 ========
+READ --> https://www.baeldung.com/scala/functions-methods
+
 Unlike a method (which is ALWAYS bound to a class/object/trait), a function is NEVER bound
 to a class/object/trait.
+
+All functions in Scala are objects of type Function, with a corresponding trait named
+Function0 through Function22.  So when you write any function, Scala translates it into
+a Scala object (named Function), plus a corresponding trait named Function0 - Function22.
+Where the trait Function0 accepts no arguments, trait Function1 accepts 1 argument, etc.
+All the way through trait Function22, which accepts 22 arguments.
 
 If "joe" is an instance of a class named Person, and printPerson() is a function,
 the function printPerson() CAN'T be a member of the Person class.  Therefore, you
