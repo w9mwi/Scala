@@ -239,6 +239,9 @@ object Demo
 
 ANONYMOUS FUNCTION
 ==================
+
+READ --> https://www.baeldung.com/scala/functions-methods
+
 The Scala API contains hundreds of methods that accept a function as an argument.
 For example, List.map() requires a function to be passed as its argument.  When a
 method/function accepts a function as an argument, you can pass it an ANONYMOUS
