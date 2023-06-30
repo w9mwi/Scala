@@ -90,9 +90,9 @@ FUNCTION
 ========
 READ --> https://www.baeldung.com/scala/functions-methods
 
-All functions in Scala are objects of type Function, which is always implemented with
-a corresponding trait.  The corresponding trait that the object Function implements
-will have one of these names:
+All functions in Scala are objects of type Function, which implements a trait
+corresponding to the number of arguments the function accepts.  These are the
+possible names of all traits that the object Function will implement:
 
 Function0  (If the function accepts 0 arguments.)
 Function1  (If the function accepts 1 arguments.)
@@ -103,8 +103,8 @@ Function22  (If the function accepts 22 arguments, which is the maximum limit.)
 So when you write any function, Scala translates that function into a Scala object
 (named Function) which implements one of the 22 traits named above.
 
-Unlike a method (which is ALWAYS bound to a class/object/trait), a function
-is NEVER bound to a class/object/trait.
+As was just explained, a function is its own Function object.  So unlike a Scala
+method, a Scala function is NEVER a member of some other class/object/trait.
 
 Assume "joe" is an instance of a class named Person, and printPerson() is a function,
 the function printPerson() CAN'T be a member of the Person class.  Therefore, you
