@@ -90,9 +90,9 @@ FUNCTION
 ========
 READ --> https://www.baeldung.com/scala/functions-methods
 
-All functions in Scala are objects of type Function, which implements a trait
-corresponding to the number of arguments the function accepts.  These are the
-possible names of all traits that the object Function will implement:
+All functions in Scala are objects of type Function, which extends a trait
+corresponding to the number of arguments the function accepts.  These are
+the 23 names of the traits that the object Function can extend:
 
 Function0  (If the function accepts 0 arguments.)
 Function1  (If the function accepts 1 arguments.)
@@ -101,7 +101,7 @@ Function2  (If the function accepts 2 arguments.)
 Function22  (If the function accepts 22 arguments, which is the maximum limit.)
 
 So when you write any function, Scala translates that function into a Scala object
-(named Function) which implements one of the 22 traits named above.
+(named Function) which extends one of the 23 traits named above.
 
 As was just explained, a function is its own Function object.  So unlike a Scala
 method, a Scala function is NEVER a member of some other class/object/trait.
