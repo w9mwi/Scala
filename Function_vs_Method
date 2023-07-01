@@ -105,12 +105,10 @@ So when you write any function, Scala translates that function into a Scala obje
 As was just explained, a function is its own Function object.  So unlike a Scala
 method, a Scala function is NEVER a member of some other class/object/trait.
 
-Assume "joe" is an instance of a class named Person, and printPerson() is a function,
-the function printPerson() CAN'T be a member of the Person class.  Therefore, you
-CAN'T invoke the printPerson() function by calling it like this:
-
-joe.printPerson()  // This works ONLY if printPerson() is a method,
-                   // NOT if printPerson() is a function.
+Assume you write a class named named Person.  When you define methods inside the Person
+class, they are bound to the Person class.  If you write a function in the Person
+class, the function can be assigned to a val/var that's a member of the Person class,
+but the function itself won't be a member of the Person class.
 
 When you write a Scala method the "def" keyword is REQUIRED.  But a Scala function
 is NEVER written using the "def" keyword.  Code samples of how to write Scala
