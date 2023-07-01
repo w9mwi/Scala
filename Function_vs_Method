@@ -1,12 +1,11 @@
-
-READ THIS LINK ABOUT FUNCTIONAL PROGRAMMING
---> https://www.infoworld.com/article/3613715/what-is-functional-programming-a-practical-guide.html
+READ THESE LINKS ABOUT FUNCTIONS VS. METHODS
+--> https://www.baeldung.com/scala/functions-methods
 --> http://jim-mcbeath.blogspot.com/2009/05/scala-functions-vs-methods.html
 
 
 
 The words "method" and "function" are often used interchangeably as if
-a method and a function are the same.  In Scala there are important
+a method and a function are identical.  In Scala there are important
 differences between a method and a function that the programmer should
 know.  This section explains methods, functions, and how they differ.
 
