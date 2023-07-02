@@ -111,6 +111,9 @@ object Demo
   }
 }
 
+A Scala method is ALWAYS bound to a class/object/trait.  But a Scala function is
+NOT bound to a class/object/trait.
+
 
 
 ===========================
