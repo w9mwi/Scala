@@ -79,15 +79,14 @@ object Demo
 
 ======================================================================
 
-The following code sample defines a function named funcOfGunc().  What
-makes funcOfGunc() a function (and not a method) is that it returns
-a function.  Any function that accepts an argument that's a function,
-and/or returns a function, s considered a higher-order function.  So
-funcOfGunc() is a higher-ordered function.
+Recall, a higher-order function is a method, or a function, that accepts
+an argument that is a function, and/or returns a function.  Based on that
+criteria, the funcOfGunc() method in the below code sample is considered
+a higher-order function.
 
-Also note, the functions that funcOfGunc() accepts as arguments, and the
-function funcOfGunc() returns, are all "parametric functions" because they
-work on generic data types.
+NOTICE: The functions that funcOfGunc() accepts as arguments, and the
+function that funcOfGunc() returns, are "parametric functions" because
+they work on generic data types.
 
 object Demo
 {
@@ -103,13 +102,14 @@ object Demo
   //         more than once until it becomes fully applied.  funcOfGunc() can be
   //         invoked the following two ways.
   //
-  //         1) Invoking funcOfGunc() in this manner returns a function, which makes it
-  //            a partially-applied function.
+  //         1) Invoking funcOfGunc() in the following manner returns a function,
+  //            which makes it a partially-applied function.
   //
   //            funcOfGunc(func_1, func_2)
   //
-  //         2) Invoking funcOfGunc() in this manner returns a function, and then it invokes the returned
-  //            function by passing to it the value 12.34.  So the function becomes fully applied.
+  //         2) Invoking funcOfGunc() in the following manner first returns a function,
+  //            then it invokes the returned function by passing to it the value 12.34,
+  //            which makes the function fully applied.
   //
   //            funcOfGunc(func_1, func_2)(12.34)
   //         
