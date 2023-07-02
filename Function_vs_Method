@@ -131,24 +131,18 @@ Scala function:
    }
 
 REPEAT:  A Scala method is ALWAYS bound to a class/object/trait.
-         A  Scala function is NEVER bound to a class/object/trait.
+         A Scala function is NEVER bound to a class/object/trait.
 
 When Scala compiles code that become a function (code that you don't see),
-the function is a Scala objects named Function.  The object Function will
-always extend a trait corresponding to the number of arguments the function
-accepts.  These are the 23 trait names that the object Function can extend:
+the function becomes a Scala object named Function, which also extends
+a trait corresponding to the number of arguments the function accepts.
+These are the 23 trait names that the object Function can extend:
 
 Function0  (If the function accepts 0 arguments.)
 Function1  (If the function accepts 1 arguments.)
 Function2  (If the function accepts 2 arguments.)
 ...
 Function22  (If the function accepts 22 arguments, which is the maximum limit.)
-
-So when you write any function, Scala translates that function into a Scala object
-(named Function), which extends one of the 23 traits named above.
-
-As was just explained, a function is its own Function object.  So unlike a Scala
-method, a Scala function is NEVER a member of some other class/object/trait.
 
 A NOTE ABOUT SCALA FUNCTION DATA TYPES...
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
