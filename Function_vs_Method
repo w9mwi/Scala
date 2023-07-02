@@ -110,11 +110,12 @@ Scala function:
 
 3) You can write code that is a function, then assign it to a val/var, as shown in
    the following example.  This code is very similar to the code sample immediately
-   above in the section titled "METHOD".  In the code below the function cannot be
-   written so that the function itself is a member of the Person class (as a method
-   can be a member of the Person class).  Instead, the function is assigned to the
-   val func in the Person class.  Only the val func is a member of the Person class,
-   not the stand-alone function itself.
+   above in the section titled "METHOD".  A function cannot be written so that the
+   function itself is a member of the Person class (as a method can be a member of
+   the Person class).  Instead, the Person class contains a val, and the function
+   is assigned to it.  The function is then invoked by referencing the val, as shown
+   in the main() method below.  Again, only the val func is a member of the Person
+   class.  A stand-alone function on its own CAN'T be a member of a class/object/trait.
 
    object Demo
    {
@@ -129,11 +130,10 @@ Scala function:
      }
    }
 
-   To repeat:  A Scala method is ALWAYS bound to a class/object/trait.
-               A  Scala function is NEVER bound to a class/object/trait.
+REPEAT:  A Scala method is ALWAYS bound to a class/object/trait.
+         A  Scala function is NEVER bound to a class/object/trait.
 
-
-When Scala compiles code that become a function (code that dodn't see),
+When Scala compiles code that become a function (code that you don't see),
 the function is a Scala objects named Function.  The object Function will
 always extend a trait corresponding to the number of arguments the function
 accepts.  These are the 23 trait names that the object Function can extend:
@@ -150,25 +150,24 @@ So when you write any function, Scala translates that function into a Scala obje
 As was just explained, a function is its own Function object.  So unlike a Scala
 method, a Scala function is NEVER a member of some other class/object/trait.
 
-=======================
-
+A NOTE ABOUT SCALA FUNCTION DATA TYPES...
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
 contains the rocket symbol (=>).  On the LEFT SIDE of the rocket symbol (=>) is the data
 type of each argument passed to the function.  On the RIGHT SIDE of the rocket symbol (=>)
 is the data type returned by the function.
 
 Examples of how a function's data type is written:
-
-Int=>String                 (Data type of a function that accepts an Int argument, and returns a String value.)
-(Int,Char,Float)=>Boolean   (Data type of a function that accepts Int, Char, and Float arguments, and returns a Boolean value.)
+()=>Char                    (Data type of a function that accepts no arguments, returns a Char value.)
+Int=>String                 (Data type of a function that accepts an Int argument, returns a String value.)
+(Int,Char,Float)=>Boolean   (Data type of a function that accepts an Int, Char, Float argument, returns a Boolean value.)
 
 A NOTE ABOUT PARAMETRIC (GENERIC) DATA TYPES...
 Assume you define a method that accepts a number as an argument, squares that number,
 and returns the result.  Typically, the argument passed to that method, and the
-returned value, must have a specific data type (i.e., an Int, a Float, a Double).
-However, Scala methods can be defined to accept parametric data types as arguments,
-and can return a parametric data type.  (A parametric data type is also known as
-a generic data type.)
+returned value, has a specific data type (i.e., an Int, a Float, a Double).  However,
+Scala methods can be defined to accept parametric data types as arguments, and can
+return a parametric data type.  (A parametric data type is also known as a generic
+data type.)
 
 For example, a method named squareNumber() could be defined to accept a generic
 data type as an argument, and return a generic data type as a result.  So you
@@ -176,8 +175,8 @@ could pass squareNumber() an argument of any valid numeric type (Int, Float,
 Double), and it would return that same data type as a result.
 
 IMPORTANT:
-Only Scala methods (NOT functions) can be written to accept and return generic
-data types.  To learn more about generic data types, read this section:
+Only Scala methods (NOT functions) can be written to accept and return paramatized
+(generic) data types.  To learn more about generic data types, read this section:
 https://github.com/w9mwi/Scala/blob/master/Parametric_Method
 
 
