@@ -89,6 +89,31 @@ FUNCTION
 ========
 READ --> https://www.baeldung.com/scala/functions-methods
 
+When you write a Scala method the "def" keyword is REQUIRED.  But a Scala function
+is NEVER written using the "def" keyword.  You can transform a Scala method into
+a Scala function by performing an Eta Expansion on the method, which is explained
+in the below section titled "ETA EXPANSION" below.  You can also write a function as
+an Anonymous Function (a function that has no name), which is explained in below
+section titled "ANONYMOUS FUNCTION".  The third way to write a Scala function is to
+write the function's code and assign it to a val/var.  When a function is assigned to
+a val/var, that function gets invoked by referencing the val/var.  Here is an example:
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // The following line of code ASSIGNS a function to the val squareFunction.
+    val squareFunction: (Float => Float) = { (number: Float) => number * number }
+
+    // The following line of code INVOKES the function assigned to val squareFunction.
+    println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}")
+    // PRINTS: squareFunction(123.456F) = 15241.384
+  }
+}
+
+
+
+===========================
 All functions in Scala are objects of type Function, which extends a trait
 corresponding to the number of arguments the function accepts.  These are
 the 23 names of the traits that the object Function can extend:
@@ -105,14 +130,12 @@ So when you write any function, Scala translates that function into a Scala obje
 As was just explained, a function is its own Function object.  So unlike a Scala
 method, a Scala function is NEVER a member of some other class/object/trait.
 
+=======================
+
 Assume you write a class named named Person.  When you define methods inside the Person
 class, they are bound to the Person class.  If you write a function in the Person
 class, the function can be assigned to a val/var that's a member of the Person class,
-but the function itself won't be a member of the Person class.
-
-When you write a Scala method the "def" keyword is REQUIRED.  But a Scala function
-is NEVER written using the "def" keyword.  Code samples of how to write Scala
-functions are shown further below.
+but the function itself is NOT a member of the Person class.
 
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
 contains the rocket symbol (=>).  On the LEFT SIDE of the rocket symbol (=>) is the data
@@ -142,25 +165,7 @@ Only Scala methods (NOT functions) can be written to accept and return generic
 data types.  To learn more about generic data types, read this section:
 https://github.com/w9mwi/Scala/blob/master/Parametric_Method
 
-When you write a function, you can assign the function to a val/var.  When a function
-is assigned to a val/var, that function gets invoked by referencing the val/var as
-is shown in the following example.
 
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    // The following line of code ASSIGNS a function to the val squareFunction.
-    val squareFunction: (Float => Float) = { (number: Float) => number * number }
-
-    // The following line of code INVOKES the function assigned to val squareFunction.
-    println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}")
-    // PRINTS: squareFunction(123.456F) = 15241.384
-  }
-}
-
-Besides assigning a function to a val/var, there are other ways to write functions.
-Alternative ways to write functions are shown in examples below.  (Keep reading.)
 
 ==========================================================================================
 
