@@ -75,13 +75,22 @@ as a val, like this:
 
 val number:Int = 123
 
-A Scala method is ALWAYS bound to a class/object/trait.  In other words, a method
-IS A MEMBER of a class/object/trait.  Assume a class named Person is defined, and
-it contains a method named printPerson().  If we instantiate the Person class and
-assign it to a val named "joe", we can then invoke the printPerson() method with
-the following code because printPerson() is a member of the Person class.
+A Scala method is ALWAYS bound to some class/object/trait.  In other words, a method
+IS A MEMBER of some class/object/trait.  The following code demonstrates this by
+showing that the method Person.printPerson() is invoked via the instantiated
+Person class, which is assigned to the val joe.
 
-joe.printPerson()  // Invokes the Person.printPerson() method on the "joe" Person class.
+object Demo
+{
+  case class Person(name:String, yearBorn:Int) {
+    def printPerson = println(s"Name = $name,  Born = $yearBorn")
+  }
+
+  def main(args:Array[String]): Unit = {
+    val joe:Person = Person("Joe", 1963)
+    joe.printPerson  // PRINTS: Name = Joe,  Born = 1963
+  }
+}
 
 ==========================================================================================
 
@@ -90,36 +99,44 @@ FUNCTION
 READ --> https://www.baeldung.com/scala/functions-methods
 
 When you write a Scala method the "def" keyword is REQUIRED.  But a Scala function
-is NEVER written using the "def" keyword.  You can transform a Scala method into
-a Scala function by performing an Eta Expansion on the method, which is explained
-in the below section titled "ETA EXPANSION" below.  You can also write a function as
-an Anonymous Function (a function that has no name), which is explained in below
-section titled "ANONYMOUS FUNCTION".  The third way to write a Scala function is to
-write the function's code and assign it to a val/var.  When a function is assigned to
-a val/var, that function gets invoked by referencing the val/var.  Here is an example:
+is NEVER written using the "def" keyword.  Here are the three ways to create a
+Scala function:
 
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    // The following line of code ASSIGNS a function to the val squareFunction.
-    val squareFunction: (Float => Float) = { (number: Float) => number * number }
+1) You can transform a Scala method into a Scala function by performing an Eta Expansion
+   on the method, which is explained in the below section titled "ETA EXPANSION".
 
-    // The following line of code INVOKES the function assigned to val squareFunction.
-    println(s"squareFunction(123.456F) = ${squareFunction(123.456F)}")
-    // PRINTS: squareFunction(123.456F) = 15241.384
-  }
-}
+2) You can write a function as an Anonymous Function (a function that has no name),
+   which is explained in below section titled "ANONYMOUS FUNCTION".
 
-A Scala method is ALWAYS bound to a class/object/trait.  But a Scala function is
-NOT bound to a class/object/trait.
+3) You can write code that is a function, then assign it to a val/var, as shown in
+   the following example.  This code is very similar to the code sample immediately
+   above in the section titled "METHOD".  In the code below the function cannot be
+   written so that the function itself is a member of the Person class (as a method
+   can be a member of the Person class).  Instead, the function is assigned to the
+   val func in the Person class.  Only the val func is a member of the Person class,
+   not the stand-alone function itself.
+
+   object Demo
+   {
+     case class Person(name:String, yearBorn:Int) {
+       // The following function is assigned to the val func.
+       val func:Unit = println(s"Name = $name,  Born = $yearBorn")
+     }
+
+     def main(args:Array[String]): Unit = {
+       val joe:Person = Person("Joe", 1963)
+       joe.func  // PRINTS: Name = Joe,  Born = 1963
+     }
+   }
+
+   To repeat:  A Scala method is ALWAYS bound to a class/object/trait.
+               A  Scala function is NEVER bound to a class/object/trait.
 
 
-
-===========================
-All functions in Scala are objects of type Function, which extends a trait
-corresponding to the number of arguments the function accepts.  These are
-the 23 names of the traits that the object Function can extend:
+When Scala compiles code that become a function (code that dodn't see),
+the function is a Scala objects named Function.  The object Function will
+always extend a trait corresponding to the number of arguments the function
+accepts.  These are the 23 trait names that the object Function can extend:
 
 Function0  (If the function accepts 0 arguments.)
 Function1  (If the function accepts 1 arguments.)
@@ -128,17 +145,12 @@ Function2  (If the function accepts 2 arguments.)
 Function22  (If the function accepts 22 arguments, which is the maximum limit.)
 
 So when you write any function, Scala translates that function into a Scala object
-(named Function) which extends one of the 23 traits named above.
+(named Function), which extends one of the 23 traits named above.
 
 As was just explained, a function is its own Function object.  So unlike a Scala
 method, a Scala function is NEVER a member of some other class/object/trait.
 
 =======================
-
-Assume you write a class named named Person.  When you define methods inside the Person
-class, they are bound to the Person class.  If you write a function in the Person
-class, the function can be assigned to a val/var that's a member of the Person class,
-but the function itself is NOT a member of the Person class.
 
 Every Scala function has a data type associated with it.  The data type of a function ALWAYS
 contains the rocket symbol (=>).  On the LEFT SIDE of the rocket symbol (=>) is the data
