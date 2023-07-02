@@ -133,7 +133,7 @@ Scala function:
 REPEAT:  A Scala method is ALWAYS bound to a class/object/trait.
          A Scala function is NEVER bound to a class/object/trait.
 
-When Scala compiles code that become a function (code that you don't see),
+When Scala compiles code that becomes a function (code that you don't see),
 the function becomes a Scala object named Function, which also extends
 a trait corresponding to the number of arguments the function accepts.
 These are the 23 trait names that the object Function can extend:
