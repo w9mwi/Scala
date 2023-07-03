@@ -4,8 +4,7 @@ HIGHER-ORDER FUNCTION
 A higher-order function is a method, or a function, that accepts an
 argument that is a function, and/or returns a function.  In the
 following code sample, the bind() method is considered a higher-order
-function--even though it's a method.  Because it accepts the multiplyFunc()
-function as an argument, calls that function, and returns an Int result.
+function--even though bind() is defined as a method.
 Read the comments for details.
 
 object Demo
