@@ -79,14 +79,14 @@ object Demo
 
 ======================================================================
 
-Recall, a higher-order function is a method, or a function, that accepts
+Recall a higher-order function is a method, or a function, that accepts
 an argument that is a function, and/or returns a function.  Based on that
 criteria, the funcOfGunc() method in the below code sample is considered
-a higher-order function.
+a higher-order function--even though funcOfGunc is defined as a method
 
-NOTICE: The functions that funcOfGunc() accepts as arguments, and the
-function that funcOfGunc() returns, are "parametric functions" because
-they work on generic data types.
+NOTICE: The 2 functions that funcOfGunc() accepts as arguments, and the function
+        that funcOfGunc() returns accept generic data types because they are
+        defined as generic data types in the funcOfGunc() method definition.
 
 object Demo
 {
