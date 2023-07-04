@@ -140,23 +140,25 @@ object Demo
     {
       // Replace whitespace chars in the filename with underscore ('_') chars...
       val str:String = origFilename.replace(" ", "_").replace("\t", "_")
-      // Declare a StringBuilder (which is mutable) that we use to build a new String.
+
       val strBuild:StringBuilder               = StringBuilder.newBuilder
       val strWithIndex:IndexedSeq[(Char, Int)] = str.zipWithIndex
       strWithIndex.foreach // Loop through the strWithIndex collection.
       {
-        // This foreach loop iterates though each (Char, Int) tuple element of
-        // strWithIndex.  The current element gets assigned to the x value below.
+        // This foreach loop iterates though each (Char, Int) tuple element of strWithIndex.
+        // The current element of strWithIndex gets assigned to the x value.
         // This x value can be referenced anywhere within this foreach loop.
         x => x
 
-        // For each loop, obtain currentChar from the current strWithIndex element.
-        // Obtain previousChar from the previous strWithIndex element.
-
+        // Obtain the Char from this element of strWithIndex (currentChar),
+        // and the Char from the previous element (previousChar).
+        // (NOTE: All Char elements together in strWithIndex represent the filename.)
         val currentChar:Char = x._1
         val previousChar:Char =
-            if (x._2 == 0) ZERO // Set the first element of strWithIndex to ZERO, which CAN'T exist in any filename.
-            else strWithIndex(x._2 - 1)._1 // previousChar is obtained from the previous element in strWithIndex.
+            if (x._2 == 0)  // (x._2 == 0) designates the first element of strWithIndex
+              ZERO          // ZERO will never match a character in a filename, which is what we want.
+            else
+              strWithIndex(x._2 - 1)._1 // previousChar is obtained from the previous element in strWithIndex.
 
         // Change the filename's chars to uppercase or lowercase based on this criteria:
         // 1) The first char of the filename is always set to uppercase.  If the filename's
