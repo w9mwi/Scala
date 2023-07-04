@@ -109,9 +109,9 @@ object Demo
     // the filenameIndex value must be subtracted by one.  For details about this, read
     // comments in the getFilenameIndex() method.
     varArray = for (x <- varArray) yield
-               (if (x.indexOf("'") > -1)
-                  x.substring(filenameIndex - 1)
-                else x.substring(filenameIndex))
+      (if (x.indexOf("'") > -1)
+        x.substring(filenameIndex - 1)
+      else x.substring(filenameIndex))
 
     // In Linux, all files that begin with the period (.) character
     // are considered "hidden files".  Remove all "hidden" filenames
@@ -145,11 +145,18 @@ object Demo
       val strWithIndex:IndexedSeq[(Char, Int)] = str.zipWithIndex
       strWithIndex.foreach // Loop through the strWithIndex collection.
       {
+        // This foreach loop iterates though each (Char, Int) tuple element of
+        // strWithIndex.  The current element gets assigned to the x value below.
+        // This x value can be referenced anywhere within this foreach loop.
+        x => x
+
         // For each loop, obtain currentChar from the current strWithIndex element.
         // Obtain previousChar from the previous strWithIndex element.
-        x => val currentChar:Char = x._1
-        val previousChar:Char = if (x._2 == 0) ZERO // Set the first element of strWithIndex to ZERO, which CAN'T exist in any filename.
-        else strWithIndex(x._2 - 1)._1 // previousChar is obtained from the previous element in strWithIndex.
+
+        val currentChar:Char = x._1
+        val previousChar:Char =
+            if (x._2 == 0) ZERO // Set the first element of strWithIndex to ZERO, which CAN'T exist in any filename.
+            else strWithIndex(x._2 - 1)._1 // previousChar is obtained from the previous element in strWithIndex.
 
         // Change the filename's chars to uppercase or lowercase based on this criteria:
         // 1) The first char of the filename is always set to uppercase.  If the filename's
@@ -168,7 +175,7 @@ object Demo
       }
       trimUnderscoreChars(strBuild)
 
-      // Add the StringTuple to the ArrayBuffer.
+      // Create a new StringTuple value, and append it the ArrayBuffer result.
       result += new StringTuple(origFilename, strBuild.toString())
     }
     result
@@ -176,8 +183,8 @@ object Demo
 
 
   /************************************************************************
-  *
-  ************************************************************************/
+   *
+   ************************************************************************/
   def trimUnderscoreChars(strBuild:StringBuilder): Unit = {
     // NOTE: All filenames passed to the strBuild argument
     //       will end with the text ".mp3" or ".wav"
@@ -218,8 +225,8 @@ object Demo
 
       // NOTE: Both the Files class and the Paths class are Java classes.
       Files.move(Paths.get(dirPath + x._1),  // x._1 is the original filename.
-                 Paths.get(dirPath + x._2),  // x._2 is the new filename.
-                 StandardCopyOption.REPLACE_EXISTING)
+        Paths.get(dirPath + x._2),  // x._2 is the new filename.
+        StandardCopyOption.REPLACE_EXISTING)
     }
   }
 
