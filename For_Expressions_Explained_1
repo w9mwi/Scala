@@ -56,7 +56,7 @@ object Demo
         p <- people               // "people" is the GENERATOR, "p" is the RECEIVER
         name = p.name             // DEFINITION
         if (name startsWith "To") // FILTER - Return only people whose names start with "To".
-      } yield name                // Return only the Person.name member from the class Person.
+      } yield name                // YIELD - Return only the Person.name member of the class Person.
 
 
     // The Scala API supplies the foreach() method for every collection.  Use the foreach()
