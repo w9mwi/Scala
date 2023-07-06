@@ -10,12 +10,12 @@ A Scala "for expression" can contain the following 3 expressions:
                         for (p <- people)  // "people" is the GENERATOR, "p" is the RECEIVER.
                           println(s"Person = $p")
 
-                        The generator is the collection that for loop iterates through.
-                        The receiver designates the val(s) that reference the current element
-                        of the collection that the for loop is iterating through.
+                        The generator is the collection that for loop iterates through.  The
+                        receiver designates the val(s) used to obtain the current element of
+                        the collection the for loop is iterating through.
 
-                        A for expression will contain multiple generator/receiver pairs when
-                        a for loop is embedded within another for loop.
+                        When a for loop is embedded within another for loop, the for expression
+                        will contain multiple generator/receiver pairs
                         
 
                         def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
