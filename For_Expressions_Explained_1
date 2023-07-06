@@ -16,14 +16,16 @@ A Scala "for expression" can contain the following 3 expressions:
                         When a for loop is embedded within another for loop, the for expression
                         will contain multiple generator/receiver pairs.
 
-2) Definition - A definition is basically a "val" declaration contained within a for loop.  For
-                each iteration of the for loop, this val gets assigned some pattern of the of
-                the collection.  A definition is OPTIONAL in a for expression--it's not required.
+2) Definition - A definition is basically a "val" declaration contained within a for loop.  For each
+                element in the collection (each iteration of the for loop), this val gets assigned
+                some part of that element.  This val can then be referenced in a for expression's
+                FILTER or YIELD section to make the code more readable.  A definition is OPTIONAL
+                in a for expression--it's not required.
 
-3) Filter - A filter is a Boolean expression contained within a for loop..  Each element of the collection
-            for which this filter expression returns False will NOT be returned by the for expression.
-            Thus, it acts to filter/remove certain elements of the collection from the result returned
-            by the for expression.  A filter is OPTIONAL in a for expression--it's not required.
+3) Filter - A filter is a Boolean expression contained within a for expression.  Each element of the
+            collection for which this filter expression returns False will NOT be returned by the for
+            expression.  Thus, it acts to filter/remove certain elements of the collection from the
+            the for expression's result.  A filter is OPTIONAL in a for expression--it's not required.
 
 4) yield - "yield" is a Scala keyword that's appears at the tail-end of a for expression.
            The expression that appears after the "yield" keyword is used to alter the
