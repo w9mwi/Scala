@@ -3,7 +3,7 @@ A Scala "for expression" can contain the following 3 expressions:
 
 1) Generator/Receiver - The "<-" operator in a for expression separates the generator and
                         the receiver.  The generator appears on the RIGHT SIDE of the "<-"
-                        operator, and the receiver appears on the LEFT side of the "<-"
+                        operator, and the receiver appears on the LEFT SIDE of the "<-"
                         operator.  In the following for expression "people" is the generator
                         and "p" is the receiver.
 
