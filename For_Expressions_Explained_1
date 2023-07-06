@@ -20,10 +20,10 @@ A Scala "for expression" can contain the following 3 expressions:
                 each iteration of the for loop, this val gets assigned some pattern of the of
                 the collection.  A definition is OPTIONAL in a for expression--it's not required.
 
-3) Filter - A filter is a Boolean expression.  Each element of the collection for which this
-            expression is False will NOT be returned by the for expression.  Thus, it acts to
-            remove certain elements in the collection from the result returned by the for
-            expression.  A filter is OPTIONAL in a for expression--it's not required.
+3) Filter - A filter is a Boolean expression contained within a for loop..  Each element of the collection
+            for which this filter expression returns False will NOT be returned by the for expression.
+            Thus, it acts to filter/remove certain elements of the collection from the result returned
+            by the for expression.  A filter is OPTIONAL in a for expression--it's not required.
 
 4) yield - "yield" is a Scala keyword that's appears at the tail-end of a for expression.
            The expression that appears after the "yield" keyword is used to alter the
