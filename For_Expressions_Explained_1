@@ -4,7 +4,7 @@ A Scala "for expression" can contain the following 3 expressions:
 1) Generator/Receiver - The "<-" operator in a for expression separates the generator and
                         the receiver.  The generator appears on the RIGHT SIDE of the "<-"
                         operator, and the receiver appears on the LEFT SIDE of the "<-"
-                        operator.  The generator is the collection that the for loop
+                        operator.  The generator references the collection that the for loop
                         iterates through.  The receiver is basically a "val" that gets
                         assigned the current element of the collection.
 
@@ -67,10 +67,7 @@ object Demo
 }
 
 
-
-
-
-
+===================================
                 For example, in the for expression shown immediately below, any person whose
                 name does NOT start with the string "To" is dropped from the result
                 based on this if() statement:   if (name startsWith "To")
@@ -92,34 +89,36 @@ object Demo
                getTheSquirrel() is the defined function which yields the squirrel...
 
                def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
+===================================
 
+Assume you want to iterate through a collection of some class, such as:
 
+* Array[String]
+* List[(Char, Boolean)]
+* Map[String, Int]
 
-The Scala compiler translates "for expressions" into
-a series of method calls that may include...
+When Scala executes a for expression on a collection, the Scala compiler translates the
+for expression into a series of method calls, consisting of one or more of these methods:
 
-foreach()    - Any class that defines this function can be used in a "BASIC FOR LOOP" (which
-               does NOT use the "yield" keyword) using a single generator, or multiple generators,
-               like this:  for (x <- intList) println(x)
-map()        - Any class used in a "for expression" (which uses the "yield" keyword)
-               MUST implement the map() function.  If the "for expression" (which uses
-               the "yield" keyword) contains MULTIPLE generators, that class MUST
-               implement BOTH the map() AND flatMap() functions.
-flatMap()    - This function enables a class to work with a "for expression" (which uses
-               the "yield" keyword) that implements MULTIPLE generators.  If a "for expression"
-               (which uses the "yield" keyword) contains ONLY ONE generator, the class needs
-               to implement ONLY the map() function--the flatMap() function won't be called,
-               so it's optional.
-withFilter() - This method enables a class to work with a filter.
+withFilter() - Enables a collection class to work with a filter in a for expression.
+               (This method is called ONLY when a for expression implements a filter.)
 
-The 4 functions listed immediately above enable a user-defined class to work
-with "for expressions" (which use the "yield" keyword).  Scala-defined classes
-that work with "for expressions" (which use the "yield" keyword) also implement
-those 4 functions.
+foreach()    - Enables a collection class to work with a for expression that DOESN'T use the "yield" keyword.
+               This foreach() method will work with a single for expression, or with multiple embedded
+               for expressions--as long as NONE of them implement the "yield" keyword.
 
-If you want your class to work well with a for expression (which uses the "yield" keyword),
-it should generally implement the 4 functions shown in the following MyCustomClass,
-with the corresponding function signatures.
+map()        - Enables a collection class to work with a for expression that DOES use the "yield" keyword.
+               This map() method works only with a single for expression, not with multiple embedded
+               for expressions.  When a collection class must work with multiple embedded for expressions,
+               the collection class MUST contain this map() method, AND the flatMap() method mentioned below.
+
+flatMap()    - Enables a collection class to work with multiple embedded for expressions that also
+               implement the "yield" keyword.
+
+Collection classes defined in the Scala API implement the 4 methods listed above--so you don't
+need to write them.  Only if you write your own collection class, would you need to write one
+or more of the above methods to make it to work with for expressions.  If you needed to write
+these methods for your own class, you'd begin with code similar to this:
 
 abstract class MyCustomClass[A]
 {
