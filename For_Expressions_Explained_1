@@ -37,12 +37,12 @@ The following code shows examples of the above.  Read comments for details.
 
 object Demo
 {
+  case class Person(name:String, yearBorn:Int)
+
   def main(args: Array[String]): Unit =
   {
-    case class Person(name:String, yearBorn:Int)
     val people:List[Person] = List(Person("Jim", 1975), Person("Sue", 1988),
                                    Person("Tom", 1999), Person("Tony", 1944))
-
     println("PART 1) =====================")
     for (p <- people)  // "people" is the GENERATOR, "p" is the RECEIVER.
       println(s"Person = $p") // PRINTS: Person = Person(Jim,1975)
@@ -51,18 +51,18 @@ object Demo
                               //         Person = Person(Tony,1944)
 
     println("PART 2) =====================")
-    val result:List[Person] =
+    val result:List[String] =
       for {
         p <- people               // "people" is the GENERATOR, "p" is the RECEIVER
         name = p.name             // DEFINITION
         if (name startsWith "To") // FILTER - Return only people whose names start with "To".
-      } yield name                // Return only the name of each element in the people List,
-                                  // that wasn't filtered out by the above filter.
+      } yield name                // Return only the Person.name member from the class Person.
+
 
     // The Scala API supplies the foreach() method for every collection.  Use the foreach()
     // method to print the result returned by the above for expression.
-    result.foreach(println) // PRINTS: Person(Tom,1999)
-                            //         Person(Tony, 1944)
+    result.foreach(println) // PRINTS: Tom
+                            //         Tony
   }
 }
 
