@@ -22,10 +22,11 @@ A Scala "for expression" can contain the following 3 expressions:
 
 3) Filter - A filter is a Boolean expression.  Each element of the collection for which this
             expression is False will NOT be returned by the for expression.  Thus, it acts to
-            filter out certain elements in the collection from the result returned by the for
+            remove certain elements in the collection from the result returned by the for
             expression.  A filter is OPTIONAL in a for expression--it's not required.
 
-4) yield - "yield" is a Scala keyword used in a for expression.
+4) yield - "yield" is a Scala keyword that's used at the tail-end of a for expression.
+           The "yield" keyword is OPTIONAL in a for expression--it's not required.
 
 The following code shows examples of the above.  Read comments for details.
 
@@ -48,9 +49,10 @@ object Demo
     val result:List[Person] =
       for {
         p <- people               // "people" is the GENERATOR, "p" is the RECEIVER
-        name = p.name             // Definition
-        if (name startsWith "To") // Filter all people whose names DON'T start with "To".
-      } yield p                   // Return each element of the people collection
+        name = p.name             // DEFINITION
+        if (name startsWith "To") // FILTER - Return only people whose names start with "To".
+      } yield name                // Return only the name of each element in the people List,
+                                  // that wasn't filtered out by the above filter.
 
     // The Scala API supplies the foreach() method for every collection.  Use the foreach()
     // method to print the result returned by the above for expression.
