@@ -1,10 +1,34 @@
 
 A Scala "for expression" can contain the following 3 expressions:
 
-1) Generator - A generator is the part of a "for expression" containing the <- operator.
-               Every "for expression" begins with a generator.  A "for expression"
-               can contain MULTIPLE generators.  The left side of a generator
-               can also be a pattern, as shown in the example below, where
+1) Generator/Receiver - The "<-" operator in a for expression separates the generator and
+                        the receiver.  The generator appears on the RIGHT SIDE of the "<-"
+                        operator, and the receiver appears on the LEFT side of the "<-"
+                        operator.  In the following for expression "people" is the generator
+                        and "p" is the receiver.
+
+                        for (p <- people)  // "people" is the GENERATOR, "p" is the RECEIVER.
+                          println(s"Person = $p")
+
+                        The generator is the collection that for loop iterates through.
+                        The receiver designates the val(s) that reference the current element
+                        of the collection that the for loop is iterating through.
+
+                        A for expression will contain multiple generator/receiver pairs when
+                        a for loop is embedded within another for loop.
+                        
+
+                        def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
+
+                        A for expression can contain MULTIPLE generator/receiver pairs, like this
+
+                        for {
+                              i <- range
+                              j <- rangeUntil
+                        } {println (s"$i, $j") }
+
+
+ , as shown in the example below, where
                getAnimals() is a function that rerurns a 3-element tuple, and
                getTheSquirrel() is the defined function which yields the squirrel...
 
