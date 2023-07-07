@@ -27,7 +27,7 @@ A Scala "for expression" can contain the following 4 expressions:
             expression.  Thus, it acts to filter/remove certain elements of the collection from the
             the for expression's result.  A filter is OPTIONAL in a for expression--it's not required.
 
-4) yield - "yield" is a Scala keyword that's appears at the tail-end of a for expression.
+4) yield - "yield" is a Scala keyword that appears at the tail-end of a for expression.
            The expression that appears after the "yield" keyword is used to alter the
            result returned by the for expression.  So both the FILTER expression and the
            YIELD expression are used to alter the result returned by a for expression.
