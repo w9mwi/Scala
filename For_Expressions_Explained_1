@@ -1,5 +1,5 @@
 
-A Scala "for expression" can contain the following 4 expressions:
+When you write a Scala "for expression", it will contain one or more of the following...
 
 1) Generator/Receiver - The "<-" operator in a for expression separates the generator and
                         the receiver.  The generator appears on the RIGHT SIDE of the "<-"
@@ -25,7 +25,7 @@ A Scala "for expression" can contain the following 4 expressions:
 3) Filter - A filter is a Boolean expression contained within a for expression.  Each element of the
             collection for which this filter expression returns False will NOT be returned by the for
             expression.  Thus, it acts to filter/remove certain elements of the collection from the
-            the for expression's result.  A filter is OPTIONAL in a for expression--it's not required.
+            for expression's result.  A filter is OPTIONAL in a for expression--it's not required.
 
 4) yield - "yield" is a Scala keyword that appears at the tail-end of a for expression.
            The expression that appears after the "yield" keyword is used to alter the
@@ -89,7 +89,7 @@ object Demo
 
     val firstNamesStartingWithB:List[String] =
         for {
-              p <- people                // This line contains the RECEIVER and GENERATOR.
+              p <- people                // "p" is the RECEIVER,  "people" is the GENERATOR.
               fname = p.firstName        // This line is the DEFINITION.
               if (fname.startsWith("B")) // This line is the FILTER.
             } yield fname.toUpperCase
@@ -99,15 +99,17 @@ object Demo
 }
 ============================================================================
 
-Assume you want use a for expression to iterate through some Scala-defined collection, such as:
+Assume you want use a for expression to iterate through some Scala-defined
+collection, such as:
 
 * Array[String]
 * List[(Char, Boolean)]
 * Map[String, Int]
 
-The Scala compiler will translate that for expression into a series of method calls,
-using one or more of the following four methods.  As these four methods are defined
-in all Scala collection classes.
+The Scala compiler will translate your for expression into a series of method calls,
+using one or more of the following four methods.  All Scala-defined collection
+classes implement these four methods to ensure they'll work with any for expression.
+(You don't need to write them yourself.)
 
 withFilter() - Enables a collection class to work with a filter in a for expression.
                (This method is called ONLY when a for expression implements a filter.)
