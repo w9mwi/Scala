@@ -108,8 +108,8 @@ collection, such as:
 
 The Scala compiler will translate your for expression into a series of method calls
 that uses one or more of the following four methods.  All Scala-defined collection
-classes implement these four methods to ensure they'll work with any for expression.
-(You don't need to write them yourself.)
+classes implement these four methods to ensure they'll work with any for expression
+that you write.
 
 withFilter() - Enables a collection class to work with a filter in a for expression.
                (This method is called ONLY when a for expression implements a filter.)
@@ -126,9 +126,8 @@ map()        - Enables a collection class to work with a for expression that DOE
 flatMap()    - Enables a collection class to work with multiple embedded for expressions that also
                implement the "yield" keyword.
 
-If you write your own custom collection class and want to make it work with a for expression, you must
-write the above four methods and make them members of your collection class.  Here's an example
-of how you could do that.
+If you write your own custom collection class and want to make it work with any for expression,
+you must write the above four methods and make them members of your collection class.
 
 abstract class CustomCollectionClass[A]
 {
