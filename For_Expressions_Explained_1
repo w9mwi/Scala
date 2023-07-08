@@ -91,14 +91,15 @@ object Demo
                def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
 ===================================
 
-Assume you want to iterate through a collection of some class, such as:
+Assume you want use a for expression to iterate through some Scala-defined collection, such as:
 
 * Array[String]
 * List[(Char, Boolean)]
 * Map[String, Int]
 
-When Scala executes a for expression on a collection, the Scala compiler translates the
-for expression into a series of method calls, consisting of one or more of these methods:
+The Scala compiler will translate that for expression into a series of method calls,
+using one or more of the following four methods.  As these four methods are defined
+in all Scala collection classes.
 
 withFilter() - Enables a collection class to work with a filter in a for expression.
                (This method is called ONLY when a for expression implements a filter.)
@@ -115,17 +116,18 @@ map()        - Enables a collection class to work with a for expression that DOE
 flatMap()    - Enables a collection class to work with multiple embedded for expressions that also
                implement the "yield" keyword.
 
-Collection classes defined in the Scala API implement the 4 methods listed above--so you don't
-need to write them.  Only if you write your own collection class, would you need to write one
+If you write your own collection class and want to make it work with a for expression, you must
+write the above four methods and make them members of your collection class.  Here's an example
+of how you could do that.  
 or more of the above methods to make it to work with for expressions.  If you needed to write
 these methods for your own class, you'd begin with code similar to this:
 
-abstract class MyCustomClass[A]
+abstract class CustomCollectionClass[A]
 {
   def foreach(func: A => Unit):Unit
-  def map[B](func: A => B):MyCustomClass[B]
-  def flatMap[B](func: A => MyCustomClass[B]):MyCustomClass[B]
-  def withFilter(func: A => Boolean):MyCustomClass[A]
+  def map[B](func: A => B):CustomCollectionClass[B]
+  def flatMap[B](func: A => CustomCollectionClass[B]):CustomCollectionClass[B]
+  def withFilter(func: A => Boolean):CustomCollectionClass[A]
 }
 
 ================================================================================
@@ -165,7 +167,7 @@ object Demo
 ================================================================================
 
 The code sample shown below defines a case class named Sequence, which
-implements the four (4) methods mentioned above in MyCustomClass[A].
+implements the four (4) methods mentioned above in CustomCollectionClass[A].
 Those 4 methods will make the Sequence case class work with "for expressions"
 (which use the "yield" keyword).  This Sequence class works with generic
 types, so it's defined below as Sequence[A], where A is the generic type.
