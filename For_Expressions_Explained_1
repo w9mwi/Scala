@@ -33,8 +33,9 @@ A Scala "for expression" can contain the following 4 expressions:
            YIELD expression are used to alter the result returned by a for expression.
            The "yield" keyword is OPTIONAL in a for expression--it's not required.
 
-The following code shows examples of the above.  Read comments for details.
-
+The following two code samples demonstrate how to write some basic for expressions.
+Read comments for details.
+============================================================================
 object Demo
 {
   case class Person(name:String, yearBorn:Int)
@@ -65,31 +66,38 @@ object Demo
                             //         Tony
   }
 }
+============================================================================
+object Demo
+{
+  case class Person(firstName:String, lastName:String)
 
+  def main(args:Array[String]): Unit =
+  {
+    val states:List[String] = List("Alabama", "Alaska", "Wisconsin", "Wyoming")
 
-===================================
-                For example, in the for expression shown immediately below, any person whose
-                name does NOT start with the string "To" is dropped from the result
-                based on this if() statement:   if (name startsWith "To")
-                        
+    var statesCapitalized:List[String]  = for (x <- states) yield x.toUpperCase
+    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
 
-                        def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
+    statesCapitalized = states.map(_.toUpperCase) // This line generates identical results to the above for expression.
+    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
 
-                        A for expression can contain MULTIPLE generator/receiver pairs, like this
+    // =================================================================
 
-                        for {
-                              i <- range
-                              j <- rangeUntil
-                        } {println (s"$i, $j") }
+    val people:List[Person] = List(Person("Barney", "Rubble"),
+                                   Person("Fred", "Flintstone"),
+                                   Person("Betty", "Rubble"))
 
+    val firstNamesStartingWithB:List[String] =
+        for {
+              p <- people                // This line contains the RECEIVER and GENERATOR.
+              fname = p.firstName        // This line is the DEFINITION.
+              if (fname.startsWith("B")) // This line is the FILTER.
+            } yield fname.toUpperCase
 
-
- , as shown in the example below, where
-               getAnimals() is a function that rerurns a 3-element tuple, and
-               getTheSquirrel() is the defined function which yields the squirrel...
-
-               def getTheSquirrel = for { (dog, cat, squirrel) <- getAnimals yield squirrel }
-===================================
+    println(firstNamesStartingWithB) // PRINTS: List(BARNEY, BETTY)
+  }
+}
+============================================================================
 
 Assume you want use a for expression to iterate through some Scala-defined collection, such as:
 
@@ -154,11 +162,11 @@ object Demo
                                    Person("Betty", "Rubble"))
 
     val firstNamesStartingWithB:List[String] =
-      for {
-            p <- people                // This line is the GENERATOR.
-            fname = p.firstName        // This line is the DEFINITION.
-            if (fname.startsWith("B")) // This line is the FILTER.
-          } yield fname.toUpperCase
+        for {
+              p <- people                // This line contains the RECEIVER and GENERATOR.
+              fname = p.firstName        // This line is the DEFINITION.
+              if (fname.startsWith("B")) // This line is the FILTER.
+            } yield fname.toUpperCase
 
     println(firstNamesStartingWithB) // PRINTS: List(BARNEY, BETTY)
   }
