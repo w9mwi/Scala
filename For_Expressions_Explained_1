@@ -106,8 +106,8 @@ collection, such as:
 * List[(Char, Boolean)]
 * Map[String, Int]
 
-The Scala compiler will translate your for expression into a series of method calls,
-using one or more of the following four methods.  All Scala-defined collection
+The Scala compiler will translate your for expression into a series of method calls
+that uses one or more of the following four methods.  All Scala-defined collection
 classes implement these four methods to ensure they'll work with any for expression.
 (You don't need to write them yourself.)
 
@@ -126,11 +126,9 @@ map()        - Enables a collection class to work with a for expression that DOE
 flatMap()    - Enables a collection class to work with multiple embedded for expressions that also
                implement the "yield" keyword.
 
-If you write your own collection class and want to make it work with a for expression, you must
+If you write your own custom collection class and want to make it work with a for expression, you must
 write the above four methods and make them members of your collection class.  Here's an example
-of how you could do that.  
-or more of the above methods to make it to work with for expressions.  If you needed to write
-these methods for your own class, you'd begin with code similar to this:
+of how you could do that.
 
 abstract class CustomCollectionClass[A]
 {
@@ -138,40 +136,6 @@ abstract class CustomCollectionClass[A]
   def map[B](func: A => B):CustomCollectionClass[B]
   def flatMap[B](func: A => CustomCollectionClass[B]):CustomCollectionClass[B]
   def withFilter(func: A => Boolean):CustomCollectionClass[A]
-}
-
-================================================================================
-This code shows a simple example of how to use a for expression.
-
-object Demo
-{
-  case class Person(firstName:String, lastName:String)
-
-  def main(args:Array[String]): Unit =
-  {
-    val states:List[String] = List("Alabama", "Alaska", "Wisconsin", "Wyoming")
-
-    var statesCapitalized:List[String]  = for (x <- states) yield x.toUpperCase
-    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
-
-    statesCapitalized = states.map(_.toUpperCase) // This line generates identical results to the above for expression.
-    println(statesCapitalized) // PRINTS:  List(ALABAMA, ALASKA, WISCONSIN, WYOMING)
-
-    // =================================================================
-
-    val people:List[Person] = List(Person("Barney", "Rubble"),
-                                   Person("Fred", "Flintstone"),
-                                   Person("Betty", "Rubble"))
-
-    val firstNamesStartingWithB:List[String] =
-        for {
-              p <- people                // This line contains the RECEIVER and GENERATOR.
-              fname = p.firstName        // This line is the DEFINITION.
-              if (fname.startsWith("B")) // This line is the FILTER.
-            } yield fname.toUpperCase
-
-    println(firstNamesStartingWithB) // PRINTS: List(BARNEY, BETTY)
-  }
 }
 
 ================================================================================
