@@ -592,133 +592,58 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
               //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
               //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
-___ flatten - The flatten() method works ONLY on data types that are iterable; which
-              means data types that you can loop through.  Virtually all Scala data
-              types (Array, List, Map, Vector, etc.) are iterable.  So the flatten()
-              method is frequently used on these data types.
+___ flatten - The flatten() method works ONLY on Scala collections that contain collections.
+              Read the following sample code for examples.
 
-              NOTE: Scala's flatMap() method is available on all Scala collection types.
-                    When flatMap() is invoked, Scala automatically calls its map() method
-                    first, followed by the flatten() method.
-
-              Invoking the flatten() method on a Scala collection is equivalent to
-              looping through the collection to obtain its contents.
-
-
-              
-              flatten() will NOT work on collections that contain
-              This may be a bit confusing at first, so here are some examples.
-
-              1) The flatten method will work on the data type Array[Array[Int]] because
-                 each element of the outer Array contains another collection, which
-                 is also an Array.  The flatten() method will also work on these data
-                 types because the outer data type is a collection that contains a
-                 collection.
-
-                 Array[List[Float]]
-                 List[Vector[Double]]
-                 List[Array[Array[Int]]]
-
-              2) The flatten() method WON'T work on the following data types because
-                 these data type DON'T contain collections.
-
-                 Array[Int]
-                 List[Float]
-                 Vector[Double]
-
-                 BE CAREFUL!  The flatten() will work on the following data types because
-                 the Scala String data type is actually a collection of Chars!
-              To put it another way, the flatten() method
-              works only on data types that are traversable, which means you can iterate
-              through them with a loop.  
-
-
-For example, the flatten() method will work
-              on the following data types because they contain 
-
-              1) Array[Array[Int]] - An Array 
-              2) An Array that contains elements of type List.
-              3) A List that contains elements of type Vector[Array[List]].
-
-
-
-              The flatten() method will NOT work on the following data types because the contents
-              of its elements are not collections, not traversable.
-
-              * Array[Int] - An Int is NOT a collection, NOT traversable.
-              * List[Double] - A Double is NOT a collection, NOT traversable.
-
-
-
-              The following code shows the results of executing the flatten method on 5 different
-              Lists.  Whenever the List.flatten method is executed it always returns a List.
-              Where the first collection contained in the original List is removed, leaving
-              only that collection's contents (elements) in the List.
-
-              When a List can no longer be flattened, the flatten() method won't compile, or will fail to execute.
-
-              val myList_1:List[Set[Int]] = List(Set(1, 2, 3), Set(1, 2, 3))
-              println("myList_1 = " + myList_1)                  // PRINTS: myList_1 = List(Set(1, 2, 3), Set(1, 2, 3))
-              println("myList_1.flatten = " + myList_1.flatten)  // PRINTS: myList_1.flatten = List(1, 2, 3, 1, 2, 3)
-
-              val myList_2:List[List[Int]] = List(List(1, 2, 3), List(3, 2, 1))
-              println("myList_2 = " + myList_2)                  // PRINTS: myList_2 = List(List(1, 2, 3), List(3, 2, 1))
-              println("myList_2.flatten = " + myList_2.flatten)  // PRINTS: myList_2.flatten = List(1, 2, 3, 3, 2, 1)
-
-              val myList_3:List[Vector[Set[Int]]] = List(Vector(Set(1, 2, 3), Set(4, 5, 6)), Vector(Set(10, 20, 30), Set(40, 50, 60)))
-              println("myList_3 = " + myList_3)
-              // PRINTS: myList_3 = List(Vector(Set(1, 2, 3), Set(4, 5, 6)), Vector(Set(10, 20, 30), Set(40, 50, 60)))
-              println("myList_3.flatten = " + myList_3.flatten)
-              // PRINTS: myList_3.flatten = List(Set(1, 2, 3), Set(4, 5, 6), Set(10, 20, 30), Set(40, 50, 60))
-              println("myList_3.flatten = " + myList_3.flatten.flatten)
-              // PRINTS: myList_3.flatten = List(1, 2, 3, 4, 5, 6, 10, 20, 30, 40, 50, 60)
-
-              val myList_4:List[String] = List("ABC", "DEF", "GHI")
-              println("myList_4 = " + myList_4) // PRINTS: myList_4 = List(ABC, DEF, GHI)
-
-              // NOTE: When you flatten a List[String], the result is a List[Char]
-              val myList_5:List[Char] = myList_4.flatten
-              println("myList_5 = " + myList_5) // PRINTS: myList_5 = List(A, B, C, D, E, F, G, H, I)
-
-              =============================================================================================
-
-              In the code sample below, notice how flatten() returns a List data type that is
-              DIFFERENT than the List data type it's executed on.
-
-              val tom1:List[List[List[String]]] = List(List(List("ABC"), List("DEF"), List("GHI")),
-                                                       List(List("RST"), List("UVW"), List("XYZ")))
-              tom1.foreach(println)    // PRINTS: List(List(ABC), List(DEF), List(GHI))
-                                       //         List(List(RST), List(UVW), List(XYZ))
-              val tom2:List[List[String]] = tom1.flatten
-              tom2.foreach(println)   // PRINTS: List(ABC)
-                                      //         List(DEF)
-                                      //         List(GHI)
-                                      //         List(RST)
-                                      //         List(UVW)
-                                      //         List(XYZ)
-              val tom3:List[String] = tom2.flatten
-              tom3.foreach(println)   // PRINTS: ABC
-                                      //         DEF
-                                      //         GHI
-                                      //         RST
-                                      //         UVW
-                                      //         XYZ
-              val tom4:List[Char] = tom3.flatten
-              tom4.foreach(println)   // PRINTS: A
-                                      // PRINTS: B
-                                      // PRINTS: C
-                                      // ...
-                                      // PRINTS: X
-                                      // PRINTS: Y
-                                      // PRINTS: Z
-              for (x <- tom4)
-              {
-                print(x + " ") // PRINTS: A B C D E F G H I R S T U V W X Y Z 
+            object Demo
+            {
+              def main(args:Array[String]): Unit = {
+            
+                // The flatten() method does NOT work on the following
+                // intArray because it contains Int values, which are
+                // NOT collections.
+                val intArray:Array[Int] = Array(123, 456, 789)
+                // intArray.flatten  // WON'T COMPILE!
+                // *************************************************
+            
+                println("EXAMPLE 1)")
+                // Here we DON'T call the flatten() method yet.
+                // We print strArray only to show its contents.
+                val strArray:Array[String] = Array("ABC", "XYZ")
+                for (x <- strArray)  println(x) // PRINTS: ABC
+                                                //         XYZ
+                // *************************************************
+            
+                println("EXAMPLE 2)")
+                // This result may be unexpected.  The flatten() method
+                // WORKS on strArray because an Array[String] type in
+                // Scala is built with an Array[Char] collection!
+                val charArray:Array[Char] = strArray.flatten
+                for (x <- charArray)  print(x)  // PRINTS: ABCXYZ
+            
+                // *************************************************
+                // Here we flatten a List, where each of its elements
+                // contains a Set.
+                println("\nEXAMPLE 3)")
+                val myList:List[Set[Int]] = List(Set(1, 2, 3), Set(9, 8, 7))
+                println(myList.flatten) // PRINTS: List(1, 2, 3, 9, 8, 7)
+                // *************************************************
+            
+                println("EXAMPLE 4)")
+                // Here's one more example that's more complex.
+                // REMEMBER: The flatten() method works ONLY on a
+                //           collection that contains a collection.
+                val vasc:Vector[Array[Set[Char]]] = Vector(Array(Set('A','B','C'), Set('D','E'), Set('F')),
+                                                           Array(Set('X', 'Y', 'Z')))
+                val vsc:Vector[Set[Char]] = vasc.flatten
+                for (x <- vsc)  print(x + " ")  // PRINTS: Set(A, B, C) Set(D, E) Set(F) Set(X, Y, Z)
+            
+                println("\nEXAMPLE 5)")
+                val vs:Vector[Char] = vsc.flatten
+                for (x <- vs)  print(x + " ")  // PRINTS: A B C D E F X Y Z
               }
-              // The following commented-out line would FAIL TO EXECUTE because
-              // a List[Char] data type can NOT be further "flattened".
-              // tom4.flatten
-              
+            }
+             
 
 ___ fold      - See foldRight code sample below.  fold is very similar to foldLeft and foldRight.
                 Like those two functions, fold is also curried function that takes two (2)
