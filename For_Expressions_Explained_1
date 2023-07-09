@@ -166,8 +166,8 @@ object Demo
     *********************************************************/
     def foreach(block: A => Unit):Unit =
     {
-      // The following line is for testing/debugging:
-      println("Sequence.foreach() method called.")
+      // The following println is for testing/debugging:
+      // println("Sequence.foreach() method called.")
 
       elems.foreach(block)
     }
@@ -177,8 +177,8 @@ object Demo
     *********************************************************/
     def map[B](func: A=>B):Sequence[B] =
     {
-      // The following line is for testing/debugging:
-      println("Sequence.map() method called.")
+      // The following println is for testing/debugging:
+      // println("Sequence.map() method called.")
 
       // Invoke the func argument passed to this method on each element
       // of the the Sequence.elems member.
@@ -194,8 +194,8 @@ object Demo
     *********************************************************/
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
     {
-      // The following line is for testing/debugging:
-      println("Sequence.flatMap() method called.")
+      // The following println is for testing/debugging:
+      // println("Sequence.flatMap() method called.")
 
       // Create an EMPTY resultListBuf, which will have new elements appended to it below.
       val resultListBuf:ListBuffer[B] = ListBuffer[B]()
@@ -203,11 +203,11 @@ object Demo
       // The following 2 for() loops replicate the behavior of the flatMap() method,
       // which is a standard method for Scala collection classes.  For each member
       // of a collection, the flatMap() method invokes the map() method first,
-      // then the flatten() method is invoked, and the result is returned. 
+      // then the flatten() method is invoked, then the result is returned. 
       //
       // Invoke the map() method defined above.  map() returns a new Sequence class,
       // where the func argument was invoked on each element of Sequence.elems member.
-      // tempSequence then contains the new result.
+      // The following for() loop iterates through each element of Sequence returned by map().
       for (tempSequence:Sequence[B] <- map(func))
       {
         // The following for() loop replicates Scala's flatten() method by
@@ -219,9 +219,9 @@ object Demo
         }
       }
 
-      // NOTE: Create and return a new Sequence class, which is the final result of
-      //       this flatMap() method.  The ":_*" text below designates a variable
-      //       number of arguments are passed to the Sequence class constructor.
+      // Create and return a new Sequence class, which is the final result of
+      // this flatMap() method.  The ":_*" text below designates a variable
+      // number of arguments are passed to the Sequence class constructor.
       Sequence(resultListBuf.toSeq:_*)
     }
 
@@ -230,7 +230,7 @@ object Demo
     *********************************************************/
     def withFilter(func: A => Boolean):Sequence[A] =
     {
-      // The following line is for testing/debugging:
+      // The following println is for testing/debugging:
       println("Sequence.withFilter() method called.")
 
       // Invoke the func passed to this withFilter() method on all
