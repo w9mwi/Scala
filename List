@@ -592,7 +592,64 @@ ___ flatMap - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_
               //  F) waterAnimals.map(x => x).flatten = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
               //  G) waterAnimals.flatMap(x => x)     = List(alewife, bass, perch, northern, walleye, eagle, duck, goose)
 
-___ flatten - Also see --> https://github.com/w9mwi/Scala/blob/master/flatMap()_and_flatten()
+___ flatten - The flatten() method works ONLY on data types that are iterable; which
+              means data types that you can loop through.  Virtually all Scala data
+              types (Array, List, Map, Vector, etc.) are iterable.  So the flatten()
+              method is frequently used on these data types.
+
+              NOTE: Scala's flatMap() method is available on all Scala collection types.
+                    When flatMap() is invoked, Scala automatically calls its map() method
+                    first, followed by the flatten() method.
+
+              Invoking the flatten() method on a Scala collection is equivalent to
+              looping through the collection to obtain its contents.
+
+
+              
+              flatten() will NOT work on collections that contain
+              This may be a bit confusing at first, so here are some examples.
+
+              1) The flatten method will work on the data type Array[Array[Int]] because
+                 each element of the outer Array contains another collection, which
+                 is also an Array.  The flatten() method will also work on these data
+                 types because the outer data type is a collection that contains a
+                 collection.
+
+                 Array[List[Float]]
+                 List[Vector[Double]]
+                 List[Array[Array[Int]]]
+
+              2) The flatten() method WON'T work on the following data types because
+                 these data type DON'T contain collections.
+
+                 Array[Int]
+                 List[Float]
+                 Vector[Double]
+
+                 BE CAREFUL!  The flatten() will work on the following data types because
+                 the Scala String data type is actually a collection of Chars!
+              To put it another way, the flatten() method
+              works only on data types that are traversable, which means you can iterate
+              through them with a loop.  
+
+
+For example, the flatten() method will work
+              on the following data types because they contain 
+
+              1) Array[Array[Int]] - An Array 
+              2) An Array that contains elements of type List.
+              3) A List that contains elements of type Vector[Array[List]].
+
+
+
+              The flatten() method will NOT work on the following data types because the contents
+              of its elements are not collections, not traversable.
+
+              * Array[Int] - An Int is NOT a collection, NOT traversable.
+              * List[Double] - A Double is NOT a collection, NOT traversable.
+
+
+
               The following code shows the results of executing the flatten method on 5 different
               Lists.  Whenever the List.flatten method is executed it always returns a List.
               Where the first collection contained in the original List is removed, leaving
