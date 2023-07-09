@@ -166,6 +166,9 @@ object Demo
     *********************************************************/
     def foreach(block: A => Unit):Unit =
     {
+      // The following line is for testing/debugging:
+      println("Sequence.foreach() method called.")
+
       elems.foreach(block)
     }
 
@@ -174,13 +177,16 @@ object Demo
     *********************************************************/
     def map[B](func: A=>B):Sequence[B] =
     {
+      // The following line is for testing/debugging:
+      println("Sequence.map() method called.")
+
+      // Invoke the func argument passed to this method on each element
+      // of the the Sequence.elems member.
       val listBuf:ListBuffer[B] = elems.map(func)
-      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
-      //       that accepts a variable number of arguments.  In this example, since
-      //       the Sequence constructor is written to accept a variable number of args,
-      //       the :_* syntax must be used with the listBuf collection.
-      Sequence(listBuf.toSeq:_*) // Return a new Sequence class where map() was run
-                                 // on all elements of the previous Sequence class.
+
+      // Return a new Sequence class.  The ":_*" text below designates a variable
+      // number of arguments are passed to the Sequence class constructor.
+      Sequence(listBuf.toSeq:_*)
     }
 
     /*********************************************************
@@ -188,34 +194,35 @@ object Demo
     *********************************************************/
     def flatMap[B](func: A => Sequence[B]):Sequence[B] =
     {
-      // Create an EMPTY resultListBuf, which will have new elements
-      // appended to it below.
+      // The following line is for testing/debugging:
+      println("Sequence.flatMap() method called.")
+
+      // Create an EMPTY resultListBuf, which will have new elements appended to it below.
       val resultListBuf:ListBuffer[B] = ListBuffer[B]()
 
       // The following 2 for() loops replicate the behavior of the flatMap() method,
       // which is a standard method for Scala collection classes.  For each member
-      // of a collection, the flatMap() method always invokes the map() method first,
-      // and then the flatten() method is invoked.
+      // of a collection, the flatMap() method invokes the map() method first,
+      // then the flatten() method is invoked, and the result is returned. 
       //
-      // Invoke the map() method above.  map() returns a new Sequence class,
-      // where the func argument was invoked on each element of Sequence.elems.
-      // listBuf then contains that result.
-      for (listBuf:Sequence[B] <- map(func))
+      // Invoke the map() method defined above.  map() returns a new Sequence class,
+      // where the func argument was invoked on each element of Sequence.elems member.
+      // tempSequence then contains the new result.
+      for (tempSequence:Sequence[B] <- map(func))
       {
         // The following for() loop replicates Scala's flatten() method by
-        // extracting each element in listBuf, and putting in a new listBuf.
-        for (elem <- listBuf)
+        // extracting each element from tempSequence, and appending it to
+        // resultListBuf.
+        for (elem <- tempSequence)
         {
           resultListBuf += elem
         }
       }
 
-      // NOTE: The :_* below is the syntax used when calling a constructor, or a method,
-      //       that accepts a variable number of arguments.  In this example, since
-      //       the Sequence constructor is written to accept a variable number of args,
-      //       the :_* syntax must be used with the resultListBuf collection.
-      Sequence(resultListBuf.toSeq:_*) // Return a new Sequence class where flatMap() was
-                                       // run on all elements of the previous Sequence class.
+      // NOTE: Create and return a new Sequence class, which is the final result of
+      //       this flatMap() method.  The ":_*" text below designates a variable
+      //       number of arguments are passed to the Sequence class constructor.
+      Sequence(resultListBuf.toSeq:_*)
     }
 
     /*********************************************************
@@ -223,38 +230,47 @@ object Demo
     *********************************************************/
     def withFilter(func: A => Boolean):Sequence[A] =
     {
-      // Invoke the func passed to this withFilter() method
-      // on all elements in the Sequence.elems member.
-      val listBuf:ListBuffer[A] = elems.filter(func)
+      // The following line is for testing/debugging:
+      println("Sequence.withFilter() method called.")
 
-      // NOTE: The ":_*" text below designates that a variable number of arguments
-      //       is passed to the Sequence case class constructor.
-      Sequence(listBuf.toSeq:_*) // Return a new Sequence class that has been filtered.
+      // Invoke the func passed to this withFilter() method on all
+      // elements of the Sequence.elems member.
+      val tempSequence:ListBuffer[A] = elems.filter(func)
+
+      // Create and return a new Sequence class, which is the final result of
+      // this withFilter() method.  The ":_*" text below designates a variable
+      //       number of arguments are passed to the Sequence class constructor.
+      Sequence(tempSequence.toSeq:_*)
     }
   } // END: case class Sequence[A]
+
 
   /*********************************************************
    *
    ********************************************************/
   def main(args:Array[String]): Unit =
   {
-    // The following 2 lines call the above Sequence constructor by passing it a variable
-    // number of arguments.  The above Sequence constructor can be called by passing to it
-    // any data type, such as Ints.  EXAMPLE:  val seqInts = Sequence(1, 2, 3, 4)
+    // The following 2 lines invoke the above Sequence constructor, which
+    // can be passed a variable number of arguments of any data type.
     val myFriends:Sequence[Person]   = Sequence(Person("Jack",   "Daniels"),  Person("Johnny", "Walker"), Person("Jim", "Beam"))
     val joesFriends:Sequence[Person] = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
 
-    // The following for loop works with MULTIPLE GENERATORS
-    // because the Sequence.flatMap() method is defined above.
+
+    // The following for expression invokes these 3 methods defined above:
+    // 1) map() 
+    // 2) flatMap()
+    // 3) withFilter()
     val mutualFriends:Sequence[Person] =
     for {
-          myFriend   <- myFriends   // This is a GENERATOR.
-          joesFriend <- joesFriends // This is another GENERATOR.
+          myFriend   <- myFriends   // "myFriend" is a RECEIVER.    "myFriends" is a GENERATOR.
+          joesFriend <- joesFriends // "joesFriend" is a RECEIVER.  "joesFriends" is a GENERATOR.
           if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
         } yield myFriend
 
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(List(Person(Jim,Beam)))
-    mutualFriends.foreach(println)              // PRINTS: Person(Jim,Beam)
+
+    // The following line of code invokes the foreach() method defined above.
+    mutualFriends.foreach(println) // PRINTS: Person(Jim,Beam)
   }
 }
 
