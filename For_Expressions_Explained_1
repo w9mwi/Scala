@@ -231,7 +231,7 @@ object Demo
     def withFilter(func: A => Boolean):Sequence[A] =
     {
       // The following println is for testing/debugging:
-      println("Sequence.withFilter() method called.")
+      // println("Sequence.withFilter() method called.")
 
       // Invoke the func passed to this withFilter() method on all
       // elements of the Sequence.elems member.
