@@ -205,14 +205,14 @@ object Demo
       // of a collection, the flatMap() method invokes the map() method first,
       // then the flatten() method is invoked, then the result is returned. 
       //
-      // Invoke the map() method defined above.  map() returns a new Sequence class,
-      // where the func argument was invoked on each element of Sequence.elems member.
-      // The following for() loop iterates through each element of Sequence returned by map().
+      // In the following for() loop, we invoke the map() method defined above.
+      // map() returns a new Sequence class, where the func argument passed to this
+      // flatMap() method was invoked on each element of the Sequence.elems member.
+      // The following for() loop iterates through each element of the Sequence
+      // returned by map().
       for (tempSequence:Sequence[B] <- map(func))
       {
-        // The following for() loop replicates Scala's flatten() method by
-        // extracting each element from tempSequence, and appending it to
-        // resultListBuf.
+        // Iterate through the tempSequence class to build the resultListBuf.
         for (elem <- tempSequence)
         {
           resultListBuf += elem
