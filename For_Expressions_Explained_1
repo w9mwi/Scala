@@ -138,7 +138,7 @@ foreach()    - Enables a collection class to invoke the foreach() method.  Invok
                      x => x // Obtain the object you're looping on, storing it in x.
                      rangeUntil.foreach {
                        y => y // Obtain the object you're looping on, storing it in y.
-                         println(s"(x, y) = ($x, $y)")
+                       println(s"(x, y) = ($x, $y)")
                      }
                    }
                    // PRINTS: (x, y) = (1, 1)
@@ -148,7 +148,7 @@ foreach()    - Enables a collection class to invoke the foreach() method.  Invok
                    //         (x, y) = (3, 1)
                    //         (x, y) = (3, 2)
 
-                   // The following code "flattens" the arrayOfLists by using nested foreach() loops,
+                   // The following code "flattens" the arrayOfLists by using invoking foreach() methods,
                    // storing the result in arrayBuf.
                    val arrayOfLists:Array[List[Int]] = Array(List(11,22,33), List(44,55,66), List(77,88,99))
                    val arrayBuf:ArrayBuffer[Int]     = ArrayBuffer[Int]()
