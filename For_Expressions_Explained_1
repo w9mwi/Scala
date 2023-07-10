@@ -1,20 +1,22 @@
 
-When you write a Scala "for expression" the for expression will contain one or more of the following:
+When you write a Scala "for expression" it will always contain a generator and
+a receiver.  (See definitions below.)  In addition to the generator and receiver,
+a for expression can optionally contain a definition, a filter, and the "yield"
+keyword, which are also explained below.
 
 1) Generator/Receiver - The "<-" operator in a for expression separates the generator and
                         the receiver.  The generator appears on the RIGHT SIDE of the "<-"
-                        operator, and the receiver appears on the LEFT SIDE of the "<-"
-                        operator.  The generator references the collection that the for loop
-                        iterates through.  The receiver is basically a "val" that gets
-                        assigned the current element of the collection.
-
-                        In the following for expression "people" is the generator and "p" is the receiver.
+                        operator.  The receiver appears on the LEFT SIDE of the "<-" operator.
+                        The generator references the collection that the for loop iterates
+                        through.  The receiver is basically a "val" that holds the current
+                        element of the collection.  Here's an example:
 
                         for (p <- people)  // "people" is the GENERATOR, "p" is the RECEIVER.
                           println(s"Person = $p")
 
-                        When a for loop is embedded within another for loop, the for expression
-                        will contain multiple generator/receiver pairs.
+                        When a for expression is nested within another for expression, multiple
+                        generator/receiver pairs will be used.  This is demonstrated in the last
+                        two code samples at the bottom of this page.
 
 2) Definition - A definition is basically a "val" declaration contained within a for loop.  For each
                 element in the collection (each iteration of the for loop), this val gets assigned
@@ -299,11 +301,11 @@ object Demo
     // 3) withFilter()
     val mutualFriends:Sequence[Person] =
         for {
-              myFriend   <- myFriends   // myFriend is the RECEIVER.  myFriends is the GENERATOR.
-             joesFriend <- joesFriends // joesFriend is the RECEIVER.  joesFriends is the GENERATOR.
-             // The following line is a FILTER, which invokes the withFilter() method.
-             if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
-           } yield myFriend
+              myFriend <- myFriends   // myFriend is the RECEIVER.  myFriends is the GENERATOR.
+              joesFriend <- joesFriends // joesFriend is the RECEIVER.  joesFriends is the GENERATOR.
+              // The following line is a FILTER, which invokes the withFilter() method.
+              if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
+            } yield myFriend
 
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(List(Person(Jim,Beam)))
 
