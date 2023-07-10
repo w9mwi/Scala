@@ -45,7 +45,7 @@ object Demo
     val people:List[Person] = List(Person("Jim", 1975), Person("Sue", 1988),
                                    Person("Tom", 1999), Person("Tony", 1944))
     println("PART 1) =====================")
-    for (p <- people)  // "people" is the GENERATOR, "p" is the RECEIVER.
+    for (p <- people)  // people is the GENERATOR, p is the RECEIVER.
       println(s"Person = $p") // PRINTS: Person = Person(Jim,1975)
                               //         Person = Person(Sue,1988)
                               //         Person = Person(Tom,1999)
@@ -53,12 +53,11 @@ object Demo
 
     println("PART 2) =====================")
     val result:List[String] =
-      for {
-        p <- people               // "people" is the GENERATOR, "p" is the RECEIVER
-        name = p.name             // DEFINITION
-        if (name startsWith "To") // FILTER - Return only people whose names start with "To".
-      } yield name                // YIELD - Return only the Person.name member of the class Person.
-
+        for {
+              p <- people               // people is the GENERATOR, p is the RECEIVER
+              name = p.name             // DEFINITION
+              if (name startsWith "To") // FILTER - Return only people whose names start with "To".
+            } yield name                // YIELD - Return only the Person.name member of the class Person.
 
     // The Scala API supplies the foreach() method for every collection.  Use the foreach()
     // method to print the result returned by the above for expression.
