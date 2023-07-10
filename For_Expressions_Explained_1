@@ -150,8 +150,8 @@ foreach()    - Enables a collection class to invoke the foreach() method.  Invok
                    //         (x, y) = (3, 1)
                    //         (x, y) = (3, 2)
 
-                   // The following code "flattens" the arrayOfLists by using invoking foreach() methods,
-                   // storing the result in arrayBuf.
+                   // The following code "flattens" the arrayOfLists by invoking nested
+                   // foreach() methods, and stores the result in arrayBuf.
                    val arrayOfLists:Array[List[Int]] = Array(List(11,22,33), List(44,55,66), List(77,88,99))
                    val arrayBuf:ArrayBuffer[Int]     = ArrayBuffer[Int]()
                    arrayOfLists.foreach {
@@ -316,7 +316,7 @@ object Demo
 
 ================================================================================
 
-Here's one more example that demonstrates...
+The below code example demonstrates the following:
 
 1) The use of for expressions using the "yield" keyword.
 2) The withFilter() method.
