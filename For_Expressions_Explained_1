@@ -292,20 +292,23 @@ object Demo
     val joesFriends:Sequence[Person] = Sequence(Person("Joseph", "Schlitz"),  Person("George", "Jones"),  Person("Jim", "Beam"))
 
 
-    // The following for expression invokes these 3 methods defined above:
-    // 1) map() 
+    // The for expression obtains and prints all Person classes in myFriends and joesFriends
+    // that contain the same person.  That result is assigned to the val mutualFriends.
+    // The following for expression invokes these 3 methods, which are defined above:
+    // 1) map()
     // 2) flatMap()
     // 3) withFilter()
     val mutualFriends:Sequence[Person] =
-    for {
-          myFriend   <- myFriends   // "myFriend" is a RECEIVER.    "myFriends" is a GENERATOR.
-          joesFriend <- joesFriends // "joesFriend" is a RECEIVER.  "joesFriends" is a GENERATOR.
-          if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
-        } yield myFriend
+        for {
+              myFriend   <- myFriends   // myFriend is the RECEIVER.  myFriends is the GENERATOR.
+             joesFriend <- joesFriends // joesFriend is the RECEIVER.  joesFriends is the GENERATOR.
+             // The following line is a FILTER, which invokes the withFilter() method.
+             if (myFriend.firstName == joesFriend.firstName &&  myFriend.lastName  == joesFriend.lastName)
+           } yield myFriend
 
     println("mutualFriends = " + mutualFriends) // PRINTS: mutualFriends = Sequence(List(Person(Jim,Beam)))
 
-    // The following line of code invokes the foreach() method defined above.
+    // The following line invokes the foreach() method that's defined above.
     mutualFriends.foreach(println) // PRINTS: Person(Jim,Beam)
   }
 }
