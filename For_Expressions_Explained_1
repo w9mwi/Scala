@@ -114,9 +114,11 @@ you write.
 withFilter() - Enables a collection class to work with a filter in a for expression.
                (This method is called ONLY when a for expression implements a filter.)
 
-foreach()    - Enables a collection class to work with a for expression that DOESN'T use the "yield" keyword.
-               This foreach() method will work with a single for expression, or with multiple embedded
-               for expressions--as long as NONE of them implement the "yield" keyword.
+foreach()    - Enables a collection class to invoke the foreach() method.  Invoking foreach()
+               on a collection is equivalent to iterating through all elements of the collection
+               with a for() loop.  If a collection contains a collection, that contains another
+               collection, you can invoke foreach.foreach on the parent collection, which
+               is equivalent to writing a nested for() loop.
 
 map()        - Enables a collection class to work with a for expression that DOES use the "yield" keyword.
                This map() method works only with a single for expression, not with multiple embedded
@@ -163,12 +165,12 @@ object Demo
     /*********************************************************
     * 
     *********************************************************/
-    def foreach(block: A => Unit):Unit =
+    def foreach(collection: A => Unit):Unit =
     {
       // The following println is for testing/debugging:
       // println("Sequence.foreach() method called.")
 
-      elems.foreach(block)
+      elems.foreach(collection)
     }
 
     /*********************************************************
