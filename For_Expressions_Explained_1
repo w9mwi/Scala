@@ -11,7 +11,7 @@ keyword, which are also explained below.
                         through.  The receiver is basically a "val" that holds the current
                         element of the collection.  Here's an example:
 
-                        for (p <- people)  // "people" is the GENERATOR, "p" is the RECEIVER.
+                        for (p <- people)  // people is the GENERATOR, p is the RECEIVER.
                           println(s"Person = $p")
 
                         When a for expression is nested within another for expression, multiple
