@@ -155,10 +155,10 @@ foreach()    - Enables a collection class to invoke the foreach() method.  Invok
                    val arrayBuf:ArrayBuffer[Int]     = ArrayBuffer[Int]()
                    arrayOfLists.foreach {
                      x => x // Obtain the object you're looping on, storing it in x.
-                     x.foreach  {
-                         y => y // Obtain the object you're looping on, storing it in y.
-                         arrayBuf += y
-                       }
+                     x.foreach {
+                       y => y // Obtain the object you're looping on, storing it in y.
+                       arrayBuf += y
+                     }
                    }
                    println(arrayBuf) // PRINTS: ArrayBuffer(11, 22, 33, 44, 55, 66, 77, 88, 99)
                  }
