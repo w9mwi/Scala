@@ -111,22 +111,59 @@ that uses one or more of the following four methods.  All Scala-defined collecti
 classes implement these four methods to ensure they'll work with any for expression
 you write.
 
-withFilter() - Enables a collection class to work with a filter in a for expression.
-               (This method is called ONLY when a for expression implements a filter.)
-
-foreach()    - Enables a collection class to invoke the foreach() method.  Invoking foreach()
-               on a collection is equivalent to iterating through all elements of the collection
-               with a for() loop.  If a collection contains a collection, that contains another
-               collection, you can invoke foreach.foreach on the parent collection, which
-               is equivalent to writing a nested for() loop.
+flatMap()    - Enables a collection class to work with multiple embedded for expressions that also
+               implement the "yield" keyword.
 
 map()        - Enables a collection class to work with a for expression that DOES use the "yield" keyword.
                This map() method works only with a single for expression, not with multiple embedded
                for expressions.  When a collection class must work with multiple embedded for expressions,
                the collection class MUST contain this map() method, AND the flatMap() method mentioned below.
 
-flatMap()    - Enables a collection class to work with multiple embedded for expressions that also
-               implement the "yield" keyword.
+withFilter() - Enables a collection class to work with a filter in a for expression.
+               (This method is called ONLY when a for expression implements a filter.)
+
+foreach()    - Enables a collection class to invoke the foreach() method.  Invoking foreach()
+               on a collection is equivalent to iterating through all elements of the collection
+               using a for() loop.  Here's a code sample showing how to use the foreach() method
+               on some Scala collections.
+               ====================================================
+               import scala.collection.mutable.{ArrayBuffer}
+               object Demo
+               {
+                 def main(args:Array[String]): Unit =
+                 {
+                   val range:Range.Inclusive = 1 to 3
+                   val rangeUntil:Range      = 1 until 3
+
+                   range.foreach {
+                     x => x // Obtain the object you're looping on, storing it in x.
+                     rangeUntil.foreach {
+                       y => y // Obtain the object you're looping on, storing it in y.
+                         println(s"(x, y) = ($x, $y)")
+                     }
+                   }
+                   // PRINTS: (x, y) = (1, 1)
+                   //         (x, y) = (1, 2)
+                   //         (x, y) = (2, 1)
+                   //         (x, y) = (2, 2)
+                   //         (x, y) = (3, 1)
+                   //         (x, y) = (3, 2)
+
+                   // The following code "flattens" the arrayOfLists by using nested foreach() loops,
+                   // storing the result in arrayBuf.
+                   val arrayOfLists:Array[List[Int]] = Array(List(11,22,33), List(44,55,66), List(77,88,99))
+                   val arrayBuf:ArrayBuffer[Int]     = ArrayBuffer[Int]()
+                   arrayOfLists.foreach {
+                     x => x // Obtain the object you're looping on, storing it in x.
+                     x.foreach  {
+                         y => y // Obtain the object you're looping on, storing it in y.
+                         arrayBuf += y
+                       }
+                   }
+                   println(arrayBuf) // PRINTS: ArrayBuffer(11, 22, 33, 44, 55, 66, 77, 88, 99)
+                 }
+               }
+               ====================================================
 
 If you write your own collection class and want to make it work with any type of for expression,
 you must write the above four methods and make them members of your collection class.  The
@@ -134,10 +171,10 @@ four methods would have signatures corresponding to the method definitions shown
 
 abstract class CustomCollectionClass[A]
 {
-  def foreach(func: A => Unit):Unit
-  def map[B](func: A => B):CustomCollectionClass[B]
   def flatMap[B](func: A => CustomCollectionClass[B]):CustomCollectionClass[B]
+  def map[B](func: A => B):CustomCollectionClass[B]
   def withFilter(func: A => Boolean):CustomCollectionClass[A]
+  def foreach(func: A => Unit):Unit
 }
 
 ================================================================================
