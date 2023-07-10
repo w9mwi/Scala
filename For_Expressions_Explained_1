@@ -1,5 +1,5 @@
 
-When you write a Scala "for expression", it will contain one or more of the following...
+When you write a Scala "for expression" it will contain one or more of the following...
 
 1) Generator/Receiver - The "<-" operator in a for expression separates the generator and
                         the receiver.  The generator appears on the RIGHT SIDE of the "<-"
