@@ -311,11 +311,26 @@ object Demo
 }
 
 ================================================================================
-Below are more examples of how to write for() expressions.
+
+Here's one more example that demonstrates...
+
+1) The use of for expressions using the "yield" keyword.
+2) The withFilter() method.
+3) The map() method.
+4) The flatMap() method.
 
 object Demo {
+  // The children argument passed to the Person class constructor
+  // accepts a variable number of arguments, which is designated
+  // by the asterisk (*) char.
   case class Person(name:String, isMale:Boolean, children:Person*)
 
+  /************************************
+   * This is a RECURSIVE method that removes duplicate elements from
+   * the List passed to this method.  The first element (the "head")
+   * of the List passed to this method will always remain because after
+   * all duplicates are removed, the first element can't be a duplicate.
+   ***********************************/
   def removeDuplicates[A](xs:List[A]):List[A] = {
     if (xs.isEmpty) xs
     else xs.head :: removeDuplicates(xs.tail.filter(x => x != xs.head))
@@ -325,13 +340,14 @@ object Demo {
    * main()
    ***********************************/
   def main(args: Array[String]): Unit = {
-    val lara = Person("Lara", false)
-    val bob  = Person("Bob",  true)
-    val julie = Person("Julie", false, lara, bob)
-    val persons = List(lara, bob, julie)
+    val lara:Person          = Person("Lara", false)
+    val bob:Person           = Person("Bob",  true)
+    val julie:Person         = Person("Julie", false, lara, bob)
+    val persons:List[Person] = List(lara, bob, julie)
 
     // EXAMPLE 1:
-    var result1:List[(String, String)] = persons.filter(p => !p.isMale).flatMap(p => p.children.map(c => (p.name, c.name)))
+    var result1:List[(String, String)] =
+        persons.filter(p => !p.isMale).flatMap(p => p.children.map(c => (p.name, c.name)))
     println(result1) // PRINTS: List((Julie,Lara), (Julie,Bob))
 
     // EXAMPLE 2: Identical to EXAMPLE 1 except persons.filter() is replaced with persons.withFilter().
@@ -344,22 +360,22 @@ object Demo {
 
     // EXAMPLE 4:
     var result2:List[String] = for {
-                        p <- persons
-                        n = p.name
-                        if (n.startsWith("Bo"))
-                      } yield n
+      p <- persons
+      n = p.name
+      if (n.startsWith("Bo"))
+    } yield n
     println(result2) // PRINTS: List(Bob)
 
     // EXAMPLE 5:
     // NOTE: The following for() expression generates a result DIFFERENT than EXAMPLE 4.
-    var result3:List[Person] = for {
-                                     p <- persons
-                                     if p.name.startsWith("Bo")
-                                   } yield p
+    val result3:List[Person] = for {
+      p <- persons
+      if p.name.startsWith("Bo")
+    } yield p
     println(result3) // PRINTS: List(Person(Bob,true,WrappedArray()))
 
     // EXAMPLE 6:
-    var result4:List[(Int,String)] = for (x <- List(1,2); y <- List("one","two")) yield (x,y)
+    val result4:List[(Int,String)] = for (x <- List(1,2); y <- List("one","two")) yield (x,y)
     println(result4) // PRINTS: List((1,one), (1,two), (2,one), (2,two))
 
     // EXAMPLE 7:
@@ -369,7 +385,7 @@ object Demo {
                                 Book("Programming in Modula-2", "Wirth", "Worthless"),
                                 Book("ML Programming", "Ullman", "Gookers"),
                                 Book("The Java Language Specs", "Joy", "Gosling", "Steele"))
-    var result5:List[String] = for (b <- books; a <- b.authors;  if a.startsWith("Gosling")) yield b.title
+    val result5:List[String] = for (b <- books; a <- b.authors;  if a.startsWith("Gosling")) yield b.title
     println(result5) // PRINTS: List(The Java Language Specs)
 
     result2 = for (b <- books; if b.title.indexOf("Program") >= 0) yield b.title
@@ -381,10 +397,8 @@ object Demo {
                    a1 <- b1.authors; a2 <- b2.authors; if (a1 == a2)) yield a1
     println(result2) // PRINTS: List(Ullman, Ullman)
 
-    // Here we remove the duplicates from result2.
+    // Remove duplicate elements from the result2 List.
     result2 = removeDuplicates(result2)
     println(result2) // PRINTS: List(Ullman)
   }
 }
-
-================================================================================
