@@ -200,16 +200,14 @@ object Demo
       // Create an EMPTY resultListBuf, which will have new elements appended to it below.
       val resultListBuf:ListBuffer[B] = ListBuffer[B]()
 
-      // The following 2 for() loops replicate the behavior of the flatMap() method,
+      // The following 2 for() loops replicate the behavior of Scala's flatMap() method,
       // which is a standard method for Scala collection classes.  For each member
-      // of a collection, the flatMap() method invokes the map() method first,
-      // then the flatten() method is invoked, then the result is returned. 
+      // of a collection, the flatMap() method invokes the map() method first;
+      // then the flatten() method is invoked, and a result is returned. 
       //
-      // In the following for() loop, we invoke the map() method defined above.
-      // map() returns a new Sequence class, where the func argument passed to this
-      // flatMap() method was invoked on each element of the Sequence.elems member.
-      // The following for() loop iterates through each element of the Sequence
-      // returned by map().
+      // The following for() loop invokes map(func), which returns
+      // a new Sequence class.  Each element of that Sequence class
+      // is used to build resultListBuf.
       for (tempSequence:Sequence[B] <- map(func))
       {
         // Iterate through the tempSequence class to build the resultListBuf.
