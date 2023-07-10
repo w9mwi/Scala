@@ -151,15 +151,14 @@ object Demo
   case class Person(firstName:String, lastName:String)
   case class Sequence[A](private val initialElems: A*) // A* designates a variable number of args of type A.
   {
-    // When this Sequence constructor is called it creates an elems
-    // instance, which represents all elements in this Sequence class.
-    // EXAMPLE:  As you can call the List constructor like this: List(1, 2, 3),
-    //           you can call the Sequence constructor like this: Sequence(1, 2, 3)
-    //           The Demo.main() method below calls this Sequence constructor,
-    //           where the number of args it gets passed is variable.
+    // The val elems below is the collection that this Sequence class represents.
+    // The val elems is defined as a generic type, so it can hold any data type.
+    // See the main() method below to see how an instance of this Sequence class
+    // gets instantiated.
     private val elems:ListBuffer[A] = ListBuffer[A]()
     elems ++= initialElems // The ++= operator for the ListBuffer class appends multiple elements.
-    // NOTE: "elems ++= initialElems" above could be replaced with:  for { x <- initialElems } elems += x
+    // The above line "elems ++= initialElems" could be replaced with this commented-out line:
+    // for { x <- initialElems } elems += x
 
     /*********************************************************
     * 
