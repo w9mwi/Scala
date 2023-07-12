@@ -82,42 +82,31 @@ object Demo
 
 ======================================================================
 
-Recall a higher-order function is a method, or a function, that accepts
+Recall that a higher-order function is a method, or a function, that accepts
 an argument that is a function, and/or returns a function.  Based on that
 criteria, the funcOfGunc() method in the below code sample is considered
 a higher-order function--even though funcOfGunc is defined as a method
 
 NOTICE: The 2 functions that funcOfGunc() accepts as arguments, and the function
-        that funcOfGunc() returns accept generic data types because they are
+        that funcOfGunc() returns, accept generic data types because they are
         defined as generic data types in the funcOfGunc() method definition.
 
 object Demo
 {
-  // NOTICE: The funcOfGunc() function defined below returns a function.  After you
-  //         invoke funcOfGunc() by passing it its two arguments, it returns a
-  //         function, which makes it a partially-applied function.  To make the
-  //         funcOfGunc() function fully applied, its returned function must be
-  //         invoked.  (Once a partially-applied function no longer returns a
-  //         function, it becomes a fully-applied function.)
-  //
-  //         Any function that can be partially applied is classified as a curried
-  //         function.  funcOfGunc() is a curried function because it must be invoked
-  //         more than once until it becomes fully applied.  funcOfGunc() can be
-  //         invoked the following two ways.
-  //
-  //         1) Invoking funcOfGunc() in the following manner returns a function,
-  //            which makes it a partially-applied function.
-  //
-  //            funcOfGunc(func_1, func_2)
-  //
-  //         2) Invoking funcOfGunc() in the following manner first returns a function,
-  //            then it invokes the returned function by passing to it the value 12.34,
-  //            which makes the function fully applied.
-  //
-  //            funcOfGunc(func_1, func_2)(12.34)
-  //         
+  /*******************************************************************************
+   * Any function that accepts MULTIPLE argument lists is a curried function.
+   * The funcOfGunc() method defined below is a curried function because it
+   * accepts TWO argument lists.  When you invoke funcOfGunc() with only one
+   * argument list, it returns a function, which makes it a partially-applied
+   * function.  When you invoke that returned function by passing to it a
+   * generic numeric value (Int, Float, Double), a final numeric result is
+   * returned, making funcOfGunc() a fully-applied function.
+   *
+   * When this funcOfGunc() method becomes fully applied by passing to it a
+   * numeric value (Int, Float, Double), it first invokes the gunc() function,
+   * and then it invokes the func() function.
+   *******************************************************************************/
   def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
-
 
   def main(args:Array[String]): Unit =
   {
@@ -129,22 +118,17 @@ object Demo
     println("plus5(3)  = " + plus5(3))  // PRINTS: plus5(3)  = 8.0
     println("square(3) = " + square(3)) // PRINTS: square(3) = 9.0
 
-    // The funcOfGunc function accepts two arguments that are both functions,
-    // and returns a function.  Invoke funcOfGunc by passing it two
-    // functions, and assign its returned result (which is a function)
-    // to the val myFunc().
-    val myFunc:(Double=>Double) = funcOfGunc(plus5, square)
+    // The following line invokes funcOfGunc() as a partially-applied function,
+    // by calling it with only one of its two argument lists.
+    val partiallyAppliedFunc:(Double=>Double) = funcOfGunc(plus5, square)
+    // Invoking the partially-applied function returned by funcOfGunc()
+    // below makes it fully applied.
+    var result:Double = partiallyAppliedFunc(7.0D)
+    println(s"Result 1 = $result") // PRINTS: Result 1 = 54.0  (NOTE: 54.0 = (7.0*7.0) + 5.0)
 
-    // Finally, call myFunc() with a numeric value and print the result...
-    var result:Double = myFunc(7.0D)
-    println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
-
-    // Instead of creating the val myFunc above, here we invoke funcOfGunc()
-    // in one step by calling it as a curried function.
-    result = funcOfGunc(plus5, square)(7.0D)
-    println("result = " + result) // Prints: result = 54.0  (NOTE: 54.0 = 5.0+(7.0*7.0))
-  }  
+    // The following line invokes funcOfGunc() as a fully-applied function,
+    // by calling it with both of its two argument lists at once.
+    result = funcOfGunc(square, plus5)(7.0D)
+    println(s"Result 2 = $result") // PRINTS: Result 2 = 144.0  (NOTE: 144.0 = (7.0+5.0) * 12.0)
+  }
 }
-
-
-
