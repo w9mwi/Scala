@@ -106,7 +106,7 @@ object Demo
    * numeric value (Int, Float, Double), it first invokes the gunc() function,
    * and then it invokes the func() function.
    *******************************************************************************/
-  def funcOfGunc[A,B,C](func:(B=>A), gunc:(C=>B)):(C=>A) = { x=>func(gunc(x)) }
+  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
   def main(args:Array[String]): Unit =
   {
