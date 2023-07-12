@@ -40,26 +40,29 @@ Read the comments for details.
 object Demo
 {
   /**
-   * compose_1() is a METHOD that accepts two arguments as functions, and returns a function.
+   * compose_1() is a METHOD that accepts two arguments that are both functions,
+   *             and returns a function.
    */
   def compose_1(f: Double => Double, g: Double => Double): (Double => Double) = { x => f(g(x)) }
 
   /**
    * compose_2 is a val that gets assigned a FUNCTION.  The function accepts three arguments.
    *           The first two arguments are functions, the third argument is of type Double.
+   *           It returns a type Double.
    */
-  val compose_2:(((Double=>Double), (Double=>Double), Double) => Double) =
-      (f: Double => Double, g: Double => Double, x: Double) => f(g(x))
+  val compose_2:(((Double=>Double), (Double=>Double), Double) => Double) = {
+    (f: Double => Double, g: Double => Double, x: Double) => f(g(x))
+  }
 
   // plus5 is a val that get assigned a function.
   // The plus5 function could be rewritten as a method like this:
-  // def plus5(x:Double):Double = x+5.0
-  val plus5:(Double => Double)  = (x:Double) => x+5.0  // EQUIVALENT TO:  def plus5(x:Double):Double = x+5.0
+  // def plus5(x:Double):Double = x + 5.0
+  val plus5:(Double => Double) = (x:Double) => x + 5.0
 
   // square is a val that get assigned a function.
   // The square function could be rewritten as a method like this:
   // def square(x:Double):Double = x*x
-  val square:(Double => Double) = (x:Double) => x*x    // EQUIVALENT TO:  def square(x:Double):Double = x*x
+  val square:(Double => Double) = (x:Double) => x * x
 
   def main(args: Array[String])
   {
@@ -69,9 +72,10 @@ object Demo
     println("a(3) = " + a(3)) // PRINTS: a(3) = 14.0
     println("b(3) = " + b(3)) // PRINTS: b(3) = 64.0
 
-    // The following 2 calls to compose_2() are identical
-    // to the above two function calls a(3) and b(3)...
+    // The following line is equivalent to calling:  a(3)
     println("compose_2(plus5,  square, 3) = " + compose_2(plus5, square, 3)) // PRINTS: compose_2(plus5,  square, 3) = 14.0
+
+    // The following line is equivalent to calling:  b(3)
     println("compose_2(square, plus5,  3) = " + compose_2(square, plus5, 3)) // PRINTS: compose_2(square, plus5,  3) = 64.0
   }
 }
