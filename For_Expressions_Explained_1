@@ -1,8 +1,8 @@
 
 When you write a Scala "for expression" it will always contain a generator and
-a receiver.  (See definitions below.)  In addition to the generator and receiver,
-a for expression can optionally contain a definition, a filter, and the "yield"
-keyword, which are also explained below.
+a receiver.  In addition to the generator and receiver, a for expression can
+optionally contain a definition, a filter, and the "yield" keyword.  These are
+all explained here.
 
 1) Generator/Receiver - The "<-" operator in a for expression separates the generator and
                         the receiver.  The generator appears on the RIGHT SIDE of the "<-"
