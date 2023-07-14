@@ -1,18 +1,23 @@
 
-A PARAMETRIC METHOD is defined to accept any data type that applies to
-the method's algorithm.  For example, instead of defining 3 different
-add() methods to work with data types Int, Float, and Double, you can
-write a single add() method as a parametric method, so it'll work with
-all 3 of those data types.
+A parametric method is a method defined to accept any data type that applies
+to the method's algorithm.  For example, a single method named add() can be
+made woth work with 3 different data types (Int, Float, Double), when the
+add() method is written to accept a parametric data type.
+
+Parametric data types are often referred to as generic data types.  So...
+
+Prametric Data Type = Generic Data Type
 
 The following code sample shows this by defining the add() method so it calls
-Scala's Numeric.plus() method via a an implicit parameter.  The add method
+Scala's Numeric.plus() method via a an implicit parameter.  The add() method
 specifies the data type as a type 'A', which designates any data type that
 works with the Numeric.plus() method.
 
-IMPORTANT: Only Scala methods can use paramaterized data types.  Scala functions
-           CAN'T be written to use paramaterized data types.  To understand
-           (and distinguish) a Scala method from a function, read this section:
+IMPORTANT: Only Scala methods (which are written using the "def" keyword)
+           can implement paramateric data types.  Scala functions (which
+           are NOT written using the "def" keyword) can't be written to use
+           paramateric data types.  To understand the difference between
+           a Scala method and a Scala function, read this section:
            https://github.com/w9mwi/Scala/blob/master/Function_vs_Method
 
 object Demo
