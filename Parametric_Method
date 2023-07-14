@@ -8,8 +8,8 @@ Parametric data types are often referred to as generic data types.  So...
 
 Parmetric Data Type = Generic Data Type
 
-The following code sample defines the add() method with its argument defined
-as a generic data type so it works with Scala's Numeric.plus() method. The
+The following code sample defines the add() method with its argument as
+a generic data type so it works with Scala's Numeric.plus() method.  The
 add() method specifies the data type as a type 'A', which designates any
 data type that works with the Numeric.plus() method.
 
