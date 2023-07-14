@@ -22,12 +22,12 @@ IMPORTANT: Only Scala methods (which are written using the "def" keyword)
 
 object Demo
 {
-  // The following add()() method is defined with two (2) parameter lists,
+  // The following add()() method is defined with two (2) argument lists,
   // which usually means it's a curried method.  However, because its
-  // second  parameter list contains an implicit argument, it's NOT a
+  // second  argument list contains an implicit argument, it's NOT a
   // curried method.  The Scala compiler automatically invokes the
   // implicit parameter when the add()() method is called with only
-  // one of its two parameter lists.
+  // one of its two argument lists.
   //
   // This code shows how to define an add method so it will work with
   // different data types (Byte, Int, Long, Float, Double).  The returned
