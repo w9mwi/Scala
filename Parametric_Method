@@ -6,12 +6,12 @@ add() method is written to accept a parametric data type.
 
 Parametric data types are often referred to as generic data types.  So...
 
-Prametric Data Type = Generic Data Type
+Parmetric Data Type = Generic Data Type
 
-The following code sample shows this by defining the add() method so it calls
-Scala's Numeric.plus() method via a an implicit parameter.  The add() method
-specifies the data type as a type 'A', which designates any data type that
-works with the Numeric.plus() method.
+The following code sample defines the add() method with its argument defined
+as a generic data type so it works with Scala's Numeric.plus() method. The
+add() method specifies the data type as a type 'A', which designates any
+data type that works with the Numeric.plus() method.
 
 IMPORTANT: Only Scala methods (which are written using the "def" keyword)
            can implement paramateric data types.  Scala functions (which
