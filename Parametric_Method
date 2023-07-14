@@ -1,7 +1,7 @@
 
 A parametric method is a method defined to accept any data type that applies
 to the method's algorithm.  For example, a single method named add() can be
-made woth work with 3 different data types (Int, Float, Double), when the
+made woth work with 3 different data types (Int, Float, Double) when the
 add() method is written to accept a parametric data type.
 
 Parametric data types are often referred to as generic data types.  So...
