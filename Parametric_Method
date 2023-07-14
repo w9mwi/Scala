@@ -77,7 +77,7 @@ object Demo
     println("result_1 = " + result_1) // PRINTS: result_1 = 21
 
     val stringList:List[String] = List("A", "B", "C")
-    val result_2:String = ourFold(stringList, "D")(_+_)
+    val result_2:String = ourFold(stringList, "D")(_ + "" + _)
     println("result_2 = " + result_2) // PRINTS: result_2 = ABCD
   }
 
@@ -91,7 +91,7 @@ object Demo
    *
    * @param list - A Scala List of type A, where A is a parameterized type.
    * @param base - A value of type A, where A is a parameterized type.
-   * @param func - A method defined by the programmer that gets passed
+   * @param func - A function defined by the programmer that gets passed
    *               a value of type A, and a value of type A.
    * @return - A value of type A.
    */
@@ -111,16 +111,22 @@ object Demo
     //       the list param becomes one (1) element smaller (because list.tail
     //       gets passed to the list argument), until the if() statement
     //       executes, which terminates the recursion.
-    if (list.isEmpty) base
-    else func(list.head, ourFold(list.tail, base)(func))
+    if (list.isEmpty)
+      base
+    else
+      func(list.head, ourFold(list.tail, base)(func))
   }
 
-  // The below makeTuple() method takes two parameters (one of type A, one of type B),
+  // myMethod() below does nothing but return the same value (and data type) it was passed.
+  // Since myMethod uses a parametric type, it will work with ALL data types.
+  def myMethod[T](t:T):T = t
+
+  // The below makeTuple() function takes two parameters (one of type A, one of type B),
   // and returns a tuple of type (A, B).
   def makeTuple[A,B](a:A, b:B):(A, B) = (a, b)
 
-  // The below makeThreeElementList() method takes three parameters all of type A,
-  // and returns a List of type A, containing the 3 values passed to this method.
+  // The below makeThreeElementList() function takes three parameters all of type A,
+  // and returns a List of type A, containing the 3 values passed to this function.
   def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
 
