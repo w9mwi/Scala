@@ -91,26 +91,38 @@ object Demo
    */
   def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
   {
-    // Every time this ourFold() method gets called recursively below,
-    // the list param becomes one (1) element smaller because list.tail
-    // gets passed to the list argument.  Finally, when the list argument
-    // passed to this method become an empty List, the if() statement
-    // executes terminating the recursion.
+    // The following if() statement is used for testing/debugging.
+    if (!list.isEmpty) {
+      val result:A = func(list.head, base)
+      if (result.isInstanceOf[Int])
+      println(s"base = $base + ${result.asInstanceOf[Int]}")
+    }
+
     if (list.isEmpty)
       base
-    else
+    else {
+      // The val intList in the main() method above is initialized to:
+      // List(1, 2, 3, 4, 5, 6)
+      // Therefore, the one line of code in this else statement
+      // is executed recursively 5 consecutive times, like this:
+      // func(1, ourFold(List(2,3,4,5,6), 0)(func)
+      // func(2, ourFold(List(3,4,5,6),   0)(func)
+      // func(3, ourFold(List(4,5,6),     0)(func)
+      // func(4, ourFold(List(5,6),       0)(func)
+      // func(5, ourFold(List(6),         0)(func)
       func(list.head, ourFold(list.tail, base)(func))
+    }
   }
 
   // myMethod() below does nothing but return the same value (and data type) it was passed.
   // Since myMethod uses a parametric type, it will work with ALL data types.
   def myMethod[T](t:T):T = t
 
-  // The below makeTuple() function takes two parameters (one of type A, one of type B),
+  // The below makeTuple() method takes two parameters (one of type A, one of type B),
   // and returns a tuple of type (A, B).
   def makeTuple[A,B](a:A, b:B):(A, B) = (a, b)
 
-  // The below makeThreeElementList() function takes three parameters all of type A,
-  // and returns a List of type A, containing the 3 values passed to this function.
+  // The below makeThreeElementList() method takes three parameters all of type A,
+  // and returns a List of type A, containing the 3 values passed to this method.
   def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
