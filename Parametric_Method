@@ -96,7 +96,7 @@ object Demo
     if (!list.isEmpty) {
       val result:A = func(list.head, base)
       if (result.isInstanceOf[Int])
-      println(s"base = $base + ${result.asInstanceOf[Int]}")
+      println(s"base = $base, value = ${result.asInstanceOf[Int]}")
     }
 
     if (list.isEmpty)
