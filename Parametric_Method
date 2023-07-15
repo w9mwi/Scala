@@ -95,8 +95,8 @@ object Demo
     // The following if() statement is used for testing/debugging.
     if (!list.isEmpty) {
       val result:A = func(list.head, base)
-      if (result.isInstanceOf[Int])
-        println(s"base = $base, value = ${result.asInstanceOf[Int]}")
+      if (result.isInstanceOf[A])
+        println(s"base = $base, value = ${result.asInstanceOf[A]}")
     }
 
     if (list.isEmpty)
