@@ -102,10 +102,10 @@ object Demo
     if (list.isEmpty)
       base
     else {
-      // The val intList in the main() method above is initialized to:
+      // val intList in the main() method above is initialized to:
       // List(1, 2, 3, 4, 5, 6)
-      // Therefore, the one line of code in this else statement
-      // is executed recursively 5 consecutive times, like this:
+      // Therefore, the one line of code in this else statement gets
+      // executed recursively 5 consecutive times, like this:
       // func(1, ourFold(List(2,3,4,5,6), 0)(func)
       // func(2, ourFold(List(3,4,5,6),   0)(func)
       // func(3, ourFold(List(4,5,6),     0)(func)
