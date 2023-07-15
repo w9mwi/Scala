@@ -62,6 +62,19 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
+    println("SECTION 1) ============================================")
+    // This section is super-easy.  It only demonstrates how to to write parametric
+    // methods, so the argument(s) passed to that method will accept any data type.
+
+    // Pass an argument of data type to myMethod().  It returns the same object it was passed.
+    def myMethod[T](t: T): T = t
+    // Pass any 2 data types to makeTuple().  It returns a tuple containing
+    // the 2 objects passed to it.
+    def makeTuple[A, B](a: A, b: B): (A, B) = (a, b)
+    // Pass any 3 values to makeThreeElementList(), which all have the same data type.
+    // It returns a 3-element List containing those 3 values of the same data type.
+    def makeThreeElementList[A](a1: A, a2: A, a3: A): List[A] = List(a1, a2, a3)
+
     println(myMethod('X'))           // PRINTS: X
     println(myMethod("My string"))   // PRINTS: My string
     println(myMethod(123.4F))        // PRINTS: 123.4
@@ -73,9 +86,12 @@ object Demo
     println(makeThreeElementList('X', 'Y', 'Z'))        // PRINTS: List(X, Y, Z)
     println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
 
+    println("SECTION 2) ============================================")
+
     val intList:List[Int] = List(1, 2, 3, 4, 5, 6)
-    val result_1:Int = ourFold(intList, 0)(_+_)
-    println("result_1 = " + result_1) // PRINTS: result_1 = 21
+    val result_1:Int = ourFold(intList, 0)(_-_)
+    println("result_1 = " + result_1 + " = 1-(2-(3-(4-(5-6))))")
+    // PRINTS: result_1 = -3 = 1-(2-(3-(4-(5-6))))
 
     val stringList:List[String] = List("A", "B", "C")
     val result_2:String = ourFold(stringList, "D")(_ + "" + _)
@@ -92,12 +108,14 @@ object Demo
    */
   def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
   {
-    // The following if() statement is used for testing/debugging.
-    if (!list.isEmpty) {
-      val result:A = func(list.head, base)
-      if (result.isInstanceOf[A])
-        println(s"base = $base, value = ${result.asInstanceOf[A]}")
-    }
+    // ****************************************************************
+    // The following if() statement is used for testing/debugging only.
+//    if (!list.isEmpty) {
+//      val result:A = func(list.head, base)
+//      if (result.isInstanceOf[A])
+//        println(s"base = $base, value = ${result.asInstanceOf[A]}")
+//    }
+    // ****************************************************************
 
     if (list.isEmpty)
       base
@@ -114,16 +132,4 @@ object Demo
       func(list.head, ourFold(list.tail, base)(func))
     }
   }
-
-  // myMethod() below does nothing but return the same value (and data type) it was passed.
-  // Since myMethod uses a parametric type, it will work with ALL data types.
-  def myMethod[T](t:T):T = t
-
-  // The below makeTuple() method takes two parameters (one of type A, one of type B),
-  // and returns a tuple of type (A, B).
-  def makeTuple[A,B](a:A, b:B):(A, B) = (a, b)
-
-  // The below makeThreeElementList() method takes three parameters all of type A,
-  // and returns a List of type A, containing the 3 values passed to this method.
-  def makeThreeElementList[A](a1:A, a2:A, a3:A):List[A] = List(a1, a2, a3)
 }
