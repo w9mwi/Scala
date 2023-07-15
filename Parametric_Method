@@ -88,29 +88,14 @@ object Demo
    * method gets called (by the main() method) the 'func' parameter passed to
    * it uses the '+' operator.  Therefore, both operands used by the '+' operator
    * must be of the same data type.
-   *
-   * @param list - A Scala List of type A, where A is a parameterized type.
-   * @param base - A value of type A, where A is a parameterized type.
-   * @param func - A function defined by the programmer that gets passed
-   *               a value of type A, and a value of type A.
-   * @return - A value of type A.
    */
   def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
   {
-    // NOTE: The "def ourFold..." line immediately above can be written either
-    //       of these 3 ways, and the returned result will be identical:
-    //       1) def ourFold[A](list:List[A], base:A)(func:(A,A) => A):A =
-    //       2) def ourFold[A,B](list:List[B], base:A)(func:(B,A) => A):A =
-    //       3) def ourFold[B,A](list:List[A], base:B)(func:(A,B) => B):B =
-
-    // NOTE: Every time this ourFold() method gets called recursively below,
-    //       the contents of these two (2) arguments remain UNCHANGED:
-    //       1) base
-    //       2) func
-    //       Every time this ourFold() method gets called recursively below,
-    //       the list param becomes one (1) element smaller (because list.tail
-    //       gets passed to the list argument), until the if() statement
-    //       executes, which terminates the recursion.
+    // Every time this ourFold() method gets called recursively below,
+    // the list param becomes one (1) element smaller because list.tail
+    // gets passed to the list argument.  Finally, when the list argument
+    // passed to this method become an empty List, the if() statement
+    // executes terminating the recursion.
     if (list.isEmpty)
       base
     else
