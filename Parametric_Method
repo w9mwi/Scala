@@ -220,7 +220,7 @@ object Demo
   }
 
   /**
-   * * myFoldRight - Read in-line comments below for details.
+   * myFoldRight - Read in-line comments below for details.
    *
    * This is a RECURSIVE METHOD.  The elements of the list argument passed
    * to this method must work with any operators contained within the func
