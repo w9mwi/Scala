@@ -226,7 +226,7 @@ object Demo
    * to this method must work with any operators contained within the func
    * argument passed to this method.  For Example:  If the func argument
    * passed to this method contains the '+' operator, the data type of
-   * the List's elements must be able to work work with that operator
+   * the List's elements must be able to work with that operator
    * (i.e., Int, Float, Double, String).
    */
   def myFoldRight[A](list:List[A], base:A)(func:(A,A) => A):A =
@@ -254,7 +254,7 @@ object Demo
    * to this method must work with any operators contained within the func
    * argument passed to this method.  For Example:  If the func argument
    * passed to this method contains the '+' operator, the data type of
-   * the List's elements must be able to work work with that operator
+   * the List's elements must be able to work with that operator
    * (i.e., Int, Float, Double, String).
    */
   def myFoldLeft[A](list:List[A], base:A)(func:(A,A) => A):A = {
