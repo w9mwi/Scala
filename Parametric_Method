@@ -156,11 +156,6 @@ object Demo
 }
 
 =========================================================================
-UNDER CONSTRUCTION
-UNDER CONSTRUCTION
-UNDER CONSTRUCTION
-
-import scala.collection.mutable.ArrayBuffer
 
 object Demo
 {
@@ -196,16 +191,14 @@ object Demo
     // methods, so they'll operate on different data types.
     // 1) myFoldRight()
     // 2) myFoldLeft()
-    // We then test both these methods by passing to them a List[Int]
+    // We test both these methods by passing to them a List[Int]
     // and a List[String] data type.
     val intList:List[Int] = List(1, 2, 3, 4, 5, 6)
     var intResult:Int = myFoldRight(intList, 0)(_-_)
-    println("myFoldRight() #1 = " + intResult + " = 1-(2-(3-(4-(5-6))))")
-    // PRINTS: myFoldRight() = -3 = 1-(2-(3-(4-(5-6))))
+    println("myFoldRight() #1 = " + intResult)
 
     intResult = myFoldLeft(intList, 0)(_-_)
-    println("myFoldLeft() #1 = " + intResult + " = 6-(5-(4-(3-(2-1))))")
-    // PRINTS: myFoldLeft() = 3 = 6-(5-(4-(3-(2-1))))
+    println("myFoldLeft() #1 = " + intResult)
 
     val strList:List[String] = List("A", "B", "C", "D")
     var strResult:String = myFoldRight(strList, "")(_+_)
@@ -228,10 +221,7 @@ object Demo
   }
 
   /**
-   * 1) This myFoldRight() method processes the List passed to this method
-   *    from the RIGHT-most element in the List (the end of the List) to the
-   *    left-most element in the List (the head of the List).  Thus the
-   *    method's name: myFoldRight()
+   * 1) This myFoldRight() method processes the List passed to this method...
    *
    * 2) This is a RECURSIVE, CURRIED METHOD.  The elements of the List passed
    *    must work with the operators contained in the func argument passed to
@@ -243,10 +233,10 @@ object Demo
   {
     // ****************************************************************
     // The following if() statement is used for testing/debugging only.
-        if (!list.isEmpty) {
-          val result:A = func(list.head, base)
-          println(s"foldRight(): base = $base, value = ${result.asInstanceOf[A]}")
-        }
+//        if (!list.isEmpty) {
+//          val result:A = func(list.head, base)
+//          println(s"foldRight(): base = $base, value = ${result.asInstanceOf[A]}")
+//        }
     // ****************************************************************
 
     if (list.isEmpty)
@@ -256,56 +246,23 @@ object Demo
     }
   }
 
-  /**
-   * This myFoldLeft() method processes the List passed to this method
-   * from the LEFT-most element in the List (the head of the List) to
-   * the right-most element in the List (the end of the List).  Thus
-   * the method's name: myFoldLeft()
-   */
-
-  // Inspect the last line of executable code in the below foldLeftInner()
-  // method.  Compare it with the last line of executable code in the
-  // foldRight() method.  THAT LAST LINE IS THE ONLY DIFFERENCE BETWEEN
-  // THE foldLeftInner() AND THE myFoldRight() METHODS.
-  def myFoldLeft[A](list:List[A], base:A)(func:(A,A) => A):A = {
-   calc(list, base, func)
-  }
-
-  def calc[A](list:List[A], accum:A, func:(A,A) => A):A = {
-    if (!list.isEmpty) {
-      val maxIndex = list.size - 1 // maxIndex is the Int index of the last element in list.
-      val range = 0 to maxIndex by 2
-
-      for (idx <- range) {
-        if (idx < maxIndex) {
-          val result: A = func(accum, func(list(idx), list(idx + 1)))
-println(s"list(idx) = ${list(idx)},  list(idx + 1) = ${list(idx + 1)},  result = $result")
-          calc(list.slice(idx + 2, maxIndex), result, func)
-        }
-        else if (idx == maxIndex)
-          calc(Nil, func(accum, list(idx)), func)
-      }
-    }
-    accum
-  }
 
   /**
    *
    */
-  def swapListElements[A](list:List[A]):List[A] = {
-    val arrayBuf: ArrayBuffer[A] = new ArrayBuffer[A]()
-    val maxIndex = list.size - 1 // maxIndex is the Int index of the last element in list.
-    val range = 0 to maxIndex by 2
+  def myFoldLeft[A](list:List[A], base:A)(func:(A,A) => A):A = {
+    // ****************************************************************
+    // The following if() statement is used for testing/debugging only.
+//    if (!list.isEmpty) {
+//      val result: A = func(list.head, base)
+//      println(s"foldLeft(): base = $base, value = ${result.asInstanceOf[A]}")
+//    }
+    // ****************************************************************
 
-    for (idx <- range) {
-      if (idx < maxIndex) {
-        arrayBuf.append(list(idx + 1))
-      }
-      arrayBuf.append(list(idx))
+    if (list.isEmpty)
+      base
+    else {
+      func(myFoldLeft(list.tail, base)(func), list.head)
     }
-
-    val result = arrayBuf.toList
-// result.foreach(println)
-    result
   }
 }
