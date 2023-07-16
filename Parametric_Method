@@ -269,7 +269,7 @@ object Demo
       // base: 0 (zero)
       // func:  _-_  (Subtract operation performed on two values.)
       // The resulting subtraction calculation will be this:
-      // 0-6-5-4-3-2-1 = -21   (The 0 comes from the base argument.)
+      // 0−6-5-4-3-2-1 = -21   (The 0 comes from the base argument.)
       func(myFoldLeft(list.tail, base)(func), list.head)
     }
   }
