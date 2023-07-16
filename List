@@ -659,19 +659,19 @@ ___ fold      - See foldRight code sample below.  fold is very similar to foldLe
                 if the operation is associative, fold generates the same result as foldLeft
                 and foldRight.
 
-___ foldLeft  - The result obtained from invoking forLeft() is identical to invoking forRight(),
-                with the List in reverse order.  Read forRight() below for details.
+___ foldLeft  - See foldRight.
 
-___ foldRight - The result obtained from invoking forRight() is identical to invoking forLeft(),
-                with the List in reverse order.
-
-                The myFoldLeft() and myFoldRight() methods written at the bottom of the following
-                web page work identically to the List.foldLeft() and List.foldRight()
-                methods in the Scala API.  Read the bottom program on following web page link to
-                understand how the List.foldLeft() and List.foldRight() methods work, and how
-                they're written.
-
+___ foldRight - Go to the web link shown below.  At the bottom of that page there is a sample
+                program that includes these two methods:
+                myFoldLeft()
+                myFoldRight()
+                Read that sample program.  When using the same List for data, these 2 methods
+                behave DIFFERENTLY than the Scala API List.foldLeft() and List.foldLeft()
+                methods.  Yet, the myFoldLeft() and myFoldRight() methods do perform proper
+                "fold left" and "fold right" operations on the List.  View that sample code
+                to see how the myFoldLeft() and myFoldRight() function.
                 READ --> https://github.com/w9mwi/Scala/blob/master/Parametric_Method
+
 
                 foldRight and foldLeft are both curried functions.  A curried function is a
                 function that returns a function having a single parameter list.  Note that
