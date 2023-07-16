@@ -668,8 +668,8 @@ ___ foldRight - Go to the web link shown below.  At the bottom of that page ther
                 Read that sample program.  When using the same List for data, these 2 methods
                 behave DIFFERENTLY than the Scala API List.foldLeft() and List.foldLeft()
                 methods.  Yet, the myFoldLeft() and myFoldRight() methods do perform proper
-                "fold left" and "fold right" operations on the List.  View that sample code
-                to see how the myFoldLeft() and myFoldRight() function.
+                "fold left" and "fold right" operations on the List.  See this web page
+                to view the code in the myFoldLeft() and myFoldRight() methods.
                 READ --> https://github.com/w9mwi/Scala/blob/master/Parametric_Method
 
 
