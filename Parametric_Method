@@ -238,11 +238,11 @@ object Demo
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
    * When myFoldRight() is called recursively it invokes this line of code:
+   *
    * func(list.head, myFoldRight(list.tail, base)(func))
    *
-   * In this example, the func argument passed to myFoldRight() is a subtract
-   * operation which performs this subtraction:
-   * (list.tail - myFoldRight(list.tail, base)))
+   * In this example, the func argument passed to myFoldRight() is a subtract operation
+   * which performs this subtraction:   (list.tail - myFoldRight(list.tail, base)))
    *
    * The following items are PUSHED onto the stack:
    * list.head = 1,  list.tail = List(2, 3, 4, 5, 6)
@@ -251,11 +251,11 @@ object Demo
    * list.head = 4,  list.tail = List(5, 6)
    * list.head = 5,  list.tail = List(6)
    * list.head = 6,  list.tail = List()
-   * 0
+   *             0
    * 0 (from the base argument) is the last item pushed onto the stack,
    * and first item popped from the stack.  When those items are POPPED
    * from the stack, the following subtract operations are performed,
-   * in right-toleft order.  Beginning with the inner-most parenthesis
+   * in right-to-left order.  Beginning with the inner-most parenthesis
    * (6-0), next (5-6), etc.
    *
    * (1-(2-(3-(4-(5-(6−0))))) = -3    (The 0 comes from the base argument.)
@@ -291,11 +291,11 @@ object Demo
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
    * When myFoldLeft() is called recursively it invokes this line of code:
+   *
    * func(myFoldLeft(list.tail, base)(func), list.head)
    *
-   * In this example, the func argument passed to myFoldRight() is a subtract
-   * operation which performs this subtraction:
-   * myFoldLeft(list.tail, base) - list.head
+   * In this example, the func argument passed to myFoldRight() is a subtract operation
+   * which performs this subtraction:   (myFoldLeft(list.tail, base) - list.head)
    *
    * The following items are PUSHED onto the stack:
    * list.tail = List(2, 3, 4, 5, 6),  list.head = 1
@@ -304,7 +304,7 @@ object Demo
    * list.tail = List(5, 6),           list.head = 4
    * list.tail = List(6),              list.head = 5
    * list.tail = List(),               list.head = 6
-   *                                   0
+   *                                               0
    * 0 (from the base argument) is the last item pushed onto the stack,
    * and first item popped from the stack.  When those items are POPPED
    * from the stack, the following subtract operations are performed
