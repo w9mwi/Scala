@@ -234,8 +234,25 @@ object Demo
    * list: List(1, 2, 3, 4, 5, 6)
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
-   * The resulting subtraction calculation will be this:
-   * (1-(2-(3-(4-(5-(6−0))))) = -3   (The 0 comes from the base argument.)
+   * When myFoldRight() is called recursively it invokes this line of code:
+   * func(list.head, myFoldRight(list.tail, base)(func))
+   *
+   * In this example, the func argument passed to myFoldRight() is a subtract operation
+   * which performs this subtraction:
+   * 
+   * (list.tail - myFoldRight(list.tail, base)))
+   * 
+   * The following items are PUSHED onto the stack:
+   * list.head = 1,  list.tail = List(2, 3, 4, 5, 6)
+   * list.head = 2,  list.tail = List(3, 4, 5, 6)
+   * list.head = 3,  list.tail = List(4, 5, 6)
+   * list.head = 4,  list.tail = List(5, 6)
+   * list.head = 5,  list.tail = List(6)
+   * list.head = 6,  list.tail = List()
+   * When those items are POPPED from the stack, the following subtract operations
+   * are performed beginning with the inner-most parenthesis (6-0), next (5-6), etc.
+   * 
+   * (1-(2-(3-(4-(5-(6−0))))) = -3    (The 0 comes from the base argument.)
    */
   def myFoldRight[A](list:List[A], base:A)(func:(A,A) => A):A =
   {
@@ -243,7 +260,7 @@ object Demo
       base
     else {
       // The following println() is for testing/debugging only.
-      // println(s"myFoldRight():  list.tail = ${list.tail},  list.head = ${list.head}")
+      // println(s"myFoldRight():  list.head = ${list.head},  list.tail = ${list.tail}")
 
       func(list.head, myFoldRight(list.tail, base)(func))
     }
@@ -264,7 +281,25 @@ object Demo
    * list: List(1, 2, 3, 4, 5, 6)
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
-   * The resulting subtraction calculation will be this:
+   * When myFoldLeft() is called recursively it invokes this line of code:
+   *
+   * func(myFoldLeft(list.tail, base)(func), list.head)
+   *
+   * In this example, the func argument passed to myFoldRight() is a subtract operation
+   * which performs this subtraction:
+   * 
+   * (list.tail - myFoldRight(list.tail, base)))
+   * 
+   * The following items are PUSHED onto the stack:
+   * list.head = 1,  list.tail = List(2, 3, 4, 5, 6)
+   * list.head = 2,  list.tail = List(3, 4, 5, 6)
+   * list.head = 3,  list.tail = List(4, 5, 6)
+   * list.head = 4,  list.tail = List(5, 6)
+   * list.head = 5,  list.tail = List(6)
+   * list.head = 6,  list.tail = List()
+   * When those items are POPPED from the stack, the following subtract operations
+   * are performed beginning in left-to-right order:
+   * 
    * 0−6-5-4-3-2-1 = -21   (The 0 comes from the base argument.)
    */
   def myFoldLeft[A](list:List[A], base:A)(func:(A,A) => A):A = {
