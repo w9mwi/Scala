@@ -230,18 +230,17 @@ object Demo
    * (i.e., Int, Float, Double, String).
    *
    * EXAMPLE:
-   * Assume this myFoldRight() method is called by passing to it these 3 arguments:
+   * Assume this myFoldRight() method is called by passing it these 3 arguments:
    * list: List(1, 2, 3, 4, 5, 6)
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
    * When myFoldRight() is called recursively it invokes this line of code:
    * func(list.head, myFoldRight(list.tail, base)(func))
    *
-   * In this example, the func argument passed to myFoldRight() is a subtract operation
-   * which performs this subtraction:
-   * 
+   * In this example, the func argument passed to myFoldRight() is a subtract
+   * operation which performs this subtraction:
    * (list.tail - myFoldRight(list.tail, base)))
-   * 
+   *
    * The following items are PUSHED onto the stack:
    * list.head = 1,  list.tail = List(2, 3, 4, 5, 6)
    * list.head = 2,  list.tail = List(3, 4, 5, 6)
@@ -251,7 +250,7 @@ object Demo
    * list.head = 6,  list.tail = List()
    * When those items are POPPED from the stack, the following subtract operations
    * are performed beginning with the inner-most parenthesis (6-0), next (5-6), etc.
-   * 
+   *
    * (1-(2-(3-(4-(5-(6−0))))) = -3    (The 0 comes from the base argument.)
    */
   def myFoldRight[A](list:List[A], base:A)(func:(A,A) => A):A =
@@ -277,28 +276,29 @@ object Demo
    * (i.e., Int, Float, Double, String).
    *
    * EXAMPLE:
-   * Assume this myFoldLeft() method is called by passing to it these 3 arguments:
+   * Assume this myFoldLeft() method is called by passing it these 3 arguments:
    * list: List(1, 2, 3, 4, 5, 6)
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
    * When myFoldLeft() is called recursively it invokes this line of code:
-   *
    * func(myFoldLeft(list.tail, base)(func), list.head)
    *
-   * In this example, the func argument passed to myFoldRight() is a subtract operation
-   * which performs this subtraction:
-   * 
-   * (list.tail - myFoldRight(list.tail, base)))
-   * 
+   * In this example, the func argument passed to myFoldRight() is a subtract
+   * operation which performs this subtraction:
+   * myFoldLeft(list.tail, base) - list.head
+   *
    * The following items are PUSHED onto the stack:
-   * list.head = 1,  list.tail = List(2, 3, 4, 5, 6)
-   * list.head = 2,  list.tail = List(3, 4, 5, 6)
-   * list.head = 3,  list.tail = List(4, 5, 6)
-   * list.head = 4,  list.tail = List(5, 6)
-   * list.head = 5,  list.tail = List(6)
-   * list.head = 6,  list.tail = List()
-   * When those items are POPPED from the stack, the following subtract operations
-   * are performed beginning in left-to-right order:
+   * list.tail = List(2, 3, 4, 5, 6),  list.head = 1
+   * list.tail = List(3, 4, 5, 6),     list.head = 2
+   * list.tail = List(4, 5, 6),        list.head = 3
+   * list.tail = List(5, 6),           list.head = 4
+   * list.tail = List(6),              list.head = 5
+   * list.tail = List(),               list.head = 6
+   *                                   0
+   * 0 (from the base argument) is the last item pushed onto the stack,
+   * and first item popped from the stack.  When those items are POPPED
+   * from the stack, the following subtract operations are performed
+   * in left-to-right order.  
    * 
    * 0−6-5-4-3-2-1 = -21   (The 0 comes from the base argument.)
    */
