@@ -248,8 +248,11 @@ object Demo
    * list.head = 4,  list.tail = List(5, 6)
    * list.head = 5,  list.tail = List(6)
    * list.head = 6,  list.tail = List()
-   * When those items are POPPED from the stack, the following subtract operations
-   * are performed beginning with the inner-most parenthesis (6-0), next (5-6), etc.
+   * 0
+   * 0 (from the base argument) is the last item pushed onto the stack,
+   * and first item popped from the stack.  When those items are POPPED
+   * from the stack, the following subtract operations are performed,
+   * beginning with the inner-most parenthesis (6-0), next (5-6), etc.
    *
    * (1-(2-(3-(4-(5-(6−0))))) = -3    (The 0 comes from the base argument.)
    */
@@ -298,8 +301,8 @@ object Demo
    * 0 (from the base argument) is the last item pushed onto the stack,
    * and first item popped from the stack.  When those items are POPPED
    * from the stack, the following subtract operations are performed
-   * in left-to-right order.  
-   * 
+   * in left-to-right order.
+   *
    * 0−6-5-4-3-2-1 = -21   (The 0 comes from the base argument.)
    */
   def myFoldLeft[A](list:List[A], base:A)(func:(A,A) => A):A = {
