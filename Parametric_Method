@@ -228,6 +228,14 @@ object Demo
    * passed to this method contains the '+' operator, the data type of
    * the List's elements must be able to work with that operator
    * (i.e., Int, Float, Double, String).
+   *
+   * EXAMPLE:
+   * Assume this myFoldRight() method is called by passing to it these arguments:
+   * list: List(1, 2, 3, 4, 5, 6)
+   * base: 0 (zero)
+   * func:  _-_  (Subtract operation performed on two values.)
+   * The resulting subtraction calculation will be this:
+   * (1-(2-(3-(4-(5-(6−0))))) = -3   (The 0 comes from the base argument.)
    */
   def myFoldRight[A](list:List[A], base:A)(func:(A,A) => A):A =
   {
@@ -237,12 +245,6 @@ object Demo
       // The following println() is for testing/debugging only.
       // println(s"myFoldRight():  list.tail = ${list.tail},  list.head = ${list.head}")
 
-      // Assume this myFoldRight() method is called by passing to it these arguments:
-      // list: List(1, 2, 3, 4, 5, 6)
-      // base: 0 (zero)
-      // func:  _-_  (Subtract operation performed on two values.)
-      // The resulting subtraction calculation will be this:
-      // (1-(2-(3-(4-(5-(6−0))))) = -3   (The 0 comes from the base argument.)
       func(list.head, myFoldRight(list.tail, base)(func))
     }
   }
@@ -256,6 +258,14 @@ object Demo
    * passed to this method contains the '+' operator, the data type of
    * the List's elements must be able to work with that operator
    * (i.e., Int, Float, Double, String).
+   *
+   * EXAMPLE:
+   * Assume this myFoldLeft() method is called by passing to it these arguments:
+   * list: List(1, 2, 3, 4, 5, 6)
+   * base: 0 (zero)
+   * func:  _-_  (Subtract operation performed on two values.)
+   * The resulting subtraction calculation will be this:
+   * 0−6-5-4-3-2-1 = -21   (The 0 comes from the base argument.)
    */
   def myFoldLeft[A](list:List[A], base:A)(func:(A,A) => A):A = {
     if (list.isEmpty)
@@ -264,12 +274,6 @@ object Demo
       // The following println() is for testing/debugging only.
       // println(s"myFoldLeft():  list.tail = ${list.tail},  list.head = ${list.head}")
 
-      // Assume this myFoldLeft() method is called by passing to it these arguments:
-      // list: List(1, 2, 3, 4, 5, 6)
-      // base: 0 (zero)
-      // func:  _-_  (Subtract operation performed on two values.)
-      // The resulting subtraction calculation will be this:
-      // 0−6-5-4-3-2-1 = -21   (The 0 comes from the base argument.)
       func(myFoldLeft(list.tail, base)(func), list.head)
     }
   }
