@@ -220,7 +220,10 @@ object Demo
   }
 
   /**
-   * myFoldRight()
+   * myFoldRight() - As its name implies, this method processes all elements
+   *                 in a collection beginning with the RIGHT-most element
+   *                 (the last element in the collection), and ending with the
+   *                 left-most element (the first element in the collection).
    *
    * This is a RECURSIVE METHOD.  The elements of the list argument passed
    * to this method must work with any operators contained within the func
@@ -270,7 +273,10 @@ object Demo
   }
 
   /**
-   * myFoldLeft()
+   * myFoldLeft() - As its name implies, this method processes all elements
+   *                in a collection beginning with the LEFT-most element
+   *                (the first element in the collection), and ending with the
+   *                right-most element (the last element in the collection).
    *
    * This is a RECURSIVE METHOD.  The elements of the list argument passed
    * to this method must work with any operators contained within the func
