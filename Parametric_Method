@@ -252,7 +252,8 @@ object Demo
    * 0 (from the base argument) is the last item pushed onto the stack,
    * and first item popped from the stack.  When those items are POPPED
    * from the stack, the following subtract operations are performed,
-   * beginning with the inner-most parenthesis (6-0), next (5-6), etc.
+   * in right-toleft order.  Beginning with the inner-most parenthesis
+   * (6-0), next (5-6), etc.
    *
    * (1-(2-(3-(4-(5-(6−0))))) = -3    (The 0 comes from the base argument.)
    */
