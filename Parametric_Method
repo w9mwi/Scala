@@ -220,10 +220,13 @@ object Demo
   }
 
   /**
-   * myFoldRight() - As its name implies, this method processes all elements
-   *                 in a collection beginning with the RIGHT-most element
-   *                 (the last element in the collection), and ending with the
-   *                 left-most element (the first element in the collection).
+   * myFoldRight() - This method processes all elements in a collection by performing
+   *                 a binary operation on each element in the collection.  The first
+   *                 operation is performed on the base argument (passed to this method)
+   *                 and the RIGHT-most element (the last element) in the collection.
+   *                 Moving RIGHT to left, the last operation is performed on the
+   *                 accumulated result and the left-most element (the first element)
+   *                 in the collection.
    *
    * This is a RECURSIVE METHOD.  The elements of the list argument passed
    * to this method must work with any operators contained within the func
@@ -273,10 +276,13 @@ object Demo
   }
 
   /**
-   * myFoldLeft() - As its name implies, this method processes all elements
-   *                in a collection beginning with the LEFT-most element
-   *                (the first element in the collection), and ending with the
-   *                right-most element (the last element in the collection).
+   * myFoldLeft() - This method processes all elements in a collection by performing
+   *                a binary operation on each element in the collection.  The first
+   *                operation is performed on the base argument (passed to this method)
+   *                and the LEFT-most element (the first element) in the collection.
+   *                Moving LEFT to right, the last operation is performed on the
+   *                accumulated result and the right-most element (the last element)
+   *                in the collection.
    *
    * This is a RECURSIVE METHOD.  The elements of the list argument passed
    * to this method must work with any operators contained within the func
