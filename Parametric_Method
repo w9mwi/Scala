@@ -230,7 +230,7 @@ object Demo
    * (i.e., Int, Float, Double, String).
    *
    * EXAMPLE:
-   * Assume this myFoldRight() method is called by passing to it these arguments:
+   * Assume this myFoldRight() method is called by passing to it these 3 arguments:
    * list: List(1, 2, 3, 4, 5, 6)
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
@@ -260,7 +260,7 @@ object Demo
    * (i.e., Int, Float, Double, String).
    *
    * EXAMPLE:
-   * Assume this myFoldLeft() method is called by passing to it these arguments:
+   * Assume this myFoldLeft() method is called by passing to it these 3 arguments:
    * list: List(1, 2, 3, 4, 5, 6)
    * base: 0 (zero)
    * func:  _-_  (Subtract operation performed on two values.)
