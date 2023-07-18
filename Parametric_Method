@@ -157,11 +157,13 @@ object Demo
 
 =========================================================================
 
-The following code demonstrates how to write two parametric methods named myFoldLeft()
-and myFoldRight().  Both these methods generate results identical to the foldLeft() and
-foldRight() methods in the Scala API.  However, the Scala API foldLeft() and foldRight()
-are invoked on an instance of a class  The myFoldLeft() and myFoldRight() methods are
-invoked independent of a class instance.  Review this basic math...
+The following code sample demonstrates how to write two parametric methods
+named myFoldLeft() and myFoldRight().  Both these methods generate results
+identical to the foldLeft() and foldRight() methods in the Scala API.
+
+However, the Scala API foldLeft() and foldRight() are invoked on an instance
+of a class  The myFoldLeft() and myFoldRight() methods are invoked independent 
+f a class instance.  Review this basic math...
  
 COMMUTATIVE: When the order of a mathematical operation DOESN'T matter, it's commutative.
 Example:     (4 X 3 X 2)  =  (2 X 3 X 4)  =  (3 X 2 X 4) = 24
@@ -171,9 +173,13 @@ ASSOCIATIVE: When the order of a mathematical operation DOES matter, it's associ
 Example:     (4 ÷ 3 ÷ 2)  ≠  (2 ÷ 3 ÷ 4)  ≠  (3 ÷ 2 ÷ 4)
              (4 - 3 - 2)  ≠  (2 - 3 - 4)  ≠  (3 - 2 - 4)
 
-The Scala fold() and foldLeft() methods genberate identical results.
+The fold() and foldLeft() methods in the Scala API generate identical results on a
+collection that is commutative, but they are different.  Scala's foldLeft() method
+ALWAYS processes the collection from left to right (first element to last element).
 
-
+There's NO GUARANTEE which order the fold() method will process a collection, which
+means the fold() method's operator is associative.  Therefore, Scala's fold() method
+should be used ONLY on collections that are commutative.
 
 
 object Demo
