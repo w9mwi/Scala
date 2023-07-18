@@ -4,8 +4,9 @@ named myFoldLeft() and myFoldRight().  Both these methods generate results
 identical to the foldLeft() and foldRight() methods in the Scala API.
 
 However, the Scala API foldLeft() and foldRight() are invoked on an instance
-of a class  The myFoldLeft() and myFoldRight() methods are invoked independent
-of a class instance.  Review this basic math...
+of a class.  The myFoldLeft() and myFoldRight() methods are invoked independent
+of a class instance--instead, the class they operate on is passed to these
+methods as an argument.  Review this basic math...
  
 COMMUTATIVE: When the order of a mathematical operation DOESN'T matter, it's commutative.
 Example:     (4 X 3 X 2)  =  (2 X 3 X 4)  =  (3 X 2 X 4) = 24
