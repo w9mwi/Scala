@@ -3,11 +3,11 @@ The following code sample demonstrates how to write two parametric methods
 named myFoldLeft() and myFoldRight().  Both these methods generate results
 identical to the foldLeft() and foldRight() methods in the Scala API.
 
-The Scala API foldLeft() and foldRight() are invoked on an instance of a
-class.  But the myFoldLeft() and myFoldRight() methods defined below are
-invoked independent of a class instance--instead, the class they operate
-on (a List class) is passed to the myFoldLeft() and myFoldRight() methods
-as an argument.
+The Scala API foldLeft() and foldRight() methods are invoked on an instance
+of a class.  But the myFoldLeft() and myFoldRight() methods defined below are
+invoked independent of a class instance--instead, the class they operate on
+(a List class) is passed to the myFoldLeft() and myFoldRight() methods as an
+argument.
 
 Review this basic math...
  
