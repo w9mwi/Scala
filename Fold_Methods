@@ -80,17 +80,29 @@ object Demo
     println("myFoldLeft() #2 = " + strResult)
     // PRINTS: myFoldLeft() #2 = DCBA
 
+    println("SECTION 3) ============================================")
     // The following code calls the Scala API fold(), foldLeft(),
     // and foldRight() methods to confirm they generate the same
     // results as the the myFoldLeft() and myFoldRight() methods.
     intResult = intList.fold(0)(_-_)
-    println("intList.fold(0) = " + intResult)
-
-    intResult = intList.foldRight(0)(_-_)
-    println("intList.foldRight(0) = " + intResult)
+    println("intList.fold(0) = " + intResult)  // PRINTS: intList.fold(0) = -21
 
     intResult = intList.foldLeft(0)(_-_)
-    println("intList.foldLeft(0) = " + intResult)
+    println("intList.foldLeft(0) #1 = " + intResult) // PRINTS: intList.foldLeft(0) #1 = -21
+
+    intResult = intList.foldRight(0)(_-_)
+    println("intList.foldRight(0) = " + intResult) // PRINTS: intList.foldRight(0) = -3
+
+    println("SECTION 4) ============================================")
+    // The following code shows an alternative way of passing
+    // the "_-_" function to a method.
+    intResult = intList.foldLeft(0)((param_1: Int, param_2: Int) => param_1 - param_2)
+    println("intList.foldLeft(0) #2 = " + intResult) // PRINTS: intList.foldLeft(0) #2 = -21
+
+    // NOTICE: By changing the above text from ("param_1 - param_2") to ("param_2 - param_1")
+    //         generates THE SAME RESULT as calling:  intList.foldRight(0)(_-_)
+    intResult = intList.foldLeft(0)((param_1: Int, param_2: Int) => param_2 - param_1)
+    println("intList.foldLeft(0) #3 = " + intResult) // PRINTS: intList.foldLeft(0) #3 = 3
   }
 
   /**
