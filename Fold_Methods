@@ -20,8 +20,10 @@ Example:     (4 ÷ 3 ÷ 2)  ≠  (2 ÷ 3 ÷ 4)  ≠  (3 ÷ 2 ÷ 4)
              (4 - 3 - 2)  ≠  (2 - 3 - 4)  ≠  (3 - 2 - 4)
 
 The fold() and foldLeft() methods in the Scala API generate identical results on a
-collection that is COMMUTATIVE, but they operate differently.  Scala's foldLeft()
-method ALWAYS processes the collection from left to right (first element to last element).
+collection that is COMMUTATIVE, but they operate differently.
+
+Scala's foldLeft() method ALWAYS processes the collection from left to right
+(first element to last element).
 
 The Scala's fold() method DOESN'T process a collection in any particular order.  The
 processing order of Scala's fold() method can change every time it's invoked.  This
