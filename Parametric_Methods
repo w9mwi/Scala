@@ -1,0 +1,160 @@
+
+A parametric method is a method defined to accept any data type that applies
+to the method's algorithm.  For example, a single method named add() can be
+made to work with 3 different data types (Int, Float, Double) when the
+add() method is written to accept a parametric data type.
+
+Parametric data types are often referred to as generic data types.
+Therefore...
+
+PARAMETRIC DATA TYPE = GENERIC DATA TYPE
+
+The following code sample defines the add() method with its argument as
+a generic data type so it works with Scala's Numeric.plus() method.  The
+add() method specifies the data type as a type 'A', which designates any
+data type that works with the Numeric.plus() method.
+
+IMPORTANT: Only Scala methods (which are written using the "def" keyword)
+           can implement paramateric data types.  Scala functions (which
+           are NOT written using the "def" keyword) can't be written to use
+           paramateric data types.  To understand the difference between
+           a Scala method and a Scala function, read this section:
+           https://github.com/w9mwi/Scala/blob/master/Function_vs_Method
+
+object Demo
+{
+  // The following add()() method is defined with two (2) argument lists,
+  // which usually means it's a curried method.  However, because its
+  // second  argument list contains an implicit argument, it's NOT a
+  // curried method.  The Scala compiler automatically invokes the
+  // implicit parameter when the add()() method is called with only
+  // one of its two argument lists.
+  //
+  // This code shows how to define an add method so it will work with
+  // different data types (Byte, Int, Long, Float, Double).  The returned
+  // data type will be "upcast" to the highest of the two data types passed
+  // to the method.
+  def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
+
+  def main(args:Array[String]): Unit =
+  {
+    val myByte:Byte     = 123
+    val myInt:Int       = 456
+    val myLong:Long     = 999999999L
+    val myFloat:Float   = 876.543F
+    val myDouble:Double = 1234567.890123D
+
+    println("add(myByte, myInt)     = " + add(myByte, myInt))     // PRINTS: add(myByte, myInt)     = 579
+    println("add(myInt, myLong)     = " + add(myInt, myLong))     // PRINTS: add(myInt, myLong)     = 1000000455
+    println("add(myLong, myFloat)   = " + add(myLong, myFloat))   // PRINTS: add(myLong, myFloat)   = 1.0000009E9
+    println("add(myFloat, myDouble) = " + add(myFloat, myDouble)) // PRINTS: add(myFloat, myDouble) = 1235444.433152785
+    println("add(myByte, myDouble)  = " + add(myByte, myDouble))  // PRINTS: add(myByte, myDouble)  = 1234690.890123
+    println("add(myInt, myFloat)    = " + add(myInt, myFloat))    // PRINTS: add(myInt, myFloat)    = 1332.543
+  }
+}
+
+========================================================================================
+
+In the sample code below, we make 4 different methods work with multiple data
+types by declaring them as parametric methods.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    println("SECTION 1) ============================================")
+    // This section is super-easy.  It only demonstrates how to to write parametric
+    // methods, so the argument(s) passed to the method will accept any data type.
+
+    // Pass an argument of data type to myMethod().  It returns the same object it was passed.
+    def myMethod[T](t: T): T = t
+    // Pass any 2 data types to makeTuple().  It returns a tuple containing
+    // the 2 objects passed to it.
+    def makeTuple[A, B](a: A, b: B): (A, B) = (a, b)
+    // Pass any 3 values to makeThreeElementList(), which all have the same data type.
+    // It returns a 3-element List containing those 3 values of the same data type.
+    def makeThreeElementList[A](a1: A, a2: A, a3: A): List[A] = List(a1, a2, a3)
+
+    println(myMethod('X'))           // PRINTS: X
+    println(myMethod("My string"))   // PRINTS: My string
+    println(myMethod(123.4F))        // PRINTS: 123.4
+    println(myMethod(987.6D))        // PRINTS: 987.6
+
+    println(makeTuple(987.6D, 123.4F)) // PRINTS: (987.6,123.4)
+    println(makeTuple('A', "zip"))     // PRINTS: (A,zip)
+
+    println(makeThreeElementList('X', 'Y', 'Z'))        // PRINTS: List(X, Y, Z)
+    println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
+
+
+    println("SECTION 2) ============================================")
+    // In this section we write the following two methods as parametric
+    // methods, so they'll operate on different data types.
+    // 1) myFoldRight()
+    // 2) myFoldLeft()
+    // We then test both these methods by passing to them a List[Int]
+    // and a List[String] data type.
+    val intList:List[Int] = List(1, 2, 3, 4, 5, 6)
+    var intResult:Int = myFoldRight(intList, 0)(_-_)
+    println("myFoldRight() #1 = " + intResult + " = 1-(2-(3-(4-(5-6))))")
+    // PRINTS: myFoldRight() = -3 = 1-(2-(3-(4-(5-6))))
+
+    intResult = myFoldLeft(intList, 0)(_-_)
+    println("myFoldLeft() #1 = " + intResult + " = 6-(5-(4-(3-(2-1))))")
+    // PRINTS: myFoldLeft() = 3 = 6-(5-(4-(3-(2-1))))
+
+    val strList:List[String] = List("A", "B", "C", "D")
+    var strResult:String = myFoldRight(strList, "")(_+_)
+    println("myFoldRight() #2 = " + strResult)
+    // PRINTS: myFoldRight() #2 = ABCD
+
+    strResult = myFoldLeft(strList, "")(_+_)
+    println("myFoldLeft() #2 = " + strResult)
+    // PRINTS: myFoldLeft() #2 = DCBA
+  }
+
+  /**
+   * 1) This myFoldRight() method processes the List passed to this method
+   *    from the RIGHT-most element in the List (the end of the List) to the
+   *    left-most element in the List (the head of the List).  Thus the
+   *    method's name: myFoldRight()
+   *
+   * 2) This is a RECURSIVE, CURRIED METHOD.  The elements of the List passed
+   *    must work with the operators contained in the func argument passed to
+   *    this method.  For Example:  If the func argument passed to this method
+   *    contains the '+' or '-' operator, the data type of the List's elements
+   *    must work with those operators (i.e., Int, Float, Double, String).
+   */
+  def myFoldRight[A](list:List[A], base:A)(func:(A,A) => A):A =
+  {
+    // ****************************************************************
+    // The following if() statement is used for testing/debugging only.
+//    if (!list.isEmpty) {
+//      val result:A = func(list.head, base)
+//      println(s"base = $base, value = ${result.asInstanceOf[A]}")
+//    }
+    // ****************************************************************
+
+    if (list.isEmpty)
+      base
+    else {
+      func(list.head, myFoldRight(list.tail, base)(func))
+    }
+  }
+
+  /**
+   * This myFoldLeft() method processes the List passed to this method
+   * from the LEFT-most element in the List (the head of the List) to
+   * the right-most element in the List (the end of the List).  Thus
+   * the method's name: myFoldLeft()
+   */
+  def myFoldLeft[A](list: List[A], base: A)(func: (A, A) => A): A = {
+    // To obtain the result of "folding left", just invoke myFoldRight()
+    // by passing to it the List in reverse order.
+    myFoldRight(list.reverse, base)(func)
+  }
+}
+
+=========================================================================
+To see more examples of parametric methods, view this web page:
+https://github.com/w9mwi/Scala/blob/master/Fold_Methods
