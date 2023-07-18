@@ -644,22 +644,9 @@ ___ flatten - The flatten() method works ONLY on Scala collections that contain 
             }
              
 
-___ fold      - See foldRight code sample below.  fold is very similar to foldLeft and foldRight.
-                Like those two functions, fold is also curried function that takes two (2)
-                parameter lists.  Where the first parameter list contains the base value used
-                as the first operand.  The second parameter list contains the binary operation
-                function to apply on each element in the List.
+___ fold      - SEE:  https://github.com/w9mwi/Scala/blob/master/Fold_Methods
 
-                Use fold ONLY for List elements that are associative.  That is, when the order
-                of the elements applied to the binary operation doesn't matter.  EXAMPLE: If the
-                binary operation to be performed on the List elements is addition or multiplication
-                (operations that are associative), the fold function can be called.  If the
-                operation to be performed is non-associative (i.e., subtraction or division),
-                then DON'T use the fold function--use foldLeft or foldRight instead.  FYI,
-                if the operation is associative, fold generates the same result as foldLeft
-                and foldRight.
-
-___ foldLeft  - See foldRight.
+___ foldLeft  - SEE:  https://github.com/w9mwi/Scala/blob/master/Fold_Methods
 
 ___ foldRight - Go to the web link shown below.  At the bottom of that page there is a sample
                 program that includes these two methods:
