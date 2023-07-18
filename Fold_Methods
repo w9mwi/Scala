@@ -23,9 +23,12 @@ The fold() and foldLeft() methods in the Scala API generate identical results on
 collection that is COMMUTATIVE, but they operate differently.  Scala's foldLeft()
 method ALWAYS processes the collection from left to right (first element to last element).
 
-There's NO GUARANTEE which order the Scala's fold() method will process a collection,
-which means the fold() method's operator is associative.  Therefore, Scala's fold()
-method should be used ONLY on collections that are COMMUTATIVE.
+The Scala's fold() method DOESN'T process a collection in any particular order.  The
+processing order of Scala's fold() method can change every time it's invoked.  This
+means the fold() method's operator is associative.  Therefore...
+
+Scala's fold() method should be used ONLY on collections that are COMMUTATIVE,
+where the order in which the collection is processed doesn't matter.
 
 
 object Demo
