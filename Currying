@@ -29,26 +29,24 @@ NOTE:  You can define a Scala method that accepts multiple argument lists.
        that accept mutiple argument lists.
 
 To make things confusing... 
-All Scala functions defined with multiple argument lists are curried functions,
+All Scala functions that contain multiple argument lists are curried functions,
 with the exception of implicit arguments.  When a function includes an implicit
-argument, that implicit argument doesn't make it a curried function.
+argument list, that implicit argument list doesn't make it a curried function.
+
+To make things even more confusing...
+It's possible to write a curried method/function that accepts only a single
+argument list, which is curried method/function.  An example of this is
+shown below.
 
 Currying is the process of converting a function having multiple argument lists
 into a sequence of functions that accepts only one argument list.  Each function
-returns another function, that consumes the following argument list.
-To put it another way...
+returns another function, that consumes the following argument list.  This will
+be demonstrated in the following example.
 
-A curried function is a function that returns a function.  Where the returned
-function accepts a single argument list.
 
-To make things even more confusing...
-It's possible to define a curried method/function that accepts only a single
-argument list, which is curried method/function
-
-Although currying is Since you can write a Scala method that implements currying
-
-NOTE:  The single parameter list of a curried function can
-       contain one argument, or multiple arguments.
+NOTE: The multiple argument lists of a curried function are not limited to
+      accepting a single argument.  Any argument list in a curried function
+      can contain one argument, or multiple arguments.
 
 
 
