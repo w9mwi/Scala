@@ -53,15 +53,17 @@ object Demo
     intResult = myFoldLeft(intList, 0)(_-_)
     println("myFoldLeft() #1 = " + intResult)
 
+    // The "+" operator on a List[String] performs a String concatenation.
+    // myFoldRight() builds a new String beginning with the last element
+    // of strList, and ending with the first element of StrList.
     val strList:List[String] = List("A", "B", "C", "D")
     var strResult:String = myFoldRight(strList, "")(_+_)
     println("myFoldRight() #2 = " + strResult)
     // PRINTS: myFoldRight() #2 = ABCD
 
-    // myFoldLeft() generates the reverse of the String passed
-    // to it because myFoldLeft() begins its operation on the
-    // end of the String, and the "+" operator on a String is
-    // a concatenation operator.
+    // The "+" operator on a List[String] performs a String concatenation.
+    // myFoldLeft() builds a new String beginning with the first element
+    // of strList, and ending with the last element of strList.
     strResult = myFoldLeft(strList, "")(_+_)
     println("myFoldLeft() #2 = " + strResult)
     // PRINTS: myFoldLeft() #2 = DCBA
