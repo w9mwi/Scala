@@ -39,30 +39,6 @@ object Demo
   def main(args:Array[String]): Unit =
   {
     println("SECTION 1) ============================================")
-    // This section is super-easy.  It only demonstrates how to to write parametric
-    // methods, so the argument(s) passed to the method will accept any data type.
-
-    // Pass an argument of data type to myMethod().  It returns the same object it was passed.
-    def myMethod[T](t: T): T = t
-    // Pass any 2 data types to makeTuple().  It returns a tuple containing
-    // the 2 objects passed to it.
-    def makeTuple[A, B](a: A, b: B): (A, B) = (a, b)
-    // Pass any 3 values to makeThreeElementList(), which all have the same data type.
-    // It returns a 3-element List containing those 3 values of the same data type.
-    def makeThreeElementList[A](a1: A, a2: A, a3: A): List[A] = List(a1, a2, a3)
-
-    println(myMethod('X'))           // PRINTS: X
-    println(myMethod("My string"))   // PRINTS: My string
-    println(myMethod(123.4F))        // PRINTS: 123.4
-    println(myMethod(987.6D))        // PRINTS: 987.6
-
-    println(makeTuple(987.6D, 123.4F)) // PRINTS: (987.6,123.4)
-    println(makeTuple('A', "zip"))     // PRINTS: (A,zip)
-
-    println(makeThreeElementList('X', 'Y', 'Z'))        // PRINTS: List(X, Y, Z)
-    println(makeThreeElementList("Pop", "Stop", "Top")) // PRINTS: List(Pop, Stop, Top)
-
-    println("SECTION 2) ============================================")
     // In this section we write the following two methods as parametric
     // methods, so they'll operate on different data types.
     // 1) myFoldRight()
@@ -89,7 +65,7 @@ object Demo
     println("myFoldLeft() #2 = " + strResult)
     // PRINTS: myFoldLeft() #2 = DCBA
 
-    println("SECTION 3) ============================================")
+    println("SECTION 2) ============================================")
     // The following code calls the Scala API fold(), foldLeft(),
     // and foldRight() methods to confirm they generate the same
     // results as the the myFoldLeft() and myFoldRight() methods.
@@ -102,7 +78,7 @@ object Demo
     intResult = intList.foldRight(0)(_-_)
     println("intList.foldRight(0) = " + intResult) // PRINTS: intList.foldRight(0) = -3
 
-    println("SECTION 4) ============================================")
+    println("SECTION 3) ============================================")
     // The following code shows an alternative way of passing
     // the "_-_" function to a method.
     intResult = intList.foldLeft(0)((param_1: Int, param_2: Int) => param_1 - param_2)
@@ -112,6 +88,8 @@ object Demo
     //         generates THE SAME RESULT as calling:  intList.foldRight(0)(_-_)
     intResult = intList.foldLeft(0)((param_1: Int, param_2: Int) => param_2 - param_1)
     println("intList.foldLeft(0) #3 = " + intResult) // PRINTS: intList.foldLeft(0) #3 = 3
+
+    println("SECTION 4) ============================================")
   }
 
   /**
