@@ -89,8 +89,55 @@ object Demo
 }
 ==================================================================================
 
+In most cases a curried function will be written so it has multiple argument lists.
+However, it's possible to write a curried function that has only one argument list.
+The following code sample shows how this can be done.  Read in-line comments for
+details.
 
+Recall, a curried function returns a function that accepts a single argument list.
 
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // Both of the following 2 functions are equivalent curried functions.
+    // Even though subtractXYCurried_2 is defined with a single argument list,
+    // it can be invoked by passing to it only one argument list (as a
+    // partially-applied function), or by passing to it both arguments
+    // (as a fully-applied function).  What makes subtractXYCurried_2
+    // a curried function is that it returns a function that accepts
+    // a single argument list.
+    def subtractXYCurried_1(x:Int)(y:Int):Int   = { x - y }
+    def subtractXYCurried_2(x:Int):(Int => Int) = { (y:Int) => x - y }
+
+    println("SECTION 1) =============================================")
+    // Invoke subtractXYCurried_1 as fully applied and partially applied.
+    // Results are identical to subtractXYCurried_2 below.
+    var result:Int = subtractXYCurried_1(1)(2) // Invoked as a fully-applied function.
+    println(s"subtractXYCurried_1(1)(2) = ${subtractXYCurried_1(1)(2)}") // PRINTS: subtractXYCurried_1(1)(2) = -1
+    var func:(Int=>Int) = subtractXYCurried_1(1) // Invoked as a partially-applied function.
+    result = func(2) // Becomes fully applied.
+    println(s"func(2) = $result") // PRINTS: func(2) = -1
+
+    // Invoke subtractXYCurried_2 as fully applied and partially applied.
+    // Results are identical to subtractXYCurried_1 above.
+    result = subtractXYCurried_2(1)(2) // Invoked as a fully-applied function.
+    println(s"subtractXYCurried_2(1)(2) = ${subtractXYCurried_2(1)(2)}") // PRINTS: subtractXYCurried_2(1)(2) = -1
+    func = subtractXYCurried_2(1) // Invoked as a partially-applied function.
+    result = func(2) // Becomes fully applied.
+    println(s"func(2) = $result") // PRINTS: func(2) = -1
+
+    println("SECTION 2) =============================================")
+    // NOTICE: subtractXYCurried_2 is invoked as a partially-applied function
+    //         this time by passing to it only the right-most argument list
+    //         (instead of only the left-most argument list).  But the result
+    //         (-1) is still the same as above.
+    func = subtractXYCurried_2(_)(2)
+    result = func(1)
+    println(s"func(1) = $result") // PRINTS: func(1) = -1
+  }
+}
+==================================================================================
 
 
 Sometimes multiple parameter lists are used in while() loops or
