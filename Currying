@@ -43,10 +43,51 @@ into a sequence of functions that accepts only one argument list.  Each function
 returns another function, that consumes the following argument list.  This will
 be demonstrated in the following example.
 
-
 NOTE: The multiple argument lists of a curried function are not limited to
       accepting a single argument.  Any argument list in a curried function
       can contain one argument, or multiple arguments.
+
+==================================================================================
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // This add method is a curried function because it accepts 2 argument lists.
+    def add(x:Int)(y:Int):Int = x + y
+
+    // When you invoke add by supplying both of its argument lists at once,
+    // the function becomes "fully applied" and returns the final result.
+    var result:Int = add(1)(2)
+    println(s"add(1)(2) = $result") // PRINTS: add(1)(2) = 3
+
+    // A curried function becomes "partially applied" by invoking it with fewer than
+    // all of its argument lists.  When a curried function becomes "partially applied",
+    // it returns a function.
+    //
+    // The syntax used in each of the following 3 lines is slightly different, but
+    // they're equivalent and return the same result.  Invoking the add method
+    // below with only one argument list makes the add function "partially applied."
+    // So it returns a function that gets assigned to the var func.
+    var func:(Int => Int) = add(1)
+    func = add(1)_
+    func = add(1)(_)
+
+    // To make the add method "fully applied", the function returned
+    // above must be invoked with its final argument list, like this:
+    result = func(2)
+    println(s"func(2) = $result")  // PRINTS: func(2) = 3
+
+    // The curriedSum_0 and curriedSum_1 functions below are identical.
+    // curriedSum_1 is written using parenthesis making it easier to understand.
+    val curriedSum_0: Int => Int => Int = x => y => x + y
+    val curriedSum_1:(Int => (Int => Int)) = { x => (y => x + y) }
+
+    def curriedSum_2(x:Int)(y:Int):Int = x + y
+    result = curriedSum_2(1)(2)
+    println(result)
+  }
+}
+==================================================================================
 
 
 
