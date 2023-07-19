@@ -14,8 +14,8 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    def add_1(x:Int, y:Int):Int = x + y
-    def add_2(x:Int)(y:Int):Int = x + y
+    def add_1(x:Int, y:Int):Int = x + y  // 1 argument list.
+    def add_2(x:Int)(y:Int):Int = x + y  // 2 argument lists.
     println(s"add(1, 2) = ${add_1(1, 2)}") // PRINTS: add(1, 2) = 3
     println(s"add(1)(2) = ${add_2(1)(2)}") // PRINTS: add(1)(2) = 3
   }
