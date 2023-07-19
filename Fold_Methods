@@ -84,11 +84,6 @@ object Demo
     intResult = intList.foldLeft(0)((param_1: Int, param_2: Int) => param_1 - param_2)
     println("intList.foldLeft(0) #2 = " + intResult) // PRINTS: intList.foldLeft(0) #2 = -21
 
-    // NOTICE: By changing the above text from ("param_1 - param_2") to ("param_2 - param_1")
-    //         generates THE SAME RESULT as calling:  intList.foldRight(0)(_-_)
-    intResult = intList.foldLeft(0)((param_1: Int, param_2: Int) => param_2 - param_1)
-    println("intList.foldLeft(0) #3 = " + intResult) // PRINTS: intList.foldLeft(0) #3 = 3
-
     println("SECTION 4) ============================================")
   }
 
