@@ -38,7 +38,7 @@ object Demo
   def add[A](x:A, y:A)(implicit numeric:Numeric[A]):A = numeric.plus(x, y)
 
   // The following commented-out line WON'T COMPILE because
-  // the '+' operator isn't defined for the generic type A.
+  // the '+' operator isn't defined for a generic data type.
   // def add_2[A](x:A, y:A):A = { x+y }  // WON'T COMPILE.
 
   def main(args:Array[String]): Unit =
