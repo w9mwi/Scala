@@ -67,7 +67,6 @@ object Demo
 {
   def main(args:Array[String]): Unit =
   {
-    println("SECTION 1) ============================================")
     // This section is super-easy.  It only demonstrates how to to write parametric
     // methods, so the argument(s) passed to the method will accept any data type.
 
