@@ -6,8 +6,8 @@ to add infor to this page.
 
 A Scala method/function can be written to accept MULTIPLE ARGUMENT LISTS.
 Both of the following methods (add_1 and add_2) add two Int values and return
-an Int result.  The add_1 method accepts a single argument list that contains
-two Int arguments.  The add_2 method accepts a two argument lists that each
+the Int result.  The add_1 method accepts a single argument list that contains
+two Int arguments.  The add_2 method accepts two argument lists that each
 contain a single Int argument.
 
 object Demo
