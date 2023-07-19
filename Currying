@@ -22,25 +22,37 @@ object Demo
 }
 
 
-CURRYING - The process of converting a function having multiple argument lists
-           into a sequence of functions that takes one argument list.  Each
-           function returns another function that consumes the following argument.
-
-
 CURRYING
 ========
+NOTE:  You can define a Scala method that accepts multiple argument lists.
+       So when we talk about curried functions, it also applies to methods
+       that accept mutiple argument lists.
 
-A curried function is any function that returns a function,
-where the returned function accepts a single parameter list.
+To make things confusing... 
+All Scala functions defined with multiple argument lists are curried functions,
+with the exception of implicit arguments.  When a function includes an implicit
+argument, that implicit argument doesn't make it a curried function.
+
+Currying is the process of converting a function having multiple argument lists
+into a sequence of functions that accepts only one argument list.  Each function
+returns another function, that consumes the following argument list.
+To put it another way...
+
+A curried function is a function that returns a function.  Where the returned
+function accepts a single argument list.
+
+To make things even more confusing...
+It's possible to define a curried method/function that accepts only a single
+argument list, which is curried method/function
+
+Although currying is Since you can write a Scala method that implements currying
+
 NOTE:  The single parameter list of a curried function can
        contain one argument, or multiple arguments.
 
-All Scala functions defined with multiple parameter lists are
-curried functions with the exception of implicit arguments...
 
-When a method/function includes an implicit argument in one of
-its parameter lists, it's NOT a curried function.  SEE SECTION TITLED:
-FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
+
+
 
 Sometimes multiple parameter lists are used in while() loops or
 for() loops.  Under those circumstances the first parameter list
