@@ -6,9 +6,11 @@ to add infor to this page.
 
 A Scala method/function can be written to accept MULTIPLE ARGUMENT LISTS.
 Both of the following methods (add_1 and add_2) add two Int values and return
-the Int result.  The add_1 method accepts a single argument list that contains
-two Int arguments.  The add_2 method accepts two argument lists that each
-contain a single Int argument.
+the Int result.
+
+The add_1 method accepts a single argument list contaiing two Int arguments.
+
+The add_2 method accepts two argument lists each containing a single Int argument.
 
 object Demo
 {
@@ -21,12 +23,20 @@ object Demo
   }
 }
 
-
 CURRYING
 ========
+Currying is the process of converting a function having multiple argument lists
+into a sequence of functions that accepts only one argument list.  Each function,
+when invoked, returns another function that consumes the following argument list.
+
+The sequence of function calls terminates when the final the function in
+the sequence returns a value, instead of a function.  Curried functions
+are demonstrated in the code sample below.
+
 NOTE:  You can define a Scala method that accepts multiple argument lists.
        So when we talk about curried functions, it also applies to methods
-       that accept mutiple argument lists.
+       that accept mutiple argument lists.  In this section the term "method"
+       and "function" are used interchangeably, as they often are.
 
 To make things confusing... 
 All Scala functions that contain multiple argument lists are curried functions,
@@ -34,14 +44,10 @@ with the exception of implicit arguments.  When a function includes an implicit
 argument list, that implicit argument list doesn't make it a curried function.
 
 To make things even more confusing...
-It's possible to write a curried method/function that accepts only a single
-argument list, which is curried method/function.  An example of this is
-shown below.
-
-Currying is the process of converting a function having multiple argument lists
-into a sequence of functions that accepts only one argument list.  Each function
-returns another function, that consumes the following argument list.  This will
-be demonstrated in the following example.
+Although curried methods/functions are almost always written with multiple argument
+lists, it's possible to write a curried method/function with only a single argument
+list.  An example of this is shown further below.  To find that example, search
+for this text:  subtractXYCurried_2
 
 NOTE: The multiple argument lists of a curried function are not limited to
       accepting a single argument.  Any argument list in a curried function
