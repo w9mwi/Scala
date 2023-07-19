@@ -2,7 +2,7 @@
 The following code sample demonstrates how to write two parametric methods
 named myFoldLeft() and myFoldRight().  Both these methods generate results
 identical to the foldLeft() and foldRight() methods in the Scala API when
-used on a List[Int] class.
+used on a List class.
 
 The Scala API foldLeft() and foldRight() methods are invoked on an instance
 of a class.  But the myFoldLeft() and myFoldRight() methods defined below are
