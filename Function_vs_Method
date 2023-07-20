@@ -360,7 +360,7 @@ NULLARY FUNCTION DEFINITION - An argument passed to a class constructor, a metho
                               that references a block of Scala code.
 
                               A block of Scala code NEVER has a data type, so there's NEVER any text
-                              on the left side of the rocket (=>) symbol.  The block of code ALWAYS
+                              on the left side of the rocket (=>) symbol.  A block of code ALWAYS
                               returns a data type, which is specified on the right side of the
                               rocket (=>) symbol.  The data type returned is determined by the
                               last line of code executed in the code block.  If that last line
