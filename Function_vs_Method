@@ -342,10 +342,15 @@ object Demo
 NULLARY FUNCTION
 ================
 When a class constructor, a method, or a function accepts an argument, that argument
-usually represents some data type, such as a class, Int, String, etc.  The following
-is an example of a function's data type:
+usually represents some data type, such as a class, Int, String, etc.  The data type
+of any function ALWAYS includes the rocket symbol (=>).  The data type on the left side
+of the rocket symbol is the data type of the argument(s) passed to the function.  The
+data type on the right side of the rocket symbol is the data type returned by the function.
 
-Int=>String  (Data type of a function that accepts an Int argument, and returns a String value.)
+The following are two example of a function's data type:
+
+Int=>String                              - The function accepts an Int argument, returns a String value.
+(Boolean, Float, String)=>(Int, String)  - The function accepts an 3 arguments, returns a (Int, String) tuple.
 
 Scala allows you to pass A BLOCK OF SCALA CODE to an argument.  A block of code can't
 have a data type.  So when an argument accepts a block of Scala code, that argument
@@ -353,21 +358,20 @@ references a NULLARY FUNCTION.  Although a block of code has no data type, a blo
 of code always has a return type.  If the block of code passed to an argument returns
 nothing, it's return data type will be "Unit".
 
-NULLARY FUNCTION - An argument passed to a class constructor, a method, or a function
-                   that references a block of Scala code NEVER has a data type on the
-                   left side of the rocket (=>) symbol (because a block of code has
-                   no data type).  There is ALWAYS has a data type on the right side
-                   of the rocket (=>) symbol, which represents the data type returned
-                   by the last line of code executed in the code block.  If that last
-                   line returns nothing, the return type is Unit.
-
-
 Below are three examples of how to write the data type of a nullary function.  Notice that
 the data type of a nullary function NEVER has any text before the rocket (=>) symbol.
 
 =>String // Data type of an argument that references a nullary function, and returns a String value.
 =>Double // Data type of an argument that references a nullary function, and returns a Double value.
 =>Unit   // Data type of an argument that references a nullary function, and returns nothing.
+
+NULLARY FUNCTION DEFINITION - An argument passed to a class constructor, a method, or a function
+                              that references a block of Scala code NEVER has a data type on the
+                              left side of the rocket (=>) symbol (because a block of code has
+                              no data type).  There is ALWAYS has a data type on the right side
+                              of the rocket (=>) symbol, which represents the data type returned
+                              by the last line of code executed in the code block.  If that last
+                              line returns nothing, the return type is Unit.
 
 Four important points to remember about nullary functions:
 
