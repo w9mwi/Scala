@@ -355,11 +355,11 @@ of code always has a return type.  If the block of code passed to an argument re
 nothing, it's return data type will be "Unit".
 
 NULLARY FUNCTION - An argument passed to a class constructor, a method, or a function
-                   that accepts a block of Scala code, and therefore has no data type.
-                   A nullary function always has a return data type.
+                   that references a block of Scala code (so it has no data type),
+                   and always has a return data type.
 
-Below are three examples of how to write the data type of a nullary function.  Remember,
-an argument that accepts a block of code ALWAYS references a nullary function.
+Below are three examples of how to write the data type of a nullary function.  Notice that
+the data type of a nullary function NEVER has any text before the rocket (=>) symbol.
 
 =>String // Data type of an argument that references a nullary function, and returns a String value.
 =>Double // Data type of an argument that references a nullary function, and returns a Double value.
