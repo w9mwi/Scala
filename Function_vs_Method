@@ -342,21 +342,25 @@ object Demo
 NULLARY FUNCTION
 ================
 When a class constructor, a method, or a function accepts an argument, that argument
-usually represents some data type, such as a class, Int, String, etc.  The data type
+usually represents some data type (i.e., class, Int, String, etc.).  The data type
 of any function ALWAYS includes the rocket symbol (=>).  The data type on the left side
 of the rocket symbol is the data type of the argument(s) passed to the function.  The
 data type on the right side of the rocket symbol is the data type returned by the function.
 
-The following are two example of a function's data type:
+The following are two example of a function's DATA TYPE:
 
 Int=>String                              - The function accepts an Int argument, returns a String value.
-(Boolean, Float, String)=>(Int, String)  - The function accepts an 3 arguments, returns a (Int, String) tuple.
+(Boolean, Float, String)=>(Int, String)  - The function accepts 3 arguments, returns an (Int, String) tuple.
 
-Scala allows you to pass A BLOCK OF SCALA CODE to an argument.  A block of code can't
-have a data type.  So when an argument accepts a block of Scala code, that argument
-references a NULLARY FUNCTION.  Although a block of code has no data type, a block
-of code always has a return type.  If the block of code passed to an argument returns
-nothing, it's return data type will be "Unit".
+NULLARY FUNCTION DEFINITION - An argument passed to a class constructor, a method, or a function
+                              that references a block of Scala code.
+
+                              A block of Scala code NEVER has a data type, so there's NEVER any text
+                              on the left side of the rocket (=>) symbol.  The block of code ALWAYS
+                              returns a data type, which is specified on the right side of the
+                              rocket (=>) symbol.  The data type returned is determined by the
+                              last line of code executed in the code block.  If that last line
+                              returns nothing, the return type is Unit.
 
 Below are three examples of how to write the data type of a nullary function.  Notice that
 the data type of a nullary function NEVER has any text before the rocket (=>) symbol.
@@ -365,36 +369,14 @@ the data type of a nullary function NEVER has any text before the rocket (=>) sy
 =>Double // Data type of an argument that references a nullary function, and returns a Double value.
 =>Unit   // Data type of an argument that references a nullary function, and returns nothing.
 
-NULLARY FUNCTION DEFINITION - An argument passed to a class constructor, a method, or a function
-                              that references a block of Scala code NEVER has a data type on the
-                              left side of the rocket (=>) symbol (because a block of code has
-                              no data type).  There is ALWAYS has a data type on the right side
-                              of the rocket (=>) symbol, which represents the data type returned
-                              by the last line of code executed in the code block.  If that last
-                              line returns nothing, the return type is Unit.
+It's important to understand the block of code is NOT executed when the argument gets passed
+to the class constructor, method, or function.  Only the class constructor, the method, or
+the function receiving the block of code argument can execute the block of code, which is
+done by referencing the argument.
 
-Four important points to remember about nullary functions:
-
-1) When a block of code is passed as an argument to a class constructor, a method,
-   or a function, that argument references a NULLARY FUNCTION.  The nullary function
-   (the block of code) gets executed by referencing the argument.
-
-2) The data type of ANY Scala function will ALWAYS include the rocket symbol (=>).
-   For a nullary function, there will NEVER be a data type on the left side of the
-   rocket symbol because a block of code doesn't have a data type.  All functions
-   (regular and nullary) will ALWAYS have a data type on the right side of the
-   rocket symbol (=>).
-
-3) A block of code passed as an argument can contain a single line of code, or
-   many lines of code.  It's important to understand the block of code is NEVER
-   executed when the argument gets passed.  Only the class constructor, the method,
-   or the function receiving the block of code argument can execute the block of code,
-   which is done by referencing the argument.
-
-4) When passing a block of code to an argument, the block of code MUST be enclosed
-   in braces {}, and NOT in parenthesis ().  The exception is a simple expression
-   (such as "idx == 0"), which can be passed between parenthesis () or between
-   braces {}.
+When passing a block of code to an argument, the block of code MUST be enclosed in braces {},
+and NOT in parenthesis ().  The exception is a simple expression (such as "idx == 0"), which
+can be passed between parenthesis () or between braces {}.
 
 Nullary Function Example #1
 ===========================
