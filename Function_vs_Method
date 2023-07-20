@@ -342,12 +342,16 @@ object Demo
 NULLARY FUNCTION
 ================
 When a class constructor, a method, or a function accepts an argument, that argument
-usually represents some data type (i.e., class, Int, String, etc.).  The data type
-of any function ALWAYS includes the rocket symbol (=>).  The data type on the left side
-of the rocket symbol is the data type of the argument(s) passed to the function.  The
-data type on the right side of the rocket symbol is the data type returned by the function.
+usually represents some data type (i.e., class, Int, String, etc.).  The data type of
+any function ALWAYS includes the rocket symbol (=>).  The data type on the left side of
+the rocket symbol (=>) is the data type of the argument(s) passed to the function.  The
+data type on the right side of the rocket symbol (=>) is the data type returned by the
+function.
 
-The following are two example of a function's DATA TYPE:
+IMPORTANT:
+The rocket symbol (=>) ALWAYS designates a Scala function, NEVER a Scala method.
+
+The following are two example of a FUNCTION'S DATA TYPE:
 
 Int=>String                              - The function accepts an Int argument, returns a String value.
 (Boolean, Float, String)=>(Int, String)  - The function accepts 3 arguments, returns an (Int, String) tuple.
