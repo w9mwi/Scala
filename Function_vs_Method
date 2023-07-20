@@ -349,7 +349,9 @@ data type on the right side of the rocket symbol (=>) is the data type returned 
 function.
 
 IMPORTANT:
-The rocket symbol (=>) ALWAYS designates a Scala function, NEVER a Scala method.
+A Scala function's data type ALWAYS contains the rocket symbol (=>).
+A Scala method doesn't have a data type because when a method gets
+passed as an argument it must be transformed into a function.
 
 The following are two example of a FUNCTION'S DATA TYPE:
 
