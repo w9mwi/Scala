@@ -237,21 +237,21 @@ object Demo
     println(s"4) func_2().toInt = ${func_2().toInt}") // PRINTS: 4) func_2().toInt = 123
 
     // *********************************************************************
-    // Transform squareMethod() into a function via an ETA EXPANSION.
-    // NOTE: An Eta Expansion works for all 3 of the following lines
-    //       when the method accepts ONLY ONE ARGUMENT.
-    //        1)  squareMethod
-    //        2)  squareMethod _
-    //        3)  squareMethod(_)
-    var squareFunction: Float => Float = squareMethod
+    // The following 3 assignments to the var squareFunction all perform
+    // the same Eta Expansion.  It's done 3 times to show that when a
+    // method contains ONLY ONE (1) ARGUMENT (like squareMethod), you
+    // can perform the Eta Expansion without the underscore char, with the
+    // underscore char, or with the underscore char enclosed in parenthesis.
+
+    var squareFunction:(Float => Float) = squareMethod // Without underscore char.
     println(s"5) squareFunction(123.456F) = ${squareFunction(123.456F)}")
     // PRINTS: 5) squareFunction(123.456F) = 15241.384
 
-    squareFunction = squareMethod _
+    squareFunction = squareMethod _  // With underscore char.
     println(s"6) squareFunction(123.456F) = ${squareFunction(123.456F)}")
     // PRINTS: 6) squareFunction(123.456F) = 15241.384
 
-    squareFunction = squareMethod(_)
+    squareFunction = squareMethod(_)  // With underscore char. in parenthesis
     println(s"7) squareFunction(123.456F) = ${squareFunction(123.456F)}")
     // PRINTS: 7) squareFunction(123.456F) = 15241.384
 
