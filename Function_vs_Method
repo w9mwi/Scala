@@ -111,7 +111,7 @@ object Demo
     // processNumber() is a Scala method that accepts these 2 arguments:
     // 1) an Int type
     // 2) A function type, which accepts an Int argument, and returns an Int value.
-    def processNumber(number:Int, function:Int=>Int):Int = { function(number) }
+    def processNumber(number:Int, funky:Int=>Int):Int = { funky(number) }
 
     // Even though processNumber() is defined to accept a function as an argument,
     // you can pass to it a Scala method.  The Scala compiler automatically
