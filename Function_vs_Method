@@ -92,6 +92,35 @@ object Demo
   }
 }
 
+You can't write a Scala method to accept another Scala method as an argument
+because the language doesn't allow that.  However, you can write a Scala method
+to accept a Scala function as an argument.
+
+If you pass a Scala method to another Scala method as an argument that accepts
+a function, the code will compile and run.  Because the Scala compiler converts
+methods to functions when they're passed as arguments.  The following code
+sample demonstrates this.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // addTen() is a Scala method, NOT a function.
+    def addTen(number:Int):Int = { number + 10 }
+
+    // processNumber() is a Scala method that accepts these 2 arguments:
+    // 1) an Int type
+    // 2) A function type, which accepts an Int argument, and returns an Int value.
+    def processNumber(number:Int, function:Int=>Int):Int = { function(number) }
+
+    // Even though processNumber() is defined to accept a function as an argument,
+    // you can pass to it a Scala method.  The Scala compiler automatically
+    // converts the method to a function.
+    val result = processNumber(10, addTen)
+    println(s"processNumber(10, addTen) = $result") // PRINTS: processNumber(10, addTen) = 20
+  }
+}
+
 ==========================================================================================
 
 FUNCTION
