@@ -99,7 +99,8 @@ to accept a Scala function as an argument.
 If you pass a Scala method to another Scala method as an argument that accepts
 a function, the code will compile and run.  Because the Scala compiler converts
 methods to functions when they're passed as arguments.  The following code
-sample demonstrates this.
+sample demonstrates this.  NOTE: The data type of a function is always written
+using the rocket symbol (=>), as shown in the processNumber() method below.
 
 object Demo
 {
