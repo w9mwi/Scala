@@ -97,9 +97,9 @@ receives a method must declare its data type as a function data type  (Just as a
 argument must be declared as an Int data type.)  A function data type ALWAYS includes
 the rocket symbol (=>).
 
-The following code shows an example of a method being passed to another method as an argument.
-In this example the addTen() method is passed to the processNumber() method as an argument
-named "funky".  The "funky" argument is declared to be a function data type of: Int=>Int
+The following code shows the addTen() method getting passed to the processNumber()
+method as an argument named "funky".  The "funky" argument is declared to be a
+function data type of: Int=>Int
 
 object Demo
 {
