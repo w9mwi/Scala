@@ -92,18 +92,14 @@ object Demo
   }
 }
 
-You can't write a Scala method to accept another Scala method as an argument
-because the language doesn't allow that.  However, you can write a Scala method
-to accept a Scala function as an argument.
+You can define a Scala method to accept another method as an argument.  The argument that
+receives a method must declare its data type as a function data type  (Just as an Int
+argument must be declared as an Int data type.)  A function data type ALWAYS includes
+the rocket symbol (=>).
 
-Assume a Scala method is written to accept a function as an argument.  If you
-pass a Scala method to that argument, the code will compile and run.  When
-methods are passed as arguments, the Scala compiler automatically converts
-methods into functions.  The following code sample demonstrates this.
-
-NOTE: The data type of a function is always written using the rocket symbol (=>).
-      The rocket symbol (=>) is what identifies a method's argument as a function.
-      This is shown in the processNumber() method below.
+The following code shows an example of a method being passed to another method as an argument.
+In this example the addTen() method is passed to the processNumber() method as an argument
+named "funky".  The "funky" argument is declared to be a function data type of: Int=>Int
 
 object Demo
 {
