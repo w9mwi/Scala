@@ -257,11 +257,10 @@ object Demo
 
     // *********************************************************************
     // Transform multiply2NumbersMethod() into a function via an ETA EXPANSION.
-    // Notice the data type of multiply2NumbersFunction is written designating
-    // that it accepts TWO ARGUMENTS.  Also note that when parenthesis are
-    // included in the ETA EXPANSION, the ETA EXPANSION must be written to
-    // designate that multiply2NumbersMethod accepts TWO ARGUMENTS, like this:
-    // multiply2NumbersMethod(_, _)
+    // Just like the above example, we perform 3 equivalent Eta Expansions
+    // to demonstrate how an Eta Expansion can be done with, or without,
+    // the underscore char. on a method that contains 2 arguments.
+
     var multiply2NumbersFunction: (Float, Float) => Float = multiply2NumbersMethod
     println(s"8) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
     // PRINTS: 9) multiply2NumbersFunction(123F, 456F) = 56088.0
@@ -274,14 +273,13 @@ object Demo
     println(s"10) multiply2NumbersFunction(123F, 456F) = ${multiply2NumbersFunction(123F, 456F)}")
     // PRINTS: 10) multiply2NumbersFunction(123F, 456F) = 56088.0
 
-    // *********************************************************************
-    // The Scala API contains hundreds of methods that accept a function as an argument.
-    // For example, List.map() accepts a function as its argument.  But if you pass a
-    // method to List.map(), Scala automatically transforms the method into a function.
-    // This behavior is common in Scala.  If a method or a function accepts a function
-    // as an argument, and it's easier to pass it a method, then pass it a method and
-    // see if it works.  The following code demonstrates that List.map() works by passing
-    // to it a method (squareMethod) or a function (squareFunction).
+    // ***************************************************************************
+    // The List.map() method (defined in the Scala API) invoked below accepts a
+    // function as its argument.  But if you pass a method to List.map() (as is
+    // done below), Scala automatically transforms the method into a function.
+    // When a method or a function accepts a function as an argument, and it's
+    // easier to pass to it a method, then do so.
+
     var floatList: List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
     // The following 2 lines are equivalent.  (The underscore (_) char is OPTIONAL.)
     floatList = floatList.map(squareMethod)
