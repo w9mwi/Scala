@@ -85,7 +85,7 @@ object Demo
 Recall that a higher-order function is a method, or a function, that accepts
 an argument that is a function, and/or returns a function.  Based on that
 criteria, the funcOfGunc() method in the below code sample is considered
-a higher-order function--even though funcOfGunc is defined as a method
+a higher-order function--even though funcOfGunc is defined as a method.
 
 NOTICE: The 2 functions that funcOfGunc() accepts as arguments, and the function
         that funcOfGunc() returns, accept generic data types because they are
@@ -95,6 +95,7 @@ object Demo
 {
   /*******************************************************************************
    * Any function that accepts MULTIPLE argument lists is a curried function.
+   * (An exception to this is when an argument list is an implicit argument.)
    * The funcOfGunc() method defined below is a curried function because it
    * accepts TWO argument lists.  When you invoke funcOfGunc() with only one
    * argument list, it returns a function, which makes it a partially-applied
