@@ -348,23 +348,29 @@ object Demo
   def main(args: Array[String])
   {
     var floatList:List[Float] = List(1.0F, 2.0F, 3.0F, 4.0F, 5.0F)
-    floatList = floatList.map(x => x * x) // Anonymous Function is: x => x * x
+    // In the following line, the Anonymous Function is: x=>x*x
+    floatList = floatList.map(x=>x*x)
     println(s"floatList = $floatList") // PRINTS: floatList = List(1.0, 4.0, 9.0, 16.0, 25.0)
 
-    // The following line defines an anonymous function, and assigns it to the var result.
-    var result:(Int, Int) => Int = (a:Int, b:Int) => a+b  // Anonymous Function is: (a:Int, b:Int) => a+b
+    // ==============================================================================
+    // This section demonstrates 4 different ways to write an Anonymous Function
+    // that adds two Int values.
+    // In the following line, the Anonymous Function is: (a:Int, b:Int) => a+b
+    var addIntFunc:(Int, Int) => Int = (a:Int, b:Int) => a+b
+    println(s"addIntFunc(111, 222) = ${addIntFunc(111, 222)}") // PRINTS: addIntFunc(111, 222) = 333
 
-    // Both of the following 2 lines invoke the same function!
-    println(result(222, 444))                  // PRINTS: 666
-    println(((a:Int, b:Int) => a+b)(222, 444)) // PRINTS: 666
+    // In the following line, the Anonymous Function is: (_:Int)+(_:Int)
+    addIntFunc = (_:Int)+(_:Int)
+    println(s"addIntFunc(222, 333) = ${addIntFunc(222, 333)}") // PRINTS: addIntFunc(222, 333) = 555
 
-    // The following line defines an anonymous function, and assigns it to the var result.
-    // This anonymous function is IDENTICAL to the one above, but its syntax is different.
-    result = (_:Int)+(_:Int)  // // Anonymous Function is: (_:Int)+(_:Int)
+    // In the following line, the Anonymous Function is: _+_
+    addIntFunc = _+_
+    println(s"addIntFunc(333, 444) = ${addIntFunc(333, 444)}") // PRINTS: addIntFunc(333, 444) = 777
 
-    // Both of the following 2 lines invoke the same function!
-    println(result(444, 222))            // PRINTS: 666
-    println(((_:Int)+(_:Int))(444, 222)) // PRINTS: 666
+    // In the following line, the Anonymous Function is: ((param_1: Int, param_2: Int) => param_1 + param_2)
+    addIntFunc = ((param_1: Int, param_2: Int) => param_1 + param_2)
+    println(s"addIntFunc(444, 555) = ${addIntFunc(444, 555)}") // PRINTS: addIntFunc(444, 555) = 999
+    // ==============================================================================
   }
 }
 
