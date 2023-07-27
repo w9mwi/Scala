@@ -343,6 +343,7 @@ NOTE: When an ANONYMOUS FUNCTION is written using the rocket symbol (=>)
       the left side of "=>".  The following code sample demonstrates
       some examples of how to use anonymous functions.
 
+import scala.collection.mutable.ArrayBuffer
 object Demo
 {
   def main(args: Array[String])
@@ -370,7 +371,29 @@ object Demo
     // In the following line, the Anonymous Function is: ((param_1: Int, param_2: Int) => param_1 + param_2)
     addIntFunc = ((param_1: Int, param_2: Int) => param_1 + param_2)
     println(s"addIntFunc(444, 555) = ${addIntFunc(444, 555)}") // PRINTS: addIntFunc(444, 555) = 999
+
     // ==============================================================================
+    // This section demonstrates how to use an Anonymous Function inside a foreach()
+    // loop to obtain all elements of the collection being looped through.
+    case class Person(nameF:String, nameL:String, ssn:String, yearBorn:Int)
+    val arrayBuf = new ArrayBuffer[Person]()
+    arrayBuf.append(Person("Joe",   "Blow",  "375-09-4819", 1941))
+    arrayBuf.append(Person("Jilly", "Billy", "927-38-5621", 1963))
+    arrayBuf.append(Person("Jack",  "Ash",   "871-29-6201", 1970))
+    arrayBuf.foreach {
+      // The Anonymous Function in the following line assigns the current Person
+      // being looped through to the val x.
+      x=>x
+      val nameF:String = x.nameF
+      val nameL:String = x.nameL
+      val ssn:String   = x.ssn
+      val yearBorn:Int = x.yearBorn
+      println(s"nameF = $nameF,  nameL = $nameL,  ssn = $ssn,  yearBorn = $yearBorn")
+      // PRINTS:
+      // nameF = Joe,  nameL = Blow,  ssn = 375-09-4819,  yearBorn = 1941
+      // nameF = Jilly,  nameL = Billy,  ssn = 927-38-5621,  yearBorn = 1963
+      // nameF = Jack,  nameL = Ash,  ssn = 871-29-6201,  yearBorn = 1970
+    }
   }
 }
 
