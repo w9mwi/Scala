@@ -8,9 +8,9 @@ A Scala method/function can be written to accept MULTIPLE ARGUMENT LISTS.
 Both of the following methods (add_1 and add_2) add two Int values and return
 the Int result.
 
-The add_1 method accepts a single argument list contaiing two Int arguments.
+The add_1 method accepts A SINGLE ARGUMENT LIST contaiing two Int arguments.
 
-The add_2 method accepts two argument lists each containing a single Int argument.
+The add_2 method accepts TWO ARGUMENT LISTS, each containing a single Int argument.
 
 object Demo
 {
@@ -30,13 +30,12 @@ into a sequence of functions that accepts only one argument list.  Each function
 when invoked, returns another function that consumes the following argument list.
 
 The sequence of function calls terminates when the last function in the
-sequence returns a value, instead of a function.  Curried functions
-are demonstrated in the code sample below.
+sequence returns a value, instead of a function.  Curried functions are
+demonstrated in the code sample below.
 
-NOTE:  You can define a Scala method that accepts multiple argument lists.
-       So when we talk about curried functions, it also applies to methods
-       that accept mutiple argument lists.  In this section the term "method"
-       and "function" may be used interchangeably, as they often are.
+NOTE:  A Scala method can be defined to accept multiple argument lists.  So
+       both methods and functions can be curried  In this section the term
+       "method" and "function" may be used interchangeably, as they often are.
 
 To make things confusing... 
 All Scala functions that contain multiple argument lists are curried functions,
@@ -49,9 +48,8 @@ lists, it's possible to write a curried method/function with only a single argum
 list.  An example of this is shown further below.  To find that example, search
 for this text:  subtractXYCurried_2
 
-NOTE: The multiple argument lists of a curried function are not limited to
-      accepting a single argument.  Any argument list in a curried function
-      can contain one or more arguments.
+NOTE: The multiple argument lists of a curried function are not limited to accepting
+      a single argument.  All argument lists can contain one or multiple arguments.
 
 ==================================================================================
 object Demo
