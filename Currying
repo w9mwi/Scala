@@ -61,8 +61,8 @@ object Demo
 
     // When you invoke add by supplying both of its argument lists at once,
     // the function becomes "fully applied" and returns the final result.
-    var result:Int = add(1)(2)
-    println(s"add(1)(2) = $result") // PRINTS: add(1)(2) = 3
+    var result:Int = add(77)(13)
+    println(s"add(77)(13) = $result") // PRINTS: add(77)(13) = 90
 
     // A curried function becomes "partially applied" by invoking it with fewer than
     // all of its argument lists.  When a curried function becomes "partially applied",
@@ -72,23 +72,25 @@ object Demo
     // they're equivalent and return the same result.  Invoking the add method
     // below with only one argument list makes the add function "partially applied."
     // So it returns a function that gets assigned to the var func.
-    var func:(Int => Int) = add(1)
-    func = add(1)_
-    func = add(1)(_)
+    var func:(Int => Int) = add(77)
+    func = add(77)_
+    func = add(77)(_)
 
     // To make the add method "fully applied", the function returned
     // above must be invoked with its final argument list, like this:
-    result = func(2)
-    println(s"func(2) = $result")  // PRINTS: func(2) = 3
+    result = func(13)
+    println(s"func(13) = $result")  // PRINTS: func(13) = 90
 
     // The curriedSum_0 and curriedSum_1 functions below are identical.
-    // curriedSum_1 is written using parenthesis making it easier to understand.
-    val curriedSum_0: Int => Int => Int = x => y => x + y
+    // curriedSum_1 is written using parenthesis making it easier to read.
+    val curriedSum_0: Int =>  Int => Int   =   x =>  y => x + y
     val curriedSum_1:(Int => (Int => Int)) = { x => (y => x + y) }
 
-    def curriedSum_2(x:Int)(y:Int):Int = x + y
-    result = curriedSum_2(1)(2)
-    println(result)
+    result = curriedSum_0(77)(13)
+    println(s"curriedSum_0(77)(13) = $result") // PRINTS: curriedSum_0(77)(13) = 90
+
+    result = curriedSum_1(77)(13)
+    println(s"curriedSum_1(77)(13) = $result")   // PRINTS: curriedSum_1(77)(13) = 90
   }
 }
 ==================================================================================
