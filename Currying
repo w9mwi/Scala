@@ -45,15 +45,15 @@ and returns NOT a function, but a final value.
 
 
 Whenever a Scala curried function is called, the function is either
-partially applied, or fully applied.  Here are the definitions:
+partially applied, or fully applied.  Here are the definitions.
 
-FULLY APPLIED FUNCTION - When a curried function is called with the last of its
+PARTIALLY-APPLIED FUNCTION - Calling a curried function with fewer than all its argument
+                             lists means the function is partially applied, which means
+                             it returns a function that accepts a single argument list.
+
+FULLY-APPLIED FUNCTION - When a curried function is called with the last of its
                          multiple argument lists, it returns a final value, not a
                          function.  This makes the curried function fully applied.
-
-PARTIALLY APPLIED FUNCTION - Calling a curried function with fewer than all its argument
-                             lists means the function is partially applied because it
-                             returns a function which accepts a single parameter list.
 
 A Scala method can be defined to accept multiple argument lists.  So both
 methods and functions can be curried.  In this section the term "method"
