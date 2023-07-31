@@ -125,12 +125,8 @@ object Demo
     println(s"func(2) = $result") // PRINTS: func(2) = -1
 
     println("SECTION 2) =============================================")
-    // NOTICE: subtractXYCurried_2 is invoked as a partially-applied function
-    //         this time by passing to it only the right-most argument list
-    //         (instead of only the left-most argument list).  But the final
-    //         result (-1) is the same as above.
-    func = subtractXYCurried_2(_)(2)
-    result = func(1)
+    func = subtractXYCurried_2(_)(2) // Invoke as a partially-applied function.
+    result = func(1) // Calling func(1) makes it fully applied.
     println(s"func(1) = $result") // PRINTS: func(1) = -1
   }
 }
