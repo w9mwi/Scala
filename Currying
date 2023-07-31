@@ -8,9 +8,8 @@ A Scala method/function can be written to accept MULTIPLE ARGUMENT LISTS.
 Both of the following methods (add_1 and add_2) add two Int values and return
 the Int result.
 
-The add_1 method accepts A SINGLE ARGUMENT LIST contaiing two Int arguments.
-
-The add_2 method accepts TWO ARGUMENT LISTS, each containing a single Int argument.
+The add_1 method below accepts A SINGLE ARGUMENT LIST containing two Int arguments.
+The add_2 method below accepts TWO ARGUMENT LISTS, each containing a single Int argument.
 
 object Demo
 {
@@ -23,26 +22,49 @@ object Demo
   }
 }
 
-CURRYING
-========
+
+Both of the following definitions have the same meaning, they're
+only worded differently.
+
+CURRYING DEFINITION 1
+=====================
 Currying is the process of converting a function having multiple argument lists
 into a sequence of functions that accepts only one argument list.  Each function,
 when invoked, returns another function that consumes the following argument list.
+The sequence of function calls terminates when the last function in the sequence
+returns a value, instead of a function.  Curried functions are demonstrated in the
+code sample below.
 
-The sequence of function calls terminates when the last function in the
-sequence returns a value, instead of a function.  Curried functions are
-demonstrated in the code sample below.
+CURRYING DEFINITION 2
+=====================
+Currying transforms a function into a chain of functions.  Where each function
+in the chain gets passed a single argument list, and returns a function that
+accepts a single argument list.  When a curried function is finally called with
+its last (of multiple) argument lists, the curried function becomes fully applied,
+and returns NOT a function, but a final value.
 
-NOTE:  A Scala method can be defined to accept multiple argument lists.  So
-       both methods and functions can be curried  In this section the term
-       "method" and "function" may be used interchangeably, as they often are.
 
-To make things confusing... 
+Whenever a Scala curried function is called, the function is either
+partially applied, or fully applied.  Here are the definitions:
+
+FULLY APPLIED FUNCTION - When a curried function is called with the last of its
+                         multiple argument lists, it returns a final value, not a
+                         function.  This makes the curried function fully applied.
+
+PARTIALLY APPLIED FUNCTION - Calling a curried function with fewer than all its argument
+                             lists means the function is partially applied because it
+                             returns a function which accepts a single parameter list.
+
+A Scala method can be defined to accept multiple argument lists.  So both
+methods and functions can be curried.  In this section the term "method"
+and "function" are used interchangeably, as they often are.
+
+NOTE 1:
 All Scala functions that contain multiple argument lists are curried functions,
 with the exception of implicit arguments.  When a function includes an implicit
 argument list, that implicit argument list doesn't make it a curried function.
 
-To make things more confusing...
+NOTE 2:
 Although curried methods/functions are almost always written with multiple argument
 lists, it's possible to write a curried method/function with only a single argument
 list.  An example of this is shown further below.  To find that example, search
@@ -140,190 +162,7 @@ list contains a "block of code" that gets executed for each
 iteration of the loop.  SEE SECTION TITLED:
 WHEN MULTIPLE PARAMETER LISTS ARE USED FOR LOOPING
 
-Each set of parenthesis defined in a function represents a
-parameter list.  For example, the following 2 functions
-contain multiple parameter lists, which means these 2 functions
-are curried functions.
-
-def addXY_Curried(x:Int)(y:Int) = { x + y }
-def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
-
-Currying transforms a function into a chain of functions.  Where each
-function in the chain gets passed a single parameter list, and returns
-a function that accepts a single parameter list.  When a curried function
-is finally called with its last (of multiple) parameter lists, the
-curried function becomes fully applied, and returns NOT a function,
-but a final value.
-
-Whenever a Scala curried function is called, the function is either
-partially applied, or fully applied.  Here are the definitions:
-
-2) FULLY APPLIED FUNCTION - When a curried function is called with the
-   last of its multiple parameter lists, it returns a final value, not
-   a function.  This makes the curried function fully applied.
-
-2) PARTIALLY APPLIED FUNCTION - Calling a curried function with fewer
-   than all its parameter lists means that function is partially applied,
-   because it returns a function which accepts a single parameter list.
-
-   IMPORTANT: When a curried function is called as a partially applied
-              function an OPTIONAL underscore character (_) at the end
-              of its parameter list(s) designates all parameter list(s)
-              that aren't specified.
-
-   It's possible to define a curried function that contains only
-   one parameter list in its fuction definition.  To see an example
-   of how a curried function containing only one parameter list in
-   its definition is defined, read the section further below titled:
-   DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
-
-NOTE: Don't confuse a "partially applied function" with a "partial function"
-      because THEY'RE NOT THE SAME.  A partial function is defined in the
-      Scala API as:  PartialFunction 
-      PartialFunction is defined as both a Scala trait and a Scala object.
-
 ========================================================================================
-
-The following code sample shows how to call a curried function
-as fully applied and partially applied.  It also shows how to
-call a partially applied function with the OPTIONAL underscore
-character (_) at the end of the parameter list(s).
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    def addXYZ_Curried(x:Int)(y:Int)(z:Int) = { x + y + z }
-
-    // Here we call addXYZ_Curried()()() by passing it all 3 of its
-    // parameter lists at once, thus making it a fully-applied function.
-    var result = addXYZ_Curried(1)(2)(3) // The function is fully applied.
-    println(s"1) result = $result") // PRINTS: 1) result = 6
-
-    // Here we call addXYZ_Curried()()() 3 separate times, passing it
-    // one parameter list each time it's called.  The first two times
-    // it's called the function is partially applied.  The third time
-    // it's called the function becomes fully applied.
-    var func1:Int =>(Int => Int) = addXYZ_Curried(1)_  // The underscore char (_) is optional.
-    var func2:Int => Int = func1(2) // An underscore char after func1(2) WON'T COMPILE!
-    result = func2(3) // The function is fully applied.
-    println(s"2) result = $result") // PRINTS: 2) result = 6
-
-    // Here we call addXYZ_Curried()()() 2 separate times.  he first time it's
-    // called we pass it two parameter lists, so it's partially applied.
-    // The third (and last time) it's called, function becomes fully applied.
-    func2 = addXYZ_Curried(1)(2)_ // The underscore char (_) is optional.
-    result = func2(3) // The function is now fully applied.
-    println(s"3) result = $result") // PRINTS: 3) result = 6
-  }
-}
-
-========================================================================================
-DEFINING A CURRIED FUNCTION HAVING ONLY ONE PARAMETER LIST
-==========================================================
-
-Above we stated that all Scala functions defined with multiple parmater lists
-are curried functions--EXCEPT when one of the parameter lists includes an
-implicit argument, as is explained further below.  However, the following
-is also true...
-
-A function that contains only one parameter list can be a curried function
-if it's defined like this...
-
-def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
-
-Even though this addXY_Curried_1() function is defined with only one
-parameter list, it's a curried function because it returns a
-function that takes a single parameter list.  Therefore, addXY_Curried_1()
-is not fully applied until it gets called with two (2) parameter
-lists, as is demonstrated in the sample code below.
-
-The sample code below defines the following two functions.
-
-1) def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
-2) def addXY_Curried_2(x:Int)(y:Int)       = { x + y }
-
-Both these functions have IDENTICAL BEHAVIOR, with this one exception:
-
-This line of code WON'T compile:  addXY_Curried_1(5)_
-This line of code WILL compile:   addXY_Curried_2(5)_
-
-addXY_Curried_1(5)_ won't compile because the definition
-of addXY_Curried_1() contains only one parameter list.
-
-addXY_Curried_2(5)_ will compile because the definition
-of addXY_Curried_2()() contains two parameter lists.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // The following function is curried because its
-    // definition contains multiple parameter lists.
-    def addXY_Curried_1(x:Int):(Int => Int) = { (y:Int) => x + y }
-
-    // ********************************************************************
-    // The following COMMENTED-OUT line won't compile because addXY_Curried_1
-    // is defined above with ONLY ONE parameter list.  Therefore, it CAN'T
-    // be called with an underscore char (_) replacing the remaining parameter
-    // list(s), as the definition contains only one parameter list.
-    //
-    // WON'T compile:  addXY_Curried_1(5)_
-
-    // *******************************************************************
-    // The below code samples show several ways of calling addXY_Curried_1
-    // function, and the equivalent addXY_Curried_2 function.
-    // *******************************************************************
-    var result:Int = addXY_Curried_1(5)(2) // 5 + 2 = 7
-    println("1) result = " + result) // PRINTS: 1) result = 7
-
-    // Here we obtain the result identical to above, in a different way.
-    var func:(Int => Int) = addXY_Curried_1(5)
-    result = func(2) // 5 + 2 = 7
-    println("2) result = " + result) // PRINTS: 2) result = 7
-
-    // The addXY_Curried_2 function defined below is an alternative way of
-    // writing the above addXY_Curried_1 function to obtain identical behavior.
-    def addXY_Curried_2(x:Int)(y:Int) = { x + y }
-
-    func = addXY_Curried_2(5)_ // The underscore char (_) here is optional.
-    result = func(2) // 5 + 2 = 7
-    println("3) result = " + result) // PRINTS: 3) result = 7
-  }
-}
-
-========================================================================================
-Below is an example of two curried functions that can get called with one more
-parameter list than is contained in their definitions.
-
-Although the sum1() function is defined with only one parameter list, it
-doesn't become fully-applied until it's called with two parameter lists.
-
-Although the sum2() function is defined with two parameter lists, it
-doesn't become fully-applied until it's called with three parameter lists.
-
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // NOTE: Both of the following 2 functions return a function
-    //       that takes an Int as a parameter.  Therefore...
-    //       1) The sum1() function must get called with TWO (2)
-    //          parameter lists until it's fully applied.
-    //       2) The sum2()() function must get called with THREE (3)
-    //          parameter lists until it's fully applied.
-    def sum1(a: Int):(Int => Int)       = { b => a + b }
-    def sum2(a:Int)(b:Int):(Int => Int) = { c => a + b + c }
-
-    var func:(Int => Int) = sum1(123) // sum1() is partially applied.
-    var result:Int = func(321)        // sum1() is fully applied.
-    println(s"1) result = $result") // PRINTS: 1) result = 444
-
-    func = sum2(5)(10) // sum2()() is partially applied.
-    result = func(20)  // sum2()() is fully applied.
-    println(s"2) result = $result") // PRINTS: 2) result = 35
-  }
-}
 
 ========================================================================================
 FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
