@@ -22,9 +22,7 @@ object Demo
   }
 }
 
-
-Both of the following definitions have the same meaning, they're
-only worded differently.
+Both of the following definitions have the same meaning, they're only worded differently.
 
 CURRYING DEFINITION 1
 =====================
@@ -55,23 +53,24 @@ FULLY-APPLIED FUNCTION - When a curried function is called with the last of its
                          multiple argument lists, it returns a final value, not a
                          function.  This makes the curried function fully applied.
 
-A Scala method can be defined to accept multiple argument lists.  So both
-methods and functions can be curried.  In this section the term "method"
-and "function" are used interchangeably, as they often are.
+ARGUMENT LISTS AND CURRIED FUNCTIONS
+====================================
 
-NOTE 1:
+A Scala method/function can be defined to accept multiple argument lists.
+So both methods and functions can be curried.  In this section the term
+"method" and "function" are used interchangeably as they often are.
+
 All Scala functions that contain multiple argument lists are curried functions,
 with the exception of implicit arguments.  When a function includes an implicit
 argument list, that implicit argument list doesn't make it a curried function.
 
-NOTE 2:
 Although curried methods/functions are almost always written with multiple argument
-lists, it's possible to write a curried method/function with only a single argument
-list.  An example of this is shown further below.  To find that example, search
-for this text:  subtractXYCurried_2
+lists, it's possible to write a curried method/function containing only a single
+argument list.  An example of this is shown further below.  To find that example
+search for this text:  subtractXYCurried_2
 
-NOTE: The multiple argument lists of a curried function are not limited to accepting
-      a single argument.  All argument lists can contain one or multiple arguments.
+Argument lists of a curried function are not limited to accepting a single argument.
+Any argument list can contain one or multiple arguments.
 
 ==================================================================================
 object Demo
@@ -129,7 +128,8 @@ object Demo
     // Both of the following 2 functions are equivalent curried functions.
     // subtractXYCurried_1 is defined with two argument lists.
     // subtractXYCurried_2 is defined with a single argument list, but
-    // it returns a function that accepts a single argument list.
+    // it's a curried function because it also returns a function that
+    // accepts a single argument list.
     def subtractXYCurried_1(x:Int)(y:Int):Int   = { x - y }
     def subtractXYCurried_2(x:Int):(Int => Int) = { (y:Int) => x - y }
 
@@ -150,6 +150,11 @@ object Demo
     func = subtractXYCurried_2(_)(2) // Invoke as a partially-applied function.
     result = func(1) // Calling func(1) makes it fully applied.
     println(s"func(1) = $result") // PRINTS: func(1) = -1
+
+    println("SECTION 3) =============================================")
+    func = subtractXYCurried_2(2)(_) // Invoke as a partially-applied function.
+    result = func(1) // Calling func(1) makes it fully applied.
+    println(s"func(1) = $result") // PRINTS: func(1) = 1
   }
 }
 ==================================================================================
