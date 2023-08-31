@@ -234,22 +234,25 @@ object Demo
 {
   def main(args: Array[String])
   {
-    var idx:Int = 0
-    myWhileLoop(idx < 5)
+    var idx:Int = 5
+    myWhileLoop(idx > 0)
     {
-      // IMPORTANT: It appears the myWhileLoop() method called above is being called
-      //            with only one of its two parameter lists, but that's wrong!
-      //            All code between the above and below braces pair {} gets passed
-      //            to the second parameter list of the myWhileLoop()() method
-      //            defined below.
+      // The code between these braces {} gets passed as the second argument
+      // list to the myWhileLoop()() method defined below.
       print("idx = " + idx + ", ") // PRINTS: idx = 0, idx = 1, idx = 2, idx = 3, idx = 4,
-      idx += 1
+      idx -= 1
     }
   }
 
-  // The following myWhileLoop()() method is RECURSIVE!  The Scala code passed to
-  // this method in the codeBlock argument keeps executing (which is a recursive
-  // call) until the testCondition parameter becomes false.
+  /*********************************
+  * This myWhileLoop()() method is RECURSIVE.  The following line of code
+  * (which calls myWhileLoop()()) is executed recursively 5 times...
+  *
+  * while(testCondition)(codeBlock)
+  *
+  * ...until the testCondition argument evaluates to false.  This makes
+   * the codeBlock argument execute 5 times.
+  *********************************/
   def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit =
   {
     // NOTE: The following line of code can be written using any of these 3 variations:
