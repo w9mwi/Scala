@@ -288,6 +288,7 @@ object Demo
     //       function gets called as a FULLY APPLIED function call because it's
     //       now supplied with its previously-unspecified parameter list (_).
     println(wrapWithDiv("My_Text")) // PRINTS: <div>My_Text</div>
+    println(wrapWithDiv("XYZ"))     // PRINTS: <div>XYZ</div>
   }
 }
 
