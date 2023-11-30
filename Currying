@@ -205,15 +205,21 @@ QUESTION: Why is there no data type specified between the colon (:) and
           (codeBlock: => Unit)
 
 ANSWER:  Because both those parameter lists do NOT get passed a value (i.e.,
-         Int, String, Boolean, List[Float], etc.).  The first parameter list
-         contains a Scala expression that evaluates to true/false.  A Scala
-         expression (i.e., idx < 5) is NOT a data type.  The second parameter
-         list contains a block of Scala code.  A block of code is also NOT
-         a data type.  Therefore, no data type is specified for the testCondition
-         and codeBlock arguments.
+         Int, String, Boolean, List[Float], etc.).
+
+         The first parameter list contains a Scala expression that evaluates
+         to true/false.  A Scala expression like "idx > 0" is NOT a data type,
+         even though it evaluates to the Boolean data type.  "idx > 0" is
+         actually executable code, and executable code isn't a data type.
+
+         The second parameter list also contains execuatable code; but instead of
+         containing a single line of code (like "idx > 0"), the second parameter
+         list below contains multiple lines of code (a block of code), which is
+         also NOT a data type.  Therefore, no data type is specified for the
+         testCondition and codeBlock arguments.
 
          In the code sample below the testCondition argument literally accepts
-         this expression: (idx < 5), which has no data type but does evaluate
+         this expression: (idx > 0), which has no data type but does evaluate
          to a Boolean.  So testCondition returns a Boolean type.
 
          The codeBlock argument literally accepts a block (several lines) of
@@ -232,6 +238,17 @@ NOTE: It's possible for a block of code to evaluate to a value like Int, String,
 
 object Demo
 {
+  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit =
+  {
+    // The following line of code can be written using any of these 3 variations:
+    // 1) while(testCondition)(codeBlock)
+    // 2) while(testCondition){codeBlock}
+    // 3) while(testCondition) codeBlock
+    // The following line of code is executed recursively
+    // 5 times until testCondition evaluates to false.
+    while(testCondition)(codeBlock)
+  }
+
   def main(args: Array[String])
   {
     var idx:Int = 5
@@ -242,24 +259,6 @@ object Demo
       print("idx = " + idx + ", ") // PRINTS: idx = 0, idx = 1, idx = 2, idx = 3, idx = 4,
       idx -= 1
     }
-  }
-
-  /*********************************
-  * This myWhileLoop()() method is RECURSIVE.  The following line of code
-  * (which calls myWhileLoop()()) is executed recursively 5 times...
-  *
-  * while(testCondition)(codeBlock)
-  *
-  * ...until the testCondition argument evaluates to false.  This makes
-   * the codeBlock argument execute 5 times.
-  *********************************/
-  def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit =
-  {
-    // NOTE: The following line of code can be written using any of these 3 variations:
-    //       1) while(testCondition)(codeBlock)
-    //       2) while(testCondition){codeBlock}
-    //       3) while(testCondition) codeBlock
-    while(testCondition)(codeBlock)
   }
 }
 
