@@ -159,32 +159,21 @@ object Demo
 }
 ==================================================================================
 
-
-Sometimes multiple parameter lists are used in while() loops or
-for() loops.  Under those circumstances the first parameter list
-evaluates to a true/false expression, and the second parameter
-list contains a "block of code" that gets executed for each
-iteration of the loop.  SEE SECTION TITLED:
-WHEN MULTIPLE PARAMETER LISTS ARE USED FOR LOOPING
-
-========================================================================================
-
-========================================================================================
-FUNCTIONS WITH IMPLICIT PARAMETER LISTS ARE NOT CURRIED FUNCTIONS
+FUNCTIONS WITH IMPLICIT ARGUMENT LISTS ARE NOT CURRIED FUNCTIONS
 =================================================================
 
-When a function definition contains multiple parameter lists, that function
+When a function definition contains multiple argument lists, that function
 is generally a curried function, but not always!  Here is an exception...
 
-When a function definition contains multiple parameter lists, and one
+When a function definition contains multiple argument lists, and one
 of those parameter lists contains an implicit argument, that function
 is NOT a curried function.
 
 Read the section titled "Implicit_Parameters" for more info on this.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 
-========================================================================================
-WHEN MULTIPLE PARAMETER LISTS ARE USED FOR LOOPING
+
+WHEN MULTIPLE ARGUMENT LISTS ARE USED FOR LOOPING
 ==================================================
 
 The myWhileLoop()() method in the sample code shown below has this definition:
@@ -195,28 +184,28 @@ Its 1st parameter list is:  (testCondition: => Boolean)
 Its 2nd parameter list is:  (codeBlock: => Unit)
 
 Obviously, the "=> Boolean" designates a function that returns a Boolean,
-and "=> Unit" designates a function that returns Unit.  But the
-following question arises...
+and "=> Unit" designates a function that returns Unit.  But the following
+question arises...
 
 QUESTION: Why is there no data type specified between the colon (:) and
-          the rocket (=>) in these two parameter lists, as you may expect?
+          the rocket (=>) in these two argument lists, as you may expect?
 
           (testCondition: => Boolean)
           (codeBlock: => Unit)
 
-ANSWER:  Because both those parameter lists do NOT get passed a value (i.e.,
-         Int, String, Boolean, List[Float], etc.).
+ANSWER:  Because both those argument lists do NOT get passed a value
+         (i.e., Int, String, Boolean, List[Float], etc.).
 
-         In the code sample below the first parameter list (testCondition) gets passed
+         In the code sample below the first argument list (testCondition) gets passed
          a Scala expression that evaluates to true/false.  A Scala expression like
          "idx > 0" is NOT a data type, even though it evaluates to the Boolean data type.
          "idx > 0" is actually executable code, and executable code isn't a data type.
 
-         The second parameter list (codeBlock) also gets passed execuatable code; but
-         instead of being a single line of code (like "idx > 0"), the second parameter
-         list below gets passed multiple lines of code (a block of code), which is
-         also NOT a data type.  Therefore, no data type is specified for the testCondition
-         and codeBlock argument lists in the code sample below.
+         The second argument list (codeBlock) also gets passed executable code; but
+         instead of being a single line of code (like "idx > 0"), the second argument
+         list below gets passed a block of execuatable code, which is also NOT a data
+         type.  Therefore, no data type is specified for the testCondition and codeBlock
+         argument lists in the code sample below.
 
          The last line of code executed by the (codeBlock) argument ("idx -= 1")
          doesn't evaluate to any data type; therefore, the return data type of
