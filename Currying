@@ -296,20 +296,17 @@ object Demo
     val plus5Func:(Double=>Double)  = { x:Double => x+5.0D }
     val squareFunc:(Double=>Double) = { x:Double => x*x }
 
-    // NOTE: 54.0 = 5.0+(7.0*7.0)
     var result:Double = funcOfGunc(plus5Func, squareFunc)(7.0D)
-    println("1) result = " + result) // PRINTS: 1) result = 54.0
+    println("1) result = " + result) // PRINTS: 1) result = 54.0 = [5.0+(7.0*7.0)]
 
-    // NOTE: 144.0 = (5.0+7.0)*(5.0+7.0)
     result = funcOfGunc(squareFunc, plus5Func)(7.0D)
-    println("2) result = " + result) // PRINTS: 2) result = 144.0
+    println("2) result = " + result) // PRINTS: 2) result = 144.0 = [(5.0+7.0)*(5.0+7.0)]
   }
 
-  // NOTE: Because the A, B, and C data types in the funcOfGunc definition below
-  //       are all Int types, it can instead be writen the following way, with
-  //       ONLY a single parametric data type A:
-  //       def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
-  //
+  // Because the A, B, and C in this example all use the same data type (Int), the
+  // funcOfGunc definition below could instead be written this way, containing ONLY
+  // a single parametric data type of A.
+  // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
   def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x =>func(gunc(x)) }
 }
 
