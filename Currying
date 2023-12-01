@@ -287,7 +287,8 @@ def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 Although funcOfGunc() is defined with ONE parameter list, it must get called
 by passing it two (2) parameter lists.  The first parameter list gets passed
 the func and gunc functions as two arguments.  The second parameter gets passed
-the numeric value of x.
+the numeric value of x.  Read in-line comments below to better understand how
+this works.
 
 object Demo
 {
@@ -297,10 +298,16 @@ object Demo
     val squareFunc:(Double=>Double) = { x:Double => x*x }
 
     var result:Double = funcOfGunc(plus5Func, squareFunc)(7.0D)
-    println("1) result = " + result) // PRINTS: 1) result = 54.0 = [5.0+(7.0*7.0)]
+    println("1A) result = " + result) // PRINTS: 1A) result = 54.0 // = [5.0+(7.0*7.0)]
+    var func:Double=>Double = funcOfGunc(plus5Func, squareFunc)
+    result = func(7.0D)
+    println("1B) result = " + result) // PRINTS: 1B) result = 54.0 // = [5.0+(7.0*7.0)]
 
     result = funcOfGunc(squareFunc, plus5Func)(7.0D)
-    println("2) result = " + result) // PRINTS: 2) result = 144.0 = [(5.0+7.0)*(5.0+7.0)]
+    println("2A) result = " + result) // PRINTS: 2A) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
+    func = funcOfGunc(squareFunc, plus5Func)
+    result = func(7.0D)
+    println("2B) result = " + result) // PRINTS: 2B) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
   }
 
   // Because the A, B, and C in this example all use the same data type (Int), the
