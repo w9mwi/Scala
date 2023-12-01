@@ -280,16 +280,19 @@ object Demo
 }
 
 ========================================================================================
-The following sample code includes this parametric function:
+The code sample shown below defines this parametric function:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
-Although funcOfGunc() is defined with ONE (1) argument list, it only becomes
-a fully-applied function by passing it two (2) argument lists.  If you call
-funcOfGunc() with only its first argument list, it returns a function, which
-makes it a partially-applied function.  The following code sample shows how to call
-the funcOfGunc() function as a fully-applied function, and as a partially-applied
-function.
+Although this funcOfGunc function is defined with only one argument list,
+it's actually a curried function because it returns not a value, it returns
+a function.  When you call funcOfGunc with only ONE (1) argument list, it
+becomes a partially-applied function by returning a function.  When you call
+funcOfGunc with TWO (2) argument lists, it returns a value (of type Double)
+which makes it a fully-applied function.
+
+The following code sample shows how to call the funcOfGunc() function as
+a fully-applied function, and as a partially-applied function.
 
 object Demo
 {
