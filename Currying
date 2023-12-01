@@ -284,11 +284,12 @@ The following sample code includes this parametric function:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
-Although funcOfGunc() is defined with ONE parameter list, it must get called
-by passing it two (2) parameter lists.  The first parameter list gets passed
-the func and gunc functions as two arguments.  The second parameter gets passed
-the numeric value of x.  Read in-line comments below to better understand how
-this works.
+Although funcOfGunc() is defined with ONE (1) argument list, it only becomes
+a fully-applied function by passing it two (2) argument lists.  If you call
+funcOfGunc() with only its first argument list, it returns a function, which
+makes it a partially-applied function.  The following code sample shows how to call
+the funcOfGunc() function as a fully-applied function, and as a partially-applied
+function.
 
 object Demo
 {
@@ -296,6 +297,13 @@ object Demo
   {
     val plus5Func:(Double=>Double)  = { x:Double => x+5.0D }
     val squareFunc:(Double=>Double) = { x:Double => x*x }
+
+    // Because the A, B, and C in this example all use the same data type (Int), the
+    // funcOfGunc definition below could instead be written this way, containing ONLY
+    // a single parametric data type of A.
+    // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
+    def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
 
     // funcOfGunc(plus5Func, squareFunc) RETURNS A FUNCTION that accepts
     // a single argument of type Double.  When you call it a with a second
@@ -325,12 +333,6 @@ object Demo
     result = func(7.0D)
     println("2C) result = " + result) // PRINTS: 2C) result = 144.0
   }
-
-  // Because the A, B, and C in this example all use the same data type (Int), the
-  // funcOfGunc definition below could instead be written this way, containing ONLY
-  // a single parametric data type of A.
-  // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
-  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 }
 
 ========================================================================================
