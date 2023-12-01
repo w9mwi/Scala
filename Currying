@@ -307,7 +307,7 @@ object Demo
   // funcOfGunc definition below could instead be written this way, containing ONLY
   // a single parametric data type of A.
   // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
-  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x =>func(gunc(x)) }
+  def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 }
 
 ========================================================================================
