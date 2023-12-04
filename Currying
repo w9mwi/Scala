@@ -6,7 +6,7 @@ to add infor to this page.
 
 A Scala method/function can be written to accept MULTIPLE ARGUMENT LISTS.
 Both of the following methods (add_1 and add_2) add two Int values and return
-the Int result.
+an Int result.
 
 The add_1 method below accepts A SINGLE ARGUMENT LIST containing two Int arguments.
 The add_2 method below accepts TWO ARGUMENT LISTS, each containing a single Int argument.
@@ -30,8 +30,9 @@ Currying is the process of converting a function having multiple argument lists
 into a sequence of functions that accepts only one argument list.  Each function,
 when invoked, returns another function that consumes the following argument list.
 The sequence of function calls terminates when the last function in the sequence
-returns a value, instead of a function.  Curried functions are demonstrated in the
-code sample below.  Any function that returns a function is a curried function.
+returns a value, instead of a function.  Any function that returns a function
+(where the returned function also contains one or more argument lists) is a
+curried function.
 
 CURRYING DEFINITION 2
 =====================
@@ -40,28 +41,19 @@ in the chain gets passed a single argument list, and returns a function that
 accepts a single argument list.  When a curried function is finally called with
 its last (of multiple) argument lists, the curried function becomes fully applied,
 and returns NOT a function, but a final value.  Any function that returns a
-function is a curried function.
+function (where the returned function also contains one or more argument lists)
+is a curried function.
 
-Whenever a Scala curried function is called, the function is either
-partially applied, or fully applied.  Here are the definitions.
+Whenever a Scala curried function is invoked, that function becomes
+either a partially-applied function, or a fully-applied function.
 
-PARTIALLY-APPLIED FUNCTION - Calling a curried function with fewer than all its argument
-                             lists means the function is partially applied, which means
-                             it returns a function that accepts a single argument list.
+PARTIALLY-APPLIED FUNCTION - Invoking a curried function with fewer than all its argument
+                             lists will return a function (not a value); which means the
+                             function is partially applied.
 
-FULLY-APPLIED FUNCTION - When a curried function is called with the last of its
-                         multiple argument lists, it returns a final value, not a
-                         function.  This makes the curried function fully applied.
-
-ARGUMENT LISTS AND CURRIED FUNCTIONS
-====================================
-A Scala method/function can be defined to accept multiple argument lists.
-So both methods and functions can be curried.  In this section the term
-"method" and "function" are used interchangeably as they often are.
-
-All Scala functions that contain multiple argument lists are curried functions,
-with the exception of implicit arguments....
-
+FULLY-APPLIED FUNCTION - When an invoked curried function returns a value (i.e., List,
+                         Array, Char, Int, etc.) instead of a function, that function
+                         becomes fully applied.
 
 FUNCTIONS WITH IMPLICIT ARGUMENT LISTS ARE NOT CURRIED FUNCTIONS
 =================================================================
@@ -75,15 +67,8 @@ is NOT a curried function.
 Read the section titled "Implicit_Parameters" for more info on this.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 
-
-Although curried methods/functions are almost always written with multiple argument
-lists, it's possible to write a curried method/function containing only a single
-argument list.  An example of this is shown further below.  To find that example
-search for this text:  subtractXYCurried_2
-
-Argument lists of a curried function are not limited to accepting a single argument.
-Any argument list can contain one or multiple arguments.
-
+The following sample code shows how to invoke a curried function so it becomes
+partially applied.  And how to invoke it so it becomes fully applied.
 ==================================================================================
 object Demo
 {
@@ -128,10 +113,12 @@ object Demo
 }
 ==================================================================================
 
+A CURRIED FUNCTION CAN BE DEFINED WITH ONLY ONE ARGUMENT LIST
+=============================================================
 A curried function is usually written so it has multiple argument lists.  But
-it's possible to write a curried function that has a single argument list, as
-shown in the following code.  Remember, a curried function returns a function
-that accepts a single argument list.
+it's possible to define a curried function containing a single argument list
+as shown in the following code.  Remember, a curried function is a function
+that returns a function, and the returned function contains an argument list.
 
 object Demo
 {
@@ -140,8 +127,8 @@ object Demo
     // Both of the following 2 functions are equivalent curried functions.
     // subtractXYCurried_1 is defined with two argument lists.
     // subtractXYCurried_2 is defined with a single argument list, but
-    // it's a curried function because it also returns a function that
-    // accepts a single argument list.
+    // it's a curried function because it returns a function that accepts
+    // a single argument list.
     def subtractXYCurried_1(x:Int)(y:Int):Int   = { x - y }
     def subtractXYCurried_2(x:Int):(Int => Int) = { (y:Int) => x - y }
 
