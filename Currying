@@ -61,7 +61,7 @@ FUNCTIONS WITH MULTIPLE ARGUMENT LISTS THAT AREN'T CURRIED FUNCTIONS
 When a function definition contains multiple argument lists, that function
 is usually a curried function, but not always!  There are two exceptions.
 
-1)
+1) IMPLICIT ARGUMENTS/PARAMETERS
 When a function definition contains multiple argument lists, and one
 of those parameter lists contains the Scala keyword "implicit", that
 function is NOT a curried function.  The Scala keyword "implicit"
@@ -70,7 +70,7 @@ designates an implicit argument/parameter.
 Read the following link for info. about implcit arguments/parameters.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 
-2)
+2) WHILE LOOPS
 while() loops (whether defined by the programmer, or using the Scala "while"
 keyword) accept two argument lists, but are NOT curried functions.  The following
 code demonstrates the Scala defined while() loop, and a programmer-defined while\
@@ -144,15 +144,13 @@ object Demo
     }
   }
 }
-
 ==================================================================================
-CURRIED FUNCTION CODE SAMPLES
-=============================
+CURRIED FUNCTION CODE EXAMPLES
+==============================
 
 EXAMPLE 1)
 The following sample code demonstrates how to invoke a curried function so it
-becomes partially applied.  And how to invoke a curried function so it becomes
-fully applied.  Read in-line comments for details.
+becomes partially applied, and fully applied.  Read in-line comments for details.
 
 object Demo
 {
@@ -299,7 +297,6 @@ object Demo
     println("2C) result = " + result) // PRINTS: 2C) result = 144.0
   }
 }
-
 ========================================================================================
 
 EXAMPLE 4)
@@ -388,7 +385,6 @@ object Demo
    */
   def add_2(x:Int) = { (y:Int) => x + y }
 }
-
 ========================================================================================
 
 EXAMPLE 6)
@@ -465,7 +461,6 @@ object Demo
     str1.concat("-").concat(str2)
   }
 }
-
 ========================================================================================
 
 EXAMPLE 7)
