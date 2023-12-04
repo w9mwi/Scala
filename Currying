@@ -158,6 +158,66 @@ object Demo
     println(s"func(1) = $result") // PRINTS: func(1) = 1
   }
 }
+
+==================================================================================
+The code sample shown below shows another example of a curried function that's
+defined with a single argument list.  The funcOfGunc() function is a curried
+function because it returns a function that accepts an argument list.  It is
+defined in the code sample below like this:
+
+def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+When you invoke funcOfGunc() with only one argument list it becomes a partially-applied
+function because it returns a function.  When you invoke funcOfGunc with two argument
+lists it returns a value (of type Double), which makes it a fully-applied function.
+
+The following code sample shows how to call the funcOfGunc() function as
+a fully-applied function, and as a partially-applied function.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val plus5Func:(Double=>Double)  = { x:Double => x+5.0D }
+    val squareFunc:(Double=>Double) = { x:Double => x*x }
+
+    // Because the A, B, and C in this example all use the same data type (Int), the
+    // funcOfGunc definition below could instead be written this way, containing ONLY
+    // a single parametric data type of A.
+    // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
+    def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+
+    // funcOfGunc(plus5Func, squareFunc) RETURNS A FUNCTION that accepts
+    // a single argument of type Double.  When you call it a with a second
+    // argument list (in the following line of code), you're invoking the
+    // returned function by passing to it an argument of type Double.
+    var result:Double = funcOfGunc(plus5Func, squareFunc)(7.0D)
+    println("1A) result = " + result) // PRINTS: 1A) result = 54.0 // = [5.0+(7.0*7.0)]
+    var func:Double=>Double = funcOfGunc(plus5Func, squareFunc)
+    result = func(7.0D)
+    println("1B) result = " + result) // PRINTS: 1B) result = 54.0 // = [5.0+(7.0*7.0)]
+    func = funcOfGunc(plus5Func, squareFunc)(_)
+    result = func(7.0D)
+    println("1C) result = " + result) // PRINTS: 1C) result = 54.0
+
+    // ==============================================================
+
+    // funcOfGunc(squareFunc, plus5Func) RETURNS A FUNCTION that accepts
+    // a single argument of type Double.  When you call it a with a second
+    // argument list (in the following line of code), you're invoking the
+    // returned function by passing to it an argument of type Double.
+    result = funcOfGunc(squareFunc, plus5Func)(7.0D)
+    println("2A) result = " + result) // PRINTS: 2A) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
+    func = funcOfGunc(squareFunc, plus5Func)
+    result = func(7.0D)
+    println("2B) result = " + result) // PRINTS: 2B) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
+    func = funcOfGunc(squareFunc, plus5Func)(_)
+    result = func(7.0D)
+    println("2C) result = " + result) // PRINTS: 2C) result = 144.0
+  }
+}
+
 ==================================================================================
 
 WHEN MULTIPLE ARGUMENT LISTS ARE USED FOR LOOPING
@@ -257,64 +317,6 @@ object Demo
     //       now supplied with its previously-unspecified parameter list (_).
     println(wrapWithDiv("My_Text")) // PRINTS: <div>My_Text</div>
     println(wrapWithDiv("XYZ"))     // PRINTS: <div>XYZ</div>
-  }
-}
-
-========================================================================================
-The code sample shown below defines this parametric function:
-
-def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
-
-Although this funcOfGunc function is defined with only one argument list, it's
-actually a curried function because it returns a function; not a value.  When you
-call funcOfGunc with only ONE (1) argument list it becomes a partially-applied
-function by returning a function.  When you call funcOfGunc with TWO (2) argument
-lists, it returns a value (of type Double) which makes it a fully-applied function.
-
-The following code sample shows how to call the funcOfGunc() function as
-a fully-applied function, and as a partially-applied function.
-
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    val plus5Func:(Double=>Double)  = { x:Double => x+5.0D }
-    val squareFunc:(Double=>Double) = { x:Double => x*x }
-
-    // Because the A, B, and C in this example all use the same data type (Int), the
-    // funcOfGunc definition below could instead be written this way, containing ONLY
-    // a single parametric data type of A.
-    // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
-    def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
-
-
-    // funcOfGunc(plus5Func, squareFunc) RETURNS A FUNCTION that accepts
-    // a single argument of type Double.  When you call it a with a second
-    // argument list (in the following line of code), you're invoking the
-    // returned function by passing to it an argument of type Double.
-    var result:Double = funcOfGunc(plus5Func, squareFunc)(7.0D)
-    println("1A) result = " + result) // PRINTS: 1A) result = 54.0 // = [5.0+(7.0*7.0)]
-    var func:Double=>Double = funcOfGunc(plus5Func, squareFunc)
-    result = func(7.0D)
-    println("1B) result = " + result) // PRINTS: 1B) result = 54.0 // = [5.0+(7.0*7.0)]
-    func = funcOfGunc(plus5Func, squareFunc)(_)
-    result = func(7.0D)
-    println("1C) result = " + result) // PRINTS: 1C) result = 54.0
-
-    // ==============================================================
-
-    // funcOfGunc(squareFunc, plus5Func) RETURNS A FUNCTION that accepts
-    // a single argument of type Double.  When you call it a with a second
-    // argument list (in the following line of code), you're invoking the
-    // returned function by passing to it an argument of type Double.
-    result = funcOfGunc(squareFunc, plus5Func)(7.0D)
-    println("2A) result = " + result) // PRINTS: 2A) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
-    func = funcOfGunc(squareFunc, plus5Func)
-    result = func(7.0D)
-    println("2B) result = " + result) // PRINTS: 2B) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
-    func = funcOfGunc(squareFunc, plus5Func)(_)
-    result = func(7.0D)
-    println("2C) result = " + result) // PRINTS: 2C) result = 144.0
   }
 }
 
