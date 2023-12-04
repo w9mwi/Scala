@@ -63,7 +63,7 @@ is usually a curried function, but not always!  There are two exceptions.
 
 1) IMPLICIT ARGUMENTS/PARAMETERS
 When a function definition contains multiple argument lists, and one
-of those parameter lists contains the Scala keyword "implicit", that
+of those argument lists contains the Scala keyword "implicit", that
 function is NOT a curried function.  The Scala keyword "implicit"
 designates an implicit argument/parameter.
 
@@ -73,15 +73,13 @@ SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 2) WHILE LOOPS
 while() loops (whether defined by the programmer, or using the Scala "while"
 keyword) accept two argument lists, but are NOT curried functions.  The following
-code demonstrates the Scala defined while() loop, and a programmer-defined while\
-loop having this definition:
-
-The myWhileLoop()() method in the sample code shown below has this definition:
+code demonstrates the Scala-defined while() loop, and a programmer-defined while
+loop that has this definition:
 
 def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
 
-Its 1st parameter list is:  (testCondition: => Boolean)
-Its 2nd parameter list is:  (codeBlock: => Unit)
+Its 1st argument list is:  (testCondition: => Boolean)
+Its 2nd argument list is:  (codeBlock: => Unit)
 
 Obviously, the "=> Boolean" designates a function that returns a Boolean,
 and "=> Unit" designates a function that returns Unit.  But the following
@@ -93,7 +91,7 @@ QUESTION: Why is there no data type specified between the colon (:) and
           (testCondition: => Boolean)
           (codeBlock: => Unit)
 
-ANSWER:  Because both those argument lists do NOT get passed a value
+ANSWER:  Because both those argument lists do NOT get passed some value
          (i.e., Int, String, Boolean, Array, List, etc.).
 
          In the code sample below the first argument list (testCondition) gets passed
@@ -103,9 +101,9 @@ ANSWER:  Because both those argument lists do NOT get passed a value
          Therefore, no data type is specified for the testCondition argument list in
          the code sample below.
 
-         The second argument list (codeBlock) also gets passed executable code; but
-         instead of being a single line of code (like "idx > 0"), the second argument
-         list below gets passed a block of Scala code, which is also NOT a data
+         The second argument list (codeBlock) also gets passed executable code.  But
+         instead of a single line of code (like "idx > 0"), the second argument list
+         below gets passed a multiple lines of Scala code, which is also NOT a data
          type.  Therefore, no data type is specified for the codeBlock argument list
          in the code sample below.
 
