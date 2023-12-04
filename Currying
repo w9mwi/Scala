@@ -160,19 +160,19 @@ object Demo
 }
 
 ==================================================================================
-The code sample shown below shows another example of a curried function that's
-defined with a single argument list.  The funcOfGunc() function is a curried
-function because it returns a function that accepts an argument list.  It is
-defined in the code sample below like this:
+The code sample below shows another example of a curried function that's defined
+with a single argument list.  The funcOfGunc() function is a curried function
+because it returns a function that accepts an argument list.  It's defined in the
+code sample below like this:
 
 def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
 
 When you invoke funcOfGunc() with only one argument list it becomes a partially-applied
-function because it returns a function.  When you invoke funcOfGunc with two argument
+function because it returns a function.  When you invoke funcOfGunc() with two argument
 lists it returns a value (of type Double), which makes it a fully-applied function.
 
-The following code sample shows how to call the funcOfGunc() function as
-a fully-applied function, and as a partially-applied function.
+The following code sample shows how to invoke funcOfGunc() as a fully-applied function,
+and as a partially-applied function.
 
 object Demo
 {
