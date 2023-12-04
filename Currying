@@ -61,14 +61,16 @@ When a function definition contains multiple argument lists, that function
 is usually a curried function, but not always!  There is an exception.
 
 When a function definition contains multiple argument lists, and one
-of those parameter lists contains an implicit argument, that function
-is NOT a curried function.
+of those parameter lists contains the Scala keyword "implicit", that
+function is NOT a curried function.  The Scala keyword "implicit"
+designates an implicit argument/parameter.
 
-Read the section titled "Implicit_Parameters" for more info on this.
+Read the following link for info. about implcit arguments/parameters.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 
+
 The following sample code shows how to invoke a curried function so it becomes
-partially applied.  And how to invoke it so it becomes fully applied.
+partially applied.  And how to invoke a curried function so it becomes fully applied.
 ==================================================================================
 object Demo
 {
@@ -113,10 +115,10 @@ object Demo
 }
 ==================================================================================
 
-A CURRIED FUNCTION CAN BE DEFINED WITH ONLY ONE ARGUMENT LIST
+A CURRIED FUNCTION CAN BE DEFINED WITH A SINGLE ARGUMENT LIST
 =============================================================
 A curried function is usually written so it has multiple argument lists.  But
-it's possible to define a curried function containing a single argument list
+it's possible to define a curried function containing a single argument list,
 as shown in the following code.  Remember, a curried function is a function
 that returns a function, and the returned function contains an argument list.
 
@@ -160,7 +162,6 @@ object Demo
 
 WHEN MULTIPLE ARGUMENT LISTS ARE USED FOR LOOPING
 ==================================================
-
 The myWhileLoop()() method in the sample code shown below has this definition:
 
 def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
@@ -179,24 +180,30 @@ QUESTION: Why is there no data type specified between the colon (:) and
           (codeBlock: => Unit)
 
 ANSWER:  Because both those argument lists do NOT get passed a value
-         (i.e., Int, String, Boolean, List[Float], etc.).
+         (i.e., Int, String, Boolean, Array, List, etc.).
 
          In the code sample below the first argument list (testCondition) gets passed
          a Scala expression that evaluates to true/false.  A Scala expression like
          "idx > 0" is NOT a data type, even though it evaluates to the Boolean data type.
          "idx > 0" is actually executable code, and executable code isn't a data type.
+         Therefore, no data type is specified for the testCondition argument list in
+         the code sample below.
 
          The second argument list (codeBlock) also gets passed executable code; but
          instead of being a single line of code (like "idx > 0"), the second argument
-         list below gets passed a block of execuatable code, which is also NOT a data
-         type.  Therefore, no data type is specified for the testCondition and codeBlock
-         argument lists in the code sample below.
+         list below gets passed a block of Scala code, which is also NOT a data
+         type.  Therefore, no data type is specified for the codeBlock argument list
+         in the code sample below.
 
          The last line of code executed by the (codeBlock) argument ("idx -= 1")
          doesn't evaluate to any data type; therefore, the return data type of
          codeBlock is specified as Unit.  If the last line of the codeBlock argument
          did evalate to some data type like Int, than the return type of the codeBlock
-         argument would be specified as Int instead of Unit.
+         argument would specif Int instead of Unit.
+
+NOTE: Although the myWhileLoop()() function defined in the sample code below
+      contains two argument lists, myWhileLoop()() is NOT a curried function.
+      myWhileLoop()() must be invoked with both of its argument lists.
 
 object Demo
 {
