@@ -71,10 +71,11 @@ Read the following link for info. about implcit arguments/parameters.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 
 2) WHILE LOOPS
-while() loops (whether defined by the programmer, or using the Scala "while"
-keyword) accept two argument lists, but are NOT curried functions.  The following
-code demonstrates the Scala-defined while() loop, and a programmer-defined while
-loop that has this definition:
+while() loops (whether defined by the programmer, or using the Scala-defined
+"while" keyword) accept two argument lists, but are NOT curried functions.
+
+The following code demonstrates the Scala-defined while() loop, and a
+programmer-defined while loop that has this definition:
 
 def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
 
