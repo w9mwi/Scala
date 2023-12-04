@@ -55,11 +55,13 @@ FULLY-APPLIED FUNCTION - When an invoked curried function returns a value (i.e.,
                          Array, Char, Int, etc.) instead of a function, that function
                          becomes fully applied.
 
-FUNCTIONS WITH IMPLICIT ARGUMENT LISTS ARE NOT CURRIED FUNCTIONS
-=================================================================
-When a function definition contains multiple argument lists, that function
-is usually a curried function, but not always!  There is an exception.
 
+FUNCTIONS WITH MULTIPLE ARGUMENT LISTS THAT AREN'T CURRIED FUNCTIONS
+====================================================================
+When a function definition contains multiple argument lists, that function
+is usually a curried function, but not always!  There are two exceptions.
+
+1)
 When a function definition contains multiple argument lists, and one
 of those parameter lists contains the Scala keyword "implicit", that
 function is NOT a curried function.  The Scala keyword "implicit"
@@ -68,160 +70,12 @@ designates an implicit argument/parameter.
 Read the following link for info. about implcit arguments/parameters.
 SEE --> https://github.com/w9mwi/Scala/blob/master/Implicit_Parameters
 
+2)
+while() loops (whether defined by the programmer, or using the Scala "while"
+keyword) accept two argument lists, but are NOT curried functions.  The following
+code demonstrates the Scala defined while() loop, and a programmer-defined while\
+loop having this definition:
 
-The following sample code shows how to invoke a curried function so it becomes
-partially applied.  And how to invoke a curried function so it becomes fully applied.
-==================================================================================
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    // This add method is a curried function because it accepts 2 argument lists.
-    def add(x:Int)(y:Int):Int = x + y
-
-    // When you invoke add by supplying both of its argument lists at once,
-    // the function becomes "fully applied" and returns the final result.
-    var result:Int = add(77)(13)
-    println(s"add(77)(13) = $result") // PRINTS: add(77)(13) = 90
-
-    // A curried function becomes "partially applied" by invoking it with fewer than
-    // all of its argument lists.  When a curried function becomes "partially applied",
-    // it returns a function.
-    //
-    // The syntax used in each of the following 3 lines is slightly different, but
-    // they're equivalent and return the same result.  Invoking the add method
-    // below with only one argument list makes the add function "partially applied."
-    // So it returns a function that gets assigned to the var func.
-    var func:(Int => Int) = add(77)
-    func = add(77)_
-    func = add(77)(_)
-
-    // To make the add method "fully applied", the function returned
-    // above must be invoked with its final argument list, like this:
-    result = func(13)
-    println(s"func(13) = $result")  // PRINTS: func(13) = 90
-
-    // The curriedSum_0 and curriedSum_1 functions below are identical.
-    // curriedSum_1 is written using parenthesis making it easier to read.
-    val curriedSum_0: Int =>  Int => Int   =   x =>  y => x + y
-    val curriedSum_1:(Int => (Int => Int)) = { x => (y => x + y) }
-
-    result = curriedSum_0(77)(13)
-    println(s"curriedSum_0(77)(13) = $result") // PRINTS: curriedSum_0(77)(13) = 90
-
-    result = curriedSum_1(77)(13)
-    println(s"curriedSum_1(77)(13) = $result")   // PRINTS: curriedSum_1(77)(13) = 90
-  }
-}
-==================================================================================
-
-A CURRIED FUNCTION CAN BE DEFINED WITH A SINGLE ARGUMENT LIST
-=============================================================
-A curried function is usually written so it has multiple argument lists.  But
-it's possible to define a curried function containing a single argument list,
-as shown in the following code.  Remember, a curried function is a function
-that returns a function, and the returned function contains an argument list.
-
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    // Both of the following 2 functions are equivalent curried functions.
-    // subtractXYCurried_1 is defined with two argument lists.
-    // subtractXYCurried_2 is defined with a single argument list, but
-    // it's a curried function because it returns a function that accepts
-    // a single argument list.
-    def subtractXYCurried_1(x:Int)(y:Int):Int   = { x - y }
-    def subtractXYCurried_2(x:Int):(Int => Int) = { (y:Int) => x - y }
-
-    println("SECTION 1) =============================================")
-    var result:Int = subtractXYCurried_1(1)(2) // Invoke as a fully-applied function.
-    println(s"subtractXYCurried_1(1)(2) = ${subtractXYCurried_1(1)(2)}") // PRINTS: subtractXYCurried_1(1)(2) = -1
-    var func:(Int=>Int) = subtractXYCurried_1(1) // Invoke as a partially-applied function.
-    result = func(2) // Calling func(2) makes it fully applied.
-    println(s"func(2) = $result") // PRINTS: func(2) = -1
-
-    result = subtractXYCurried_2(1)(2) // Invoke as a fully-applied function.
-    println(s"subtractXYCurried_2(1)(2) = ${subtractXYCurried_2(1)(2)}") // PRINTS: subtractXYCurried_2(1)(2) = -1
-    func = subtractXYCurried_2(1) // Invoke as a partially-applied function.
-    result = func(2) // Calling func(2) makes it fully applied.
-    println(s"func(2) = $result") // PRINTS: func(2) = -1
-
-    println("SECTION 2) =============================================")
-    func = subtractXYCurried_2(_)(2) // Invoke as a partially-applied function.
-    result = func(1) // Calling func(1) makes it fully applied.
-    println(s"func(1) = $result") // PRINTS: func(1) = -1
-
-    println("SECTION 3) =============================================")
-    func = subtractXYCurried_2(2)(_) // Invoke as a partially-applied function.
-    result = func(1) // Calling func(1) makes it fully applied.
-    println(s"func(1) = $result") // PRINTS: func(1) = 1
-  }
-}
-
-==================================================================================
-The code sample below shows another example of a curried function that's defined
-with a single argument list.  The funcOfGunc() function is a curried function
-because it returns a function that accepts an argument list.  It's defined in the
-code sample below like this:
-
-def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
-
-When you invoke funcOfGunc() with only one argument list it becomes a partially-applied
-function because it returns a function.  When you invoke funcOfGunc() with two argument
-lists it returns a value (of type Double), which makes it a fully-applied function.
-
-The following code sample shows how to invoke funcOfGunc() as a fully-applied function,
-and as a partially-applied function.
-
-object Demo
-{
-  def main(args:Array[String]): Unit =
-  {
-    val plus5Func:(Double=>Double)  = { x:Double => x+5.0D }
-    val squareFunc:(Double=>Double) = { x:Double => x*x }
-
-    // Because the A, B, and C in this example all use the same data type (Int), the
-    // funcOfGunc definition below could instead be written this way, containing ONLY
-    // a single parametric data type of A.
-    // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
-    def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
-
-
-    // funcOfGunc(plus5Func, squareFunc) RETURNS A FUNCTION that accepts
-    // a single argument of type Double.  When you call it a with a second
-    // argument list (in the following line of code), you're invoking the
-    // returned function by passing to it an argument of type Double.
-    var result:Double = funcOfGunc(plus5Func, squareFunc)(7.0D)
-    println("1A) result = " + result) // PRINTS: 1A) result = 54.0 // = [5.0+(7.0*7.0)]
-    var func:Double=>Double = funcOfGunc(plus5Func, squareFunc)
-    result = func(7.0D)
-    println("1B) result = " + result) // PRINTS: 1B) result = 54.0 // = [5.0+(7.0*7.0)]
-    func = funcOfGunc(plus5Func, squareFunc)(_)
-    result = func(7.0D)
-    println("1C) result = " + result) // PRINTS: 1C) result = 54.0
-
-    // ==============================================================
-
-    // funcOfGunc(squareFunc, plus5Func) RETURNS A FUNCTION that accepts
-    // a single argument of type Double.  When you call it a with a second
-    // argument list (in the following line of code), you're invoking the
-    // returned function by passing to it an argument of type Double.
-    result = funcOfGunc(squareFunc, plus5Func)(7.0D)
-    println("2A) result = " + result) // PRINTS: 2A) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
-    func = funcOfGunc(squareFunc, plus5Func)
-    result = func(7.0D)
-    println("2B) result = " + result) // PRINTS: 2B) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
-    func = funcOfGunc(squareFunc, plus5Func)(_)
-    result = func(7.0D)
-    println("2C) result = " + result) // PRINTS: 2C) result = 144.0
-  }
-}
-
-==================================================================================
-
-WHEN MULTIPLE ARGUMENT LISTS ARE USED FOR LOOPING
-==================================================
 The myWhileLoop()() method in the sample code shown below has this definition:
 
 def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
@@ -291,8 +145,165 @@ object Demo
   }
 }
 
+==================================================================================
+CURRIED FUNCTION CODE SAMPLES
+=============================
+
+EXAMPLE 1)
+The following sample code demonstrates how to invoke a curried function so it
+becomes partially applied.  And how to invoke a curried function so it becomes
+fully applied.  Read in-line comments for details.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // This add method is a curried function because it accepts 2 argument lists.
+    def add(x:Int)(y:Int):Int = x + y
+
+    // When you invoke add by supplying both of its argument lists at once,
+    // the function becomes "fully applied" and returns the final result.
+    var result:Int = add(77)(13)
+    println(s"add(77)(13) = $result") // PRINTS: add(77)(13) = 90
+
+    // A curried function becomes "partially applied" by invoking it with fewer than
+    // all of its argument lists.  When a curried function becomes "partially applied",
+    // it returns a function.
+    //
+    // The syntax used in each of the following 3 lines is slightly different, but
+    // they're equivalent and return the same result.  Invoking the add method
+    // below with only one argument list makes the add function "partially applied."
+    // So it returns a function that gets assigned to the var func.
+    var func:(Int => Int) = add(77)
+    func = add(77)_
+    func = add(77)(_)
+
+    // To make the add method "fully applied", the function returned
+    // above must be invoked with its final argument list, like this:
+    result = func(13)
+    println(s"func(13) = $result")  // PRINTS: func(13) = 90
+
+    // The curriedSum_0 and curriedSum_1 functions below are identical.
+    // curriedSum_1 is written using parenthesis making it easier to read.
+    val curriedSum_0: Int =>  Int => Int   =   x =>  y => x + y
+    val curriedSum_1:(Int => (Int => Int)) = { x => (y => x + y) }
+
+    result = curriedSum_0(77)(13)
+    println(s"curriedSum_0(77)(13) = $result") // PRINTS: curriedSum_0(77)(13) = 90
+
+    result = curriedSum_1(77)(13)
+    println(s"curriedSum_1(77)(13) = $result")   // PRINTS: curriedSum_1(77)(13) = 90
+  }
+}
+==================================================================================
+
+EXAMPLE 2)
+A curried function is usually written so it has multiple argument lists.  But
+it's possible to define a curried function containing a single argument list,
+as shown in the following code.  Remember, a curried function is a function
+that returns a function, and the returned function contains an argument list.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    // Both of the following 2 functions are equivalent curried functions.
+    // subtractXYCurried_1 is defined with two argument lists.
+    // subtractXYCurried_2 is defined with a single argument list, but
+    // it's a curried function because it returns a function that accepts
+    // a single argument list.
+    def subtractXYCurried_1(x:Int)(y:Int):Int   = { x - y }
+    def subtractXYCurried_2(x:Int):(Int => Int) = { (y:Int) => x - y }
+
+    println("SECTION 1) =============================================")
+    var result:Int = subtractXYCurried_1(1)(2) // Invoke as a fully-applied function.
+    println(s"subtractXYCurried_1(1)(2) = ${subtractXYCurried_1(1)(2)}") // PRINTS: subtractXYCurried_1(1)(2) = -1
+    var func:(Int=>Int) = subtractXYCurried_1(1) // Invoke as a partially-applied function.
+    result = func(2) // Calling func(2) makes it fully applied.
+    println(s"func(2) = $result") // PRINTS: func(2) = -1
+
+    result = subtractXYCurried_2(1)(2) // Invoke as a fully-applied function.
+    println(s"subtractXYCurried_2(1)(2) = ${subtractXYCurried_2(1)(2)}") // PRINTS: subtractXYCurried_2(1)(2) = -1
+    func = subtractXYCurried_2(1) // Invoke as a partially-applied function.
+    result = func(2) // Calling func(2) makes it fully applied.
+    println(s"func(2) = $result") // PRINTS: func(2) = -1
+
+    println("SECTION 2) =============================================")
+    func = subtractXYCurried_2(_)(2) // Invoke as a partially-applied function.
+    result = func(1) // Calling func(1) makes it fully applied.
+    println(s"func(1) = $result") // PRINTS: func(1) = -1
+
+    println("SECTION 3) =============================================")
+    func = subtractXYCurried_2(2)(_) // Invoke as a partially-applied function.
+    result = func(1) // Calling func(1) makes it fully applied.
+    println(s"func(1) = $result") // PRINTS: func(1) = 1
+  }
+}
+==================================================================================
+
+EXAMPLE 3)
+The code sample below shows another example of a curried function that's defined
+with a single argument list.  The funcOfGunc() function is a curried function
+because it returns a function that accepts an argument list.  It's defined in the
+code sample below like this:
+
+def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+When you invoke funcOfGunc() with only one argument list it becomes a partially-applied
+function because it returns a function.  When you invoke funcOfGunc() with two argument
+lists it returns a value (of type Double), which makes it a fully-applied function.
+
+The following code sample shows how to invoke funcOfGunc() as a fully-applied function,
+and as a partially-applied function.
+
+object Demo
+{
+  def main(args:Array[String]): Unit =
+  {
+    val plus5Func:(Double=>Double)  = { x:Double => x+5.0D }
+    val squareFunc:(Double=>Double) = { x:Double => x*x }
+
+    // Because the A, B, and C in this example all use the same data type (Int), the
+    // funcOfGunc definition below could instead be written this way, containing ONLY
+    // a single parametric data type of A.
+    // def funcOfGunc[A](func:(A=>A), gunc:(A=>A)):(A=>A) = { x=>func(gunc(x)) }
+    def funcOfGunc[A,B,C](func:(B=>C), gunc:(A=>B)):(A=>C) = { x=>func(gunc(x)) }
+
+
+    // funcOfGunc(plus5Func, squareFunc) RETURNS A FUNCTION that accepts
+    // a single argument of type Double.  When you call it a with a second
+    // argument list (in the following line of code), you're invoking the
+    // returned function by passing to it an argument of type Double.
+    var result:Double = funcOfGunc(plus5Func, squareFunc)(7.0D)
+    println("1A) result = " + result) // PRINTS: 1A) result = 54.0 // = [5.0+(7.0*7.0)]
+    var func:Double=>Double = funcOfGunc(plus5Func, squareFunc)
+    result = func(7.0D)
+    println("1B) result = " + result) // PRINTS: 1B) result = 54.0 // = [5.0+(7.0*7.0)]
+    func = funcOfGunc(plus5Func, squareFunc)(_)
+    result = func(7.0D)
+    println("1C) result = " + result) // PRINTS: 1C) result = 54.0
+
+    // ==============================================================
+
+    // funcOfGunc(squareFunc, plus5Func) RETURNS A FUNCTION that accepts
+    // a single argument of type Double.  When you call it a with a second
+    // argument list (in the following line of code), you're invoking the
+    // returned function by passing to it an argument of type Double.
+    result = funcOfGunc(squareFunc, plus5Func)(7.0D)
+    println("2A) result = " + result) // PRINTS: 2A) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
+    func = funcOfGunc(squareFunc, plus5Func)
+    result = func(7.0D)
+    println("2B) result = " + result) // PRINTS: 2B) result = 144.0 // = [(5.0+7.0)*(5.0+7.0)]
+    func = funcOfGunc(squareFunc, plus5Func)(_)
+    result = func(7.0D)
+    println("2C) result = " + result) // PRINTS: 2C) result = 144.0
+  }
+}
+
 ========================================================================================
-Here is another example of currying.  Read in-line comments below for details.
+
+EXAMPLE 4)
+Read in-line comments below for details.
 
 object Demo
 {
@@ -319,9 +330,9 @@ object Demo
     println(wrapWithDiv("XYZ"))     // PRINTS: <div>XYZ</div>
   }
 }
-
 ========================================================================================
 
+EXAMPLE 5)
 The following code sample shows another example of transforming a regular
 function into a curried function by first performing an eta expansion on
 it by adding the underscore (_) character, and then calling Scala's .curried()
@@ -380,6 +391,7 @@ object Demo
 
 ========================================================================================
 
+EXAMPLE 6)
 The foldLeft and foldRight functions implemented by the Scala List class are recursive
 AND curried functions.  Below is sample code showing the use of the List.foldLeft and
 List.foldRight functions.
@@ -441,7 +453,6 @@ object Demo
     println(strResult) // PRINTS: ABC-DEF-GHI-JKL-MNO-BEGIN
   }
 
-
   /**
    * NOTE: Scala defines List.foldLeft as this:   def foldLeft[B](z: B)(op: (B, A) => B): B
    *       Scala defines List.foldRight as this:  def foldRight[B](z: B)(op: (A, B) => B): B
@@ -457,6 +468,7 @@ object Demo
 
 ========================================================================================
 
+EXAMPLE 7)
 In the code sample immediately ABOVE, the Scala API functions List.foldRight
 and List.foldLight are demonstrated.  In the sample code BELOW, we write our
 own functions named myFoldRightFunc and myFoldLeftFunc (both curried, recursive
@@ -538,5 +550,3 @@ object Demo
     str1.concat("-").concat(str2)
   }
 }
-
-========================================================================================
