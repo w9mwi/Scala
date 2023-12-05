@@ -111,8 +111,9 @@ ANSWER:  Because both the (testCondition) argument and the (codeBlock) argument 
          argument would specify Int instead of Unit.
 
 NOTE: Although the myWhileLoop()() function defined in the sample code below
-      contains two argument lists, myWhileLoop()() is NOT a curried function.
-      myWhileLoop()() must be invoked with both of its argument lists.
+      contains two argument lists, myWhileLoop()() is NOT a curried function;
+      so it can't be invoked by passing it only one argument list.  It must
+      be invoked by passing to it both its argument lists.
 
 object Demo
 {
