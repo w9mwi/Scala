@@ -31,8 +31,7 @@ into a sequence of functions that accepts only one argument list.  Each function
 when invoked, returns another function that consumes the following argument list.
 The sequence of function calls terminates when the last function in the sequence
 returns a value, instead of a function.  Any function that returns a function
-(where the returned function also contains one or more argument lists) is a
-curried function.
+(where the returned function also contains an argument list) is a curried function.
 
 CURRYING DEFINITION 2
 =====================
@@ -41,8 +40,8 @@ in the chain gets passed a single argument list, and returns a function that
 accepts a single argument list.  When a curried function is finally called with
 its last (of multiple) argument lists, the curried function becomes fully applied,
 and returns NOT a function, but a final value.  Any function that returns a
-function (where the returned function also contains one or more argument lists)
-is a curried function.
+function (where the returned function also contains an argument list) is a
+curried function.
 
 Whenever a Scala curried function is invoked, that function becomes
 either a partially-applied function, or a fully-applied function.
@@ -79,12 +78,11 @@ programmer-defined while loop that has this definition:
 
 def myWhileLoop(testCondition: => Boolean)(codeBlock: => Unit):Unit = { ... }
 
-Its 1st argument list is:  (testCondition: => Boolean)
-Its 2nd argument list is:  (codeBlock: => Unit)
+The first argument list is:  (testCondition: => Boolean)
+The second argument list is: (codeBlock: => Unit)
 
-Obviously, the "=> Boolean" designates a function that returns a Boolean,
-and "=> Unit" designates a function that returns Unit.  But the following
-question arises...
+The "=> Boolean" designates a function that returns a Boolean, and "=> Unit"
+designates a function that returns Unit.  But the following question arises...
 
 QUESTION: Why is there no data type specified between the colon (:) and
           the rocket (=>) in these two argument lists, as you may expect?
@@ -92,27 +90,25 @@ QUESTION: Why is there no data type specified between the colon (:) and
           (testCondition: => Boolean)
           (codeBlock: => Unit)
 
-ANSWER:  Because both those argument lists do NOT get passed some value
-         (i.e., Int, String, Boolean, Array, List, etc.).
+ANSWER:  Because both the (testCondition) argument and the (codeBlock) argument DON'T
+         get passed a value (i.e., Int, String, Boolean, Array, List, etc.).
 
-         In the code sample below the first argument list (testCondition) gets passed
-         a Scala expression that evaluates to true/false.  A Scala expression like
+         In the code sample below the first argument (testCondition) gets passed a
+         Scala expression that evaluates to true/false.  A Scala expression like
          "idx > 0" is NOT a data type, even though it evaluates to the Boolean data type.
          "idx > 0" is actually executable code, and executable code isn't a data type.
-         Therefore, no data type is specified for the testCondition argument list in
-         the code sample below.
+         Therefore, no data type is specified for the testCondition argument.
 
-         The second argument list (codeBlock) also gets passed executable code.  But
-         instead of a single line of code (like "idx > 0"), the second argument list
-         below gets passed a multiple lines of Scala code, which is also NOT a data
-         type.  Therefore, no data type is specified for the codeBlock argument list
-         in the code sample below.
+         The second argument (codeBlock) also gets passed executable code.  But instead
+         of a single line of code (like "idx > 0"), the (codeBlock) argument gets
+         passed multiple lines of Scala code, which is also NOT a data type.  Therefore,
+         no data type is specified for the codeBlock argument.
 
          The last line of code executed by the (codeBlock) argument ("idx -= 1")
          doesn't evaluate to any data type; therefore, the return data type of
          codeBlock is specified as Unit.  If the last line of the codeBlock argument
          did evalate to some data type like Int, than the return type of the codeBlock
-         argument would specif Int instead of Unit.
+         argument would specify Int instead of Unit.
 
 NOTE: Although the myWhileLoop()() function defined in the sample code below
       contains two argument lists, myWhileLoop()() is NOT a curried function.
