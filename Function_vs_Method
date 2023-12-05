@@ -43,27 +43,27 @@ object Demo
 
 The following code sample shows two method definitions that may look strange to a
 newcomer.  Both methods accept no arguments and return the same Int value (123).
-One of the methods is defined WITHOUT parenthesis.  The other method is defined
-WITH parenthesis.  Read in-line comments for details.
+One of the methods is defined without any parentheses.  The other method is defined
+with empty parentheses.  Read in-line comments for details.
 
 object Demo
 {
   def main(args:Array[String]): Unit =
   {
     // You can define a method that accepts no arguments by leaving
-    // out the parenthesis, OR by including empty parenthesis ().
-    def number_1:Int   = 123  // Method number_1 has no parenthesis, and accepts no arguments.
-    def number_2():Int = 123  // Method number_2 has parenthesis, and accepts no arguments.
+    // out the parentheses, OR by including empty parentheses ().
+    def number_1:Int   = 123  // Method number_1 has no parentheses, so it accepts no arguments.
+    def number_2():Int = 123  // Method number_2 has empty parentheses, so it accepts no arguments.
 
-    // A method defined without parenthesis MUST be called without parenthesis.
+    // A method defined without parentheses MUST be called without parentheses.
     println("number_1 = " + number_1)  // PRINTS: number_1 = 123
 
-    // If you uncomment the following commented-out line it WON'T COMPILE,
-    // as you're trying to call the number_1 method with empty parenthesis.
+    // If you uncomment the following commented-out line it WON'T COMPILE because
+    // you're trying to call the number_1 method with empty parentheses.
     // println("number_1() = " + number_1()) // WON'T COMPILE!
 
-    // A method defined with empty parenthesis can be called
-    // without parenthesis OR with empty parenthesis.
+    // A method defined with empty parentheses can be called
+    // without parentheses OR with empty parentheses.
     println("number_2 = " + number_2)     // PRINTS: number_2 = 123
     println("number_2() = " + number_2()) // PRINTS: number_2() = 123
   }
