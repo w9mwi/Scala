@@ -47,8 +47,7 @@ object Demo
 
   class Vect3D_2(val x:Double, val y:Double, val z:Double)
   {
-    // Override the toString() method, so it prints human-readable information...
-    // override def toString():String = { "Vect3D_2(" + x +", " + y + ", " + z + ")" }
+    // Override the toString() method so it prints human-readable information...
     override def toString():String = { s"Vect3D_2($x, $y, $z)" }
   }
 
@@ -66,9 +65,8 @@ The following Scala sample code shows how the Rectangle and Circle classes defin
 extend the Shape class.  Then, the Rectangle and Circle classes override the inherited
 Shape.area() and Shape.circumference methods.
 
-import java.awt.Color
+import java.awt.{Color, Graphics2D}
 import scala.math.Pi
-import scala.swing.Graphics2D
 import java.awt.geom.Ellipse2D
 import java.awt.geom.Rectangle2D
 
