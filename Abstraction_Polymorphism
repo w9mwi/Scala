@@ -81,11 +81,10 @@ object Demo
   //       the entire class must be defined as abstract.
   abstract class Shape(private var color:Color)
   {
-    // The 'protected' keyword is used by methods in this Shape class.  A 'protected' method
-    // means the only classes that can call it are the Shape class, and classes that inherit
-    // (extends) this Shape class.
-    protected def area:Double             = 0.0
-    protected def circumference:Double    = 0.0
+    // The 'protected' methods here mean the only class that can invoke the method
+    // are classes that extend the Shape class, or the Shape class itself.
+    protected def area:Double // An uninitialized method makes the method abstract.
+    protected def circumference:Double // An uninitialized method makes the method abstract.
     protected def draw(g:Graphics2D):Unit = { g.setPaint(color) }
   }
 
@@ -115,10 +114,6 @@ object Demo
 
   def main(args: Array[String]):Unit =
   {
-    // NOTE: The following commented-out line of code will NOT compile cuz Shape is an abstract (anonymous) class.
-    //       If you remove the 'abstract' keyword from the Shape class, the following line will compile.
-    // val myShape:Shape      = new Shape(Color.BLUE)
-
     val myRectangle:Rectangle = new Rectangle(6.54, 9.87, Color.PINK)
     val myCircle:Circle       = new Circle(5.67, Color.YELLOW)
 
