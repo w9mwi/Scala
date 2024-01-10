@@ -81,14 +81,19 @@ object Demo
     println(s"EXAMPLE 1) intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 1) intArray.size = 10
 
     // EXAMPLE 2)
+    // Print the value contained in each of the Array's 10 elements.
     print("EXAMPLE 2) ")
     intArray.foreach(print) // PRINTS: EXAMPLE 2) 4444444444
 
     // EXAMPLE 3)
+    // Print the value contained in each of the Array's 10 elements using
+    // a different print statement than in EXAMPLE 2).
     print("\nEXAMPLE 3) ")
     intArray.foreach{print(_)}  // PRINTS: EXAMPLE 3) 4444444444
 
     // EXAMPLE 4)
+    // Print the value contained in each of the Array's 10 elements using
+    // a different print statement than in EXAMPLE 2) and EXAMPLE 3).
     print("\nEXAMPLE 4) ")
     intArray.foreach {x => print(s"$x ")} // PRINTS: EXAMPLE 4) 4 4 4 4 4 4 4 4 4 4
 
