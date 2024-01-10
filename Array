@@ -75,49 +75,66 @@ object Demo
 {
   def main(args: Array[String])
   {
+    // EXAMPLE 1)
     var intArray:Array[Int] = Array.fill(10)(4)
-    println(s"1) intArray.size = ${intArray.size}") // PRINTS: 1) intArray.size = 10
-    intArray.foreach(print) // Prints the contents of intArray: 4444444444
-    println("\n===================")
-    intArray.foreach{print(_)} // Equivalent to the above line: intArray.foreach(print)
-    println("\n===================")
+    println(s"EXAMPLE 1) intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 1) intArray.size = 10
 
+    // EXAMPLE 2)
+    print("EXAMPLE 2) ")
+    intArray.foreach(print) // PRINTS: EXAMPLE 2) 4444444444
+
+    // EXAMPLE 3)
+    print("\nEXAMPLE 3) ")
+    intArray.foreach{print(_)}  // PRINTS: EXAMPLE 3) 4444444444
+
+    // EXAMPLE 4)
+    print("\nEXAMPLE 4) ")
+    intArray.foreach {x => print(s"$x ")} // PRINTS: EXAMPLE 4) 4 4 4 4 4 4 4 4 4 4
+
+    // EXAMPLE 5)
     // Initialize a new List having 6 elements, where each element contains the string "XYZ".
     val stringList:List[String] = List.fill(6)("XYZ")
-    stringList.foreach(print)  // Prints the contents of stringList: XYZXYZXYZXYZXYZXYZ
-    println("\n===================")
+    print("\nEXAMPLE 5) ")
+    stringList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 5) XYZ XYZ XYZ XYZ XYZ XYZ
 
+    // EXAMPLE 6)
     var idx = 1
     // The following line of code initializes a new List with 5 elements.
-    // NOTE: idx MUST be declared as a var.  The value of each element in
-    //       intList will be the value of idx.  But the idx value first
-    //       changes by 2X its previous value before it gets assigned to
-    //       each element in intList.
-    var intList:List[Int] = List.fill(5){idx*=2; idx} // NOTE: The second argument is a code block
-                                                      //       (which returns the value idx) so it
-                                                      //        MUST be contained in curly braces.
-    intList.foreach(println)  // Prints these 5 elements of intList:  2, 4, 8, 16, 32
-    println("===================")
+    // The second argument list (between the {}) contains a block of code
+    // that gets executed for each element in intList.
+    var intList:List[Int] = List.fill(5){idx*=2; idx}
+    print("\nEXAMPLE 6) ")
+    intList.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 6) 2 4 8 16 32
+
+    // EXAMPLE 7)
     intList = 1::intList // Prepend a 1 to intList
-    intList.foreach(println)  // Prints these 6 elements of intList:  1, 2, 4, 8, 16, 32
-    println("===================")
-    intList = List.tabulate(10)(i => i*i) // The value of each element will be its index SQUARED.
-    intList.foreach(println)  // Prints these 10 elements of intList: 0, 1, 4, 9, 16, 25, 36, 49, 64, 81
-    println("===================")
+    print("\nEXAMPLE 7) ")
+    intList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 7) 1 2 4 8 16 32
 
+    // EXAMPLE 8)
+    intList = List.tabulate(10)(x=>x*x) // The value of each element will be its index SQUARED.
+    print("\nEXAMPLE 8) ")
+    intList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 8) 0 1 4 9 16 25 36 49 64 81
+
+    // EXAMPLE 9)
     // Create a 6-element Array, where each element in the Array is initialized with
-    // the value: (3*x*x + 5x - 7)   The value x designates the current index of the Array.
-    // So for the first element of the array, x = 0.  For the second element, x = 1.  Etc.
+    // this value: 3*x*x + 5x - 7.  For the first element x = 0; the second element x = 1;
+    // the last element x = 5.
     intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // NOTE: Uses (), equivalent to the line below.
-    println(s"2) intArray.size = ${intArray.size}") // PRINTS: 2) intArray.size = 6
-    intArray.foreach(println) // Prints these 6 elements of intArray: -7, 1, 15, 35, 61, 93
-    println("===================")
+    println(s"\nEXAMPLE 9) intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 9) intArray.size = 6
 
-    // NOTE: The last value printed below will ALWAYS be ONE LESS than the maximum value in
-    //       the range.  So in this instance, the last value printed is eleven (11)...
+    // EXAMPLE 10)
+    print("EXAMPLE 10) ")
+    intArray.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 10) -7 1 15 35 61 93
+
+    // EXAMPLE 11)
+    print("\nEXAMPLE 11) ")
     intArray = Array.range(0, 12)
-    println(s"3) intArray.size = ${intArray.size}") // PRINTS: 3) intArray.size = 12
-    intArray.foreach(println) // PRINTS: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+    println(s"intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 11) intArray.size = 12
+
+    // EXAMPLE 12)
+    print("EXAMPLE 12) ")
+    intArray.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 12) 0 1 2 3 4 5 6 7 8 9 10 11
   }
 }
 
