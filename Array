@@ -76,6 +76,7 @@ object Demo
   def main(args: Array[String])
   {
     // EXAMPLE 1)
+    // Create a 10-element Array of Int values, and initialize each element with the Int value of 4.
     var intArray:Array[Int] = Array.fill(10)(4)
     println(s"EXAMPLE 1) intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 1) intArray.size = 10
 
