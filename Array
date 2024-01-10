@@ -152,52 +152,76 @@ the fundamentals of multi-dimensional arrays.
 
 object Demo {
   def main(args: Array[String]) {
-    val dim1Size: Int = 4
-    val dim2Size: Int = 3
-    // Declare an UN-initialized 2-dimensional Array.
-    val matrix2X2: Array[Array[Int]] = Array.ofDim[Int](dim1Size, dim2Size)
+    val columns:Int = 3
+    val rows:Int = 4
+    // Declare an uninitialized 2-dimensional Array.
+    val matrix2X2: Array[Array[Int]] = Array.ofDim[Int](rows, columns)
 
-    // The following 2 nested for loops initializes the matrix2X2 Array.
-    // The first element of matrix2X2 Array will contain the number 0.  Every
-    // element after that will contain the number of the previous element
-    // incremented by 1.  So if the Array is 4X3 elements, it will contains
-    // the integers 0 through 11.
+    // The following 2 nested for loops initialize every element of the
+    // matrix2X2 Int Array.
     for (idx <- matrix2X2.indices) {
       for (jdx <- matrix2X2(idx).indices) {
-        matrix2X2(idx)(jdx) = if (idx == 0)      { idx + jdx }
-                              else if (jdx == 0) { matrix2X2(idx - 1)(dim2Size - 1) + 1 }
-                              else               { matrix2X2(idx)(jdx - 1) + 1 }
+        matrix2X2(idx)(jdx) =
+        if (idx == 0)
+          { idx + jdx }
+        else if (jdx == 0)
+        { matrix2X2(idx - 1)(columns - 1) + 1 }
+        else
+          { matrix2X2(idx)(jdx - 1) + 1 }
       }
     }
 
-    // The following code prints the contents of all matrix2X2 elements like this:
-    // elem = 0, elem = 1, elem = 2, elem = 3, elem = 4, elem = 5, elem = 6, elem = 7, elem = 8, elem = 9, elem = 10, elem = 11,
+    // *******************************************************************
+    // EXAMPLE 1 and EXAMPLE 2 below show two examples that traverse all
+    // elements of the matrix2X2 Int Array; and print the contents of each
+    // element.  EXAMPLE 1 is the preferred way of doing it.
+    print("EXAMPLE 1) ")
+    matrix2X2.foreach {
+      x => x
+      x.foreach(x => print(s"$x, ")) // PRINTS:  EXAMPLE 1) 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+    }
+
+    print("\nEXAMPLE 2) ")
     matrix2X2.foreach {
       for (elem <- _) {
-        print(s"elem = $elem, ")
+        print(s"$elem, ") // PRINTS:  EXAMPLE 2) 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
       }
     }
-    println("\n=============")
+    println
+    // *******************************************************************
 
-    // The following line of code prints the contents of all matrix2X2 elements like this:
-    // 0 1 2
-    // 3 4 5
-    // 6 7 8
-    // 9 10 11
     print2DMatrix(matrix2X2)
-    println("\n=============")
 
-    // The following 2 lines of code demonstrate that the contents of an
-    // Array can be changed.  Even when that Array is declared as a val.
+    // The call below to change2DArrayContents() demonstrates that the
+    // contents of any element in Array can be changed, even when the
+    // Array is declared as a val.  Because a Scala Array is always mutable.
     change2DArrayContents(matrix2X2)
     print2DMatrix(matrix2X2)
   }
 
-  /**
-   * Print the contents of a 2-dimensional Int Array matrix.
-   */
+  /**************************************************************
+   Print the contents of a 2-dimensional Int Array in a format
+   that displays the Array as a matrix or rows and columns.
+   For example, a two-dimensional Array of size 3X4 will be
+   printed like this:
+   0 1 2
+   3 4 5
+   6 7 8
+   9 10 11
+   *************************************************************/
   def print2DMatrix(matrix2D:Array[Array[Int]]): Unit =
   {
+    // EXAMPLE A) and EXAMPLE B) below print the entire two-dimensional
+    // Int Array in a matrix format.  EXAMPLE A) is the preferred way
+    // of doing it.
+    println("EXAMPLE A) of printing a matrix.")
+    matrix2D.foreach {
+      x => x
+      x.foreach(x => print(s"$x "))
+      println
+    }
+
+    println("EXAMPLE B) of printing a matrix.")
     for (idx <- matrix2D.indices) {
       for (jdx <- matrix2D(idx).indices) {
         print(" " + matrix2D(idx)(jdx))
@@ -208,7 +232,9 @@ object Demo {
 
   def change2DArrayContents(matrix2D:Array[Array[Int]]): Unit =
   {
-     matrix2D(0)(0) = -999
+    // Change the contents of the first element in a
+    // two-dimensional Int Array to -999.
+    matrix2D(0)(0) = -999
   }
 }
 
