@@ -145,7 +145,7 @@ object Demo
 }
 
 =======================================================================
-MULTI-DIMENSIONAL ARRAYS (PART 1)
+MULTI-DIMENSIONAL ARRAYS - PART 1
 
 Read in-line comments in the following code sample to understand
 the fundamentals of multi-dimensional arrays.
@@ -157,15 +157,15 @@ object Demo {
     // Declare an uninitialized 2-dimensional Array.
     val matrix2X2: Array[Array[Int]] = Array.ofDim[Int](rows, columns)
 
-    // The following 2 nested for loops initialize every element of the
-    // matrix2X2 Int Array.
+    // The following 2 nested for loops initialize every element
+    // of the matrix2X2 Int Array.
     for (idx <- matrix2X2.indices) {
       for (jdx <- matrix2X2(idx).indices) {
         matrix2X2(idx)(jdx) =
         if (idx == 0)
           { idx + jdx }
         else if (jdx == 0)
-        { matrix2X2(idx - 1)(columns - 1) + 1 }
+          { matrix2X2(idx - 1)(columns - 1) + 1 }
         else
           { matrix2X2(idx)(jdx - 1) + 1 }
       }
@@ -191,10 +191,6 @@ object Demo {
     // *******************************************************************
 
     print2DMatrix(matrix2X2)
-
-    // The call below to change2DArrayContents() demonstrates that the
-    // contents of any element in Array can be changed, even when the
-    // Array is declared as a val.  Because a Scala Array is always mutable.
     change2DArrayContents(matrix2X2)
     print2DMatrix(matrix2X2)
   }
@@ -230,16 +226,22 @@ object Demo {
     }
   }
 
+  /***************************************************
+  * This method demonstrates that an Array is NOT mutable
+  * by changing the contents of a single Array element.
+  * Even when an Array is declared as a val its contents
+  * can be changed.
+  ***************************************************/
   def change2DArrayContents(matrix2D:Array[Array[Int]]): Unit =
   {
-    // Change the contents of the first element in a
-    // two-dimensional Int Array to -999.
+    // Change the contents of the first element
+    // in a two-dimensional Int Array to -999.
     matrix2D(0)(0) = -999
   }
 }
 
 ================================================================================
-MULTI-DIMENSIONAL ARRAYS (PART 2)
+MULTI-DIMENSIONAL ARRAYS - PART 2
 
 Read in-line comments in the following code sample.  This code shows how
 to populate a 100-element 2-dimensional Array with Array[Double] arrays
