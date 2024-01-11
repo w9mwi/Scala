@@ -350,7 +350,7 @@ object Demo
    *              two elements in the Array passed to this function.
    *              In this example the func argument is _*_, which performs
    *              a multiplication on two Int elements of the Array.
-   * @return
+   * @return      The final result of all multiplications performed.
   */
   def operateOnArray(arr:Array[Int], index:Int, func:(Int, Int) => Int):Int =
   {
