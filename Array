@@ -253,8 +253,8 @@ object Demo
   def main(args: Array[String])
   {
     // This program creates Arrays having a RANDOM NUMBER of Array elements.
-    // To set the minimum and maximum number of elements contained in those
-    // Arrays, change the following two values.
+    // Change the following two values to set the minimum and maximum number
+    // of elements contained in the Arrays.
     val minNoOfElems:Int = 3
     val maxNoOfElems:Int = 6
     if (minNoOfElems < 2)
@@ -271,13 +271,13 @@ object Demo
     // HOW THE FOLLOWING LINE OF CODE WORKS:
     // 1) Array.fill(100) creates a 100-element Array that will hold
     //    an Array of type Array[Double].
-    // 2) When EACH of those 100 Array elements is created, the block
+    // 2) When EACH of the 100 Array elements is created, the block
     //    of code between the braces {} executes.
     // 3) Read comments below for further details.
     val array2D:Array[Array[Double]] =
     Array.fill(100) {
       // THIS BLOCK OF CODE EXECUTES ONCE FOR EACH OF THE 100 ARRAY ELEMENTS CREATED.
-      //
+
       // randNumOfElems is the number of elements the Array[Double] will contain.
       val randNumOfElems:Int = util.Random.nextInt(maxNoOfElems+1)
 
