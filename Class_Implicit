@@ -68,14 +68,14 @@ object Demo
 }
 
 ====================================================================
-This sample program has identical behavior to the sample program above,
-except we use the 'implicit' keyword in the function definition,
-instead of in the class definition.
+IMPORTANT: This sample program has identical behavior to the sample
+           program above, except the 'implicit' keyword is by the
+           function definition, instead of by the class definition.
 
 Since the implicit function defined below returns a MyEnhancedString class,
-an implicit class is actually what is being defined.  In other words,
-this example shows an alternative (and more convoluted) way of defining
-an implicit class.
+an implicit class is actually what's being defined.  In other words,
+this example shows an alternative (but convoluted) way of defining an
+implicit class by returning an implicit class via a function call.
 
 object Demo
 {
