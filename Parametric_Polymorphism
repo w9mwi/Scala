@@ -84,13 +84,13 @@ object Demo
 
     worker1(12) = "Jason" // CALLS: update(hour:Int, v:A):Unit     AS: update(12, "Jason")
 
-    val totalRiders = riders1.combine(riders2, (o1, o2) => (o1, o2) match
-                      {
-                        case (None,    None)    => None
-                        case (Some(a), None)    => Some(a)
-                        case (None,    Some(b)) => Some(b)
-                        case (Some(a), Some(b)) => Some(a+b)
-                      })
+    val totalRiders = riders1.combine(riders2, (o1, o2) => (o1, o2)
+    match {
+            case (None,    None)    => None
+            case (Some(a), None)    => Some(a)
+            case (None,    Some(b)) => Some(b)
+            case (Some(a), Some(b)) => Some(a+b)
+          })
 
       println(riders1)
       println("\n")
