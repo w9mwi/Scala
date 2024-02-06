@@ -71,4 +71,3 @@ object Demo
     println("circleACR = " + circleACR + ",  rectACR = " + rectACR)
   }
 }
-==========================================================================
