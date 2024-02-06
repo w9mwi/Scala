@@ -80,7 +80,6 @@ object Demo
     */
   def wordCount_2(fileName:String):mutable.Map[String, Int] =
   {
-
     import scala.io.BufferedSource
     val source:BufferedSource = io.Source.fromFile(fileName)
 
