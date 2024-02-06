@@ -1,5 +1,5 @@
-In Scala, a class that's defined inside another class is termed as an "inner class".
-An inner class is bound to the outer object.
+In Scala, a class that's defined inside another class is termed as an
+"inner class".  An inner class is bound to the outer object.
 
 object Demo
 {
