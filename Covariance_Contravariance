@@ -120,7 +120,7 @@ object Demo
 }
 
 ==============================================================================================
-Contravariance
+CONTRAVARIANCE
 ==============
 
 RECALL: List[T] in known as a Generic.  T is known as a "Type Parameter."
@@ -135,7 +135,7 @@ Contravariance Annotation is designated with a '-' character, like this: List[-T
 --> https://www.journaldev.com/9585/scala-variances-covariant-invariant-contravariant
 
 ==============================================================================================
-CONTRAVARIANCE SAMPLE CODE.
+CONTRAVARIANCE SAMPLE CODE
 
 object Demo
 {
