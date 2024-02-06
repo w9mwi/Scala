@@ -23,7 +23,7 @@ object Demo
   }
 
   /**
-    * THIS IS A RECURSIVE FUNCTION!
+    * THIS IS A RECURSIVE FUNCTION
     * Compute and return a fibonnaci number.  If this function used the :: operator
     * instead of the #:: operator, then every call to the function would result in
     * another call, thus causing infinite recursion.  Since it uses the #:: operator,
