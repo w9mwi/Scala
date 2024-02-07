@@ -33,7 +33,8 @@ object Demo
 =================================================================
 NOTE: The Scala Vector class is the recommended “go to” class for
       IMMUTABLE, INDEXED SEQUENTIAL collections.
-=================================================================
+
+
 ArrayBuffer
 ===========
 
@@ -259,6 +260,7 @@ object Demo
 }
 
 =================================================================================
+
 The following is a list of some common methods used by the Buffer type...
 
 ___ +=(elem: A):Buffer[A]                 - Append an element to the buffer and return the same buffer.
