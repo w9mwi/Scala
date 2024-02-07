@@ -1,8 +1,8 @@
+scala.util.Using is a utility for performing automatic resource management.
 scala.util.Using is a Scala defined object, NOT a class.
 
-scala.util.Using is a utility for performing automatic resource management.
-It can be used to perform an operation using resources, after which it
-releases the resources in reverse order of their creation.
+scala.util.Using can be used to perform an operation using resources, after
+which it releases the resources in reverse order of their creation.
 
 Notice that whenever the Scala object Using is invoked it takes
 two parameter lists, like this...
