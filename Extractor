@@ -1,4 +1,4 @@
-A Scala object that defines an unapply() method is called an extractor.
+An "extractor" is any Scala object that defines an unapply() method.
 
 Recall that the Scala keyword "match" is frequently used for pattern matching.
 NOTE: Pattern matching can be performed without using the "match" keyword,
