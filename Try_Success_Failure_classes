@@ -1,6 +1,5 @@
-This page describes how to use the following 3 Scala classes
-together, in order to determine the reason why an exception
-occurred, when an exception is thrown.
+To determine the reason why an exception is thrown,
+use the following 3 Scala classes together.
 
 1) Try
 2) Success
