@@ -109,7 +109,6 @@ object Demo
     // NOTE: The retain() method (called above) is available for mutable Sets only, NOT for immutable Sets.
   }
 }
-=============================================================================================
 
 =============================================================================================
 The following code shows how to use ordered sets, also known as sorted sets,
