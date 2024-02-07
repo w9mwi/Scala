@@ -10,7 +10,7 @@ invoked independent of a class instance--instead, the class they operate on
 (a List class) is passed to the myFoldLeft() and myFoldRight() methods as an
 argument.
 
-Review this basic math...
+COMMUTATIVE vs. ASSOCIATIVE
  
 COMMUTATIVE: When the order of a mathematical operation DOESN'T matter, it's commutative.
 Example:     (4 X 3 X 2)  =  (2 X 3 X 4)  =  (3 X 2 X 4) = 24
