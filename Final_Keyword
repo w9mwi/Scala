@@ -1,5 +1,3 @@
-SEE PAGE 464
-
 When something is "abstract", it basically means that it must be
 "overridden" in a subclass.  There are times when it is useful to
 declare that something can't be overridden, or changed in a subtype.
