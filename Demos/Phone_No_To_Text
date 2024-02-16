@@ -1,0 +1,46 @@
+import scala.collection.mutable.ArrayBuffer
+
+object Demo
+{
+  val mapIntToString = Map(0 -> "0",   1 -> "1",   2 -> "ABC",  3 -> "DEF", 4 -> "GHI",
+                           5 -> "JKL", 6 -> "MNO", 7 -> "PQRS", 8 -> "TUV", 9 -> "WXYZ")
+
+  def main(args: Array[String]): Unit =
+  {
+    val strPhoneNo:String = "4224348"
+    val arrBuf = new ArrayBuffer[List[Char]]()
+
+    strPhoneNo.foreach {
+      x => x
+      arrBuf.append(buildListElement(List(x), Nil))
+    }
+    println(s"arrBuf = ${arrBuf}")
+  }
+
+  /**********************************************************
+   * This is a RECURSIVE FUNCTION.
+   *
+   * @param inputList - A List[Char] that must contain ONLY Chars '0' through '9'
+   *                    because they will all be converted to Int values by invoking
+   *                    the Map named mapIntToString
+   * @param accum     - An accumulator argument of type List[Char] that gets built
+   *                    with each recursive call to this function.
+   * @return          - The accum argument.
+   **********************************************************/
+  def buildListElement(inputList:List[Char], accum:List[Char]):List[Char] =
+  {
+    // The following commented-out line is for debugging only.
+    // println(s"inputList = $inputList,  accum = $accum")
+
+    if (inputList.isEmpty) {
+      accum
+    }
+    else {
+      // The head of inputList MUST be a Char of '0' through '9'.
+      // The following line of code converts that Char to an Int.
+      val intIndex = inputList.head.toString.toInt
+      // The following line is a RECURSIVE CALL to this function.
+      buildListElement(inputList.tail, accum ++ mapIntToString(intIndex))
+    }
+  }
+}
