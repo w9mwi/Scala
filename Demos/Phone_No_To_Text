@@ -1,61 +1,60 @@
-import scala.collection.mutable.ArrayBuffer
+package org.tjb.scala
 
 object Demo
 {
-  val mapIntToString = Map(0 -> "0",   1 -> "1",   2 -> "ABC",  3 -> "DEF", 4 -> "GHI",
-                           5 -> "JKL", 6 -> "MNO", 7 -> "PQRS", 8 -> "TUV", 9 -> "WXYZ")
+  val keypad = Map('0' -> "0",   '1' -> "1",   '2' -> "ABC",  '3' -> "DEF", '4' -> "GHI",
+                   '5' -> "JKL", '6' -> "MNO", '7' -> "PQRS", '8' -> "TUV", '9' -> "WXYZ")
 
-  def main(args: Array[String]): Unit =
-  {
-    val strPhoneNo:String = "4224348"
-    val arrBuf = new ArrayBuffer[List[Char]]()
-    val arrBufResult = new ArrayBuffer[List[Char]]()
+  /**
+   * main()
+   */
+  def main(args: Array[String]): Unit = {
+    // Print the Scala Version used by this program.
+    println("Scala Version = " + util.Properties.versionNumberString)
 
-    // Populate arrBuf
-    strPhoneNo.foreach {
-      charInt => charInt // A Char from '0' to '9'
-      arrBuf.append(buildListElement(List(charInt), Nil))
+    val phoneNumber = "12340"
+    if (false == validatePhoneNumber(phoneNumber))
+      return
+
+    val result:List[String] = letterCombinations(phoneNumber)
+    println(result)
+  }
+
+  /**
+   * THIS IS A RECURSIVE FUNCTION!
+   *
+   * @param digits - A string of digit chars ('0 to '9') that come from a phone number.
+   * @return - A List[String] that contains to all possible text string permuations
+   *           of a phone number.  Where those text chars are obtained from the
+   *           keypad Map defined at the top of this program.
+   */
+  def letterCombinations(digits: String): List[String] = {
+    if (digits.isEmpty) {
+      List("")
     }
+    else {
+      val idxSeqString:IndexedSeq[String] =
+        for {
+          char <- keypad(digits.head)
+          rest <- letterCombinations(digits.tail)
+        } yield char + rest
 
-    println(s"arrBuf = $arrBuf")
-
-    val range1 = 0 until arrBuf.size
-    for (idx <- range1)
-    {
-      val range2 = 0 until {arrBuf(idx)}.size
-      for (jdx <- range2) {
-        val outside = arrBuf(idx)
-        val inside  = outside(jdx)
-        println(s"outside = $outside,  inside = $inside")
-      }
-
+      idxSeqString.to(List) // Convert IndexedSeq[String] to List[String]
     }
   }
 
-  /**********************************************************
-   * This is a RECURSIVE FUNCTION.
-   *
-   * @param inputList - A List[Char] that must contain ONLY Chars '0' through '9'
-   *                    because they will all be converted to Int values by invoking
-   *                    the Map named mapIntToString
-   * @param accum     - An accumulator argument of type List[Char] that gets built
-   *                    with each recursive call to this function.
-   * @return          - The accum argument.
-   **********************************************************/
-  def buildListElement(inputList:List[Char], accum:List[Char]):List[Char] =
-  {
-    // The following commented-out line is for debugging only.
-    // println(s"inputList = $inputList,  accum = $accum")
-
-    if (inputList.isEmpty) {
-      accum
+  /**
+   * @param phoneNumber - A String consisting of only digit characters ('0' through '9').
+   * @return - false if validation fails; true otherwise
+   */
+  def validatePhoneNumber(phoneNumber:String):Boolean = {
+    phoneNumber.foreach {
+      myChar => myChar
+        if (false == myChar.isDigit) {
+          println(s"phoneNumber contains '$myChar', which is an invalid char.  (Must be from '0' to '9')")
+          return(false)
+        }
     }
-    else {
-      // The head of inputList MUST be a Char of '0' through '9'.
-      // The following line of code converts that Char to an Int.
-      val intIndex = inputList.head.toString.toInt
-      // The following line is a RECURSIVE CALL to this function.
-      buildListElement(inputList.tail, accum ++ mapIntToString(intIndex))
-    }
+    true
   }
 }
