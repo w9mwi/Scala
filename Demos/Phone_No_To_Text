@@ -24,9 +24,8 @@ object Demo
    * THIS IS A RECURSIVE FUNCTION!
    *
    * @param phoneNoDigits - A string of digit chars ('0 to '9') that come from a phone number.
-   * @return - A List[String] that contains to all possible text string permuations
-   *           of a phone number.  Where those text chars are obtained from the
-   *           keypadMap defined at the top of this program.
+   * @return - A List[String] that contains all possible text string permuations of a phone number.
+   *           Where those text chars are obtained from the keypadMap defined above.
    */
   def buildList(phoneNoDigits: String): List[String] = {
     if (phoneNoDigits.isEmpty) {
