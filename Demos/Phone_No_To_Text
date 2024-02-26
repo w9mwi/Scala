@@ -2,8 +2,8 @@ package org.tjb.scala
 
 object Demo
 {
-  val keypad = Map('0' -> "0",   '1' -> "1",   '2' -> "ABC",  '3' -> "DEF", '4' -> "GHI",
-                   '5' -> "JKL", '6' -> "MNO", '7' -> "PQRS", '8' -> "TUV", '9' -> "WXYZ")
+  val keypadMap = Map('0' -> "0",   '1' -> "1",   '2' -> "ABC",  '3' -> "DEF", '4' -> "GHI",
+                      '5' -> "JKL", '6' -> "MNO", '7' -> "PQRS", '8' -> "TUV", '9' -> "WXYZ")
 
   /**
    * main()
@@ -16,31 +16,34 @@ object Demo
     if (false == validatePhoneNumber(phoneNumber))
       return
 
-    val result:List[String] = letterCombinations(phoneNumber)
+    val result:List[String] = buildList(phoneNumber)
     println(s"\nresult.size = ${result.size} List Elements\n$result")
   }
 
   /**
    * THIS IS A RECURSIVE FUNCTION!
    *
-   * @param digits - A string of digit chars ('0 to '9') that come from a phone number.
+   * @param phoneNoDigits - A string of digit chars ('0 to '9') that come from a phone number.
    * @return - A List[String] that contains to all possible text string permuations
    *           of a phone number.  Where those text chars are obtained from the
-   *           keypad Map defined at the top of this program.
+   *           keypadMap defined at the top of this program.
    */
-  def letterCombinations(digits: String): List[String] = {
-    if (digits.isEmpty) {
+  def buildList(phoneNoDigits: String): List[String] = {
+    if (phoneNoDigits.isEmpty) {
       List("")
     }
     else {
       // The below commented-out for() loop can replace the for{} loop that follows it.
-      // for (char <- keypad(digits.head);  rest <- letterCombinations(digits.tail)) yield char + rest
+      // for (head <- keypadMap(digits.head);  tail <- buildList(digits.tail)) yield head + tail
       val idxSeqString:IndexedSeq[String] =
         for {
-          char <- keypad(digits.head)
-          rest <- letterCombinations(digits.tail)
-        } yield char + rest
+          head <- keypadMap(phoneNoDigits.head)
+          tail <- buildList(phoneNoDigits.tail)
+        } yield head + tail
 
+      // In Scala versions BEFORE 2.13, the below line of code won't compile.
+      // It would need to be replaced with this line:
+      // idxSeqString (collection.breakOut)
       idxSeqString.to(List) // Convert IndexedSeq[String] to List[String]
     }
   }
