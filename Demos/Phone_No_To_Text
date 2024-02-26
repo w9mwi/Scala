@@ -12,12 +12,12 @@ object Demo
     // Print the Scala Version used by this program.
     println("Scala Version = " + util.Properties.versionNumberString)
 
-    val phoneNumber = "12340"
+    val phoneNumber = "4224348"
     if (false == validatePhoneNumber(phoneNumber))
       return
 
     val result:List[String] = letterCombinations(phoneNumber)
-    println(result)
+    println(s"\nresult.size = ${result.size} List Elements\n$result")
   }
 
   /**
@@ -33,6 +33,8 @@ object Demo
       List("")
     }
     else {
+      // The below commented-out for() loop can replace the for{} loop that follows it.
+      // for (char <- keypad(digits.head);  rest <- letterCombinations(digits.tail)) yield char + rest
       val idxSeqString:IndexedSeq[String] =
         for {
           char <- keypad(digits.head)
