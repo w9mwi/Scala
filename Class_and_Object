@@ -4,11 +4,12 @@ Scala provides three constructs for creating user-defined types:
 2) object (Scala has two kinds of object: A "case object" and a regular "object")
 3) trait
 
-Use a Scala trait to represent a "behavior", such as communicate, learn,
-transport, work, etc.  (Traits are NOT covered in this section.  See the
-section titled "Trait" instead.)
-
 Use a Scala class, or a Scala object, to represent a thing/object.
+
+Use a Scala trait to represent behavior.  Examples of behavior are:
+communicate, learn, transport, work, order a pizza, etc.  Traits are
+NOT covered in this section.  See the section titled "Trait" to learn
+about Scala traits.
 
 When there can exist MULTIPLE things/objects (for example, a person),
 use a Scala class.  A Person class would be defined to store data
