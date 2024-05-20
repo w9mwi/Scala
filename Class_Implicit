@@ -1,9 +1,9 @@
-In this discussion, we ignore 'implicit' parameters/arguments, which get
-passed to a function.  For details about 'implicit' parameters, see the
-section titled:  Implicit_Parameters
+In this discussion we ignore 'implicit' arguments, which get
+passed to a function.  For details about 'implicit' arguments,
+see the section titled: Implicit_Parameters
 
 'implicit' is a Scala keyword.  The 'implicit' keyword can be used when
-defining a class, an object, or a function, like this...
+defining a class, an object, or a function.  Some examples are:
 
 1) implicit class  someClass(str: String) { ... }
 2) implicit object someObject(str: String) { ... }
