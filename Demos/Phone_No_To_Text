@@ -1,5 +1,3 @@
-package org.tjb.scala
-
 object Demo
 {
   val keypadMap = Map('0' -> "0",   '1' -> "1",   '2' -> "ABC",  '3' -> "DEF", '4' -> "GHI",
@@ -13,7 +11,7 @@ object Demo
     println("Scala Version = " + util.Properties.versionNumberString)
 
     val phoneNumber = "4224348"
-    if (false == validatePhoneNumber(phoneNumber))
+    if (!validatePhoneNumber(phoneNumber))
       return
 
     val result:List[String] = buildList(phoneNumber)
@@ -51,10 +49,10 @@ object Demo
    * @param phoneNumber - A String consisting of only digit characters ('0' through '9').
    * @return - false if validation fails; true otherwise
    */
-  def validatePhoneNumber(phoneNumber:String):Boolean = {
+  private def validatePhoneNumber(phoneNumber:String):Boolean = {
     phoneNumber.foreach {
-      myChar => myChar
-        if (false == myChar.isDigit) {
+      myChar =>
+        if (!myChar.isDigit) {
           println(s"phoneNumber contains the invalid char: '$myChar'.  All chars must digit chars from '0' to '9')")
           return(false)
         }
