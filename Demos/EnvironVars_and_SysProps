@@ -7,7 +7,7 @@ The code sample below shows how to:
 6) Obtain and print A NON-EXISTENT environment variable,
    and A NON-EXISTENT system property.
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.collection.mutable
 import scala.sys.SystemProperties
 
@@ -17,10 +17,10 @@ object Demo
    * main() function
    ********************************************/
   def main(args: Array[String]) {
-    println("1) Scala Version = " + util.Properties.versionNumberString) // PRINTS: 1) Scala Version = version 2.12.14
-    println("2) Scala Version = " + util.Properties.versionString)       // PRINTS: 2) Scala Version = 2.12.14
+    // Print the Scala version that this program uses...
+    println("1) Scala Version = " + util.Properties.versionNumberString)
+    println("2) Scala Version = " + util.Properties.versionString)
     println("3) Scala Version = " + util.Properties.versionMsg)
-    // PRINTS: 3) Scala Version = Scala library version 2.12.14 -- Copyright 2002-2021, LAMP/EPFL and Lightbend, Inc.
 
     println("=======================================================")
     println("PRINT ALL ENVIRONMENT VALUES:")
@@ -60,7 +60,7 @@ object Demo
   }
 
   def getOptionValue(optionStr: Option[String]): String = {
-    if (optionStr == None) "Does not exist."
-    else optionStr.get.toString
+    if (optionStr.isEmpty) "Does not exist."
+    else optionStr.get
   }
 }
