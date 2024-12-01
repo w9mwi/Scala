@@ -194,13 +194,17 @@ A companion object can access the private members of its companion class.
 AND
 A companion class can access the private members of its companion object.
 
-Use a companion object for methods and vals/vars that apply to all instances
-of the companion class.  For example, instead of defining a method named
-printPersonInfo() inside a class named Person, it'd be better to define
-that method inside a companion object named Person.  So instead of creating
+Use a companion object for methods and values which aren’t specific to
+instances of the companion class.  To put it another way, use a companion
+object for methods and values that apply to all instances of the companion
+class.
+
+For example, instead of defining a method named printPersonInfo() inside
+a class named Person, it's better to define the printPersonInfo() method
+inside a companion object named Person.  Doing that will avoid creating
 1,000 redundant methods named printPersonInfo() for 1,000 Person classes
-instantiated, there would exist only one instance of it in the companion
-object.  Here is an example...
+instantiated; so only one instance of printPersonInfo() gets created in
+the companion object.  Here is an example...
 
 ========================================================================
 import Demo.Person.printPersonInfo
