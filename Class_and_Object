@@ -240,6 +240,27 @@ object Demo
 }
 
 ========================================================================
+The following Scala 3 example shows an alternative (and preferred) way
+to write a companion object.
+
+import scala.math.*
+
+@main def main() =
+
+  class Circle(radius: Double):
+    import Circle.*
+    def area: Double = calculateArea(radius)
+
+  object Circle:
+    private def calculateArea(radius: Double): Double =
+    Pi * pow(radius, 2.0)
+
+  val circle1 = Circle(5.0)
+  println(s"circle1 area = ${circle1.area}") // PRINTS:  circle1 area = 78.53981633974483
+
+
+
+========================================================================
 Besides containing vals/vars and methods that apply to all instances of
 a given class, another use of a companion object is to contain the apply()
 and/or unapply() methods for a plain Scala class.  What are a class's
