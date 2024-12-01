@@ -81,7 +81,7 @@ Higher-Order Function - A function that receives a function as a
                         a param/arg, and/or returns a function.
 
 
-Lambda - Another word for an anonymous function.
+Lambda - Another name for an anonymous function.
 
 Monad - A monad type is not defined in Scala.  Any Scala class
         that implements BOTH the map() and flatMap() functions
