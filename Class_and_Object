@@ -26,8 +26,25 @@ it's available for use without having to instantiate it.  A Scala object
 is "lazy", which means it gets created the first time it's referenced.
 An object can extend a class or a trait, but a class CAN'T extend an object.
 
-Scala objects are also used to implement traits to create modules.
+Scala objects can also be used to implement traits to create modules,
+as shown in the following Scala 3 code.
 
+@main def main() =
+  trait AddService:
+    def add(a: Int, b: Int) = a + b
+
+  trait MultiplyService:
+    def multiply(a: Int, b: Int) = a * b
+
+  // Implement the 2 traits defined above as a concrete object.
+  object MathService extends AddService, MultiplyService
+
+  // The following import statement is required!
+  import MathService.*
+  println(s"add(123, 654) = ${add(123, 654)}") // PRINTS:  add(123, 654) = 777
+  println(s"multiply(-11, 12) = ${multiply(-11, 12)}") // PRINTS:  multiply(-11, 12) = -132
+
+===========================================================================
 
 DIFFERENCES BETWEEN A SCALA "case class" AND A SCALA "class"
 ============================================================
