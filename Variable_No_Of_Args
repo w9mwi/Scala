@@ -45,6 +45,11 @@ object Demo
     // You can call getString() by passing it a Seq[String], but only when you
     // add the ":_*" text as shown below, which performs TYPE ASCRIPTION.
     strResult = getString(seqOfStrings:_*)
+    // NOTICE: Either one of the following 2 commented-out lines could replace
+    //         the above line of code because they both transform seqOfStrings
+    //         into a String.
+    //         strResult = getString(seqOfStrings.mkString(" "))
+    //         strResult = getString(seqOfStrings.toString)
     println(s"strResult 2) = $strResult") // PRINTS: strResult 2) = Alpha Beta Xray Zulu
 
     // Scala Array and List classes are subtypes of Seq, so they can also be
