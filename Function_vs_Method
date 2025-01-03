@@ -300,8 +300,9 @@ ANONYMOUS FUNCTION
 
 READ --> https://www.baeldung.com/scala/functions-methods
 
-An anonymous function is a function that does not have a name, and is not
-bound to a class/object/trait.  In the "FUNCTION" section above, we wrote
+An anonymous function is a function that doesn't have a name, and is not
+bound to a class/object/trait.  An anonymous function is sometimes known
+as "a fuction literal."  In the "FUNCTION" section above, we wrote
 a function and assigned it to the val squareFunction, like this:
 
 val squareFunction: (Float => Float) = { (number: Float) => number * number }
