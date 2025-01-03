@@ -339,7 +339,7 @@ anonymous function, as the following example demonstrates.
 NOTE: When an ANONYMOUS FUNCTION is written using the rocket symbol (=>)
       the token(s) on the left side of "=>" represents the argument(s)
       passed to the function.  The expression on the right side of "=>"
-      is the algorithm that calculates the function's return value.
+      is the algorithm that generates the function's return value.
       The right side of "=>" must reference all arguments included on
       the left side of "=>".  The following code sample demonstrates
       some examples of how to use anonymous functions.
