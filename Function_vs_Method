@@ -341,7 +341,7 @@ NOTE: When an ANONYMOUS FUNCTION is written using the rocket symbol (=>)
       passed to the function.  The expression on the right side of "=>"
       is the algorithm that generates the function's return value.
       The right side of "=>" must reference all arguments included on
-      the left side of "=>".  The following code sample demonstrates
+      the left side of "=>".  The following program demonstrates
       some examples of how to use anonymous functions.
 
 import scala.collection.mutable.ArrayBuffer
@@ -397,6 +397,38 @@ object Demo
     }
   }
 }
+
+===================
+
+Here is a Scala 3 program that also demonstrates the use of anonymous functions.
+
+/*********************************************************
+ * main()
+ ********************************************************/
+@main def main() =
+  // Assign a function to a val.
+  val doubleInt:(Int => Int) = (i: Int) => i * 2
+  val tripleInt:(Int => Int) = (i: Int) => i * 3
+
+  var intVar:Int = tripleInt(doubleInt(4))  // (4 X 2) X 3 = 24
+  println(s"intVar = $intVar") // PRINTS: intVar = 24
+
+  // Assign functions to a Scala List.
+  val functionList:List[Int => Int] = List(doubleInt, tripleInt)
+  intVar = functionList(1).apply(4) // 4 X 3 = 12
+  println(s"intVar = $intVar") // PRINTS: intVar = 12
+
+  // Apply one of the functions contained in functionList to the following intList.
+  val intList = List(0, 1, 2, 3)
+  intList.map(functionList(0))
+  println(s"intList.map(functionList(0)) = ${intList.map(functionList(0))}")
+  // PRINTS: intList.map(functionList(0)) = List(0, 2, 4, 6)
+
+  // Assign functions to a Scala Map.
+  val functionMap:Map[String, Int => Int] = Map("2x" -> doubleInt,
+                                                "3x" -> tripleInt)
+  println(s"intList.map(functionMap(\"3x\") = ${intList.map(functionMap("3x"))}")
+  // PRINTS: intList.map(functionMap("3x") = List(0, 3, 6, 9)
 
 ==========================================================================================
 
