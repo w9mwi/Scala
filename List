@@ -738,7 +738,9 @@ ___ permutations - Also see the combinations function.
                      // Print the same intList.permutations as the above call to foreach.
                      println("count = " + count + ", " + x)
                    }
-___ reduce - Example:
+___ reduce - The reduce, reduceLeft, and reduceRight methods always
+             result in a single element being returned.
+             Example:
              val myList:List[Int] = List(1, 2, 3, 4)
              println(myList.reduce(_ max _))         // PRINTS: 4
              println(myList.reduce((x, y) => x + y)) // PRINTS: 10
