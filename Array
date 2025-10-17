@@ -71,78 +71,75 @@ possible to fill an Array or List with values in one line
 of code upon its declaratoion.  Read in-line comments
 in the below code sample for details.
 
-object Demo
-{
-  def main(args: Array[String])
-  {
-    // EXAMPLE 1)
-    // Create a 10-element Array of Int values, and initialize each element with the Int value of 4.
-    var intArray:Array[Int] = Array.fill(10)(4)
-    println(s"EXAMPLE 1) intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 1) intArray.size = 10
+@main def main() =
+  // EXAMPLE 1)
+  // Create a 10-element Array of Int values, and initialize each element with the Int value of 4.
+  var intArray:Array[Int] = Array.fill(10)(4)
+  println(s"EXAMPLE 1) intArray.length = ${intArray.length}")
+  // PRINTS:  EXAMPLE 1) intArray.length = 10
 
-    // EXAMPLE 2)
-    // Print the value contained in each of the Array's 10 elements.
-    print("EXAMPLE 2) ")
-    intArray.foreach(print) // PRINTS: EXAMPLE 2) 4444444444
+  // EXAMPLE 2)
+  // Print the value contained in each of the Array's 10 elements.
+  print("EXAMPLE 2) ")
+  intArray.foreach(print) // PRINTS: EXAMPLE 2) 4444444444
 
-    // EXAMPLE 3)
-    // Print the value contained in each of the Array's 10 elements using
-    // a different print statement than in EXAMPLE 2).
-    print("\nEXAMPLE 3) ")
-    intArray.foreach{print(_)}  // PRINTS: EXAMPLE 3) 4444444444
+  // EXAMPLE 3)
+  // Print the value contained in each of the Array's 10 elements using
+  // a different print statement than in EXAMPLE 2).
+  print("\nEXAMPLE 3) ")
+  intArray.foreach{print(_)}  // PRINTS: EXAMPLE 3) 4444444444
 
-    // EXAMPLE 4)
-    // Print the value contained in each of the Array's 10 elements using
-    // a different print statement than in EXAMPLE 2) and EXAMPLE 3).
-    print("\nEXAMPLE 4) ")
-    intArray.foreach {x => print(s"$x ")} // PRINTS: EXAMPLE 4) 4 4 4 4 4 4 4 4 4 4
+  // EXAMPLE 4)
+  // Print the value contained in each of the Array's 10 elements using
+  // a different print statement than in EXAMPLE 2) and EXAMPLE 3).
+  print("\nEXAMPLE 4) ")
+  intArray.foreach {x => print(s"$x ")} // PRINTS: EXAMPLE 4) 4 4 4 4 4 4 4 4 4 4
 
-    // EXAMPLE 5)
-    // Initialize a new List having 6 elements, where each element contains the string "XYZ".
-    val stringList:List[String] = List.fill(6)("XYZ")
-    print("\nEXAMPLE 5) ")
-    stringList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 5) XYZ XYZ XYZ XYZ XYZ XYZ
+  // EXAMPLE 5)
+  // Initialize a new List having 6 elements, where each element contains the string "XYZ".
+  val stringList:List[String] = List.fill(6)("XYZ")
+  print("\nEXAMPLE 5) ")
+  stringList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 5) XYZ XYZ XYZ XYZ XYZ XYZ
 
-    // EXAMPLE 6)
-    var idx = 1
-    // The following line of code initializes a new List with 5 elements.
-    // The second argument list (between the {}) contains a block of code
-    // that gets executed for each element in intList.
-    var intList:List[Int] = List.fill(5){idx*=2; idx}
-    print("\nEXAMPLE 6) ")
-    intList.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 6) 2 4 8 16 32
+  // EXAMPLE 6)
+  var idx = 1
+  // The following line of code initializes a new List with 5 elements.
+  // The second argument list (between the {}) contains a block of code
+  // that gets executed for each element in intList.
+  var intList:List[Int] = List.fill(5){idx*=2; idx}
+  print("\nEXAMPLE 6) ")
+  intList.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 6) 2 4 8 16 32
 
-    // EXAMPLE 7)
-    intList = 1::intList // Prepend a 1 to intList
-    print("\nEXAMPLE 7) ")
-    intList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 7) 1 2 4 8 16 32
+  // EXAMPLE 7)
+  intList = 1::intList // Prepend a 1 to intList
+  print("\nEXAMPLE 7) ")
+  intList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 7) 1 2 4 8 16 32
 
-    // EXAMPLE 8)
-    intList = List.tabulate(10)(x=>x*x) // The value of each element will be its index SQUARED.
-    print("\nEXAMPLE 8) ")
-    intList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 8) 0 1 4 9 16 25 36 49 64 81
+  // EXAMPLE 8)
+  intList = List.tabulate(10)(x=>x*x) // The value of each element will be its index SQUARED.
+  print("\nEXAMPLE 8) ")
+  intList.foreach(x => print(s"$x "))  // PRINTS:  EXAMPLE 8) 0 1 4 9 16 25 36 49 64 81
 
-    // EXAMPLE 9)
-    // Create a 6-element Array, where each element in the Array is initialized with
-    // this value: 3*x*x + 5x - 7.  For the first element x = 0; the second element x = 1;
-    // the last element x = 5.
-    intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // NOTE: Uses (), equivalent to the line below.
-    println(s"\nEXAMPLE 9) intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 9) intArray.size = 6
+  // EXAMPLE 9)
+  // Create a 6-element Array, where each element in the Array is initialized with
+  // this value: 3*x*x + 5x - 7.  For the first element x = 0; the second element x = 1;
+  // the last element x = 5.
+  intArray = Array.tabulate(6)(x => 3*x*x + 5*x - 7) // NOTE: Uses (), equivalent to the line below.
+  println(s"\nEXAMPLE 9) intArray.length = ${intArray.length}") // PRINTS:  EXAMPLE 9) intArray.length = 6
 
-    // EXAMPLE 10)
-    print("EXAMPLE 10) ")
-    intArray.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 10) -7 1 15 35 61 93
+  // EXAMPLE 10)
+  print("EXAMPLE 10) ")
+  intArray.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 10) -7 1 15 35 61 93
 
-    // EXAMPLE 11)
-    print("\nEXAMPLE 11) ")
-    intArray = Array.range(0, 12)
-    println(s"intArray.size = ${intArray.size}") // PRINTS:  EXAMPLE 11) intArray.size = 12
+  // EXAMPLE 11)
+  print("\nEXAMPLE 11) ")
+  intArray = Array.range(0, 12)
+  println(s"intArray.length = ${intArray.length}") // PRINTS:  EXAMPLE 11) intArray.length = 12
 
-    // EXAMPLE 12)
-    print("EXAMPLE 12) ")
-    intArray.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 12) 0 1 2 3 4 5 6 7 8 9 10 11
-  }
-}
+  // EXAMPLE 12)
+  print("EXAMPLE 12) ")
+  intArray.foreach(x => print(s"$x ")) // PRINTS:  EXAMPLE 12) 0 1 2 3 4 5 6 7 8 9 10 11
+end main
 
 =======================================================================
 MULTI-DIMENSIONAL ARRAYS - PART 1
